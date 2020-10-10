@@ -1,0 +1,27 @@
+//colors
+$danger: #E53935;
+$success: #43A047;
+$primary: #1976D2;
+$warning: #EF6C00;
+$disabled: #9E9E9E;
+$default: #BDBDBD;
+$mainBlack: rgba(38, 38, 38, 0);
+$mainWhite: #FFFFFF;
+
+// shadows
+$shadow: 0px 0px 17px 1px rgba(0, 0, 0, .4);
+$outShadow: 0px 4px 8px rgba(0, 0, 0, 0.12);
+$insetShadow: inset 0px 0px 80px rgba(0, 0, 0, 0.2);
+
+// Font
+$mainFont: "Roboto", sans-serif;
+
+// Size
+$mainFontWeight: normal;
+$mainFontSize: 16px;
+
+$desktopWidth: 1440px;
+$smDesktopWidth: 980px;
+$tableWidth: 768px;
+$phoneWidth: 480px;
+$smPhoneWidth: 320px;

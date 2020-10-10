@@ -1,0 +1,17 @@
+$opacity: (
+        'opacity-100': 1,
+        'opcity-90': .9,
+        'opcity-80': .8,
+        'opcity-70': .7,
+        'opcity-60': .6,
+        'opcity-50': .5,
+        'opcity-40': .4,
+        'opcity-30': .3,
+        'opcity-20': .2,
+);
+
+@each $class, $value in $opacity {
+  .#{$class} {
+    opacity: $value;
+  }
+}

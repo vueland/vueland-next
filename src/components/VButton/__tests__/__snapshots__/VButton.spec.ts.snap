@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VButton should mount component and match snapshot 1`] = `
+<button class="v-button">
+</button>
+`;
+
+exports[`VButton should set color and match snapshot 1`] = `
+<button class="v-button red darken-3">
+</button>
+`;

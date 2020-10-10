@@ -1,0 +1,102 @@
+@import "../../styles/scss/modules/global";
+
+.v-button {
+  @include flex(inline-flex, center, center);
+  position: relative;
+  height: 40px;
+  min-width: 80px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+  overflow: hidden;
+  user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+  color: $mainWhite;
+  font-size: .85rem;
+  letter-spacing: .0892857143em;
+  text-indent: .0892857143em;
+  background: #ece9e9;
+  transition: all .3s ease;
+  transition-property: box-shadow, transform, opacity;
+
+  &:after {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+  }
+
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .2);
+    opacity: 0;
+    transition: all 0.3s ease;
+  }
+
+  &:hover {
+    &:active {
+      box-shadow: none !important;
+
+      &:before {
+        opacity: .3;
+      }
+    }
+  }
+
+  &:hover:after {
+    height: 100%;
+    opacity: 0;
+  }
+
+  &--disabled {
+    background: $disabled;
+    box-shadow: none;
+
+    &:hover {
+      box-shadow: none;
+
+      &:after {
+        height: 0;
+      }
+    }
+  }
+
+  &--text {
+    background: transparent;
+    transition: all .2s;
+  }
+
+  &--outlined {
+    border: thin solid currentColor;
+
+    .v-button__content > * {
+      color: inherit;
+    }
+  }
+
+  &__content {
+    display: inherit;
+    flex: 1 0 auto;
+    justify-content: inherit;
+    align-items: inherit;
+    color: inherit;
+    font-family: $mainFont;
+    font-weight: 500;
+    margin: 0 5px;
+  }
+}

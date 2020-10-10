@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../src/index.ts"],"names":[],"mappings":";;;;;;;AAAA;;AACA;;AAEA,IAAM,OAAO,GAAS,IAAI,aAAJ,EAAtB;;eAGe,O","sourcesContent":["import './styles/scss/main.scss'\nimport { Retn } from '@/library'\n\nconst library: Retn = new Retn()\n\nexport { library as Retn }\nexport default library\n"],"sourceRoot":"","file":"index.js"}

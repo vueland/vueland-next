@@ -1,0 +1,102 @@
+{
+  "name": "vueland",
+  "version": "1.0.0",
+  "author": "Anar Allakhverdiev",
+  "license": "MIT",
+  "private": true,
+  "description": "VueLand Components Library",
+  "main": "dist/retn.js",
+  "module": "dist/retn.js",
+  "types": "types/index.d.ts",
+  "sideEffects": [
+    "*.sass",
+    "*.scss",
+    "*.css"
+  ],
+  "files": [
+    "src/",
+    "dist/",
+    "lib/",
+    "es5/",
+    "types/",
+    "*.json",
+    "*.vue",
+    "*.ts",
+    "*.js"
+  ],
+  "scripts": {
+    "dev": "webpack-dev-server --config build/webpack.dev.conf.js",
+    "build": "webpack --config build/webpack.build.conf.js",
+    "build:ts": "tsc -p tsconfig.dist.json",
+    "build:es5": "cross-env NODE_ENV=es5 babel lib-temp/src --out-dir es5 --source-maps",
+    "build:lib": "cross-env NODE_ENV=lib babel lib-temp/src --out-dir lib --source-maps",
+    "build:all": "npm run test --u & node build/build-lib.js",
+    "test": "jest",
+    "declarations": "ttsc --emitDeclarationOnly",
+    "tslint-check": "tslint-config-prettier-check ./tslint.json",
+    "prettier": "prettier --write --config ./.prettierrc.json './src/**/*.{ts,tsx}'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vueland/vueland-next.git"
+  },
+  "browserslist": [
+    ">1%",
+    "last 5 version"
+  ],
+  "devDependencies": {
+    "@babel/cli": "^7.11.6",
+    "@babel/core": "^7.11.6",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.10.4",
+    "@babel/preset-env": "^7.11.5",
+    "@babel/preset-typescript": "^7.10.4",
+    "@types/jest": "^26.0.9",
+    "@vue/compiler-sfc": "^3.0.0",
+    "@vue/test-utils": "^2.0.0-beta.5",
+    "autoprefixer": "^9.6.1",
+    "babel-jest": "^26.3.0",
+    "babel-loader": "^8.1.0",
+    "babel-plugin-component": "^1.1.1",
+    "babel-plugin-detective": "^2.0.0",
+    "cross-env": "^7.0.2",
+    "css-loader": "^3.2.0",
+    "css-mqpacker": "^7.0.0",
+    "cssnano": "^4.1.10",
+    "file-loader": "^4.2.0",
+    "html-webpack-plugin": "^3.2.0",
+    "jest": "^26.2.2",
+    "jest-css-modules": "^2.1.0",
+    "jest-environment-jsdom-fourteen": "^1.0.1",
+    "jest-serializer-html": "^7.0.0",
+    "mini-css-extract-plugin": "^0.8.0",
+    "node-sass": "^4.13.1",
+    "path": "^0.12.7",
+    "postcss-loader": "^3.0.0",
+    "prettier": "^2.1.2",
+    "sass-loader": "^8.0.0",
+    "shelljs": "^0.8.4",
+    "style-loader": "^1.0.0",
+    "ts-jest": "^26.1.4",
+    "ts-loader": "^7.0.5",
+    "tslint": "^6.1.2",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-loader": "^3.5.4",
+    "tslint-plugin-prettier": "^2.3.0",
+    "ttypescript": "^1.5.10",
+    "typescript": "^3.9.3",
+    "typescript-transform-paths": "^2.0.0",
+    "vue-jest": "github:vuejs/vue-jest#next",
+    "vue-loader": "^16.0.0-beta.4",
+    "webpack": "^4.40.2",
+    "webpack-cli": "^3.3.9",
+    "webpack-dev-server": "^3.8.1",
+    "webpack-merge": "^4.2.2",
+    "webpack-node-externals": "^2.5.1"
+  },
+  "dependencies": {
+    "vue": "^3.0.0"
+  },
+  "peerDependencies": {
+    "vue": "^3.0.0"
+  }
+}

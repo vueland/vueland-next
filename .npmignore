@@ -1,11 +1,5 @@
 build
 dev
-
-.git
-.gitignore
-.prettierignore
-.prettierrc.json
-
 babel.config.js
 jest.config.js
 postcss.config.js
@@ -14,3 +8,10 @@ tsconfig.json
 tslint.json
 
 package-lock.json
+
+.git
+.gitignore
+.prettierignore
+.prettierrc.json
+
+

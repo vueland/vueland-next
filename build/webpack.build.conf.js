@@ -16,7 +16,7 @@ const buildConfig = merge(baseConfig, {
     filename: `[name].js`,
     path: baseConfig.externals.path.dist,
     publicPath: '/dist/',
-    library: 'Vueland',
+    library: 'vueland',
     libraryTarget: 'umd',
     umdNamedDefine: true,
     globalObject: 'typeof self !== \'undefined\' ? self : this'

@@ -38,7 +38,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vueland/vueland-next.git"
+    "url": "git+https://github.com/vueland/vueland-next.git",
+    "directory": "dist"
   },
   "browserslist": [
     ">1%",

@@ -1,13 +1,14 @@
-import { Component } from 'vue'
+import { Plugin, Component } from 'vue'
 
-export interface Retn {
-  install: (Vue) => void
-  components?: RetnOptions
+export interface Vueland {
+  install: Plugin
 }
 
-declare const Retn: Retn
-export default Retn
+declare const Vueland: Vueland
+export default Vueland
 
-export interface RetnOptions {
+
+export interface VuelandOptions {
   components?: Record<string, Component>
 }
+

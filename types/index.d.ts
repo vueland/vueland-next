@@ -1,12 +1,7 @@
-import { Plugin, Component } from 'vue'
+import { Component, Plugin } from 'vue'
 
-export interface Vueland {
-  install: Plugin
-}
-
-declare const Vueland: Vueland
+declare const Vueland: Plugin
 export default Vueland
-
 
 export interface VuelandOptions {
   components?: Record<string, Component>

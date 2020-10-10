@@ -5,8 +5,8 @@
   "license": "MIT",
   "private": true,
   "description": "VueLand Components Library",
-  "main": "dist/retn.js",
-  "module": "dist/retn.js",
+  "main": "dist/vueland.js",
+  "module": "dist/vueland.js",
   "types": "types/index.d.ts",
   "sideEffects": [
     "*.sass",

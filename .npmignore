@@ -1,12 +1,12 @@
 build
 dev
+
 babel.config.js
 jest.config.js
 postcss.config.js
 tsconfig.dist.json
 tsconfig.json
 tslint.json
-
 package-lock.json
 
 .git

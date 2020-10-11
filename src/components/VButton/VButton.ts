@@ -44,6 +44,11 @@ const buttonProps: Props = {
     default: false,
   },
 
+  label: {
+    type: String,
+    default: ''
+  },
+
   ...colorProps(),
   ...elevationProps(),
   ...positionProps(),
@@ -90,7 +95,18 @@ export const VButton = defineComponent({
       ? setColor(props.color, propsObject())
       : propsObject()
 
-    const content = slots.default && slots.default()
+    const content: any[] = []
+
+    const label = props.label && h('span', {
+      class: {
+        'v-button__label': true
+      }
+    }, props.label)
+
+    const slot = slots.default && slots.default()
+
+    label && content.push(label)
+    slot && content.push(slot)
 
     return () => h('button', data, content)
   },

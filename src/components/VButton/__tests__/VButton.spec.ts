@@ -20,4 +20,11 @@ describe('VButton', () => {
     expect(cmp.attributes().class).toContain(color)
     expect(cmp.html()).toMatchSnapshot()
   })
+
+  it('should set label and match snapshot', () => {
+    const label = 'test'
+    const cmp = mountFunction({ propsData: { label } })
+    expect(cmp.find('.v-button__label').text()).toContain(label)
+    expect(cmp.html()).toMatchSnapshot()
+  })
 })

@@ -45,6 +45,10 @@ var buttonProps = _objectSpread(_objectSpread(_objectSpread({
   text: {
     type: Boolean,
     "default": false
+  },
+  label: {
+    type: String,
+    "default": ''
   }
 }, (0, _useColors2.colorProps)()), (0, _useElevation2.elevationProps)()), (0, _usePosition2.positionProps)());
 
@@ -88,7 +92,15 @@ var VButton = (0, _vue.defineComponent)({
 
     var setColor = isFlat.value ? setTextColor : setBackground;
     var data = props.color ? setColor(props.color, propsObject()) : propsObject();
-    var content = slots["default"] && slots["default"]();
+    var content = [];
+    var label = props.label && (0, _vue.h)('span', {
+      "class": {
+        'v-button__label': true
+      }
+    }, props.label);
+    var slot = slots["default"] && slots["default"]();
+    label && content.push(label);
+    slot && content.push(slot);
     return function () {
       return (0, _vue.h)('button', data, content);
     };

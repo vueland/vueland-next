@@ -1,9 +1,7 @@
 import { createApp } from 'vue'
 // @ts-ignore
 import App from './App'
-// @ts-ignore
-import '../dist/vueland.css'
-import Vueland from '../dist/vueland'
+import Vueland from '../src'
 
 const app = createApp(App)
 app.use(Vueland)

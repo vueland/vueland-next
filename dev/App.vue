@@ -12,10 +12,9 @@
   <div>
     <v-button
       elevation="4"
-      color="blue darken-4"
-    >
-      salam
-    </v-button>
+      color="red darken-4"
+      label="click"
+    />
 
     <v-card width="360" elevation="5">
       <v-card-title class="blue darken-3 white--text">
@@ -31,9 +30,8 @@
           absolute
           left
           color="white"
-        >
-          ACCEPT
-        </v-button>
+          label="agree"
+        />
       </v-card-actions>
     </v-card>
   </div>

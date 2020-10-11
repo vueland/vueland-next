@@ -1,5 +1,4 @@
-// Vue API
-import { ref, DefineComponent, Ref } from 'vue'
+import { SetupContext } from 'vue'
 
 // Components
 import { VOverlay } from '../components'
@@ -14,7 +13,7 @@ export function overlayProps(): Props {
     overlayColor: {
       type: String,
       default: () => {
-        return 'white--base'
+        return 'white'
       },
     },
   }
@@ -26,21 +25,20 @@ interface Overlayable {
 }
 
 export function useOverlay(props: Props): Overlayable {
-  const overlayComponent: Ref = ref<DefineComponent<typeof VOverlay> | null>(
-    null,
-  )
+  const createOverlay = (): any => {
+    const propsObject: Record<string, boolean> = {
+      active: props.overlay,
+      hide: !props.overlay,
+      opacity: props.overlayOpacity,
+      color: props.overlayColor,
+    }
 
-  const hideOverlay: Ref = ref<boolean>(true)
-
-  const createOverlay = (): void => {
-    overlayComponent.value = VOverlay
-    console.log(overlayComponent.value, props)
+    return VOverlay.setup!(propsObject, {} as SetupContext)
   }
 
   const removeOverlay = (): void => {
-    if (overlayComponent) {
-      hideOverlay.value = false
-    }
+    // if (props.overlay) {
+    // }
   }
 
   return {

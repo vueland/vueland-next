@@ -39,8 +39,11 @@ export const VCard = defineComponent({
       },
     }
 
-    const slotContent = slots.default && slots.default()
-
-    return () => h('div', setBackground(props.color, dataObject), slotContent)
+    return () =>
+      h(
+        'div',
+        (props.color && setBackground(props.color, dataObject)) || dataObject,
+        slots.default && slots.default(),
+      )
   },
 })

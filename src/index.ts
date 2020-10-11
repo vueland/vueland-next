@@ -1,7 +1,7 @@
 import './styles/scss/main.scss'
-import { Retn } from '@/library'
+import { VueLand } from './library'
 
-const library: Retn = new Retn()
+const library: VueLand = new VueLand()
 
-export { library as Retn }
+export { library as VueLand }
 export default library

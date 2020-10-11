@@ -24,11 +24,10 @@ export const useColors = (props: Props): Colorable => {
     if (!isCssColor(color)) {
       data.class[color] = true
     } else {
-      data.style = {
-        ...(data.style as object),
+      data.style.push({
         'background-color': props.color,
         'border-color': props.color,
-      }
+      })
     }
 
     return data

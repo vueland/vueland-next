@@ -1,30 +1,9 @@
-<script lang="ts">
 import { reactive } from 'vue'
+import './style.scss'
 
 export default {
-  setup() {
-
-    const data = reactive({
-      show: false,
-    })
-
-    const showModal = () => {
-      data.show = true
-    }
-
-    const closeModal = () => {
-      data.show = false
-    }
-
-    return {
-      showModal,
-      closeModal,
-      data,
-    }
-  },
-}
-</script>
-<template>
+  name: 'NewApp',
+  template: `
   <div>
     <v-button
       elevation="4"
@@ -58,16 +37,25 @@ export default {
       </transition>
     </teleport>
   </div>
-</template>
+  `,
 
-<style lang="scss">
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
+  setup() {
+    const data = reactive({
+      show: false,
+    })
 
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease;
+    const showModal = () => {
+      data.show = true
+    }
+
+    const closeModal = () => {
+      data.show = false
+    }
+
+    return {
+      showModal,
+      closeModal,
+      data,
+    }
+  },
 }
-</style>

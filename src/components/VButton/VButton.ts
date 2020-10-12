@@ -13,6 +13,8 @@ import { positionProps, usePosition } from '../../effects/use-position'
 import { VNode } from 'vue'
 import { Props } from '../../types'
 
+// import VOverlay from '../VOverlay'
+
 const buttonProps: Props = {
   disabled: {
     type: Boolean,
@@ -58,7 +60,7 @@ export const VButton = defineComponent({
   name: 'v-button',
   props: buttonProps,
 
-  setup(props, { slots, emit }): () => VNode {
+  setup(props, { slots }): () => VNode {
     const { setTextColor, setBackground } = useColors(props)
 
     const { elevationClasses } = useElevation(props)
@@ -84,8 +86,7 @@ export const VButton = defineComponent({
       return {
         class: {
           ...classes.value,
-        },
-        onClick: () => emit('click'),
+        }
       }
     }
 

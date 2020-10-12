@@ -21,7 +21,7 @@
   transition: all .2s linear;
 }
 
-.fadeIn-enter {
+.fadeIn-enter-from {
   opacity: 0;
 }
 
@@ -29,7 +29,7 @@
   opacity: 0;
 }
 
-.fadeIn-enter-active, .fadeIn-leave-active {
+.fadeIn-enter-to, .fadeIn-leave-from {
   transition: all .5s linear;
 }
 

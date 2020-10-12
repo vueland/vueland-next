@@ -26,25 +26,24 @@ var overlayProps = _objectSpread({
 var VOverlay = (0, _vue.defineComponent)({
   name: 'v-overlay',
   props: overlayProps,
-  setup: function setup(props, _ref) {
-    var slots = _ref.slots;
-
+  setup: function setup(props) {
     var _useColors = (0, _useColors2.useColors)(props),
         setBackground = _useColors.setBackground;
 
     var classes = (0, _vue.computed)(function () {
       return {
-        'vue-overlay--hidden': props.hide,
-        'vue-overlay--active': props.active
+        'v-overlay': true,
+        'v-overlay--hidden': props.hide,
+        'v-overlay--active': props.active
       };
     });
     var dataObject = {
-      "class": classes.value
+      "class": classes.value,
+      style: [{
+        opacity: props.opacity
+      }]
     };
-    var content = slots["default"] && slots["default"]();
-    return function () {
-      return (0, _vue.h)('div', setBackground(props.color, dataObject), content);
-    };
+    return (0, _vue.h)('div', setBackground(props.color, dataObject));
   }
 });
 exports.VOverlay = VOverlay;

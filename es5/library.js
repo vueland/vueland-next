@@ -5,7 +5,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Retn = void 0;
+exports.VueLand = void 0;
 
 var components = _interopRequireWildcard(require("./components/index"));
 
@@ -19,16 +19,16 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-var Retn = /*#__PURE__*/function () {
-  function Retn() {
-    _classCallCheck(this, Retn);
+var VueLand = /*#__PURE__*/function () {
+  function VueLand() {
+    _classCallCheck(this, VueLand);
   }
 
-  _createClass(Retn, [{
+  _createClass(VueLand, [{
     key: "install",
     value: function install(Vue) {
-      if (Retn.installed) return;
-      Retn.installed = true;
+      if (VueLand.installed) return;
+      VueLand.installed = true;
       Object.keys(components).forEach(function (key) {
         if (key && components[key]) {
           var component = components[key];
@@ -38,9 +38,9 @@ var Retn = /*#__PURE__*/function () {
     }
   }]);
 
-  return Retn;
+  return VueLand;
 }();
 
-exports.Retn = Retn;
-Retn.installed = false;
+exports.VueLand = VueLand;
+VueLand.installed = false;
 //# sourceMappingURL=library.js.map

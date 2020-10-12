@@ -6,11 +6,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.overlayProps = overlayProps;
 exports.useOverlay = useOverlay;
 
-var _vue = require("vue");
-
 var _components = require("../components");
 
-// Vue API
 // Components
 function overlayProps() {
   return {
@@ -19,25 +16,25 @@ function overlayProps() {
     overlayColor: {
       type: String,
       "default": function _default() {
-        return 'white--base';
+        return 'white';
       }
     }
   };
 }
 
 function useOverlay(props) {
-  var overlayComponent = (0, _vue.ref)(null);
-  var hideOverlay = (0, _vue.ref)(true);
-
   var createOverlay = function createOverlay() {
-    overlayComponent.value = _components.VOverlay;
-    console.log(overlayComponent.value, props);
+    var propsObject = {
+      active: props.overlay,
+      hide: !props.overlay,
+      opacity: props.overlayOpacity,
+      color: props.overlayColor
+    };
+    return _components.VOverlay.setup(propsObject, {});
   };
 
-  var removeOverlay = function removeOverlay() {
-    if (overlayComponent) {
-      hideOverlay.value = false;
-    }
+  var removeOverlay = function removeOverlay() {// if (props.overlay) {
+    // }
   };
 
   return {

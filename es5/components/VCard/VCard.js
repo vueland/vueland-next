@@ -45,9 +45,8 @@ var VCard = (0, _vue.defineComponent)({
         maxWidth: "".concat(props.width, "px")
       }
     };
-    var slotContent = slots["default"] && slots["default"]();
     return function () {
-      return (0, _vue.h)('div', setBackground(props.color, dataObject), slotContent);
+      return (0, _vue.h)('div', props.color && setBackground(props.color, dataObject) || dataObject, slots["default"] && slots["default"]());
     };
   }
 });

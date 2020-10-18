@@ -1,4 +1,5 @@
 import { mount } from '@vue/test-utils'
+// @ts-ignore
 import { VButton } from '../VButton'
 
 describe('VButton', () => {

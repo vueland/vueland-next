@@ -1,29 +1,30 @@
 <script lang="ts">
-import { reactive } from 'vue'
+  import { reactive } from 'vue'
 
-export default {
-  setup() {
+  export default {
+    setup() {
 
-    const data = reactive({
-      show: false,
-    })
+      const data = reactive({
+        show: false,
+      })
 
-    const showModal = () => {
-      data.show = true
-    }
+      const showModal = () => {
+        data.show = true
+      }
 
-    const closeModal = () => {
-      data.show = false
-    }
+      const closeModal = () => {
+        data.show = false
+      }
 
-    return {
-      showModal,
-      closeModal,
-      data,
-    }
-  },
-}
+      return {
+        showModal,
+        closeModal,
+        data,
+      }
+    },
+  }
 </script>
+
 <template>
   <div>
     <v-button
@@ -33,8 +34,13 @@ export default {
       @click="showModal"
     />
     <teleport to="#modal">
-      <transition appear name="fade">
-        <v-modal v-show="data.show" overlay overlay-opacity=".8" overlay-color="#fffeee">
+      <transition name="fade">
+        <v-modal
+          v-show="data.show"
+          overlay
+          overlay-opacity=".8"
+          overlay-color="#000000"
+        >
           <v-card width="360" elevation="5">
             <v-card-title class="blue darken-3 white--text">
               salam
@@ -61,13 +67,5 @@ export default {
 </template>
 
 <style lang="scss">
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
 
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease;
-}
 </style>

@@ -6,7 +6,7 @@
     "strict": true,
     "allowJs": true,
     "removeComments": false,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "noEmitOnError": true,
     "strictNullChecks": true,
     "strictFunctionTypes": false,
@@ -59,7 +59,7 @@
     "node_modules",
     "src/**/*.stories.ts",
     "src/**/*.spec.ts",
-    "tests/**/*.ts",
+    "__tests__/**/*.ts",
     "tests/**/*.tsx",
     "dev/**/*.ts"
   ]

@@ -8,6 +8,7 @@
   "rules": {
     "no-unused-expression": false,
     "object-literal-sort-keys": false,
+    "no-angle-bracket-type-assertion": false,
     "no-empty-interface": true,
     "no-console": [
       true,

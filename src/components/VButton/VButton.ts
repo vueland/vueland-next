@@ -13,8 +13,6 @@ import { positionProps, usePosition } from '../../effects/use-position'
 import { VNode } from 'vue'
 import { Props } from '../../types'
 
-// import VOverlay from '../VOverlay'
-
 const buttonProps: Props = {
   disabled: {
     type: Boolean,
@@ -48,7 +46,7 @@ const buttonProps: Props = {
 
   label: {
     type: String,
-    default: ''
+    default: '',
   },
 
   ...colorProps(),
@@ -86,7 +84,7 @@ export const VButton = defineComponent({
       return {
         class: {
           ...classes.value,
-        }
+        },
       }
     }
 
@@ -98,11 +96,17 @@ export const VButton = defineComponent({
 
     const content: any[] = []
 
-    const label = props.label && h('span', {
-      class: {
-        'v-button__label': true
-      }
-    }, props.label)
+    const label =
+      props.label &&
+      h(
+        'span',
+        {
+          class: {
+            'v-button__label': true,
+          },
+        },
+        props.label,
+      )
 
     const slot = slots.default && slots.default()
 

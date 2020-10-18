@@ -5,17 +5,17 @@ import './VModal.scss'
 import { defineComponent, h } from 'vue'
 
 // Compositions
-// import { useOverlay, overlayProps } from '../../effects/use-overlay'
+import { overlayProps, useOverlay } from '../../effects/use-overlay'
 
 // Types
-// import { Props } from '../../types'
+import { VNode } from 'vue'
 
-const modalProps = {
+const modalProps: Record<string, any> = {
   width: {
     type: [String, Number],
     default: 400,
   },
-  // ...overlayProps(),
+  ...overlayProps(),
 }
 
 export const VModal = defineComponent({
@@ -23,10 +23,10 @@ export const VModal = defineComponent({
 
   props: modalProps,
 
-  setup(_, { slots }) {
-    // const { createOverlay } = useOverlay(props)
+  setup(props, { slots }) {
+    const { createOverlay } = useOverlay(props)
 
-    const genContent = () =>
+    const genContent = (): VNode =>
       h(
         'div',
         {
@@ -38,19 +38,20 @@ export const VModal = defineComponent({
         slots.default && slots.default(),
       )
 
-    return () => [
-      h(
-        'div',
-        {
-          class: {
-            'v-modal': true,
-          },
+    const content = genContent()
+
+    const block = h(
+      'div',
+      {
+        class: {
+          'v-modal': true,
         },
+      },
+      [],
+    )
 
-        genContent(),
-      ),
+    const overlay = props.overlay && createOverlay()
 
-      // props.overlay && createOverlay(),
-    ]
+    return () => h(block, {}, [content, overlay])
   },
 })

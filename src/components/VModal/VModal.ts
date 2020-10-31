@@ -4,8 +4,9 @@ import './VModal.scss'
 // Vue API
 import { defineComponent, h } from 'vue'
 
-// Compositions
+// Effects
 import { overlayProps, useOverlay } from '../../effects/use-overlay'
+import { transitionProps, useTransition } from '../../effects/use-transition'
 
 // Types
 import { VNode } from 'vue'
@@ -15,7 +16,9 @@ const modalProps: Record<string, any> = {
     type: [String, Number],
     default: 400,
   },
+  value: Boolean,
   ...overlayProps(),
+  ...transitionProps()
 }
 
 export const VModal = defineComponent({
@@ -34,24 +37,28 @@ export const VModal = defineComponent({
             'v-modal__container': true,
           },
         },
-
         slots.default && slots.default(),
       )
 
     const content = genContent()
-
+    const overlay = props.overlay && (createOverlay() as any) || ''
     const block = h(
       'div',
       {
         class: {
           'v-modal': true,
-        },
-      },
-      [],
+        }
+      }
     )
 
-    const overlay = props.overlay && createOverlay()
+    let modal = h(block, {}, [content, overlay])
 
-    return () => h(block, {}, [content, overlay])
+    if (!!props.transition) {
+      // @ts-ignore
+      modal = useTransition(props, modal)
+    }
+
+    // @ts-ignore
+    return () => modal()
   },
 })

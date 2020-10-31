@@ -1,10 +1,9 @@
+// import { h } from 'vue'
+
 // Components
 import { VOverlay } from '../components'
 // Types
 import { Props } from '../types'
-
-// Types
-// import { SetupContext } from 'vue'
 
 export function overlayProps(): Props {
   return {
@@ -25,8 +24,8 @@ interface Overlayable {
 }
 
 export function useOverlay(props: Props): Overlayable {
-  const createOverlay = (): any => {
-    const propsObject = {
+  const createOverlay = () => {
+    const propsObject: Props = {
       active: props.overlay,
       hide: !props.overlay,
       opacity: props.overlayOpacity,
@@ -36,7 +35,7 @@ export function useOverlay(props: Props): Overlayable {
     VOverlay.props = propsObject
 
     // @ts-ignore
-    return VOverlay.setup!(propsObject) as Props
+    return VOverlay.setup!(propsObject)
   }
 
   const removeOverlay = (): void => {

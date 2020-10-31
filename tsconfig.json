@@ -5,7 +5,7 @@
     "module": "esNEXT",
     "strict": true,
     "allowJs": true,
-    "removeComments": false,
+    "removeComments": true,
     "noImplicitAny": false,
     "noEmitOnError": true,
     "strictNullChecks": true,
@@ -59,7 +59,6 @@
     "node_modules",
     "src/**/*.stories.ts",
     "src/**/*.spec.ts",
-    "__tests__/**/*.ts",
     "tests/**/*.tsx",
     "dev/**/*.ts"
   ]

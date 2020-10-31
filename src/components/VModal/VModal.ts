@@ -7,6 +7,7 @@ import { defineComponent, h } from 'vue'
 // Effects
 import { overlayProps, useOverlay } from '../../effects/use-overlay'
 import { transitionProps, useTransition } from '../../effects/use-transition'
+import { teleportProps, useTeleport } from '../../effects/use-teleport'
 
 // Types
 import { VNode } from 'vue'
@@ -18,7 +19,8 @@ const modalProps: Record<string, any> = {
   },
   value: Boolean,
   ...overlayProps(),
-  ...transitionProps()
+  ...transitionProps(),
+  ...teleportProps(),
 }
 
 export const VModal = defineComponent({
@@ -42,23 +44,26 @@ export const VModal = defineComponent({
 
     const content = genContent()
     const overlay = props.overlay && (createOverlay() as any) || ''
-    const block = h(
+
+    let modal = h(
       'div',
       {
         class: {
           'v-modal': true,
         }
-      }
+      },
+      [content, overlay],
     )
 
-    let modal = h(block, {}, [content, overlay])
-
     if (!!props.transition) {
-      // @ts-ignore
-      modal = useTransition(props, modal)
+      const createTransition = useTransition(props, modal)
+      modal = createTransition()
     }
 
-    // @ts-ignore
-    return () => modal()
+    if (!!props.portTo) {
+      return () => useTeleport(props, modal)
+    }
+
+    return () => modal
   },
 })

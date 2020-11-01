@@ -8,8 +8,9 @@
   right: 0;
   top: 0;
   bottom: 0;
+  z-index: 1000;
 
-  &__container {
+  &__content {
     @include flex(flex, center, center);
     position: fixed;
     left: 0;

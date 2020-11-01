@@ -1,28 +1,34 @@
 <script lang="ts">
-import { reactive } from 'vue'
+  import { reactive } from 'vue'
 
-export default {
-  setup() {
+  export default {
+    setup() {
 
-    const data = reactive({
-      show: false,
-    })
+      const showEvent = () => {
+        console.log('$event')
+      }
 
-    const showModal = () => {
-      data.show = true
-    }
+      const data = reactive({
+        show: false,
+      })
 
-    const closeModal = () => {
-      data.show = false
-    }
+      const showModal = () => {
+        data.show = true
+      }
 
-    return {
-      showModal,
-      closeModal,
-      data,
-    }
-  },
-}
+      const closeModal = () => {
+        data.show = !data.show
+        console.log(data.show)
+      }
+
+      return {
+        showModal,
+        closeModal,
+        showEvent,
+        data,
+      }
+    },
+  }
 </script>
 
 <template>
@@ -33,35 +39,37 @@ export default {
       label="click"
       @click="showModal"
     />
-    <v-modal
-      v-show="data.show"
-      overlay
-      overlay-opacity=".8"
-      transition="fade"
+    <teleport to="#modal">
 
-      overlay-color="#000000"
-    >
-      <v-card width="360" elevation="5">
-        <v-card-title class="blue darken-3 white--text">
-          <v-field />
-          salam
-        </v-card-title>
-        <v-card-content class="blue darken-4 white--text">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi corporis distinctio, eius exercitationem
-          facere id nulla quo repudiandae ut voluptates.
-        </v-card-content>
-        <v-card-actions class="blue darken-3">
-          <v-button
-            outlined
-            absolute
-            right
-            color="white"
-            label="agree"
-            @click="closeModal"
-          />
-        </v-card-actions>
-      </v-card>
-    </v-modal>
+
+      <v-modal
+        v-model:show="data.show"
+        transition="scaleIn"
+        overlay
+        overlay-color="#000000"
+      >
+        <v-card width="360" elevation="5">
+          <v-card-title class="blue darken-3 white--text">
+            <!--          <v-field />-->
+            salam
+          </v-card-title>
+          <v-card-content class="blue darken-4 white--text">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi corporis distinctio, eius exercitationem
+            facere id nulla quo repudiandae ut voluptates.
+          </v-card-content>
+          <v-card-actions class="blue darken-3">
+            <v-button
+              outlined
+              absolute
+              right
+              color="white"
+              label="agree"
+              @click="closeModal"
+            />
+          </v-card-actions>
+        </v-card>
+      </v-modal>
+    </teleport>
   </div>
 </template>
 

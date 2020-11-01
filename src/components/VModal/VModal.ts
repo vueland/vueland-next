@@ -2,12 +2,11 @@
 import './VModal.scss'
 
 // Vue API
-import { defineComponent, h } from 'vue'
+import { defineComponent, h, watch, withDirectives, vShow } from 'vue'
 
 // Effects
 import { overlayProps, useOverlay } from '../../effects/use-overlay'
 import { transitionProps, useTransition } from '../../effects/use-transition'
-import { teleportProps, useTeleport } from '../../effects/use-teleport'
 
 // Types
 import { VNode } from 'vue'
@@ -17,10 +16,9 @@ const modalProps: Record<string, any> = {
     type: [String, Number],
     default: 400,
   },
-  value: Boolean,
+  show: Boolean,
   ...overlayProps(),
-  ...transitionProps(),
-  ...teleportProps(),
+  ...transitionProps()
 }
 
 export const VModal = defineComponent({
@@ -28,42 +26,52 @@ export const VModal = defineComponent({
 
   props: modalProps,
 
-  setup(props, { slots }) {
-    const { createOverlay } = useOverlay(props)
+  setup(props, { slots, emit }) {
+
+    if (props.overlay) {
+      const overlay = useOverlay(props, '.v-modal')
+
+      watch(() => props.show, (to) => {
+        to && overlay.createOverlay()
+        !to && overlay.removeOverlay()
+      })
+    }
 
     const genContent = (): VNode =>
       h(
         'div',
         {
           class: {
-            'v-modal__container': true,
+            'v-modal__content': true,
           },
         },
         slots.default && slots.default(),
       )
 
-    const content = genContent()
-    const overlay = props.overlay && (createOverlay() as any) || ''
+    const genModal = () =>
+      withDirectives(h(
+        'div',
+        {
+          class: {
+            'v-modal': true,
+          },
 
-    let modal = h(
-      'div',
-      {
-        class: {
-          'v-modal': true,
-        }
-      },
-      [content, overlay],
-    )
+          'onUpdate:show': val => emit('update:show', val)
+        },
+        [content],
+        ),
+        [vShow, props.show]
+      )
+
+    const content = genContent()
+
+    let modal = genModal()
 
     if (!!props.transition) {
       const createTransition = useTransition(props, modal)
       modal = createTransition()
     }
 
-    if (!!props.portTo) {
-      return () => useTeleport(props, modal)
-    }
-
-    return () => modal
-  },
+    return () => h(modal)
+  }
 })

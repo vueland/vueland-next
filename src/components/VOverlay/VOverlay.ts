@@ -13,7 +13,6 @@ import { Props } from '../../types'
 const overlayProps = {
   hide: Boolean,
   active: Boolean,
-  opacity: [Number, String],
   ...colorProps(),
 }
 
@@ -34,7 +33,8 @@ export const VOverlay = defineComponent({
 
     const dataObject = {
       class: classes.value,
-      style: [{ opacity: props.opacity }],
+      style: [],
+      ref: 'overlay'
     }
 
     return h('div', setBackground(props.color, dataObject))

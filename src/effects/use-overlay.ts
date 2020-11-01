@@ -1,9 +1,13 @@
-// import { h } from 'vue'
+import { render } from 'vue'
 
 // Components
 import { VOverlay } from '../components'
+
 // Types
 import { Props } from '../types'
+
+// Helpers
+// import { addOnceListener } from '@/helpers'
 
 export function overlayProps(): Props {
   return {
@@ -23,24 +27,56 @@ interface Overlayable {
   removeOverlay: () => void
 }
 
-export function useOverlay(props: Props): Overlayable {
-  const createOverlay = () => {
-    const propsObject: Props = {
-      active: props.overlay,
-      hide: !props.overlay,
-      opacity: props.overlayOpacity,
-      color: props.overlayColor,
-    }
+export function useOverlay(props: Props, overlayOn?: string): Overlayable {
 
-    VOverlay.props = propsObject
+  const doc = document
+  const container = doc.createElement('div')
+  container.id = 'overlay'
 
-    // @ts-ignore
-    return VOverlay.setup!(propsObject)
+  let usedWith
+
+  setTimeout(() => {
+    usedWith = !!overlayOn && doc.querySelector(overlayOn)
+  })
+
+  const propsObject: Props = {
+    active: false,
+    hide: true,
+    color: props.overlayColor
   }
 
-  const removeOverlay = (): void => {
-    // if (props.overlay) {
-    // }
+  // @ts-ignore
+  const overlayVNode = () => VOverlay.setup!(propsObject)
+
+  const renderOverlay = vnode => render(vnode, container! as Element)
+
+  renderOverlay(overlayVNode())
+
+  function createOverlay() {
+    usedWith.parentNode.appendChild(container)
+
+    setTimeout(() => {
+      propsObject.active = true
+      propsObject.hide = !props.overlay
+      renderOverlay(overlayVNode())
+    }, 10)
+
+    renderOverlay(overlayVNode())
+  }
+
+  function removeOverlay(): void {
+    const overlay = doc.querySelector('.v-overlay')
+    overlay!.classList.remove('v-overlay--active')
+
+    function remove() {
+      propsObject.active = false
+      overlay!.removeEventListener('transitionend', remove)
+
+      renderOverlay(null)
+      // setTimeout(() => container!.parentNode!.removeChild(container!))
+    }
+
+    overlay!.addEventListener('transitionend', remove)
   }
 
   return {

@@ -7,7 +7,8 @@ import { VOverlay } from '../components'
 import { Props } from '../types'
 
 // Helpers
-// import { addOnceListener } from '@/helpers'
+import { addOnceListener } from '@/helpers'
+
 
 export function overlayProps(): Props {
   return {
@@ -30,13 +31,15 @@ interface Overlayable {
 export function useOverlay(props: Props, overlayOn?: string): Overlayable {
 
   const doc = document
-  const container = doc.createElement('div')
-  container.id = 'overlay'
 
-  let usedWith
+  const container = doc.createElement('div')
+
+  let overlayable
+
+  container.className = `${ overlayOn }__overlay`
 
   setTimeout(() => {
-    usedWith = !!overlayOn && doc.querySelector(overlayOn)
+    overlayable = !!overlayOn && doc.querySelector(`.${ overlayOn }`)
   })
 
   const propsObject: Props = {
@@ -48,12 +51,14 @@ export function useOverlay(props: Props, overlayOn?: string): Overlayable {
   // @ts-ignore
   const overlayVNode = () => VOverlay.setup!(propsObject)
 
-  const renderOverlay = vnode => render(vnode, container! as Element)
+  const renderOverlay = vnode => render(vnode, container!)
 
   renderOverlay(overlayVNode())
 
+  const overlayElement = container.firstChild
+
   function createOverlay() {
-    usedWith.parentNode.appendChild(container)
+    overlayable.parentNode.insertBefore(overlayElement, overlayable)
 
     setTimeout(() => {
       propsObject.active = true
@@ -65,18 +70,15 @@ export function useOverlay(props: Props, overlayOn?: string): Overlayable {
   }
 
   function removeOverlay(): void {
-    const overlay = doc.querySelector('.v-overlay')
-    overlay!.classList.remove('v-overlay--active')
+    propsObject.active = false
+
+    renderOverlay(overlayVNode())
 
     function remove() {
-      propsObject.active = false
-      overlay!.removeEventListener('transitionend', remove)
-
-      renderOverlay(null)
-      // setTimeout(() => container!.parentNode!.removeChild(container!))
+      overlayable.parentNode.removeChild(overlayElement)
     }
 
-    overlay!.addEventListener('transitionend', remove)
+    addOnceListener(overlayElement!, 'transitionend', remove)
   }
 
   return {

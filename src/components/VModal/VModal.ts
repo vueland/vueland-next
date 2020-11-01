@@ -29,7 +29,7 @@ export const VModal = defineComponent({
   setup(props, { slots, emit }) {
 
     if (props.overlay) {
-      const overlay = useOverlay(props, '.v-modal')
+      const overlay = useOverlay(props, 'v-modal')
 
       watch(() => props.show, (to) => {
         to && overlay.createOverlay()
@@ -49,18 +49,15 @@ export const VModal = defineComponent({
       )
 
     const genModal = () =>
-      withDirectives(h(
+      h(
         'div',
         {
           class: {
             'v-modal': true,
           },
-
           'onUpdate:show': val => emit('update:show', val)
         },
         [content],
-        ),
-        [vShow, props.show]
       )
 
     const content = genContent()
@@ -72,6 +69,6 @@ export const VModal = defineComponent({
       modal = createTransition()
     }
 
-    return () => h(modal)
+    return () => withDirectives(h(modal), [[vShow, props.show]])
   }
 })

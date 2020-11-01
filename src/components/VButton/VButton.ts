@@ -69,7 +69,7 @@ export const VButton = defineComponent({
       return props.text || props.outlined
     })
 
-    const classes = computed<Record<string, boolean>>(() => {
+    const classes = computed((): Record<string, boolean> => {
       return {
         'v-button': true,
         'v-button--disabled': props.disabled,

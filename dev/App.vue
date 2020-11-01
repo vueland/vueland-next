@@ -1,37 +1,44 @@
 <script lang="ts">
-import { reactive } from 'vue'
+  import { reactive } from 'vue'
 
-export default {
-  setup() {
+  export default {
+    setup() {
 
-    const showEvent = () => {
-      console.log('$event')
-    }
+      const showEvent = (e) => {
+        console.log(e)
+      }
 
-    const data = reactive({
-      show: false,
-    })
+      const data = reactive({
+        show: false,
+      })
 
-    const showModal = () => {
-      data.show = true
-    }
+      const showModal = () => {
+        data.show = true
+      }
 
-    const closeModal = () => {
-      data.show = !data.show
-    }
+      const closeModal = () => {
+        data.show = !data.show
+      }
 
-    return {
-      showModal,
-      closeModal,
-      showEvent,
-      data,
-    }
-  },
-}
+      return {
+        showModal,
+        closeModal,
+        showEvent,
+        data,
+      }
+    },
+  }
 </script>
 
 <template>
   <div>
+    <v-input
+      required
+      disabled
+      label="input"
+      @input="showEvent"
+      :rules="[val => val.length > 5, val => val === 'russia']"
+    />
     <v-button
       elevation="4"
       color="red darken-4"
@@ -47,7 +54,6 @@ export default {
       >
         <v-card width="360" elevation="5">
           <v-card-title class="blue darken-3 white--text">
-            <v-input required/>
             salam
           </v-card-title>
           <v-card-content class="blue darken-4 white--text">

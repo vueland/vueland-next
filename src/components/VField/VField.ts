@@ -1,56 +1,59 @@
-import './VFIeld.scss'
-import { defineComponent, reactive, computed, h } from 'vue'
+import './VField.scss'
+
+// Vue API
+import { defineComponent, computed, h } from 'vue'
+
+// Types
 import { ComputedRef } from 'vue'
+
+const fieldProps = {
+  value: [Number, String],
+
+  type: {
+    type: String,
+    default: 'text',
+  },
+
+  placeholder: {
+    type: String,
+    default: '',
+  },
+
+  required: {
+    type: Boolean,
+    default: false,
+  },
+
+  valid: {
+    type: Boolean,
+  },
+
+  isDirty: {
+    type: Boolean,
+    default: false
+  },
+
+  disabled: {
+    type: Boolean,
+    default: false
+  }
+}
 
 type Classes = ComputedRef<Record<string, boolean>>
 
 export const VField = defineComponent({
   name: 'v-field',
-  props: {
-    value: {
-      type: [Object, Array, Number, String],
-    },
-
-    type: {
-      type: String,
-      default: 'text',
-    },
-
-    placeholder: {
-      type: String,
-      default: '',
-    },
-
-    required: {
-      type: Boolean,
-      default: false,
-    },
-
-    valid: {
-      type: Boolean,
-    },
-  },
+  props: fieldProps,
 
   setup(props) {
-    const data = reactive({
-      isDirty: false,
-    })
-
-    const classes: Classes = computed(() => ({
+    const classes: Classes = computed((): Record<string, boolean> => ({
       'v-field': true,
       'v-field--required': props.required,
-      'v-field--dirty': data.isDirty,
-      'v-field--valid': data.isDirty && props.required && !!props.valid,
-      'v-field--not-valid': data.isDirty && props.required && !props.valid,
+      'v-field--disabled': props.disabled,
+      'v-field--dirty': props.isDirty,
+      'v-field--valid': props.isDirty && props.required && !!props.valid,
+      'v-field--not-valid': props.isDirty && props.required && !props.valid,
     }))
-
-    const focusHandler = () => {
-      data.isDirty = true
-    }
-
-    const blurHandler = () => {
-      console.log('blur')
-    }
 
     const genField = () => {
       return h('input', {
@@ -59,8 +62,6 @@ export const VField = defineComponent({
         class: {
           ...classes.value,
         },
-        onFocus: focusHandler,
-        onBlur: blurHandler,
       })
     }
 

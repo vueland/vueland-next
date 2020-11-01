@@ -9,7 +9,9 @@ require("../../../src/components/VModal/VModal.scss");
 
 var _vue = require("vue");
 
-var _useOverlay2 = require("../../effects/use-overlay");
+var _useOverlay = require("../../effects/use-overlay");
+
+var _useTransition = require("../../effects/use-transition");
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -17,36 +19,60 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var modalProps = _objectSpread({
+var modalProps = _objectSpread(_objectSpread({
   width: {
     type: [String, Number],
     "default": 400
-  }
-}, (0, _useOverlay2.overlayProps)());
+  },
+  show: Boolean
+}, (0, _useOverlay.overlayProps)()), (0, _useTransition.transitionProps)());
 
 var VModal = (0, _vue.defineComponent)({
   name: 'v-modal',
   props: modalProps,
   setup: function setup(props, _ref) {
-    var slots = _ref.slots;
+    var slots = _ref.slots,
+        emit = _ref.emit;
 
-    var _useOverlay = (0, _useOverlay2.useOverlay)(props),
-        createOverlay = _useOverlay.createOverlay;
+    if (props.overlay) {
+      var overlay = (0, _useOverlay.useOverlay)(props, 'v-modal');
+      (0, _vue.watch)(function () {
+        return props.show;
+      }, function (to) {
+        to && overlay.createOverlay();
+        !to && overlay.removeOverlay();
+      });
+    }
 
     var genContent = function genContent() {
       return (0, _vue.h)('div', {
         "class": {
-          'v-modal__container': true
+          'v-modal__content': true
         }
       }, slots["default"] && slots["default"]());
     };
 
-    return function () {
-      return [(0, _vue.h)('div', {
+    var genModal = function genModal() {
+      return (0, _vue.h)('div', {
         "class": {
           'v-modal': true
+        },
+        'onUpdate:show': function onUpdateShow(val) {
+          return emit('update:show', val);
         }
-      }, genContent()), props.overlay && createOverlay()];
+      }, [content]);
+    };
+
+    var content = genContent();
+    var modal = genModal();
+
+    if (!!props.transition) {
+      var createTransition = (0, _useTransition.useTransition)(props, modal);
+      modal = createTransition();
+    }
+
+    return function () {
+      return (0, _vue.withDirectives)((0, _vue.h)(modal), [[_vue.vShow, props.show]]);
     };
   }
 });

@@ -56,8 +56,7 @@ var VButton = (0, _vue.defineComponent)({
   name: 'v-button',
   props: buttonProps,
   setup: function setup(props, _ref) {
-    var slots = _ref.slots,
-        emit = _ref.emit;
+    var slots = _ref.slots;
 
     var _useColors = (0, _useColors2.useColors)(props),
         setTextColor = _useColors.setTextColor,
@@ -83,10 +82,7 @@ var VButton = (0, _vue.defineComponent)({
 
     var propsObject = function propsObject() {
       return {
-        "class": _objectSpread({}, classes.value),
-        onClick: function onClick() {
-          return emit('click');
-        }
+        "class": _objectSpread({}, classes.value)
       };
     };
 

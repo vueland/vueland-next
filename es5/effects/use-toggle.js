@@ -9,7 +9,6 @@ exports.factory = factory;
 
 var _vue = require("vue");
 
-// Vue API
 function toggleProps() {
   return {
     value: Boolean

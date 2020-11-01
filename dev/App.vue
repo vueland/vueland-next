@@ -18,7 +18,6 @@
 
       const closeModal = () => {
         data.show = !data.show
-        console.log(data.show)
       }
 
       return {
@@ -40,8 +39,6 @@
       @click="showModal"
     />
     <teleport to="#modal">
-
-
       <v-modal
         v-model:show="data.show"
         transition="scaleIn"

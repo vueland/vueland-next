@@ -19,8 +19,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var overlayProps = _objectSpread({
   hide: Boolean,
-  active: Boolean,
-  opacity: [Number, String]
+  active: Boolean
 }, (0, _useColors2.colorProps)());
 
 var VOverlay = (0, _vue.defineComponent)({
@@ -39,9 +38,8 @@ var VOverlay = (0, _vue.defineComponent)({
     });
     var dataObject = {
       "class": classes.value,
-      style: [{
-        opacity: props.opacity
-      }]
+      style: [],
+      ref: 'overlay'
     };
     return (0, _vue.h)('div', setBackground(props.color, dataObject));
   }

@@ -7,7 +7,6 @@ exports.usePosition = exports.positionProps = void 0;
 
 var _vue = require("vue");
 
-// Vue API
 var positionProps = function positionProps() {
   return {
     absolute: Boolean,

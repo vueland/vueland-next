@@ -6,9 +6,12 @@ Object.defineProperty(exports, "__esModule", {
 exports.overlayProps = overlayProps;
 exports.useOverlay = useOverlay;
 
+var _vue = require("vue");
+
 var _components = require("../components");
 
-// Components
+var _helpers = require("@/helpers");
+
 function overlayProps() {
   return {
     overlay: Boolean,
@@ -22,20 +25,49 @@ function overlayProps() {
   };
 }
 
-function useOverlay(props) {
-  var createOverlay = function createOverlay() {
-    var propsObject = {
-      active: props.overlay,
-      hide: !props.overlay,
-      opacity: props.overlayOpacity,
-      color: props.overlayColor
-    };
-    return _components.VOverlay.setup(propsObject, {});
+function useOverlay(props, overlayOn) {
+  var doc = document;
+  var container = doc.createElement('div');
+  var overlayable;
+  setTimeout(function () {
+    overlayable = !!overlayOn && doc.querySelector(".".concat(overlayOn));
+  });
+  var propsObject = {
+    active: false,
+    hide: true,
+    color: props.overlayColor
   };
 
-  var removeOverlay = function removeOverlay() {// if (props.overlay) {
-    // }
+  var overlayVNode = function overlayVNode() {
+    return _components.VOverlay.setup(propsObject);
   };
+
+  var renderOverlay = function renderOverlay(vnode) {
+    return (0, _vue.render)(vnode, container);
+  };
+
+  renderOverlay(overlayVNode());
+  var overlayElement = container.firstChild;
+
+  function createOverlay() {
+    overlayable.parentNode.insertBefore(overlayElement, overlayable);
+    setTimeout(function () {
+      propsObject.active = true;
+      propsObject.hide = !props.overlay;
+      renderOverlay(overlayVNode());
+    }, 40);
+  }
+
+  function removeOverlay() {
+    propsObject.active = false;
+    renderOverlay(overlayVNode());
+
+    function remove() {
+      overlayable.parentNode.removeChild(overlayElement);
+    }
+
+    (0, _helpers.addOnceListener)(overlayElement, 'transitionend', remove);
+  }
 
   return {
     createOverlay: createOverlay,

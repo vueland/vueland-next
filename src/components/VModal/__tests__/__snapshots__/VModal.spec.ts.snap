@@ -1,8 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`VModal should mount component and match snapshot 1`] = `
-<div class="v-modal">
-  <div class="v-modal__container">
+<div class="v-modal"
+     style="display: none;"
+>
+  <div class="v-modal__content">
   </div>
 </div>
+`;
+
+exports[`VModal should set overlay and match snapshot 1`] = `
+<div class="v-modal"
+     style="display: none;"
+>
+  <div class="v-modal__content">
+  </div>
+</div>
+`;
+
+exports[`VModal should set transition and match snapshot 1`] = `
+<transition-stub style="display: none;">
+  <div class="v-modal">
+    <div class="v-modal__content">
+    </div>
+  </div>
+</transition-stub>
 `;

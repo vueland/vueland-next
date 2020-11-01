@@ -36,8 +36,6 @@ export function useOverlay(props: Props, overlayOn?: string): Overlayable {
 
   let overlayable
 
-  container.className = `${ overlayOn }__overlay`
-
   setTimeout(() => {
     overlayable = !!overlayOn && doc.querySelector(`.${ overlayOn }`)
   })
@@ -64,9 +62,7 @@ export function useOverlay(props: Props, overlayOn?: string): Overlayable {
       propsObject.active = true
       propsObject.hide = !props.overlay
       renderOverlay(overlayVNode())
-    }, 10)
-
-    renderOverlay(overlayVNode())
+    }, 40)
   }
 
   function removeOverlay(): void {

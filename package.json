@@ -31,7 +31,7 @@
     "build:es5": "cross-env NODE_ENV=es5 babel lib-temp/src --out-dir es5 --source-maps",
     "build:lib": "cross-env NODE_ENV=lib babel lib-temp/src --out-dir lib --source-maps",
     "build:all": "npm run test --u & node build/build-lib.js",
-    "test": "jest",
+    "test": "jest --u",
     "declarations": "ttsc --emitDeclarationOnly",
     "tslint-check": "tslint-config-prettier-check ./tslint.json",
     "prettier": "prettier --write --config ./.prettierrc.json './src/**/*.{ts,tsx}'"

@@ -1,33 +1,33 @@
 <script lang="ts">
-  import { reactive } from 'vue'
+import { reactive } from 'vue'
 
-  export default {
-    setup() {
+export default {
+  setup() {
 
-      const showEvent = () => {
-        console.log('$event')
-      }
+    const showEvent = () => {
+      console.log('$event')
+    }
 
-      const data = reactive({
-        show: false,
-      })
+    const data = reactive({
+      show: false,
+    })
 
-      const showModal = () => {
-        data.show = true
-      }
+    const showModal = () => {
+      data.show = true
+    }
 
-      const closeModal = () => {
-        data.show = !data.show
-      }
+    const closeModal = () => {
+      data.show = !data.show
+    }
 
-      return {
-        showModal,
-        closeModal,
-        showEvent,
-        data,
-      }
-    },
-  }
+    return {
+      showModal,
+      closeModal,
+      showEvent,
+      data,
+    }
+  },
+}
 </script>
 
 <template>
@@ -47,7 +47,7 @@
       >
         <v-card width="360" elevation="5">
           <v-card-title class="blue darken-3 white--text">
-            <!--          <v-field />-->
+            <v-input required/>
             salam
           </v-card-title>
           <v-card-content class="blue darken-4 white--text">

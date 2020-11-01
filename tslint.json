@@ -15,7 +15,8 @@
       "error",
       "warning"
     ],
-    "max-classes-per-file": [true, 5, "exclude-class-expressions"]
+    "max-classes-per-file": false,
+    "only-arrow-functions": false
   },
   "rulesDirectory": [],
   "prettier": [true, "./prettierrc.json"]

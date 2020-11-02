@@ -35,13 +35,9 @@ function colorProps() {
 var useColors = function useColors(props) {
   var setBackground = function setBackground(color, data) {
     if (!(0, _colorParser.isCssColor)(color)) {
-      data["class"][color] = true;
+      data["class"] = _objectSpread(_objectSpread({}, data["class"]), {}, _defineProperty({}, color, true));
     } else {
-      if (!data.style) {
-        data.style = [];
-      }
-
-      data.style.push({
+      data.style = _objectSpread(_objectSpread({}, data.style), {}, {
         'background-color': props.color,
         'border-color': props.color
       });

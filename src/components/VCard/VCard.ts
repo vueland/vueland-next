@@ -33,18 +33,16 @@ export const VCard = defineComponent({
     })
 
     const dataObject: object = {
-      class: classes.value,
-      style: [
-        {
-          maxWidth: `${ props.width }px`,
-        }
-      ],
+      class: {
+        ...classes.value
+      },
+      style: { maxWidth: `${ props.width }px` },
     }
 
     return () =>
       h(
         'div',
-        (props.color && setBackground(props.color, dataObject)) || dataObject,
+        (props.color ? setBackground(props.color, dataObject) : dataObject),
         slots.default && slots.default(),
       )
   },

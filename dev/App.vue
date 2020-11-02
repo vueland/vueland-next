@@ -47,12 +47,12 @@
     />
     <teleport to="#modal">
       <v-modal
-        v-model:show="data.show"
+        v-model="data.show"
         transition="scaleIn"
         overlay
         overlay-color="#000000"
       >
-        <v-card class="blue darken-3" width="360" elevation="5">
+        <v-card color="blue darken-3" width="360" elevation="5">
           <v-card-title class="white--text">
             salam
           </v-card-title>

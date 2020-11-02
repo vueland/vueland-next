@@ -40,13 +40,13 @@ var VCard = (0, _vue.defineComponent)({
       }, elevationClasses.value);
     });
     var dataObject = {
-      "class": classes.value,
-      style: [{
+      "class": _objectSpread({}, classes.value),
+      style: {
         maxWidth: "".concat(props.width, "px")
-      }]
+      }
     };
     return function () {
-      return (0, _vue.h)('div', props.color && setBackground(props.color, dataObject) || dataObject, slots["default"] && slots["default"]());
+      return (0, _vue.h)('div', props.color ? setBackground(props.color, dataObject) : dataObject, slots["default"] && slots["default"]());
     };
   }
 });

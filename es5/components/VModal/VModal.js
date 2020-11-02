@@ -24,6 +24,7 @@ var modalProps = _objectSpread(_objectSpread({
     type: [String, Number],
     "default": 400
   },
+  modelValue: Boolean,
   show: Boolean
 }, (0, _useOverlay.overlayProps)()), (0, _useTransition.transitionProps)());
 
@@ -37,7 +38,7 @@ var VModal = (0, _vue.defineComponent)({
     if (props.overlay) {
       var overlay = (0, _useOverlay.useOverlay)(props, 'v-modal');
       (0, _vue.watch)(function () {
-        return props.show;
+        return props.modelValue;
       }, function (to) {
         to && overlay.createOverlay();
         !to && overlay.removeOverlay();
@@ -57,8 +58,8 @@ var VModal = (0, _vue.defineComponent)({
         "class": {
           'v-modal': true
         },
-        'onUpdate:show': function onUpdateShow(val) {
-          return emit('update:show', val);
+        'onUpdate:modelValue': function onUpdateModelValue(val) {
+          return emit('update:modelValue', val);
         }
       }, [content]);
     };
@@ -72,7 +73,7 @@ var VModal = (0, _vue.defineComponent)({
     }
 
     return function () {
-      return (0, _vue.withDirectives)((0, _vue.h)(modal), [[_vue.vShow, props.show]]);
+      return (0, _vue.withDirectives)((0, _vue.h)(modal), [[_vue.vShow, props.modelValue]]);
     };
   }
 });

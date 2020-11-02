@@ -16,6 +16,7 @@ const modalProps: Record<string, any> = {
     type: [String, Number],
     default: 400,
   },
+  modelValue: Boolean,
   show: Boolean,
   ...overlayProps(),
   ...transitionProps()
@@ -31,7 +32,7 @@ export const VModal = defineComponent({
     if (props.overlay) {
       const overlay = useOverlay(props, 'v-modal')
 
-      watch(() => props.show, (to) => {
+      watch(() => props.modelValue, (to) => {
         to && overlay.createOverlay()
         !to && overlay.removeOverlay()
       })
@@ -55,7 +56,7 @@ export const VModal = defineComponent({
           class: {
             'v-modal': true,
           },
-          'onUpdate:show': val => emit('update:show', val)
+          'onUpdate:modelValue': val => emit('update:modelValue', val)
         },
         [content],
       )
@@ -69,6 +70,6 @@ export const VModal = defineComponent({
       modal = createTransition()
     }
 
-    return () => withDirectives(h(modal), [[vShow, props.show]])
+    return () => withDirectives(h(modal), [[vShow, props.modelValue]])
   }
 })

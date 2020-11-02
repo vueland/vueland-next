@@ -62,7 +62,7 @@ export function useOverlay(props: Props, overlayOn?: string): Overlayable {
       propsObject.active = true
       propsObject.hide = !props.overlay
       renderOverlay(overlayVNode())
-    })
+    }, 40)
   }
 
   function removeOverlay(): void {

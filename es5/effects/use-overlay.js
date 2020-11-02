@@ -55,7 +55,7 @@ function useOverlay(props, overlayOn) {
       propsObject.active = true;
       propsObject.hide = !props.overlay;
       renderOverlay(overlayVNode());
-    });
+    }, 40);
   }
 
   function removeOverlay() {

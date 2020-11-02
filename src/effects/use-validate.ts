@@ -44,7 +44,7 @@ export function useValidate(props) {
         validState.innerErrorMessage = msg
       }
     }
-    // tslint:disable-next-line:prefer-for-of
+
     for (let i = 0; i < props.rules.length; i += 1) {
       const rule = props.rules[i]
       let result

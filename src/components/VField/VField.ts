@@ -3,9 +3,6 @@ import './VField.scss'
 // Vue API
 import { defineComponent, computed, h } from 'vue'
 
-// Types
-import { ComputedRef } from 'vue'
-
 const fieldProps = {
   value: [Number, String],
 
@@ -39,14 +36,12 @@ const fieldProps = {
   }
 }
 
-type Classes = ComputedRef<Record<string, boolean>>
-
 export const VField = defineComponent({
   name: 'v-field',
   props: fieldProps,
 
   setup(props) {
-    const classes: Classes = computed((): Record<string, boolean> => ({
+    const classes = computed((): Record<string, boolean> => ({
       'v-field': true,
       'v-field--required': props.required,
       'v-field--disabled': props.disabled,
@@ -59,6 +54,9 @@ export const VField = defineComponent({
       return h('input', {
         type: props.type,
         placeholder: props.placeholder,
+        disabled: props.disabled,
+        required: props.required,
+        value: props.value,
         class: {
           ...classes.value,
         },

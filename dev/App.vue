@@ -3,13 +3,13 @@
 
   export default {
     setup() {
-
       const showEvent = (e) => {
         console.log(e)
       }
 
       const data = reactive({
         show: false,
+        text: ''
       })
 
       const showModal = () => {
@@ -33,11 +33,12 @@
 <template>
   <div>
     <v-input
+      v-model="data.text"
       required
-      disabled
       label="input"
+      placeholder="insert value"
       @input="showEvent"
-      :rules="[val => val.length > 5, val => val === 'russia']"
+      :rules="[val => val.length > 5]"
     />
     <v-button
       elevation="4"

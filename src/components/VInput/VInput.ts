@@ -2,7 +2,7 @@
 import './VInput.scss'
 
 // Vue API
-import { defineComponent, h, computed } from 'vue'
+import { defineComponent, h, computed, reactive } from 'vue'
 
 // Components
 import { VField } from '../VField'
@@ -27,10 +27,9 @@ const inputProps = {
     type: Boolean,
     default: false,
   },
-  valid: {
-    type: Boolean,
-  },
-  ...validateProps()
+  valid: Boolean,
+  modelValue: [String, Number],
+  ...validateProps(),
 }
 
 export const VInput = defineComponent({
@@ -39,14 +38,14 @@ export const VInput = defineComponent({
 
   setup(props, ctx) {
 
-    // const state = reactive({
-    //   search: ''
-    // })
+    const state = reactive({
+      isValid: false,
+    })
 
     const {
       validate,
       focused,
-      validState
+      validState,
     } = useValidate(props)
 
     const classes = computed((): Record<string, boolean> => {
@@ -67,23 +66,24 @@ export const VInput = defineComponent({
 
     const blurHandler = () => {
       ctx.emit('blur')
+      requestAnimationFrame(() => {
+        state.isValid = props.required && validate(props.modelValue) as boolean
+      })
     }
 
     const inputHandler = (e) => {
-      props.required && validate(e.target.value)
-      ctx.emit('input', e.target.value)
       ctx.emit('update:modelValue', e.target.value)
     }
 
     const genLabel = () => {
       VLabel.props = {
         absolute: true,
-        color: computedColor.value
+        color: computedColor.value,
       }
       return h(
         VLabel.setup!(props as any, ctx as SetupContext) as any,
         VLabel.props,
-        props.label
+        props.label,
       )
     }
 
@@ -93,33 +93,38 @@ export const VInput = defineComponent({
         disabled: props.disabled,
         required: props.required,
         placeholder: props.placeholder,
-        isDirty: validState.isDirty
+        value: props.modelValue,
+        isDirty: validState.isDirty,
+        valid: state.isValid,
       }
 
       return h(VField.setup!(fieldProps as any, ctx as SetupContext) as any,
         {
           onFocus: focusHandler,
           onBlur: blurHandler,
-          onInput: inputHandler
+          onInput: inputHandler,
         })
     }
 
     const genDataProps = () => {
       return {
         class: {
-          ...classes.value
-        }
+          ...classes.value,
+        },
       }
     }
 
     const genInput = () => {
-      return h('div', genDataProps(), [
-        genLabel(),
-        genField()
-      ])
+      return h(
+        'div',
+        genDataProps(),
+        [
+          genLabel(),
+          genField(),
+        ],
+      )
     }
 
-
     return () => genInput()
-  },
+  }
 })

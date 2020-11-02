@@ -5,6 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.createSimpleFunctional = createSimpleFunctional;
 exports.addOnceListener = addOnceListener;
+exports.convertToUnit = convertToUnit;
 
 var _vue = require("vue");
 
@@ -34,5 +35,17 @@ function addOnceListener(el, eventName, cb) {
   };
 
   el.addEventListener(eventName, once, options);
+}
+
+function convertToUnit(str) {
+  var unit = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'px';
+
+  if (str == null || str === '') {
+    return undefined;
+  } else if (isNaN(+str)) {
+    return String(str);
+  } else {
+    return "".concat(Number(str)).concat(unit);
+  }
 }
 //# sourceMappingURL=index.js.map

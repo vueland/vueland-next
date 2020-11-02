@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.VField = void 0;
 
-require("../../../src/components/VField/VFIeld.scss");
+require("../../../src/components/VField/VField.scss");
 
 var _vue = require("vue");
 
@@ -15,57 +15,52 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+var fieldProps = {
+  value: [Number, String],
+  type: {
+    type: String,
+    "default": 'text'
+  },
+  placeholder: {
+    type: String,
+    "default": ''
+  },
+  required: {
+    type: Boolean,
+    "default": false
+  },
+  valid: {
+    type: Boolean
+  },
+  isDirty: {
+    type: Boolean,
+    "default": false
+  },
+  disabled: {
+    type: Boolean,
+    "default": false
+  }
+};
 var VField = (0, _vue.defineComponent)({
   name: 'v-field',
-  props: {
-    value: {
-      type: [Object, Array, Number, String]
-    },
-    type: {
-      type: String,
-      "default": 'text'
-    },
-    placeholder: {
-      type: String,
-      "default": ''
-    },
-    required: {
-      type: Boolean,
-      "default": false
-    },
-    valid: {
-      type: Boolean
-    }
-  },
+  props: fieldProps,
   setup: function setup(props) {
-    var data = (0, _vue.reactive)({
-      isDirty: false
-    });
     var classes = (0, _vue.computed)(function () {
       return {
         'v-field': true,
         'v-field--required': props.required,
-        'v-field--dirty': data.isDirty,
-        'v-field--valid': data.isDirty && props.required && !!props.valid,
-        'v-field--not-valid': data.isDirty && props.required && !props.valid
+        'v-field--disabled': props.disabled,
+        'v-field--dirty': props.isDirty,
+        'v-field--valid': props.isDirty && props.required && !!props.valid,
+        'v-field--not-valid': props.isDirty && props.required && !props.valid
       };
     });
-
-    var focusHandler = function focusHandler() {
-      data.isDirty = true;
-    };
-
-    var blurHandler = function blurHandler() {
-      console.log('blur');
-    };
 
     var genField = function genField() {
       return (0, _vue.h)('input', {
         type: props.type,
         placeholder: props.placeholder,
-        "class": _objectSpread({}, classes.value),
-        onFocus: focusHandler,
-        onBlur: blurHandler
+        "class": _objectSpread({}, classes.value)
       });
     };
 

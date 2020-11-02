@@ -73,8 +73,6 @@ export const VInput = defineComponent({
       props.required && validate(e.target.value)
       ctx.emit('input', e.target.value)
       ctx.emit('update:modelValue', e.target.value)
-
-      // console.log(validate(e.target.value))
     }
 
     const genLabel = () => {

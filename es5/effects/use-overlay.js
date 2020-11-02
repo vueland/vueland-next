@@ -27,9 +27,8 @@ function overlayProps() {
 
 function useOverlay(props, overlayOn) {
   var doc = document;
-  var container = doc.createElement('div');
   var overlayable;
-  setTimeout(function () {
+  requestAnimationFrame(function () {
     overlayable = !!overlayOn && doc.querySelector(".".concat(overlayOn));
   });
   var propsObject = {
@@ -37,9 +36,10 @@ function useOverlay(props, overlayOn) {
     hide: true,
     color: props.overlayColor
   };
+  var container = doc.createElement('div');
 
   var overlayVNode = function overlayVNode() {
-    return _components.VOverlay.setup(propsObject);
+    return _components.VOverlay.setup(propsObject, {});
   };
 
   var renderOverlay = function renderOverlay(vnode) {
@@ -55,7 +55,7 @@ function useOverlay(props, overlayOn) {
       propsObject.active = true;
       propsObject.hide = !props.overlay;
       renderOverlay(overlayVNode());
-    }, 40);
+    });
   }
 
   function removeOverlay() {

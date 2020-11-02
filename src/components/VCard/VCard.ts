@@ -34,9 +34,11 @@ export const VCard = defineComponent({
 
     const dataObject: object = {
       class: classes.value,
-      style: {
-        maxWidth: `${props.width}px`,
-      },
+      style: [
+        {
+          maxWidth: `${ props.width }px`,
+        }
+      ],
     }
 
     return () =>

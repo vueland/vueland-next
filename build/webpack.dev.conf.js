@@ -8,7 +8,7 @@ const devConfig = merge(baseConfig, {
   devtool: 'cheap-module-eval-source-map',
   devServer: {
     contentBase: baseConfig.externals.path.dist,
-    port: 3000,
+    port: 8080,
     overlay: {
       warnings: false,
       errors: true

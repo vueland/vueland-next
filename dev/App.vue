@@ -52,15 +52,15 @@
         overlay
         overlay-color="#000000"
       >
-        <v-card width="360" elevation="5">
-          <v-card-title class="blue darken-3 white--text">
+        <v-card class="blue darken-3" width="360" elevation="5">
+          <v-card-title class="white--text">
             salam
           </v-card-title>
-          <v-card-content class="blue darken-4 white--text">
+          <v-card-content class="white--text">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi corporis distinctio, eius exercitationem
             facere id nulla quo repudiandae ut voluptates.
           </v-card-content>
-          <v-card-actions class="blue darken-3">
+          <v-card-actions class="">
             <v-button
               outlined
               absolute

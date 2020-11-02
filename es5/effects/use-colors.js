@@ -37,6 +37,10 @@ var useColors = function useColors(props) {
     if (!(0, _colorParser.isCssColor)(color)) {
       data["class"][color] = true;
     } else {
+      if (!data.style) {
+        data.style = [];
+      }
+
       data.style.push({
         'background-color': props.color,
         'border-color': props.color

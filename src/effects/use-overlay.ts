@@ -58,7 +58,7 @@ export function useOverlay(props: Props, overlayOn?: string): Overlayable {
   function createOverlay() {
     overlayable.parentNode.insertBefore(overlayElement, overlayable)
 
-    requestAnimationFrame(() => {
+    setTimeout(() => {
       propsObject.active = true
       propsObject.hide = !props.overlay
       renderOverlay(overlayVNode())

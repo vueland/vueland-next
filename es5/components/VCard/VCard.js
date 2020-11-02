@@ -41,9 +41,9 @@ var VCard = (0, _vue.defineComponent)({
     });
     var dataObject = {
       "class": classes.value,
-      style: {
+      style: [{
         maxWidth: "".concat(props.width, "px")
-      }
+      }]
     };
     return function () {
       return (0, _vue.h)('div', props.color && setBackground(props.color, dataObject) || dataObject, slots["default"] && slots["default"]());

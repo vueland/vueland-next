@@ -24,6 +24,9 @@ export const useColors = (props: Props): Colorable => {
     if (!isCssColor(color)) {
       data.class[color] = true
     } else {
+      if (!data.style) {
+        data.style = []
+      }
       data.style.push({
         'background-color': props.color,
         'border-color': props.color,
@@ -37,8 +40,8 @@ export const useColors = (props: Props): Colorable => {
     if (isCssColor(color)) {
       data.style = {
         ...(data.style as object),
-        color: `${color}`,
-        'caret-color': `${color}`,
+        color: `${ color }`,
+        'caret-color': `${ color }`,
       }
     } else if (color) {
       const [colorName, colorModifier] = color.trim().split(' ', 2)

@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../../../src/components/VModal/index.ts"],"names":[],"mappings":"AAAA,cAAc,UAAd","sourcesContent":["export * from './VModal'\n"],"sourceRoot":"","file":"index.js"}

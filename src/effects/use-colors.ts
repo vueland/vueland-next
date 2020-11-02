@@ -22,10 +22,8 @@ export function colorProps(): ColorProps {
 export const useColors = (props: Props): Colorable => {
   const setBackground = (color: string, data: any): object => {
     if (!isCssColor(color)) {
-      data.class = {
-        ...data.class,
-        [color]: true
-      }
+      console.log(data)
+      data.class[color] = true
     } else {
       data.style = {
         ...data.style,

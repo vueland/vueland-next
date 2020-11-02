@@ -80,7 +80,7 @@ export const VButton = defineComponent({
       }
     })
 
-    const propsObject = () => {
+    const dataProps = () => {
       return {
         class: {
           ...classes.value,
@@ -91,8 +91,8 @@ export const VButton = defineComponent({
     const setColor = isFlat.value ? setTextColor : setBackground
 
     const data = props.color
-      ? setColor(props.color, propsObject())
-      : propsObject()
+      ? setColor(props.color, dataProps())
+      : dataProps()
 
     const content: any[] = []
 

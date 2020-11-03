@@ -44,7 +44,13 @@ var fieldProps = {
 var VField = (0, _vue.defineComponent)({
   name: 'v-field',
   props: fieldProps,
-  setup: function setup(props) {
+  setup: function setup(props, ctx) {
+    var search = (0, _vue.ref)('');
+    (0, _vue.watch)(function () {
+      return props.value;
+    }, function (to) {
+      search.value = to;
+    });
     var classes = (0, _vue.computed)(function () {
       return {
         'v-field': true,
@@ -60,7 +66,14 @@ var VField = (0, _vue.defineComponent)({
       return (0, _vue.h)('input', {
         type: props.type,
         placeholder: props.placeholder,
-        "class": _objectSpread({}, classes.value)
+        disabled: props.disabled,
+        required: props.required,
+        value: search.value,
+        "class": _objectSpread({}, classes.value),
+        modelValue: search.value,
+        'onUpdate:modelValue': function onUpdateModelValue(val) {
+          return ctx.emit('update:modelValue', val);
+        }
       });
     };
 

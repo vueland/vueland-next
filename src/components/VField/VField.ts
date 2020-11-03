@@ -1,7 +1,7 @@
 import './VField.scss'
 
 // Vue API
-import { defineComponent, computed, h } from 'vue'
+import { defineComponent, computed, h, watch, ref, Ref } from 'vue'
 
 const fieldProps = {
   value: [Number, String],
@@ -40,7 +40,14 @@ export const VField = defineComponent({
   name: 'v-field',
   props: fieldProps,
 
-  setup(props) {
+  setup(props, ctx) {
+
+    const search: Ref<string | number | undefined> = ref('')
+
+    watch(() => props.value, (to) => {
+      search.value = to
+    })
+
     const classes = computed((): Record<string, boolean> => ({
       'v-field': true,
       'v-field--required': props.required,
@@ -56,10 +63,12 @@ export const VField = defineComponent({
         placeholder: props.placeholder,
         disabled: props.disabled,
         required: props.required,
-        value: props.value,
+        value: search.value,
         class: {
           ...classes.value,
         },
+        modelValue: search.value,
+        'onUpdate:modelValue': val => ctx.emit('update:modelValue', val)
       })
     }
 

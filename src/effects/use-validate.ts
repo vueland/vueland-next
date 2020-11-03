@@ -1,7 +1,5 @@
 import { reactive, computed } from 'vue'
 
-// export type Validatable = {}
-
 export const validateProps = () => {
   return {
     rules: {
@@ -45,8 +43,9 @@ export function useValidate(props) {
       }
     }
 
-    for (let i = 0; i < props.rules.length; i += 1) {
+    for (let i = 0, len = props.rules.length; i < len; i += 1) {
       const rule = props.rules[i]
+
       let result
 
       if (typeof rule === 'function') {
@@ -58,7 +57,7 @@ export function useValidate(props) {
         return false
       }
 
-      if (result === true) {
+      if (result === true && i === len - 1) {
         update(false)
         return true
       }

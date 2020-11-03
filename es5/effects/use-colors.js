@@ -35,7 +35,6 @@ function colorProps() {
 var useColors = function useColors(props) {
   var setBackground = function setBackground(color, data) {
     if (!(0, _colorParser.isCssColor)(color)) {
-      console.log(data);
       data["class"][color] = true;
     } else {
       data.style = _objectSpread(_objectSpread({}, data.style), {}, {

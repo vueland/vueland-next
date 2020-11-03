@@ -9,8 +9,6 @@ require("../../../src/components/VInput/VInput.scss");
 
 var _vue = require("vue");
 
-var _VField = require("../VField");
-
 var _VLabel = require("../VLabel");
 
 var _useValidate2 = require("../../effects/use-validate");
@@ -28,21 +26,25 @@ var inputProps = _objectSpread({
     type: String,
     "default": 'text'
   },
-  placeholder: String,
-  disabled: Boolean,
+  disabled: {
+    type: Boolean,
+    "default": false
+  },
   required: {
     type: Boolean,
     "default": false
   },
-  valid: {
-    type: Boolean
-  }
+  modelValue: [String, Number]
 }, (0, _useValidate2.validateProps)());
 
 var VInput = (0, _vue.defineComponent)({
   name: 'v-input',
   props: inputProps,
   setup: function setup(props, ctx) {
+    var state = (0, _vue.reactive)({
+      focused: false
+    });
+
     var _useValidate = (0, _useValidate2.useValidate)(props),
         validate = _useValidate.validate,
         focused = _useValidate.focused,
@@ -50,7 +52,14 @@ var VInput = (0, _vue.defineComponent)({
 
     var classes = (0, _vue.computed)(function () {
       return {
-        'v-input': true
+        'v-input': true,
+        'v-validatable': true,
+        'v-input--required': props.required,
+        'v-input--disabled': props.disabled,
+        'v-input--dirty': validState.isDirty,
+        'v-input--valid': validState.isDirty && props.required && !validState.innerError,
+        'v-input--not-valid': validState.isDirty && props.required && validState.innerError,
+        'v-input--focused': state.focused
       };
     });
     var computedColor = (0, _vue.computed)(function () {
@@ -60,25 +69,32 @@ var VInput = (0, _vue.defineComponent)({
 
     var focusHandler = function focusHandler() {
       focused();
+      state.focused = true;
       ctx.emit('focus');
     };
 
     var blurHandler = function blurHandler() {
       ctx.emit('blur');
+      state.focused = false;
+      requestAnimationFrame(function () {
+        props.required && validate(props.modelValue);
+      });
     };
 
     var inputHandler = function inputHandler(e) {
-      props.required && validate(e.target.value);
-      ctx.emit('input', e.target.value);
       ctx.emit('update:modelValue', e.target.value);
     };
 
     var genLabel = function genLabel() {
-      _VLabel.VLabel.props = {
+      var labelProps = {
         absolute: true,
-        color: computedColor.value
+        left: 0,
+        right: 'auto',
+        color: computedColor.value,
+        value: props.modelValue,
+        focused: state.focused
       };
-      return (0, _vue.h)(_VLabel.VLabel.setup(props, ctx), _VLabel.VLabel.props, props.label);
+      return (0, _vue.h)(_VLabel.VLabel.setup(labelProps, ctx), props.label);
     };
 
     var genField = function genField() {
@@ -86,14 +102,23 @@ var VInput = (0, _vue.defineComponent)({
         type: props.type,
         disabled: props.disabled,
         required: props.required,
-        placeholder: props.placeholder,
-        isDirty: validState.isDirty
-      };
-      return (0, _vue.h)(_VField.VField.setup(fieldProps, ctx), {
+        value: props.modelValue,
+        "class": {
+          'v-input__field': true
+        },
         onFocus: focusHandler,
         onBlur: blurHandler,
         onInput: inputHandler
-      });
+      };
+      return (0, _vue.h)('input', fieldProps);
+    };
+
+    var genFieldSlot = function genFieldSlot() {
+      return (0, _vue.h)('div', {
+        "class": {
+          'v-input__text-slot': true
+        }
+      }, [genLabel(), genField()]);
     };
 
     var genDataProps = function genDataProps() {
@@ -103,7 +128,7 @@ var VInput = (0, _vue.defineComponent)({
     };
 
     var genInput = function genInput() {
-      return (0, _vue.h)('div', genDataProps(), [genLabel(), genField()]);
+      return (0, _vue.h)('div', genDataProps(), genFieldSlot());
     };
 
     return function () {

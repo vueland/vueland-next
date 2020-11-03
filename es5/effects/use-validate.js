@@ -51,7 +51,7 @@ function useValidate(props) {
       }
     };
 
-    for (var i = 0; i < props.rules.length; i += 1) {
+    for (var i = 0, len = props.rules.length; i < len; i += 1) {
       var rule = props.rules[i];
       var result = void 0;
 
@@ -64,7 +64,7 @@ function useValidate(props) {
         return false;
       }
 
-      if (result === true) {
+      if (result === true && i === len - 1) {
         update(false);
         return true;
       }

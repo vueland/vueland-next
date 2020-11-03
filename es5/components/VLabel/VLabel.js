@@ -46,7 +46,8 @@ var VLabel = (0, _vue.defineComponent)({
 
     var classes = (0, _vue.computed)(function () {
       return {
-        'v-label--active': !!props.value,
+        'v-label': true,
+        'v-label--active': !!props.value || !!props.focused,
         'v-label--is-disabled': !!props.disabled
       };
     });

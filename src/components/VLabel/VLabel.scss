@@ -1,3 +1,19 @@
 .v-label {
-  border: 1px solid red;
+  font-size: 16px;
+  min-height: 8px;
+  transition: .3s cubic-bezier(.25, .8, .5, 1);
+  max-width: 90%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  top: 17px;
+  white-space: nowrap;
+  pointer-events: none;
+  height: 20px;
+  line-height: 20px;
+  transform-origin: top left;
+
+  &--active {
+    transform: translateY(-17px) scale(.75);
+    max-width: 133%;
+  }
 }

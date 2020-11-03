@@ -35,7 +35,8 @@ export const VLabel = defineComponent({
 
     const classes = computed((): Record<string, boolean> => {
       return {
-        'v-label--active': !!props.value,
+        'v-label': true,
+        'v-label--active': !!props.value || !!props.focused,
         'v-label--is-disabled': !!props.disabled,
       }
     })

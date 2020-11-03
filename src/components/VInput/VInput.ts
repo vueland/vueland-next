@@ -5,7 +5,6 @@ import './VInput.scss'
 import { defineComponent, h, computed, reactive } from 'vue'
 
 // Components
-import { VField } from '../VField'
 import { VLabel } from '../VLabel'
 
 // Types
@@ -21,13 +20,14 @@ const inputProps = {
     type: String,
     default: 'text',
   },
-  placeholder: String,
-  disabled: Boolean,
+  disabled: {
+    type: Boolean,
+    default: false
+  },
   required: {
     type: Boolean,
     default: false,
   },
-  valid: Boolean,
   modelValue: [String, Number],
   ...validateProps(),
 }
@@ -39,18 +39,21 @@ export const VInput = defineComponent({
   setup(props, ctx) {
 
     const state = reactive({
-      isValid: false,
+      focused: false,
     })
 
-    const {
-      validate,
-      focused,
-      validState,
-    } = useValidate(props)
+    const { validate, focused, validState } = useValidate(props)
 
     const classes = computed((): Record<string, boolean> => {
       return {
         'v-input': true,
+        'v-validatable': true,
+        'v-input--required': props.required,
+        'v-input--disabled': props.disabled,
+        'v-input--dirty': validState.isDirty,
+        'v-input--valid': validState.isDirty && props.required && !validState.innerError,
+        'v-input--not-valid': validState.isDirty && props.required && validState.innerError!,
+        'v-input--focused': state.focused
       }
     })
 
@@ -61,13 +64,16 @@ export const VInput = defineComponent({
 
     const focusHandler = () => {
       focused()
+      state.focused = true
       ctx.emit('focus')
     }
 
     const blurHandler = () => {
       ctx.emit('blur')
+      state.focused = false
+
       requestAnimationFrame(() => {
-        state.isValid = props.required && validate(props.modelValue) as boolean
+        props.required && validate(props.modelValue)
       })
     }
 
@@ -76,34 +82,45 @@ export const VInput = defineComponent({
     }
 
     const genLabel = () => {
-      VLabel.props = {
+      const labelProps = {
         absolute: true,
+        left: 0,
+        right: 'auto',
         color: computedColor.value,
+        value: props.modelValue,
+        focused: state.focused
       }
+
       return h(
-        VLabel.setup!(props as any, ctx as SetupContext) as any,
-        VLabel.props,
+        VLabel.setup!(labelProps as any, ctx as SetupContext) as any,
         props.label,
       )
     }
 
     const genField = () => {
+
       const fieldProps = {
         type: props.type,
         disabled: props.disabled,
         required: props.required,
-        placeholder: props.placeholder,
         value: props.modelValue,
-        isDirty: validState.isDirty,
-        valid: state.isValid,
+        class: {
+          'v-input__field': true
+        },
+        onFocus: focusHandler,
+        onBlur: blurHandler,
+        onInput: inputHandler,
       }
 
-      return h(VField.setup!(fieldProps as any, ctx as SetupContext) as any,
-        {
-          onFocus: focusHandler,
-          onBlur: blurHandler,
-          onInput: inputHandler,
-        })
+      return h('input', fieldProps)
+    }
+
+    const genFieldSlot = () => {
+      return h('div', {
+        class: {
+          'v-input__text-slot': true
+        }
+      }, [genLabel(), genField()])
     }
 
     const genDataProps = () => {
@@ -115,14 +132,7 @@ export const VInput = defineComponent({
     }
 
     const genInput = () => {
-      return h(
-        'div',
-        genDataProps(),
-        [
-          genLabel(),
-          genField(),
-        ],
-      )
+      return h('div', genDataProps(), genFieldSlot())
     }
 
     return () => genInput()

@@ -13,26 +13,27 @@ export const VForm = defineComponent({
       const fields = document.getElementsByClassName('v-validatable')
 
       Array.prototype.forEach.call(fields, it => {
-        // tslint:disable-next-line:no-shadowed-variable
-        const { validate } = it.__vueParentComponent.vnode.el.__vnode.props
-        promises.push(validate())
+        /**
+         * here we extract validate method
+         * from each vNode of child components
+         */
+        const { validateValue } = it.__vnode.props.methods
+        promises.push(validateValue())
       })
 
       return Promise.resolve(!promises.some(f => !f))
     }
 
     const genSlot = () => {
-      return renderSlot(slots, 'default', {
-        validate
-      })
+      return renderSlot(slots, 'default', { validate })
     }
 
     return () => h('div',
       {
         class: {
-          'v-form': true
+          'v-form': true,
         },
-      }, genSlot()
+      }, genSlot(),
     )
-  }
+  },
 })

@@ -10,6 +10,12 @@ export const validateProps = () => {
   }
 }
 
+export const validateClasses = () => {
+  return {
+    'v-validatable': true
+  }
+}
+
 export function useValidate(props) {
 
   const validState = reactive({

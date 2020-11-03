@@ -10,7 +10,6 @@ import { SetupContext } from 'vue'
 // Helpers
 import { addOnceListener } from '@/helpers'
 
-
 export function overlayProps(): Props {
   return {
     overlay: Boolean,
@@ -36,20 +35,23 @@ export function useOverlay(props: Props, overlayOn?: string): Overlayable {
   let overlayable
 
   requestAnimationFrame(() => {
-    overlayable = !!overlayOn && doc.querySelector(`.${ overlayOn }`)
+    overlayable = !!overlayOn && doc.querySelector(`.${overlayOn}`)
   })
 
-  const propsObject: Props = {
+  const overlayPropsObject: Props = {
     active: false,
     hide: true,
-    color: props.overlayColor
+    color: props.overlayColor,
   }
 
   const container = doc.createElement('div')
 
-  const overlayVNode = () => VOverlay.setup!(propsObject, {} as SetupContext)
+  const overlayVNode = () => VOverlay.setup!(
+    overlayPropsObject as typeof VOverlay.props,
+    {} as SetupContext,
+  )
 
-  const renderOverlay = vnode => render(vnode, container!)
+  const renderOverlay = vNode => render(vNode, container!)
 
   renderOverlay(overlayVNode())
 
@@ -59,14 +61,14 @@ export function useOverlay(props: Props, overlayOn?: string): Overlayable {
     overlayable.parentNode.insertBefore(overlayElement, overlayable)
 
     setTimeout(() => {
-      propsObject.active = true
-      propsObject.hide = !props.overlay
+      overlayPropsObject.active = true
+      overlayPropsObject.hide = !props.overlay
       renderOverlay(overlayVNode())
     }, 40)
   }
 
   function removeOverlay(): void {
-    propsObject.active = false
+    overlayPropsObject.active = false
 
     renderOverlay(overlayVNode())
 

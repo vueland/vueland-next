@@ -6,7 +6,7 @@
 
       const data = reactive({
         show: false,
-        text: ''
+        text: 'salam'
       })
 
       const showEvent = (e) => {
@@ -37,10 +37,13 @@
       <v-input
         v-model="data.text"
         required
-        label="Main input"
-        placeholder="insert value"
+        label="email"
         @input="showEvent"
-        :rules="[val => !!val, val => val.length >= 3]"
+        :rules="[
+          val => !!val,
+          val => val.length >= 3,
+          val => val === 'man'
+         ]"
       />
     </div>
     <v-button

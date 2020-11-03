@@ -32,15 +32,23 @@ const inputProps = {
   ...validateProps(),
 }
 
+type InputState = {
+  value: string | number
+  focused: boolean
+}
+
 export const VInput = defineComponent({
   name: 'v-input',
   props: inputProps,
 
   setup(props, ctx) {
 
-    const state = reactive({
+    const state: InputState = reactive({
+      value: '',
       focused: false,
     })
+
+    state.value = props.modelValue!
 
     const { validate, focused, validState } = useValidate(props)
 
@@ -73,12 +81,13 @@ export const VInput = defineComponent({
       state.focused = false
 
       requestAnimationFrame(() => {
-        props.required && validate(props.modelValue)
+        props.required && validate(state.value)
       })
     }
 
     const inputHandler = (e) => {
-      ctx.emit('update:modelValue', e.target.value)
+      state.value = e.target.value
+      ctx.emit('update:modelValue', state.value)
     }
 
     const genLabel = () => {
@@ -87,7 +96,7 @@ export const VInput = defineComponent({
         left: 0,
         right: 'auto',
         color: computedColor.value,
-        value: props.modelValue,
+        value: state.value,
         focused: state.focused
       }
 
@@ -103,7 +112,7 @@ export const VInput = defineComponent({
         type: props.type,
         disabled: props.disabled,
         required: props.required,
-        value: props.modelValue,
+        value: state.value,
         class: {
           'v-input__field': true
         },

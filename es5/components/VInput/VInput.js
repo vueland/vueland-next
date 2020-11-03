@@ -42,8 +42,10 @@ var VInput = (0, _vue.defineComponent)({
   props: inputProps,
   setup: function setup(props, ctx) {
     var state = (0, _vue.reactive)({
+      value: '',
       focused: false
     });
+    state.value = props.modelValue;
 
     var _useValidate = (0, _useValidate2.useValidate)(props),
         validate = _useValidate.validate,
@@ -77,12 +79,13 @@ var VInput = (0, _vue.defineComponent)({
       ctx.emit('blur');
       state.focused = false;
       requestAnimationFrame(function () {
-        props.required && validate(props.modelValue);
+        props.required && validate(state.value);
       });
     };
 
     var inputHandler = function inputHandler(e) {
-      ctx.emit('update:modelValue', e.target.value);
+      state.value = e.target.value;
+      ctx.emit('update:modelValue', state.value);
     };
 
     var genLabel = function genLabel() {
@@ -91,7 +94,7 @@ var VInput = (0, _vue.defineComponent)({
         left: 0,
         right: 'auto',
         color: computedColor.value,
-        value: props.modelValue,
+        value: state.value,
         focused: state.focused
       };
       return (0, _vue.h)(_VLabel.VLabel.setup(labelProps, ctx), props.label);
@@ -102,7 +105,7 @@ var VInput = (0, _vue.defineComponent)({
         type: props.type,
         disabled: props.disabled,
         required: props.required,
-        value: props.modelValue,
+        value: state.value,
         "class": {
           'v-input__field': true
         },

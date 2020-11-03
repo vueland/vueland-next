@@ -12,6 +12,11 @@
   transform: translateX(-50px);
 }
 
+.slideInLeft-enter-to, .slideInLeft-leave-from {
+  opacity: 1;
+  transform: translateX(0);
+}
+
 .slideInLeft-enter-active, .slideInLeft-leave-active {
   transition: all .2s linear;
 }
@@ -19,6 +24,11 @@
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+}
+
+.fade-enter-to,
+.fade-leave-from {
+  opacity: 1;
 }
 
 .fade-enter-active,
@@ -29,6 +39,11 @@
 .scaleIn-enter-from, .scaleIn-leave-to {
   opacity: 0;
   transform: scale(.7);
+}
+
+.scaleIn-enter-to, .scaleIn-leave-from {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .scaleIn-enter-active, .scaleIn-leave-active {

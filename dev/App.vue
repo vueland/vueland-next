@@ -39,13 +39,13 @@ export default {
 <template>
   <div>
     <v-form v-slot="{ validate }" style="margin: 30px;">
-      <v-card color="blue darken-2" width="400" elevation="5">
+      <v-card width="400" elevation="5">
         <v-card-content>
           <v-input
             v-model="data.login"
             label="login"
             style="margin: 10px 0;"
-            :rules="[val => !!val && val.length > 5]"
+            :rules="[val => !!val && val.length > 5 || 'required and more than 5 symbols']"
           />
           <v-input
             v-model="data.email"
@@ -57,7 +57,7 @@ export default {
             v-model="data.password"
             label="password"
             style="margin: 10px 0;"
-            :rules="[val => !!val && val.length >= 8]"
+            :rules="[val => !!val && val.length >= 8 || 'enter password']"
           />
         </v-card-content>
         <v-card-actions>

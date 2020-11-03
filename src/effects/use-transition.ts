@@ -9,14 +9,14 @@ export function transitionProps() {
   }
 }
 
-export function useTransition(props: Props, vnode: VNode): () => VNode {
+export function useTransition({ transition }: Props, vNode: VNode): () => VNode {
   return (): VNode => {
     return createBlock(Transition,
       {
-        name: props.transition
+        name: transition,
       },
       {
-        default: withCtx(() => [h(vnode)]),
+        default: withCtx(() => [h(vNode)]),
       })
   }
 }

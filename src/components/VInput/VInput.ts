@@ -7,13 +7,15 @@ import {
   defineComponent,
   computed,
   reactive,
+  withDirectives,
+  vShow,
 } from 'vue'
 
 // Components
 import { VLabel } from '../VLabel'
 
 // Types
-import { SetupContext } from 'vue'
+import { SetupContext, VNode } from 'vue'
 
 // Effects
 import {
@@ -21,6 +23,7 @@ import {
   validateClasses,
   useValidate,
 } from '../../effects/use-validate'
+import { useTransition } from '../../effects/use-transition'
 
 const vInputProps = {
   label: String,
@@ -91,9 +94,7 @@ export const VInput = defineComponent({
     })
 
     const validateValue = () => {
-      requestAnimationFrame(() => {
-        props.rules.length && validate(state.value)
-      })
+      return props.rules.length && validate(state.value)
     }
 
     const focusHandler = () => {
@@ -113,7 +114,7 @@ export const VInput = defineComponent({
       ctx.emit('update:modelValue', state.value)
     }
 
-    const genLabel = () => {
+    const genLabel = (): VNode => {
       const labelProps = {
         absolute: true,
         color: computedColor.value,
@@ -130,7 +131,7 @@ export const VInput = defineComponent({
       )
     }
 
-    const genTextField = () => {
+    const genTextField = (): VNode => {
 
       const textFieldProps = {
         type: props.type,
@@ -147,12 +148,40 @@ export const VInput = defineComponent({
       return h('input', textFieldProps)
     }
 
-    const genTextFieldSlot = () => {
+    const genTextFieldSlot = (): VNode => {
       return h('div', {
         class: {
           'v-input__text-slot': true,
         },
       }, [genLabel(), genTextField()])
+    }
+
+    const genStatusMessage = (): VNode => {
+      return h('span', {
+        class: {
+          'v-input__status-message': true,
+        },
+      }, [validState.innerErrorMessage])
+    }
+
+    const genStatus = (): VNode => {
+
+      const transitionedMessage = useTransition(
+        { transition: 'fade' },
+        genStatusMessage(),
+      )
+
+      return h('div', {
+          class: {
+            'v-input__status': true,
+          },
+        },
+        [
+          withDirectives(transitionedMessage(),
+            [[vShow, validState.innerError]],
+          ),
+        ],
+      )
     }
 
     const genDataProps = () => {
@@ -162,12 +191,12 @@ export const VInput = defineComponent({
         },
         methods: {
           validateValue,
-        }
+        },
       }
     }
 
     const genInput = () => {
-      return h('div', genDataProps(), genTextFieldSlot())
+      return h('div', genDataProps(), [genTextFieldSlot(), genStatus()])
     }
 
     return () => genInput()

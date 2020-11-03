@@ -56,11 +56,10 @@ export const VInput = defineComponent({
       return {
         'v-input': true,
         'v-validatable': true,
-        'v-input--required': props.required,
         'v-input--disabled': props.disabled,
         'v-input--dirty': validState.isDirty,
-        'v-input--valid': validState.isDirty && props.required && !validState.innerError,
-        'v-input--not-valid': validState.isDirty && props.required && validState.innerError!,
+        'v-input--valid': validState.isDirty && !validState.innerError,
+        'v-input--not-valid': validState.isDirty && validState.innerError!,
         'v-input--focused': state.focused
       }
     })
@@ -81,7 +80,7 @@ export const VInput = defineComponent({
       state.focused = false
 
       requestAnimationFrame(() => {
-        props.required && validate(state.value)
+        props.rules.length && validate(state.value)
       })
     }
 
@@ -93,15 +92,13 @@ export const VInput = defineComponent({
     const genLabel = () => {
       const labelProps = {
         absolute: true,
-        left: 0,
-        right: 'auto',
         color: computedColor.value,
         value: state.value,
         focused: state.focused
       }
 
       return h(
-        VLabel.setup!(labelProps as any, ctx as SetupContext) as any,
+        VLabel.setup!(labelProps, ctx as SetupContext) as any,
         props.label,
       )
     }
@@ -111,7 +108,6 @@ export const VInput = defineComponent({
       const fieldProps = {
         type: props.type,
         disabled: props.disabled,
-        required: props.required,
         value: state.value,
         class: {
           'v-input__field': true
@@ -137,6 +133,7 @@ export const VInput = defineComponent({
         class: {
           ...classes.value,
         },
+        validate: () => props.rules.length && validate(state.value)
       }
     }
 

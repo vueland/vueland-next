@@ -6,11 +6,18 @@
 
       const data = reactive({
         show: false,
-        text: 'salam'
+        text: 'salam',
       })
 
       const showEvent = (e) => {
         console.log(data.text)
+      }
+
+      const validateValue = (method) => {
+        method().then(res => {
+          if (res) console.log('valid')
+          else console.log('not valid')
+        })
       }
 
       const showModal = () => {
@@ -25,7 +32,8 @@
         showModal,
         closeModal,
         showEvent,
-        data,
+        validateValue,
+        data
       }
     },
   }
@@ -33,19 +41,35 @@
 
 <template>
   <div>
-    <div class="input-wrap" style="padding: 10px;">
-      <v-input
-        v-model="data.text"
-        required
-        label="email"
-        @input="showEvent"
-        :rules="[
-          val => !!val,
-          val => val.length >= 3,
-          val => val === 'man'
-         ]"
-      />
-    </div>
+    <v-form v-slot="{ validate }">
+      <v-card width="400" elevation="5">
+        <v-card-content>
+          <v-input
+            v-model="data.text"
+            label="email"
+            @input="showEvent"
+            :rules="[
+                val => !!val,
+                val => val.length >= 3,
+                val => val === 'man'
+               ]"
+          />
+          <v-input
+            v-model="data.text"
+            label="email"
+            @input="showEvent"
+            :rules="[
+                val => !!val,
+                val => val.length >= 3
+               ]"
+          />
+        </v-card-content>
+        <v-card-actions>
+          <v-button color="blue" label="send" elevation="3" @click="validateValue(validate)"/>
+        </v-card-actions>
+      </v-card>
+    </v-form>
+
     <v-button
       elevation="4"
       color="red darken-4"

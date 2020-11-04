@@ -85,7 +85,9 @@ var VInput = (0, _vue.defineComponent)({
     });
 
     var validateValue = function validateValue() {
-      return props.rules && props.rules.length && validate(state.value);
+      var _props$rules;
+
+      return ((_props$rules = props.rules) === null || _props$rules === void 0 ? void 0 : _props$rules.length) && validate(state.value);
     };
 
     var focusHandler = function focusHandler() {

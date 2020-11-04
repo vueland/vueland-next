@@ -1,7 +1,7 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
-    "target": "esNEXT",
+    "target": "es2018",
     "module": "esNEXT",
     "strict": true,
     "allowJs": true,

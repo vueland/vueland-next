@@ -1,17 +1,10 @@
 const env = process.env.NODE_ENV
 
 module.exports = {
-  presets: [
-    '@babel/preset-env',
-    "@babel/typescript"
-  ],
+  presets: ['@babel/preset-env', '@babel/typescript'],
   plugins: [
-    [
-      '@babel/plugin-proposal-nullish-coalescing-operator',
-      {
-        loose: true
-      }
-    ],
+    '@babel/plugin-proposal-nullish-coalescing-operator',
+    '@babel/plugin-proposal-optional-chaining',
     [
       'component',
       {

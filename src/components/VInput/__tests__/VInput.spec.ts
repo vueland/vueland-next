@@ -1,5 +1,6 @@
 import { mount, VueWrapper } from '@vue/test-utils'
 import { VInput } from '../VInput'
+import 'regenerator-runtime/runtime'
 
 describe('VInput', () => {
   let mountFunction: (options?: any) => VueWrapper<any>
@@ -22,15 +23,16 @@ describe('VInput', () => {
     expect(cmp.html()).toMatchSnapshot()
   })
 
-  it('should set rules and match snapshot', () => {
+  it('should set rules and match snapshot', async () => {
     const stub = jest.fn()
-    const rules = [val => !!val]
-    const cmp = mountFunction({ propsData: { rules, onClick: stub } })
+    const rules = [stub]
+    const cmp = mountFunction({ propsData: { rules, onBlur: stub } })
     const input = cmp.find('.v-input__field')
 
-    input.trigger('input')
-    input.trigger('blur')
+    await input.trigger('input')
+    await input.trigger('blur')
 
+    expect(cmp.vm.onBlur).toHaveBeenCalled()
     expect(cmp.html()).toMatchSnapshot()
 
   })

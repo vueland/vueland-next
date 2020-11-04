@@ -13,4 +13,12 @@ describe('VInput', () => {
 
     expect(cmp.html()).toMatchSnapshot()
   })
+
+  it('should set label and match snapshot', () => {
+    const label = 'email'
+    const cmp = mountFunction({ propsData: { label } })
+
+    expect(cmp.find('.v-label').text()).toBe(label)
+    expect(cmp.html()).toMatchSnapshot()
+  })
 })

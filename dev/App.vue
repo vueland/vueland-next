@@ -45,7 +45,7 @@ export default {
             v-model="data.login"
             label="login"
             style="margin: 10px 0;"
-            :rules="[val => !!val && val.length > 5 || 'required and more than 5 symbols']"
+            :rules="[val => !!val || 'required', val => val.length > 5 || 'more than 5 symbols']"
           />
           <v-input
             v-model="data.email"

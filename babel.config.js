@@ -8,7 +8,7 @@ module.exports = {
     [
       'component',
       {
-        libraryName: 'retn',
+        libraryName: 'vueland',
         libDir: 'dist',
       }
     ]

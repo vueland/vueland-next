@@ -40,3 +40,23 @@ exports[`VInput should set label and match snapshot 1`] = `
   </div>
 </div>
 `;
+
+exports[`VInput should set rules and match snapshot 1`] = `
+<div class="v-input v-validatable"
+     methods="[object Object]"
+>
+  <div class="v-input__text-slot">
+    <label class="v-label primary--text"
+           style="position: absolute;"
+    >
+    </label>
+    <input type="text"
+           class="v-input__field"
+    >
+  </div>
+  <div class="v-input__status">
+    <transition-stub>
+    </transition-stub>
+  </div>
+</div>
+`;

@@ -21,4 +21,17 @@ describe('VInput', () => {
     expect(cmp.find('.v-label').text()).toBe(label)
     expect(cmp.html()).toMatchSnapshot()
   })
+
+  it('should set rules and match snapshot', () => {
+    const stub = jest.fn()
+    const rules = [val => !!val]
+    const cmp = mountFunction({ propsData: { rules, onClick: stub } })
+    const input = cmp.find('.v-input__field')
+
+    input.trigger('input')
+    input.trigger('blur')
+
+    expect(cmp.html()).toMatchSnapshot()
+
+  })
 })

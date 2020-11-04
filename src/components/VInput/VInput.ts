@@ -6,9 +6,7 @@ import {
   h,
   defineComponent,
   computed,
-  reactive,
-  withDirectives,
-  vShow,
+  reactive
 } from 'vue'
 
 // Components
@@ -18,17 +16,15 @@ import { VLabel } from '../VLabel'
 import { SetupContext, VNode } from 'vue'
 
 // Effects
-import {
-  validateProps,
-  validateClasses,
-  useValidate,
-} from '../../effects/use-validate'
-
 import { useTransition } from '../../effects/use-transition'
+import { colorProps, useColors } from '../../effects/use-colors'
+
+import { validateProps, useValidate } from '../../effects/use-validate'
 
 const vInputProps = {
   label: String,
   height: [String, Number],
+  dark: Boolean,
   type: {
     type: String,
     default: 'text',
@@ -43,6 +39,7 @@ const vInputProps = {
   },
   modelValue: [String, Number],
   ...validateProps(),
+  ...colorProps(),
 }
 
 type InputState = {
@@ -55,7 +52,6 @@ export const VInput = defineComponent({
   props: vInputProps,
 
   setup(props, ctx) {
-
     const state: InputState = reactive({
       value: '',
       focused: false,
@@ -63,23 +59,28 @@ export const VInput = defineComponent({
 
     state.value = props.modelValue!
 
-    const { validate, focused, validState } = useValidate(props)
+    const {
+      validate,
+      focused,
+      validateClasses,
+      update,
+      computedColor,
+      validationState,
+      errorState,
+    } = useValidate(props)
+
+    const { setTextColor } = useColors()
 
     const isDirty = computed<boolean>(() => {
-      return validState.isDirty
+      return errorState.isDirty
     })
 
     const isValid = computed<boolean>(() => {
-      return validState.isDirty && !validState.innerError
+      return errorState.isDirty && !errorState.innerError
     })
 
     const isNotValid = computed<boolean>(() => {
-      return validState.isDirty && validState.innerError!
-    })
-
-    const computedColor = computed((): string => {
-      if (validState.innerError) return 'red darken-1'
-      return 'blue darken-2'
+      return errorState.isDirty && errorState.innerError!
     })
 
     const classes = computed<Record<string, boolean>>(() => {
@@ -95,11 +96,12 @@ export const VInput = defineComponent({
     })
 
     const validateValue = () => {
-      return props.rules.length && validate(state.value)
+      return props.rules?.length && validate(state.value)
     }
 
     const focusHandler = () => {
       focused()
+      update(errorState.innerError)
       state.focused = true
       ctx.emit('focus')
     }
@@ -110,7 +112,7 @@ export const VInput = defineComponent({
       validateValue()
     }
 
-    const inputHandler = (e) => {
+    const inputHandler = e => {
       state.value = e.target.value
       ctx.emit('update:modelValue', state.value)
     }
@@ -118,9 +120,10 @@ export const VInput = defineComponent({
     const genLabel = (): VNode => {
       const labelProps = {
         absolute: true,
-        color: computedColor.value,
-        value: state.value,
+        hasState: !!state.value,
+        disabled: props.disabled,
         focused: state.focused,
+        color: validationState.value,
       }
 
       return h(
@@ -133,7 +136,6 @@ export const VInput = defineComponent({
     }
 
     const genTextField = (): VNode => {
-
       const textFieldProps = {
         type: props.type,
         disabled: props.disabled,
@@ -146,42 +148,47 @@ export const VInput = defineComponent({
         onInput: inputHandler,
       }
 
-      return h('input', textFieldProps)
+      return h('input', setTextColor(computedColor.value!, textFieldProps))
     }
 
     const genTextFieldSlot = (): VNode => {
-      return h('div', {
-        class: {
-          'v-input__text-slot': true,
+      return h(
+        'div',
+        {
+          class: {
+            'v-input__text-slot': true,
+          },
         },
-      }, [genLabel(), genTextField()])
+        [genLabel(), genTextField()],
+      )
     }
 
     const genStatusMessage = (): VNode => {
-      return h('span', {
-        class: {
-          'v-input__status-message': true,
+      return h(
+        'span',
+        {
+          class: {
+            'v-input__status-message': true,
+          },
         },
-      }, [validState.innerErrorMessage])
+        [errorState.innerErrorMessage],
+      )
     }
 
     const genStatus = (): VNode => {
-
       const transitionedMessage = useTransition(
         { transition: 'fade' },
-        genStatusMessage(),
+        errorState.innerErrorMessage! && genStatusMessage(),
       )
 
-      return h('div', {
+      return h(
+        'div',
+        {
           class: {
             'v-input__status': true,
           },
         },
-        [
-          withDirectives(transitionedMessage(),
-            [[vShow, validState.innerError]],
-          ),
-        ],
+        [transitionedMessage()],
       )
     }
 

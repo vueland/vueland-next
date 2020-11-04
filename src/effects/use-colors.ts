@@ -2,7 +2,6 @@
 import { isCssColor } from '../utils/color-parser'
 
 // Types
-import { Props } from '../types'
 import { PropType } from 'vue'
 
 type Colorable = {
@@ -19,15 +18,15 @@ export function colorProps(): ColorProps {
   }
 }
 
-export const useColors = (props: Props): Colorable => {
+export const useColors = (): Colorable => {
   const setBackground = (color: string, data: any): object => {
     if (!isCssColor(color)) {
       data.class[color] = true
     } else {
       data.style = {
         ...data.style,
-        'background-color': props.color,
-        'border-color': props.color,
+        'background-color': color,
+        'border-color': color,
       }
     }
 
@@ -38,8 +37,8 @@ export const useColors = (props: Props): Colorable => {
     if (isCssColor(color)) {
       data.style = {
         ...(data.style as object),
-        color: `${ color }`,
-        'caret-color': `${ color }`,
+        color: `${color}`,
+        'caret-color': `${color}`,
       }
     } else if (color) {
       const [colorName, colorModifier] = color.trim().split(' ', 2)

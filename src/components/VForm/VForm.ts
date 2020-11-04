@@ -6,7 +6,6 @@ export const VForm = defineComponent({
   name: 'v-form',
 
   setup(_, { slots }) {
-
     const validate = () => {
       const promises: boolean[] = []
 
@@ -28,12 +27,15 @@ export const VForm = defineComponent({
       return renderSlot(slots, 'default', { validate })
     }
 
-    return () => h('div',
-      {
-        class: {
-          'v-form': true,
+    return () =>
+      h(
+        'div',
+        {
+          class: {
+            'v-form': true,
+          },
         },
-      }, genSlot(),
-    )
+        genSlot(),
+      )
   },
 })

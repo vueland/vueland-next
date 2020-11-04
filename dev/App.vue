@@ -1,67 +1,85 @@
 <script lang="ts">
-import { reactive } from 'vue'
+  import { reactive, watch } from 'vue'
 
-export default {
-  setup() {
+  export default {
+    setup() {
 
-    const data = reactive({
-      show: false,
-      login: '',
-      email: '',
-      password: '',
-    })
-
-    const validateValue = (method) => {
-      method().then(res => {
-        if (res) console.log('valid')
-        else console.log('not valid')
+      const data = reactive({
+        always: true,
+        show: false,
+        login: '',
+        email: '',
+        password: '',
       })
-    }
 
-    const showModal = () => {
-      data.show = true
-    }
+      watch(() => data.password, to => console.log(!!to))
 
-    const closeModal = () => {
-      data.show = !data.show
-    }
+      const validateValue = (method) => {
+        method().then(res => {
+          if (res) console.log('valid')
+        })
+      }
 
-    return {
-      showModal,
-      closeModal,
-      validateValue,
-      data,
-    }
-  },
-}
+      const showModal = () => {
+        data.show = true
+      }
+
+      const closeModal = () => {
+        data.show = !data.show
+      }
+
+      return {
+        showModal,
+        closeModal,
+        validateValue,
+        data,
+      }
+    },
+  }
 </script>
 
 <template>
   <div>
     <v-form v-slot="{ validate }" style="margin: 30px;">
-      <v-card width="400" elevation="5">
+      <v-card color="#171717" width="400" elevation="5">
         <v-card-content>
           <v-input
             v-model="data.login"
             label="login"
-            style="margin: 10px 0;"
-            :rules="[val => !!val || 'required', val => val.length > 5 || 'more than 5 symbols']"
+            dark
+            :rules="[val => !!val || 'Required', val => val.length > 5 || 'more than 5 symbols']"
           />
           <v-input
             v-model="data.email"
             label="email"
-            style="margin: 10px 0;"
+            dark
             :rules="[val => !!val && /^(\w+|[^#])$/g.test(val)]"
           />
           <v-input
             v-model="data.password"
             label="password"
-            style="margin: 10px 0;"
+            dark
             :rules="[val => !!val && val.length >= 8 || 'enter password']"
           />
         </v-card-content>
         <v-card-actions>
-          <v-button color="blue" label="send" elevation="3" @click="validateValue(validate)" />
+          <v-badge
+            v-model="data.show"
+            v-model:content="data.password"
+            elevation="6"
+            top
+            right
+            offset-x="2"
+            border
+            dot
+          >
+            <v-button
+              color="green accent-4"
+              label="send"
+              elevation="3"
+              @click="validateValue(validate)"
+            />
+          </v-badge>
         </v-card-actions>
       </v-card>
     </v-form>

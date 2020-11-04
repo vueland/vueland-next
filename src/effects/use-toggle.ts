@@ -1,37 +1,28 @@
 // Vue API
-import { ref, watch, SetupContext } from 'vue'
+import { ref, watch } from 'vue'
 
 // Types
 import { Props } from '../types'
+import { Ref } from 'vue'
 
-type Toggleable = {}
+type Toggleable = {
+  isActive: Ref<boolean>
+}
 
 export function toggleProps(): Props {
   return {
-    value: Boolean,
+    modelValue: [String, Boolean, Number]
   }
 }
 
-export function useToggle(props: Props, context: SetupContext): Toggleable {
-  console.log(props, context)
-  return {}
-}
-
-export function factory(
-  prop = 'value',
-  event = 'input',
-  emit: (event: string, val: any) => void,
-) {
+export function useToggle(props: Props): Toggleable {
   const isActive = ref(false)
-  const model = { prop, event }
 
-  watch([prop], val => (isActive.value = !!val))
-  watch(isActive, val => {
-    !!val !== isActive.value && emit(event, val)
-  })
+  watch(() => props.modelValue, to => {
+    isActive.value = !!to
+  }, { immediate: true })
 
   return {
-    model,
-    isActive,
+    isActive
   }
 }

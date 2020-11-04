@@ -4,50 +4,64 @@ export const validateProps = () => {
   return {
     rules: {
       type: Array,
-      default: null
+      default: null,
     },
-    value: [String, Number]
-  }
-}
-
-export const validateClasses = () => {
-  return {
-    'v-validatable': true
+    value: [String, Number],
   }
 }
 
 export function useValidate(props) {
-
-  const validState = reactive({
+  const errorState = reactive({
     innerError: null,
     innerErrorMessage: null,
-    isDirty: false
+    isDirty: false,
   })
 
-  const hasRules = computed(() => {
-    return props.rules !== void 0 &&
-      props.rules !== null &&
-      props.rules.length > 0
+  const validateClasses = () => {
+    return {
+      'v-validatable': true,
+    }
+  }
+
+  const computedColor = computed<string | undefined>(() => {
+    if (props.disabled) return undefined
+    if (props.color) return props.color
+    if (props.dark) return 'white'
+  })
+
+  const validationState = computed<string | undefined>(() => {
+    if (errorState.innerError) return 'danger'
+    if (!errorState.innerError && errorState.innerError !== null)
+      return 'success'
+    return computedColor.value || 'primary'
+  })
+
+  const hasRules = computed<boolean>(() => {
+    return (
+      props.rules !== void 0 && props.rules !== null && props.rules.length > 0
+    )
   })
 
   const focused = () => {
-    validState.isDirty = true
+    errorState.isDirty = true
+  }
+
+  const update = (err, msg = null) => {
+    if (errorState.innerError !== err) {
+      errorState.innerError = err
+    }
+
+    if (msg && errorState.innerErrorMessage !== msg) {
+      errorState.innerErrorMessage = msg
+    }
+
+    if (!msg) errorState.innerErrorMessage = msg
   }
 
   const validate = (val = props.value): boolean | void => {
     if (!hasRules.value) return true
 
     focused()
-
-    const update = (err, msg = null) => {
-      if (validState.innerError !== err) {
-        validState.innerError = err
-      }
-
-      if (msg && validState.innerErrorMessage !== msg) {
-        validState.innerErrorMessage = msg
-      }
-    }
 
     for (let i = 0, len = props.rules.length; i < len; i += 1) {
       const rule = props.rules[i]
@@ -73,6 +87,10 @@ export function useValidate(props) {
   return {
     validate,
     focused,
-    validState,
+    update,
+    validateClasses,
+    computedColor,
+    validationState,
+    errorState,
   }
 }

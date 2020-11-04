@@ -22,8 +22,8 @@ const labelProps = {
     type: [Number, String],
     default: 'auto',
   },
-  value: Boolean,
-  ...colorProps()
+  hasState: Boolean,
+  ...colorProps(),
 }
 
 export const VLabel = defineComponent({
@@ -31,20 +31,22 @@ export const VLabel = defineComponent({
   props: labelProps,
 
   setup(props, { slots }) {
-    const { setTextColor } = useColors(props)
+    const { setTextColor } = useColors()
 
-    const classes = computed((): Record<string, boolean> => {
-      return {
-        'v-label': true,
-        'v-label--active': !!props.value || !!props.focused,
-        'v-label--is-disabled': !!props.disabled,
-      }
-    })
+    const classes = computed(
+      (): Record<string, boolean> => {
+        return {
+          'v-label': true,
+          'v-label--active': !!props.hasState || !!props.focused,
+          'v-label--is-disabled': !!props.disabled,
+        }
+      },
+    )
 
     const genDataProps = () => {
       return {
         class: {
-          ...classes.value
+          ...classes.value,
         },
         style: {
           left: convertToUnit(props.left),
@@ -54,9 +56,10 @@ export const VLabel = defineComponent({
       }
     }
 
-    return h('label',
+    return h(
+      'label',
       setTextColor(props.color!, genDataProps()),
-      slots.default && slots.default()
+      slots.default && slots.default(),
     )
-  }
+  },
 })

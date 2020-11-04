@@ -29,7 +29,6 @@ interface Overlayable {
 }
 
 export function useOverlay(props: Props, overlayOn?: string): Overlayable {
-
   const doc = document
 
   let overlayable
@@ -46,10 +45,11 @@ export function useOverlay(props: Props, overlayOn?: string): Overlayable {
 
   const container = doc.createElement('div')
 
-  const overlayVNode = () => VOverlay.setup!(
-    overlayPropsObject as typeof VOverlay.props,
-    {} as SetupContext,
-  )
+  const overlayVNode = () =>
+    VOverlay.setup!(
+      overlayPropsObject as typeof VOverlay.props,
+      {} as SetupContext,
+    )
 
   const renderOverlay = vNode => render(vNode, container!)
 

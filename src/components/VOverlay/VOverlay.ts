@@ -34,7 +34,7 @@ export const VOverlay = defineComponent({
     const dataObject = {
       class: classes.value,
       style: [],
-      ref: 'overlay'
+      ref: 'overlay',
     }
 
     return h('div', setBackground(props.color, dataObject))

@@ -59,7 +59,7 @@ export const VButton = defineComponent({
   props: buttonProps,
 
   setup(props, { slots }): () => VNode {
-    const { setTextColor, setBackground } = useColors(props)
+    const { setTextColor, setBackground } = useColors()
 
     const { elevationClasses } = useElevation(props)
 
@@ -69,16 +69,18 @@ export const VButton = defineComponent({
       return props.text || props.outlined
     })
 
-    const classes = computed((): Record<string, boolean> => {
-      return {
-        'v-button': true,
-        'v-button--disabled': props.disabled,
-        'v-button--text': props.text || props.outlined,
-        'v-button--outlined': props.outlined,
-        ...elevationClasses.value,
-        ...positionClasses.value,
-      }
-    })
+    const classes = computed(
+      (): Record<string, boolean> => {
+        return {
+          'v-button': true,
+          'v-button--disabled': props.disabled,
+          'v-button--text': props.text || props.outlined,
+          'v-button--outlined': props.outlined,
+          ...elevationClasses.value,
+          ...positionClasses.value,
+        }
+      },
+    )
 
     const dataProps = () => {
       return {
@@ -90,9 +92,7 @@ export const VButton = defineComponent({
 
     const setColor = isFlat.value ? setTextColor : setBackground
 
-    const data = props.color
-      ? setColor(props.color, dataProps())
-      : dataProps()
+    const data = props.color ? setColor(props.color, dataProps()) : dataProps()
 
     const content: any[] = []
 

@@ -27,13 +27,13 @@ const fieldProps = {
 
   isDirty: {
     type: Boolean,
-    default: false
+    default: false,
   },
 
   disabled: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 }
 
 export const VField = defineComponent({
@@ -41,21 +41,25 @@ export const VField = defineComponent({
   props: fieldProps,
 
   setup(props, ctx) {
-
     const search: Ref<string | number | undefined> = ref('')
 
-    watch(() => props.value, (to) => {
-      search.value = to
-    })
+    watch(
+      () => props.value,
+      to => {
+        search.value = to
+      },
+    )
 
-    const classes = computed((): Record<string, boolean> => ({
-      'v-field': true,
-      'v-field--required': props.required,
-      'v-field--disabled': props.disabled,
-      'v-field--dirty': props.isDirty,
-      'v-field--valid': props.isDirty && props.required && !!props.valid,
-      'v-field--not-valid': props.isDirty && props.required && !props.valid,
-    }))
+    const classes = computed(
+      (): Record<string, boolean> => ({
+        'v-field': true,
+        'v-field--required': props.required,
+        'v-field--disabled': props.disabled,
+        'v-field--dirty': props.isDirty,
+        'v-field--valid': props.isDirty && props.required && !!props.valid,
+        'v-field--not-valid': props.isDirty && props.required && !props.valid,
+      }),
+    )
 
     const genField = () => {
       return h('input', {
@@ -68,7 +72,7 @@ export const VField = defineComponent({
           ...classes.value,
         },
         modelValue: search.value,
-        'onUpdate:modelValue': val => ctx.emit('update:modelValue', val)
+        'onUpdate:modelValue': val => ctx.emit('update:modelValue', val),
       })
     }
 

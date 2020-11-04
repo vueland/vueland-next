@@ -1,0 +1,45 @@
+@import "../../styles/scss/modules/global";
+
+.v-badge {
+  display: inline-block;
+  position: relative;
+
+  &__badge {
+    @include flex(flex, center, center);
+    border-radius: 50px;
+    position: absolute;
+    z-index: 1;
+    font-size: 10px;
+    font-weight: 700;
+    min-width: 26px;
+    min-height: 26px;
+    text-align: center;
+    color: $mainWhite;
+    font-family: $mainFont;
+  }
+
+  &__content {
+    display: inherit;
+    margin: auto;
+    padding: 3px;
+  }
+
+  &--dot {
+    min-width: .5rem;
+    min-height: .5rem;
+    padding: 2px;
+  }
+
+  &--border {
+    border-color: #FFFFFF !important;
+    border-width: .18rem;
+    border-style: solid;
+    will-change: transform;
+  }
+
+  &--avatar {
+    padding: 0;
+    min-width: 5rem;
+    min-height: 5rem;
+  }
+}

@@ -25,24 +25,26 @@ export const VCard = defineComponent({
     const { setBackground } = useColors(props)
     const { elevationClasses } = useElevation(props)
 
-    const classes = computed((): Record<string, boolean> => {
-      return {
-        'v-card': true,
-        ...elevationClasses.value,
-      }
-    })
+    const classes = computed(
+      (): Record<string, boolean> => {
+        return {
+          'v-card': true,
+          ...elevationClasses.value,
+        }
+      },
+    )
 
     const dataProps = () => {
       return {
         class: classes.value,
-        style: { maxWidth: `${ props.width }px` },
+        style: { maxWidth: `${props.width}px` },
       }
     }
 
     return () =>
       h(
         'div',
-        (props.color ? setBackground(props.color, dataProps()) : dataProps()),
+        props.color ? setBackground(props.color, dataProps()) : dataProps(),
         slots.default && slots.default(),
       )
   },

@@ -1,3 +1,5 @@
+@import "../../styles/scss/modules/global";
+
 .v-label {
   font-size: 16px;
   min-height: 8px;
@@ -11,9 +13,13 @@
   height: 20px;
   line-height: 20px;
   transform-origin: top left;
+  will-change: transform;
 
   &--active {
     transform: translateY(-17px) scale(.75);
-    max-width: 133%;
+  }
+
+  &--is-disabled {
+    color: $disabled;
   }
 }

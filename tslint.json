@@ -17,8 +17,13 @@
     ],
     "max-classes-per-file": false,
     "only-arrow-functions": false,
-    "prefer-for-of": false
+    "prefer-for-of": false,
+    "label-position": false,
+    "no-shadowed-variable": false
   },
   "rulesDirectory": [],
-  "prettier": [true, "./prettierrc.json"]
+  "prettier": [
+    true,
+    "./prettierrc.json"
+  ]
 }

@@ -7,35 +7,41 @@ import { defineComponent, h, watch, withDirectives, vShow } from 'vue'
 // Effects
 import { overlayProps, useOverlay } from '../../effects/use-overlay'
 import { transitionProps, useTransition } from '../../effects/use-transition'
+import { toggleProps, useToggle } from '@/effects/use-toggle'
 
 // Types
 import { VNode } from 'vue'
 
-const modalProps: Record<string, any> = {
+const vModalProps: Record<string, any> = {
   width: {
     type: [String, Number],
     default: 400,
   },
-  modelValue: Boolean,
   show: Boolean,
   ...overlayProps(),
-  ...transitionProps()
+  ...transitionProps(),
+  ...toggleProps()
 }
 
 export const VModal = defineComponent({
   name: 'v-modal',
 
-  props: modalProps,
+  props: vModalProps,
 
   setup(props, { slots, emit }) {
+
+    const { isActive } = useToggle(props)
 
     if (props.overlay) {
       const overlay = useOverlay(props, 'v-modal')
 
-      watch(() => props.modelValue, (to) => {
-        to && overlay.createOverlay()
-        !to && overlay.removeOverlay()
-      })
+      watch(
+        () => isActive.value,
+        to => {
+          to && overlay.createOverlay()
+          !to && overlay.removeOverlay()
+        },
+      )
     }
 
     const genContent = (): VNode =>
@@ -56,7 +62,7 @@ export const VModal = defineComponent({
           class: {
             'v-modal': true,
           },
-          'onUpdate:modelValue': val => emit('update:modelValue', val)
+          'onUpdate:modelValue': val => emit('update:modelValue', val),
         },
         [content],
       )
@@ -70,6 +76,6 @@ export const VModal = defineComponent({
       modal = transitionedModal()
     }
 
-    return () => withDirectives(h(modal), [[vShow, props.modelValue]])
-  }
+    return () => withDirectives(h(modal), [[vShow, isActive.value]])
+  },
 })

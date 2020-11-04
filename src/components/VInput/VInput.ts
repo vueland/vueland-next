@@ -33,10 +33,6 @@ const vInputProps = {
     type: Boolean,
     default: false,
   },
-  required: {
-    type: Boolean,
-    default: false,
-  },
   modelValue: [String, Number],
   ...validateProps(),
   ...colorProps(),

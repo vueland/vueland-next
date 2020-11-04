@@ -64,14 +64,13 @@
         </v-card-content>
         <v-card-actions>
           <v-badge
-            v-model="data.show"
+            v-model="data.password"
             v-model:content="data.password"
             elevation="6"
             top
             right
             offset-x="2"
             border
-            dot
           >
             <v-button
               color="green accent-4"

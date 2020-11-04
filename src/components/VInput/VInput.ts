@@ -96,7 +96,9 @@ export const VInput = defineComponent({
     })
 
     const validateValue = () => {
-      return props.rules?.length && validate(state.value)
+      return props.rules &&
+        props.rules.length &&
+        validate(state.value)
     }
 
     const focusHandler = () => {

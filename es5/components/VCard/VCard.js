@@ -28,7 +28,7 @@ var VCard = (0, _vue.defineComponent)({
   setup: function setup(props, _ref) {
     var slots = _ref.slots;
 
-    var _useColors = (0, _useColors2.useColors)(props),
+    var _useColors = (0, _useColors2.useColors)(),
         setBackground = _useColors.setBackground;
 
     var _useElevation = (0, _useElevation2.useElevation)(props),

@@ -11,6 +11,10 @@ var _vue = require("vue");
 
 var _VLabel = require("../VLabel");
 
+var _useTransition = require("../../effects/use-transition");
+
+var _useColors2 = require("../../effects/use-colors");
+
 var _useValidate2 = require("../../effects/use-validate");
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
@@ -19,9 +23,10 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var inputProps = _objectSpread({
+var vInputProps = _objectSpread(_objectSpread({
   label: String,
   height: [String, Number],
+  dark: Boolean,
   type: {
     type: String,
     "default": 'text'
@@ -35,11 +40,11 @@ var inputProps = _objectSpread({
     "default": false
   },
   modelValue: [String, Number]
-}, (0, _useValidate2.validateProps)());
+}, (0, _useValidate2.validateProps)()), (0, _useColors2.colorProps)());
 
 var VInput = (0, _vue.defineComponent)({
   name: 'v-input',
-  props: inputProps,
+  props: vInputProps,
   setup: function setup(props, ctx) {
     var state = (0, _vue.reactive)({
       value: '',
@@ -50,27 +55,42 @@ var VInput = (0, _vue.defineComponent)({
     var _useValidate = (0, _useValidate2.useValidate)(props),
         validate = _useValidate.validate,
         focused = _useValidate.focused,
-        validState = _useValidate.validState;
+        validateClasses = _useValidate.validateClasses,
+        update = _useValidate.update,
+        computedColor = _useValidate.computedColor,
+        validationState = _useValidate.validationState,
+        errorState = _useValidate.errorState;
 
+    var _useColors = (0, _useColors2.useColors)(),
+        setTextColor = _useColors.setTextColor;
+
+    var isDirty = (0, _vue.computed)(function () {
+      return errorState.isDirty;
+    });
+    var isValid = (0, _vue.computed)(function () {
+      return errorState.isDirty && !errorState.innerError;
+    });
+    var isNotValid = (0, _vue.computed)(function () {
+      return errorState.isDirty && errorState.innerError;
+    });
     var classes = (0, _vue.computed)(function () {
-      return {
+      return _objectSpread({
         'v-input': true,
-        'v-validatable': true,
-        'v-input--required': props.required,
         'v-input--disabled': props.disabled,
-        'v-input--dirty': validState.isDirty,
-        'v-input--valid': validState.isDirty && props.required && !validState.innerError,
-        'v-input--not-valid': validState.isDirty && props.required && validState.innerError,
+        'v-input--dirty': isDirty.value,
+        'v-input--valid': isValid.value,
+        'v-input--not-valid': isNotValid.value,
         'v-input--focused': state.focused
-      };
+      }, validateClasses());
     });
-    var computedColor = (0, _vue.computed)(function () {
-      if (validState.innerError) return 'red darken-1';
-      return 'blue darken-2';
-    });
+
+    var validateValue = function validateValue() {
+      return props.rules && props.rules.length && validate(state.value);
+    };
 
     var focusHandler = function focusHandler() {
       focused();
+      update(errorState.innerError);
       state.focused = true;
       ctx.emit('focus');
     };
@@ -78,9 +98,7 @@ var VInput = (0, _vue.defineComponent)({
     var blurHandler = function blurHandler() {
       ctx.emit('blur');
       state.focused = false;
-      requestAnimationFrame(function () {
-        props.required && validate(state.value);
-      });
+      validateValue();
     };
 
     var inputHandler = function inputHandler(e) {
@@ -91,20 +109,18 @@ var VInput = (0, _vue.defineComponent)({
     var genLabel = function genLabel() {
       var labelProps = {
         absolute: true,
-        left: 0,
-        right: 'auto',
-        color: computedColor.value,
-        value: state.value,
-        focused: state.focused
+        hasState: !!state.value,
+        disabled: props.disabled,
+        focused: state.focused,
+        color: validationState.value
       };
       return (0, _vue.h)(_VLabel.VLabel.setup(labelProps, ctx), props.label);
     };
 
-    var genField = function genField() {
-      var fieldProps = {
+    var genTextField = function genTextField() {
+      var textFieldProps = {
         type: props.type,
         disabled: props.disabled,
-        required: props.required,
         value: state.value,
         "class": {
           'v-input__field': true
@@ -113,25 +129,47 @@ var VInput = (0, _vue.defineComponent)({
         onBlur: blurHandler,
         onInput: inputHandler
       };
-      return (0, _vue.h)('input', fieldProps);
+      return (0, _vue.h)('input', setTextColor(computedColor.value, textFieldProps));
     };
 
-    var genFieldSlot = function genFieldSlot() {
+    var genTextFieldSlot = function genTextFieldSlot() {
       return (0, _vue.h)('div', {
         "class": {
           'v-input__text-slot': true
         }
-      }, [genLabel(), genField()]);
+      }, [genLabel(), genTextField()]);
+    };
+
+    var genStatusMessage = function genStatusMessage() {
+      return (0, _vue.h)('span', {
+        "class": {
+          'v-input__status-message': true
+        }
+      }, [errorState.innerErrorMessage]);
+    };
+
+    var genStatus = function genStatus() {
+      var transitionedMessage = (0, _useTransition.useTransition)({
+        transition: 'fade'
+      }, errorState.innerErrorMessage && genStatusMessage());
+      return (0, _vue.h)('div', {
+        "class": {
+          'v-input__status': true
+        }
+      }, [transitionedMessage()]);
     };
 
     var genDataProps = function genDataProps() {
       return {
-        "class": _objectSpread({}, classes.value)
+        "class": _objectSpread({}, classes.value),
+        methods: {
+          validateValue: validateValue
+        }
       };
     };
 
     var genInput = function genInput() {
-      return (0, _vue.h)('div', genDataProps(), genFieldSlot());
+      return (0, _vue.h)('div', genDataProps(), [genTextFieldSlot(), genStatus()]);
     };
 
     return function () {

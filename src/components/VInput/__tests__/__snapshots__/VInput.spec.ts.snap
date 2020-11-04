@@ -5,13 +5,17 @@ exports[`VInput should mount component and match snapshot 1`] = `
      methods="[object Object]"
 >
   <div class="v-input__text-slot">
-    <label class="v-label blue--text text--darken-2"
+    <label class="v-label primary--text"
            style="position: absolute;"
     >
     </label>
     <input type="text"
            class="v-input__field"
     >
+  </div>
+  <div class="v-input__status">
+    <transition-stub>
+    </transition-stub>
   </div>
 </div>
 `;
@@ -21,7 +25,7 @@ exports[`VInput should set label and match snapshot 1`] = `
      methods="[object Object]"
 >
   <div class="v-input__text-slot">
-    <label class="v-label blue--text text--darken-2"
+    <label class="v-label primary--text"
            style="position: absolute;"
     >
       email
@@ -31,9 +35,7 @@ exports[`VInput should set label and match snapshot 1`] = `
     >
   </div>
   <div class="v-input__status">
-    <transition-stub style="display: none;">
-      <span class="v-input__status-message">
-      </span>
+    <transition-stub>
     </transition-stub>
   </div>
 </div>

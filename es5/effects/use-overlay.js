@@ -31,7 +31,7 @@ function useOverlay(props, overlayOn) {
   requestAnimationFrame(function () {
     overlayable = !!overlayOn && doc.querySelector(".".concat(overlayOn));
   });
-  var propsObject = {
+  var overlayPropsObject = {
     active: false,
     hide: true,
     color: props.overlayColor
@@ -39,11 +39,11 @@ function useOverlay(props, overlayOn) {
   var container = doc.createElement('div');
 
   var overlayVNode = function overlayVNode() {
-    return _components.VOverlay.setup(propsObject, {});
+    return _components.VOverlay.setup(overlayPropsObject, {});
   };
 
-  var renderOverlay = function renderOverlay(vnode) {
-    return (0, _vue.render)(vnode, container);
+  var renderOverlay = function renderOverlay(vNode) {
+    return (0, _vue.render)(vNode, container);
   };
 
   renderOverlay(overlayVNode());
@@ -52,14 +52,14 @@ function useOverlay(props, overlayOn) {
   function createOverlay() {
     overlayable.parentNode.insertBefore(overlayElement, overlayable);
     setTimeout(function () {
-      propsObject.active = true;
-      propsObject.hide = !props.overlay;
+      overlayPropsObject.active = true;
+      overlayPropsObject.hide = !props.overlay;
       renderOverlay(overlayVNode());
     }, 40);
   }
 
   function removeOverlay() {
-    propsObject.active = false;
+    overlayPropsObject.active = false;
     renderOverlay(overlayVNode());
 
     function remove() {

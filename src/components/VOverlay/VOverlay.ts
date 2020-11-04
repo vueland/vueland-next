@@ -21,7 +21,7 @@ export const VOverlay = defineComponent({
   props: overlayProps,
 
   setup(props: Props): VNode {
-    const { setBackground } = useColors(props)
+    const { setBackground } = useColors()
 
     const classes = computed(() => {
       return {

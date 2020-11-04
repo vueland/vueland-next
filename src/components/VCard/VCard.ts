@@ -22,7 +22,7 @@ export const VCard = defineComponent({
   props: cardProps,
 
   setup(props, { slots }): () => VNode {
-    const { setBackground } = useColors(props)
+    const { setBackground } = useColors()
     const { elevationClasses } = useElevation(props)
 
     const classes = computed(

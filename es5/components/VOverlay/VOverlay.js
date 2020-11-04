@@ -26,7 +26,7 @@ var VOverlay = (0, _vue.defineComponent)({
   name: 'v-overlay',
   props: overlayProps,
   setup: function setup(props) {
-    var _useColors = (0, _useColors2.useColors)(props),
+    var _useColors = (0, _useColors2.useColors)(),
         setBackground = _useColors.setBackground;
 
     var classes = (0, _vue.computed)(function () {

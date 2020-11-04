@@ -1,1 +1,1 @@
-{"version":3,"sources":["../../../../src/components/VInput/index.ts"],"names":[],"mappings":"AAAA,cAAc,UAAd","sourcesContent":["export * from './VInput'"],"sourceRoot":"","file":"index.js"}
+{"version":3,"sources":["../../../../src/components/VInput/index.ts"],"names":[],"mappings":"AAAA,cAAc,UAAd","sourcesContent":["export * from './VInput'\n"],"sourceRoot":"","file":"index.js"}

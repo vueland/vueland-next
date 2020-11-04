@@ -14,13 +14,14 @@ function transitionProps() {
   };
 }
 
-function useTransition(props, vnode) {
+function useTransition(_ref, vNode) {
+  var transition = _ref.transition;
   return function () {
     return (0, _vue.createBlock)(_vue.Transition, {
-      name: props.transition
+      name: transition
     }, {
       "default": (0, _vue.withCtx)(function () {
-        return [(0, _vue.h)(vnode)];
+        return vNode && [(0, _vue.h)(vNode)];
       })
     });
   };

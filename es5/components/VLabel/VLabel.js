@@ -32,7 +32,7 @@ var labelProps = _objectSpread({
     type: [Number, String],
     "default": 'auto'
   },
-  value: Boolean
+  hasState: Boolean
 }, (0, _useColors2.colorProps)());
 
 var VLabel = (0, _vue.defineComponent)({
@@ -41,13 +41,13 @@ var VLabel = (0, _vue.defineComponent)({
   setup: function setup(props, _ref) {
     var slots = _ref.slots;
 
-    var _useColors = (0, _useColors2.useColors)(props),
+    var _useColors = (0, _useColors2.useColors)(),
         setTextColor = _useColors.setTextColor;
 
     var classes = (0, _vue.computed)(function () {
       return {
         'v-label': true,
-        'v-label--active': !!props.value || !!props.focused,
+        'v-label--active': !!props.hasState || !!props.focused,
         'v-label--is-disabled': !!props.disabled
       };
     });

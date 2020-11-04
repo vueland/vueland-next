@@ -13,6 +13,7 @@ export function useTransition(
   { transition }: Props,
   vNode: VNode,
 ): () => VNode {
+
   return (): VNode => {
     return createBlock(
       Transition,
@@ -20,7 +21,7 @@ export function useTransition(
         name: transition,
       },
       {
-        default: withCtx(() => [h(vNode)]),
+        default: withCtx(() => vNode && [h(vNode)]),
       },
     )
   }

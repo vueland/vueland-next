@@ -9,20 +9,22 @@ type Toggleable = {
   isActive: Ref<boolean>
 }
 
-export function toggleProps(): Props {
-  return {
-    modelValue: [String, Boolean, Number]
-  }
-}
+/***
+ *
+ * @param props {object} - props object of the component
+ * @param propName {string} - the prop name which is tracked for changes
+ */
 
-export function useToggle(props: Props): Toggleable {
+export function useToggle(props: Props, propName: string): Toggleable {
   const isActive = ref(false)
 
-  watch(() => props.modelValue, to => {
-    isActive.value = !!to
-  }, { immediate: true })
+  watch(
+    () => props[propName],
+    to => (isActive.value = !!to),
+    { immediate: true },
+  )
 
   return {
-    isActive
+    isActive,
   }
 }

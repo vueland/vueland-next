@@ -1,22 +1,24 @@
 import './VBadge.scss'
 
 // Vue API
-import { defineComponent, h, computed, withDirectives, vShow } from 'vue'
+import { defineComponent, h, computed, withDirectives, renderSlot, vShow } from 'vue'
 
 // Effects
-import { useColors } from '../../effects/use-colors'
 import { positionProps } from '../../effects/use-position'
-import { toggleProps, useToggle } from '../../effects/use-toggle'
-import { elevationProps, useElevation } from '../../effects/use-elevation'
+import { useColors } from '../../effects/use-colors'
+import { useToggle } from '../../effects/use-toggle'
+import { useElevation, elevationProps } from '../../effects/use-elevation'
 import { useTransition } from '../../effects/use-transition'
 
 // Types
 import { Props } from '../../types'
+import { VNode } from 'vue'
 
 const vBadgeProps: Props = {
   dot: Boolean,
   avatar: Boolean,
   border: Boolean,
+  toggleable: Boolean,
   content: {
     required: false,
   },
@@ -30,7 +32,6 @@ const vBadgeProps: Props = {
   },
   ...positionProps(),
   ...elevationProps(),
-  ...toggleProps()
 }
 
 export const VBadge = defineComponent({
@@ -38,10 +39,8 @@ export const VBadge = defineComponent({
 
   props: vBadgeProps,
 
-  setup(props, { slots }) {
-
+  setup(props, { slots }): () => VNode {
     const { elevationClasses } = useElevation(props)
-    const { isActive } = useToggle(props)
     const { setBackground } = useColors()
 
     const offset = computed<number>(() => {
@@ -100,49 +99,73 @@ export const VBadge = defineComponent({
         top: computedTop.value,
         right: computedRight.value,
         bottom: computedBottom.value,
-        left: computedLeft.value
+        left: computedLeft.value,
       }
     })
 
-
-    const content = () => {
+    const genContent = (): string | undefined => {
       if (props.dot) return undefined
-
-      const slot = slots.badge
-      if (slot) return slot
 
       if (props.content) return String(props.content)
 
       return undefined
     }
 
-    const genBadge = () => {
-      return withDirectives(h('span',
-        setBackground(props.color, {
+    const genBadgeSlot = (): VNode => {
+      return h(
+        'div',
+        {
           class: {
-            ...classes.value
+            'v-badge__badge-slot': true,
           },
-          style: [styles.value]
-        }),
-        [h('span',
-          {
-            class: {
-              'vue-badge__content': true
-            }
-          }, content())
-        ]),
-        [[vShow, isActive.value]])
+        },
+        renderSlot(slots, 'badge'),
+      )
     }
 
-    return () => {
-      const slotContent = slots.default && slots.default()
-      const transitionedBadge = useTransition(props, genBadge())
+    const genBadge = (): VNode => {
+      return h(
+        'span',
+        setBackground(props.color, {
+          class: {
+            ...classes.value,
+          },
+          style: [styles.value],
+        }),
+        [
+          h(
+            'span',
+            {
+              class: {
+                'vue-badge__content': true,
+              },
+            },
+            [genContent(), genBadgeSlot()],
+          )]
+      )
+    }
 
-      return h('span', {
-        class: {
-          'v-badge': true
-        }
-      }, [h(transitionedBadge()), slotContent])
+    return (): VNode => {
+      let badge = genBadge()
+
+      if (props.toggleable) {
+        const { isActive } = useToggle(props, 'content')
+
+        badge = withDirectives(badge, [[vShow, isActive.value]])
+      }
+
+      const slotContent = slots.default && slots.default()
+      const transitionedBadge = useTransition(props, badge)
+
+      return h(
+        'span',
+        {
+          class: {
+            'v-badge': true,
+          },
+        },
+        [h(transitionedBadge()), slotContent],
+      )
     }
   },
 })

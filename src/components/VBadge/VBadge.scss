@@ -8,7 +8,7 @@
     @include flex(flex, center, center);
     border-radius: 50px;
     position: absolute;
-    z-index: 1;
+    z-index: 10;
     font-size: 10px;
     font-weight: 700;
     min-width: 26px;
@@ -16,12 +16,31 @@
     text-align: center;
     color: $mainWhite;
     font-family: $mainFont;
+    overflow: hidden;
+    will-change: transform;
   }
 
   &__content {
     display: inherit;
     margin: auto;
     padding: 3px;
+  }
+
+  &__badge-slot {
+    display: block;
+
+    &>* {
+      width: 100%;
+      min-height: 100%;
+    }
+  }
+
+  &--avatar {
+    position: relative;
+    width: 90px;
+    min-width: 90px;
+    height: 90px;
+    z-index: 8;
   }
 
   &--dot {
@@ -34,12 +53,5 @@
     border-color: #FFFFFF !important;
     border-width: .18rem;
     border-style: solid;
-    will-change: transform;
-  }
-
-  &--avatar {
-    padding: 0;
-    min-width: 5rem;
-    min-height: 5rem;
   }
 }

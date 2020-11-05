@@ -11,7 +11,6 @@ describe('VModal', () => {
 
   it('should mount component and match snapshot', () => {
     const cmp = mountFunction()
-
     expect(cmp.html()).toMatchSnapshot()
   })
 

@@ -71,6 +71,7 @@
             right
             offset-x="2"
             border
+            toggleable
           >
             <v-button
               color="green accent-4"
@@ -101,6 +102,26 @@
             salam
           </v-card-title>
           <v-card-content class="white--text">
+           <v-badge
+              elevation="3"
+              bottom
+              right
+              border
+              content="2"
+              offset-x="12"
+              offset-y="12"
+              color="green darken-1"
+           >
+             <v-badge
+               elevation="5"
+               avatar
+               border
+             >
+               <template v-slot:badge>
+                 <img src="https://sun1-16.userapi.com/c851220/v851220129/177732/UnRBSWJfmLw.jpg?ava=1" alt="">
+               </template>
+             </v-badge>
+           </v-badge>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi corporis distinctio, eius exercitationem
             facere id nulla quo repudiandae ut voluptates.
           </v-card-content>

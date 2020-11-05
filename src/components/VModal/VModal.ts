@@ -7,7 +7,7 @@ import { defineComponent, h, watch, withDirectives, vShow } from 'vue'
 // Effects
 import { overlayProps, useOverlay } from '../../effects/use-overlay'
 import { transitionProps, useTransition } from '../../effects/use-transition'
-import { toggleProps, useToggle } from '@/effects/use-toggle'
+import { useToggle } from '@/effects/use-toggle'
 
 // Types
 import { VNode } from 'vue'
@@ -17,10 +17,9 @@ const vModalProps: Record<string, any> = {
     type: [String, Number],
     default: 400,
   },
-  show: Boolean,
+  modelValue: Boolean,
   ...overlayProps(),
   ...transitionProps(),
-  ...toggleProps()
 }
 
 export const VModal = defineComponent({
@@ -29,8 +28,7 @@ export const VModal = defineComponent({
   props: vModalProps,
 
   setup(props, { slots, emit }) {
-
-    const { isActive } = useToggle(props)
+    const { isActive } = useToggle(props, 'modelValue')
 
     if (props.overlay) {
       const overlay = useOverlay(props, 'v-modal')

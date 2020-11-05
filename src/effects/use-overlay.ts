@@ -43,13 +43,13 @@ export function useOverlay(props: Props, overlayOn?: string): Overlayable {
     color: props.overlayColor,
   }
 
-  const container = doc.createElement('div')
-
   const overlayVNode = () =>
     VOverlay.setup!(
       overlayPropsObject as typeof VOverlay.props,
       {} as SetupContext,
     )
+
+  const container = doc.createElement('div')
 
   const renderOverlay = vNode => render(vNode, container!)
 

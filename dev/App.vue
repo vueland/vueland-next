@@ -40,7 +40,11 @@
 
 <template>
   <div>
-    <v-form v-slot="{ validate }" style="margin: 30px;">
+    <v-form v-slot="{ validate }" style="left: 30px;">
+      <v-resize right/>
+      <v-resize bottom/>
+      <v-resize top/>
+      <v-resize left/>
       <v-card color="#171717" width="400" elevation="5">
         <v-card-content>
           <v-input
@@ -63,23 +67,15 @@
           />
         </v-card-content>
         <v-card-actions>
-          <v-badge
-            v-model="data.password"
-            v-model:content="data.password"
-            elevation="6"
-            top
-            right
-            offset-x="2"
-            border
-            toggleable
-          >
-            <v-button
-              color="green accent-4"
-              label="send"
-              elevation="3"
-              @click="validateValue(validate)"
-            />
-          </v-badge>
+          <v-button
+            color="blue accent-4"
+            label="send"
+            elevation="3"
+            outlined
+            absolute
+            left
+            @click="validateValue(validate)"
+          />
         </v-card-actions>
       </v-card>
     </v-form>
@@ -102,7 +98,7 @@
             salam
           </v-card-title>
           <v-card-content class="white--text">
-           <v-badge
+            <v-badge
               elevation="3"
               bottom
               right
@@ -111,17 +107,17 @@
               offset-x="12"
               offset-y="12"
               color="green darken-1"
-           >
-             <v-badge
-               elevation="5"
-               avatar
-               border
-             >
-               <template v-slot:badge>
-                 <img src="https://sun1-16.userapi.com/c851220/v851220129/177732/UnRBSWJfmLw.jpg?ava=1" alt="">
-               </template>
-             </v-badge>
-           </v-badge>
+            >
+              <v-badge
+                elevation="5"
+                avatar
+                border
+              >
+                <template v-slot:badge>
+                  <img src="https://sun1-16.userapi.com/c851220/v851220129/177732/UnRBSWJfmLw.jpg?ava=1" alt="">
+                </template>
+              </v-badge>
+            </v-badge>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi corporis distinctio, eius exercitationem
             facere id nulla quo repudiandae ut voluptates.
           </v-card-content>

@@ -23,7 +23,6 @@ import { validateProps, useValidate } from '../../effects/use-validate'
 
 const vInputProps = {
   label: String,
-  height: [String, Number],
   dark: Boolean,
   type: {
     type: String,

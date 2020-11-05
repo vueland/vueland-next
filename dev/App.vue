@@ -40,7 +40,7 @@
 
 <template>
   <div>
-    <v-form v-slot="{ validate }" style="left: 30px;">
+    <v-form v-slot="{ validate }" style="left: 50%; top: 30%;">
       <v-resize right/>
       <v-resize bottom/>
       <v-resize top/>

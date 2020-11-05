@@ -198,10 +198,6 @@ export const VInput = defineComponent({
       }
     }
 
-    const genInput = () => {
-      return h('div', genDataProps(), [genTextFieldSlot(), genStatus()])
-    }
-
-    return () => genInput()
+    return () => h('div', genDataProps(), [genTextFieldSlot(), genStatus()])
   },
 })

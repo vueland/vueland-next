@@ -2,7 +2,14 @@
 import './VResize.scss'
 
 // Vue API
-import { defineComponent, h, reactive, ref, computed } from 'vue'
+import {
+  defineComponent,
+  h,
+  reactive,
+  ref,
+  computed,
+  onMounted,
+} from 'vue'
 
 // Effects
 import { positionProps } from '../../effects/use-position'
@@ -13,7 +20,7 @@ import { Props } from '../../types'
 const vResizeProps: Props = {
   emit: {
     type: Boolean,
-    default: false
+    default: false,
   },
 
   customClass: {
@@ -22,9 +29,9 @@ const vResizeProps: Props = {
 
   minSize: {
     type: [String, Number],
-    default: 50
+    default: 50,
   },
-  ...positionProps()
+  ...positionProps(),
 }
 
 type ResizeData = {
@@ -58,7 +65,7 @@ export const VResize = defineComponent({
       directOffset: 0,
       resized: false,
       directX: false,
-      directY: false
+      directY: false,
     })
 
     const resRef = ref<HTMLElement | null>(null)
@@ -68,19 +75,21 @@ export const VResize = defineComponent({
       data.directX = props.left || props.right
     }
 
+    const reversedTranslate = (size) => {
+
+      if (props.top) {
+        data.parentNode!.style.top = `${data.offsetTop! - size}px`
+      }
+      if (props.left) {
+        data.parentNode!.style.left = `${data.parentWidth! - size}px`
+      }
+    }
+
     const setOrEmitSize = (size) => {
       if (!props.emit) {
         const prop = data.directY ? 'height' : 'width'
         data.parentNode!.style[prop] = size + 'px'
-
-        if (props.top) {
-          data.parentNode!.style.top = `translateY(${ data.parentHeight! - size }px)`
-        }
-        if (props.left) {
-          data.parentNode!.style.transform = `translateX(${ data.parentWidth! - size }px)`
-        }
-
-
+        reversedTranslate(size)
       } else {
         emit('size', size)
       }
@@ -95,7 +104,6 @@ export const VResize = defineComponent({
 
       if (props.top || props.left) change = willChangeSize! + startPoint
       else change = willChangeSize! - startPoint
-      console.log(data.directY, data.offsetTop, data.offsetLeft)
 
       change > props.minSize ? setOrEmitSize(change) : removeHandlers()
     }
@@ -107,21 +115,22 @@ export const VResize = defineComponent({
       if (maxHeight) data.parentNode!.style.maxHeight = data.parentNode!.style.height + 'px'
     }
 
-    const detectDirection = (e) => {
+    const computeParentNode = () => {
+
       const parent = resRef.value!.parentNode
+      const { left, top, height, width } = getComputedStyle(parent as HTMLElement)
 
       data.parentNode = parent as HTMLElement
-      data.offsetTop = (parent as HTMLElement).offsetTop
-      data.offsetLeft = (parent as HTMLElement).offsetLeft
-      data.direction = data.directY ? 'clientY' : 'clientX'
-
-      data.directOffset = e[data.direction] - (props.directY ? data.offsetTop : data.offsetLeft)!
+      data.offsetTop = parseFloat(top)
+      data.offsetLeft = parseFloat(left)
+      data.parentHeight = parseFloat(height)
+      data.parentWidth = parseFloat(width)
     }
 
-    const setParentNodeSizes = () => {
-      data.parentHeight = data.parentNode!.offsetHeight
-      data.parentWidth = data.parentNode!.offsetWidth
-      console.log(data.parentHeight)
+    const detectDirection = (e) => {
+      computeParentNode()
+      data.direction = data.directY ? 'clientY' : 'clientX'
+      data.directOffset = e[data.direction] - (props.directY ? data.offsetTop : data.offsetLeft)!
     }
 
     const classes = computed<Record<string, boolean>>(() => {
@@ -131,7 +140,7 @@ export const VResize = defineComponent({
         'v-resize--bottom': props.bottom,
         'v-resize--right': props.right,
         'v-resize--left': props.left,
-        [props.customClass]: !!props.customClass
+        [props.customClass]: !!props.customClass,
       }
     })
 
@@ -144,7 +153,7 @@ export const VResize = defineComponent({
       if (!data.resized) {
         data.resized = true
         detectDirection(e)
-        setParentNodeSizes()
+        computeParentNode()
         resetMaxStyles()
       }
       resize(e)
@@ -157,11 +166,9 @@ export const VResize = defineComponent({
     }
 
     const onMouseup = (e) => {
-      console.log(data.offsetTop)
       reset()
       removeHandlers()
       detectDirection(e)
-      setParentNodeSizes()
     }
 
     function onMousedown() {
@@ -176,16 +183,18 @@ export const VResize = defineComponent({
       document.removeEventListener('selectstart', disableSelection)
     }
 
-    setDirect()
+    onMounted(() => {
+      setDirect()
+      computeParentNode()
+    })
 
     return () => h('div', {
       class: {
-        ...classes.value
+        ...classes.value,
       },
       key: 'resize',
       ref: resRef,
       onMousedown,
-      // onMouseleave
     })
-  }
+  },
 })

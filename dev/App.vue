@@ -39,13 +39,14 @@
 </script>
 
 <template>
-  <div>
-    <v-form v-slot="{ validate }" style="left: 50%; top: 30%;">
-      <v-resize right/>
-      <v-resize bottom/>
-      <v-resize top/>
-      <v-resize left/>
+  <div >
+    <v-form v-slot="{ validate }" style="">
+
       <v-card color="#171717" width="400" elevation="5">
+        <v-resize right/>
+        <v-resize bottom/>
+        <v-resize top/>
+        <v-resize left/>
         <v-card-content>
           <v-input
             v-model="data.login"

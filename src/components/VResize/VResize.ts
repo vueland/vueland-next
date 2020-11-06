@@ -40,12 +40,12 @@ type ResizeData = {
   offsetLeft: number | null,
   parentHeight: number | null,
   parentWidth: number | null,
-  offset: number,
   direction: string,
-  directOffset: number,
+  currentSize: number,
   resized: boolean,
   directX: boolean,
   directY: boolean
+  styleParam: string
 }
 
 export const VResize = defineComponent({
@@ -60,78 +60,15 @@ export const VResize = defineComponent({
       offsetLeft: null,
       parentHeight: null,
       parentWidth: null,
-      offset: 0,
-      direction: '',
-      directOffset: 0,
+      currentSize: 0,
       resized: false,
       directX: false,
       directY: false,
+      direction: '',
+      styleParam: ''
     })
 
     const resRef = ref<HTMLElement | null>(null)
-
-    const setDirect = () => {
-      data.directY = props.top || props.bottom
-      data.directX = props.left || props.right
-    }
-
-    const reversedTranslate = (size) => {
-
-      if (props.top) {
-        data.parentNode!.style.top = `${data.offsetTop! - size}px`
-      }
-      if (props.left) {
-        data.parentNode!.style.left = `${data.parentWidth! - size}px`
-      }
-    }
-
-    const setOrEmitSize = (size) => {
-      if (!props.emit) {
-        const prop = data.directY ? 'height' : 'width'
-        data.parentNode!.style[prop] = size + 'px'
-        reversedTranslate(size)
-      } else {
-        emit('size', size)
-      }
-    }
-
-    const resize = (e) => {
-      let change
-
-      const offset = data.directY ? data.offsetTop : data.offsetLeft
-      const willChangeSize = data.directY ? data.parentHeight : data.parentWidth
-      const startPoint = (offset! - e[data.direction] + data.directOffset)
-
-      if (props.top || props.left) change = willChangeSize! + startPoint
-      else change = willChangeSize! - startPoint
-
-      change > props.minSize ? setOrEmitSize(change) : removeHandlers()
-    }
-
-    const resetMaxStyles = () => {
-      const { maxWidth, maxHeight } = getComputedStyle(data.parentNode!)
-
-      if (maxWidth) data.parentNode!.style.maxWidth = data.parentNode!.style.width + 'px'
-      if (maxHeight) data.parentNode!.style.maxHeight = data.parentNode!.style.height + 'px'
-    }
-
-    const computeParentNode = () => {
-
-      const parent = resRef.value!.parentNode
-      const { left, top, height, width } = getComputedStyle(parent as HTMLElement)
-
-      data.parentNode = parent as HTMLElement
-      data.offsetTop = parseFloat(top)
-      data.offsetLeft = parseFloat(left)
-      data.parentHeight = parseFloat(height)
-      data.parentWidth = parseFloat(width)
-    }
-
-    const detectDirection = (e) => {
-      computeParentNode()
-      data.direction = data.directY ? 'clientY' : 'clientX'
-      data.directOffset = e[data.direction] - (props.directY ? data.offsetTop : data.offsetLeft)!
-    }
 
     const classes = computed<Record<string, boolean>>(() => {
       return {
@@ -144,41 +81,110 @@ export const VResize = defineComponent({
       }
     })
 
+    function setDirect() {
+      data.directY = props.top || props.bottom
+      data.directX = props.left || props.right
+    }
+
+    function reversedTranslate(size) {
+      if (props.top || props.left) {
+        const offset = props.top ? data.offsetTop! : data.offsetLeft!
+        const styleParam = props.top ? 'top' : 'left'
+        data.parentNode!.style[styleParam] = `${ data.currentSize! - size + offset }px`
+      }
+    }
+
+    function setOrEmitSize(size) {
+      if (!props.emit) {
+        data.parentNode!.style[data.styleParam] = size + 'px'
+        reversedTranslate(size)
+      } else {
+        emit('size', size)
+      }
+    }
+
+    function resize(e) {
+      const offset = data.directY ? data.offsetTop : data.offsetLeft
+      const startPoint = e[data.direction]
+
+      data.currentSize = data.directY ? data.parentHeight! : data.parentWidth!
+
+      let size
+
+      if (props.top || props.left) {
+        size = data.currentSize! - (startPoint - offset!)
+      } else {
+        size = data.currentSize! + (startPoint - data.currentSize! - offset!)
+      }
+
+      size > props.minSize ? setOrEmitSize(size) : false
+    }
+
+    function resetMinMaxStyles() {
+      if (data.directX) {
+        data.parentNode!.style.maxWidth = ''
+        data.parentNode!.style.minWidth = ''
+      } else {
+        data.parentNode!.style.maxHeight = ''
+        data.parentNode!.style.minHeight = ''
+      }
+    }
+
+    function computeParentNode() {
+      const parent = resRef.value!.parentNode
+      const {
+        left,
+        top,
+        height,
+        width
+      } = getComputedStyle(parent as HTMLElement)
+
+      data.parentNode = parent as HTMLElement
+      data.offsetTop = parseFloat(top)
+      data.offsetLeft = parseFloat(left)
+      data.parentHeight = parseFloat(height)
+      data.parentWidth = parseFloat(width)
+    }
+
+    function detectDirection() {
+      data.direction = data.directY ? 'clientY' : 'clientX'
+      data.styleParam! = data.directY ? 'height' : 'width'
+    }
 
     const disableSelection = (e) => {
       e.preventDefault()
     }
 
-    const resizeAction = (e) => {
+    function initResize(e) {
       if (!data.resized) {
         data.resized = true
-        detectDirection(e)
+        detectDirection()
         computeParentNode()
-        resetMaxStyles()
+        resetMinMaxStyles()
       }
       resize(e)
     }
 
-    const reset = () => {
+    function reset() {
       data.resized = false
       data.offsetTop = null
-      resetMaxStyles()
+      resetMinMaxStyles()
     }
 
-    const onMouseup = (e) => {
+    function onMouseup() {
       reset()
       removeHandlers()
-      detectDirection(e)
+      detectDirection()
     }
 
     function onMousedown() {
-      document.addEventListener('mousemove', resizeAction)
+      document.addEventListener('mousemove', initResize)
       document.addEventListener('mouseup', onMouseup)
       document.addEventListener('selectstart', disableSelection)
     }
 
     function removeHandlers() {
-      document.removeEventListener('mousemove', resizeAction)
+      document.removeEventListener('mousemove', initResize)
       document.removeEventListener('mouseup', onMouseup)
       document.removeEventListener('selectstart', disableSelection)
     }

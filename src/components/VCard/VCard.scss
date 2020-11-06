@@ -2,7 +2,6 @@
 
 .v-card {
   @include flex(center, center, column);
-  min-width: 250px;
   width: auto;
   background: $mainWhite;
   border-radius: 6px;

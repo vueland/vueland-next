@@ -109,14 +109,14 @@ export const VResize = defineComponent({
         offsetTop,
         offsetLeft,
         marginLeft,
-        marginTop
+        marginTop,
       } = data
 
       const offset = props.top ?
         offsetTop! - marginTop :
         offsetLeft! - marginLeft
 
-      parentNode!.style[reverseFrom.value] = `${ currentSize.value - size + offset }px`
+      parentNode!.style[reverseFrom.value] = `${currentSize.value - size + offset}px`
     }
 
     function setOrEmitSize(size) {
@@ -131,14 +131,12 @@ export const VResize = defineComponent({
     }
 
     function resize(e) {
-      const startPoint = e[direction.value]
-
       let size
 
       if (isNeedReverse.value) {
-        size = currentSize.value! - (startPoint - offset.value!)
+        size = currentSize.value! - (e[direction.value] - offset.value!)
       } else {
-        size = currentSize.value! + (startPoint - currentSize.value! - offset.value!)
+        size = currentSize.value! + (e[direction.value] - currentSize.value! - offset.value!)
       }
 
       size > props.minSize ? setOrEmitSize(size) : false
@@ -157,8 +155,8 @@ export const VResize = defineComponent({
     function computeParentNode() {
       const parent = resRef.value!.parentNode
       const {
-        left,
         top,
+        left,
         height,
         width,
         marginLeft,
@@ -166,17 +164,25 @@ export const VResize = defineComponent({
       } = getComputedStyle(parent as HTMLElement)
 
       data.parentNode = parent as HTMLElement
-      data.offsetTop = parseFloat(top)
-      data.offsetLeft = parseFloat(left)
+      data.offsetTop = (parent as HTMLElement).offsetTop
+      data.offsetLeft = (parent as HTMLElement).offsetLeft
       data.marginLeft = parseFloat(marginLeft)
       data.marginTop = parseFloat(marginTop)
       data.parentHeight = parseFloat(height)
       data.parentWidth = parseFloat(width)
       data.offsetTop += data.marginTop
       data.offsetLeft += data.marginLeft
+
+      if (parseFloat(left) === data.offsetLeft) {
+        data.parentNode.style.left = data.offsetLeft + 'px'
+      }
+
+      if (parseFloat(top) === data.offsetTop) {
+        data.parentNode.style.top = data.offsetTop + 'px'
+      }
     }
 
-    function disableSelection (e) {
+    function disableSelection(e) {
       e.preventDefault()
     }
 

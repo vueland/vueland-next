@@ -36,10 +36,10 @@ const vResizeProps: Props = {
 
 type ResizeData = {
   parentNode: HTMLElement | null
-  offsetTop: number | null
-  offsetLeft: number | null
-  parentHeight: number | null
-  parentWidth: number | null
+  offsetTop: number
+  offsetLeft: number
+  parentHeight: number
+  parentWidth: number
   marginLeft: number
   marginTop: number
   resized: boolean
@@ -53,10 +53,10 @@ export const VResize = defineComponent({
 
     const data: ResizeData = reactive({
       parentNode: null,
-      offsetTop: null,
-      offsetLeft: null,
-      parentHeight: null,
-      parentWidth: null,
+      offsetTop: 0,
+      offsetLeft: 0,
+      parentHeight: 0,
+      parentWidth: 0,
       marginLeft: 0,
       marginTop: 0,
       resized: false,
@@ -117,7 +117,6 @@ export const VResize = defineComponent({
         offsetLeft! - marginLeft
 
       parentNode!.style[reverseFrom.value] = `${ currentSize.value - size + offset }px`
-
     }
 
     function setOrEmitSize(size) {

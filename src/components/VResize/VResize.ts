@@ -37,15 +37,12 @@ const vResizeProps: Props = {
 type ResizeData = {
   parentNode: HTMLElement | null
   offsetTop: number | null
-  offsetLeft: number | null,
-  parentHeight: number | null,
-  parentWidth: number | null,
-  direction: string,
-  currentSize: number,
-  resized: boolean,
-  directX: boolean,
-  directY: boolean
-  styleParam: string
+  offsetLeft: number | null
+  parentHeight: number | null
+  parentWidth: number | null
+  marginLeft: number
+  marginTop: number
+  resized: boolean
 }
 
 export const VResize = defineComponent({
@@ -60,12 +57,9 @@ export const VResize = defineComponent({
       offsetLeft: null,
       parentHeight: null,
       parentWidth: null,
-      currentSize: 0,
+      marginLeft: 0,
+      marginTop: 0,
       resized: false,
-      directX: false,
-      directY: false,
-      direction: '',
-      styleParam: ''
     })
 
     const resRef = ref<HTMLElement | null>(null)
@@ -81,52 +75,83 @@ export const VResize = defineComponent({
       }
     })
 
-    function setDirect() {
-      data.directY = props.top || props.bottom
-      data.directX = props.left || props.right
-    }
+    const isDirectY = computed<boolean>(() => {
+      return props.top || props.bottom
+    })
 
-    function reversedTranslate(size) {
-      if (props.top || props.left) {
-        const offset = props.top ? data.offsetTop! : data.offsetLeft!
-        const styleParam = props.top ? 'top' : 'left'
-        data.parentNode!.style[styleParam] = `${ data.currentSize! - size + offset }px`
-      }
+    const isNeedReverse = computed<boolean>(() => {
+      return props.top || props.left
+    })
+
+    const currentSize = computed<number>(() => {
+      return isDirectY.value ? data.parentHeight! : data.parentWidth!
+    })
+
+    const styleProp = computed<string>(() => {
+      return isDirectY.value ? 'height' : 'width'
+    })
+
+    const reverseFrom = computed<string>(() => {
+      return props.top ? 'top' : 'left'
+    })
+
+    const offset = computed<number>(() => {
+      return isDirectY.value ? data.offsetTop! : data.offsetLeft!
+    })
+
+    const direction = computed<string>(() => {
+      return isDirectY.value ? 'clientY' : 'clientX'
+    })
+
+    function moveReverse(size) {
+      const {
+        parentNode,
+        offsetTop,
+        offsetLeft,
+        marginLeft,
+        marginTop
+      } = data
+
+      const offset = props.top ?
+        offsetTop! - marginTop :
+        offsetLeft! - marginLeft
+
+      parentNode!.style[reverseFrom.value] = `${ currentSize.value - size + offset }px`
+
     }
 
     function setOrEmitSize(size) {
+
       if (!props.emit) {
-        data.parentNode!.style[data.styleParam] = size + 'px'
-        reversedTranslate(size)
+        data.parentNode!.style[styleProp.value] = size + 'px'
       } else {
         emit('size', size)
       }
+
+      isNeedReverse.value && moveReverse(size)
     }
 
     function resize(e) {
-      const offset = data.directY ? data.offsetTop : data.offsetLeft
-      const startPoint = e[data.direction]
-
-      data.currentSize = data.directY ? data.parentHeight! : data.parentWidth!
+      const startPoint = e[direction.value]
 
       let size
 
-      if (props.top || props.left) {
-        size = data.currentSize! - (startPoint - offset!)
+      if (isNeedReverse.value) {
+        size = currentSize.value! - (startPoint - offset.value!)
       } else {
-        size = data.currentSize! + (startPoint - data.currentSize! - offset!)
+        size = currentSize.value! + (startPoint - currentSize.value! - offset.value!)
       }
 
       size > props.minSize ? setOrEmitSize(size) : false
     }
 
     function resetMinMaxStyles() {
-      if (data.directX) {
-        data.parentNode!.style.maxWidth = ''
-        data.parentNode!.style.minWidth = ''
-      } else {
+      if (isDirectY.value) {
         data.parentNode!.style.maxHeight = ''
         data.parentNode!.style.minHeight = ''
+      } else {
+        data.parentNode!.style.maxWidth = ''
+        data.parentNode!.style.minWidth = ''
       }
     }
 
@@ -136,29 +161,29 @@ export const VResize = defineComponent({
         left,
         top,
         height,
-        width
+        width,
+        marginLeft,
+        marginTop
       } = getComputedStyle(parent as HTMLElement)
 
       data.parentNode = parent as HTMLElement
       data.offsetTop = parseFloat(top)
       data.offsetLeft = parseFloat(left)
+      data.marginLeft = parseFloat(marginLeft)
+      data.marginTop = parseFloat(marginTop)
       data.parentHeight = parseFloat(height)
       data.parentWidth = parseFloat(width)
+      data.offsetTop += data.marginTop
+      data.offsetLeft += data.marginLeft
     }
 
-    function detectDirection() {
-      data.direction = data.directY ? 'clientY' : 'clientX'
-      data.styleParam! = data.directY ? 'height' : 'width'
-    }
-
-    const disableSelection = (e) => {
+    function disableSelection (e) {
       e.preventDefault()
     }
 
     function initResize(e) {
       if (!data.resized) {
         data.resized = true
-        detectDirection()
         computeParentNode()
         resetMinMaxStyles()
       }
@@ -167,14 +192,12 @@ export const VResize = defineComponent({
 
     function reset() {
       data.resized = false
-      data.offsetTop = null
       resetMinMaxStyles()
     }
 
     function onMouseup() {
       reset()
       removeHandlers()
-      detectDirection()
     }
 
     function onMousedown() {
@@ -190,7 +213,6 @@ export const VResize = defineComponent({
     }
 
     onMounted(() => {
-      setDirect()
       computeParentNode()
     })
 

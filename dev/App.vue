@@ -39,10 +39,10 @@
 </script>
 
 <template>
-  <div >
+  <div>
     <v-form v-slot="{ validate }" style="">
 
-      <v-card color="#171717" width="400" elevation="5">
+      <v-card color="#171717" width="400" elevation="5" style="padding: 20px;">
         <v-resize right/>
         <v-resize bottom/>
         <v-resize top/>

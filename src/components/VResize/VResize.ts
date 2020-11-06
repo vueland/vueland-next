@@ -103,20 +103,16 @@ export const VResize = defineComponent({
       return isDirectY.value ? 'clientY' : 'clientX'
     })
 
+    const marginOff = computed(() => {
+      return props.top ?
+        data.offsetTop! - data.marginTop :
+        data.offsetLeft! - data.marginLeft
+    })
+
     function moveReverse(size) {
-      const {
-        parentNode,
-        offsetTop,
-        offsetLeft,
-        marginLeft,
-        marginTop,
-      } = data
+      const { parentNode } = data
 
-      const offset = props.top ?
-        offsetTop! - marginTop :
-        offsetLeft! - marginLeft
-
-      parentNode!.style[reverseFrom.value] = `${currentSize.value - size + offset}px`
+      parentNode!.style[reverseFrom.value] = `${currentSize.value - size + marginOff.value}px`
     }
 
     function setOrEmitSize(size) {
@@ -189,7 +185,6 @@ export const VResize = defineComponent({
     function initResize(e) {
       if (!data.resized) {
         data.resized = true
-        computeParentNode()
         resetMinMaxStyles()
       }
       resize(e)
@@ -206,6 +201,7 @@ export const VResize = defineComponent({
     }
 
     function onMousedown() {
+      computeParentNode()
       document.addEventListener('mousemove', initResize)
       document.addEventListener('mouseup', onMouseup)
       document.addEventListener('selectstart', disableSelection)

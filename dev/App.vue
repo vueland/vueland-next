@@ -42,6 +42,7 @@
   <div>
     <v-form v-slot="{ validate }" style="display: flex;">
       <v-card width="400" color="blue" style="position: relative; padding: 20px;">
+        <v-resize right/>
         <v-input
           v-model="data.login"
           label="login"
@@ -55,7 +56,7 @@
           :rules="[val => !!val && /^(\w+|[^#])$/g.test(val)]"
         />
       </v-card>
-      <v-card color="#171717" width="400" elevation="5" style="position: absolute; right: 0; padding: 20px;">
+      <v-card color="#171717" width="400" elevation="5" style="padding: 20px;">
         <v-resize right/>
         <v-resize bottom/>
         <v-resize top/>

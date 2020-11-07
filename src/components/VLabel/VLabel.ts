@@ -1,7 +1,12 @@
+// Styles
 import './VLabel.scss'
 
 // Vue API
-import { defineComponent, h, computed } from 'vue'
+import {
+  h,
+  computed,
+  defineComponent
+} from 'vue'
 
 // Helpers
 import { convertToUnit } from '../../helpers'
@@ -33,11 +38,15 @@ export const VLabel = defineComponent({
   setup(props, { slots }) {
     const { setTextColor } = useColors()
 
+    const isActive = computed(() => {
+      return !!props.hasState || !!props.focused
+    })
+
     const classes = computed<Record<string, boolean>>(
       () => {
         return {
           'v-label': true,
-          'v-label--active': !!props.hasState || !!props.focused,
+          'v-label--active': isActive.value,
           'v-label--is-disabled': !!props.disabled,
         }
       },

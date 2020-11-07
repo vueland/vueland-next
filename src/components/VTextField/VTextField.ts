@@ -1,40 +1,43 @@
+// Styles
 import './VTextField.scss'
 
 // Vue API
-import { defineComponent, computed, h, reactive } from 'vue'
+import {
+  h,
+  watch,
+  computed,
+  reactive,
+  defineComponent
+} from 'vue'
 
 // Effects
-import { validateProps, useValidate } from '../../effects/use-validate'
-import { colorProps, useColors } from '../../effects/use-colors'
+import {
+  useValidate,
+  validateProps
+} from '../../effects/use-validate'
+import {
+  useColors,
+  colorProps
+} from '../../effects/use-colors'
 
 // Components
 import { VInput } from '../VInput'
 
 // Types
 import { VNode } from 'vue'
-import { Props, VInputComponent } from '../../types'
+import { Props } from '../../types'
 
 const textFieldProps: Props = {
   dark: Boolean,
+  disabled: Boolean,
+  label: String,
+  isDirty: Boolean,
   type: {
     type: String,
     default: 'text',
   },
-
-  isDirty: {
-    type: Boolean,
-    default: false,
-  },
-
   modelValue: {
     type: [String, Number]
-  },
-
-  label: String,
-
-  disabled: {
-    type: Boolean,
-    default: false,
   },
   ...validateProps(),
   ...colorProps()
@@ -55,6 +58,8 @@ export const VTextField = defineComponent({
       value: '',
       focused: false,
     })
+
+    state.value = props.modelValue
 
     const { setTextColor } = useColors()
 
@@ -80,7 +85,7 @@ export const VTextField = defineComponent({
     )
 
     const validateValue = () => {
-      return props.rules?.length && validate(state.value)
+      props.rules?.length && validate(state.value || props.modelValue)
     }
 
     const focusHandler = () => {
@@ -101,11 +106,11 @@ export const VTextField = defineComponent({
       ctx.emit('update:modelValue', state.value)
     }
 
-    const genTextField = (): VNode => {
+    const genInput = (): VNode => {
       const textFieldProps = {
         type: props.type,
         disabled: props.disabled,
-        value: state.value,
+        value: props.modelValue,
         class: {
           'v-text-field__input': true
         },
@@ -117,7 +122,7 @@ export const VTextField = defineComponent({
       return h('input', setTextColor(computedColor.value!, textFieldProps))
     }
 
-    const genFieldWrapper = () => {
+    const genTextField = () => {
       return h('div', {
         class: {
           ...classes.value
@@ -125,11 +130,16 @@ export const VTextField = defineComponent({
         methods: {
           validateValue
         },
-      }, [genTextField()])
+      }, [genInput()])
     }
 
+    watch(() => props.modelValue, value => {
+      state.value = value
+      if (!value) return validateValue()
+    })
+
     return () => h(
-      VInput as VInputComponent,
+      VInput,
       {
         label: props.label,
         focused: state.focused,
@@ -138,15 +148,11 @@ export const VTextField = defineComponent({
         dark: props.dark,
         color: validationState.value,
         isDirty: errorState.isDirty,
+        disabled: props.disabled,
         message: errorState.innerErrorMessage
-      },
+      } as Props,
       {
-        textField: () => genFieldWrapper(),
-        autocomplete: () => h('div', {
-          class: {
-            autocomplete: true
-          }
-        })
+        textField: () => genTextField()
       }
     )
   },

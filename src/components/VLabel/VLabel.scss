@@ -3,7 +3,7 @@
 .v-label {
   font-size: 16px;
   min-height: 8px;
-  transition: .3s cubic-bezier(.25, .8, .5, 1);
+  transition: .3s $primary-transition;
   max-width: 90%;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -20,6 +20,6 @@
   }
 
   &--is-disabled {
-    color: $disabled;
+    color: $disabled !important;
   }
 }

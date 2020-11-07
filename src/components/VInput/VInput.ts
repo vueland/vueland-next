@@ -4,10 +4,9 @@ import './VInput.scss'
 // Vue API
 import {
   h,
-  defineComponent,
   computed,
-  reactive,
   renderSlot,
+  defineComponent,
 } from 'vue'
 
 // Components
@@ -40,23 +39,11 @@ const vInputProps = {
   ...colorProps(),
 }
 
-type InputState = {
-  value: string | number
-  focused: boolean
-}
-
 export const VInput = defineComponent({
   name: 'v-input',
   props: vInputProps,
 
   setup(props, { slots }) {
-    const state: InputState = reactive({
-      value: '',
-      focused: false,
-    })
-
-    state.value = props.modelValue!
-
     const isValid = computed<boolean>(() => {
       return props.isDirty && props.hasState && !props.hasError
     })
@@ -101,7 +88,6 @@ export const VInput = defineComponent({
         },
       }, [
         genLabel(),
-
         renderSlot(slots, 'textField')
       ])
     }

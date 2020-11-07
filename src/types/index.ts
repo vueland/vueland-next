@@ -5,3 +5,4 @@ export type Props = {
 }
 
 export type VInputComponent = ReturnType<any>
+export type VTextFieldComponent = ReturnType<any>

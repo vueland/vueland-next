@@ -1,0 +1,21 @@
+.v-size {
+  &--x-small {
+    font-size: 12px
+  }
+
+  &--small {
+    font-size: 16px
+  }
+
+  &--default {
+    font-size: 24px
+  }
+
+  &--large {
+    font-size: 36px
+  }
+
+  &--x-large {
+    font-size: 40px
+  }
+}

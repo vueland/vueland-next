@@ -41,9 +41,15 @@
 <template>
   <div>
     <v-form v-slot="{ validate }">
-      <v-card color="#171717" width="400" elevation="5" style="padding: 20px;">
+      <v-card color="#272727" width="400" elevation="5" style="padding: 20px;">
         <v-resize right/>
         <v-card-content>
+          <v-icon
+            icon="fab fa-apple"
+            color="green accent-3"
+            clickable
+            @click="() => data.login = ''"
+          />
           <v-text-field
             v-model="data.login"
             label="login"
@@ -51,13 +57,13 @@
             :rules="[val => !!val || 'Required', val => val.length > 5 || 'more than 5 symbols']"
           />
           <v-text-field
-            v-model="data.login"
+            v-model="data.password"
             label="password"
             dark
             :rules="[val => !!val || 'Required', val => val.length > 5 || 'more than 5 symbols']"
           />
           <v-text-field
-            v-model="data.login"
+            v-model="data.email"
             label="email"
             dark
             :rules="[val => !!val || 'Required', val => val.length > 5 || 'more than 5 symbols']"
@@ -67,7 +73,7 @@
           <v-button
             color="blue accent-4"
             label="send"
-            elevation="3"
+
             outlined
             absolute
             left

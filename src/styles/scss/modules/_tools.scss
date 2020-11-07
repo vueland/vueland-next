@@ -11,11 +11,10 @@
 @mixin text-active($color) {
   &:hover {
     &:active {
-      transition: opacity .3s;
-
       &:before {
         background: $color;
-        opacity: .3 !important;
+        opacity: .3;
+        transition: opacity .3s;
       }
     }
   }

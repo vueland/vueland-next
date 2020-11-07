@@ -40,15 +40,15 @@
     }
   }
 
-  &--focused > .v-input__slot:after {
+  &--focused > .v-input__field-slot:after {
     transform: scaleX(1);
   }
 
-  &--not-valid > .v-input__slot:after {
+  &--not-valid > .v-input__field-slot:after {
     background: $danger;
   }
 
-  &--not-valid > .v-input__slot {
+  &--not-valid > .v-input__field-slot {
     border-color: $danger !important;
   }
 }

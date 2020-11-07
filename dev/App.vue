@@ -42,6 +42,7 @@
   <div>
     <v-form v-slot="{ validate }">
       <v-card color="#171717" width="400" elevation="5" style="padding: 20px;">
+        <v-resize right/>
         <v-card-content>
           <v-text-field
             v-model="data.login"

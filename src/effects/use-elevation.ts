@@ -15,13 +15,9 @@ export function elevationProps(): Props {
 }
 
 export function useElevation(props: Props): Elevetable {
-  const computedElevation = computed<string | number | undefined>((): any => {
-    return props.elevation
-  })
-
   const elevationClasses = computed(() => {
     return {
-      [`elevation-${props.elevation}`]: !!computedElevation.value,
+      [`elevation-${props.elevation}`]: !!props.elevation
     }
   })
 

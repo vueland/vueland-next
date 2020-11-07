@@ -73,7 +73,6 @@
           <v-button
             color="blue accent-4"
             label="send"
-
             outlined
             absolute
             left
@@ -84,7 +83,7 @@
     </v-form>
 
     <v-button
-      elevation="4"
+      elevation="2"
       color="red darken-4"
       label="click"
       @click="showModal"

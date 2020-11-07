@@ -1,16 +1,15 @@
 // Styles
 import './VResize.scss'
-
 // Vue API
 import {
-  defineComponent,
-  h,
-  reactive,
-  ref,
-  computed,
   onMounted,
+  h,
+  ref,
+  watch,
+  computed,
+  reactive,
+  defineComponent
 } from 'vue'
-
 // Effects
 import { positionProps } from '../../effects/use-position'
 
@@ -42,7 +41,10 @@ type ResizeData = {
   parentWidth: number
   marginLeft: number
   marginTop: number
+  left: number
+  top: number
   resized: boolean
+  isActive: boolean
 }
 
 export const VResize = defineComponent({
@@ -59,7 +61,10 @@ export const VResize = defineComponent({
       parentWidth: 0,
       marginLeft: 0,
       marginTop: 0,
+      left: 0,
+      top: 0,
       resized: false,
+      isActive: false
     })
 
     const resRef = ref<HTMLElement | null>(null)
@@ -67,6 +72,7 @@ export const VResize = defineComponent({
     const classes = computed<Record<string, boolean>>(() => {
       return {
         'v-resize': true,
+        'v-resize--active': data.isActive,
         'v-resize--top': props.top,
         'v-resize--bottom': props.bottom,
         'v-resize--right': props.right,
@@ -87,12 +93,17 @@ export const VResize = defineComponent({
       return isDirectY.value ? data.parentHeight! : data.parentWidth!
     })
 
-    const styleProp = computed<string>(() => {
+    const sizeProp = computed<string>(() => {
       return isDirectY.value ? 'height' : 'width'
     })
 
-    const reverseFrom = computed<string>(() => {
+    const reverseDirection = computed<string>(() => {
       return props.top ? 'top' : 'left'
+    })
+
+    const reverseOffsetKey = computed<string>(() => {
+      const side = reverseDirection.value
+      return 'offset' + side[0].toUpperCase() + side.slice(1)
     })
 
     const offset = computed<number>(() => {
@@ -103,26 +114,26 @@ export const VResize = defineComponent({
       return isDirectY.value ? 'clientY' : 'clientX'
     })
 
-    const marginOff = computed(() => {
-      return props.top ?
-        data.offsetTop! - data.marginTop :
-        data.offsetLeft! - data.marginLeft
+    watch(() => data.isActive, to => {
+      to && computeSizes()
+      to && setStartPositions()
     })
 
     function moveReverse(size) {
-      const { parentNode } = data
+      const { parentNode, left, top } = data
+      const reverseTo = reverseDirection.value
 
-      parentNode!.style[reverseFrom.value] = `${currentSize.value - size + marginOff.value}px`
+      const value = !isDirectY.value ?
+        (currentSize.value - size + left) :
+        (currentSize.value - size + top)
+
+      parentNode!.style[reverseTo] = `${ value }px`
     }
 
     function setOrEmitSize(size) {
+      if (props.emit) return emit('size', size)
 
-      if (!props.emit) {
-        data.parentNode!.style[styleProp.value] = size + 'px'
-      } else {
-        emit('size', size)
-      }
-
+      data.parentNode!.style[sizeProp.value] = `${ size }px`
       isNeedReverse.value && moveReverse(size)
     }
 
@@ -132,10 +143,10 @@ export const VResize = defineComponent({
       if (isNeedReverse.value) {
         size = currentSize.value! - (e[direction.value] - offset.value!)
       } else {
-        size = currentSize.value! + (e[direction.value] - currentSize.value! - offset.value!)
+        size = currentSize.value! + (e[direction.value] - currentSize.value! - offset.value)
       }
 
-      size > props.minSize ? setOrEmitSize(size) : false
+      size > props.minSize && setOrEmitSize(size)
     }
 
     function resetMinMaxStyles() {
@@ -148,8 +159,12 @@ export const VResize = defineComponent({
       }
     }
 
-    function computeParentNode() {
+    function setParent() {
       const parent = resRef.value!.parentNode
+      data.parentNode = parent as HTMLElement
+    }
+
+    function computeSizes() {
       const {
         top,
         left,
@@ -157,24 +172,24 @@ export const VResize = defineComponent({
         width,
         marginLeft,
         marginTop
-      } = getComputedStyle(parent as HTMLElement)
+      } = getComputedStyle(data.parentNode!)
 
-      data.parentNode = parent as HTMLElement
-      data.offsetTop = (parent as HTMLElement).offsetTop
-      data.offsetLeft = (parent as HTMLElement).offsetLeft
+      data.offsetTop = data.parentNode!.offsetTop
+      data.offsetLeft = data.parentNode!.offsetLeft
       data.marginLeft = parseFloat(marginLeft)
       data.marginTop = parseFloat(marginTop)
       data.parentHeight = parseFloat(height)
       data.parentWidth = parseFloat(width)
-      data.offsetTop += data.marginTop
-      data.offsetLeft += data.marginLeft
+      data.top = parseFloat(top)
+      data.left = parseFloat(left)
+    }
 
-      if (parseFloat(left) === data.offsetLeft) {
-        data.parentNode.style.left = data.offsetLeft + 'px'
-      }
+    function setStartPositions() {
+      const side = reverseDirection.value
+      const offset = reverseOffsetKey.value
 
-      if (parseFloat(top) === data.offsetTop) {
-        data.parentNode.style.top = data.offsetTop + 'px'
+      if (data[side] === data[offset]) {
+        data.parentNode!.style[side] = `${ data[offset] }px`
       }
     }
 
@@ -184,14 +199,18 @@ export const VResize = defineComponent({
 
     function initResize(e) {
       if (!data.resized) {
+        data.isActive = true
         data.resized = true
         resetMinMaxStyles()
       }
-      resize(e)
+      requestAnimationFrame(() => {
+        resize(e)
+      })
     }
 
     function reset() {
       data.resized = false
+      data.isActive = false
       resetMinMaxStyles()
     }
 
@@ -201,7 +220,6 @@ export const VResize = defineComponent({
     }
 
     function onMousedown() {
-      computeParentNode()
       document.addEventListener('mousemove', initResize)
       document.addEventListener('mouseup', onMouseup)
       document.addEventListener('selectstart', disableSelection)
@@ -214,7 +232,7 @@ export const VResize = defineComponent({
     }
 
     onMounted(() => {
-      computeParentNode()
+      setParent()
     })
 
     return () => h('div', {

@@ -131,7 +131,9 @@ export const VResize = defineComponent({
     }
 
     function setOrEmitSize(size) {
+
       if (props.emit) return emit('size', size)
+
       data.parentNode!.style[sizeProp.value] = `${ size }px`
 
       isNeedReverse.value && moveReverse(size)
@@ -150,6 +152,7 @@ export const VResize = defineComponent({
     }
 
     function resetMinMaxStyles() {
+
       if (isDirectY.value) {
         data.parentNode!.style.maxHeight = ''
         data.parentNode!.style.minHeight = ''
@@ -157,6 +160,7 @@ export const VResize = defineComponent({
         data.parentNode!.style.maxWidth = ''
         data.parentNode!.style.minWidth = ''
       }
+
     }
 
     function setParent() {
@@ -198,14 +202,14 @@ export const VResize = defineComponent({
     }
 
     function initResize(e) {
+
       if (!data.resized) {
         data.isActive = true
         data.resized = true
         resetMinMaxStyles()
       }
-      requestAnimationFrame(() => {
-        resize(e)
-      })
+
+      requestAnimationFrame(() => resize(e))
     }
 
     function reset() {

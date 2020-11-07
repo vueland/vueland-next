@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.VField = void 0;
 
-require("../../../src/components/VField/VField.scss");
+require("../../../src/components/VTextField/VField.scss");
 
 var _vue = require("vue");
 

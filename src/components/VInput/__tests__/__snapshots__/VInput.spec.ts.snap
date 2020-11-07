@@ -1,164 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`VInput should mount component and match snapshot 1`] = `
-<div class="v-input v-validatable"
-     methods="[object Object]"
->
-  <div class="v-input__text-slot">
-    <label class="v-label primary--text"
-           style="position: absolute;"
-    >
-    </label>
-    <input type="text"
-           class="v-input__field"
-    >
-  </div>
-  <div class="v-input__status">
-    <transition-stub>
-    </transition-stub>
-  </div>
-</div>
-`;
-
 exports[`VInput should set color and match snapshot 1`] = `
-<div class="v-input v-validatable"
-     methods="[object Object]"
->
-  <div class="v-input__text-slot">
+<div class="v-input">
+  <div class="v-input__slot">
     <label class="v-label blue--text text--darken-2"
            style="position: absolute;"
     >
     </label>
-    <input type="text"
-           class="v-input__field blue--text text--darken-2"
-    >
   </div>
   <div class="v-input__status">
     <transition-stub>
-    </transition-stub>
-  </div>
-</div>
-`;
-
-exports[`VInput should set danger--text label and match snapshot 1`] = `
-<div class="v-input v-input--dirty v-input--not-valid v-validatable"
-     methods="[object Object]"
->
-  <div class="v-input__text-slot">
-    <label class="v-label v-label--active danger--text"
-           style="position: absolute;"
-    >
-    </label>
-    <input type="text"
-           class="v-input__field"
-    >
-  </div>
-  <div class="v-input__status">
-    <transition-stub>
-      <span class="v-input__status-message">
-        required
-      </span>
-    </transition-stub>
-  </div>
-</div>
-`;
-
-exports[`VInput should set dirty state and match snapshot 1`] = `
-<div class="v-input v-input--dirty v-input--valid v-input--focused v-validatable"
-     methods="[object Object]"
->
-  <div class="v-input__text-slot">
-    <label class="v-label v-label--active primary--text"
-           style="position: absolute;"
-    >
-    </label>
-    <input type="text"
-           class="v-input__field"
-    >
-  </div>
-  <div class="v-input__status">
-    <transition-stub>
-    </transition-stub>
-  </div>
-</div>
-`;
-
-exports[`VInput should set error status message and match snapshot 1`] = `
-<div class="v-input v-input--dirty v-input--not-valid v-validatable"
-     methods="[object Object]"
->
-  <div class="v-input__text-slot">
-    <label class="v-label v-label--active danger--text"
-           style="position: absolute;"
-    >
-    </label>
-    <input type="text"
-           class="v-input__field"
-    >
-  </div>
-  <div class="v-input__status">
-    <transition-stub>
-      <span class="v-input__status-message">
-        required
-      </span>
     </transition-stub>
   </div>
 </div>
 `;
 
 exports[`VInput should set label and match snapshot 1`] = `
-<div class="v-input v-validatable"
-     methods="[object Object]"
->
-  <div class="v-input__text-slot">
-    <label class="v-label primary--text"
+<div class="v-input">
+  <div class="v-input__slot">
+    <label class="v-label"
            style="position: absolute;"
     >
       email
     </label>
-    <input type="text"
-           class="v-input__field"
-    >
-  </div>
-  <div class="v-input__status">
-    <transition-stub>
-    </transition-stub>
-  </div>
-</div>
-`;
-
-exports[`VInput should set v-input--not-valid class name and match snapshot 1`] = `
-<div class="v-input v-input--dirty v-input--not-valid v-validatable"
-     methods="[object Object]"
->
-  <div class="v-input__text-slot">
-    <label class="v-label v-label--active danger--text"
-           style="position: absolute;"
-    >
-    </label>
-    <input type="text"
-           class="v-input__field"
-    >
-  </div>
-  <div class="v-input__status">
-    <transition-stub>
-    </transition-stub>
-  </div>
-</div>
-`;
-
-exports[`VInput should set valid value and match snapshot 1`] = `
-<div class="v-input v-input--dirty v-input--valid v-validatable"
-     methods="[object Object]"
->
-  <div class="v-input__text-slot">
-    <label class="v-label v-label--active success--text"
-           style="position: absolute;"
-    >
-    </label>
-    <input type="text"
-           class="v-input__field"
-    >
   </div>
   <div class="v-input__status">
     <transition-stub>

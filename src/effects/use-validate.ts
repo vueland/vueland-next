@@ -17,11 +17,11 @@ export function useValidate(props) {
     isDirty: false,
   })
 
-  const validateClasses = () => {
+  const validateClasses = computed<Record<string, boolean>>(() => {
     return {
       'v-validatable': true,
     }
-  }
+  })
 
   const computedColor = computed<string | undefined>(() => {
     if (props.disabled) return undefined

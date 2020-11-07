@@ -1,0 +1,15 @@
+.v-text-field {
+  margin-top: 12px;
+
+  &__input {
+    background: transparent;
+    padding: 6px 0;
+    height: 100%;
+    max-height: 32px;
+    width: 100%;
+  }
+
+  &--valid {
+
+  }
+}

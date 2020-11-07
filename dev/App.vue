@@ -40,45 +40,26 @@
 
 <template>
   <div>
-    <v-form v-slot="{ validate }" style="display: flex;">
-      <v-card width="400" color="blue" style="position: relative; padding: 20px;">
-        <v-resize right/>
-        <v-input
-          v-model="data.login"
-          label="login"
-          dark
-          :rules="[val => !!val || 'Required', val => val.length > 5 || 'more than 5 symbols']"
-        />
-        <v-input
-          v-model="data.email"
-          label="email"
-          dark
-          :rules="[val => !!val && /^(\w+|[^#])$/g.test(val)]"
-        />
-      </v-card>
+    <v-form v-slot="{ validate }">
       <v-card color="#171717" width="400" elevation="5" style="padding: 20px;">
-        <v-resize right/>
-        <v-resize bottom/>
-        <v-resize top/>
-        <v-resize left/>
         <v-card-content>
-          <v-input
+          <v-text-field
             v-model="data.login"
             label="login"
             dark
             :rules="[val => !!val || 'Required', val => val.length > 5 || 'more than 5 symbols']"
           />
-          <v-input
-            v-model="data.email"
-            label="email"
-            dark
-            :rules="[val => !!val && /^(\w+|[^#])$/g.test(val)]"
-          />
-          <v-input
-            v-model="data.password"
+          <v-text-field
+            v-model="data.login"
             label="password"
             dark
-            :rules="[val => !!val && val.length >= 8 || 'enter password']"
+            :rules="[val => !!val || 'Required', val => val.length > 5 || 'more than 5 symbols']"
+          />
+          <v-text-field
+            v-model="data.login"
+            label="email"
+            dark
+            :rules="[val => !!val || 'Required', val => val.length > 5 || 'more than 5 symbols']"
           />
         </v-card-content>
         <v-card-actions>

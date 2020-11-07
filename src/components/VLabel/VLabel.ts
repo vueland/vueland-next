@@ -33,8 +33,8 @@ export const VLabel = defineComponent({
   setup(props, { slots }) {
     const { setTextColor } = useColors()
 
-    const classes = computed(
-      (): Record<string, boolean> => {
+    const classes = computed<Record<string, boolean>>(
+      () => {
         return {
           'v-label': true,
           'v-label--active': !!props.hasState || !!props.focused,

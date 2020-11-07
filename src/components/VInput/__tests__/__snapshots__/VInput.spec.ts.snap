@@ -1,29 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`VInput should set color and match snapshot 1`] = `
+exports[`VInput should mount component and match snapshot 1`] = `
 <div class="v-input">
-  <div class="v-input__slot">
-    <label class="v-label blue--text text--darken-2"
-           style="position: absolute;"
-    >
-    </label>
-  </div>
-  <div class="v-input__status">
-    <transition-stub>
-    </transition-stub>
-  </div>
-</div>
-`;
-
-exports[`VInput should set label and match snapshot 1`] = `
-<div class="v-input">
-  <div class="v-input__slot">
-    <label class="v-label"
-           style="position: absolute;"
-    >
-      email
-    </label>
-  </div>
   <div class="v-input__status">
     <transition-stub>
     </transition-stub>

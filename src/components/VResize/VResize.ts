@@ -8,7 +8,7 @@ import {
   watch,
   computed,
   reactive,
-  defineComponent
+  defineComponent,
 } from 'vue'
 // Effects
 import { positionProps } from '../../effects/use-position'
@@ -64,7 +64,11 @@ export const VResize = defineComponent({
       left: 0,
       top: 0,
       resized: false,
-      isActive: false
+      isActive: false,
+    })
+
+    onMounted(() => {
+      setParent()
     })
 
     const resRef = ref<HTMLElement | null>(null)
@@ -127,13 +131,13 @@ export const VResize = defineComponent({
         (currentSize.value - size + left) :
         (currentSize.value - size + top)
 
-      parentNode!.style[reverseTo] = `${ value }px`
+      parentNode!.style[reverseTo] = `${value}px`
     }
 
     function setOrEmitSize(size) {
       if (props.emit) return emit('size', size)
 
-      data.parentNode!.style[sizeProp.value] = `${ size }px`
+      data.parentNode!.style[sizeProp.value] = `${size}px`
 
       isNeedReverse.value && moveReverse(size)
     }
@@ -174,7 +178,7 @@ export const VResize = defineComponent({
         height,
         width,
         marginLeft,
-        marginTop
+        marginTop,
       } = getComputedStyle(data.parentNode!)
 
       data.offsetTop = data.parentNode!.offsetTop
@@ -192,7 +196,7 @@ export const VResize = defineComponent({
       const offset = reverseOffsetKey.value
 
       if (data[side] === data[offset]) {
-        data.parentNode!.style[side] = `${ data[offset] }px`
+        data.parentNode!.style[side] = `${data[offset]}px`
       }
     }
 
@@ -233,10 +237,6 @@ export const VResize = defineComponent({
       document.removeEventListener('mouseup', onMouseup)
       document.removeEventListener('selectstart', disableSelection)
     }
-
-    onMounted(() => {
-      setParent()
-    })
 
     return () => h('div', {
       class: {

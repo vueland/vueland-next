@@ -50,6 +50,12 @@
     <v-form v-slot="{ validate }">
       <v-card color="#272727" width="400" elevation="5" style="padding: 20px">
         <v-resize right />
+        <v-list>
+          <v-list-group group="First">
+
+          </v-list-group>
+          <v-list-group></v-list-group>
+        </v-list>
         <v-card-content>
           <v-icon
             icon="fab fa-apple"

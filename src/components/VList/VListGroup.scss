@@ -1,0 +1,16 @@
+@import "../../styles/scss/modules/global";
+
+.v-list-group {
+  display: block;
+  width: 100%;
+  height: 40px;
+  border: 1px solid white;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &--active {
+    background: $primary;
+  }
+}

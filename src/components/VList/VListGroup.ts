@@ -1,14 +1,20 @@
 // Styles
-import './VList.scss'
+import './VListGroup.scss'
 
 // Vue API
 import {
   h,
+  ref,
+  computed,
+  inject,
   defineComponent,
 } from 'vue'
 
 // Effects
 import { useColors } from '../../effects/use-colors'
+
+// Components
+import { VListItem } from './VListItem'
 
 const vListGroupProps = {
   activeClass: {
@@ -24,29 +30,58 @@ const vListGroupProps = {
   group: String,
   noAction: Boolean,
   prependIcon: String,
-  ripple: {
-    type: [Boolean, Object],
-    default: true,
-  },
   subGroup: Boolean,
 }
 
-export const VList = defineComponent({
+export const VListGroup = defineComponent({
   name: 'v-list-group',
   props: vListGroupProps,
 
   setup(props) {
     const { setTextColor } = useColors()
 
-    const genPrependIcon = () => {
+    const refGroup = ref(null)
+    const isActive = ref(false)
+
+    const groups: any = inject('groups')
+
+    const clickHandler = () => {
+      groups.listClick(refGroup)
     }
-    const genAppendIcon = () => {
+
+    groups.register({
+      ref: refGroup,
+      activator: isActive
+    })
+
+    // const genPrependIcon = () => {
+    // }
+    // const genAppendIcon = () => {
+    // }
+
+    const classes = computed(() => ({
+      'v-list-group': true,
+      'v-list-group--active': isActive.value
+    }))
+
+    const genGroupHeader = () => {
+      return h(VListItem, {}, {
+        default: props.group
+      })
     }
 
     const genDataProps = () => {
-      return {}
+      return {
+        class: classes.value,
+        ref: refGroup,
+        onClick: clickHandler,
+      }
     }
 
-    return () => h('div', setTextColor(props.color, genDataProps()))
+    return () => h(
+      'div',
+      setTextColor(props.color, genDataProps()),
+      [genGroupHeader()]
+    )
   },
 })

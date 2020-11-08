@@ -61,7 +61,6 @@
             v-model="data.login"
             label="login"
             dark
-            @input="testFunc"
             :rules="[
               val => !!val || 'Required',
               val => val.length > 5 || 'more than 5 symbols',

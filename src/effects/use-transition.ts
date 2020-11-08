@@ -13,7 +13,6 @@ export function useTransition(
   { transition }: Props,
   vNode: VNode,
 ): () => VNode {
-
   return (): VNode => {
     return createBlock(
       Transition,

@@ -119,7 +119,9 @@ export const VBadge = defineComponent({
     }
 
     const genBadgeSlot = (): VNode => {
-      return h('div', {
+      return h(
+        'div',
+        {
           class: {
             'v-badge__badge-slot': true,
           },
@@ -129,14 +131,18 @@ export const VBadge = defineComponent({
     }
 
     const genBadge = (): VNode => {
-      return h('span', setBackground(props.color, {
+      return h(
+        'span',
+        setBackground(props.color, {
           class: {
             ...classes.value,
           },
           style: [styles.value],
         }),
         [
-          h('span', {
+          h(
+            'span',
+            {
               class: {
                 'vue-badge__content': true,
               },
@@ -159,7 +165,9 @@ export const VBadge = defineComponent({
       const slotContent = slots.default && slots.default()
       const transitionedBadge = useTransition(props, badge)
 
-      return h('span', {
+      return h(
+        'span',
+        {
           class: {
             'v-badge': true,
           },

@@ -123,7 +123,6 @@ module.exports = {
   node: {
     fs: 'empty'
   },
-
   plugins: [
     new MiniCssExtractPlugin({
       filename: '[name].css',

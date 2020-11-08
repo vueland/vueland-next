@@ -110,9 +110,7 @@ export const VTextField = defineComponent({
     }
 
     const genTextField = () => {
-      return h(
-        'div',
-        {
+      return h('div', {
           class: {
             ...classes.value,
           },

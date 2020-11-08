@@ -9,15 +9,17 @@ describe('VResize', () => {
   let mountFunction: (options?: any) => VueWrapper<any>
 
   beforeEach(() => {
-    mountInWrapFunction = (options = {}) => mount(VCard, {
-      slots: {
-        default: VResize.setup!(options, {} as SetupContext)
-      },
-      ...options,
-    })
-    mountFunction = (options = {}) => mount(VResize, {
-      ...options
-    })
+    mountInWrapFunction = (options = {}) =>
+      mount(VCard, {
+        slots: {
+          default: VResize.setup!(options, {} as SetupContext),
+        },
+        ...options,
+      })
+    mountFunction = (options = {}) =>
+      mount(VResize, {
+        ...options,
+      })
   })
 
   it('should mount the component and match snapshot', () => {
@@ -46,7 +48,9 @@ describe('VResize', () => {
     const right = true
     const cmp = mountFunction({ propsData: { right } })
 
-    expect(cmp.find('.v-resize').attributes().class).toContain('v-resize--right')
+    expect(cmp.find('.v-resize').attributes().class).toContain(
+      'v-resize--right',
+    )
     expect(cmp.html()).toMatchSnapshot()
   })
 
@@ -54,13 +58,15 @@ describe('VResize', () => {
     const bottom = true
     const cmp = mountFunction({ propsData: { bottom } })
 
-    expect(cmp.find('.v-resize').attributes().class).toContain('v-resize--bottom')
+    expect(cmp.find('.v-resize').attributes().class).toContain(
+      'v-resize--bottom',
+    )
     expect(cmp.html()).toMatchSnapshot()
   })
 
   it('should set top prop and match snapshot', async () => {
     const cmp = mountInWrapFunction({
-      top: true
+      top: true,
     })
     const resizer = cmp.find('.v-resize')
 

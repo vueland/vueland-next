@@ -77,7 +77,9 @@ export const VInput = defineComponent({
     }
 
     const genInputSlot = () => {
-      return h('div', {
+      return h(
+        'div',
+        {
           class: {
             'v-input__field-slot': true,
           },
@@ -87,7 +89,9 @@ export const VInput = defineComponent({
     }
 
     const genAutocompleteSlot = () => {
-      return h('div', {
+      return h(
+        'div',
+        {
           class: {
             'v-input__autocomplete-slot': true,
           },
@@ -97,7 +101,9 @@ export const VInput = defineComponent({
     }
 
     const genStatusMessage = (): VNode => {
-      return h('span', {
+      return h(
+        'span',
+        {
           class: {
             'v-input__status-message': true,
           },
@@ -112,7 +118,9 @@ export const VInput = defineComponent({
         (props.message && genStatusMessage()) as VNode,
       )
 
-      return h('div', {
+      return h(
+        'div',
+        {
           class: {
             'v-input__status': true,
           },

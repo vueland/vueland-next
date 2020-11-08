@@ -11,7 +11,7 @@ exports.externals = externals
 
 exports.alias = {
   '@': path.resolve(__dirname, '../src'),
-  retn: path.resolve(__dirname, '../')
+  vueland: path.resolve(__dirname, '../')
 }
 
 exports.vue = {

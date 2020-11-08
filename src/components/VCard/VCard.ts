@@ -15,7 +15,7 @@ import { VNode } from 'vue'
 const cardProps: Props = {
   width: {
     type: [String, Number],
-    default: 350
+    default: 350,
   },
   ...colorProps(),
   ...elevationProps(),
@@ -40,7 +40,7 @@ export const VCard = defineComponent({
     const dataProps = () => {
       return {
         class: classes.value,
-        style: { maxWidth: `${ props.width }px` },
+        style: { maxWidth: `${props.width}px` },
       }
     }
 

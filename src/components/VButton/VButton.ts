@@ -98,7 +98,9 @@ export const VButton = defineComponent({
 
     const label =
       props.label &&
-      h('span', {
+      h(
+        'span',
+        {
           class: {
             'v-button__label': true,
           },

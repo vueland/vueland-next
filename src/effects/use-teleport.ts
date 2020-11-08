@@ -9,7 +9,6 @@ export function teleportProps() {
 }
 
 export function useTeleport(props: Props, component: VNode): () => VNode {
-
   return createBlock(
     Teleport as any,
     {

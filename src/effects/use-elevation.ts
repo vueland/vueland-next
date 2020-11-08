@@ -17,7 +17,7 @@ export function elevationProps(): Props {
 export function useElevation(props: Props): Elevetable {
   const elevationClasses = computed(() => {
     return {
-      [`elevation-${props.elevation}`]: !!props.elevation
+      [`elevation-${props.elevation}`]: !!props.elevation,
     }
   })
 

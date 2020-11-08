@@ -2,7 +2,6 @@ import { mount, VueWrapper } from '@vue/test-utils'
 import { VInput } from '../VInput'
 import 'regenerator-runtime/runtime'
 
-
 describe('VInput', () => {
   let mountFunction: (options?: any) => VueWrapper<any>
 

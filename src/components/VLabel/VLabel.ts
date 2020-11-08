@@ -2,11 +2,7 @@
 import './VLabel.scss'
 
 // Vue API
-import {
-  h,
-  computed,
-  defineComponent
-} from 'vue'
+import { h, computed, defineComponent } from 'vue'
 
 // Helpers
 import { convertToUnit } from '../../helpers'
@@ -42,15 +38,13 @@ export const VLabel = defineComponent({
       return !!props.hasState || !!props.focused
     })
 
-    const classes = computed<Record<string, boolean>>(
-      () => {
-        return {
-          'v-label': true,
-          'v-label--active': isActive.value,
-          'v-label--is-disabled': !!props.disabled,
-        }
-      },
-    )
+    const classes = computed<Record<string, boolean>>(() => {
+      return {
+        'v-label': true,
+        'v-label--active': isActive.value,
+        'v-label--is-disabled': !!props.disabled,
+      }
+    })
 
     const genDataProps = () => {
       return {

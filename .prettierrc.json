@@ -6,5 +6,7 @@
   "quoteProps": "as-needed",
   "trailingComma": "all",
   "bracketSpacing": true,
-  "arrowParens": "avoid"
+  "arrowParens": "avoid",
+  "vueIndentScriptAndStyle": true,
+  "endOfLine": "lf"
 }

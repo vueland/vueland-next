@@ -2,12 +2,7 @@
 import './VInput.scss'
 
 // Vue API
-import {
-  h,
-  computed,
-  renderSlot,
-  defineComponent,
-} from 'vue'
+import { h, computed, renderSlot, defineComponent } from 'vue'
 
 // Components
 import { VLabel } from '../VLabel'
@@ -59,7 +54,7 @@ export const VInput = defineComponent({
         'v-input--dirty': props.isDirty,
         'v-input--valid': isValid.value,
         'v-input--not-valid': isNotValid.value,
-        'v-input--focused': props.focused
+        'v-input--focused': props.focused,
       }
     })
 
@@ -83,27 +78,26 @@ export const VInput = defineComponent({
 
     const genInputSlot = () => {
       return h('div', {
-        class: {
-          'v-input__field-slot': true,
+          class: {
+            'v-input__field-slot': true,
+          },
         },
-      }, [
-        genLabel(),
-        renderSlot(slots, 'textField')
-      ])
+        [genLabel(), renderSlot(slots, 'textField')],
+      )
     }
 
     const genAutocompleteSlot = () => {
       return h('div', {
-        class: {
-          'v-input__autocomplete-slot': true,
+          class: {
+            'v-input__autocomplete-slot': true,
+          },
         },
-      }, [renderSlot(slots, 'autocomplete')])
+        [renderSlot(slots, 'autocomplete')],
+      )
     }
 
     const genStatusMessage = (): VNode => {
-      return h(
-        'span',
-        {
+      return h('span', {
           class: {
             'v-input__status-message': true,
           },
@@ -118,9 +112,7 @@ export const VInput = defineComponent({
         (props.message && genStatusMessage()) as VNode,
       )
 
-      return h(
-        'div',
-        {
+      return h('div', {
           class: {
             'v-input__status': true,
           },
@@ -133,17 +125,15 @@ export const VInput = defineComponent({
       return {
         class: {
           ...classes.value,
-        }
+        },
       }
     }
 
-    return () => h('div',
-      genDataProps(),
-      [
+    return () =>
+      h('div', genDataProps(), [
         slots.textField && genInputSlot(),
         slots.autocomplete && genAutocompleteSlot(),
-        genStatus()
-      ]
-    )
+        genStatus(),
+      ])
   },
 })

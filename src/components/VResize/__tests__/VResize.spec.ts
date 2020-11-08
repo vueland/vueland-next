@@ -26,7 +26,7 @@ describe('VResize', () => {
     expect(cmp.html()).toMatchSnapshot()
   })
 
-  it('should set top prop and match snapshot', async () => {
+  it('should set top prop and match snapshot', () => {
     const top = true
     const cmp = mountFunction({ propsData: { top } })
 
@@ -34,7 +34,7 @@ describe('VResize', () => {
     expect(cmp.html()).toMatchSnapshot()
   })
 
-  it('should set left prop and match snapshot', async () => {
+  it('should set left prop and match snapshot', () => {
     const left = true
     const cmp = mountFunction({ propsData: { left } })
 
@@ -42,7 +42,7 @@ describe('VResize', () => {
     expect(cmp.html()).toMatchSnapshot()
   })
 
-  it('should set right prop and match snapshot', async () => {
+  it('should set right prop and match snapshot', () => {
     const right = true
     const cmp = mountFunction({ propsData: { right } })
 
@@ -50,7 +50,7 @@ describe('VResize', () => {
     expect(cmp.html()).toMatchSnapshot()
   })
 
-  it('should set bottom prop and match snapshot', async () => {
+  it('should set bottom prop and match snapshot', () => {
     const bottom = true
     const cmp = mountFunction({ propsData: { bottom } })
 

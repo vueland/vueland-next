@@ -1,7 +1,14 @@
 import './VBadge.scss'
 
 // Vue API
-import { defineComponent, h, computed, withDirectives, renderSlot, vShow } from 'vue'
+import {
+  vShow,
+  h,
+  computed,
+  renderSlot,
+  withDirectives,
+  defineComponent,
+} from 'vue'
 
 // Effects
 import { positionProps } from '../../effects/use-position'
@@ -49,7 +56,7 @@ export const VBadge = defineComponent({
 
     const calcPosition = (offsetVal: string | number = 0): string => {
       const value = offset.value + Number(offsetVal)
-      return `calc(100% - ${ value }px)`
+      return `calc(100% - ${value}px)`
     }
 
     const computedLeft = computed<string | boolean>(() => {
@@ -112,9 +119,7 @@ export const VBadge = defineComponent({
     }
 
     const genBadgeSlot = (): VNode => {
-      return h(
-        'div',
-        {
+      return h('div', {
           class: {
             'v-badge__badge-slot': true,
           },
@@ -124,24 +129,21 @@ export const VBadge = defineComponent({
     }
 
     const genBadge = (): VNode => {
-      return h(
-        'span',
-        setBackground(props.color, {
+      return h('span', setBackground(props.color, {
           class: {
             ...classes.value,
           },
           style: [styles.value],
         }),
         [
-          h(
-            'span',
-            {
+          h('span', {
               class: {
                 'vue-badge__content': true,
               },
             },
             [genContent(), genBadgeSlot()],
-          )]
+          ),
+        ],
       )
     }
 
@@ -157,9 +159,7 @@ export const VBadge = defineComponent({
       const slotContent = slots.default && slots.default()
       const transitionedBadge = useTransition(props, badge)
 
-      return h(
-        'span',
-        {
+      return h('span', {
           class: {
             'v-badge': true,
           },

@@ -2,13 +2,14 @@
 import './VResize.scss'
 // Vue API
 import {
-  onMounted,
   h,
   ref,
   watch,
   computed,
   reactive,
   defineComponent,
+  onMounted,
+  onBeforeUnmount,
 } from 'vue'
 // Effects
 import { positionProps } from '../../effects/use-position'
@@ -52,7 +53,6 @@ export const VResize = defineComponent({
   props: vResizeProps,
 
   setup(props, { emit }) {
-
     const data: ResizeData = reactive({
       parentNode: null,
       offsetTop: 0,
@@ -65,10 +65,6 @@ export const VResize = defineComponent({
       top: 0,
       resized: false,
       isActive: false,
-    })
-
-    onMounted(() => {
-      setParent()
     })
 
     const resRef = ref<HTMLElement | null>(null)
@@ -118,18 +114,21 @@ export const VResize = defineComponent({
       return isDirectY.value ? 'clientY' : 'clientX'
     })
 
-    watch(() => data.isActive, to => {
-      to && computeSizes()
-      to && setStartPositions()
-    })
+    watch(
+      () => data.isActive,
+      to => {
+        to && computeSizes()
+        to && setStartPositions()
+      },
+    )
 
     function moveReverse(size) {
       const { parentNode, left, top } = data
       const reverseTo = reverseDirection.value
 
-      const value = !isDirectY.value ?
-        (currentSize.value - size + left) :
-        (currentSize.value - size + top)
+      const value = !isDirectY.value
+        ? currentSize.value - size + left
+        : currentSize.value - size + top
 
       parentNode!.style[reverseTo] = `${value}px`
     }
@@ -148,14 +147,15 @@ export const VResize = defineComponent({
       if (isNeedReverse.value) {
         size = currentSize.value! - (e[direction.value] - offset.value!)
       } else {
-        size = currentSize.value! + (e[direction.value] - currentSize.value! - offset.value)
+        size =
+          currentSize.value! +
+          (e[direction.value] - currentSize.value! - offset.value)
       }
 
       size > props.minSize && setOrEmitSize(size)
     }
 
     function resetMinMaxStyles() {
-
       if (isDirectY.value) {
         data.parentNode!.style.maxHeight = ''
         data.parentNode!.style.minHeight = ''
@@ -163,7 +163,6 @@ export const VResize = defineComponent({
         data.parentNode!.style.maxWidth = ''
         data.parentNode!.style.minWidth = ''
       }
-
     }
 
     function setParent() {
@@ -205,7 +204,6 @@ export const VResize = defineComponent({
     }
 
     function initResize(e) {
-
       if (!data.resized) {
         data.isActive = true
         data.resized = true
@@ -238,13 +236,22 @@ export const VResize = defineComponent({
       document.removeEventListener('selectstart', disableSelection)
     }
 
-    return () => h('div', {
-      class: {
-        ...classes.value,
-      },
-      key: 'resize',
-      ref: resRef,
-      onMousedown,
+    onMounted(() => {
+      setParent()
     })
+
+    onBeforeUnmount(() => {
+      document.removeEventListener('mousedown', onMousedown)
+    })
+
+    return () =>
+      h('div', {
+        class: {
+          ...classes.value,
+        },
+        key: 'resize',
+        ref: resRef,
+        onMousedown,
+      })
   },
 })

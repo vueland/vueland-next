@@ -28,14 +28,11 @@ export const VForm = defineComponent({
     }
 
     return () =>
-      h(
-        'div',
-        {
+      h('div', {
           class: {
             'v-form': true,
           },
-        },
-        genSlot(),
+        }, [genSlot()],
       )
   },
 })

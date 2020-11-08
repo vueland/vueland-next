@@ -2,23 +2,11 @@
 import './VTextField.scss'
 
 // Vue API
-import {
-  h,
-  watch,
-  computed,
-  reactive,
-  defineComponent
-} from 'vue'
+import { h, watch, computed, reactive, defineComponent } from 'vue'
 
 // Effects
-import {
-  useValidate,
-  validateProps
-} from '../../effects/use-validate'
-import {
-  useColors,
-  colorProps
-} from '../../effects/use-colors'
+import { useValidate, validateProps } from '../../effects/use-validate'
+import { useColors, colorProps } from '../../effects/use-colors'
 
 // Components
 import { VInput } from '../VInput'
@@ -27,7 +15,7 @@ import { VInput } from '../VInput'
 import { VNode } from 'vue'
 import { Props } from '../../types'
 
-const textFieldProps: Props = {
+const vTextFieldProps: Props = {
   dark: Boolean,
   disabled: Boolean,
   label: String,
@@ -37,10 +25,10 @@ const textFieldProps: Props = {
     default: 'text',
   },
   modelValue: {
-    type: [String, Number]
+    type: [String, Number],
   },
   ...validateProps(),
-  ...colorProps()
+  ...colorProps(),
 }
 
 type TextFieldState = {
@@ -49,11 +37,10 @@ type TextFieldState = {
 }
 
 export const VTextField = defineComponent({
-  name: 'v-field',
-  props: textFieldProps,
+  name: 'v-text-field',
+  props: vTextFieldProps,
 
-  setup(props, ctx) {
-
+  setup(props, { emit }) {
     const state: TextFieldState = reactive({
       value: '',
       focused: false,
@@ -65,7 +52,7 @@ export const VTextField = defineComponent({
 
     const {
       validate,
-      focused,
+      dirty,
       update,
       errorState,
       computedColor,
@@ -80,7 +67,7 @@ export const VTextField = defineComponent({
         'v-text-field--dirty': props.isDirty,
         'v-text-field--valid': props.isDirty && !errorState.innerError,
         'v-text-field--not-valid': props.isDirty && !!errorState.innerError,
-        ...validateClasses.value
+        ...validateClasses.value,
       }),
     )
 
@@ -89,21 +76,21 @@ export const VTextField = defineComponent({
     }
 
     const focusHandler = () => {
-      focused()
+      dirty()
       update(errorState.innerError)
       state.focused = true
-      ctx.emit('focus')
+      emit('focus')
     }
 
     const blurHandler = () => {
-      ctx.emit('blur')
       state.focused = false
+      emit('blur')
       validateValue()
     }
 
     const inputHandler = e => {
       state.value = e.target.value
-      ctx.emit('update:modelValue', state.value)
+      emit('update:modelValue', state.value)
     }
 
     const genInput = (): VNode => {
@@ -112,7 +99,7 @@ export const VTextField = defineComponent({
         disabled: props.disabled,
         value: props.modelValue,
         class: {
-          'v-text-field__input': true
+          'v-text-field__input': true,
         },
         onFocus: focusHandler,
         onBlur: blurHandler,
@@ -123,37 +110,45 @@ export const VTextField = defineComponent({
     }
 
     const genTextField = () => {
-      return h('div', {
-        class: {
-          ...classes.value
+      return h(
+        'div',
+        {
+          class: {
+            ...classes.value,
+          },
+          methods: {
+            validateValue,
+          },
         },
-        methods: {
-          validateValue
-        },
-      }, [genInput()])
+        [genInput()],
+      )
     }
 
-    watch(() => props.modelValue, value => {
-      state.value = value
-      if (!value) return validateValue()
-    })
-
-    return () => h(
-      VInput,
-      {
-        label: props.label,
-        focused: state.focused,
-        hasState: !!state.value,
-        hasError: errorState.innerError,
-        dark: props.dark,
-        color: validationState.value,
-        isDirty: errorState.isDirty,
-        disabled: props.disabled,
-        message: errorState.innerErrorMessage
-      } as Props,
-      {
-        textField: () => genTextField()
-      }
+    watch(
+      () => props.modelValue,
+      value => {
+        state.value = value
+        if (!value) return validateValue()
+      },
     )
+
+    return () =>
+      h(
+        VInput,
+        {
+          label: props.label,
+          focused: state.focused,
+          hasState: !!state.value,
+          hasError: errorState.innerError,
+          dark: props.dark,
+          color: validationState.value,
+          isDirty: errorState.isDirty,
+          disabled: props.disabled,
+          message: errorState.innerErrorMessage,
+        } as Props,
+        {
+          textField: () => genTextField(),
+        },
+      )
   },
 })

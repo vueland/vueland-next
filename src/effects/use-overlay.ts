@@ -5,7 +5,7 @@ import { VOverlay } from '../components'
 
 // Types
 import { Props } from '../types'
-import { SetupContext } from 'vue'
+import { SetupContext, VNode } from 'vue'
 
 // Helpers
 import { addOnceListener } from '@/helpers'
@@ -51,9 +51,9 @@ export function useOverlay(props: Props, overlayOn?: string): Overlayable {
 
   const container = doc.createElement('div')
 
-  const renderOverlay = vNode => render(vNode, container!)
+  const renderOverlay = () => render(overlayVNode() as VNode, container!)
 
-  renderOverlay(overlayVNode())
+  renderOverlay()
 
   const overlayElement = container.firstChild
 
@@ -63,14 +63,14 @@ export function useOverlay(props: Props, overlayOn?: string): Overlayable {
     setTimeout(() => {
       overlayPropsObject.active = true
       overlayPropsObject.hide = !props.overlay
-      renderOverlay(overlayVNode())
+      renderOverlay()
     }, 40)
   }
 
   function removeOverlay(): void {
     overlayPropsObject.active = false
 
-    renderOverlay(overlayVNode())
+    renderOverlay()
 
     function remove() {
       overlayable.parentNode.removeChild(overlayElement)

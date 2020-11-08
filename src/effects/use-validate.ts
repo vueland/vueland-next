@@ -1,3 +1,4 @@
+// Vue API
 import { reactive, computed } from 'vue'
 
 export const validateProps = () => {
@@ -42,7 +43,7 @@ export function useValidate(props) {
     )
   })
 
-  const focused = () => {
+  const dirty = () => {
     errorState.isDirty = true
   }
 
@@ -61,7 +62,7 @@ export function useValidate(props) {
   const validate = (val = props.value): boolean | void => {
     if (!hasRules.value) return true
 
-    focused()
+    dirty()
 
     for (let i = 0, len = props.rules.length; i < len; i += 1) {
       const rule = props.rules[i]
@@ -86,7 +87,7 @@ export function useValidate(props) {
 
   return {
     validate,
-    focused,
+    dirty,
     update,
     validateClasses,
     computedColor,

@@ -24,10 +24,10 @@ const vIconProps: Props = {
   iconType: String,
   tag: {
     type: String,
-    default: 'i'
+    default: 'i',
   },
   ...colorProps(),
-  ...sizeProps()
+  ...sizeProps(),
 }
 
 enum SIZE_MAP {
@@ -36,7 +36,7 @@ enum SIZE_MAP {
   default = '24px',
   medium = '28px',
   large = '36px',
-  xLarge = '40px'
+  xLarge = '40px',
 }
 
 export const VIcon = defineComponent({
@@ -56,16 +56,18 @@ export const VIcon = defineComponent({
         'v-icon--clickable': props.clickable,
         [props.iconType]: !!props.iconType,
         [props.icon]: !!props.icon,
-        ...sizeClasses.value
+        ...sizeClasses.value,
       }
     })
 
     const isMedium = computed(() => {
-      return !props.large &&
+      return (
+        !props.large &&
         !props.small &&
         !props.xLarge &&
         !props.xSmall &&
         !props.size
+      )
     })
 
     const getSizes = () => {
@@ -74,7 +76,7 @@ export const VIcon = defineComponent({
         small: props.small,
         xLarge: props.xLarge,
         xSmall: props.xSmall,
-        medium: isMedium.value
+        medium: isMedium.value,
       }
 
       const explicitSize = Object.keys(sizes).find(key => sizes[key])
@@ -87,16 +89,16 @@ export const VIcon = defineComponent({
     const genPropsData = () => {
       return {
         class: {
-          ...classes.value
+          ...classes.value,
         },
         style: {
-          fontSize: getSizes()
-        }
+          fontSize: getSizes(),
+        },
       }
     }
 
     const iconTag = props.clickable ? 'button' : props.tag
 
     return () => h(iconTag, setTextColor(props.color, genPropsData()))
-  }
+  },
 })

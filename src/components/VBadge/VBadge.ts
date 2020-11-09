@@ -172,7 +172,7 @@ export const VBadge = defineComponent({
             'v-badge': true,
           },
         },
-        [h(transitionedBadge()), slotContent],
+        [h(transitionedBadge), slotContent],
       )
     }
   },

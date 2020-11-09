@@ -2,7 +2,7 @@
 import './VInput.scss'
 
 // Vue API
-import { h, computed, renderSlot, defineComponent } from 'vue'
+import { h, computed, defineComponent } from 'vue'
 
 // Components
 import { VLabel } from '../VLabel'
@@ -84,7 +84,7 @@ export const VInput = defineComponent({
             'v-input__field-slot': true,
           },
         },
-        [genLabel(), renderSlot(slots, 'textField')],
+        [genLabel(), slots.textField && slots.textField()],
       )
     }
 
@@ -96,7 +96,7 @@ export const VInput = defineComponent({
             'v-input__autocomplete-slot': true,
           },
         },
-        [renderSlot(slots, 'autocomplete')],
+        slots.autocomplete && slots.autocomplete(),
       )
     }
 
@@ -125,7 +125,7 @@ export const VInput = defineComponent({
             'v-input__status': true,
           },
         },
-        [transitionedMessage()],
+        [transitionedMessage],
       )
     }
 

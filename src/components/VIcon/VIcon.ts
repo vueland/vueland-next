@@ -50,7 +50,6 @@ export const VIcon = defineComponent({
       return props.icon || (slots.default && slots.default()[0].children)
     })
 
-    console.log(props.size)
 
     const classes = computed(() => {
       return {

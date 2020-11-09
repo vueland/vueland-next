@@ -1,4 +1,4 @@
-import { defineComponent, h } from 'vue'
+import { defineComponent, h, renderSlot } from 'vue'
 
 export function createSimpleFunctional(
   c: string,
@@ -17,7 +17,7 @@ export function createSimpleFunctional(
               [c.trim()]: true,
             },
           },
-          slots.default && slots.default(),
+          renderSlot(slots, 'default'),
         )
     },
   })

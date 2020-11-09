@@ -67,12 +67,7 @@ export const VModal = defineComponent({
 
     const content = genContent()
 
-    let modal = genModal()
-
-    if (!!props.transition) {
-      const transitionedModal = useTransition(props, modal)
-      modal = transitionedModal()
-    }
+    const modal = !!props.transition ? useTransition(props, genModal()) : genModal()
 
     return () => withDirectives(h(modal), [[vShow, isActive.value]])
   },

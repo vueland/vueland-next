@@ -12,16 +12,16 @@ export function transitionProps() {
 export function useTransition(
   { transition }: Props,
   vNode: VNode,
-): () => VNode {
-  return (): VNode => {
-    return createBlock(
-      Transition,
-      {
-        name: transition,
-      },
-      {
-        default: withCtx(() => vNode && [h(vNode)]),
-      },
-    )
-  }
+  hooks?: any,
+): VNode {
+  const props = hooks ? {
+    ...hooks,
+  } : { name: transition }
+  return createBlock(
+    Transition,
+    props,
+    {
+      default: withCtx(() => vNode && [h(vNode)]),
+    },
+  )
 }

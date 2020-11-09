@@ -2,10 +2,20 @@
 import './VListGroup.scss'
 
 // Vue API
-import { h, ref, computed, inject, defineComponent, onBeforeUnmount } from 'vue'
+import {
+  h,
+  ref,
+  computed,
+  inject,
+  withDirectives,
+  defineComponent,
+  onBeforeUnmount,
+  vShow,
+} from 'vue'
 
 // Effects
 import { useColors } from '../../effects/use-colors'
+import { useTransition } from '@/effects/use-transition'
 
 // Components
 import { VIcon } from '../VIcon'
@@ -14,6 +24,7 @@ import { VListItemIcon } from './index'
 
 // Services
 // import { FaIcons } from '../../services/icons'
+import { expander } from '@/components/transitions/custom-transition'
 
 const vListGroupProps = {
   activeClass: {
@@ -86,7 +97,7 @@ export const VListGroup = defineComponent({
     // }
 
     const clickHandler = () => {
-      groups.listClick(refGroup)
+      !props.subGroup && groups.listClick(refGroup)
     }
 
     const genGroupHeader = () => {
@@ -95,8 +106,8 @@ export const VListGroup = defineComponent({
         {
           onClick: clickHandler,
           class: {
-            'v-list-group__header': true
-          }
+            'v-list-group__header': true,
+          },
         },
         {
           default: () => [
@@ -108,11 +119,15 @@ export const VListGroup = defineComponent({
     }
 
     const genItems = () => {
-      return h('div', {
-        class: {
-          'v-list-group__items': true
-        }
-      }, slots.default && slots.default())
+      return withDirectives(h(
+        'div',
+        {
+          class: {
+            'v-list-group__items': true,
+          },
+        },
+        slots.default && slots.default(),
+      ), [[vShow, isActive.value]])
     }
 
     const genDataProps = () => {
@@ -122,12 +137,16 @@ export const VListGroup = defineComponent({
       }
     }
 
-
     onBeforeUnmount(() => {
       groups.unRegister(refGroup)
     })
 
-    return () =>
-      h('div', setTextColor(props.color, genDataProps()), [genGroupHeader(), genItems()])
+    return () => {
+      const items = useTransition({ transition: '' }, genItems(), expander)
+      return h('div', setTextColor(props.color, genDataProps()), [
+        genGroupHeader(),
+        items,
+      ])
+    }
   },
 })

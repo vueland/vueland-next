@@ -12,7 +12,13 @@ export function sizeProps(): Props {
 
 export function useSizes(props) {
   const medium = computed<boolean>(() => {
-    return props.large && props.small && props.xLarge && props.xSmall
+    return (
+      !props.large &&
+      !props.small &&
+      !props.xLarge &&
+      !props.xSmall &&
+      !props.size
+    )
   })
 
   const sizeClasses = computed<Record<string, boolean>>(() => {

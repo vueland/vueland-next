@@ -1,6 +1,10 @@
 import { defineComponent, h } from 'vue'
 
-export function createSimpleFunctional(c: string, el = 'div') {
+export function createSimpleFunctional(
+  c: string,
+  el = 'div',
+  name: string = '',
+) {
   return defineComponent({
     name: name || c.replace(/__/g, '-'),
 

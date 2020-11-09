@@ -49,12 +49,39 @@
   <div>
     <v-form v-slot="{ validate }">
       <v-card color="#272727" width="400" elevation="5" style="padding: 20px">
-        <v-resize right />
+        <v-resize right/>
         <v-list>
-          <v-list-group group="First">
-
+          <v-list-group
+            group="First"
+            append-icon="fas fa-arrow-down"
+          >
+            <template v-slot:activator>
+              <v-list-item-title>
+                hello
+              </v-list-item-title>
+            </template>
+            <v-list-group sub-group>
+              <template v-slot:activator>
+                <v-list-item-title>
+                  subgroup
+                </v-list-item-title>
+              </template>
+            </v-list-group>
+            <v-list-group sub-group>
+              <template v-slot:activator>
+                <v-list-item-title>
+                  subgroup
+                </v-list-item-title>
+              </template>
+            </v-list-group>
+            <v-list-group sub-group>
+              <template v-slot:activator>
+                <v-list-item-title>
+                  subgroup
+                </v-list-item-title>
+              </template>
+            </v-list-group>
           </v-list-group>
-          <v-list-group></v-list-group>
         </v-list>
         <v-card-content>
           <v-icon
@@ -118,7 +145,7 @@
         overlay-color="#000000"
       >
         <v-card color="blue darken-3" width="360" elevation="5">
-          <v-card-title class="white--text"> salam </v-card-title>
+          <v-card-title class="white--text"> salam</v-card-title>
           <v-card-content class="white--text">
             <v-badge
               elevation="3"

@@ -11,10 +11,10 @@
   line-height: 1;
   position: relative;
   text-indent: 0;
-  transition: $primary-transition, visibility 0s;
   vertical-align: middle;
   user-select: none;
   pointer-events: none;
+  transition: $primary-transition, visibility 0s;
 
 
   &:before {

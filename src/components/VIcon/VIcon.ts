@@ -6,13 +6,13 @@ import { defineComponent, h, computed } from 'vue'
 
 // Effects
 import { useColors, colorProps } from '../../effects/use-colors'
-import { useSizes, sizeProps } from '../../effects/use-sizes'
+import { sizeProps } from '../../effects/use-sizes'
 
 // Helpers
 import { convertToUnit } from '../../helpers'
 
 // Types
-import { Props } from '@/types'
+import { Props } from '../../types'
 
 const vIconProps: Props = {
   disabled: Boolean,
@@ -43,9 +43,14 @@ export const VIcon = defineComponent({
   name: 'v-icon',
   props: vIconProps,
 
-  setup(props) {
+  setup(props, { slots }) {
     const { setTextColor } = useColors()
-    const { sizeClasses } = useSizes(props)
+
+    const icon = computed<string>(() => {
+      return props.icon || (slots.default && slots.default()[0].children)
+    })
+
+    console.log(props.size)
 
     const classes = computed(() => {
       return {
@@ -55,8 +60,7 @@ export const VIcon = defineComponent({
         'v-icon--dense': props.dense,
         'v-icon--clickable': props.clickable,
         [props.iconType]: !!props.iconType,
-        [props.icon]: !!props.icon,
-        ...sizeClasses.value,
+        [icon.value]: !!icon.value,
       }
     })
 

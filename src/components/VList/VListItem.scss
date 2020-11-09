@@ -1,0 +1,19 @@
+@import "../../styles/scss/modules/global";
+
+.v-list-item {
+  @include flex(flex, flex-start, center);
+  width: 100%;
+  min-height: 38px;
+  padding: 0 10px;
+  border-radius: 3px;
+  overflow: hidden;
+  transition: all .3s $primary-transition;
+
+  &__title {
+
+  }
+
+  &__icon {
+
+  }
+}

@@ -15,7 +15,7 @@ import {
 
 // Effects
 import { useColors } from '../../effects/use-colors'
-import { useTransition } from '@/effects/use-transition'
+import { VExpandTransition } from '../transitions'
 
 // Components
 import { VIcon } from '../VIcon'
@@ -24,7 +24,6 @@ import { VListItemIcon } from './index'
 
 // Services
 // import { FaIcons } from '../../services/icons'
-import { expander } from '@/components/transitions/custom-transition'
 
 const vListGroupProps = {
   activeClass: {
@@ -142,7 +141,7 @@ export const VListGroup = defineComponent({
     })
 
     return () => {
-      const items = useTransition({ transition: '' }, genItems(), expander)
+      const items = VExpandTransition(genItems())
       return h('div', setTextColor(props.color, genDataProps()), [
         genGroupHeader(),
         items,

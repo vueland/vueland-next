@@ -81,6 +81,13 @@
                 </v-list-item-title>
               </template>
             </v-list-group>
+            <v-list-group sub-group>
+              <template v-slot:activator>
+                <v-list-item-title>
+                  subgroup
+                </v-list-item-title>
+              </template>
+            </v-list-group>
           </v-list-group>
         </v-list>
         <v-card-content>

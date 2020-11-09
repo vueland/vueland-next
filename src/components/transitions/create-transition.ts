@@ -1,8 +1,9 @@
 import {
-  Transition,
-  withCtx,
   h,
+  withCtx,
+  createBlock,
   VNode,
+  Transition,
 } from 'vue'
 
 export function createVTransition(
@@ -10,13 +11,11 @@ export function createVTransition(
   mode: string = 'in-out',
 ) {
   return (vNode: VNode) => {
-    return h(Transition, {
+    return createBlock(Transition, {
       mode,
       ...hooks,
     }, {
-      default: withCtx(() => [
-        vNode && h(vNode),
-      ]),
+      default: withCtx(() => [vNode && h(vNode)]),
     })
   }
 }

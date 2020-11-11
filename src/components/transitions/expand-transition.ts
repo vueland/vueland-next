@@ -28,10 +28,6 @@ export const expandHooks = (expandedParentClass: string, x: boolean = false) => 
       })
     },
 
-    // onAfterEnter(el) {
-    //
-    // },
-
     onLeave(el) {
       resetStyles(el)
     },

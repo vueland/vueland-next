@@ -50,6 +50,9 @@
     <v-form v-slot="{ validate }">
       <v-card color="#272727" width="400" elevation="5" style="padding: 20px">
         <v-resize right/>
+        <v-resize left/>
+        <v-resize top/>
+        <v-resize bottom/>
         <v-list>
           <v-list-group
             group="First"
@@ -61,7 +64,7 @@
               </v-list-item-title>
             </template>
             <template v-slot:prependIcon>
-              <v-icon size="24">fab fa-apple</v-icon>
+              <v-icon size="16">fab fa-apple</v-icon>
             </template>
             <v-list-group sub-group>
               <template v-slot:activator>

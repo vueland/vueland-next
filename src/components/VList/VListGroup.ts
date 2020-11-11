@@ -55,15 +55,15 @@ export const VListGroup = defineComponent({
     const groups: any = inject('groups')
 
     !props.noAction &&
-    groups.register({
-      ref: refGroup,
-      activator: isActive,
-    })
+      groups.register({
+        ref: refGroup,
+        activator: isActive,
+      })
 
     const classes = computed(() => ({
       'v-list-group': true,
       'v-list-group--active': isActive.value,
-      'v-list-group__subgroup': props.subGroup
+      'v-list-group__subgroup': props.subGroup,
     }))
 
     const genIcon = (icon: string) => {
@@ -73,7 +73,7 @@ export const VListGroup = defineComponent({
           size: 14,
         },
         {
-          default: () => icon
+          default: () => icon,
         },
       )
     }
@@ -93,7 +93,7 @@ export const VListGroup = defineComponent({
         },
         {
           default: () => slotIcon || genIcon(icon as string),
-        }
+        },
       )
     }
 
@@ -112,7 +112,7 @@ export const VListGroup = defineComponent({
         },
         {
           default: () => slotIcon || genIcon(icon as string),
-        }
+        },
       )
     }
 
@@ -141,15 +141,18 @@ export const VListGroup = defineComponent({
     }
 
     const genItems = () => {
-      return withDirectives(h(
-        'div',
-        {
-          class: {
-            'v-list-group__items': true,
+      return withDirectives(
+        h(
+          'div',
+          {
+            class: {
+              'v-list-group__items': true,
+            },
           },
-        },
-        slots.default && slots.default(),
-      ), [[vShow, isActive.value]])
+          slots.default && slots.default(),
+        ),
+        [[vShow, isActive.value]],
+      )
     }
 
     const genDataProps = () => {

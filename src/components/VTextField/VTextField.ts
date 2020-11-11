@@ -2,7 +2,15 @@
 import './VTextField.scss'
 
 // Vue API
-import { h, inject, watch, computed, reactive, defineComponent } from 'vue'
+import {
+  h,
+  inject,
+  watch,
+  computed,
+  reactive,
+  defineComponent,
+  onBeforeUnmount,
+} from 'vue'
 
 // Effects
 import { useValidate, validateProps } from '../../effects/use-validate'
@@ -81,6 +89,12 @@ export const VTextField = defineComponent({
       fields!.value.push(validateValue)
     }
 
+    onBeforeUnmount(() => {
+      if (fields!.value) {
+        fields!.value = fields!.value.filter(v => v !== validateValue)
+      }
+    })
+
     const focusHandler = () => {
       dirty()
       update(errorState.innerError)
@@ -121,7 +135,7 @@ export const VTextField = defineComponent({
         {
           class: {
             ...classes.value,
-          }
+          },
         },
         genInput(),
       )

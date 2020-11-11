@@ -17,6 +17,6 @@
   }
 
   &__icon {
-
+    @include flex(flex, center, center)
   }
 }

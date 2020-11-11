@@ -20,7 +20,6 @@
     box-shadow: none !important;
   }
 
-
   &:hover {
     cursor: pointer;
   }
@@ -31,8 +30,11 @@
 
   &__header {
     flex: 1 1 100%;
-  }
 
+    &--sub-group {
+      padding-left: 30px !important;
+    }
+  }
 
   &__header > .v-list-group__append-icon {
     min-width: $append-icon-min-width;
@@ -58,6 +60,10 @@
   }
 
   &__append-icon {
+
+  }
+
+  &__subgroup {
 
   }
 

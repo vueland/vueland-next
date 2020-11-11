@@ -1,10 +1,13 @@
+// Vue API
 import {
   h,
   withCtx,
   createBlock,
-  VNode,
   Transition,
 } from 'vue'
+
+// Types
+import { VNode } from 'vue'
 
 export function createVTransition(
   hooks: Record<string, any>,

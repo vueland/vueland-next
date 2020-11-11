@@ -2,7 +2,7 @@
 import './VTextField.scss'
 
 // Vue API
-import { h, watch, computed, reactive, defineComponent } from 'vue'
+import { h, inject, watch, computed, reactive, defineComponent } from 'vue'
 
 // Effects
 import { useValidate, validateProps } from '../../effects/use-validate'
@@ -12,7 +12,7 @@ import { useColors, colorProps } from '../../effects/use-colors'
 import { VInput } from '../VInput'
 
 // Types
-import { VNode } from 'vue'
+import { VNode, Ref } from 'vue'
 import { Props } from '../../types'
 
 const vTextFieldProps: Props = {
@@ -48,6 +48,8 @@ export const VTextField = defineComponent({
 
     state.value = props.modelValue
 
+    const fields: Ref<any[]> | undefined = inject('fields')
+
     const { setTextColor } = useColors()
 
     const {
@@ -73,6 +75,10 @@ export const VTextField = defineComponent({
 
     const validateValue = () => {
       props.rules?.length && validate(state.value || props.modelValue)
+    }
+
+    if (fields!.value && props.rules?.length) {
+      fields!.value.push(validateValue)
     }
 
     const focusHandler = () => {
@@ -115,12 +121,9 @@ export const VTextField = defineComponent({
         {
           class: {
             ...classes.value,
-          },
-          methods: {
-            validateValue,
-          },
+          }
         },
-        [genInput()],
+        genInput(),
       )
     }
 

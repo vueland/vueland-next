@@ -43,6 +43,7 @@ export const VList = defineComponent({
             'v-list': true,
           },
         },
+
         slots.default && slots.default()
       )
   },

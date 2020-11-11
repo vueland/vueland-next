@@ -63,6 +63,7 @@ export const VListGroup = defineComponent({
     const classes = computed(() => ({
       'v-list-group': true,
       'v-list-group--active': isActive.value,
+      'v-list-group__subgroup': props.subGroup
     }))
 
     const genIcon = (icon: string) => {
@@ -71,7 +72,9 @@ export const VListGroup = defineComponent({
         {
           size: 14,
         },
-        icon,
+        {
+          default: () => icon
+        },
       )
     }
 
@@ -88,12 +91,30 @@ export const VListGroup = defineComponent({
             'v-list-group__append-icon': true,
           },
         },
-        slotIcon || genIcon(icon as string),
+        {
+          default: () => slotIcon || genIcon(icon as string),
+        }
       )
     }
 
-    // const genPrependIcon = () => {
-    // }
+    const genPrependIcon = () => {
+      const icon = props.prependIcon ? props.prependIcon : false
+      const slotIcon = slots.prependIcon && slots.prependIcon()
+
+      if (!icon && !slotIcon) return null
+
+      return h(
+        VListItemIcon,
+        {
+          class: {
+            'v-list-group__prepend-icon': true,
+          },
+        },
+        {
+          default: () => slotIcon || genIcon(icon as string),
+        }
+      )
+    }
 
     const clickHandler = () => {
       !props.subGroup && groups.listClick(refGroup)
@@ -105,11 +126,13 @@ export const VListGroup = defineComponent({
         {
           onClick: clickHandler,
           class: {
-            'v-list-group__header': true,
+            'v-list-group__header': !props.subGroup,
+            'v-list-group__header--sub-group': props.subGroup,
           },
         },
         {
           default: () => [
+            genPrependIcon(),
             slots.activator && slots.activator(),
             genAppendIcon(),
           ],

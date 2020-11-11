@@ -16,8 +16,8 @@
         to => console.log(!!to),
       )
 
-      const validateValue = method => {
-        method().then(res => {
+      const validateValue = validate => {
+        validate().then(res => {
           if (res) console.log('valid')
         })
       }
@@ -53,12 +53,15 @@
         <v-list>
           <v-list-group
             group="First"
-            append-icon="fas fa-arrow-down"
+            append-icon="fas fa-chevron-down"
           >
             <template v-slot:activator>
               <v-list-item-title>
                 hello
               </v-list-item-title>
+            </template>
+            <template v-slot:prependIcon>
+              <v-icon size="24">fab fa-apple</v-icon>
             </template>
             <v-list-group sub-group>
               <template v-slot:activator>

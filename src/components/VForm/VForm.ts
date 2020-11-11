@@ -1,23 +1,25 @@
+// Styles
 import './VForm.scss'
 
-import { defineComponent, h, renderSlot } from 'vue'
+// Vue API
+import { defineComponent, h, ref, renderSlot, provide } from 'vue'
+
+// Types
+import { Ref } from 'vue'
 
 export const VForm = defineComponent({
   name: 'v-form',
 
   setup(_, { slots }) {
+    const fields: Ref<(() => boolean)[]> = ref([])
+
+    provide('fields', fields)
+
     const validate = () => {
       const promises: boolean[] = []
 
-      const fields = document.getElementsByClassName('v-validatable')
-
-      Array.prototype.forEach.call(fields, it => {
-        /**
-         * here we extract validate method
-         * from each vNode of child components
-         */
-        const { validateValue } = it.__vnode.props.methods
-        promises.push(validateValue())
+      fields.value.forEach(it => {
+        promises.push(it())
       })
 
       return Promise.resolve(!promises.some(f => !f))
@@ -35,7 +37,7 @@ export const VForm = defineComponent({
             'v-form': true,
           },
         },
-        [genSlot()],
+        genSlot(),
       )
   },
 })

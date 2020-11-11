@@ -1,4 +1,4 @@
-import { defineComponent, h, renderSlot } from 'vue'
+import { defineComponent, h } from 'vue'
 
 export function createSimpleFunctional(
   c: string,
@@ -17,7 +17,8 @@ export function createSimpleFunctional(
               [c.trim()]: true,
             },
           },
-          renderSlot(slots, 'default'),
+            slots.default && slots.default()
+
         )
     },
   })
@@ -46,6 +47,6 @@ export function convertToUnit(
   } else if (isNaN(+str!)) {
     return String(str)
   } else {
-    return `${Number(str)}${unit}`
+    return `${ Number(str) }${ unit }`
   }
 }

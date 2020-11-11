@@ -1,16 +1,20 @@
 @import "../../styles/scss/modules/global";
+@import "./variables";
 
 .v-list-group {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 38px;
+  height: 48px;
   border-radius: 3px;
   overflow: hidden;
-  box-shadow: 0 0 4px 0 rgba(0, 0, 0, .4);
   transition: all .3s $primary-transition;
   border: none;
   margin: 0;
+
+  &:not(.v-list-group__subgroup) {
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, .4);
+  }
 
   & > .v-list-group {
     box-shadow: none !important;
@@ -25,21 +29,45 @@
     transition: all .3s $primary-transition;
   }
 
-  &__append-icon {
-
+  &__header {
+    flex: 1 1 100%;
   }
 
-  &__items{
-    height: 100%;
-    transition: all .3s $primary-transition;
+
+  &__header > .v-list-group__append-icon {
+    min-width: $append-icon-min-width;
+    text-align: center;
   }
 
-  &__append-icon .v-icon {
-    transition: transform .3s $primary-transition;
+  &__header > .v-list-group__prepend-icon {
+    min-width: $append-icon-min-width;
+    text-align: left;
   }
 
   &--active .v-list-group__header >
   .v-list-group__append-icon .v-icon {
     transform: rotate(-180deg);
+  }
+
+  &__title {
+
+  }
+
+  &__icon {
+
+  }
+
+  &__append-icon {
+
+  }
+
+
+  &__append-icon .v-icon {
+    transition: transform .3s $primary-transition;
+  }
+
+  &__items {
+    height: 100%;
+    transition: all .3s $primary-transition;
   }
 }

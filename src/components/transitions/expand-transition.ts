@@ -1,35 +1,75 @@
+interface InitialStyles {
+  transition: string | null,
+  propSize: string,
+  height: number
+}
+
+const init: InitialStyles = {
+  transition: null,
+  propSize: '',
+  height: 0
+}
+
 export const expandHooks = (expandedParentClass: string, x: boolean = false) => {
-  let children
-  let styles
-  let unit
-  let parentHeight
-  let propSize
 
   const resetStyles = el => {
-    el.parentNode.style[propSize] = ''
+    el.style[init.propSize] = ''
+    el.style.transition = ''
   }
+
+  const getChildrenSizes = el => {
+    return Array.prototype.reduce.call(el.childNodes,
+      (acc: number, it: HTMLElement) => {
+        const height = getComputedStyle(it)[init.propSize]
+
+        return acc += parseFloat(height)
+      }, 0) as number
+  }
+
+  const setInitStyles = el => {
+    init.transition = getComputedStyle(el).transition
+    init.height = getChildrenSizes(el)
+  }
+
 
   return {
     onBeforeEnter(el) {
-      propSize = x ? 'width' : 'height'
-      children = el.childNodes.length
-      styles = getComputedStyle(el.childNodes[0])
-      parentHeight = parseFloat(getComputedStyle(el.parentNode)[propSize])
-      unit = parseFloat(styles[propSize])
+      init.propSize = x ? 'width' : 'height'
+      el.style.transition = ''
     },
 
     onEnter(el) {
-      if (expandedParentClass && el._parent) {
-        el.parentNode.classList.add(expandedParentClass)
-      }
+      setInitStyles(el)
+      el.style[init.propSize] = '0'
+      el.style.transition = init.transition
 
       requestAnimationFrame(() => {
-        el.parentNode.style[propSize] = ((children * unit) + parentHeight) + 'px'
+        el.style[init.propSize] = `${ init.height }px`
       })
+
+      if (expandedParentClass) {
+        el.parentNode.classList.add(expandedParentClass)
+      }
+    },
+
+    onAfterEnter(el) {
+      el.parentNode.classList.remove(expandedParentClass)
+      resetStyles(el)
+    },
+
+    onBeforeLeave(el) {
+      setInitStyles(el)
     },
 
     onLeave(el) {
-      resetStyles(el)
+      el.style.transition = init.transition
+      el.style[init.propSize] = `${ init.height }px`
+
+      requestAnimationFrame(() => el.style[init.propSize] = '0')
     },
+
+    onAfterLeave(el) {
+      requestAnimationFrame(() => resetStyles(el))
+    }
   }
 }

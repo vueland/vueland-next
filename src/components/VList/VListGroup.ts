@@ -6,6 +6,7 @@ import {
   h,
   ref,
   computed,
+  provide,
   inject,
   withDirectives,
   defineComponent,
@@ -23,14 +24,21 @@ import { VListItem } from './VListItem'
 import { VListItemIcon } from './index'
 
 // Services
-// import { FaIcons } from '../../services/icons'
+import { FaIcons } from '../../services/icons'
 
 const vListGroupProps = {
   activeClass: {
     type: String,
     default: '',
   },
-  appendIcon: String,
+  appendIcon: {
+    type: String,
+    default: FaIcons.$expand
+  },
+  prependIcon: {
+    type: String,
+    default: ''
+  },
   color: {
     type: String,
     default: 'primary',
@@ -38,7 +46,6 @@ const vListGroupProps = {
   disabled: Boolean,
   group: String,
   noAction: Boolean,
-  prependIcon: String,
   subGroup: Boolean,
 }
 
@@ -46,24 +53,41 @@ export const VListGroup = defineComponent({
   name: 'v-list-group',
   props: vListGroupProps,
 
-  setup(props, { slots }) {
+  setup(props, { slots, emit }) {
     const { setTextColor } = useColors()
 
     const refGroup = ref(null)
     const isActive = ref(false)
-
+    const children = ref([])
     const groups: any = inject('groups')
 
-    !props.noAction &&
-      groups.register({
-        ref: refGroup,
-        activator: isActive,
+    provide('subgroups', children)
+
+    const subgroups: any = inject('subgroups')
+
+    !props.noAction && groups.register({
+      ref: refGroup,
+      activator: isActive,
+    })
+
+    props.subGroup && subgroups.value.push({
+      ref: refGroup,
+      activator: isActive,
+    })
+
+    const clickHandler = () => {
+      !props.noAction && groups.listClick(refGroup)
+      !props.noAction && children.value.forEach((it: any) => {
+        it.activator = false
       })
+
+      emit('click')
+    }
 
     const classes = computed(() => ({
       'v-list-group': true,
+      'v-list-group__sub-group': props.subGroup,
       'v-list-group--active': isActive.value,
-      'v-list-group__subgroup': props.subGroup,
     }))
 
     const genIcon = (icon: string) => {
@@ -79,8 +103,8 @@ export const VListGroup = defineComponent({
     }
 
     const genAppendIcon = () => {
-      const icon = !props.subGroup ? props.appendIcon : false
       const slotIcon = slots.appendIcon && slots.appendIcon()
+      const icon = !props.subGroup ? props.appendIcon : false
 
       if (!icon && !slotIcon) return null
 
@@ -98,7 +122,7 @@ export const VListGroup = defineComponent({
     }
 
     const genPrependIcon = () => {
-      const icon = props.prependIcon ? props.prependIcon : false
+      const icon = props.subGroup && !props.noAction ? FaIcons.$subgroup : props.prependIcon
       const slotIcon = slots.prependIcon && slots.prependIcon()
 
       if (!icon && !slotIcon) return null
@@ -116,10 +140,6 @@ export const VListGroup = defineComponent({
       )
     }
 
-    const clickHandler = () => {
-      !props.subGroup && groups.listClick(refGroup)
-    }
-
     const genGroupHeader = () => {
       return h(
         VListItem,
@@ -133,7 +153,7 @@ export const VListGroup = defineComponent({
         {
           default: () => [
             genPrependIcon(),
-            slots.activator && slots.activator(),
+            slots.title && slots.title(),
             genAppendIcon(),
           ],
         },

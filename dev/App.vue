@@ -56,43 +56,83 @@
         <v-list>
           <v-list-group
             group="First"
-            append-icon="fas fa-chevron-down"
+            color="white"
           >
-            <template v-slot:activator>
+            <template v-slot:title>
               <v-list-item-title>
-                hello
+                threads
+              </v-list-item-title>
+            </template>
+            <template v-slot:prependIcon>
+              <v-icon size="16">fab fa-apple</v-icon>
+            </template>
+            <v-list-group sub-group color="green accent-2">
+              <template v-slot:title>
+                <v-list-item-title>
+                  subgroup
+                </v-list-item-title>
+              </template>
+              <v-list-group sub-group prepend-icon="fas fa-book" no-action>
+                <template v-slot:title>
+                  <v-list-item-title>
+                    internal
+                  </v-list-item-title>
+                </template>
+              </v-list-group>
+            </v-list-group>
+            <v-list-group sub-group>
+              <template v-slot:title>
+                <v-list-item-title>
+                  subgroup
+                </v-list-item-title>
+              </template>
+            </v-list-group>
+            <v-list-group sub-group>
+              <template v-slot:title>
+                <v-list-item-title>
+                  subgroup
+                </v-list-item-title>
+              </template>
+            </v-list-group>
+            <v-list-group sub-group>
+              <template v-slot:title>
+                <v-list-item-title>
+                  subgroup
+                </v-list-item-title>
+              </template>
+            </v-list-group>
+          </v-list-group>
+          <v-list-group
+            group="First"
+          >
+            <template v-slot:title>
+              <v-list-item-title>
+                users
               </v-list-item-title>
             </template>
             <template v-slot:prependIcon>
               <v-icon size="16">fab fa-apple</v-icon>
             </template>
             <v-list-group sub-group>
-              <template v-slot:activator>
+              <template v-slot:title>
                 <v-list-item-title>
                   subgroup
                 </v-list-item-title>
               </template>
-            </v-list-group>
-            <v-list-group sub-group>
-              <template v-slot:activator>
-                <v-list-item-title>
-                  subgroup
-                </v-list-item-title>
-              </template>
-            </v-list-group>
-            <v-list-group sub-group>
-              <template v-slot:activator>
-                <v-list-item-title>
-                  subgroup
-                </v-list-item-title>
-              </template>
-            </v-list-group>
-            <v-list-group sub-group>
-              <template v-slot:activator>
-                <v-list-item-title>
-                  subgroup
-                </v-list-item-title>
-              </template>
+              <v-list-group sub-group prepend-icon="fas fa-book" no-action>
+                <template v-slot:title>
+                  <v-list-item-title>
+                    books
+                  </v-list-item-title>
+                </template>
+              </v-list-group>
+              <v-list-group sub-group prepend-icon="fas fa-book" no-action>
+                <template v-slot:title>
+                  <v-list-item-title>
+                    pencils
+                  </v-list-item-title>
+                </template>
+              </v-list-group>
             </v-list-group>
           </v-list-group>
         </v-list>

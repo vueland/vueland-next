@@ -9,25 +9,23 @@ export const VList = defineComponent({
 
   setup(_, { slots }) {
     const groups = reactive({
-      all: [],
+      items: [],
 
       register(group) {
-        this.all.push(group)
+        this.items.push(group)
       },
 
       unRegister(group) {
-        this.all.filter(it => {
+        this.items.filter(it => {
           return it.ref !== group._value
         })
       },
 
       listClick(ref) {
-        this.all.length &&
-        this.all.forEach(group => {
+        this.items.length &&
+        this.items.forEach(group => {
           if (group.ref === ref._value) {
             group.activator = !group.activator
-          } else {
-            group.activator = false
           }
         })
       },

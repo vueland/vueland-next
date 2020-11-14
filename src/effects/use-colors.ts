@@ -5,7 +5,8 @@ import { isCssColor } from '../utils/color-parser'
 import { PropType } from 'vue'
 
 type Colorable = {
-  [key: string]: (color: string, data: any) => any
+  setBackground: (color: string, data: any) => object
+  setTextColor: (color: string, data: any) => object
 }
 
 interface ColorProps {

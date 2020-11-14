@@ -48,7 +48,7 @@
 <template>
   <div>
     <v-form v-slot="{ validate }">
-      <v-card color="#272727" width="400" elevation="5" style="padding: 20px">
+      <v-card width="400" elevation="5" style="padding: 20px">
         <v-resize right/>
         <v-resize left/>
         <v-resize top/>
@@ -56,7 +56,7 @@
         <v-list>
           <v-list-group
             group="First"
-            color="white"
+            color="#272727"
           >
             <template v-slot:title>
               <v-list-item-title>
@@ -146,7 +146,6 @@
           <v-text-field
             v-model="data.login"
             label="login"
-            dark
             :rules="[
               val => !!val || 'Required',
               val => val.length > 5 || 'more than 5 symbols',
@@ -155,7 +154,6 @@
           <v-text-field
             v-model="data.password"
             label="password"
-            dark
             :rules="[
               val => !!val || 'Required',
               val => val.length > 5 || 'more than 5 symbols',
@@ -164,7 +162,6 @@
           <v-text-field
             v-model="data.email"
             label="email"
-            dark
             :rules="[
               val => !!val || 'Required',
               val => val.length > 5 || 'more than 5 symbols',

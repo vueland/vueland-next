@@ -25,6 +25,7 @@ import { VListItemIcon } from './index'
 
 // Services
 import { FaIcons } from '../../services/icons'
+import { Sizes } from '@/services/sizes'
 
 const vListGroupProps = {
   activeClass: {
@@ -94,7 +95,7 @@ export const VListGroup = defineComponent({
       return h(
         VIcon,
         {
-          size: 14,
+          size: Sizes.small,
         },
         {
           default: () => icon,

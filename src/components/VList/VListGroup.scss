@@ -9,7 +9,6 @@
   overflow: hidden;
   transition: $primary-transition .3s all;
   border: none;
-  margin: 0;
 
   &:not(.v-list-group__sub-group) {
     box-shadow: 0 0 2px 0 rgba(0, 0, 0, .4);

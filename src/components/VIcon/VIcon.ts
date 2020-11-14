@@ -14,6 +14,9 @@ import { convertToUnit } from '../../helpers'
 // Types
 import { Props } from '../../types'
 
+// Services
+import { Sizes } from '../../services/sizes'
+
 const vIconProps: Props = {
   disabled: Boolean,
   active: Boolean,
@@ -30,15 +33,6 @@ const vIconProps: Props = {
   ...sizeProps(),
 }
 
-enum SIZE_MAP {
-  xSmall = '12px',
-  small = '16px',
-  default = '24px',
-  medium = '28px',
-  large = '36px',
-  xLarge = '40px',
-}
-
 export const VIcon = defineComponent({
   name: 'v-icon',
   props: vIconProps,
@@ -51,7 +45,7 @@ export const VIcon = defineComponent({
     })
 
 
-    const classes = computed(() => {
+    const classes = computed<Record<string, boolean>>(() => {
       return {
         'v-icon': true,
         'v-icon--disabled': props.disabled,
@@ -85,7 +79,7 @@ export const VIcon = defineComponent({
       const explicitSize = Object.keys(sizes).find(key => sizes[key])
 
       return (
-        (explicitSize && SIZE_MAP[explicitSize]) || convertToUnit(props.size)
+        (explicitSize && Sizes[explicitSize]) || convertToUnit(props.size)
       )
     }
 

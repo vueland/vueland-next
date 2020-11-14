@@ -34,11 +34,11 @@ const vListGroupProps = {
   },
   appendIcon: {
     type: String,
-    default: FaIcons.$expand
+    default: FaIcons.$expand,
   },
   prependIcon: {
     type: String,
-    default: ''
+    default: '',
   },
   color: {
     type: String,
@@ -60,18 +60,18 @@ export const VListGroup = defineComponent({
     const refGroup = ref(null)
     const isActive = ref(false)
     const children = ref([])
-    const groups: any = inject('groups')
+    const groups: any = !props.noAction && inject('groups')
 
     provide('subgroups', children)
 
-    const subgroups: any = inject('subgroups')
+    const subgroups: any = props.subGroup && inject('subgroups')
 
-    !props.noAction && groups.register({
+    groups && groups.register({
       ref: refGroup,
       activator: isActive,
     })
 
-    props.subGroup && subgroups.value.push({
+    subgroups && subgroups.value.push({
       ref: refGroup,
       activator: isActive,
     })
@@ -85,7 +85,7 @@ export const VListGroup = defineComponent({
       emit('click')
     }
 
-    const classes = computed(() => ({
+    const classes = computed<Record<string, boolean>>(() => ({
       'v-list-group': true,
       'v-list-group__sub-group': props.subGroup,
       'v-list-group--active': isActive.value,

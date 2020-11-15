@@ -2,34 +2,36 @@
 import './VSelect.scss'
 
 // Vue API
-import { h, reactive, withDirectives, defineComponent, watch, vShow } from 'vue'
+import { h, reactive, computed, defineComponent, watch, Ref, inject } from 'vue'
 
 // Effects
 import { validateProps, useValidate } from '../../effects/use-validate'
-import { transitionProps, useTransition } from '../../effects/use-transition'
+import { colorProps, useColors } from '../../effects/use-colors'
+
+// Types
+import { Props } from '../../types'
 
 // Components
 import { VInput } from '../VInput'
-import {
-  VList,
-  VListItem,
-  VListItemTitle
-} from '../VList'
+import { VSelectList } from './VSelectList'
 
-const vSelectProps = {
+const vSelectProps: Props = {
   label: String,
   items: Array,
   valueKey: String,
   idKey: String,
+  disabled: Boolean,
+  readonly: Boolean,
   modelValue: Array,
   ...validateProps(),
-  ...transitionProps()
+
+  ...colorProps()
 }
 
 type SelectState = {
   selected: object | string | number
   focused: boolean,
-  items: any[]
+  showList: boolean
 }
 
 export const VSelect = defineComponent({
@@ -41,18 +43,8 @@ export const VSelect = defineComponent({
     const state: SelectState = reactive({
       selected: '',
       focused: false,
-      items: []
+      showList: false,
     })
-
-    const {
-      validate,
-      dirty,
-      update,
-      errorState,
-      computedColor,
-      validateClasses,
-      validationState,
-    } = useValidate(props)
 
     watch(
       () => props.modelValue,
@@ -61,91 +53,99 @@ export const VSelect = defineComponent({
         if (!value) return validateValue()
       },
     )
+    const { setTextColor } = useColors()
+
+    const {
+      validate,
+      // dirty,
+      // update,
+      // errorState,
+      // computedColor,
+      // validateClasses,
+      // validationState,
+    } = useValidate(props)
+
+    const fields: Ref<any[]> | undefined = inject('fields')
 
     const validateValue = () => {
       props.rules?.length && validate(state.selected || props.modelValue)
     }
 
+    if (fields!.value && props.rules?.length) {
+      fields!.value.push(validateValue)
+    }
+
     const onFocus = () => {
       state.focused = true
+      state.showList = true
     }
 
     const onBlur = () => {
-      setTimeout(() => {
-        state.focused = false
-      }, 150)
+      state.focused = false
+      state.showList = false
     }
 
     const onClick = () => {
+      if (props.readonly) {
+        state.showList = !state.showList
+      }
       emit('click')
     }
 
     const selectItem = (it) => {
       state.selected = it
       emit('click', it)
+      requestAnimationFrame(() => state.showList = false)
     }
 
+    const classes = computed<Record<string, boolean>>(() => {
+      return {
+        'v-select': true,
+        'v-select--disabled': props.disabled,
+        'v-select--focused': state.focused
+      }
+    })
+
     const genInput = () => {
-      return h('input', {
+      const inputProps = {
         value: state.selected[props.valueKey as string] || state.selected,
+        disabled: props.disabled,
+        readonly: props.readonly,
         class: {
           'v-select__input': true
         },
         onFocus,
         onBlur,
         onClick
-      })
-    }
-
-    const genItems = () => {
-      const key = props.valueKey
-
-      return props.items!.map((it: any) => {
-        const item = h(
-          VListItemTitle,
-          {},
-          {
-            default: () => key ? it[key] : it
-          }
-        )
-
-        return h(VListItem, {
-          onClick: () => selectItem(it)
-        }, {
-          default: () => item
-        })
-      })
+      }
+      return h('input', setTextColor(props.color, inputProps))
     }
 
     const genSelectList = () => {
-      return withDirectives(h('div', {
-        class: {
-          'v-select__list': true
-        }
-      }, h(VList, {
-        elevation: 3
-      }, {
-        default: () => genItems()
-      })), [[vShow, state.focused]])
+      return h(VSelectList, {
+        items: props.items,
+        valueKey: props.valueKey,
+        idKey: props.idKey,
+        active: state.showList,
+        onSelect: it => selectItem(it)
+      })
     }
 
     const genSelect = () => {
-      const transitionedList = useTransition(
-        { transition: 'fade' }, genSelectList()
-      )
       return h('div', {
-        class: {
-          'v-select': true
-        }
-      }, [
-        genInput(),
-        transitionedList
-      ])
+          class: classes.value
+        },
+        [
+          genInput(),
+          genSelectList()
+        ])
     }
 
     return () => h(VInput, {
       label: props.label,
-      focused: state.focused || !!state.selected
+      focused: state.focused,
+      hasState: !!state.selected,
+      color: props.color
     }, {
       select: () => props.items?.length ? genSelect() : null
     })

@@ -188,7 +188,7 @@ export const VListGroup = defineComponent({
     })
 
     return () => {
-      const items = slots.default && VExpandTransition(genItems()) || null
+      const items = slots.default && VExpandTransition(genItems())
       const header = slots.title && genGroupHeader()
 
       return h('div', setTextColor(props.color, genDataProps()),

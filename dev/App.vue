@@ -183,6 +183,7 @@
             label="select"
             :items="items"
             value-key="name"
+            color="white"
           />
         </v-card-content>
         <v-card-actions>

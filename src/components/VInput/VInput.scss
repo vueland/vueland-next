@@ -32,7 +32,7 @@
       transform-origin: center;
       transform: scaleX(0);
       background: $primary;
-      transition: all .2s $primary-transition;
+      transition: all .3s $primary-transition;
       will-change: transform;
     }
   }
@@ -50,15 +50,18 @@
     }
   }
 
-  &--focused > .v-input__field-slot:after {
+  &--focused > .v-input__field-slot:after,
+  &--focused > .v-input__select-slot:after, {
     transform: scaleX(1);
   }
 
-  &--not-valid > .v-input__field-slot:after {
+  &--not-valid > .v-input__field-slot:after,
+  &--not-valid > .v-input__select-slot:after {
     background: $danger;
   }
 
-  &--not-valid > .v-input__field-slot {
+  &--not-valid > .v-input__field-slot,
+  &--not-valid > .v-input__select-slot {
     border-color: $danger !important;
   }
 }

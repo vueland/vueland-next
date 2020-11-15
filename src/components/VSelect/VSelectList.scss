@@ -1,0 +1,20 @@
+@import "../../styles/scss/modules/global";
+
+.v-select-list {
+  width: 100%;
+  position: absolute;
+  top: 110%;
+  background: white;
+  border-radius: 3px;
+  z-index: 100;
+  transition: all .3s $primary-transition;
+  box-shadow: 0 0 12px 0 rgba(0, 0, 0, .4);
+  overflow: hidden;
+
+  & > .v-list > .v-list-item {
+    &:hover {
+      background: whitesmoke;
+      cursor: pointer;
+    }
+  }
+}

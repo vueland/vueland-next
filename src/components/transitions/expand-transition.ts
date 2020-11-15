@@ -45,7 +45,7 @@ export const expandHooks = (expandedParentClass: string, x: boolean = false) => 
       el.style.transition = init.transition
 
       requestAnimationFrame(() => {
-        el.style[init.propSize] = `${init.height}px`
+        el.style[init.propSize] = `${init[init.propSize]}px`
       })
 
       if (expandedParentClass) {
@@ -64,7 +64,7 @@ export const expandHooks = (expandedParentClass: string, x: boolean = false) => 
 
     onLeave(el) {
       el.style.transition = init.transition
-      el.style[init.propSize] = `${init.height}px`
+      el.style[init.propSize] = `${init[init.propSize]}px`
 
       requestAnimationFrame(() => el.style[init.propSize] = '0')
     },

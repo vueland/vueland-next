@@ -10,19 +10,4 @@
     padding: 6px 0;
     background: transparent;
   }
-
-  &__list {
-    width: 100%;
-    position: absolute;
-    top: 110%;
-    background: white;
-    z-index: 100;
-
-    & > .v-list > .v-list-item {
-      &:hover {
-        background: whitesmoke;
-        cursor: pointer;
-      }
-    }
-  }
 }

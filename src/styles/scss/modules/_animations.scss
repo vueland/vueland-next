@@ -50,12 +50,12 @@
   transition: all .2s;
 }
 
-.scaleXDown-enter-from, .scaleXDown-leave-to {
+.scaleYDown-enter-from, .scaleYDown-leave-to {
   opacity: 0;
   transform: scaleY(0);
 }
 
-.scaleXDown-enter-to, .scaleXDown-leave-from {
+.scaleYDown-enter-to, .scaleYDown-leave-from {
   opacity: 1;
   transform: scaleY(1);
 }

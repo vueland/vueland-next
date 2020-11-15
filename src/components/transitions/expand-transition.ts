@@ -12,27 +12,26 @@ const init: InitialStyles = {
   width: 0,
 }
 
+const resetStyles = el => {
+  el.style[init.propSize] = ''
+  el.style.transition = ''
+}
+
+const getChildrenSizes = el => {
+  return Array.prototype.reduce.call(el.childNodes,
+    (acc: number, it: HTMLElement) => {
+      const height = getComputedStyle(it)[init.propSize]
+
+      return acc += parseFloat(height)
+    }, 0) as number
+}
+
+const setInitStyles = el => {
+  init.transition = getComputedStyle(el).transition
+  init[init.propSize] = getChildrenSizes(el)
+}
+
 export const expandHooks = (expandedParentClass: string, x: boolean = false) => {
-
-  const resetStyles = el => {
-    el.style[init.propSize] = ''
-    el.style.transition = ''
-  }
-
-  const getChildrenSizes = el => {
-    return Array.prototype.reduce.call(el.childNodes,
-      (acc: number, it: HTMLElement) => {
-        const height = getComputedStyle(it)[init.propSize]
-
-        return acc += parseFloat(height)
-      }, 0) as number
-  }
-
-  const setInitStyles = el => {
-    init.transition = getComputedStyle(el).transition
-    init[init.propSize] = getChildrenSizes(el)
-  }
-
 
   return {
     onBeforeEnter(el) {

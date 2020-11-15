@@ -76,27 +76,20 @@ export const VInput = defineComponent({
       )
     }
 
-    const genInputSlot = () => {
+    const genSlotContent = () => {
       return h(
         'div',
         {
           class: {
-            'v-input__field-slot': true,
+            'v-input__select-slot': !!slots.select,
+            'v-input__field-slot': !!slots.textField,
           },
         },
-        [genLabel(), slots.textField && slots.textField()],
-      )
-    }
-
-    const genAutocompleteSlot = () => {
-      return h(
-        'div',
-        {
-          class: {
-            'v-input__autocomplete-slot': true,
-          },
-        },
-        slots.autocomplete && slots.autocomplete(),
+        [
+          genLabel(),
+          slots.select && slots.select(),
+          slots.textField && slots.textField()
+        ]
       )
     }
 
@@ -139,8 +132,7 @@ export const VInput = defineComponent({
 
     return () =>
       h('div', genDataProps(), [
-        slots.textField && genInputSlot(),
-        slots.autocomplete && genAutocompleteSlot(),
+        genSlotContent(),
         genStatus(),
       ])
   },

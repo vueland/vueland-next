@@ -34,12 +34,20 @@
         console.log(data)
       }
 
+      const items = [
+        { name: 'Alex', age: 24 },
+        { name: 'Andrew', age: 24 },
+        { name: 'Nikol', age: 24 },
+        { name: 'Anna', age: 24 },
+      ]
+
       return {
         showModal,
         closeModal,
         validateValue,
         testFunc,
         data,
+        items
       }
     },
   }
@@ -48,7 +56,7 @@
 <template>
   <div>
     <v-form v-slot="{ validate }">
-      <v-card width="400" elevation="5" style="padding: 20px">
+      <v-card width="400" elevation="5" style="padding: 20px" color="#272727">
         <v-resize right/>
         <v-resize left/>
         <v-resize top/>
@@ -56,17 +64,17 @@
         <v-list>
           <v-list-group
             group="First"
-            color="#272727"
+            color="white"
           >
             <template v-slot:title>
-              <v-list-item-title>
+              <v-list-item-title>ha
                 threads
               </v-list-item-title>
             </template>
             <template v-slot:prependIcon>
               <v-icon size="16">fab fa-apple</v-icon>
             </template>
-            <v-list-group sub-group color="green accent-2">
+            <v-list-group sub-group color="green darken-1">
               <template v-slot:title>
                 <v-list-item-title>
                   subgroup
@@ -104,6 +112,7 @@
           </v-list-group>
           <v-list-group
             group="First"
+            color="white"
           >
             <template v-slot:title>
               <v-list-item-title>
@@ -150,6 +159,7 @@
               val => !!val || 'Required',
               val => val.length > 5 || 'more than 5 symbols',
             ]"
+            dark
           />
           <v-text-field
             v-model="data.password"
@@ -158,6 +168,7 @@
               val => !!val || 'Required',
               val => val.length > 5 || 'more than 5 symbols',
             ]"
+            dark
           />
           <v-text-field
             v-model="data.email"
@@ -166,6 +177,12 @@
               val => !!val || 'Required',
               val => val.length > 5 || 'more than 5 symbols',
             ]"
+            dark
+          />
+          <v-select
+            label="select"
+            :items="items"
+            value-key="name"
           />
         </v-card-content>
         <v-card-actions>

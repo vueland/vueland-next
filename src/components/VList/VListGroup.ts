@@ -16,16 +16,16 @@ import {
 
 // Effects
 import { useColors } from '../../effects/use-colors'
-import { VExpandTransition } from '../transitions'
 
 // Components
 import { VIcon } from '../VIcon'
 import { VListItem } from './VListItem'
 import { VListItemIcon } from './index'
+import { VExpandTransition } from '../transitions'
 
 // Services
 import { FaIcons } from '../../services/icons'
-import { Sizes } from '@/services/sizes'
+import { Sizes } from '../../services/sizes'
 
 const vListGroupProps = {
   activeClass: {
@@ -188,11 +188,14 @@ export const VListGroup = defineComponent({
     })
 
     return () => {
-      const items = VExpandTransition(genItems())
-      return h('div', setTextColor(props.color, genDataProps()), [
-        genGroupHeader(),
-        items,
-      ])
+      const items = slots.default && VExpandTransition(genItems()) || null
+      const header = slots.title && genGroupHeader()
+
+      return h('div', setTextColor(props.color, genDataProps()),
+        [
+          header,
+          items,
+        ])
     }
   },
 })

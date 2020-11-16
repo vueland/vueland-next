@@ -9,11 +9,18 @@
         login: '',
         email: '',
         password: '',
+        user: {
+          name: 'sam'
+        }
       })
 
       watch(
         () => data.password,
         to => console.log(!!to),
+      )
+      watch(
+        () => data.user,
+        to => console.log(to),
       )
 
       const validateValue = validate => {
@@ -180,10 +187,12 @@
             dark
           />
           <v-select
+            v-model="data.user"
             label="select"
-            :items="items"
             value-key="name"
-            color="white"
+            dark
+            :items="items"
+            :rules="[v => !!v || 'Required']"
           />
         </v-card-content>
         <v-card-actions>

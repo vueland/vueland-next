@@ -6,6 +6,7 @@
   background: $mainWhite;
   border-radius: 6px;
   position: relative;
+  overflow: hidden;
   z-index: 3;
 
   &__title {

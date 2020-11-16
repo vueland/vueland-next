@@ -2,7 +2,14 @@
 import './VSelect.scss'
 
 // Vue API
-import { h, reactive, computed, defineComponent, watch, Ref, inject } from 'vue'
+import {
+  h,
+  reactive,
+  computed,
+  defineComponent,
+  watch,
+  inject
+} from 'vue'
 
 // Effects
 import { validateProps, useValidate } from '../../effects/use-validate'
@@ -10,6 +17,7 @@ import { colorProps, useColors } from '../../effects/use-colors'
 
 // Types
 import { Props } from '../../types'
+import { Ref } from 'vue'
 
 // Components
 import { VInput } from '../VInput'
@@ -18,20 +26,19 @@ import { VSelectList } from './VSelectList'
 const vSelectProps: Props = {
   label: String,
   items: Array,
+  dark: Boolean,
   valueKey: String,
   idKey: String,
   disabled: Boolean,
   readonly: Boolean,
-  modelValue: Array,
+  modelValue: [Array, String, Object],
   ...validateProps(),
-
   ...colorProps()
 }
 
 type SelectState = {
   selected: object | string | number
-  focused: boolean,
-  showList: boolean
+  focused: boolean
 }
 
 export const VSelect = defineComponent({
@@ -42,27 +49,19 @@ export const VSelect = defineComponent({
 
     const state: SelectState = reactive({
       selected: '',
-      focused: false,
-      showList: false,
+      focused: false
     })
 
-    watch(
-      () => props.modelValue,
-      value => {
-        state.selected = value as any
-        if (!value) return validateValue()
-      },
-    )
     const { setTextColor } = useColors()
 
     const {
       validate,
-      // dirty,
-      // update,
-      // errorState,
-      // computedColor,
-      // validateClasses,
-      // validationState,
+      dirty,
+      update,
+      errorState,
+      computedColor,
+      validateClasses,
+      validationState,
     } = useValidate(props)
 
     const fields: Ref<any[]> | undefined = inject('fields')
@@ -71,44 +70,61 @@ export const VSelect = defineComponent({
       props.rules?.length && validate(state.selected || props.modelValue)
     }
 
+    watch(
+      () => props.modelValue,
+      value => {
+        state.selected = value as any
+      }, { immediate: true }
+    )
+
     if (fields!.value && props.rules?.length) {
       fields!.value.push(validateValue)
     }
 
     const onFocus = () => {
+      dirty()
+      update(errorState.innerError)
       state.focused = true
-      state.showList = true
+      emit('focus')
     }
 
     const onBlur = () => {
-      state.focused = false
-      state.showList = false
+      setTimeout(() => {
+        state.focused = false
+        emit('blur')
+        validateValue()
+      }, 130)
     }
+
+    // const clickOutside = () => {
+    //
+    // }
 
     const onClick = () => {
       if (props.readonly) {
-        state.showList = !state.showList
+        state.focused = true
       }
       emit('click')
     }
 
     const selectItem = (it) => {
       state.selected = it
-      emit('click', it)
-      requestAnimationFrame(() => state.showList = false)
+      emit('select', it)
+      emit('update:modelValue', it)
     }
 
     const classes = computed<Record<string, boolean>>(() => {
       return {
         'v-select': true,
         'v-select--disabled': props.disabled,
-        'v-select--focused': state.focused
+        'v-select--focused': state.focused,
+        ...validateClasses.value
       }
     })
 
     const genInput = () => {
       const inputProps = {
-        value: state.selected[props.valueKey as string] || state.selected,
+        value: state.selected && state.selected[props.valueKey as string],
         disabled: props.disabled,
         readonly: props.readonly,
         class: {
@@ -118,7 +134,7 @@ export const VSelect = defineComponent({
         onBlur,
         onClick
       }
-      return h('input', setTextColor(props.color, inputProps))
+      return h('input', setTextColor(computedColor.value!, inputProps))
     }
 
     const genSelectList = () => {
@@ -126,7 +142,7 @@ export const VSelect = defineComponent({
         items: props.items,
         valueKey: props.valueKey,
         idKey: props.idKey,
-        active: state.showList,
+        active: state.focused,
         onSelect: it => selectItem(it)
       })
     }
@@ -145,8 +161,13 @@ export const VSelect = defineComponent({
       label: props.label,
       focused: state.focused,
       hasState: !!state.selected,
-      color: props.color
-    }, {
+      hasError: errorState.innerError,
+      dark: !!props.dark,
+      color: validationState.value,
+      disabled: !!props.disabled,
+      isDirty: !!errorState.isDirty,
+      message: errorState.innerErrorMessage,
+    } as Props, {
       select: () => props.items?.length ? genSelect() : null
     })
   }

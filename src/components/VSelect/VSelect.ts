@@ -41,7 +41,7 @@ const vSelectProps: Props = {
 }
 
 type SelectState = {
-  selected: object | string | number
+  selected: any | null
   focused: boolean,
   isMenuActive: boolean
 }
@@ -53,7 +53,7 @@ export const VSelect = defineComponent({
   setup(props, { emit }) {
 
     const state: SelectState = reactive({
-      selected: '',
+      selected: null,
       focused: false,
       isMenuActive: false,
     })
@@ -94,19 +94,22 @@ export const VSelect = defineComponent({
       fields!.value.push(validateValue)
     }
 
+    const toggleState = () => {
+      state.focused = !state.focused
+      state.isMenuActive = !state.isMenuActive
+    }
+
     const onBlur = () => {
       if (!state.isMenuActive) return
-      state.focused = false
-      state.isMenuActive = false
+      toggleState()
+      setTimeout(validateValue)
       emit('blur')
-      setTimeout(() => validateValue(), 100)
     }
 
     const onClick = () => {
       dirty()
       update(errorState.innerError)
-      state.focused = true
-      state.isMenuActive = true
+      toggleState()
       emit('focus')
     }
 
@@ -155,7 +158,8 @@ export const VSelect = defineComponent({
         [
           genInput(),
           genSelectList()
-        ])
+        ]
+      )
 
       return withDirectives(select, [[VClickOutside, directive.value]])
     }

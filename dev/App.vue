@@ -188,7 +188,6 @@
             value-key="name"
             :items="items"
             :rules="[v => !!v || 'Required']"
-            @select="testFunc"
           />
         </v-card-content>
         <v-card-actions>

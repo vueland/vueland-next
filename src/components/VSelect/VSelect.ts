@@ -7,6 +7,7 @@ import {
   reactive,
   computed,
   defineComponent,
+  withDirectives,
   watch,
   inject
 } from 'vue'
@@ -23,6 +24,9 @@ import { Ref } from 'vue'
 import { VInput } from '../VInput'
 import { VSelectList } from './VSelectList'
 
+// Directives
+import { VClickOutside } from '../../directives'
+
 const vSelectProps: Props = {
   label: String,
   items: Array,
@@ -38,7 +42,8 @@ const vSelectProps: Props = {
 
 type SelectState = {
   selected: object | string | number
-  focused: boolean
+  focused: boolean,
+  isMenuActive: boolean
 }
 
 export const VSelect = defineComponent({
@@ -49,7 +54,8 @@ export const VSelect = defineComponent({
 
     const state: SelectState = reactive({
       selected: '',
-      focused: false
+      focused: false,
+      isMenuActive: false,
     })
 
     const { setTextColor } = useColors()
@@ -70,6 +76,13 @@ export const VSelect = defineComponent({
       props.rules?.length && validate(state.selected || props.modelValue)
     }
 
+    const directive = computed(() => {
+      return state.focused ? {
+        handler: onBlur,
+        state: state.focused
+      } : undefined
+    })
+
     watch(
       () => props.modelValue,
       value => {
@@ -81,30 +94,20 @@ export const VSelect = defineComponent({
       fields!.value.push(validateValue)
     }
 
-    const onFocus = () => {
+    const onBlur = () => {
+      if (!state.isMenuActive) return
+      state.focused = false
+      state.isMenuActive = false
+      emit('blur')
+      setTimeout(() => validateValue(), 100)
+    }
+
+    const onClick = () => {
       dirty()
       update(errorState.innerError)
       state.focused = true
+      state.isMenuActive = true
       emit('focus')
-    }
-
-    const onBlur = () => {
-      setTimeout(() => {
-        state.focused = false
-        emit('blur')
-        validateValue()
-      }, 130)
-    }
-
-    // const clickOutside = () => {
-    //
-    // }
-
-    const onClick = () => {
-      if (props.readonly) {
-        state.focused = true
-      }
-      emit('click')
     }
 
     const selectItem = (it) => {
@@ -130,8 +133,6 @@ export const VSelect = defineComponent({
         class: {
           'v-select__input': true
         },
-        onFocus,
-        onBlur,
         onClick
       }
       return h('input', setTextColor(computedColor.value!, inputProps))
@@ -142,19 +143,21 @@ export const VSelect = defineComponent({
         items: props.items,
         valueKey: props.valueKey,
         idKey: props.idKey,
-        active: state.focused,
+        active: state.isMenuActive,
         onSelect: it => selectItem(it)
       })
     }
 
     const genSelect = () => {
-      return h('div', {
+      const select = h('div', {
           class: classes.value
         },
         [
           genInput(),
           genSelectList()
         ])
+
+      return withDirectives(select, [[VClickOutside, directive.value]])
     }
 
     return () => h(VInput, {

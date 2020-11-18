@@ -9,18 +9,12 @@
         login: '',
         email: '',
         password: '',
-        user: {
-          name: 'sam'
-        }
+        user: ''
       })
 
       watch(
         () => data.password,
         to => console.log(!!to),
-      )
-      watch(
-        () => data.user,
-        to => console.log(to),
       )
 
       const validateValue = validate => {
@@ -63,7 +57,7 @@
 <template>
   <div>
     <v-form v-slot="{ validate }">
-      <v-card width="400" elevation="5" style="padding: 20px" color="#272727">
+      <v-card width="400" elevation="5" style="padding: 20px">
         <v-resize right/>
         <v-resize left/>
         <v-resize top/>
@@ -71,7 +65,6 @@
         <v-list>
           <v-list-group
             group="First"
-            color="white"
           >
             <template v-slot:title>
               <v-list-item-title>ha
@@ -119,7 +112,6 @@
           </v-list-group>
           <v-list-group
             group="First"
-            color="white"
           >
             <template v-slot:title>
               <v-list-item-title>
@@ -166,7 +158,6 @@
               val => !!val || 'Required',
               val => val.length > 5 || 'more than 5 symbols',
             ]"
-            dark
           />
           <v-text-field
             v-model="data.password"
@@ -175,7 +166,6 @@
               val => !!val || 'Required',
               val => val.length > 5 || 'more than 5 symbols',
             ]"
-            dark
           />
           <v-text-field
             v-model="data.email"
@@ -184,15 +174,21 @@
               val => !!val || 'Required',
               val => val.length > 5 || 'more than 5 symbols',
             ]"
-            dark
           />
+<!--          <v-select-->
+<!--            v-model="data.user"-->
+<!--            label="select"-->
+<!--            value-key="name"-->
+<!--            :items="items"-->
+<!--            :rules="[v => !!v || 'Required']"-->
+<!--          />-->
           <v-select
             v-model="data.user"
             label="select"
             value-key="name"
-            dark
             :items="items"
             :rules="[v => !!v || 'Required']"
+            @select="testFunc"
           />
         </v-card-content>
         <v-card-actions>

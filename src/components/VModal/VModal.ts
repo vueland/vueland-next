@@ -7,7 +7,7 @@ import { defineComponent, h, watch, withDirectives, vShow } from 'vue'
 // Effects
 import { overlayProps, useOverlay } from '../../effects/use-overlay'
 import { transitionProps, useTransition } from '../../effects/use-transition'
-import { useToggle } from '@/effects/use-toggle'
+import { useToggle } from '../../effects/use-toggle'
 
 // Types
 import { VNode } from 'vue'

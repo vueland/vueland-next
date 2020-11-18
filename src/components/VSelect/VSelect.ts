@@ -9,7 +9,8 @@ import {
   defineComponent,
   withDirectives,
   watch,
-  inject
+  inject,
+  onBeforeUnmount
 } from 'vue'
 
 // Effects
@@ -85,12 +86,11 @@ export const VSelect = defineComponent({
 
     watch(
       () => props.modelValue,
-      value => {
-        state.selected = value as any
-      }, { immediate: true }
+      value => state.selected = value as any,
+      { immediate: true }
     )
 
-    if (fields!.value && props.rules?.length) {
+    if (fields?.value && props.rules?.length) {
       fields!.value.push(validateValue)
     }
 
@@ -100,7 +100,6 @@ export const VSelect = defineComponent({
     }
 
     const onBlur = () => {
-      if (!state.isMenuActive) return
       toggleState()
       setTimeout(validateValue)
       emit('blur')
@@ -163,6 +162,12 @@ export const VSelect = defineComponent({
 
       return withDirectives(select, [[VClickOutside, directive.value]])
     }
+
+    onBeforeUnmount(() => {
+      if (fields!.value) {
+        fields!.value = fields!.value.filter(v => v !== validateValue)
+      }
+    })
 
     return () => h(VInput, {
       label: props.label,

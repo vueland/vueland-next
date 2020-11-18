@@ -57,7 +57,7 @@
 <template>
   <div>
     <v-form v-slot="{ validate }">
-      <v-card width="400" elevation="5" style="padding: 20px">
+      <v-card width="600" elevation="5" style="padding: 20px">
         <v-resize right/>
         <v-resize left/>
         <v-resize top/>

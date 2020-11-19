@@ -1,7 +1,7 @@
 interface InitialStyles {
-  transition: string | null,
-  propSize: string,
-  height?: number,
+  transition: string | null
+  propSize: string
+  height?: number
   width?: number
 }
 
@@ -18,12 +18,15 @@ const resetStyles = el => {
 }
 
 const getChildrenSizes = el => {
-  return Array.prototype.reduce.call(el.childNodes,
+  return Array.prototype.reduce.call(
+    el.children,
     (acc: number, it: HTMLElement) => {
       const height = getComputedStyle(it)[init.propSize]
 
-      return acc += parseFloat(height)
-    }, 0) as number
+      return (acc += parseFloat(height))
+    },
+    0,
+  ) as number
 }
 
 const setInitStyles = el => {
@@ -31,8 +34,10 @@ const setInitStyles = el => {
   init[init.propSize] = getChildrenSizes(el)
 }
 
-export const expandHooks = (expandedParentClass: string, x: boolean = false) => {
-
+export const expandHooks = (
+  expandedParentClass: string,
+  x: boolean = false,
+) => {
   return {
     onBeforeEnter(el) {
       init.propSize = x ? 'width' : 'height'
@@ -66,7 +71,7 @@ export const expandHooks = (expandedParentClass: string, x: boolean = false) => 
       el.style.transition = init.transition
       el.style[init.propSize] = `${init[init.propSize]}px`
 
-      requestAnimationFrame(() => el.style[init.propSize] = '0')
+      requestAnimationFrame(() => (el.style[init.propSize] = '0'))
     },
 
     onAfterLeave(el) {

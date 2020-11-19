@@ -42,7 +42,6 @@ const vListGroupProps = {
   },
   color: {
     type: String,
-    default: 'primary',
   },
   disabled: Boolean,
   group: String,
@@ -60,26 +59,26 @@ export const VListGroup = defineComponent({
     const refGroup = ref(null)
     const isActive = ref(false)
     const children = ref([])
-    const groups: any = !props.noAction && inject('groups')
+    const groups: any = inject('groups')
 
     provide('subgroups', children)
 
     const subgroups: any = props.subGroup && inject('subgroups')
 
-    !props.noAction && groups && groups.register({
+    groups && groups.register({
       ref: refGroup,
-      activator: isActive,
+      active: isActive,
     })
 
-    !props.noAction && subgroups && subgroups.value.push({
+    subgroups && subgroups.value.push({
       ref: refGroup,
-      activator: isActive,
+      active: isActive,
     })
 
-    const clickHandler = () => {
-      !props.noAction && groups.listClick(refGroup)
-      !props.noAction && children.value.forEach((it: any) => {
-        it.activator = false
+    const onActive = () => {
+      groups.items.length && groups.listClick(refGroup)
+      children.value.length && children.value.forEach((it: any) => {
+        it.active = false
       })
 
       emit('click')
@@ -88,7 +87,8 @@ export const VListGroup = defineComponent({
     const classes = computed<Record<string, boolean>>(() => ({
       'v-list-group': true,
       'v-list-group__sub-group': props.subGroup,
-      'v-list-group--active': isActive.value,
+      'v-list-group--active': isActive.value && !props.noAction,
+      [props.activeClass]: isActive.value,
     }))
 
     const genIcon = (icon: string) => {
@@ -105,7 +105,7 @@ export const VListGroup = defineComponent({
 
     const genAppendIcon = () => {
       const slotIcon = slots.appendIcon && slots.appendIcon()
-      const icon = !props.subGroup ? props.appendIcon : false
+      const icon = !props.subGroup && !props.noAction ? props.appendIcon : false
 
       if (!icon && !slotIcon) return null
 
@@ -145,7 +145,7 @@ export const VListGroup = defineComponent({
       return h(
         VListItem,
         {
-          onClick: clickHandler,
+          onActive,
           class: {
             'v-list-group__header': !props.subGroup,
             'v-list-group__header--sub-group': props.subGroup,
@@ -190,8 +190,9 @@ export const VListGroup = defineComponent({
     return () => {
       const items = slots.default && VExpandTransition(genItems())
       const header = slots.title && genGroupHeader()
+      const dataProps = props.color ? setTextColor(props.color, genDataProps()) : genDataProps()
 
-      return h('div', setTextColor(props.color, genDataProps()),
+      return h('div', dataProps,
         [
           header,
           items,

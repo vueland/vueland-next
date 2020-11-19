@@ -79,21 +79,26 @@
             <template v-slot:prependIcon>
               <v-icon size="16">fab fa-apple</v-icon>
             </template>
-            <v-list-item>
-              <v-list-item-icon>
-                <v-icon size="14">fas fa-book</v-icon>
-              </v-list-item-icon>
-              <v-list-item-title>
-                book
-              </v-list-item-title>
-            </v-list-item>
+            <v-list-group no-action active-class="active-class">
+              <template v-slot:title>
+                <v-list-item>
+                  <v-list-item-icon>
+                    <v-icon size="14">fas fa-book</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-title>
+                    book
+                  </v-list-item-title>
+                </v-list-item>
+              </template>
+            </v-list-group>
+
             <v-list-group sub-group color="green darken-1">
               <template v-slot:title>
                 <v-list-item-title>
                   subgroup
                 </v-list-item-title>
               </template>
-              <v-list-item>
+              <v-list-item active-class="active-class" active>
                 <v-list-item-icon>
                   <v-icon size="14">fas fa-book</v-icon>
                 </v-list-item-icon>
@@ -273,4 +278,9 @@
     </teleport>
   </div>
 </template>
-<style lang="scss"></style>
+<style lang="scss">
+  .active-class {
+    background: #272727;
+    color: white !important;
+  }
+</style>

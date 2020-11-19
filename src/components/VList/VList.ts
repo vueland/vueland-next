@@ -25,7 +25,7 @@ export const VList = defineComponent({
         this.items.length &&
         this.items.forEach(group => {
           if (group.ref === ref._value) {
-            group.activator = !group.activator
+            group.active = !group.active
           }
         })
       },

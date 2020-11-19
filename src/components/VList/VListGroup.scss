@@ -8,6 +8,7 @@
   border-radius: 3px;
   overflow: hidden;
   border: none;
+  transition: all .3s $primary-transition;
 
   &:not(.v-list-group__sub-group) {
     box-shadow: 0 0 2px 0 rgba(0, 0, 0, .4);
@@ -26,7 +27,7 @@
   }
 
   &--active {
-    transition: all .3s $primary-transition;
+
   }
 
   &__header {

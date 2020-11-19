@@ -66,12 +66,12 @@ export const VListGroup = defineComponent({
 
     const subgroups: any = props.subGroup && inject('subgroups')
 
-    groups && groups.register({
+    !props.noAction && groups && groups.register({
       ref: refGroup,
       activator: isActive,
     })
 
-    subgroups && subgroups.value.push({
+    !props.noAction && subgroups && subgroups.value.push({
       ref: refGroup,
       activator: isActive,
     })

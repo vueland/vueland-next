@@ -17,6 +17,7 @@
   }
 
   &__icon {
+    min-width: 48px;
     @include flex(flex, center, center)
   }
 }

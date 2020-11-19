@@ -79,12 +79,28 @@
             <template v-slot:prependIcon>
               <v-icon size="16">fab fa-apple</v-icon>
             </template>
+            <v-list-item>
+              <v-list-item-icon>
+                <v-icon size="14">fas fa-book</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>
+                book
+              </v-list-item-title>
+            </v-list-item>
             <v-list-group sub-group color="green darken-1">
               <template v-slot:title>
                 <v-list-item-title>
                   subgroup
                 </v-list-item-title>
               </template>
+              <v-list-item>
+                <v-list-item-icon>
+                  <v-icon size="14">fas fa-book</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title>
+                  book
+                </v-list-item-title>
+              </v-list-item>
               <v-list-group sub-group prepend-icon="fas fa-book" no-action>
                 <template v-slot:title>
                   <v-list-item-title>

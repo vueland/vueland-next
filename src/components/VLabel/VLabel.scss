@@ -7,13 +7,17 @@
   max-width: 90%;
   overflow: hidden;
   text-overflow: ellipsis;
-  top: 17px;
+
   white-space: nowrap;
   pointer-events: none;
   height: 20px;
   line-height: 20px;
   transform-origin: top left;
   will-change: transform;
+
+  &--absolute {
+    top: 17px;
+  }
 
   &--active {
     transform: translateY(-17px) scale(.75);

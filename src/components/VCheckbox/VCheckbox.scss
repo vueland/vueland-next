@@ -1,0 +1,16 @@
+@import "../../styles/scss/modules/global";
+
+.v-checkbox {
+  @include flex(flex, flex-start, center);
+  cursor: pointer;
+  width: 100%;
+
+  &__input {
+    position: absolute;
+    visibility: hidden;
+  }
+
+  &__square {
+    margin-right: 10px;
+  }
+}

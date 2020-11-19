@@ -22,6 +22,8 @@ export const VForm = defineComponent({
         promises.push(it())
       })
 
+      console.log(fields.value)
+
       return Promise.resolve(!promises.some(f => !f))
     }
 

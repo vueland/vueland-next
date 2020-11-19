@@ -8,7 +8,7 @@ import { h, computed, defineComponent } from 'vue'
 import { VLabel } from '../VLabel'
 
 // Types
-import { SetupContext, VNode } from 'vue'
+import { VNode } from 'vue'
 
 // Effects
 import { useTransition } from '../../effects/use-transition'
@@ -67,16 +67,12 @@ export const VInput = defineComponent({
         color: props.color,
       }
 
-      return h(
-        VLabel.setup!(
-          labelProps as typeof VLabel.props,
-          { slots } as SetupContext,
-        ) as any,
-        props.label,
-      )
+      return h(VLabel, labelProps, {
+        default: () => props.label
+      })
     }
 
-    const genSlotContent = () => {
+    const genSlotContent = (): VNode => {
       return h(
         'div',
         {
@@ -130,7 +126,7 @@ export const VInput = defineComponent({
       }
     }
 
-    return () =>
+    return (): VNode =>
       h('div', genDataProps(), [
         genSlotContent(),
         genStatus(),

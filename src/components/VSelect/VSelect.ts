@@ -74,7 +74,7 @@ export const VSelect = defineComponent({
     const fields: Ref<any[]> | undefined = inject('fields')
 
     const validateValue = () => {
-      props.rules?.length && validate(state.selected || props.modelValue)
+      return props.rules?.length && validate(state.selected || props.modelValue)
     }
 
     const directive = computed(() => {

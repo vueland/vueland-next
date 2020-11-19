@@ -6,6 +6,6 @@ export enum FaIcons {
   $dropdown = 'fas fa-caret-down',
   $radioOn = 'far fa-dot-circle',
   $radioOff = 'far fa-circle',
-  $checkOn = 'far fa-square',
-  $checkOff = 'far fa-check-square'
+  $checkOn = 'fas fa-check-square',
+  $checkOff = 'far fa-square'
 }

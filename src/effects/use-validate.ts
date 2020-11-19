@@ -43,6 +43,10 @@ export function useValidate(props) {
     )
   })
 
+  const validatable = computed<boolean>(() => {
+    return props.validate
+  })
+
   const dirty = () => {
     errorState.isDirty = true
   }
@@ -57,9 +61,14 @@ export function useValidate(props) {
     }
 
     if (!msg) errorState.innerErrorMessage = msg
+
+    return errorState.innerError
   }
 
   const validate = (val = props.value): boolean | void => {
+
+    if (validatable.value) return !update(!val)
+
     if (!hasRules.value) return true
 
     dirty()

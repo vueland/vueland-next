@@ -9,16 +9,24 @@
         login: '',
         email: '',
         password: '',
-        user: ''
+        user: { name: 'igor' },
+        checked: [],
+        user2: { name: 'alyona' }
       })
 
       watch(
-        () => data.password,
-        to => console.log(!!to),
+        () => data.checked,
+        to => console.log(to, 'checked'),
       )
 
+      const testFunc = () => {
+        console.log(data)
+      }
+
       const validateValue = validate => {
+        testFunc()
         validate().then(res => {
+          console.log(res)
           if (res) console.log('valid')
         })
       }
@@ -31,9 +39,6 @@
         data.show = !data.show
       }
 
-      const testFunc = () => {
-        console.log(data)
-      }
 
       const items = [
         { name: 'Alex', age: 24 },
@@ -175,13 +180,8 @@
               val => val.length > 5 || 'more than 5 symbols',
             ]"
           />
-<!--          <v-select-->
-<!--            v-model="data.user"-->
-<!--            label="select"-->
-<!--            value-key="name"-->
-<!--            :items="items"-->
-<!--            :rules="[v => !!v || 'Required']"-->
-<!--          />-->
+          <v-checkbox label="igor" v-model="data.checked" :value="data.user" validate/>
+          <v-checkbox label="alyona" v-model="data.checked" :value="data.user2"/>
           <v-select
             v-model="data.user"
             label="select"

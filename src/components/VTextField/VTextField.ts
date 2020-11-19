@@ -82,7 +82,7 @@ export const VTextField = defineComponent({
     )
 
     const validateValue = () => {
-      props.rules?.length && validate(state.value || props.modelValue)
+      return props.rules?.length && validate(state.value)
     }
 
     if (fields?.value && props.rules?.length) {

@@ -42,6 +42,7 @@ export const VLabel = defineComponent({
       return {
         'v-label': true,
         'v-label--active': isActive.value,
+        'v-label--absolute': props.absolute,
         'v-label--is-disabled': !!props.disabled,
       }
     })
@@ -59,7 +60,7 @@ export const VLabel = defineComponent({
       }
     }
 
-    return h(
+    return () => h(
       'label',
       setTextColor(props.color!, genDataProps()),
       slots.default && slots.default(),

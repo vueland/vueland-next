@@ -75,7 +75,7 @@ export const VListGroup = defineComponent({
       active: isActive,
     })
 
-    const onActive = () => {
+    const onClick = () => {
       groups.items.length && groups.listClick(refGroup)
       children.value.length && children.value.forEach((it: any) => {
         it.active = false
@@ -145,7 +145,7 @@ export const VListGroup = defineComponent({
       return h(
         VListItem,
         {
-          onActive,
+          onClick,
           class: {
             'v-list-group__header': !props.subGroup,
             'v-list-group__header--sub-group': props.subGroup,

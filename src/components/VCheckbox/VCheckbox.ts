@@ -33,7 +33,7 @@ export const vCheckboxProps: Props = {
   modelValue: [Array, Boolean],
   color: {
     type: String,
-    default: 'primary'
+    default: 'primary',
   },
 }
 
@@ -44,7 +44,7 @@ export const VCheckbox = defineComponent({
   setup(props, { emit }) {
 
     const state = ref(false)
-    const fields: Ref<any[]> | undefined = inject('fields')
+    const fields: Ref<any[]> | undefined = props.validate && inject('fields')
 
     const { validate, validationState } = useValidate(props)
 
@@ -52,7 +52,7 @@ export const VCheckbox = defineComponent({
       return validate(state.value)
     }
 
-    if (fields?.value && props.validate) {
+    if (fields && fields.value) {
       fields!.value.push(validateValue)
     }
 
@@ -61,36 +61,31 @@ export const VCheckbox = defineComponent({
         absolute: false,
         disabled: props.disabled,
         top: 0,
-        class: 'v-checkbox__label'
+        class: 'v-checkbox__label',
       }
 
       return h(VLabel, propsData, {
-          default: () => props.label
-        }
+          default: () => props.label,
+        },
       )
     }
 
     const genInput = () => {
-      return h('input', {
-        type: 'checkbox',
-        role: 'checkbox',
-        class: 'v-checkbox__input',
-        checked: props.modelValue
-      })
+      console.log(state.value)
     }
 
     const genCheckbox = (): VNode => {
       const icon = state.value ? props.onIcon : props.offIcon
 
       return h('div', {
-        class: 'v-checkbox__square'
+        class: 'v-checkbox__square',
       }, [
         genInput(),
         h(VIcon, {
           icon,
           color: validationState.value,
-          disabled: props.disabled
-        })
+          disabled: props.disabled,
+        }),
       ])
     }
 
@@ -123,12 +118,12 @@ export const VCheckbox = defineComponent({
     return (): VNode => h('div', {
       class: {
         'v-checkbox': true,
-        'v-validatable': true
+        'v-validatable': true,
       },
-      onClick
+      onClick,
     }, [
       genCheckbox(),
-      genLabel()
+      genLabel(),
     ])
   },
 })

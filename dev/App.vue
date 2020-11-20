@@ -201,8 +201,6 @@
               val => val.length > 5 || 'more than 5 symbols',
             ]"
           />
-          <v-checkbox label="igor" v-model="data.checked" :value="data.user" validate/>
-          <v-checkbox label="alyona" v-model="data.checked" :value="data.user2"/>
           <v-select
             v-model="data.user"
             label="select"
@@ -223,7 +221,8 @@
         </v-card-actions>
       </v-card>
     </v-form>
-
+    <v-checkbox label="igor" v-model="data.checked" :value="data.user" validate/>
+    <v-checkbox label="alyona" v-model="data.checked" :value="data.user2"/>
     <v-button
       elevation="2"
       color="red darken-4"

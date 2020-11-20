@@ -18,7 +18,7 @@ export const VListItem = defineComponent({
   name: 'v-list-item',
   props: vListItemProps,
 
-  setup(props, { slots, emit }) {
+  setup(props, { slots }) {
     const state = ref(false)
 
     const classes = computed(() => ({
@@ -30,8 +30,6 @@ export const VListItem = defineComponent({
       if (props.active) {
         state.value = !state.value
       }
-      emit('click')
-      emit('active')
     }
 
     return () =>

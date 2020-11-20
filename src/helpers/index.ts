@@ -17,8 +17,7 @@ export function createSimpleFunctional(
               [c.trim()]: true,
             },
           },
-            slots.default && slots.default()
-
+          slots.default && slots.default(),
         )
     },
   })
@@ -49,4 +48,8 @@ export function convertToUnit(
   } else {
     return `${ Number(str) }${ unit }`
   }
+}
+
+export function warning(warningText) {
+  console.warn(warningText)
 }

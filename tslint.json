@@ -10,11 +10,7 @@
     "object-literal-sort-keys": false,
     "no-angle-bracket-type-assertion": false,
     "no-empty-interface": true,
-    "no-console": [
-      true,
-      "error",
-      "warning"
-    ],
+    "no-console": false,
     "max-classes-per-file": false,
     "only-arrow-functions": false,
     "prefer-for-of": false,

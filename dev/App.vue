@@ -229,7 +229,7 @@
     <v-checkbox
       label="alyona"
       v-model="data.checked"
-      :value="data.user2"
+
     />
     <v-button
       elevation="2"

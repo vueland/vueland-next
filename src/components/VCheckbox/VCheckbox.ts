@@ -14,6 +14,9 @@ import { VLabel } from '../VLabel'
 // Services
 import { FaIcons } from '../../services/icons'
 
+// Helpers
+import { warning } from '../../helpers'
+
 // Types
 import { VNode, Ref } from 'vue'
 import { Props } from '../../types'
@@ -31,7 +34,10 @@ export const vCheckboxProps: Props = {
   disabled: Boolean,
   validate: Boolean,
   modelValue: [Array, Boolean],
-  value: [String, Number, Object],
+  value: {
+    type: [String, Number, Object],
+    default: null,
+  },
   color: {
     type: String,
     default: 'primary',
@@ -56,7 +62,13 @@ export const VCheckbox = defineComponent({
     }
 
     if (Array.isArray(props.modelValue)) {
-      state.value = props.modelValue.includes(props.value)
+
+      if (props.value) {
+        state.value = props.modelValue.includes(props.value)
+      } else {
+        warning('v-checkbox: the value of the "value" property must be set')
+      }
+
     } else {
       state.value = props.modelValue
     }
@@ -95,21 +107,24 @@ export const VCheckbox = defineComponent({
       let model = props.modelValue
 
       if (Array.isArray(model)) {
-        state.value = !model.includes(value)
-        if (!state.value) {
-          model = model.filter(it => it !== value)
+        if (value !== null) {
+          state.value = !model.includes(value)
+
+          if (!state.value) {
+            model = model.filter(it => it !== value)
+          } else {
+            model.push(value)
+          }
+
         } else {
-          model.push(value)
+          return state.value = !state.value
         }
 
         return model
       }
 
-      state.value = !state.value
-      return state.value
+      return state.value = !state.value
     }
-
-    // computedValue()
 
     const onClick = () => {
       const value = computedValue()

@@ -31,6 +31,7 @@ export const vCheckboxProps: Props = {
   disabled: Boolean,
   validate: Boolean,
   modelValue: [Array, Boolean],
+  value: [String, Number, Object],
   color: {
     type: String,
     default: 'primary',
@@ -71,7 +72,7 @@ export const VCheckbox = defineComponent({
     }
 
     const genInput = () => {
-      console.log(state.value)
+      // console.log(state.value)
     }
 
     const genCheckbox = (): VNode => {

@@ -2,7 +2,7 @@
 import './VCheckbox.scss'
 
 // Vue API
-import { h, ref, defineComponent, Ref, inject } from 'vue'
+import { h, ref, defineComponent, inject } from 'vue'
 
 // Effects
 import { useValidate } from '@/effects/use-validate'
@@ -15,7 +15,7 @@ import { VLabel } from '../VLabel'
 import { FaIcons } from '../../services/icons'
 
 // Types
-import { VNode } from 'vue'
+import { VNode, Ref } from 'vue'
 import { Props } from '../../types'
 
 export const vCheckboxProps: Props = {
@@ -49,12 +49,16 @@ export const VCheckbox = defineComponent({
 
     const { validate, validationState } = useValidate(props)
 
-    const validateValue = () => {
-      return validate(state.value)
-    }
+    const validateValue = () => validate(state.value)
 
     if (fields && fields.value) {
       fields!.value.push(validateValue)
+    }
+
+    if (Array.isArray(props.modelValue)) {
+      state.value = props.modelValue.includes(props.value)
+    } else {
+      state.value = props.modelValue
     }
 
     const genLabel = (): VNode => {
@@ -71,9 +75,6 @@ export const VCheckbox = defineComponent({
       )
     }
 
-    const genInput = () => {
-      // console.log(state.value)
-    }
 
     const genCheckbox = (): VNode => {
       const icon = state.value ? props.onIcon : props.offIcon
@@ -81,7 +82,6 @@ export const VCheckbox = defineComponent({
       return h('div', {
         class: 'v-checkbox__square',
       }, [
-        genInput(),
         h(VIcon, {
           icon,
           color: validationState.value,
@@ -105,15 +105,17 @@ export const VCheckbox = defineComponent({
         return model
       }
 
-      state.value = !model
-
-      return !model
+      state.value = !state.value
+      return state.value
     }
+
+    // computedValue()
 
     const onClick = () => {
       const value = computedValue()
       props.validate && validateValue()
       emit('update:modelValue', value)
+      emit('checked', value)
     }
 
     return (): VNode => h('div', {

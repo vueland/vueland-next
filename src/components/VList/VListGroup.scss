@@ -26,7 +26,7 @@
     cursor: pointer;
   }
 
-  &--active {
+  &--expanded{
 
   }
 
@@ -53,12 +53,12 @@
     text-align: left;
   }
 
-  &--active > .v-list-group__header >
+  &--expanded > .v-list-group__header >
   .v-list-group__append-icon .v-icon {
     transform: rotate(-180deg);
   }
 
-  &--active > .v-list-group__header--sub-group >
+  &--expanded > .v-list-group__header--sub-group >
   .v-list-group__prepend-icon .v-icon {
     transform: rotate(-180deg)
   }

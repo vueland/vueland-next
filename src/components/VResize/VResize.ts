@@ -33,6 +33,9 @@ const vResizeProps: Props = {
   },
   ...positionProps(),
 }
+/***
+ * TODO must debug component
+ */
 
 type ResizeData = {
   parentNode: HTMLElement | null

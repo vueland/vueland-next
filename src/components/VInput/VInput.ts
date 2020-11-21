@@ -61,6 +61,7 @@ export const VInput = defineComponent({
     const genLabel = (): VNode => {
       const labelProps = {
         absolute: true,
+        onField: true,
         hasState: props.hasState,
         disabled: props.disabled,
         focused: props.focused,

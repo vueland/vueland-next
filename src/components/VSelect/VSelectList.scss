@@ -2,6 +2,7 @@
 
 .v-select-list {
   width: 100%;
+  max-height: 240px;
   position: absolute;
   top: 18px;
   background: white;
@@ -9,7 +10,7 @@
   z-index: 100;
   transition: all .3s $primary-transition;
   box-shadow: 0 0 18px 0 rgba(0, 0, 0, .2);
-  overflow: hidden;
+  overflow: auto;
 
   & > .v-list > .v-list-item {
     &:hover {

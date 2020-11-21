@@ -27,7 +27,7 @@ export const VListItem = defineComponent({
     }))
 
     const onClick = () => {
-      if (props.active) {
+      if (props.activeClass) {
         state.value = !state.value
       }
     }

@@ -2,7 +2,7 @@
 import './VCheckbox.scss'
 
 // Vue API
-import { h, ref, defineComponent, inject } from 'vue'
+import { h, ref, computed, defineComponent, inject } from 'vue'
 
 // Effects
 import { useValidate } from '@/effects/use-validate'
@@ -50,46 +50,53 @@ export const VCheckbox = defineComponent({
 
   setup(props, { emit }) {
 
-    const state = ref(false)
+    const isChecked = ref(false)
     const fields: Ref<any[]> | undefined = props.validate && inject('fields')
 
     const { validate, validationState } = useValidate(props)
 
-    const validateValue = () => validate(state.value)
+    const validateValue = () => validate(isChecked.value)
+
+    const isArray = computed<boolean>(() => {
+      return Array.isArray(props.modelValue)
+    })
+
+    const isValueSet = computed<boolean>(() => {
+      return props.value !== null
+    })
 
     if (fields && fields.value) {
       fields!.value.push(validateValue)
     }
 
-    if (Array.isArray(props.modelValue)) {
-
-      if (props.value) {
-        state.value = props.modelValue.includes(props.value)
+    if (isArray.value) {
+      if (isValueSet.value) {
+        isChecked.value = props.modelValue.includes(props.value)
       } else {
-        warning('v-checkbox: the value of the "value" property must be set')
+        warning('v-checkbox: set the "value" property')
       }
-
     } else {
-      state.value = props.modelValue
+      isChecked.value = !!props.modelValue
     }
 
     const genLabel = (): VNode => {
       const propsData = {
         absolute: false,
         disabled: props.disabled,
-        top: 0,
         class: 'v-checkbox__label',
       }
 
-      return h(VLabel, propsData, {
+      return h(
+        VLabel,
+        propsData,
+        {
           default: () => props.label,
         },
       )
     }
 
-
     const genCheckbox = (): VNode => {
-      const icon = state.value ? props.onIcon : props.offIcon
+      const icon = isChecked.value ? props.onIcon : props.offIcon
 
       return h('div', {
         class: 'v-checkbox__square',
@@ -103,31 +110,33 @@ export const VCheckbox = defineComponent({
     }
 
     const computedValue = () => {
-      const value = props.value
-      let model = props.modelValue
+      let modelValue = props.modelValue
 
-      if (Array.isArray(model)) {
-        if (value !== null) {
-          state.value = !model.includes(value)
+      if (isArray.value) {
+        if (isValueSet.value) {
+          isChecked.value = !modelValue.includes(props.value)
 
-          if (!state.value) {
-            model = model.filter(it => it !== value)
+          if (!isChecked.value) {
+            modelValue = modelValue.filter(it => it !== props.value)
           } else {
-            model.push(value)
+            modelValue.push(props.value)
           }
 
         } else {
-          return state.value = !state.value
+          return isChecked.value = !isChecked.value
         }
 
-        return model
+        return modelValue
       }
 
-      return state.value = !state.value
+      return isChecked.value = !isChecked.value
     }
 
     const onClick = () => {
+      if (props.disabled) return
+
       const value = computedValue()
+
       props.validate && validateValue()
       emit('update:modelValue', value)
       emit('checked', value)
@@ -136,7 +145,9 @@ export const VCheckbox = defineComponent({
     return (): VNode => h('div', {
       class: {
         'v-checkbox': true,
-        'v-validatable': true,
+        'v-checkbox--disabled': props.disabled,
+        'v-checkbox--checked': isChecked.value,
+        'v-validatable': props.validate,
       },
       onClick,
     }, [

@@ -87,7 +87,7 @@ export const VListGroup = defineComponent({
     const classes = computed<Record<string, boolean>>(() => ({
       'v-list-group': true,
       'v-list-group__sub-group': props.subGroup,
-      'v-list-group--active': isActive.value && !props.noAction,
+      'v-list-group--expanded': isActive.value && !props.noAction,
       [props.activeClass]: isActive.value,
     }))
 

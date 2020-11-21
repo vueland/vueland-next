@@ -45,7 +45,11 @@
         { name: 'Andrew', age: 24 },
         { name: 'Nikol', age: 24 },
         { name: 'Anna', age: 24 },
+        { name: 'Anna', age: 24 },
+        { name: 'Anna', age: 24 },
       ]
+
+      // data.checked.push(data.user)
 
       return {
         showModal,
@@ -63,10 +67,10 @@
   <div>
     <v-form v-slot="{ validate }">
       <v-card width="600" elevation="5" style="padding: 20px">
-        <v-resize right/>
-        <v-resize left/>
-        <v-resize top/>
-        <v-resize bottom/>
+<!--        <v-resize right/>-->
+<!--        <v-resize left/>-->
+<!--        <v-resize top/>-->
+<!--        <v-resize bottom/>-->
         <v-list>
           <v-list-group
             group="First"
@@ -98,7 +102,7 @@
                   subgroup
                 </v-list-item-title>
               </template>
-              <v-list-item active-class="active-class" active>
+              <v-list-item active-class="active-class">
                 <v-list-item-icon>
                   <v-icon size="14">fas fa-book</v-icon>
                 </v-list-item-icon>
@@ -113,27 +117,6 @@
                   </v-list-item-title>
                 </template>
               </v-list-group>
-            </v-list-group>
-            <v-list-group sub-group>
-              <template v-slot:title>
-                <v-list-item-title>
-                  subgroup
-                </v-list-item-title>
-              </template>
-            </v-list-group>
-            <v-list-group sub-group>
-              <template v-slot:title>
-                <v-list-item-title>
-                  subgroup
-                </v-list-item-title>
-              </template>
-            </v-list-group>
-            <v-list-group sub-group>
-              <template v-slot:title>
-                <v-list-item-title>
-                  subgroup
-                </v-list-item-title>
-              </template>
             </v-list-group>
           </v-list-group>
           <v-list-group
@@ -177,6 +160,13 @@
             clickable
             @click="() => (data.login = '')"
           />
+          <v-select
+
+            label="select"
+            value-key="name"
+            :items="items"
+            :rules="[v => !!v || 'Required']"
+          />
           <v-text-field
             v-model="data.login"
             label="login"
@@ -201,13 +191,6 @@
               val => val.length > 5 || 'more than 5 symbols',
             ]"
           />
-          <v-select
-            v-model="data.user"
-            label="select"
-            value-key="name"
-            :items="items"
-            :rules="[v => !!v || 'Required']"
-          />
         </v-card-content>
         <v-card-actions>
           <v-button
@@ -229,7 +212,7 @@
     <v-checkbox
       label="alyona"
       v-model="data.checked"
-
+      :value="data.user2"
     />
     <v-button
       elevation="2"

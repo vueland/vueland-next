@@ -14,7 +14,7 @@ const labelProps = {
   absolute: Boolean,
   disabled: Boolean,
   focused: Boolean,
-  for: String,
+  onField: Boolean,
   left: {
     type: [Number, String],
     default: 0,
@@ -42,7 +42,8 @@ export const VLabel = defineComponent({
       return {
         'v-label': true,
         'v-label--active': isActive.value,
-        'v-label--absolute': props.absolute,
+        'v-label--on-field': props.onField,
+        'v-label--has-state': props.hasState,
         'v-label--is-disabled': !!props.disabled,
       }
     })

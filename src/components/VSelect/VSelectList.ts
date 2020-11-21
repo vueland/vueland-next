@@ -15,7 +15,7 @@ const vSelectListProps = {
   items: Array,
   valueKey: String,
   idKey: String,
-  active: Boolean
+  active: Boolean,
 }
 
 export const VSelectList = defineComponent({
@@ -34,29 +34,32 @@ export const VSelectList = defineComponent({
           VListItemTitle,
           {},
           {
-            default: () => key ? it[key] : it
-          }
+            default: () => key ? it[key] : it,
+          },
         )
 
         return h(VListItem, {
           key: props.idKey,
-          onClick: () => emit('select', it)
+          onClick: () => emit('select', it),
         }, {
-          default: () => item
+          default: () => item,
         })
       })
     }
 
     const genSelectList = () => {
       return withDirectives(h('div', {
-        class: {
-          'v-select-list': true
-        }
-      }, h(VList, {}, {
-        default: () => genItems()
-      })), [[vShow, isActive.value]])
+          class: 'v-select-list',
+        }, h(
+        VList,
+        { class: 'v-select--items-list' },
+        {
+          default: () => genItems(),
+        },
+        ),
+      ), [[vShow, isActive.value]])
     }
 
     return () => VFadeTransition(genSelectList())
-  }
+  },
 })

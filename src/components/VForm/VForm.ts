@@ -22,8 +22,6 @@ export const VForm = defineComponent({
         promises.push(it())
       })
 
-      console.log(fields.value)
-
       return Promise.resolve(!promises.some(f => !f))
     }
 
@@ -32,14 +30,6 @@ export const VForm = defineComponent({
     }
 
     return () =>
-      h(
-        'div',
-        {
-          class: {
-            'v-form': true,
-          },
-        },
-        genSlot(),
-      )
+      h('div', { class: 'v-form' }, genSlot())
   },
 })

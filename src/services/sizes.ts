@@ -1,8 +1,8 @@
 export enum Sizes {
-  xSmall = 12,
-  small = 16,
-  default = 24,
-  medium = 28,
-  large = 36,
-  xLarge = 40,
+  xSmall = '12px',
+  small = '16px',
+  default = '24px',
+  medium = '28px',
+  large = '36px',
+  xLarge = '40px',
 }

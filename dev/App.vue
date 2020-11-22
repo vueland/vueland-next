@@ -81,7 +81,7 @@
               </v-list-item-title>
             </template>
             <template v-slot:prependIcon>
-              <v-icon size="16">fab fa-apple</v-icon>
+              <v-icon size="18">fab fa-apple</v-icon>
             </template>
             <v-list-group no-action active-class="active-class">
               <template v-slot:title>

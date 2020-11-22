@@ -44,7 +44,6 @@ export const VIcon = defineComponent({
       return props.icon || (slots.default && slots.default()[0].children)
     })
 
-
     const classes = computed<Record<string, boolean>>(() => {
       return {
         'v-icon': true,
@@ -68,7 +67,7 @@ export const VIcon = defineComponent({
     })
 
     const getSizes = () => {
-      const sizes = {
+      const sizeProps = {
         large: props.large,
         small: props.small,
         xLarge: props.xLarge,
@@ -76,7 +75,7 @@ export const VIcon = defineComponent({
         medium: isMedium.value,
       }
 
-      const explicitSize = Object.keys(sizes).find(key => sizes[key])
+      const explicitSize = Object.keys(sizeProps).find(key => sizeProps[key])
 
       return (
         (explicitSize && Sizes[explicitSize]) || convertToUnit(props.size)
@@ -85,9 +84,7 @@ export const VIcon = defineComponent({
 
     const genPropsData = () => {
       return {
-        class: {
-          ...classes.value,
-        },
+        class: classes.value,
         style: {
           fontSize: getSizes(),
         },

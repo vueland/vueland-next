@@ -67,10 +67,10 @@
   <div>
     <v-form v-slot="{ validate }">
       <v-card width="600" elevation="5" style="padding: 20px">
-<!--        <v-resize right/>-->
-<!--        <v-resize left/>-->
-<!--        <v-resize top/>-->
-<!--        <v-resize bottom/>-->
+        <!--        <v-resize right/>-->
+        <!--        <v-resize left/>-->
+        <!--        <v-resize top/>-->
+        <!--        <v-resize bottom/>-->
         <v-list>
           <v-list-group
             group="First"
@@ -81,7 +81,7 @@
               </v-list-item-title>
             </template>
             <template v-slot:prependIcon>
-              <v-icon size="18">fab fa-apple</v-icon>
+              <v-icon xLarge>fab fa-apple</v-icon>
             </template>
             <v-list-group no-action active-class="active-class">
               <template v-slot:title>
@@ -235,7 +235,8 @@
               bottom
               right
               border
-              content="2"
+              :content="data.login"
+              toggle
               offset-x="12"
               offset-y="12"
               color="green darken-1"

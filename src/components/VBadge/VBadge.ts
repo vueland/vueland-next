@@ -25,7 +25,7 @@ const vBadgeProps: Props = {
   dot: Boolean,
   avatar: Boolean,
   border: Boolean,
-  toggleable: Boolean,
+  toggle: Boolean,
   content: {
     required: false,
   },
@@ -156,7 +156,7 @@ export const VBadge = defineComponent({
     return (): VNode => {
       let badge = genBadge()
 
-      if (props.toggleable) {
+      if (props.toggle) {
         const { isActive } = useToggle(props, 'content')
 
         badge = withDirectives(badge, [[vShow, isActive.value]])

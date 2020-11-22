@@ -12,11 +12,8 @@ export function transitionProps() {
 export function useTransition(
   { transition }: Props,
   vNode: VNode,
-  hooks?: any,
 ): VNode {
-  const props = hooks ? {
-    ...hooks,
-  } : { name: transition }
+  const props = { name: transition }
   return createBlock(
     Transition,
     props,

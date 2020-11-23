@@ -64,16 +64,14 @@ export const VListGroup = defineComponent({
     provide('subgroups', children)
 
     const subgroups: any = props.subGroup && inject('subgroups')
-
-    groups && groups.register({
+    const currentGroup = {
       ref: refGroup,
       active: isActive,
-    })
+    }
 
-    subgroups && subgroups.value.push({
-      ref: refGroup,
-      active: isActive,
-    })
+    groups && groups.register(currentGroup)
+
+    subgroups && subgroups.value.push(currentGroup)
 
     const onClick = () => {
       groups?.items.length && groups.listClick(refGroup)

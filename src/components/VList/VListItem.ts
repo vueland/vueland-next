@@ -2,7 +2,7 @@
 import './VListItem.scss'
 
 // Vue API
-import { h, ref, computed, defineComponent } from 'vue'
+import { h, computed, defineComponent } from 'vue'
 
 // Types
 import { Props } from '../../types'
@@ -18,17 +18,16 @@ export const VListItem = defineComponent({
   name: 'v-list-item',
   props: vListItemProps,
 
-  setup(props, { slots }) {
-    const state = ref(false)
-
+  setup(props, { slots, emit }) {
     const classes = computed(() => ({
       'v-list-item': true,
-      [props.activeClass]: !!props.activeClass && state.value,
+      [props.activeClass]: !!props.activeClass && props.active,
     }))
 
     const onClick = () => {
       if (props.activeClass) {
-        state.value = !state.value
+        emit('update:active', !props.active)
+        emit('active', !props.active)
       }
     }
 

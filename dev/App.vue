@@ -76,25 +76,27 @@
             group="First"
           >
             <template v-slot:title>
-              <v-list-item-title>ha
+              <v-list-item-title>
                 threads
               </v-list-item-title>
             </template>
             <template v-slot:prependIcon>
               <v-icon xLarge>fab fa-apple</v-icon>
             </template>
-            <v-list-group no-action active-class="active-class">
-              <template v-slot:title>
-                <v-list-item>
-                  <v-list-item-icon>
-                    <v-icon size="14">fas fa-book</v-icon>
-                  </v-list-item-icon>
-                  <v-list-item-title>
-                    book
-                  </v-list-item-title>
-                </v-list-item>
-              </template>
-            </v-list-group>
+
+            <!--            <v-list-group no-action active-class="active-class">-->
+            <v-list-item active-class="active-class" v-model:active="data.always">
+              <!--                <template v-slot:prependIcon>-->
+              <v-list-item-icon>
+                <v-icon size="14">fas fa-mail-bulk</v-icon>
+              </v-list-item-icon>
+
+              <!--                </template>-->
+              <!--                <template v-slot:title>-->
+              <v-list-item-title>fas fa-mail-bulk</v-list-item-title>
+              <!--                </template>-->
+            </v-list-item>
+            <!--            </v-list-group>-->
 
             <v-list-group sub-group color="green darken-1">
               <template v-slot:title>
@@ -102,55 +104,9 @@
                   subgroup
                 </v-list-item-title>
               </template>
-              <v-list-item active-class="active-class">
-                <v-list-item-icon>
-                  <v-icon size="14">fas fa-book</v-icon>
-                </v-list-item-icon>
-                <v-list-item-title>
-                  book
-                </v-list-item-title>
-              </v-list-item>
-              <v-list-group sub-group prepend-icon="fas fa-book" no-action>
-                <template v-slot:title>
-                  <v-list-item-title>
-                    internal
-                  </v-list-item-title>
-                </template>
-              </v-list-group>
+
             </v-list-group>
-          </v-list-group>
-          <v-list-group
-            group="First"
-          >
-            <template v-slot:title>
-              <v-list-item-title>
-                users
-              </v-list-item-title>
-            </template>
-            <template v-slot:prependIcon>
-              <v-icon size="16">fab fa-apple</v-icon>
-            </template>
-            <v-list-group sub-group>
-              <template v-slot:title>
-                <v-list-item-title>
-                  subgroup
-                </v-list-item-title>
-              </template>
-              <v-list-group sub-group prepend-icon="fas fa-book" no-action>
-                <template v-slot:title>
-                  <v-list-item-title>
-                    books
-                  </v-list-item-title>
-                </template>
-              </v-list-group>
-              <v-list-group sub-group prepend-icon="fas fa-book" no-action>
-                <template v-slot:title>
-                  <v-list-item-title>
-                    pencils
-                  </v-list-item-title>
-                </template>
-              </v-list-group>
-            </v-list-group>
+
           </v-list-group>
         </v-list>
         <v-card-content>

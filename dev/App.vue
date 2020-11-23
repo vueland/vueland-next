@@ -74,6 +74,7 @@
         <v-list>
           <v-list-group
             group="First"
+            no-action
           >
             <template v-slot:title>
               <v-list-item-title>

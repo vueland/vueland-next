@@ -22,16 +22,17 @@
     padding-left: 10px;
   }
 
-  &:hover {
-    cursor: pointer;
-  }
 
-  &--expanded{
+  &--expanded {
 
   }
 
   &__header {
     height: 48px;
+
+    &:hover {
+      cursor: pointer;
+    }
 
     &__sub-group {
       padding-left: 20px !important;

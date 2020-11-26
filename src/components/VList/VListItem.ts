@@ -21,6 +21,7 @@ export const VListItem = defineComponent({
   setup(props, { slots, emit }) {
     const classes = computed(() => ({
       'v-list-item': true,
+      'v-list-item--active': !!props.activeClass,
       [props.activeClass]: !!props.activeClass && props.active,
     }))
 

@@ -27,7 +27,7 @@ exports[`VResize should set top prop and match snapshot 1`] = `
 
 exports[`VResize should set top prop and match snapshot 2`] = `
 <div class="v-card"
-     style="max-width: 350px;"
+     style="width: 350px;"
 >
   <div class="v-resize v-resize--top">
   </div>

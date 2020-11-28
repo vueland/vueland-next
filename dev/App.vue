@@ -6,6 +6,7 @@
       const data = reactive({
         always: true,
         show: false,
+        test: true,
         login: '',
         email: '',
         password: '',
@@ -45,11 +46,7 @@
         { name: 'Andrew', age: 24 },
         { name: 'Nikol', age: 24 },
         { name: 'Anna', age: 24 },
-        { name: 'Anna', age: 24 },
-        { name: 'Anna', age: 24 },
       ]
-
-      // data.checked.push(data.user)
 
       return {
         showModal,
@@ -64,51 +61,56 @@
 </script>
 
 <template>
-  <div>
+  <div class="app-header"></div>
+  <div class="app-sidebar"></div>
+  <div class="wrap">
     <v-form v-slot="{ validate }">
       <v-card width="600" elevation="5" style="padding: 20px">
-        <!--        <v-resize right/>-->
-        <!--        <v-resize left/>-->
-        <!--        <v-resize top/>-->
-        <!--        <v-resize bottom/>-->
+        <v-resize right/>
+        <v-resize left/>
+        <v-resize top/>
+        <v-resize bottom/>
         <v-list>
-          <v-list-group
-            group="First"
-            no-action
+          <v-badge
+
           >
-            <template v-slot:title>
-              <v-list-item-title>
-                threads
-              </v-list-item-title>
-            </template>
-            <template v-slot:prependIcon>
-              <v-icon xLarge>fab fa-apple</v-icon>
+            <template v-slot:badge>
+              <v-icon icon="fas fa-bell" size="12"/>
             </template>
 
-            <!--            <v-list-group no-action active-class="active-class">-->
-            <v-list-item active-class="active-class" v-model:active="data.always">
-              <!--                <template v-slot:prependIcon>-->
-              <v-list-item-icon>
-                <v-icon size="14">fas fa-mail-bulk</v-icon>
-              </v-list-item-icon>
-
-              <!--                </template>-->
-              <!--                <template v-slot:title>-->
-              <v-list-item-title>fas fa-mail-bulk</v-list-item-title>
-              <!--                </template>-->
-            </v-list-item>
-            <!--            </v-list-group>-->
-
-            <v-list-group sub-group color="green darken-1">
+            <v-list-group
+              group="swims"
+              color="grey lighten-2"
+              class=""
+            >
+              <template v-slot:prependIcon>
+                <v-icon
+                  size="18"
+                  color="green accent-3"
+                >
+                  fab fa-accusoft
+                </v-icon>
+              </template>
               <template v-slot:title>
                 <v-list-item-title>
-                  subgroup
+                  swim lanes
                 </v-list-item-title>
               </template>
-
+              <v-list-item active-class="active-class" v-model:active="data.always">
+                <v-list-item-icon>
+                  <v-icon
+                    size="18"
+                    color="green accent-3"
+                  >
+                    fab fa-accusoft
+                  </v-icon>
+                </v-list-item-icon>
+                <v-list-item-title>
+                  test
+                </v-list-item-title>
+              </v-list-item>
             </v-list-group>
-
-          </v-list-group>
+          </v-badge>
         </v-list>
         <v-card-content>
           <v-icon
@@ -116,13 +118,6 @@
             color="green accent-3"
             clickable
             @click="() => (data.login = '')"
-          />
-          <v-select
-
-            label="select"
-            value-key="name"
-            :items="items"
-            :rules="[v => !!v || 'Required']"
           />
           <v-text-field
             v-model="data.login"
@@ -148,6 +143,15 @@
               val => val.length > 5 || 'more than 5 symbols',
             ]"
           />
+          <v-checkbox label="igor" v-model="data.checked" :value="data.user" validate/>
+          <v-checkbox label="alyona" v-model="data.checked" :value="data.user2"/>
+          <v-select
+            v-model="data.user"
+            label="select"
+            value-key="name"
+            :items="items"
+            :rules="[v => !!v || 'Required']"
+          />
         </v-card-content>
         <v-card-actions>
           <v-button
@@ -161,16 +165,7 @@
         </v-card-actions>
       </v-card>
     </v-form>
-    <v-checkbox
-      label="igor"
-      v-model="data.checked"
-      :value="data.user"
-    />
-    <v-checkbox
-      label="alyona"
-      v-model="data.checked"
-      :value="data.user2"
-    />
+
     <v-button
       elevation="2"
       color="red darken-4"
@@ -192,8 +187,7 @@
               bottom
               right
               border
-              :content="data.login"
-              toggle
+              content="2"
               offset-x="12"
               offset-y="12"
               color="green darken-1"
@@ -230,5 +224,30 @@
   .active-class {
     background: #272727;
     color: white !important;
+  }
+
+  .wrap {
+    position: absolute;
+    left: 60px;
+    top: 60px;
+    width: calc(100% - 60px);
+    height: calc(100vh - 60px);
+  }
+
+  .app {
+    &-header {
+      width: 100%;
+      height: 60px;
+      background: #272727;
+    }
+
+    &-sidebar {
+      position: absolute;
+      top: 60px;
+      left: 0;
+      width: 60px;
+      height: calc(100vh - 60px);
+      background: #272727;
+    }
   }
 </style>

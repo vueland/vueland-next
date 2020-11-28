@@ -4,7 +4,6 @@ import './VResize.scss'
 import {
   h,
   ref,
-  watch,
   computed,
   reactive,
   defineComponent,
@@ -39,6 +38,7 @@ const vResizeProps: Props = {
 
 type ResizeData = {
   parentNode: HTMLElement | null
+  startOffset: number | null
   offsetTop: number
   offsetLeft: number
   parentHeight: number
@@ -47,7 +47,6 @@ type ResizeData = {
   marginTop: number
   left: number
   top: number
-  resized: boolean
   isActive: boolean
 }
 
@@ -58,6 +57,7 @@ export const VResize = defineComponent({
   setup(props, { emit }) {
     const data: ResizeData = reactive({
       parentNode: null,
+      startOffset: null,
       offsetTop: 0,
       offsetLeft: 0,
       parentHeight: 0,
@@ -66,7 +66,6 @@ export const VResize = defineComponent({
       marginTop: 0,
       left: 0,
       top: 0,
-      resized: false,
       isActive: false,
     })
 
@@ -117,14 +116,6 @@ export const VResize = defineComponent({
       return isDirectY.value ? 'clientY' : 'clientX'
     })
 
-    watch(
-      () => data.isActive,
-      to => {
-        to && computeSizes()
-        to && setStartPositions()
-      },
-    )
-
     function moveReverse(size) {
       const { parentNode, left, top } = data
       const reverseTo = reverseDirection.value
@@ -133,13 +124,13 @@ export const VResize = defineComponent({
         ? currentSize.value - size + left
         : currentSize.value - size + top
 
-      parentNode!.style[reverseTo] = `${value}px`
+      parentNode!.style[reverseTo] = `${ value }px`
     }
 
     function setOrEmitSize(size) {
       if (props.emit) return emit('size', size)
 
-      data.parentNode!.style[sizeProp.value] = `${size}px`
+      data.parentNode!.style[sizeProp.value] = `${ size }px`
 
       isNeedReverse.value && moveReverse(size)
     }
@@ -148,11 +139,10 @@ export const VResize = defineComponent({
       let size
 
       if (isNeedReverse.value) {
-        size = currentSize.value! - (e[direction.value] - offset.value!)
+        size = currentSize.value - (e[direction.value] - offset.value) + data.startOffset!
       } else {
-        size =
-          currentSize.value! +
-          (e[direction.value] - currentSize.value! - offset.value)
+        size = currentSize.value + (e[direction.value] - currentSize.value - offset.value - data.startOffset!
+        )
       }
 
       size > props.minSize && setOrEmitSize(size)
@@ -198,7 +188,7 @@ export const VResize = defineComponent({
       const offset = reverseOffsetKey.value
 
       if (data[side] === data[offset]) {
-        data.parentNode!.style[side] = `${data[offset]}px`
+        data.parentNode!.style[side] = `${ data[offset] }px`
       }
     }
 
@@ -207,17 +197,27 @@ export const VResize = defineComponent({
     }
 
     function initResize(e) {
-      if (!data.resized) {
+      if (!data.isActive) {
         data.isActive = true
-        data.resized = true
+        computeSizes()
         resetMinMaxStyles()
+        setStartPositions()
+        setStartOffset(e)
       }
 
       requestAnimationFrame(() => resize(e))
     }
 
+    function setStartOffset(e) {
+      if (props.left) data.startOffset = e[direction.value]
+      if (props.top) data.startOffset = e[direction.value]
+      if (props.right) data.startOffset = e[direction.value] - data.parentWidth
+      if (props.bottom) data.startOffset = e[direction.value] - data.parentHeight
+
+      data.startOffset! -= offset.value
+    }
+
     function reset() {
-      data.resized = false
       data.isActive = false
       resetMinMaxStyles()
     }

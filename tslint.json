@@ -15,7 +15,8 @@
     "only-arrow-functions": false,
     "prefer-for-of": false,
     "label-position": false,
-    "no-shadowed-variable": false
+    "no-shadowed-variable": false,
+    "no-bitwise": false
   },
   "rulesDirectory": [],
   "prettier": [

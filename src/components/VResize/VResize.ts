@@ -32,9 +32,6 @@ const vResizeProps: Props = {
   },
   ...positionProps(),
 }
-/***
- * TODO must debug component
- */
 
 type ResizeData = {
   parentNode: HTMLElement | null
@@ -124,13 +121,13 @@ export const VResize = defineComponent({
         ? currentSize.value - size + left
         : currentSize.value - size + top
 
-      parentNode!.style[reverseTo] = `${ value }px`
+      parentNode!.style[reverseTo] = `${value}px`
     }
 
     function setOrEmitSize(size) {
       if (props.emit) return emit('size', size)
 
-      data.parentNode!.style[sizeProp.value] = `${ size }px`
+      data.parentNode!.style[sizeProp.value] = `${size}px`
 
       isNeedReverse.value && moveReverse(size)
     }
@@ -188,7 +185,7 @@ export const VResize = defineComponent({
       const offset = reverseOffsetKey.value
 
       if (data[side] === data[offset]) {
-        data.parentNode!.style[side] = `${ data[offset] }px`
+        data.parentNode!.style[side] = `${data[offset]}px`
       }
     }
 
@@ -209,10 +206,8 @@ export const VResize = defineComponent({
     }
 
     function setStartOffset(e) {
-      if (props.left) data.startOffset = e[direction.value]
-      if (props.top) data.startOffset = e[direction.value]
-      if (props.right) data.startOffset = e[direction.value] - data.parentWidth
-      if (props.bottom) data.startOffset = e[direction.value] - data.parentHeight
+      if (isNeedReverse.value) data.startOffset = e[direction.value]
+      else data.startOffset = e[direction.value] - currentSize.value
 
       data.startOffset! -= offset.value
     }

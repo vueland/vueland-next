@@ -12,7 +12,7 @@ import {
 
 // Effects
 import { useToggle } from '../../effects/use-toggle'
-import { positionProps, usePosition } from '../../effects/use-position'
+import { positionProps } from '../../effects/use-position'
 import { useTransition } from '../../effects/use-transition'
 
 // Types
@@ -29,13 +29,15 @@ export const VTooltip = defineComponent({
   props: vTooltipProps,
 
   setup(props, { slots }) {
-    const { positionClasses } = usePosition(props)
     const { isActive } = useToggle(props)
     const innerActive = ref(false)
+    const tooltipRef = ref(null)
+    const activatorRef = ref(null)
 
     const classes = computed(() => ({
         'v-tooltip__content': true,
-        ...positionClasses.value,
+        'v-tooltip__content--left': props.left,
+        'v-tooltip__content--bottom': props.bottom,
       }),
     )
 
@@ -45,15 +47,16 @@ export const VTooltip = defineComponent({
 
     const genActivator = (): VNode | null => {
       return h('div', {
-        class: 'v-tooltip--activator',
+        class: 'v-tooltip__activator',
+        ref: activatorRef,
       }, renderSlot(slots, 'activator', { on: activator }))
-
     }
 
     const genContent = () => {
       if (isActive.value || innerActive.value) {
         return h('span', {
           class: classes.value,
+          ref: tooltipRef,
         }, slots.default && slots.default())
       }
       return null
@@ -65,11 +68,27 @@ export const VTooltip = defineComponent({
         },
         [
           genActivator(),
-          genContent(),
+          useTransition({ transition: innerActive.value ? 'scaleIn' : 'fade' }, genContent() as VNode),
         ],
       )
     }
 
-    return () => genTooltip()
+    const setPosition = () => {
+      if (tooltipRef.value) {
+        const activatorWidth = (activatorRef.value as any)!.offsetWidth
+        const tooltipWidth = (tooltipRef.value! as any).offsetWidth
+        const tooltipHeight = (tooltipRef.value! as any).offsetHeight
+
+        {
+          (tooltipRef.value as any)!.style.left = ((activatorWidth / 2) - (tooltipWidth / 2)) + 'px'
+        }
+
+      }
+    }
+
+    return () => {
+      setPosition()
+      return genTooltip()
+    }
   },
 })

@@ -1,82 +1,86 @@
 <script lang="ts">
-  import { reactive, watch } from 'vue'
+import { reactive, watch } from 'vue'
 
-  export default {
-    setup() {
-      const data = reactive({
-        always: true,
-        show: false,
-        test: true,
-        login: '',
-        email: '',
-        password: '',
-        user: { name: 'igor' },
-        checked: [],
-        user2: { name: 'alyona' }
+export default {
+  setup() {
+    const data = reactive({
+      always: true,
+      show: false,
+      test: true,
+      login: '',
+      email: '',
+      password: '',
+      user: { name: 'igor' },
+      checked: [],
+      user2: { name: 'alyona' },
+    })
+
+    watch(
+      () => data.checked,
+      to => console.log(to, 'checked'),
+    )
+
+    const testFunc = () => {
+      console.log(data)
+    }
+
+    const show = () => {
+      data.always = !data.always
+    }
+
+    const validateValue = validate => {
+      testFunc()
+      show()
+      validate().then(res => {
+        console.log(res)
+        if (res) console.log('valid')
       })
-
-      watch(
-        () => data.checked,
-        to => console.log(to, 'checked'),
-      )
-
-      const testFunc = () => {
-        console.log(data)
-      }
-
-      const show = () => {
-        data.always = !data.always
-      }
-
-      const validateValue = validate => {
-        testFunc()
-        show()
-        validate().then(res => {
-          console.log(res)
-          if (res) console.log('valid')
-        })
-      }
+    }
 
 
-      const toggleModal = () => {
-        data.show = !data.show
-      }
+    const toggleModal = () => {
+      data.show = !data.show
+    }
 
 
-      const items = [
-        { name: 'Alex', age: 24 },
-        { name: 'Andrew', age: 24 },
-        { name: 'Nikol', age: 24 },
-        { name: 'Anna', age: 24 },
-      ]
+    const items = [
+      { name: 'Alex', age: 24 },
+      { name: 'Andrew', age: 24 },
+      { name: 'Nikol', age: 24 },
+      { name: 'Anna', age: 24 },
+    ]
 
-      return {
-        show,
-        toggleModal,
-        validateValue,
-        testFunc,
-        data,
-        items
-      }
-    },
-  }
+    return {
+      show,
+      toggleModal,
+      validateValue,
+      testFunc,
+      data,
+      items,
+    }
+  },
+}
 </script>
 
 <template>
-  <v-tooltip>
-    <template v-slot:activator="{on}">
-      <div class="app-header" @mouseover="on"></div>
+  <v-tooltip bottom>
+    <template v-slot:activator="{ on }">
+      <div
+        class="app-header"
+        @mouseenter="on"
+        @mouseleave="on"
+      ></div>
     </template>
-    <span>tooltip</span>
+    <span>tooltip for my danger</span>
   </v-tooltip>
   <div class="app-sidebar"></div>
   <div class="wrap">
     <v-form v-slot="{ validate }">
       <v-card width="600" elevation="5" style="padding: 20px">
-        <v-resize right/>
-        <v-resize left/>
-        <v-resize top/>
-        <v-resize bottom/>
+        <v-resize right />
+        <v-resize left />
+        <v-resize top />
+        <v-resize bottom />
         <v-list>
           <v-preload :active="data.always">
             <v-badge
@@ -85,7 +89,7 @@
 
 
               <template v-slot:badge>
-                <v-icon icon="fas fa-bell" size="12"/>
+                <v-icon icon="fas fa-bell" size="12" />
               </template>
 
               <v-list-group
@@ -162,8 +166,8 @@
               val => val.length > 5 || 'more than 5 symbols',
             ]"
             />
-            <v-checkbox label="igor" v-model="data.checked" :value="data.user" validate/>
-            <v-checkbox label="alyona" v-model="data.checked" :value="data.user2"/>
+            <v-checkbox label="igor" v-model="data.checked" :value="data.user" validate />
+            <v-checkbox label="alyona" v-model="data.checked" :value="data.user2" />
             <v-select
               v-model="data.user"
               label="select"
@@ -247,37 +251,37 @@
   </div>
 </template>
 <style lang="scss">
-  .active-class {
+.active-class {
+  background: #272727;
+  color: white !important;
+}
+
+.wrap {
+  position: absolute;
+  left: 60px;
+  top: 60px;
+  width: calc(100% - 60px);
+  height: calc(100vh - 60px);
+}
+
+.app {
+  &-header {
+    width: 100%;
+    height: 60px;
     background: #272727;
-    color: white !important;
   }
 
-  .wrap {
+  &-sidebar {
     position: absolute;
-    left: 60px;
     top: 60px;
-    width: calc(100% - 60px);
+    left: 0;
+    width: 60px;
     height: calc(100vh - 60px);
+    background: #272727;
   }
+}
 
-  .app {
-    &-header {
-      width: 100%;
-      height: 60px;
-      background: #272727;
-    }
-
-    &-sidebar {
-      position: absolute;
-      top: 60px;
-      left: 0;
-      width: 60px;
-      height: calc(100vh - 60px);
-      background: #272727;
-    }
-  }
-
-  .text {
-    display: inline-block;
-  }
+.text {
+  display: inline-block;
+}
 </style>

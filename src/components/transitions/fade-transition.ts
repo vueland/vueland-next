@@ -6,7 +6,6 @@ export const fadeHooks = (fadeParentClass: string) => {
   return {
     onBeforeEnter(el) {
       el.parentNode.classList.add(fadeParentClass)
-      el.style.opacity = '0'
     },
 
     onEnter(el) {

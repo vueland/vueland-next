@@ -247,7 +247,7 @@
     <v-tooltip
       left
       elevation="8"
-      color="red darken-2"
+      color="blue darken-2"
     >
       <template v-slot:activator="{ on }">
         <v-button

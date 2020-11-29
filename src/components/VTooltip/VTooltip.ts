@@ -12,10 +12,11 @@ import {
 
 // Effects
 import { useToggle } from '../../effects/use-toggle'
-import { positionProps } from '../../effects/use-position'
-import { useTransition } from '../../effects/use-transition'
-import { elevationProps, useElevation } from '../../effects/use-elevation'
 import { useColors } from '../../effects/use-colors'
+import { useActivator } from '../../effects/use-activator'
+import { useTransition } from '../../effects/use-transition'
+import { positionProps } from '../../effects/use-position'
+import { elevationProps, useElevation } from '../../effects/use-elevation'
 
 // Types
 import { Props } from '../../types'
@@ -24,11 +25,11 @@ import { VNode } from 'vue'
 const vTooltipProps: Props = {
   offset: {
     type: Number,
-    default: 12
+    default: 12,
   },
   color: {
     type: String,
-    default: 'grey lighten-1'
+    default: 'grey lighten-1',
   },
   modelValue: Boolean,
   ...positionProps(),
@@ -40,23 +41,27 @@ export const VTooltip = defineComponent({
   props: vTooltipProps,
 
   setup(props, { slots }) {
-    const positions = {
-      left: 0
+
+    const tooltip = {
+      left: 0,
+      top: 0,
+      width: 0,
+      height: 0,
     }
 
     const innerActive = ref(false)
     const tooltipRef = ref<HTMLElement | null>(null)
-    const activatorRef = ref<HTMLElement | null>(null)
 
     const { isActive } = useToggle(props)
     const { elevationClasses } = useElevation(props)
     const { setBackground } = useColors()
+    const { activatorRef, setActivatorSizes } = useActivator()
 
     const classes = computed(() => ({
         'v-tooltip__content': true,
         'v-tooltip__content--left': props.left,
         'v-tooltip__content--bottom': props.bottom,
-        ...elevationClasses.value
+        ...elevationClasses.value,
       }),
     )
 
@@ -82,7 +87,7 @@ export const VTooltip = defineComponent({
       if (isActive.value || innerActive.value) {
         return h('span',
           setBackground(props.color, genContentDataProps()),
-          slots.default && slots.default()
+          slots.default && slots.default(),
         )
       }
       return null
@@ -101,39 +106,36 @@ export const VTooltip = defineComponent({
       )
     }
 
-    const setPosition = () => {
+    const setTooltipPosition = () => {
+
       if (tooltipRef.value) {
 
+        const { activatorSizes } = setActivatorSizes()
         const offset = props.offset
 
-        const activatorLeft = activatorRef.value!.offsetLeft
-        const activatorTop = activatorRef.value!.offsetTop
+        tooltip.width = tooltipRef.value!.offsetWidth
+        tooltip.height = tooltipRef.value!.offsetHeight
 
-        const activatorHeight = activatorRef.value!.offsetHeight
-        const activatorWidth = activatorRef.value!.offsetWidth
+        const top = props.top ?
+          activatorSizes.offsetTop! - tooltip.height : props.bottom ?
+            (activatorSizes.offsetTop! + activatorSizes.offsetHeight!) :
+            (activatorSizes.offsetTop! + (activatorSizes.offsetHeight! - tooltip.height) / 2)
 
-        const tooltipWidth = tooltipRef.value!.offsetWidth
-        const tooltipHeight = tooltipRef.value!.offsetHeight
+        const left = props.left ?
+          activatorSizes.offsetLeft! - tooltip.width : props.right ?
+            (activatorSizes.offsetLeft! + activatorSizes.offsetWidth!) :
+            (activatorSizes.offsetLeft! + (activatorSizes.offsetWidth! - tooltip.width) / 2)
 
-        const top = props.top ? activatorTop - tooltipHeight : props.bottom ?
-          (activatorTop + activatorHeight) : (activatorTop + (activatorHeight - tooltipHeight) / 2)
+        tooltip.top = Math.ceil(top + ((props.left || props.right) ? 0 : props.top ? -offset : offset))
+        tooltip.left = Math.ceil(left - ((props.top || props.bottom) ? 0 : props.right ? -offset : offset))
 
-        const left = props.left ? activatorLeft - tooltipWidth : props.right ?
-          (activatorLeft + activatorWidth) : (activatorLeft + (activatorWidth - tooltipWidth) / 2)
-
-        const clearTop = Math.ceil(top) + ((props.left || props.right) ? 0 : props.top ? -offset : offset) + 'px'
-
-        if (!positions.left) {
-          positions.left = Math.ceil(left) - ((props.top || props.bottom) ? 0 : props.right ? -offset : offset)
-        }
-
-        tooltipRef.value.style.top = clearTop
-        tooltipRef.value.style.left = positions.left + 'px'
+        tooltipRef.value.style.top = tooltip.top + 'px'
+        tooltipRef.value.style.left = tooltip.left + 'px'
       }
     }
 
     return () => {
-      setPosition()
+      setTooltipPosition()
       return genTooltip()
     }
   },

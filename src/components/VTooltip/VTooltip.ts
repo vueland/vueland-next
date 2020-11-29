@@ -5,6 +5,8 @@ import './VTooltip.scss'
 import {
   h,
   ref,
+  reactive,
+  watch,
   computed,
   renderSlot,
   defineComponent,
@@ -22,9 +24,12 @@ import { elevationProps, useElevation } from '../../effects/use-elevation'
 import { Props } from '../../types'
 import { VNode } from 'vue'
 
+//
+import { convertToUnit } from '../../helpers'
+
 const vTooltipProps: Props = {
   offset: {
-    type: Number,
+    type: [Number, String],
     default: 12,
   },
   color: {
@@ -42,12 +47,12 @@ export const VTooltip = defineComponent({
 
   setup(props, { slots }) {
 
-    const tooltip = {
+    const tooltip = reactive({
       left: 0,
       top: 0,
       width: 0,
       height: 0,
-    }
+    })
 
     const innerActive = ref(false)
     const tooltipRef = ref<HTMLElement | null>(null)
@@ -59,10 +64,15 @@ export const VTooltip = defineComponent({
 
     const classes = computed(() => ({
         'v-tooltip__content': true,
-        'v-tooltip__content--left': props.left,
-        'v-tooltip__content--bottom': props.bottom,
+        'v-tooltip--left': props.left,
+        'v-tooltip--bottom': props.bottom,
         ...elevationClasses.value,
       }),
+    )
+
+    watch(() => isActive.value,
+      to => innerActive.value = to,
+      { immediate: true }
     )
 
     const activator = () => {
@@ -79,21 +89,27 @@ export const VTooltip = defineComponent({
     const genContentDataProps = () => {
       return {
         class: classes.value,
+        style: {
+          top: tooltip.top ? convertToUnit(tooltip.top) : '',
+          left: tooltip.top ? convertToUnit(tooltip.left) : ''
+        },
         ref: tooltipRef,
       }
     }
 
     const genContent = () => {
-      if (isActive.value || innerActive.value) {
+      if (innerActive.value) {
         return h('span',
           setBackground(props.color, genContentDataProps()),
           slots.default && slots.default(),
         )
       }
+
       return null
     }
 
     const genTooltip = () => {
+
       return h('div', {
           class: 'v-tooltip',
         },
@@ -109,9 +125,8 @@ export const VTooltip = defineComponent({
     const setTooltipPosition = () => {
 
       if (tooltipRef.value) {
-
         const { activatorSizes } = setActivatorSizes()
-        const offset = props.offset
+        const offset = +props.offset
 
         tooltip.width = tooltipRef.value!.offsetWidth
         tooltip.height = tooltipRef.value!.offsetHeight
@@ -126,16 +141,18 @@ export const VTooltip = defineComponent({
             (activatorSizes.offsetLeft! + activatorSizes.offsetWidth!) :
             (activatorSizes.offsetLeft! + (activatorSizes.offsetWidth! - tooltip.width) / 2)
 
-        tooltip.top = Math.ceil(top + ((props.left || props.right) ? 0 : props.top ? -offset : offset))
-        tooltip.left = Math.ceil(left - ((props.top || props.bottom) ? 0 : props.right ? -offset : offset))
+        tooltip.top = Math.ceil(top + ((props.left || props.right) ?
+          0 : props.top ? -offset : offset)
+        )
 
-        tooltipRef.value.style.top = tooltip.top + 'px'
-        tooltipRef.value.style.left = tooltip.left + 'px'
+        tooltip.left = Math.ceil(left - ((props.top || props.bottom) ?
+          0 : props.right ? -offset : offset)
+        )
       }
     }
 
     return () => {
-      setTooltipPosition()
+      requestAnimationFrame(setTooltipPosition)
       return genTooltip()
     }
   },

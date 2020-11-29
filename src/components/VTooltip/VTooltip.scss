@@ -17,6 +17,7 @@
     max-height: 32px;
 
     & > * {
+      display: block;
       white-space: nowrap;
     }
   }

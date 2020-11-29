@@ -259,7 +259,7 @@
       </template>
       <span>tooltip for my danger</span>
     </v-tooltip>
-    <v-tooltip right>
+    <v-tooltip bottom>
       <template v-slot:activator="{ on }">
         <v-icon
           clickable

@@ -13,12 +13,11 @@ export function useActivator() {
   const activatorSizes: Partial<ActivatorSizes> = {}
 
   const setActivatorSizes = () => {
-    if (activatorRef.value) {
-      activatorSizes.offsetLeft = activatorRef.value.offsetLeft
-      activatorSizes.offsetTop = activatorRef.value.offsetTop
-      activatorSizes.offsetHeight = activatorRef.value.offsetHeight
-      activatorSizes.offsetWidth = activatorRef.value.offsetWidth
-    }
+
+    activatorSizes.offsetLeft = activatorRef.value?.offsetLeft
+    activatorSizes.offsetTop = activatorRef.value?.offsetTop
+    activatorSizes.offsetHeight = activatorRef.value?.offsetHeight
+    activatorSizes.offsetWidth = activatorRef.value?.offsetWidth
 
     return { activatorSizes }
   }

@@ -1,67 +1,31 @@
-.slideInUp-enter-from, .slideInUp-leave-to {
-  opacity: 0;
-  transform: translateY(50px);
+@import "variables";
+
+@mixin transition-default() {
+  &-enter-active,
+  &-leave-active {
+    transition: .4s all $primary-transition !important;
+  }
+
+  &-move {
+    transition: transform .6s;
+  }
 }
 
-.slideInUp-enter-active, .slideInUp-leave-active {
-  transition: all .2s linear;
+.fade {
+  @include transition-default();
+
+  &-enter-from, &-leave-to {
+    opacity: 0;
+  }
 }
 
-.slideInLeft-enter-from, .slideInLeft-leave-to {
-  opacity: 0;
-  transform: translateX(-50px);
-}
+.scaleIn {
+  @include transition-default();
 
-.slideInLeft-enter-to, .slideInLeft-leave-from {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.slideInLeft-enter-active, .slideInLeft-leave-active {
-  transition: all .2s linear;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
-.fade-enter-to,
-.fade-leave-from {
-  opacity: 1;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease;
-}
-
-.scaleIn-enter-from, .scaleIn-leave-to {
-  opacity: 0;
-  transform: scale(.7);
-}
-
-.scaleIn-enter-to, .scaleIn-leave-from {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.scaleIn-enter-active, .scaleIn-leave-active {
-  transition: all .2s;
-}
-
-.scaleYDown-enter-from, .scaleYDown-leave-to {
-  opacity: 0;
-  transform: scaleY(0);
-}
-
-.scaleYDown-enter-to, .scaleYDown-leave-from {
-  opacity: 1;
-  transform: scaleY(1);
-}
-
-.scaleXDown-enter-active, .scaleXDown-leave-active {
-  transition: all .2s;
+  &-enter-from, &-leave-to {
+    opacity: 0;
+    transform: scale(.7);
+  }
 }
 
 

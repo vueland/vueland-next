@@ -1,27 +1,23 @@
 .v-tooltip {
-  position: relative;
-  border: 1px solid red;
+
+  &__activator {
+    display: block;
+    height: auto;
+    border: none;
+  }
 
   &__content {
     position: absolute;
-    display: block;
     z-index: 100;
     padding: 5px;
-    border-radius: 3px;
-    text-wrap: none;
+    border-radius: 5px;
     background: #b6b6b6;
     color: #ffffff;
     pointer-events: none;
     max-height: 32px;
 
-    &--left {
-      //left: -12px;
-      //top: calc(50% - 12px);
-    }
-
-    &--bottom {
-      //top: calc(100% + 12px);
-      //left: 50%;
+    & > * {
+      white-space: nowrap;
     }
   }
 }

@@ -1,200 +1,193 @@
 <script lang="ts">
-import { reactive, watch } from 'vue'
+  import { reactive, watch } from 'vue'
 
-export default {
-  setup() {
-    const data = reactive({
-      always: true,
-      show: false,
-      test: true,
-      login: '',
-      email: '',
-      password: '',
-      user: { name: 'igor' },
-      checked: [],
-      user2: { name: 'alyona' },
-    })
-
-    watch(
-      () => data.checked,
-      to => console.log(to, 'checked'),
-    )
-
-    const testFunc = () => {
-      console.log(data)
-    }
-
-    const show = () => {
-      data.always = !data.always
-    }
-
-    const validateValue = validate => {
-      testFunc()
-      show()
-      validate().then(res => {
-        console.log(res)
-        if (res) console.log('valid')
+  export default {
+    setup() {
+      const data = reactive({
+        always: true,
+        show: false,
+        test: true,
+        login: '',
+        email: '',
+        password: '',
+        user: { name: 'igor' },
+        checked: [],
+        user2: { name: 'alyona' },
       })
-    }
+
+      watch(
+        () => data.checked,
+        to => console.log(to, 'checked'),
+      )
+
+      const testFunc = () => {
+        console.log(data)
+      }
+
+      const show = () => {
+        data.always = !data.always
+      }
+
+      const validateValue = validate => {
+        testFunc()
+        show()
+        validate().then(res => {
+          console.log(res)
+          if (res) console.log('valid')
+        })
+      }
 
 
-    const toggleModal = () => {
-      data.show = !data.show
-    }
+      const toggleModal = () => {
+        data.show = !data.show
+      }
 
 
-    const items = [
-      { name: 'Alex', age: 24 },
-      { name: 'Andrew', age: 24 },
-      { name: 'Nikol', age: 24 },
-      { name: 'Anna', age: 24 },
-    ]
+      const items = [
+        { name: 'Alex', age: 24 },
+        { name: 'Andrew', age: 24 },
+        { name: 'Nikol', age: 24 },
+        { name: 'Anna', age: 24 },
+      ]
 
-    return {
-      show,
-      toggleModal,
-      validateValue,
-      testFunc,
-      data,
-      items,
-    }
-  },
-}
+      return {
+        show,
+        toggleModal,
+        validateValue,
+        testFunc,
+        data,
+        items,
+      }
+    },
+  }
 </script>
 
 <template>
-  <v-tooltip bottom>
-    <template v-slot:activator="{ on }">
-      <div
-        class="app-header"
-        @mouseenter="on"
-        @mouseleave="on"
-      ></div>
-    </template>
-    <span>tooltip for my danger</span>
-  </v-tooltip>
+  <div
+    class="app-header"
+  ></div>
   <div class="app-sidebar"></div>
   <div class="wrap">
-    <v-form v-slot="{ validate }">
-      <v-card width="600" elevation="5" style="padding: 20px">
-        <v-resize right />
-        <v-resize left />
-        <v-resize top />
-        <v-resize bottom />
-        <v-list>
-          <v-preload :active="data.always">
-            <v-badge
-              style="width: 100%;"
-            >
+<!--    <v-form v-slot="{ validate }">-->
+<!--      <v-card width="600" elevation="5" style="padding: 20px">-->
+<!--        <v-resize right/>-->
+<!--        <v-resize left/>-->
+<!--        <v-resize top/>-->
+<!--        <v-resize bottom/>-->
+<!--        <v-list>-->
+<!--          <v-preload :active="data.always">-->
+<!--            <v-badge-->
+<!--              style="width: 100%;"-->
+<!--            >-->
 
 
-              <template v-slot:badge>
-                <v-icon icon="fas fa-bell" size="12" />
-              </template>
+<!--              <template v-slot:badge>-->
+<!--                <v-icon icon="fas fa-bell" size="12"/>-->
+<!--              </template>-->
 
-              <v-list-group
-                group="swims"
-                color="grey lighten-2"
-                class=""
-              >
-                <template v-slot:prependIcon>
-                  <v-icon
-                    size="18"
-                    color="green accent-3"
-                  >
-                    fab fa-accusoft
-                  </v-icon>
-                </template>
-                <template v-slot:title>
-
-
-                  <v-list-item-title>
-
-                    <span>swim lanes</span>
-
-                  </v-list-item-title>
+<!--              <v-list-group-->
+<!--                group="swims"-->
+<!--                color="grey lighten-2"-->
+<!--                class=""-->
+<!--              >-->
+<!--                <template v-slot:prependIcon>-->
+<!--                  <v-icon-->
+<!--                    size="18"-->
+<!--                    color="green accent-3"-->
+<!--                  >-->
+<!--                    fab fa-accusoft-->
+<!--                  </v-icon>-->
+<!--                </template>-->
+<!--                <template v-slot:title>-->
 
 
-                </template>
-                <v-list-item active-class="active-class" v-model:active="data.always">
-                  <v-list-item-icon>
-                    <v-icon
-                      size="18"
-                      color="green accent-3"
-                    >
-                      fab fa-accusoft
-                    </v-icon>
-                  </v-list-item-icon>
-                  <v-list-item-title>
-                    test
-                  </v-list-item-title>
-                </v-list-item>
-              </v-list-group>
+<!--                  <v-list-item-title>-->
 
-            </v-badge>
-          </v-preload>
-        </v-list>
-        <v-card-content>
-          <v-preload :active="data.show">
-            <v-icon
-              icon="fab fa-apple"
-              color="green accent-3"
-              clickable
-              @click="() => (data.login = '')"
-            />
-            <v-text-field
-              v-model="data.login"
-              label="login"
-              :rules="[
-              val => !!val || 'Required',
-              val => val.length > 5 || 'more than 5 symbols',
-            ]"
-            />
-            <v-text-field
-              v-model="data.password"
-              label="password"
-              :rules="[
-              val => !!val || 'Required',
-              val => val.length > 5 || 'more than 5 symbols',
-            ]"
-            />
-            <v-text-field
-              v-model="data.email"
-              label="email"
-              :rules="[
-              val => !!val || 'Required',
-              val => val.length > 5 || 'more than 5 symbols',
-            ]"
-            />
-            <v-checkbox label="igor" v-model="data.checked" :value="data.user" validate />
-            <v-checkbox label="alyona" v-model="data.checked" :value="data.user2" />
-            <v-select
-              v-model="data.user"
-              label="select"
-              value-key="name"
-              :items="items"
-              :rules="[v => !!v || 'Required']"
-            />
+<!--                    <span>swim lanes</span>-->
 
-            <span class="text">Lorem ipsum dolor.</span>
-            <span class="text">Lorem ipsum dolor sit amet.</span>
-            <span class="text">Lorem ipsum.</span>
-            <span class="text">Lorem .</span>
-            <span class="text">Lorem ipsum dolor sit amet.</span>
-          </v-preload>
-        </v-card-content>
-        <v-card-actions>
-          <v-button
-            color="blue accent-4"
-            label="send"
-            outlined
-            absolute
-            left
-            @click="validateValue(validate)"
-          />
-        </v-card-actions>
-      </v-card>
-    </v-form>
+<!--                  </v-list-item-title>-->
+
+
+<!--                </template>-->
+<!--                <v-list-item active-class="active-class" v-model:active="data.always">-->
+<!--                  <v-list-item-icon>-->
+<!--                    <v-icon-->
+<!--                      size="18"-->
+<!--                      color="green accent-3"-->
+<!--                    >-->
+<!--                      fab fa-accusoft-->
+<!--                    </v-icon>-->
+<!--                  </v-list-item-icon>-->
+<!--                  <v-list-item-title>-->
+<!--                    test-->
+<!--                  </v-list-item-title>-->
+<!--                </v-list-item>-->
+<!--              </v-list-group>-->
+
+<!--            </v-badge>-->
+<!--          </v-preload>-->
+<!--        </v-list>-->
+<!--        <v-card-content>-->
+<!--          <v-preload :active="data.show">-->
+<!--            <v-icon-->
+<!--              icon="fab fa-apple"-->
+<!--              color="green accent-3"-->
+<!--              clickable-->
+<!--              @click="() => (data.login = '')"-->
+<!--            />-->
+<!--            <v-text-field-->
+<!--              v-model="data.login"-->
+<!--              label="login"-->
+<!--              :rules="[-->
+<!--              val => !!val || 'Required',-->
+<!--              val => val.length > 5 || 'more than 5 symbols',-->
+<!--            ]"-->
+<!--            />-->
+<!--            <v-text-field-->
+<!--              v-model="data.password"-->
+<!--              label="password"-->
+<!--              :rules="[-->
+<!--              val => !!val || 'Required',-->
+<!--              val => val.length > 5 || 'more than 5 symbols',-->
+<!--            ]"-->
+<!--            />-->
+<!--            <v-text-field-->
+<!--              v-model="data.email"-->
+<!--              label="email"-->
+<!--              :rules="[-->
+<!--              val => !!val || 'Required',-->
+<!--              val => val.length > 5 || 'more than 5 symbols',-->
+<!--            ]"-->
+<!--            />-->
+<!--            <v-checkbox label="igor" v-model="data.checked" :value="data.user" validate/>-->
+<!--            <v-checkbox label="alyona" v-model="data.checked" :value="data.user2"/>-->
+<!--            <v-select-->
+<!--              v-model="data.user"-->
+<!--              label="select"-->
+<!--              value-key="name"-->
+<!--              :items="items"-->
+<!--              :rules="[v => !!v || 'Required']"-->
+<!--            />-->
+
+<!--            <span class="text">Lorem ipsum dolor.</span>-->
+<!--            <span class="text">Lorem ipsum dolor sit amet.</span>-->
+<!--            <span class="text">Lorem ipsum.</span>-->
+<!--            <span class="text">Lorem .</span>-->
+<!--            <span class="text">Lorem ipsum dolor sit amet.</span>-->
+<!--          </v-preload>-->
+<!--        </v-card-content>-->
+<!--        <v-card-actions>-->
+<!--          <v-button-->
+<!--            color="blue accent-4"-->
+<!--            label="send"-->
+<!--            outlined-->
+<!--            absolute-->
+<!--            left-->
+<!--            @click="validateValue(validate)"-->
+<!--          />-->
+<!--        </v-card-actions>-->
+<!--      </v-card>-->
+<!--    </v-form>-->
 
     <v-button
       elevation="2"
@@ -249,39 +242,75 @@ export default {
       </v-modal>
     </teleport>
   </div>
+
+  <div class="test">
+    <v-tooltip
+      left
+      elevation="8"
+      color="red darken-2"
+    >
+      <template v-slot:activator="{ on }">
+        <v-button
+          @mouseenter="on"
+          @mouseleave="on"
+        >
+          Name
+        </v-button>
+      </template>
+      <span>tooltip for my danger</span>
+    </v-tooltip>
+    <v-tooltip right>
+      <template v-slot:activator="{ on }">
+        <v-icon
+          clickable
+          icon="fas fa-book"
+          @mouseenter="on"
+          @mouseleave="on"
+        />
+      </template>
+      <span>tooltip for my danger</span>
+    </v-tooltip>
+  </div>
+
 </template>
 <style lang="scss">
-.active-class {
-  background: #272727;
-  color: white !important;
-}
-
-.wrap {
-  position: absolute;
-  left: 60px;
-  top: 60px;
-  width: calc(100% - 60px);
-  height: calc(100vh - 60px);
-}
-
-.app {
-  &-header {
-    width: 100%;
-    height: 60px;
+  .active-class {
     background: #272727;
+    color: white !important;
   }
 
-  &-sidebar {
+  .wrap {
     position: absolute;
+    left: 60px;
     top: 60px;
-    left: 0;
-    width: 60px;
+    width: calc(100% - 60px);
     height: calc(100vh - 60px);
-    background: #272727;
   }
-}
 
-.text {
-  display: inline-block;
-}
+  .app {
+    &-header {
+      width: 100%;
+      height: 60px;
+      background: #272727;
+    }
+
+    &-sidebar {
+      position: absolute;
+      top: 60px;
+      left: 0;
+      width: 60px;
+      height: calc(100vh - 60px);
+      background: #272727;
+    }
+  }
+
+  .test {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .text {
+    display: inline-block;
+  }
 </style>

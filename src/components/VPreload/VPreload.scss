@@ -17,9 +17,11 @@
 
     &::after,
     &::before {
-      content: "" !important;
-      opacity: 0 !important;
-      visibility: hidden !important;
+      width: 0;
+      height: 0;
+      content: "";
+      opacity: 0;
+      visibility: hidden;
     }
   }
 }

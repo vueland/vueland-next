@@ -38,7 +38,6 @@
       }
 
 
-
       const toggleModal = () => {
         data.show = !data.show
       }
@@ -64,7 +63,12 @@
 </script>
 
 <template>
-  <div class="app-header"></div>
+  <v-tooltip v-model="data.always">
+    <template v-slot:tooltip>
+      header
+    </template>
+    <div class="app-header">{{ activator }}</div>
+  </v-tooltip>
   <div class="app-sidebar"></div>
   <div class="wrap">
     <v-form v-slot="{ validate }">
@@ -192,7 +196,7 @@
       elevation="2"
       color="red darken-4"
       label="click"
-      @click="showModal"
+      @click="show"
     />
     <teleport to="#modal">
       <v-modal

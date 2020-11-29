@@ -92,9 +92,14 @@
                 </v-icon>
               </template>
               <template v-slot:title>
+
                 <v-list-item-title>
-                  swim lanes
+
+                  <span>swim lanes</span>
+
                 </v-list-item-title>
+
+
               </template>
               <v-list-item active-class="active-class" v-model:active="data.always">
                 <v-list-item-icon>
@@ -113,45 +118,53 @@
           </v-badge>
         </v-list>
         <v-card-content>
-          <v-icon
-            icon="fab fa-apple"
-            color="green accent-3"
-            clickable
-            @click="() => (data.login = '')"
-          />
-          <v-text-field
-            v-model="data.login"
-            label="login"
-            :rules="[
+          <v-preload :active="data.show">
+            <v-icon
+              icon="fab fa-apple"
+              color="green accent-3"
+              clickable
+              @click="() => (data.login = '')"
+            />
+            <v-text-field
+              v-model="data.login"
+              label="login"
+              :rules="[
               val => !!val || 'Required',
               val => val.length > 5 || 'more than 5 symbols',
             ]"
-          />
-          <v-text-field
-            v-model="data.password"
-            label="password"
-            :rules="[
+            />
+            <v-text-field
+              v-model="data.password"
+              label="password"
+              :rules="[
               val => !!val || 'Required',
               val => val.length > 5 || 'more than 5 symbols',
             ]"
-          />
-          <v-text-field
-            v-model="data.email"
-            label="email"
-            :rules="[
+            />
+            <v-text-field
+              v-model="data.email"
+              label="email"
+              :rules="[
               val => !!val || 'Required',
               val => val.length > 5 || 'more than 5 symbols',
             ]"
-          />
-          <v-checkbox label="igor" v-model="data.checked" :value="data.user" validate/>
-          <v-checkbox label="alyona" v-model="data.checked" :value="data.user2"/>
-          <v-select
-            v-model="data.user"
-            label="select"
-            value-key="name"
-            :items="items"
-            :rules="[v => !!v || 'Required']"
-          />
+            />
+            <v-checkbox label="igor" v-model="data.checked" :value="data.user" validate/>
+            <v-checkbox label="alyona" v-model="data.checked" :value="data.user2"/>
+            <v-select
+              v-model="data.user"
+              label="select"
+              value-key="name"
+              :items="items"
+              :rules="[v => !!v || 'Required']"
+            />
+
+            <span class="text">Lorem ipsum dolor.</span>
+            <span class="text">Lorem ipsum dolor sit amet.</span>
+            <span class="text">Lorem ipsum.</span>
+            <span class="text">Lorem .</span>
+            <span class="text">Lorem ipsum dolor sit amet.</span>
+          </v-preload>
         </v-card-content>
         <v-card-actions>
           <v-button
@@ -249,5 +262,9 @@
       height: calc(100vh - 60px);
       background: #272727;
     }
+  }
+
+  .text {
+    display: inline-block;
   }
 </style>

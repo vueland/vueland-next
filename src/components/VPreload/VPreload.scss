@@ -1,0 +1,33 @@
+.v-preload {
+
+}
+
+.v-preload--in-process {
+  color: transparent;
+  border: none;
+  background: linear-gradient(100deg, #eceff1 30%, #f6f7f8 50%, #eceff1 70%);
+  background-size: 300%;
+  animation: loading 1.2s ease-in-out infinite;
+  user-select: none;
+
+  & > * {
+    opacity: 0;
+    visibility: hidden;
+
+    &::after,
+    &::before {
+      content: "" !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
+    }
+  }
+}
+
+@keyframes loading {
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
+}

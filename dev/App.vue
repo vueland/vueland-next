@@ -24,19 +24,22 @@
         console.log(data)
       }
 
+      const show = () => {
+        data.always = !data.always
+      }
+
       const validateValue = validate => {
         testFunc()
+        show()
         validate().then(res => {
           console.log(res)
           if (res) console.log('valid')
         })
       }
 
-      const showModal = () => {
-        data.show = true
-      }
 
-      const closeModal = () => {
+
+      const toggleModal = () => {
         data.show = !data.show
       }
 
@@ -49,8 +52,8 @@
       ]
 
       return {
-        showModal,
-        closeModal,
+        show,
+        toggleModal,
         validateValue,
         testFunc,
         data,
@@ -71,51 +74,57 @@
         <v-resize top/>
         <v-resize bottom/>
         <v-list>
-          <v-badge
-
-          >
-            <template v-slot:badge>
-              <v-icon icon="fas fa-bell" size="12"/>
-            </template>
-
-            <v-list-group
-              group="swims"
-              color="grey lighten-2"
-              class=""
+          <v-preload :active="data.always">
+            <v-badge
+              style="width: 100%;"
             >
-              <template v-slot:prependIcon>
-                <v-icon
-                  size="18"
-                  color="green accent-3"
-                >
-                  fab fa-accusoft
-                </v-icon>
+
+
+              <template v-slot:badge>
+                <v-icon icon="fas fa-bell" size="12"/>
               </template>
-              <template v-slot:title>
 
-                <v-list-item-title>
-
-                  <span>swim lanes</span>
-
-                </v-list-item-title>
-
-
-              </template>
-              <v-list-item active-class="active-class" v-model:active="data.always">
-                <v-list-item-icon>
+              <v-list-group
+                group="swims"
+                color="grey lighten-2"
+                class=""
+              >
+                <template v-slot:prependIcon>
                   <v-icon
                     size="18"
                     color="green accent-3"
                   >
                     fab fa-accusoft
                   </v-icon>
-                </v-list-item-icon>
-                <v-list-item-title>
-                  test
-                </v-list-item-title>
-              </v-list-item>
-            </v-list-group>
-          </v-badge>
+                </template>
+                <template v-slot:title>
+
+
+                  <v-list-item-title>
+
+                    <span>swim lanes</span>
+
+                  </v-list-item-title>
+
+
+                </template>
+                <v-list-item active-class="active-class" v-model:active="data.always">
+                  <v-list-item-icon>
+                    <v-icon
+                      size="18"
+                      color="green accent-3"
+                    >
+                      fab fa-accusoft
+                    </v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-title>
+                    test
+                  </v-list-item-title>
+                </v-list-item>
+              </v-list-group>
+
+            </v-badge>
+          </v-preload>
         </v-list>
         <v-card-content>
           <v-preload :active="data.show">
@@ -225,7 +234,7 @@
               right
               color="white"
               label="agree"
-              @click="closeModal"
+              @click="toggleModal"
             />
           </v-card-actions>
         </v-card>

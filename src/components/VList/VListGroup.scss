@@ -49,6 +49,11 @@
     text-align: left;
   }
 
+  &__header > *:nth-child(2) {
+    width: 100%;
+    text-align: left;
+  }
+
   &__header--sub-group > .v-list-group__prepend-icon {
     min-width: $append-icon-min-width;
     text-align: left;

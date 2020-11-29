@@ -7,7 +7,7 @@ import {
   ref,
   computed,
   renderSlot,
-  defineComponent
+  defineComponent,
 } from 'vue'
 
 // Effects
@@ -21,7 +21,7 @@ import { VNode } from 'vue'
 
 const vTooltipProps: Props = {
   modelValue: Boolean,
-  ...positionProps()
+  ...positionProps(),
 }
 
 export const VTooltip = defineComponent({
@@ -35,32 +35,41 @@ export const VTooltip = defineComponent({
 
     const classes = computed(() => ({
         'v-tooltip__content': true,
-        ...positionClasses.value
-      })
+        ...positionClasses.value,
+      }),
     )
 
     const activator = () => {
       innerActive.value = !innerActive.value
     }
 
-    const genContent = (): VNode | null => {
+    const genActivator = (): VNode | null => {
+      return h('div', {
+        class: 'v-tooltip--activator',
+      }, renderSlot(slots, 'activator', { on: activator }))
+
+    }
+
+    const genContent = () => {
       if (isActive.value || innerActive.value) {
         return h('span', {
-          class: classes.value
-        }, slots.tooltip && slots.tooltip())
+          class: classes.value,
+        }, slots.default && slots.default())
       }
       return null
     }
 
     const genTooltip = () => {
       return h('div', {
-        class: 'v-tooltip'
-      }, [
-        renderSlot(slots, 'default', { activator }),
-        useTransition({ transition: 'scaleIn' }, genContent() as VNode)
-      ])
+          class: 'v-tooltip',
+        },
+        [
+          genActivator(),
+          genContent(),
+        ],
+      )
     }
 
     return () => genTooltip()
-  }
+  },
 })

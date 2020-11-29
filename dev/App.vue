@@ -63,11 +63,11 @@
 </script>
 
 <template>
-  <v-tooltip v-model="data.always">
-    <template v-slot:tooltip>
-      header
+  <v-tooltip>
+    <template v-slot:activator="{on}">
+      <div class="app-header" @mouseover="on"></div>
     </template>
-    <div class="app-header">{{ activator }}</div>
+    <span>tooltip</span>
   </v-tooltip>
   <div class="app-sidebar"></div>
   <div class="wrap">

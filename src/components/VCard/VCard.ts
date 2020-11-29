@@ -37,7 +37,7 @@ export const VCard = defineComponent({
       },
     )
 
-    const dataProps = () => {
+    const genDataProps = () => {
       return {
         class: classes.value,
         style: { maxWidth: `${props.width}px` },
@@ -47,7 +47,7 @@ export const VCard = defineComponent({
     return () =>
       h(
         'div',
-        props.color ? setBackground(props.color, dataProps()) : dataProps(),
+        props.color ? setBackground(props.color, genDataProps()) : genDataProps(),
         slots.default && slots.default(),
       )
   },

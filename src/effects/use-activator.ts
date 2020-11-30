@@ -1,11 +1,8 @@
+// Vue API
 import { ref } from 'vue'
 
-type ActivatorSizes = {
-  offsetLeft: number
-  offsetTop: number
-  offsetWidth: number
-  offsetHeight: number
-}
+// Types
+import { OffsetSizes } from '../types'
 
 type ActivatorListeners = {
   mouseenter?: (e: Event) => void
@@ -20,18 +17,17 @@ type ActivatorListeners = {
 }
 
 export function useActivator() {
-
   const activatorRef = ref<HTMLElement | null>(null)
-  const activatorSizes: Partial<ActivatorSizes> = {}
+  const activatorSizes: Partial<OffsetSizes> = {}
   const listeners: ActivatorListeners = {}
 
-  const setActivatorSizes = () => {
-    activatorSizes.offsetLeft = activatorRef.value?.offsetLeft
-    activatorSizes.offsetTop = activatorRef.value?.offsetTop
-    activatorSizes.offsetHeight = activatorRef.value?.offsetHeight
-    activatorSizes.offsetWidth = activatorRef.value?.offsetWidth
+  const getActivatorSizes = () => {
+    activatorSizes.left = activatorRef.value?.offsetLeft
+    activatorSizes.top = activatorRef.value?.offsetTop
+    activatorSizes.height = activatorRef.value?.offsetHeight
+    activatorSizes.width = activatorRef.value?.offsetWidth
 
-    return { activatorSizes }
+    return activatorSizes
   }
 
   const genActivatorListeners = (props, isActive) => {
@@ -70,7 +66,7 @@ export function useActivator() {
 
   return {
     activatorRef,
-    setActivatorSizes,
+    getActivatorSizes,
     addActivatorEvents,
     removeActivatorEvents,
     genActivatorListeners,

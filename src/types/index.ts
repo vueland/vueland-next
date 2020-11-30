@@ -4,5 +4,9 @@ export type Props = {
   [key: string]: any | PropType<any>
 }
 
-export type VInputComponent = ReturnType<any>
-export type VTextFieldComponent = ReturnType<any>
+export type OffsetSizes = {
+  left: number
+  top: number
+  width: number
+  height: number
+}

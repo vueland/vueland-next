@@ -11,6 +11,7 @@ import {
   renderSlot,
   withDirectives,
   defineComponent,
+  onMounted,
   vShow,
 } from 'vue'
 
@@ -23,6 +24,7 @@ import { elevationProps, useElevation } from '../../effects/use-elevation'
 
 // Types
 import { Props } from '../../types'
+import { OffsetSizes } from '../../types'
 import { VNode } from 'vue'
 
 // Helpers
@@ -49,13 +51,22 @@ const vTooltipProps: Props = {
   ...elevationProps(),
 }
 
+// TODO fix behavior on window resize if v-model used on component
+
 export const VTooltip = defineComponent({
   name: 'v-tooltip',
   props: vTooltipProps,
 
-  setup(props, { slots }) {
+  setup(props, { slots }): () => VNode {
 
-    const tooltip = reactive({
+    const tooltip = reactive<OffsetSizes>({
+      left: 0,
+      top: 0,
+      width: 0,
+      height: 0,
+    })
+
+    const activator = reactive<OffsetSizes>({
       left: 0,
       top: 0,
       width: 0,
@@ -70,13 +81,13 @@ export const VTooltip = defineComponent({
     const { setBackground } = useColors()
     const {
       activatorRef,
-      setActivatorSizes,
+      getActivatorSizes,
       genActivatorListeners,
     } = useActivator()
 
     const listeners = genActivatorListeners(props, innerActive)
 
-    const classes = computed(() => ({
+    const classes = computed<Record<string, boolean>>(() => ({
         'v-tooltip__content': true,
         'v-tooltip--left': props.left,
         'v-tooltip--bottom': props.bottom,
@@ -105,7 +116,7 @@ export const VTooltip = defineComponent({
       }
     }
 
-    const genContent = () => {
+    const genContent = (): VNode => {
       return withDirectives(h(
         'span',
         setBackground(props.color, genContentDataProps()),
@@ -113,7 +124,7 @@ export const VTooltip = defineComponent({
       ), [[vShow, innerActive.value]])
     }
 
-    const genTooltip = () => {
+    const genTooltip = (): VNode => {
       const content = useTransition(
         { transition: innerActive.value ? 'scaleIn' : 'fade' },
         genContent() as VNode,
@@ -125,19 +136,19 @@ export const VTooltip = defineComponent({
       )
     }
 
-    const computeTopPosition = (activator, tooltip) => {
+    const computeTopPosition = computed<number>(() => {
       return props.top ?
-        activator.offsetTop! - tooltip.height : props.bottom ?
-          (activator.offsetTop! + activator.offsetHeight!) :
-          (activator.offsetTop! + (activator.offsetHeight! - tooltip.height) / 2)
-    }
+        activator!.top! - tooltip.height : props.bottom ?
+          (activator.top! + activator.height!) :
+          (activator.top! + (activator.height! - tooltip.height) / 2)
+    })
 
-    const computeLeftPosition = (activator, tooltip) => {
+    const computeLeftPosition = computed<number>(() => {
       return props.left ?
-        activator.offsetLeft! - tooltip.width : props.right ?
-          (activator.offsetLeft! + activator.offsetWidth!) :
-          (activator.offsetLeft! + (activator.offsetWidth! - tooltip.width) / 2)
-    }
+        activator.left! - tooltip.width : props.right ?
+          (activator.left! + activator.width!) :
+          (activator.left! + (activator.width! - tooltip.width) / 2)
+    })
 
     const setTooltipPosition = () => {
 
@@ -145,11 +156,10 @@ export const VTooltip = defineComponent({
         tooltip.width = tooltipRef.value!.offsetWidth
         tooltip.height = tooltipRef.value!.offsetHeight
 
-        const { activatorSizes } = setActivatorSizes()
         const offset = +props.offset
 
-        const top = computeTopPosition(activatorSizes, tooltip)
-        const left = computeLeftPosition(activatorSizes, tooltip)
+        const top = computeTopPosition.value
+        const left = computeLeftPosition.value
 
         tooltip.top = top + ((props.left || props.right) ?
             0 : props.top ? -offset : offset
@@ -166,12 +176,22 @@ export const VTooltip = defineComponent({
       { immediate: true },
     )
 
-    watch(() => innerActive.value, to => {
-      if (to) {
-        tooltip.top = 0
-        tooltip.left = 0
-        requestAnimationFrame(setTooltipPosition)
-      }
+    onMounted(() => {
+      watch(() => innerActive.value, to => {
+        if (to) {
+          const { left, top, height, width } = getActivatorSizes()
+
+          activator.left = left as number
+          activator.top = top as number
+          activator.height = height as number
+          activator.width = width as number
+
+          tooltip.top = 0
+          tooltip.left = 0
+
+          requestAnimationFrame(setTooltipPosition)
+        }
+      }, { immediate: true })
     })
 
     return () => genTooltip()

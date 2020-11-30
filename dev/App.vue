@@ -248,10 +248,11 @@ export default {
       left
       elevation="8"
       color="blue darken-2"
+      v-model="data.always"
     >
       <template v-slot:activator="{ on }">
         <v-button
-          v-on="on"
+
         >
           Name
         </v-button>

@@ -143,7 +143,6 @@ export const VTooltip = defineComponent({
 
     const setTooltipPosition = () => {
 
-      console.log(activatorRef.value)
       if (tooltipRef.value) {
         tooltip.width = tooltipRef.value!.offsetWidth
         tooltip.height = tooltipRef.value!.offsetHeight

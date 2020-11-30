@@ -58,20 +58,8 @@ export const VTooltip = defineComponent({
   props: vTooltipProps,
 
   setup(props, { slots }): () => VNode {
-
-    const tooltip = reactive<OffsetSizes>({
-      left: 0,
-      top: 0,
-      width: 0,
-      height: 0,
-    })
-
-    const activator = reactive<OffsetSizes>({
-      left: 0,
-      top: 0,
-      width: 0,
-      height: 0,
-    })
+    const tooltip = reactive<Partial<OffsetSizes>>({})
+    const activator = reactive<Partial<OffsetSizes>>({})
 
     const innerActive = ref(false)
     const tooltipRef = ref<HTMLElement | null>(null)
@@ -79,11 +67,7 @@ export const VTooltip = defineComponent({
     const { isActive } = useToggle(props)
     const { elevationClasses } = useElevation(props)
     const { setBackground } = useColors()
-    const {
-      activatorRef,
-      getActivatorSizes,
-      genActivatorListeners,
-    } = useActivator()
+    const { activatorRef, getActivatorSizes, genActivatorListeners } = useActivator()
 
     const listeners = genActivatorListeners(props, innerActive)
 
@@ -138,16 +122,16 @@ export const VTooltip = defineComponent({
 
     const computeTopPosition = computed<number>(() => {
       return props.top ?
-        activator!.top! - tooltip.height : props.bottom ?
+        activator!.top! - tooltip.height! : props.bottom ?
           (activator.top! + activator.height!) :
-          (activator.top! + (activator.height! - tooltip.height) / 2)
+          (activator.top! + (activator.height! - tooltip.height!) / 2)
     })
 
     const computeLeftPosition = computed<number>(() => {
       return props.left ?
-        activator.left! - tooltip.width : props.right ?
+        activator.left! - tooltip.width! : props.right ?
           (activator.left! + activator.width!) :
-          (activator.left! + (activator.width! - tooltip.width) / 2)
+          (activator.left! + (activator.width! - tooltip.width!) / 2)
     })
 
     const setTooltipPosition = () => {

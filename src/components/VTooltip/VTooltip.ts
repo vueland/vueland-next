@@ -11,7 +11,9 @@ import {
   renderSlot,
   withDirectives,
   defineComponent,
-  vShow
+  onMounted,
+  onBeforeUnmount,
+  vShow,
 } from 'vue'
 
 // Effects
@@ -33,6 +35,10 @@ const vTooltipProps: Props = {
   right: Boolean,
   bottom: Boolean,
   left: Boolean,
+  openOnHover: {
+    type: Boolean,
+    default: true,
+  },
   offset: {
     type: [Number, String],
     default: 12,
@@ -64,7 +70,13 @@ export const VTooltip = defineComponent({
     const { isActive } = useToggle(props)
     const { elevationClasses } = useElevation(props)
     const { setBackground } = useColors()
-    const { activatorRef, setActivatorSizes } = useActivator()
+    const {
+      activatorRef,
+      setActivatorSizes,
+      genActivatorListeners,
+    } = useActivator()
+
+    const listeners = genActivatorListeners(props, innerActive)
 
     const classes = computed(() => ({
         'v-tooltip__content': true,
@@ -74,15 +86,14 @@ export const VTooltip = defineComponent({
       }),
     )
 
-    const on = () => {
-      innerActive.value = !innerActive.value
-    }
-
     const genActivator = (): VNode | null => {
-      return h('span', {
+      const slotContent = renderSlot(slots, 'activator', {
+        on: listeners,
+      })
+      return h('div', {
         class: 'v-tooltip__activator',
         ref: activatorRef,
-      }, renderSlot(slots, 'activator', { on }))
+      }, slotContent)
     }
 
     const genContentDataProps = () => {
@@ -90,7 +101,7 @@ export const VTooltip = defineComponent({
         class: classes.value,
         style: {
           top: tooltip.top ? convertToUnit(tooltip.top) : '',
-          left: tooltip.top ? convertToUnit(tooltip.left) : ''
+          left: tooltip.top ? convertToUnit(tooltip.left) : '',
         },
         ref: tooltipRef,
       }
@@ -107,7 +118,7 @@ export const VTooltip = defineComponent({
     const genTooltip = () => {
       const content = useTransition(
         { transition: innerActive.value ? 'scaleIn' : 'fade' },
-        genContent() as VNode
+        genContent() as VNode,
       )
 
       return h('div', {
@@ -132,6 +143,7 @@ export const VTooltip = defineComponent({
 
     const setTooltipPosition = () => {
 
+      console.log(activatorRef.value)
       if (tooltipRef.value) {
         tooltip.width = tooltipRef.value!.offsetWidth
         tooltip.height = tooltipRef.value!.offsetHeight
@@ -154,7 +166,7 @@ export const VTooltip = defineComponent({
 
     watch(() => isActive.value,
       to => innerActive.value = to,
-      { immediate: true }
+      { immediate: true },
     )
 
     watch(() => innerActive.value, to => {

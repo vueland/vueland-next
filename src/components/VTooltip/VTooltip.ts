@@ -11,8 +11,6 @@ import {
   renderSlot,
   withDirectives,
   defineComponent,
-  onMounted,
-  onBeforeUnmount,
   vShow,
 } from 'vue'
 

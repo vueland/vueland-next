@@ -22,7 +22,6 @@ export function useActivator() {
     return { activatorSizes }
   }
 
-
   return {
     activatorRef,
     setActivatorSizes,

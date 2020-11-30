@@ -9,7 +9,9 @@ import {
   watch,
   computed,
   renderSlot,
+  withDirectives,
   defineComponent,
+  vShow
 } from 'vue'
 
 // Effects
@@ -17,17 +19,20 @@ import { useToggle } from '../../effects/use-toggle'
 import { useColors } from '../../effects/use-colors'
 import { useActivator } from '../../effects/use-activator'
 import { useTransition } from '../../effects/use-transition'
-import { positionProps } from '../../effects/use-position'
 import { elevationProps, useElevation } from '../../effects/use-elevation'
 
 // Types
 import { Props } from '../../types'
 import { VNode } from 'vue'
 
-//
+// Helpers
 import { convertToUnit } from '../../helpers'
 
 const vTooltipProps: Props = {
+  top: Boolean,
+  right: Boolean,
+  bottom: Boolean,
+  left: Boolean,
   offset: {
     type: [Number, String],
     default: 12,
@@ -37,7 +42,6 @@ const vTooltipProps: Props = {
     default: 'grey lighten-1',
   },
   modelValue: Boolean,
-  ...positionProps(),
   ...elevationProps(),
 }
 
@@ -70,12 +74,7 @@ export const VTooltip = defineComponent({
       }),
     )
 
-    watch(() => isActive.value,
-      to => innerActive.value = to,
-      { immediate: true }
-    )
-
-    const activator = () => {
+    const on = () => {
       innerActive.value = !innerActive.value
     }
 
@@ -83,7 +82,7 @@ export const VTooltip = defineComponent({
       return h('span', {
         class: 'v-tooltip__activator',
         ref: activatorRef,
-      }, renderSlot(slots, 'activator', { on: activator }))
+      }, renderSlot(slots, 'activator', { on }))
     }
 
     const genContentDataProps = () => {
@@ -98,62 +97,74 @@ export const VTooltip = defineComponent({
     }
 
     const genContent = () => {
-      if (innerActive.value) {
-        return h('span',
-          setBackground(props.color, genContentDataProps()),
-          slots.default && slots.default(),
-        )
-      }
-
-      return null
+      return withDirectives(h(
+        'span',
+        setBackground(props.color, genContentDataProps()),
+        slots.default && slots.default(),
+      ), [[vShow, innerActive.value]])
     }
 
     const genTooltip = () => {
+      const content = useTransition(
+        { transition: innerActive.value ? 'scaleIn' : 'fade' },
+        genContent() as VNode
+      )
 
       return h('div', {
           class: 'v-tooltip',
-        },
-        [
-          genActivator(),
-          useTransition(
-            { transition: innerActive.value ? 'scaleIn' : 'fade' },
-            genContent() as VNode),
-        ],
+        }, [genActivator(), content],
       )
+    }
+
+    const computeTopPosition = (activator, tooltip) => {
+      return props.top ?
+        activator.offsetTop! - tooltip.height : props.bottom ?
+          (activator.offsetTop! + activator.offsetHeight!) :
+          (activator.offsetTop! + (activator.offsetHeight! - tooltip.height) / 2)
+    }
+
+    const computeLeftPosition = (activator, tooltip) => {
+      return props.left ?
+        activator.offsetLeft! - tooltip.width : props.right ?
+          (activator.offsetLeft! + activator.offsetWidth!) :
+          (activator.offsetLeft! + (activator.offsetWidth! - tooltip.width) / 2)
     }
 
     const setTooltipPosition = () => {
 
       if (tooltipRef.value) {
-        const { activatorSizes } = setActivatorSizes()
-        const offset = +props.offset
-
         tooltip.width = tooltipRef.value!.offsetWidth
         tooltip.height = tooltipRef.value!.offsetHeight
 
-        const top = props.top ?
-          activatorSizes.offsetTop! - tooltip.height : props.bottom ?
-            (activatorSizes.offsetTop! + activatorSizes.offsetHeight!) :
-            (activatorSizes.offsetTop! + (activatorSizes.offsetHeight! - tooltip.height) / 2)
+        const { activatorSizes } = setActivatorSizes()
+        const offset = +props.offset
 
-        const left = props.left ?
-          activatorSizes.offsetLeft! - tooltip.width : props.right ?
-            (activatorSizes.offsetLeft! + activatorSizes.offsetWidth!) :
-            (activatorSizes.offsetLeft! + (activatorSizes.offsetWidth! - tooltip.width) / 2)
+        const top = computeTopPosition(activatorSizes, tooltip)
+        const left = computeLeftPosition(activatorSizes, tooltip)
 
-        tooltip.top = Math.ceil(top + ((props.left || props.right) ?
-          0 : props.top ? -offset : offset)
+        tooltip.top = top + ((props.left || props.right) ?
+            0 : props.top ? -offset : offset
         )
 
-        tooltip.left = Math.ceil(left - ((props.top || props.bottom) ?
-          0 : props.right ? -offset : offset)
+        tooltip.left = left - ((props.top || props.bottom) ?
+            0 : props.right ? -offset : offset
         )
       }
     }
 
-    return () => {
-      requestAnimationFrame(setTooltipPosition)
-      return genTooltip()
-    }
+    watch(() => isActive.value,
+      to => innerActive.value = to,
+      { immediate: true }
+    )
+
+    watch(() => innerActive.value, to => {
+      if (to) {
+        tooltip.top = 0
+        tooltip.left = 0
+        requestAnimationFrame(setTooltipPosition)
+      }
+    })
+
+    return () => genTooltip()
   },
 })

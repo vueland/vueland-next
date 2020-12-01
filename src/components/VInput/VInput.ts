@@ -69,7 +69,7 @@ export const VInput = defineComponent({
       }
 
       return h(VLabel, labelProps, {
-        default: () => props.label
+        default: () => props.label,
       })
     }
 
@@ -85,8 +85,8 @@ export const VInput = defineComponent({
         [
           genLabel(),
           slots.select && slots.select(),
-          slots.textField && slots.textField()
-        ]
+          slots.textField && slots.textField(),
+        ],
       )
     }
 
@@ -128,9 +128,6 @@ export const VInput = defineComponent({
     }
 
     return (): VNode =>
-      h('div', genDataProps(), [
-        genSlotContent(),
-        genStatus(),
-      ])
+      h('div', genDataProps(), [genSlotContent(), genStatus()])
   },
 })

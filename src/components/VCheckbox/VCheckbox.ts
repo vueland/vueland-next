@@ -49,7 +49,6 @@ export const VCheckbox = defineComponent({
   props: vCheckboxProps,
 
   setup(props, { emit }) {
-
     const isChecked = ref(false)
     const fields: Ref<any[]> | undefined = props.validate && inject('fields')
 
@@ -86,27 +85,27 @@ export const VCheckbox = defineComponent({
         class: 'v-checkbox__label',
       }
 
-      return h(
-        VLabel,
-        propsData,
-        {
-          default: () => props.label,
-        },
-      )
+      return h(VLabel, propsData, {
+        default: () => props.label,
+      })
     }
 
     const genCheckbox = (): VNode => {
       const icon = isChecked.value ? props.onIcon : props.offIcon
 
-      return h('div', {
-        class: 'v-checkbox__square',
-      }, [
-        h(VIcon, {
-          icon,
-          color: validationState.value,
-          disabled: props.disabled,
-        }),
-      ])
+      return h(
+        'div',
+        {
+          class: 'v-checkbox__square',
+        },
+        [
+          h(VIcon, {
+            icon,
+            color: validationState.value,
+            disabled: props.disabled,
+          }),
+        ],
+      )
     }
 
     const computedValue = () => {
@@ -121,15 +120,14 @@ export const VCheckbox = defineComponent({
           } else {
             modelValue.push(props.value)
           }
-
         } else {
-          return isChecked.value = !isChecked.value
+          return (isChecked.value = !isChecked.value)
         }
 
         return modelValue
       }
 
-      return isChecked.value = !isChecked.value
+      return (isChecked.value = !isChecked.value)
     }
 
     const onClick = () => {
@@ -142,17 +140,19 @@ export const VCheckbox = defineComponent({
       emit('checked', value)
     }
 
-    return (): VNode => h('div', {
-      class: {
-        'v-checkbox': true,
-        'v-checkbox--disabled': props.disabled,
-        'v-checkbox--checked': isChecked.value,
-        'v-validatable': props.validate,
-      },
-      onClick,
-    }, [
-      genCheckbox(),
-      genLabel(),
-    ])
+    return (): VNode =>
+      h(
+        'div',
+        {
+          class: {
+            'v-checkbox': true,
+            'v-checkbox--disabled': props.disabled,
+            'v-checkbox--checked': isChecked.value,
+            'v-validatable': props.validate,
+          },
+          onClick,
+        },
+        [genCheckbox(), genLabel()],
+      )
   },
 })

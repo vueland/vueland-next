@@ -136,10 +136,17 @@ export const VResize = defineComponent({
       let size
 
       if (isNeedReverse.value) {
-        size = currentSize.value - (e[direction.value] - offset.value) + data.startOffset!
+        size =
+          currentSize.value -
+          (e[direction.value] - offset.value) +
+          data.startOffset!
       } else {
-        size = currentSize.value + (e[direction.value] - currentSize.value - offset.value - data.startOffset!
-        )
+        size =
+          currentSize.value +
+          (e[direction.value] -
+            currentSize.value -
+            offset.value -
+            data.startOffset!)
       }
 
       size > props.minSize && setOrEmitSize(size)

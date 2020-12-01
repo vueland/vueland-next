@@ -10,7 +10,7 @@ export const fadeHooks = (fadeParentClass: string) => {
 
     onEnter(el) {
       el.style.opacity = '0'
-      requestAnimationFrame(() => el.style.opacity = '1')
+      requestAnimationFrame(() => (el.style.opacity = '1'))
     },
 
     onAfterEnter(el) {

@@ -7,25 +7,27 @@ import { h, ref, defineComponent } from 'vue'
 export const VPreload = defineComponent({
   name: 'v-preload',
   props: {
-    active: Boolean
+    active: Boolean,
   },
 
   setup(props, { slots }) {
-
     const preloadRef = ref(null)
 
     const genPreloaderWrap = () => {
-      return h('span', {
-        class: 'v-preload',
-        ref: preloadRef,
-      }, slots.default && slots.default())
+      return h(
+        'span',
+        {
+          class: 'v-preload',
+          ref: preloadRef,
+        },
+        slots.default && slots.default(),
+      )
     }
 
     return () => {
       const clsProcess = 'v-preload--in-process'
 
       if (preloadRef.value) {
-
         const all = (preloadRef.value as any).querySelectorAll('.v-preload > *')
 
         const hasClass = [].find.call(all, (it: Element) => {
@@ -43,5 +45,5 @@ export const VPreload = defineComponent({
 
       return genPreloaderWrap()
     }
-  }
+  },
 })

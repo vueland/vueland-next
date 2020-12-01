@@ -77,9 +77,7 @@ export const VIcon = defineComponent({
 
       const explicitSize = Object.keys(sizeProps).find(key => sizeProps[key])
 
-      return (
-        (explicitSize && Sizes[explicitSize]) || convertToUnit(props.size)
-      )
+      return (explicitSize && Sizes[explicitSize]) || convertToUnit(props.size)
     }
 
     const genPropsData = () => {

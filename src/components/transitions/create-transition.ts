@@ -1,10 +1,5 @@
 // Vue API
-import {
-  h,
-  withCtx,
-  createBlock,
-  Transition,
-} from 'vue'
+import { h, withCtx, createBlock, Transition } from 'vue'
 
 // Types
 import { VNode } from 'vue'
@@ -14,11 +9,15 @@ export function createVTransition(
   mode: string = 'in-out',
 ) {
   return (vNode: VNode) => {
-    return createBlock(Transition, {
-      mode,
-      ...hooks,
-    }, {
-      default: withCtx(() => [vNode && h(vNode)]),
-    })
+    return createBlock(
+      Transition,
+      {
+        mode,
+        ...hooks,
+      },
+      {
+        default: withCtx(() => [vNode && h(vNode)]),
+      },
+    )
   }
 }

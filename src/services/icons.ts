@@ -7,5 +7,5 @@ export enum FaIcons {
   $radioOn = 'far fa-dot-circle',
   $radioOff = 'far fa-circle',
   $checkOn = 'fas fa-check-square',
-  $checkOff = 'far fa-square'
+  $checkOff = 'far fa-square',
 }

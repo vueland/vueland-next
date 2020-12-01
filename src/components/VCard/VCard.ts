@@ -47,7 +47,9 @@ export const VCard = defineComponent({
     return () =>
       h(
         'div',
-        props.color ? setBackground(props.color, genDataProps()) : genDataProps(),
+        props.color
+          ? setBackground(props.color, genDataProps())
+          : genDataProps(),
         slots.default && slots.default(),
       )
   },

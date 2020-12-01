@@ -76,7 +76,8 @@ export const VTextField = defineComponent({
         'v-text-field--disabled': props.disabled,
         'v-text-field--dirty': errorState.isDirty,
         'v-text-field--valid': errorState.isDirty && !errorState.innerError,
-        'v-text-field--not-valid': errorState.isDirty && !!errorState.innerError,
+        'v-text-field--not-valid':
+          errorState.isDirty && !!errorState.innerError,
         ...validateClasses.value,
       }),
     )

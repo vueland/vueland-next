@@ -23,11 +23,11 @@ export const VList = defineComponent({
 
       listClick(ref) {
         this.items.length &&
-        this.items.forEach(group => {
-          if (group.ref === ref._value) {
-            group.active = !group.active
-          }
-        })
+          this.items.forEach(group => {
+            if (group.ref === ref._value) {
+              group.active = !group.active
+            }
+          })
       },
     })
 
@@ -42,7 +42,7 @@ export const VList = defineComponent({
           },
         },
 
-        slots.default && slots.default()
+        slots.default && slots.default(),
       )
   },
 })

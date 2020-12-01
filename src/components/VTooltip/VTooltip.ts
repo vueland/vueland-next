@@ -137,21 +137,16 @@ export const VTooltip = defineComponent({
     const setTooltipPosition = () => {
 
       if (tooltipRef.value) {
+        const { offset, left, right, top, bottom } = props
+
         tooltip.width = tooltipRef.value!.offsetWidth
         tooltip.height = tooltipRef.value!.offsetHeight
 
-        const offset = +props.offset
+        tooltip.top = computeTopPosition.value +
+          ((left || right) ? 0 : top ? -offset : offset)
 
-        const top = computeTopPosition.value
-        const left = computeLeftPosition.value
-
-        tooltip.top = top + ((props.left || props.right) ?
-            0 : props.top ? -offset : offset
-        )
-
-        tooltip.left = left - ((props.top || props.bottom) ?
-            0 : props.right ? -offset : offset
-        )
+        tooltip.left = computeLeftPosition.value -
+          ((top || bottom) ? 0 : right ? -offset : offset)
       }
     }
 

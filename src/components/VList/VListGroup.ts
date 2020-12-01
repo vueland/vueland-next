@@ -64,6 +64,7 @@ export const VListGroup = defineComponent({
     provide('subgroups', children)
 
     const subgroups: any = props.subGroup && inject('subgroups')
+
     const currentGroup = {
       ref: refGroup,
       active: isActive,
@@ -73,16 +74,6 @@ export const VListGroup = defineComponent({
 
     subgroups && subgroups.value.push(currentGroup)
 
-    const onClick = () => {
-      if (props.noAction) return
-      groups?.items.length && groups.listClick(refGroup)
-      children.value.length && children.value.forEach((it: any) => {
-        it.active = false
-      })
-
-      emit('click')
-    }
-
     const classes = computed<Record<string, boolean>>(() => ({
       'v-list-group': true,
       'v-list-group__sub-group': props.subGroup,
@@ -90,15 +81,26 @@ export const VListGroup = defineComponent({
       [props.activeClass]: isActive.value,
     }))
 
+    const onClick = () => {
+      if (props.noAction) return
+
+      groups?.items.length && groups.listClick(refGroup)
+
+      children.value.length &&
+      children.value.forEach((it: any) => it.active = false)
+
+      emit('click')
+    }
+
     const genIcon = (icon: string) => {
       return h(
         VIcon,
         {
-          size: Sizes.small,
+          size: Sizes.small
         },
         {
-          default: () => icon,
-        },
+          default: () => icon
+        }
       )
     }
 
@@ -111,9 +113,7 @@ export const VListGroup = defineComponent({
       return h(
         VListItemIcon,
         {
-          class: {
-            'v-list-group__append-icon': true,
-          },
+          class: 'v-list-group__append-icon',
         },
         {
           default: () => slotIcon || genIcon(icon as string),
@@ -122,7 +122,10 @@ export const VListGroup = defineComponent({
     }
 
     const genPrependIcon = () => {
-      const icon = props.subGroup && !props.noAction ? FaIcons.$subgroup : props.prependIcon
+      const icon =
+        props.subGroup && !props.noAction
+          ? FaIcons.$subgroup
+          : props.prependIcon
       const slotIcon = slots.prependIcon && slots.prependIcon()
 
       if (!icon && !slotIcon) return null
@@ -130,9 +133,7 @@ export const VListGroup = defineComponent({
       return h(
         VListItemIcon,
         {
-          class: {
-            'v-list-group__prepend-icon': true,
-          },
+          class: 'v-list-group__prepend-icon',
         },
         {
           default: () => slotIcon || genIcon(icon as string),
@@ -165,9 +166,7 @@ export const VListGroup = defineComponent({
         h(
           'div',
           {
-            class: {
-              'v-list-group__items': true,
-            },
+            class: 'v-list-group__items',
           },
           slots.default && slots.default(),
         ),
@@ -189,13 +188,11 @@ export const VListGroup = defineComponent({
     return () => {
       const items = slots.default && VExpandTransition(genItems())
       const header = slots.title && genGroupHeader()
-      const dataProps = props.color ? setTextColor(props.color, genDataProps()) : genDataProps()
+      const dataProps = props.color
+        ? setTextColor(props.color, genDataProps())
+        : genDataProps()
 
-      return h('div', dataProps,
-        [
-          header,
-          items,
-        ])
+      return h('div', dataProps, [header, items])
     }
   },
 })

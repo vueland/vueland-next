@@ -66,7 +66,6 @@ export function useValidate(props) {
   }
 
   const validate = (val = props.value): boolean | void => {
-
     if (validatable.value) return !update(!val)
 
     if (!hasRules.value) return true

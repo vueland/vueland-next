@@ -61,10 +61,11 @@ export const VLabel = defineComponent({
       }
     }
 
-    return () => h(
-      'label',
-      setTextColor(props.color!, genDataProps()),
-      slots.default && slots.default(),
-    )
+    return () =>
+      h(
+        'label',
+        setTextColor(props.color!, genDataProps()),
+        slots.default && slots.default(),
+      )
   },
 })

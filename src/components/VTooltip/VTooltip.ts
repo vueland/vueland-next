@@ -61,7 +61,7 @@ export const VTooltip = defineComponent({
     const tooltip = reactive<Partial<OffsetSizes>>({})
     const activator = reactive<Partial<OffsetSizes>>({})
 
-    const innerActive = ref(false)
+    const innerActive = ref<boolean>(false)
     const tooltipRef = ref<HTMLElement | null>(null)
 
     const { isActive } = useToggle(props)
@@ -80,16 +80,21 @@ export const VTooltip = defineComponent({
     )
 
     const genActivator = (): VNode | null => {
-      const slotContent = renderSlot(slots, 'activator', {
-        on: listeners,
-      })
+      const slotContent = renderSlot(
+        slots,
+        'activator',
+        {
+          on: listeners,
+        }
+      )
+
       return h('div', {
         class: 'v-tooltip__activator',
         ref: activatorRef,
       }, slotContent)
     }
 
-    const genContentDataProps = () => {
+    const genContentDataProps = (): Record<string, any> => {
       return {
         class: classes.value,
         style: {
@@ -135,7 +140,6 @@ export const VTooltip = defineComponent({
     })
 
     const setTooltipPosition = () => {
-
       if (tooltipRef.value) {
         const { offset, left, right, top, bottom } = props
 

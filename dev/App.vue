@@ -1,73 +1,64 @@
 <script lang="ts">
-import { reactive, watch } from 'vue'
+  import { reactive, computed, watch } from 'vue'
 
-export default {
-  setup() {
-    const data = reactive({
-      always: true,
-      show: false,
-      test: true,
-      login: '',
-      email: '',
-      password: '',
-      user: { name: 'igor' },
-      checked: [],
-      user2: { name: 'alyona' },
-    })
-
-    watch(
-      () => data.checked,
-      to => console.log(to, 'checked'),
-    )
-
-    const testFunc = () => {
-      console.log(data)
-    }
-
-    const show = () => {
-      data.always = !data.always
-    }
-
-    const validateValue = validate => {
-      testFunc()
-      show()
-      validate().then(res => {
-        console.log(res)
-        if (res) console.log('valid')
+  export default {
+    setup() {
+      const data = reactive({
+        always: true,
+        show: false,
+        test: true,
+        login: '',
+        email: '',
+        password: '',
+        user: { name: 'igor' },
+        checked: [],
+        user2: { name: 'alyona' },
       })
-    }
 
+      const toggleAlways = () => {
+        data.always = !data.always
+      }
 
-    const toggleModal = () => {
-      data.show = !data.show
-    }
+      const testFunc = () => {
+        console.log('tested')
+      }
 
+      const forOut = computed(() => {
+        return data.always ? testFunc : undefined
+      })
 
-    const items = [
-      { name: 'Alex', age: 24 },
-      { name: 'Andrew', age: 24 },
-      { name: 'Nikol', age: 24 },
-      { name: 'Anna', age: 24 },
-    ]
+      watch(() => forOut.value, to => {
+        console.log(forOut.value, 'forOut')
+      }, { immediate: true })
 
-    return {
-      show,
-      toggleModal,
-      validateValue,
-      testFunc,
-      data,
-      items,
-    }
-  },
-}
+      const items = [
+        { name: 'Alex', age: 24 },
+        { name: 'Andrew', age: 24 },
+        { name: 'Nikol', age: 24 },
+        { name: 'Anna', age: 24 },
+      ]
+
+      return {
+        data,
+        items,
+        toggleAlways,
+        forOut,
+      }
+    },
+  }
 </script>
 
 <template>
   <div
     class="app-header"
-    v-click-outside="testFunc"
-  ></div>
-  <div class="app-sidebar"></div>
+    v-click-outside="forOut"
+  >
+    <div
+      style="width: 60px; height: 60px; background: red; cursor: pointer;"
+      v-on="on"
+    ></div>
+  </div>
+  <div class="app-sidebar" @click="toggleAlways"></div>
   <div class="wrap">
     <v-form v-slot="{ validate }">
       <v-card width="600" elevation="5" style="padding: 20px">
@@ -273,43 +264,43 @@ export default {
 
 </template>
 <style lang="scss">
-.active-class {
-  background: #272727;
-  color: white !important;
-}
-
-.wrap {
-  position: absolute;
-  left: 60px;
-  top: 60px;
-  width: calc(100% - 60px);
-  height: calc(100vh - 60px);
-}
-
-.app {
-  &-header {
-    width: 100%;
-    height: 60px;
+  .active-class {
     background: #272727;
+    color: white !important;
   }
 
-  &-sidebar {
+  .wrap {
     position: absolute;
+    left: 60px;
     top: 60px;
-    left: 0;
-    width: 60px;
+    width: calc(100% - 60px);
     height: calc(100vh - 60px);
-    background: #272727;
   }
-}
 
-.text {
-  display: inline-block;
-}
+  .app {
+    &-header {
+      width: 100%;
+      height: 60px;
+      background: #272727;
+    }
 
-.test {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
+    &-sidebar {
+      position: absolute;
+      top: 60px;
+      left: 0;
+      width: 60px;
+      height: calc(100vh - 60px);
+      background: #272727;
+    }
+  }
+
+  .text {
+    display: inline-block;
+  }
+
+  .test {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
 </style>

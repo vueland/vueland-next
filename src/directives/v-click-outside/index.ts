@@ -9,8 +9,11 @@ function clickHandler(e, el, binding) {
 const binds = ref(null)
 
 export const clickOutside = {
-  mounted(el) {
-    el._onClick = e => clickHandler(e, el, binds)
+
+  mounted(el, binding) {
+    if (binding.value?.handler) binds.value = binding
+
+    el._onClick = e => clickHandler(e, el, binds.value ? binds : binding)
     document.body.addEventListener('click', el._onClick, true)
   },
 

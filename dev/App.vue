@@ -65,6 +65,7 @@ export default {
 <template>
   <div
     class="app-header"
+    v-click-outside="testFunc"
   ></div>
   <div class="app-sidebar"></div>
   <div class="wrap">
@@ -258,10 +259,11 @@ export default {
     </v-tooltip>
     <v-tooltip
       bottom
+      offset="5"
     >
       <template v-slot:activator="{ on }">
         <div
-          style="width: 40px; height: 40px; background: red; cursor: pointer;"
+          style="width: 60px; height: 60px; background: red; cursor: pointer;"
           v-on="on"
         ></div>
       </template>
@@ -301,13 +303,13 @@ export default {
   }
 }
 
+.text {
+  display: inline-block;
+}
+
 .test {
   display: flex;
   justify-content: center;
   width: 100%;
-}
-
-.text {
-  display: inline-block;
 }
 </style>

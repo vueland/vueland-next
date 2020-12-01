@@ -147,10 +147,10 @@ export const VTooltip = defineComponent({
         tooltip.height = tooltipRef.value!.offsetHeight
 
         tooltip.top = computeTopPosition.value +
-          ((left || right) ? 0 : top ? -offset : offset)
+          ((left || right) ? 0 : top ? -offset : +offset)
 
         tooltip.left = computeLeftPosition.value -
-          ((top || bottom) ? 0 : right ? -offset : offset)
+          ((top || bottom) ? 0 : right ? -offset : +offset)
       }
     }
 

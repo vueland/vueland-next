@@ -26,7 +26,7 @@ import { VInput } from '../VInput'
 import { VSelectList } from './VSelectList'
 
 // Directives
-import { VClickOutside } from '../../directives'
+import { clickOutside } from '../../directives'
 
 const vSelectProps: Props = {
   label: String,
@@ -77,12 +77,7 @@ export const VSelect = defineComponent({
     }
 
     const directive = computed(() => {
-      return state.focused
-        ? {
-            handler: onBlur,
-            state: state.focused,
-          }
-        : undefined
+      return state.focused ? onBlur : undefined
     })
 
     watch(
@@ -160,7 +155,7 @@ export const VSelect = defineComponent({
         [genInput(), genSelectList()],
       )
 
-      return withDirectives(select, [[VClickOutside, directive.value]])
+      return withDirectives(select, [[clickOutside, directive.value]])
     }
 
     onBeforeUnmount(() => {

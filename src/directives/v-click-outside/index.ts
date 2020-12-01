@@ -2,12 +2,13 @@ import { ref } from 'vue'
 
 function clickHandler(e, el, binding) {
   if (e.target === el) return
-  binding.value && binding.value.handler()
+  if (typeof binding.value === 'function') binding.value()
+  if (typeof binding.value === 'object') binding.value.handler()
 }
 
 const binds = ref(null)
 
-export const VClickOutside = {
+export const clickOutside = {
   mounted(el) {
     el._onClick = e => clickHandler(e, el, binds)
     document.body.addEventListener('click', el._onClick, true)

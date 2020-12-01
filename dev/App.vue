@@ -79,8 +79,6 @@ export default {
             <v-badge
               style="width: 100%;"
             >
-
-
               <template v-slot:badge>
                 <v-icon icon="fas fa-bell" size="12"/>
               </template>

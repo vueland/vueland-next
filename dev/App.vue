@@ -27,10 +27,6 @@
         return data.always ? testFunc : undefined
       })
 
-      watch(() => forOut.value, to => {
-        console.log(forOut.value, 'forOut')
-      }, { immediate: true })
-
       const items = [
         { name: 'Alex', age: 24 },
         { name: 'Andrew', age: 24 },
@@ -55,7 +51,6 @@
   >
     <div
       style="width: 60px; height: 60px; background: red; cursor: pointer;"
-      v-on="on"
     ></div>
   </div>
   <div class="app-sidebar" @click="toggleAlways"></div>
@@ -183,7 +178,6 @@
       elevation="2"
       color="red darken-4"
       label="click"
-      @click="show"
     />
     <teleport to="#modal">
       <v-modal
@@ -225,7 +219,6 @@
               right
               color="white"
               label="agree"
-              @click="toggleModal"
             />
           </v-card-actions>
         </v-card>

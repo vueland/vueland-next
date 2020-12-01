@@ -1,20 +1,28 @@
-function clickHandler(e, el, binding) {
-  const isContain = [].includes.call(el.children, e.target as never)
+function clickHandler(e, el) {
+  if (el.contains(e.target) &&
+    el._binds.value &&
+    !el._binds.value.closeConditional
+  ) return
 
-  if (isContain || e.target === el) return
-  if (typeof binding.value === 'function') binding.value()
-  if (typeof binding.value === 'object') binding.value.handler()
+  if (typeof el._binds.value === 'function') el._binds.value()
+
+  if (typeof el._binds.value === 'object') el._binds.value.handler()
 }
 
 function removeListener(el) {
   document.body.removeEventListener('click', el._onClick, true)
   delete el._onClick
+  delete el._binds
 }
 
 export const clickOutside = {
 
-  mounted(el, binding) {
-    el._onClick = e => clickHandler(e, el, el._binds ? el._binds : binding)
+  beforeMount(el, binding) {
+    el._binds = binding
+  },
+
+  mounted(el) {
+    el._onClick = e => clickHandler(e, el)
     document.body.addEventListener('click', el._onClick, true)
   },
 

@@ -77,7 +77,10 @@ export const VSelect = defineComponent({
     }
 
     const directive = computed(() => {
-      return state.focused ? onBlur : undefined
+      return state.focused ? {
+        handler: onBlur,
+        closeConditional: true
+      } : undefined
     })
 
     watch(

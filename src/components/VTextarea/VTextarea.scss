@@ -1,0 +1,9 @@
+.v-textarea > .v-input__field-slot > .v-text-field {
+  height: 96px !important;
+  max-height: 100%;
+}
+
+.v-textarea > .v-input__field-slot > .v-text-field > .v-text-field__input {
+  height: 100% !important;
+  max-height: 100% !important;
+}

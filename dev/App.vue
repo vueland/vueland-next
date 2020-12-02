@@ -154,6 +154,8 @@
               :rules="[v => !!v || 'Required']"
             />
 
+            <v-textarea label="text" :rules="[v => !!v || 'Required']"/>
+
             <span class="text">Lorem ipsum dolor.</span>
             <span class="text">Lorem ipsum dolor sit amet.</span>
             <span class="text">Lorem ipsum.</span>

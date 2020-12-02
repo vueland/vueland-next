@@ -32,8 +32,10 @@ const vTextFieldProps: Props = {
     type: String,
     default: 'text',
   },
-  modelValue: {
-    type: [String, Number],
+  modelValue: [String, Number],
+  tag: {
+    type: String,
+    default: 'input',
   },
   ...validateProps(),
   ...colorProps(),
@@ -118,7 +120,7 @@ export const VTextField = defineComponent({
       const textFieldProps = {
         type: props.type,
         disabled: props.disabled,
-        value: props.modelValue,
+        value: state.value,
         class: {
           'v-text-field__input': true,
         },
@@ -127,7 +129,7 @@ export const VTextField = defineComponent({
         onInput: inputHandler,
       }
 
-      return h('input', setTextColor(computedColor.value!, textFieldProps))
+      return h(props.tag, setTextColor(computedColor.value!, textFieldProps))
     }
 
     const genTextField = () => {

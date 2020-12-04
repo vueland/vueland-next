@@ -40,7 +40,7 @@ export const VCard = defineComponent({
     const genDataProps = () => {
       return {
         class: classes.value,
-        style: { maxWidth: `${props.width}px` },
+        style: { width: `${props.width}px` },
       }
     }
 

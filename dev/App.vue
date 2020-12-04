@@ -170,7 +170,7 @@
             outlined
             absolute
             left
-            @click="validateValue(validate)"
+            @click="validate"
           />
         </v-card-actions>
       </v-card>

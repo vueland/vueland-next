@@ -118,7 +118,6 @@ export const VTextField = defineComponent({
 
     const genInput = (): VNode => {
       const textFieldProps = {
-        type: props.type,
         disabled: props.disabled,
         value: state.value,
         class: {
@@ -127,6 +126,10 @@ export const VTextField = defineComponent({
         onFocus: focusHandler,
         onBlur: blurHandler,
         onInput: inputHandler,
+      }
+
+      if (props.tag === 'input') {
+        (textFieldProps as any).type = props.type
       }
 
       return h(props.tag, setTextColor(computedColor.value!, textFieldProps))

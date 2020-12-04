@@ -131,6 +131,7 @@
             <v-text-field
               v-model="data.password"
               label="password"
+              type="password"
               :rules="[
                   val => !!val || 'Required',
                   val => val.length > 5 || 'more than 5 symbols',
@@ -144,7 +145,7 @@
                   val => val.length > 5 || 'more than 5 symbols',
                 ]"
             />
-            <v-checkbox label="igor" v-model="data.checked" :value="data.user" validate/>
+            <v-checkbox label="igor" v-model="data.checked" :value="data.user" validate dark/>
             <v-checkbox label="alyona" v-model="data.checked" :value="data.user2"/>
             <v-select
               v-model="data.user"

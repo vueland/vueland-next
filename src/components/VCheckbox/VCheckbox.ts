@@ -6,6 +6,7 @@ import { h, ref, computed, defineComponent, inject } from 'vue'
 
 // Effects
 import { useValidate } from '@/effects/use-validate'
+import { useColors } from '@/effects/use-colors'
 
 // Components
 import { VIcon } from '../VIcon'
@@ -30,6 +31,7 @@ export const vCheckboxProps: Props = {
     type: String,
     default: FaIcons.$checkOff,
   },
+  dark: Boolean,
   label: String,
   disabled: Boolean,
   validate: Boolean,
@@ -53,6 +55,7 @@ export const VCheckbox = defineComponent({
     const fields: Ref<any[]> | undefined = props.validate && inject('fields')
 
     const { validate, validationState } = useValidate(props)
+    const { setTextColor } = useColors()
 
     const validateValue = () => validate(isChecked.value)
 
@@ -85,7 +88,7 @@ export const VCheckbox = defineComponent({
         class: 'v-checkbox__label',
       }
 
-      return h(VLabel, propsData, {
+      return h(VLabel, setTextColor(props.dark ? 'white' : '', propsData), {
         default: () => props.label,
       })
     }

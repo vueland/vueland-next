@@ -67,7 +67,7 @@ export const VCheckbox = defineComponent({
       return props.value !== null
     })
 
-    if (fields && fields.value) {
+    if (fields?.value) {
       fields!.value.push(validateValue)
     }
 

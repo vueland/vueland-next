@@ -58,7 +58,7 @@ export const VTextField = defineComponent({
 
     state.value = props.modelValue
 
-    const fields: Ref<any[]> | undefined = inject('fields')
+    const fields: Ref<any[]> | undefined = props.rules?.length && inject('fields')
 
     const { setTextColor } = useColors()
 

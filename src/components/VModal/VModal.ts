@@ -43,9 +43,7 @@ export const VModal = defineComponent({
 
     if (props.overlay) {
       watch(() => isActive.value, () => {
-        setTimeout(() => {
-          showOverlay.value = !showOverlay.value
-        })
+        setTimeout(() => showOverlay.value = !showOverlay.value)
       }, { immediate: true })
     }
 

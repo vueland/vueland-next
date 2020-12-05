@@ -8,4 +8,6 @@ export enum FaIcons {
   $radioOff = 'far fa-circle',
   $checkOn = 'fas fa-check-square',
   $checkOff = 'far fa-square',
+  $arrowRight = 'fas fa-arrow-right',
+  $arrowLeft = 'fas fa-arrow-left'
 }

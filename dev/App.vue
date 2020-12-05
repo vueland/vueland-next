@@ -5,7 +5,7 @@
     setup() {
       const data = reactive({
         always: true,
-        show: false,
+        show: true,
         test: true,
         login: '',
         email: '',

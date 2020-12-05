@@ -37,15 +37,16 @@ export const VModal = defineComponent({
   props: vModalProps,
 
   setup(props, { slots }) {
-    const { isActive } = useToggle(props)
     const showOverlay = ref(false)
+
+    const { isActive } = useToggle(props)
 
     if (props.overlay) {
       watch(() => isActive.value, () => {
         setTimeout(() => {
           showOverlay.value = !showOverlay.value
         })
-      })
+      }, { immediate: true })
     }
 
     const genOverlay = () => {

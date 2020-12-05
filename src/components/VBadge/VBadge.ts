@@ -55,7 +55,7 @@ export const VBadge = defineComponent({
 
     const calcPosition = (offsetVal: string | number = 0): string => {
       const value = offset.value + Number(offsetVal)
-      return `calc(100% - ${value}px)`
+      return `calc(100% - ${ value }px)`
     }
 
     const computedLeft = computed<string | boolean>(() => {
@@ -132,16 +132,15 @@ export const VBadge = defineComponent({
 
       if (props.toggle && !slots.badge) {
         const { isActive } = useToggle(props, 'content')
-
         badge = withDirectives(badge, [[vShow, isActive.value]])
       }
 
-      const slotContent = slots.default && slots.default()
-      const transitionedBadge = useTransition(props, badge)
-
       return h('div', {
           class: 'v-badge',
-        }, [h(transitionedBadge), slotContent],
+        }, [
+          useTransition(props, badge),
+          slots.default && slots.default(),
+        ],
       )
     }
   },

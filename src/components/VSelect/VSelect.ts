@@ -180,7 +180,7 @@ export const VSelect = defineComponent({
           disabled: !!props.disabled,
           isDirty: !!errorState.isDirty,
           message: errorState.innerErrorMessage,
-        } as Props,
+        } as any,
         {
           select: () => (props.items?.length ? genSelect() : null),
         },

@@ -10,7 +10,10 @@ import { convertToUnit } from '../../helpers'
 // Effects
 import { colorProps, useColors } from '../../effects/use-colors'
 
-const labelProps = {
+// Types
+import { Props } from '../../types'
+
+const labelProps: Props = {
   absolute: Boolean,
   disabled: Boolean,
   focused: Boolean,

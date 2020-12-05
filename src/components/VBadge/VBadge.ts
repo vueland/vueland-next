@@ -5,7 +5,6 @@ import {
   vShow,
   h,
   computed,
-  renderSlot,
   withDirectives,
   defineComponent,
 } from 'vue'
@@ -60,35 +59,19 @@ export const VBadge = defineComponent({
     }
 
     const computedLeft = computed<string | boolean>(() => {
-      if (props.right) {
-        return calcPosition(props.offsetX)
-      }
-
-      return false
+      return props.right && calcPosition(props.offsetX)
     })
 
     const computedRight = computed<string | boolean>(() => {
-      if (props.left) {
-        return calcPosition(props.offsetX)
-      }
-
-      return false
+      return props.left && calcPosition(props.offsetX)
     })
 
     const computedTop = computed<string | boolean>(() => {
-      if (props.bottom) {
-        return calcPosition(props.offsetY)
-      }
-
-      return false
+      return props.bottom && calcPosition(props.offsetY)
     })
 
     const computedBottom = computed<string | boolean>(() => {
-      if (props.top) {
-        return calcPosition(props.offsetY)
-      }
-
-      return false
+      return props.top && calcPosition(props.offsetY)
     })
 
     const classes = computed<Record<string, boolean>>(() => {
@@ -122,11 +105,9 @@ export const VBadge = defineComponent({
       return h(
         'div',
         {
-          class: {
-            'v-badge__badge-slot': true,
-          },
+          class: 'v-badge__badge-slot',
         },
-        renderSlot(slots, 'badge'),
+        slots.badge && slots.badge(),
       )
     }
 
@@ -134,20 +115,13 @@ export const VBadge = defineComponent({
       return h(
         'div',
         setBackground(props.color, {
-          class: {
-            ...classes.value,
-          },
+          class: classes.value,
           style: [styles.value],
         }),
         [
-          h(
-            'div',
-            {
-              class: {
-                'v-badge__content': true,
-              },
-            },
-            [genContent(), genBadgeSlot()],
+          h('div', {
+              class: 'v-badge__content',
+            }, [genContent(), genBadgeSlot()],
           ),
         ],
       )
@@ -165,14 +139,9 @@ export const VBadge = defineComponent({
       const slotContent = slots.default && slots.default()
       const transitionedBadge = useTransition(props, badge)
 
-      return h(
-        'div',
-        {
-          class: {
-            'v-badge': true,
-          },
-        },
-        [h(transitionedBadge), slotContent],
+      return h('div', {
+          class: 'v-badge',
+        }, [h(transitionedBadge), slotContent],
       )
     }
   },

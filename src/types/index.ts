@@ -1,7 +1,5 @@
-import { PropType } from 'vue'
-
 export type Props = {
-  [key: string]: any | PropType<any>
+  [key: string]: any
 }
 
 export type OffsetSizes = {

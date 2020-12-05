@@ -1,4 +1,4 @@
-import { render } from 'vue'
+import { h, ref, vShow, withDirectives } from 'vue'
 
 // Components
 import { VOverlay } from '../components'
@@ -6,9 +6,8 @@ import { VOverlay } from '../components'
 // Types
 import { Props } from '../types'
 import { SetupContext, VNode } from 'vue'
+import { useTransition } from '@/effects/use-transition'
 
-// Helpers
-import { addOnceListener } from '@/helpers'
 
 export function overlayProps(): Props {
   return {
@@ -23,64 +22,19 @@ export function overlayProps(): Props {
   }
 }
 
-interface Overlayable {
-  createOverlay: () => void
-  removeOverlay: () => void
-}
+export function useOverlay(props: Props) {
+  const show = ref(false)
 
-export function useOverlay(props: Props, overlayOn?: string): Overlayable {
-  const doc = document
-
-  let overlayable
-
-  requestAnimationFrame(() => {
-    overlayable = !!overlayOn && doc.querySelector(`.${overlayOn}`)
-  })
-
-  const overlayPropsObject: Props = {
-    active: false,
-    hide: true,
-    color: props.overlayColor,
-  }
-
-  const overlayVNode = () =>
-    VOverlay.setup!(
-      overlayPropsObject as typeof VOverlay.props,
-      {} as SetupContext,
+  const genOverlay = () => {
+    const overlay = withDirectives(
+      h(VOverlay, {
+        active: show.value,
+        hide: !show.value,
+        color: '#000000',
+      }),
+      [[vShow, show.value]],
     )
 
-  const container = doc.createElement('div')
-
-  const renderOverlay = () => render(overlayVNode() as VNode, container!)
-
-  renderOverlay()
-
-  const overlayElement = container.firstChild
-
-  function createOverlay() {
-    overlayable.parentNode.insertBefore(overlayElement, overlayable)
-
-    setTimeout(() => {
-      overlayPropsObject.active = true
-      overlayPropsObject.hide = !props.overlay
-      renderOverlay()
-    }, 40)
-  }
-
-  function removeOverlay(): void {
-    overlayPropsObject.active = false
-
-    renderOverlay()
-
-    function remove() {
-      overlayable.parentNode.removeChild(overlayElement)
-    }
-
-    addOnceListener(overlayElement!, 'transitionend', remove)
-  }
-
-  return {
-    createOverlay,
-    removeOverlay,
+    return useTransition({ transition: 'fade' }, overlay)
   }
 }

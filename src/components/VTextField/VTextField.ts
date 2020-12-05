@@ -168,7 +168,7 @@ export const VTextField = defineComponent({
           isDirty: errorState.isDirty,
           disabled: props.disabled,
           message: errorState.innerErrorMessage,
-        } as Props,
+        } as any,
         {
           textField: () => genTextField(),
         },

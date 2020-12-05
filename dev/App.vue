@@ -145,7 +145,7 @@
                   val => val.length > 5 || 'more than 5 symbols',
                 ]"
             />
-            <v-checkbox label="igor" v-model="data.checked" :value="data.user" validate dark/>
+            <v-checkbox label="igor" v-model="data.checked" :value="data.user" validate/>
             <v-checkbox label="alyona" v-model="data.checked" :value="data.user2"/>
             <v-select
               v-model="data.user"
@@ -181,13 +181,13 @@
       elevation="2"
       color="red darken-4"
       label="click"
+      @click="data.show = true"
     />
     <teleport to="#modal">
       <v-modal
         v-model="data.show"
         transition="scaleIn"
         overlay
-        overlay-color="#000000"
       >
         <v-card color="blue darken-3" width="360" elevation="5">
           <v-card-title class="white--text"> salam</v-card-title>
@@ -222,6 +222,7 @@
               right
               color="white"
               label="agree"
+              @click="data.show = false"
             />
           </v-card-actions>
         </v-card>

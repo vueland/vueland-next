@@ -5,22 +5,25 @@ import './VOverlay.scss'
 import { defineComponent, computed, h, VNode } from 'vue'
 
 // Compositions
-import { colorProps, useColors } from '@/effects/use-colors'
+import { useColors } from '@/effects/use-colors'
 
 // Types
 import { Props } from '../../types'
 
-const overlayProps = {
+const overlayProps: Props = {
   hide: Boolean,
   active: Boolean,
-  ...colorProps(),
+  color: {
+    type: String,
+    default: '#000000',
+  },
 }
 
 export const VOverlay = defineComponent({
   name: 'v-overlay',
   props: overlayProps,
 
-  setup(props: Props): VNode {
+  setup(props): () => VNode {
     const { setBackground } = useColors()
 
     const classes = computed(() => {
@@ -31,12 +34,12 @@ export const VOverlay = defineComponent({
       }
     })
 
-    const dataObject = {
+    const genDataProps = () => ({
       class: classes.value,
       style: [],
       ref: 'overlay',
-    }
+    })
 
-    return h('div', setBackground(props.color, dataObject))
+    return () => h('div', setBackground(props.color, genDataProps()))
   },
 })

@@ -2,24 +2,33 @@
 import './VModal.scss'
 
 // Vue API
-import { defineComponent, h, watch, withDirectives, vShow } from 'vue'
+import { defineComponent, h, ref, watch, withDirectives, vShow } from 'vue'
 
 // Effects
-import { overlayProps, useOverlay } from '../../effects/use-overlay'
-import { transitionProps, useTransition } from '../../effects/use-transition'
+import { useTransition } from '../../effects/use-transition'
 import { useToggle } from '../../effects/use-toggle'
 
 // Types
 import { VNode } from 'vue'
+
+// Components
+import { VOverlay } from '@/components'
 
 const vModalProps: Record<string, any> = {
   width: {
     type: [String, Number],
     default: 400,
   },
+  transition: {
+    type: String,
+    default: 'fade',
+  },
+  overlay: Boolean,
+  overlayColor: {
+    type: String,
+    default: '#000000',
+  },
   modelValue: Boolean,
-  ...overlayProps(),
-  ...transitionProps(),
 }
 
 export const VModal = defineComponent({
@@ -27,50 +36,44 @@ export const VModal = defineComponent({
 
   props: vModalProps,
 
-  setup(props, { slots, emit }) {
-    const { isActive } = useToggle(props, 'modelValue')
+  setup(props, { slots }) {
+    const { isActive } = useToggle(props)
+    const showOverlay = ref(false)
 
     if (props.overlay) {
-      const overlay = useOverlay(props, 'v-modal')
-
-      watch(
-        () => isActive.value,
-        to => {
-          to && overlay.createOverlay()
-          !to && overlay.removeOverlay()
-        },
-      )
+      watch(() => isActive.value, () => {
+        setTimeout(() => {
+          showOverlay.value = !showOverlay.value
+        })
+      })
     }
 
-    const genContent = (): VNode =>
-      h(
+    const genOverlay = () => {
+      const overlay = withDirectives(
+        h(VOverlay, {
+          active: showOverlay.value,
+          hide: !showOverlay.value,
+          color: props.overlayColor,
+        }),
+        [[vShow, isActive.value]],
+      )
+
+      return useTransition({ transition: 'fade' }, overlay)
+    }
+
+    const genContent = (): VNode => {
+      const content = withDirectives(h(
         'div',
         {
-          class: {
-            'v-modal__content': true,
-          },
+          class: 'v-modal',
+          show: isActive.value,
         },
         slots.default && slots.default(),
-      )
+      ), [[vShow, isActive.value]])
 
-    const genModal = () =>
-      h(
-        'div',
-        {
-          class: {
-            'v-modal': true,
-          },
-          'onUpdate:modelValue': val => emit('update:modelValue', val),
-        },
-        [content],
-      )
+      return useTransition(props, content)
+    }
 
-    const content = genContent()
-
-    const modal = !!props.transition
-      ? useTransition(props, genModal())
-      : genModal()
-
-    return () => withDirectives(h(modal), [[vShow, isActive.value]])
+    return () => [props.overlay ? genOverlay() : null, genContent()]
   },
 })

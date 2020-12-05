@@ -8,13 +8,14 @@ import { h, computed, defineComponent } from 'vue'
 import { VLabel } from '../VLabel'
 
 // Types
+import { Props } from '../../types'
 import { VNode } from 'vue'
 
 // Effects
 import { useTransition } from '../../effects/use-transition'
 import { colorProps } from '../../effects/use-colors'
 
-const vInputProps = {
+const vInputProps: Props = {
   dark: Boolean,
   focused: Boolean,
   hasState: Boolean,
@@ -104,7 +105,7 @@ export const VInput = defineComponent({
 
     const genStatus = (): VNode => {
       const transitionedMessage = useTransition(
-        { transition: 'fade' },
+        { transition: 'fade' } as Props,
         (props.message && genStatusMessage()) as VNode,
       )
 

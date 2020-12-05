@@ -12,7 +12,7 @@ import { useToggle } from '../../effects/use-toggle'
 import { VNode } from 'vue'
 
 // Components
-import { VOverlay } from '@/components'
+import { VOverlay } from '../VOverlay'
 
 const vModalProps: Record<string, any> = {
   width: {
@@ -43,7 +43,9 @@ export const VModal = defineComponent({
 
     if (props.overlay) {
       watch(() => isActive.value, () => {
-        setTimeout(() => showOverlay.value = !showOverlay.value)
+        setTimeout(() => {
+          showOverlay.value = !showOverlay.value
+        })
       }, { immediate: true })
     }
 

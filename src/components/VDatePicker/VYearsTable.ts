@@ -1,13 +1,24 @@
+// Styles
 import './VYearsTable.scss'
 
+// VUe API
 import { h, ref, defineComponent } from 'vue'
 
+// Components
 import { VIcon } from '../VIcon'
 
+// Effects
+import { colorProps, useColors } from '../../effects/use-colors'
+
+// Services
 import { FaIcons } from '../../services/icons'
+
+// Types
+import { VNode } from 'vue'
 
 const vYearsProps = {
   year: [Number, String],
+  ...colorProps(),
 }
 
 export const VYearsTable = defineComponent({
@@ -21,33 +32,22 @@ export const VYearsTable = defineComponent({
 
     const years = ref([])
 
-    const rangeYearsPlus = () => {
-      const lastYear = years.value[years.value.length - 1]
-      const startFrom = lastYear ? lastYear : CURRENT_YEAR
+    const { setTextColor, setBackground } = useColors()
+
+    const rangeYears = (isForward) => {
+      const ind = isForward ? years.value.length - 1 : 0
+      const year = years.value[ind] + (!!ind ? 1 : -1)
+      const startFrom = year || CURRENT_YEAR
 
       years.value = []
 
       for (let i = 0; i < RANGE; i += 1) {
-        years.value.push((startFrom + i) as never)
+        const res = !!ind ? startFrom + i : startFrom - i
+        years.value.push(res as never)
       }
 
-      console.log(years.value)
+      !isForward && years.value.reverse()
     }
-
-    const rangeYarsMinus = () => {
-      const lastYear = years.value[0]
-      const startFrom = lastYear ? lastYear : CURRENT_YEAR
-
-      years.value = []
-
-      for (let i = 0; i < RANGE; i += 1) {
-        years.value.push(startFrom - i as never)
-      }
-
-      console.log(years.value.reverse())
-    }
-
-    rangeYearsPlus()
 
     const genLeftArrow = () => {
       return h('div', {
@@ -55,11 +55,10 @@ export const VYearsTable = defineComponent({
       }, h(VIcon, {
         icon: FaIcons.$arrowLeft,
         clickable: true,
-        onClick: rangeYarsMinus,
+        onClick: () => rangeYears(false),
         size: 18,
       }))
     }
-
 
     const genRightArrow = () => {
       return h('div', {
@@ -67,14 +66,14 @@ export const VYearsTable = defineComponent({
       }, h(VIcon, {
         icon: FaIcons.$arrowRight,
         clickable: true,
-        onClick: rangeYearsPlus,
+        onClick: () => rangeYears(true),
         size: 18,
       }))
     }
 
     const genHeaderCurrentYear = () => {
       return h('div', {
-        class: 'v-years__header-current-year',
+        class: 'v-years__header-display',
       }, CURRENT_YEAR)
     }
 
@@ -88,44 +87,50 @@ export const VYearsTable = defineComponent({
       ])
     }
 
-    const genYearsRow = (dates) => {
-      return h('div', {
-        class: 'v-years__row',
-      }, dates)
-    }
-
-    const genYears = () => {
+    const genYears = (): VNode[] => {
       return years.value.map(year => {
         return h('div', {
-          class: 'v-years__year',
+          class: 'v-years__cell',
           key: year,
         }, year)
       })
     }
 
-    const genYearsTable = () => {
-      const yearsVNodes = genYears()
-      const tableRows = []
+    const genYearsRows = () => {
+      const genRow = dateVNodes => {
+        return h('div', {
+          class: 'v-years__row',
+        }, dateVNodes)
+      }
 
-      let rowYears = []
+      const yearsVNodes: VNode[] = genYears()
+      const tableRows: VNode[] = []
+
+      let rowYears: VNode[] = []
 
       for (let i = 0; i <= yearsVNodes.length; i += 1) {
 
         if (i && !(i % YEARS_IN_ROW)) {
-          tableRows.push(genYearsRow(rowYears) as never)
+          tableRows.push(genRow(rowYears))
           rowYears = []
         }
 
-        rowYears.push(yearsVNodes[i] as never)
+        rowYears.push(yearsVNodes[i])
       }
 
-      return h ('div', {
-        class: 'v-years'
+      return tableRows
+    }
+
+    const genYearsTable = () => {
+      return h('div', {
+        class: 'v-years',
       }, [
         genYearsTableHeader(),
-        tableRows
+        genYearsRows(),
       ])
     }
+
+    rangeYears(true)
 
     return () => h(genYearsTable())
   },

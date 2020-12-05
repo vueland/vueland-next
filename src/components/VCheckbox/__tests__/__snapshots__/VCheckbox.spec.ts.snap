@@ -1,48 +1,45 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`VCheckbox should mount component and match snapshot 1`] = `
-<div class="v-checkbox v-validatable">
+<div class="v-checkbox">
   <div class="v-checkbox__square">
     <i class="v-icon far fa-square primary--text"
-       style="font-size: 28;"
+       style="font-size: 26px;"
     >
     </i>
   </div>
   <label class="v-label v-checkbox__label"
          style="left: 0px; position: relative;"
-         top="0"
   >
   </label>
 </div>
 `;
 
 exports[`VCheckbox should set disabled and match snapshot 1`] = `
-<div class="v-checkbox v-checkbox--disabled v-validatable">
+<div class="v-checkbox v-checkbox--disabled">
   <div class="v-checkbox__square">
     <i class="v-icon v-icon--disabled far fa-square primary--text"
-       style="font-size: 28;"
+       style="font-size: 26px;"
     >
     </i>
   </div>
   <label class="v-label v-label--is-disabled v-checkbox__label"
          style="left: 0px; position: relative;"
-         top="0"
   >
   </label>
 </div>
 `;
 
 exports[`VCheckbox should set label and match snapshot 1`] = `
-<div class="v-checkbox v-validatable">
+<div class="v-checkbox">
   <div class="v-checkbox__square">
     <i class="v-icon far fa-square primary--text"
-       style="font-size: 28;"
+       style="font-size: 26px;"
     >
     </i>
   </div>
   <label class="v-label v-checkbox__label"
          style="left: 0px; position: relative;"
-         top="0"
   >
     checkbox label
   </label>
@@ -53,7 +50,7 @@ exports[`VCheckbox should set validate and match snapshot 1`] = `
 <div class="v-checkbox v-validatable">
   <div class="v-checkbox__square">
     <i class="v-icon far fa-square primary--text"
-       style="font-size: 28;"
+       style="font-size: 26px;"
     >
     </i>
   </div>

@@ -10,6 +10,21 @@ exports[`VModal should mount component and match snapshot 1`] = `
 </transition-stub>
 `;
 
+exports[`VModal should set modelValue prop to true and match snapshot 1`] = `
+<transition-stub>
+  <div class="v-overlay v-overlay--active"
+       style="background-color: rgb(0, 0, 0); border-color: #000000;"
+  >
+  </div>
+</transition-stub>
+<transition-stub>
+  <div class="v-modal"
+       show="true"
+  >
+  </div>
+</transition-stub>
+`;
+
 exports[`VModal should set overlay and match snapshot 1`] = `
 <transition-stub>
   <div class="v-overlay v-overlay--hidden"

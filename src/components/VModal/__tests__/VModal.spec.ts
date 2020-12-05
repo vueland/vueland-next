@@ -47,10 +47,10 @@ describe('VModal', () => {
     const props = { modelValue, overlay: true }
     const cmp = mountFunction({ props })
 
-    // Because the overlay component show and hide
-    // on next tick
+    // Waiting for next tick
     await new Promise(res => setTimeout(res))
 
     expect(cmp.find('.v-overlay').attributes().class).toContain('v-overlay--active')
+    expect(cmp.html()).toMatchSnapshot()
   })
 })

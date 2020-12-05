@@ -1,5 +1,6 @@
 import { mount, VueWrapper } from '@vue/test-utils'
 import { VCheckbox } from '../VCheckbox'
+import 'regenerator-runtime/runtime'
 
 describe('VCheckbox', () => {
   let mountFunction: (options?: any) => VueWrapper<any>
@@ -36,5 +37,53 @@ describe('VCheckbox', () => {
 
     expect(cmp.attributes().class).toContain('v-validatable')
     expect(cmp.html()).toMatchSnapshot()
+  })
+
+  it('should emit events when clicked', async () => {
+    const modelValue = false
+    const props = { modelValue }
+    const cmp = mountFunction({ props })
+
+    await cmp.trigger('click')
+
+    expect((cmp.emitted().checked as any)[0][0]).toBe(true)
+    expect((cmp.emitted()['update:modelValue'] as any)[0][0]).toBe(true)
+    expect(cmp.attributes().class).toContain('v-checkbox--checked')
+    expect(cmp.html()).toMatchSnapshot()
+  })
+
+  it('should return true when clicked', async () => {
+    const stub = jest.fn()
+    const modelValue = false
+    const props = { modelValue, onChecked: stub }
+    const cmp = mountFunction({ props })
+
+    await cmp.trigger('click')
+
+    expect(stub).toBeCalledTimes(1)
+    expect(stub).toBeCalledWith(true)
+  })
+
+  it('should add value to array when clicked', async () => {
+    const modelValue = []
+    const value = { name: 'John' }
+    const props = { modelValue, value }
+    const cmp = mountFunction({ props })
+
+    await cmp.trigger('click')
+
+    expect(modelValue).toContain(value)
+  })
+
+  it('should remove value(s) from array when toggled off', async () => {
+    const stub = jest.fn()
+    const value = { name: 'John' }
+    const modelValue = [value]
+    const props = { modelValue, value, onChecked: stub }
+    const cmp = mountFunction({ props })
+
+    await cmp.trigger('click')
+
+    expect(stub).toHaveBeenCalledWith([])
   })
 })

@@ -47,7 +47,7 @@ describe('VModal', () => {
     const props = { modelValue, overlay: true }
     const cmp = mountFunction({ props })
 
-    // Waiting for next tick
+    // Waiting for next macrotask
     await new Promise(res => setTimeout(res))
 
     expect(cmp.find('.v-overlay').attributes().class).toContain('v-overlay--active')

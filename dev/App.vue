@@ -45,7 +45,7 @@ export default {
 </script>
 
 <template>
-  <v-datepicker />
+  <v-datepicker color="blue darken-4" dark/>
 <!--  <div-->
 <!--    class="app-header"-->
 <!--    v-click-outside="forOut"-->

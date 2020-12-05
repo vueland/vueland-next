@@ -3,7 +3,6 @@
 .v-years {
   width: 100%;
   max-width: 400px;
-  border: 1px solid #696969;
   border-radius: 5px;
 
   &__header {
@@ -12,13 +11,15 @@
 
     &-button {
       text-align: center;
+      transition: all .2s linear;
 
       & > .v-icon {
         padding: 20px;
       }
 
       &:hover {
-        background: #d2cdcd;
+        background: #05142d;
+        color: #ffffff !important;
       }
     }
 
@@ -39,9 +40,11 @@
     text-align: center;
     padding: 20px 5px;
     cursor: pointer;
+    transition: all .2s linear;
 
     &:hover {
-      background: #d2cdcd;
+      background: #05142d;
+      color: #ffffff !important;
     }
   }
 

@@ -7,11 +7,19 @@ import { h, ref, defineComponent } from 'vue'
 export const VPreload = defineComponent({
   name: 'v-preload',
   props: {
-    active: Boolean,
+    loading: Boolean,
+    darken: {
+      type: Boolean,
+      default: false
+    }
   },
 
   setup(props, { slots }) {
     const preloadRef = ref(null)
+
+    const clsProcess: string = !props.darken ?
+      'v-preload__loading--lighten' :
+      'v-preload__loading--darken'
 
     const genPreloaderWrap = () => {
       return h(
@@ -25,21 +33,19 @@ export const VPreload = defineComponent({
     }
 
     return () => {
-      const clsProcess = 'v-preload--in-process'
-
       if (preloadRef.value) {
-        const all = (preloadRef.value as any).querySelectorAll('.v-preload > *')
+        const all = (preloadRef.value! as Element).children
 
-        const hasClass = [].find.call(all, (it: Element) => {
-          return it.classList.contains(clsProcess)
-        })
-
-        if (props.active) {
-          all!.forEach(it => it.classList.add(clsProcess))
+        if (props.loading) {
+          [].forEach.call(all!, (it: Element) => it.classList.add(clsProcess))
         }
 
-        if (!props.active && hasClass) {
-          all!.forEach(it => it.classList.remove(clsProcess))
+        if (!props.loading) {
+          const hasClass = all && [].find.call(all, (it: Element) => {
+            return it.classList.contains(clsProcess)
+          })
+
+          hasClass && [].forEach.call(all!, (it: Element) => it.classList.remove(clsProcess))
         }
       }
 

@@ -29,6 +29,6 @@ export const VForm = defineComponent({
       return renderSlot(slots, 'default', { validate })
     }
 
-    return () => h('div', { class: 'v-form' }, genSlot())
+    return () => h('span', { class: 'v-form' }, genSlot())
   },
 })

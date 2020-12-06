@@ -16,13 +16,20 @@ describe('VTooltip', () => {
     expect(cmp.html()).toMatchSnapshot()
   })
 
-  it('should set activator and match snapshot', () => {
-    const slots = {
-      activator: '<div class="activator"></div>',
-    }
-
-    const cmp = mountFunction({ slots })
-
-    expect(cmp.html()).toMatchSnapshot()
-  })
+  // it('should set activator and match snapshot', async () => {
+  //   const stub = jest.fn()
+  //   const slots = {
+  //     activator: '<div class="activator"></div>',
+  //     props: {
+  //       on: { mouseenter: stub },
+  //     },
+  //   }
+  //
+  //   const props = { 'v-on': slots.props.on }
+  //
+  //   const cmp = mountFunction({ slots, props })
+  //   await cmp.find('.activator').trigger('mouseenter')
+  //
+  //   expect(cmp.html()).toMatchSnapshot()
+  // })
 })

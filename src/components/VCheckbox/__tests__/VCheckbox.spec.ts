@@ -75,7 +75,7 @@ describe('VCheckbox', () => {
     expect(modelValue).toContain(value)
   })
 
-  it('should remove value(s) from array when toggled off', async () => {
+  it('should remove value from array when toggled off', async () => {
     const stub = jest.fn()
     const value = { name: 'John' }
     const modelValue = [value]

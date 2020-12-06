@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VTooltip should mount component and match snapshot 1`] = `
+<div class="v-tooltip">
+  <div class="v-tooltip__activator">
+  </div>
+  <transition-stub>
+    <span class="v-tooltip__content grey lighten-1"
+          style="display: none;"
+    >
+    </span>
+  </transition-stub>
+</div>
+`;
+
+exports[`VTooltip should set activator and match snapshot 1`] = `
+<div class="v-tooltip">
+  <div class="v-tooltip__activator">
+    <div class="activator">
+    </div>
+  </div>
+  <transition-stub>
+    <span class="v-tooltip__content grey lighten-1"
+          style="display: none;"
+    >
+    </span>
+  </transition-stub>
+</div>
+`;

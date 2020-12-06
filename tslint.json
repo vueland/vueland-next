@@ -16,7 +16,8 @@
     "prefer-for-of": false,
     "label-position": false,
     "no-shadowed-variable": false,
-    "no-bitwise": false
+    "no-bitwise": false,
+    "array-type": false
   },
   "rulesDirectory": [],
   "prettier": [

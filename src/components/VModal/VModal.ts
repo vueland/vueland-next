@@ -10,11 +10,12 @@ import { useToggle } from '../../effects/use-toggle'
 
 // Types
 import { VNode } from 'vue'
+import { Props } from '../../types'
 
 // Components
 import { VOverlay } from '../VOverlay'
 
-const vModalProps: Record<string, any> = {
+const vModalProps: Props = {
   width: {
     type: [String, Number],
     default: 400,

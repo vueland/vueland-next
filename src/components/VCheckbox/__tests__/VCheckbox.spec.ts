@@ -86,4 +86,30 @@ describe('VCheckbox', () => {
 
     expect(stub).toHaveBeenCalledWith([])
   })
+
+  it('should set "on" and "off" icon and match snapshot', async () => {
+    const onIcon = 'foo'
+    const offIcon = 'bar'
+    const props = { onIcon, offIcon }
+    const cmp = mountFunction({ props })
+
+    await cmp.trigger('click')
+    expect(cmp.find('.foo').exists()).toBe(true)
+
+    await cmp.trigger('click')
+    expect(cmp.find('.bar').exists()).toBe(true)
+    expect(cmp.html()).toMatchSnapshot()
+  })
+
+  it('should set validate and match snapshot', async () => {
+    const validate = true
+    const props = { validate, modelValue: false }
+    const cmp = mountFunction({ props })
+
+    await cmp.trigger('click')
+    await cmp.trigger('click')
+
+    expect(cmp.find('.v-icon').attributes().class).toContain('danger--text')
+    expect(cmp.html()).toMatchSnapshot()
+  })
 })

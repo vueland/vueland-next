@@ -30,6 +30,21 @@ exports[`VCheckbox should mount component and match snapshot 1`] = `
 </div>
 `;
 
+exports[`VCheckbox should set "on" and "off" icon and match snapshot 1`] = `
+<div class="v-checkbox">
+  <div class="v-checkbox__square">
+    <i class="v-icon bar primary--text"
+       style="font-size: 26px;"
+    >
+    </i>
+  </div>
+  <label class="v-label v-checkbox__label"
+         style="left: 0px; position: relative;"
+  >
+  </label>
+</div>
+`;
+
 exports[`VCheckbox should set disabled and match snapshot 1`] = `
 <div class="v-checkbox v-checkbox--disabled">
   <div class="v-checkbox__square">

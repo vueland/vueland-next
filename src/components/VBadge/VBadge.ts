@@ -1,13 +1,7 @@
 import './VBadge.scss'
 
 // Vue API
-import {
-  vShow,
-  h,
-  computed,
-  withDirectives,
-  defineComponent,
-} from 'vue'
+import { vShow, h, computed, withDirectives, defineComponent } from 'vue'
 
 // Effects
 import { positionProps } from '../../effects/use-position'
@@ -55,7 +49,7 @@ export const VBadge = defineComponent({
 
     const calcPosition = (offsetVal: string | number = 0): string => {
       const value = offset.value + Number(offsetVal)
-      return `calc(100% - ${ value }px)`
+      return `calc(100% - ${value}px)`
     }
 
     const computedLeft = computed<string | boolean>(() => {
@@ -93,38 +87,40 @@ export const VBadge = defineComponent({
       }
     })
 
-    const genContent = (): string | undefined => {
+    const addContent = (): string | undefined => {
       if (props.dot) return undefined
-
       if (props.content) return String(props.content)
 
       return undefined
     }
 
     const genBadgeSlot = (): VNode => {
-      return h(
-        'div',
-        {
-          class: 'v-badge__badge-slot',
+      const dataProps = {
+        class: {
+          'v-badge__badge-slot': true,
         },
-        slots.badge && slots.badge(),
-      )
+      }
+
+      return h('div', dataProps, slots.badge && slots.badge())
+    }
+
+    const genContent = () => {
+      const dataProps = {
+        class: {
+          'v-badge__content': true,
+        },
+      }
+
+      return h('div', dataProps, [addContent(), genBadgeSlot()])
     }
 
     const genBadge = (): VNode => {
-      return h(
-        'div',
-        setBackground(props.color, {
-          class: classes.value,
-          style: [styles.value],
-        }),
-        [
-          h('div', {
-              class: 'v-badge__content',
-            }, [genContent(), genBadgeSlot()],
-          ),
-        ],
-      )
+      const dataProps = setBackground(props.color, {
+        class: classes.value,
+        style: [styles.value],
+      })
+
+      return h('div', dataProps, genContent())
     }
 
     return (): VNode => {
@@ -135,13 +131,16 @@ export const VBadge = defineComponent({
         badge = withDirectives(badge, [[vShow, isActive.value]])
       }
 
-      return h('div', {
-          class: 'v-badge',
-        }, [
-          useTransition(props, badge),
-          slots.default && slots.default(),
-        ],
-      )
+      const dataProps = {
+        class: 'v-badge',
+      }
+
+      const children = [
+        useTransition(props, badge),
+        slots.default && slots.default(),
+      ]
+
+      return h('div', dataProps, children)
     }
   },
 })

@@ -29,7 +29,7 @@
 @for $i from 1 through 10 {
   .v-loading--dynamic {
     &:nth-child(#{$i}) {
-      animation: dynamicUp 1.2s #{$i/10}s ease-in-out infinite;
+      animation: dynamicUp 1.3s #{$i/10 - 1}s ease-in-out infinite;
     }
   }
 }

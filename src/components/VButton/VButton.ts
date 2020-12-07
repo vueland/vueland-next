@@ -69,6 +69,10 @@ export const VButton = defineComponent({
       return props.text || props.outlined
     })
 
+    const setColor = isFlat.value ? setTextColor : setBackground
+
+    const content: any[] = []
+
     const classes = computed(
       (): Record<string, boolean> => {
         return {
@@ -82,37 +86,31 @@ export const VButton = defineComponent({
       },
     )
 
-    const dataProps = () => {
+    const genDataProps = () => {
       return {
-        class: {
-          ...classes.value,
-        },
+        class: classes.value,
       }
     }
 
-    const setColor = isFlat.value ? setTextColor : setBackground
-
-    const data = props.color ? setColor(props.color, dataProps()) : dataProps()
-
-    const content: any[] = []
-
-    const label =
-      props.label &&
-      h(
-        'span',
-        {
-          class: {
-            'v-button__label': true,
-          },
+    const genLabel = () => {
+      const dataProps = {
+        class: {
+          'v-button__label': true,
         },
-        props.label,
-      )
+      }
 
-    const slot = slots.default && slots.default()
+      return h('span', dataProps, props.label)
+    }
 
-    label && content.push(label)
-    slot && content.push(slot)
+    return () => {
+      props.label && content.push(genLabel())
+      slots.default && content.push(slots.default())
 
-    return () => h('button', data, content)
+      const dataProps = props.color
+        ? setColor(props.color, genDataProps())
+        : genDataProps()
+
+      return h('button', dataProps, content)
+    }
   },
 })

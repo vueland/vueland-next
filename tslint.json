@@ -17,7 +17,8 @@
     "label-position": false,
     "no-shadowed-variable": false,
     "no-bitwise": false,
-    "array-type": false
+    "array-type": false,
+    "no-conditional-assignment": false
   },
   "rulesDirectory": [],
   "prettier": [

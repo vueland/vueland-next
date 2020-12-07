@@ -93,7 +93,7 @@ export const VTextField = defineComponent({
     }
 
     onBeforeUnmount(() => {
-      if (fields!.value) {
+      if (fields?.value) {
         fields!.value = fields!.value.filter(v => v !== validateValue)
       }
     })

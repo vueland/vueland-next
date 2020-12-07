@@ -23,26 +23,24 @@ export const VList = defineComponent({
 
       listClick(ref) {
         this.items.length &&
-          this.items.forEach(group => {
-            if (group.ref === ref._value) {
-              group.active = !group.active
-            }
-          })
+        this.items.forEach(group => {
+          if (group.ref === ref._value) {
+            group.active = !group.active
+          }
+        })
       },
     })
 
     provide('groups', groups)
 
-    return () =>
-      h(
-        'div',
-        {
-          class: {
-            'v-list': true,
-          },
+    return () => {
+      const dataProps = {
+        class: {
+          'v-list': true,
         },
+      }
 
-        slots.default && slots.default(),
-      )
+      return h('div', dataProps, slots.default && slots.default())
+    }
   },
 })

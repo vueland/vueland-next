@@ -11,10 +11,9 @@ import { useElevation, elevationProps } from '../../effects/use-elevation'
 import { useTransition } from '../../effects/use-transition'
 
 // Types
-import { Props } from '../../types'
 import { VNode } from 'vue'
 
-const vBadgeProps: Props = {
+const vBadgeProps: any = {
   dot: Boolean,
   avatar: Boolean,
   border: Boolean,

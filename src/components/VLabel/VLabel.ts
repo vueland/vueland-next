@@ -11,9 +11,9 @@ import { convertToUnit } from '../../helpers'
 import { colorProps, useColors } from '../../effects/use-colors'
 
 // Types
-import { Props } from '../../types'
+import { VNode } from 'vue'
 
-const labelProps: Props = {
+const labelProps: any = {
   absolute: Boolean,
   disabled: Boolean,
   focused: Boolean,
@@ -34,10 +34,10 @@ export const VLabel = defineComponent({
   name: 'v-label',
   props: labelProps,
 
-  setup(props, { slots }) {
+  setup(props, { slots }): () => VNode {
     const { setTextColor } = useColors()
 
-    const isActive = computed(() => {
+    const isActive = computed<boolean>(() => {
       return !!props.hasState || !!props.focused
     })
 
@@ -51,7 +51,7 @@ export const VLabel = defineComponent({
       }
     })
 
-    const genDataProps = () => {
+    const genDataProps = (): Record<string, any> => {
       return {
         class: {
           ...classes.value,
@@ -64,11 +64,10 @@ export const VLabel = defineComponent({
       }
     }
 
-    return () =>
-      h(
-        'label',
-        setTextColor(props.color!, genDataProps()),
-        slots.default && slots.default(),
-      )
+    return (): VNode => {
+      const dataProps = setTextColor(props.color!, genDataProps())
+
+      return h('label', dataProps, slots.default && slots.default())
+    }
   },
 })

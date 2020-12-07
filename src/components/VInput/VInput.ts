@@ -8,14 +8,13 @@ import { h, computed, defineComponent } from 'vue'
 import { VLabel } from '../VLabel'
 
 // Types
-import { Props } from '../../types'
 import { VNode } from 'vue'
 
 // Effects
 import { useTransition } from '../../effects/use-transition'
 import { colorProps } from '../../effects/use-colors'
 
-const vInputProps: Props = {
+const vInputProps: any = {
   dark: Boolean,
   focused: Boolean,
   hasState: Boolean,
@@ -75,49 +74,44 @@ export const VInput = defineComponent({
     }
 
     const genSlotContent = (): VNode => {
-      return h(
-        'div',
-        {
-          class: {
-            'v-input__select-slot': !!slots.select,
-            'v-input__field-slot': !!slots.textField,
-          },
+      const dataProps = {
+        class: {
+          'v-input__select-slot': !!slots.select,
+          'v-input__field-slot': !!slots.textField,
         },
-        [
-          genLabel(),
-          slots.select && slots.select(),
-          slots.textField && slots.textField(),
-        ],
-      )
+      }
+      const slotContent = [
+        genLabel(),
+        slots.select && slots.select(),
+        slots.textField && slots.textField(),
+      ]
+
+      return h('div', dataProps, slotContent)
     }
 
     const genStatusMessage = (): VNode => {
-      return h(
-        'span',
-        {
-          class: {
-            'v-input__status-message': true,
-          },
+      const dataProps = {
+        class: {
+          'v-input__status-message': true,
         },
-        [props.message],
-      )
+      }
+
+      return h('span', dataProps, props.message)
     }
 
     const genStatus = (): VNode => {
       const transitionedMessage = useTransition(
-        { transition: 'fade' } as Props,
+        { transition: 'fade' } as object,
         (props.message && genStatusMessage()) as VNode,
       )
 
-      return h(
-        'div',
-        {
-          class: {
-            'v-input__status': true,
-          },
+      const dataProps = {
+        class: {
+          'v-input__status': true,
         },
-        [transitionedMessage],
-      )
+      }
+
+      return h('div', dataProps, transitionedMessage)
     }
 
     const genDataProps = () => {

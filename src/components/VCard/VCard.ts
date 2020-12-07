@@ -9,10 +9,9 @@ import { colorProps, useColors } from '../../effects/use-colors'
 import { elevationProps, useElevation } from '../../effects/use-elevation'
 
 // Types
-import { Props } from '../../types'
 import { VNode } from 'vue'
 
-const cardProps: Props = {
+const cardProps: any = {
   width: {
     type: [String, Number],
     default: 350,

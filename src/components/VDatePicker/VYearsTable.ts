@@ -16,7 +16,7 @@ import { FaIcons } from '../../services/icons'
 // Types
 import { VNode } from 'vue'
 
-const vYearsProps = {
+const vYearsProps: any = {
   year: [Number, String],
   dark: Boolean,
   color: {

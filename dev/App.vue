@@ -97,6 +97,7 @@ export default {
     <v-card v-if="data.show" elevation="5">
       <v-card-title>
         <span style="">Testting header</span>
+        <v-checkbox label="test"/>
       </v-card-title>
       <v-card-content>
         <span style="display: block;">some little text</span>

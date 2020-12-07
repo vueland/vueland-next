@@ -11,44 +11,15 @@ import { positionProps, usePosition } from '../../effects/use-position'
 
 // Types
 import { VNode } from 'vue'
-import { Props } from '../../types'
 
-const buttonProps: Props = {
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
-
-  outlined: {
-    type: Boolean,
-    default: false,
-  },
-
-  absolute: {
-    type: Boolean,
-    default: false,
-  },
-
-  left: {
-    type: Boolean,
-    default: false,
-  },
-
-  right: {
-    type: Boolean,
-    default: false,
-  },
-
-  text: {
-    type: Boolean,
-    default: false,
-  },
-
-  label: {
-    type: String,
-    default: '',
-  },
-
+const buttonProps: any = {
+  disabled: Boolean,
+  outlined: Boolean,
+  absolute: Boolean,
+  left: Boolean,
+  right: Boolean,
+  text: Boolean,
+  label: String,
   ...colorProps(),
   ...elevationProps(),
   ...positionProps(),
@@ -108,7 +79,7 @@ export const VButton = defineComponent({
 
       props.label && content.push(genLabel())
       slots.default && content.push(slots.default())
-      
+
       return h('button', dataProps, content)
     }
   },

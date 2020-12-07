@@ -12,12 +12,12 @@ import { sizeProps } from '../../effects/use-sizes'
 import { convertToUnit } from '../../helpers'
 
 // Types
-import { Props } from '../../types'
+import { VNode } from 'vue'
 
 // Services
 import { Sizes } from '../../services/sizes'
 
-const vIconProps: Props = {
+const vIconProps: any = {
   disabled: Boolean,
   active: Boolean,
   clickable: Boolean,
@@ -37,7 +37,7 @@ export const VIcon = defineComponent({
   name: 'v-icon',
   props: vIconProps,
 
-  setup(props, { slots }) {
+  setup(props, { slots }): () => VNode {
     const { setTextColor } = useColors()
 
     const icon = computed<string>(() => {
@@ -56,7 +56,7 @@ export const VIcon = defineComponent({
       }
     })
 
-    const isMedium = computed(() => {
+    const isMedium = computed<boolean>(() => {
       return (
         !props.large &&
         !props.small &&
@@ -66,7 +66,7 @@ export const VIcon = defineComponent({
       )
     })
 
-    const getSizes = () => {
+    const getSizes = (): string => {
       const sizeProps = {
         large: props.large,
         small: props.small,
@@ -80,7 +80,7 @@ export const VIcon = defineComponent({
       return (explicitSize && Sizes[explicitSize]) || convertToUnit(props.size)
     }
 
-    const genPropsData = () => {
+    const genDataProps = (): Record<string, any> => {
       return {
         class: classes.value,
         style: {
@@ -91,6 +91,6 @@ export const VIcon = defineComponent({
 
     const iconTag = props.clickable ? 'button' : props.tag
 
-    return () => h(iconTag, setTextColor(props.color, genPropsData()))
+    return (): VNode => h(iconTag, setTextColor(props.color, genDataProps()))
   },
 })

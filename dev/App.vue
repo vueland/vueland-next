@@ -54,11 +54,25 @@
 
 <template>
   <v-datepicker color="blue darken-4" dark/>
+  <v-form v-slot="{ validate }">
+    <v-text-field
+      label="test"
+      :rules="[v => !!v || 'required', v => v.length > 5 || 'more than 5']"
+    />
+    <v-button label="click" color="blue darken-3" @click="() => validate()"/>
+  </v-form>
+
 
   <v-form>
     <v-card v-if="!data.show" elevation="5">
+      <v-resize right/>
+      <v-resize bottom/>
+      <v-resize top/>
+      <v-resize left/>
       <v-card-title>
-        <span style="display: block; width: 55px; height: 55px; border-radius: 50px;" class="v-loading v-loading--dynamic"></span>
+        <span
+          style="display: block; width: 55px; height: 55px; border-radius: 50px;"
+              class="v-loading v-loading--dynamic"></span>
       </v-card-title>
       <v-card-content>
         <div style="width: 100%;">
@@ -66,11 +80,16 @@
             <span style="width: 40px; height: 40px; border-radius: 50px; margin-right:10px;" class="v-loading"></span>
             <span style="display: block; height: 25px;" class="v-loading">some little text</span>
           </div>
-          <span style="display: block; width: 100%; margin: 15px 0; height: 25px;" class="v-loading v-loading--dynamic"></span>
-          <span style="display: block; width: 100%; margin: 15px 0; height: 25px;" class="v-loading v-loading--dynamic"></span>
-          <span style="display: block; width: 100%; margin: 15px 0; height: 25px;" class="v-loading v-loading--dynamic"></span>
-          <span style="display: block; width: 100%; margin: 15px 0; height: 25px;" class="v-loading v-loading--dynamic"></span>
-          <span style="display: block; width: 100%; margin: 15px 0; height: 25px;" class="v-loading v-loading--dynamic"></span>
+          <span style="display: block; width: 100%; margin: 15px 0; height: 25px;"
+                class="v-loading v-loading--dynamic"></span>
+          <span style="display: block; width: 100%; margin: 15px 0; height: 25px;"
+                class="v-loading v-loading--dynamic"></span>
+          <span style="display: block; width: 100%; margin: 15px 0; height: 25px;"
+                class="v-loading v-loading--dynamic"></span>
+          <span style="display: block; width: 100%; margin: 15px 0; height: 25px;"
+                class="v-loading v-loading--dynamic"></span>
+          <span style="display: block; width: 100%; margin: 15px 0; height: 25px;"
+                class="v-loading v-loading--dynamic"></span>
         </div>
       </v-card-content>
     </v-card>
@@ -90,7 +109,7 @@
     </v-card>
   </v-form>
 
-  <v-button label="toggle" color="blue" @click="data.show = !data.show"/>
+  <v-button elevation="3" label="toggle" color="blue" @click="data.show = !data.show"/>
 
 </template>
 
@@ -134,7 +153,5 @@
     justify-content: center;
     width: 100%;
   }
-  .v-loading {
-    background-image: linear-gradient(100deg, #494949 30%, #646464 50%, #494949 70%) !important;
-  }
+
 </style>

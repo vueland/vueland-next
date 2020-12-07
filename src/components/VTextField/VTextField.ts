@@ -94,7 +94,7 @@ export const VTextField = defineComponent({
 
     onBeforeUnmount(() => {
       if (fields?.value) {
-        fields!.value = fields!.value.filter(v => v !== validateValue)
+        fields.value = fields.value.filter(v => v !== validateValue)
       }
     })
 
@@ -136,15 +136,11 @@ export const VTextField = defineComponent({
     }
 
     const genTextField = () => {
-      return h(
-        'div',
-        {
-          class: {
-            ...classes.value,
-          },
-        },
-        genInput(),
-      )
+
+      return h('div', {
+        class: classes.value,
+      }, genInput())
+
     }
 
     watch(

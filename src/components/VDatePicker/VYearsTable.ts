@@ -32,8 +32,8 @@ export const VYearsTable = defineComponent({
   setup(props) {
     const RANGE = 20
     const CELLS_IN_ROW = 4
-    const CURRENT_YEAR = +props.year! || new Date().getFullYear()
 
+    const currentYear = +props.year! || new Date().getFullYear()
     const color = props.dark ? 'white' : ''
     const years = ref([])
 
@@ -44,7 +44,7 @@ export const VYearsTable = defineComponent({
         years.value.length - 1 : 0
 
       const year = years.value[ind] + (!!ind ? 1 : -1)
-      const startFrom = year || CURRENT_YEAR
+      const startFrom = year || currentYear
 
       years.value = []
 
@@ -83,7 +83,7 @@ export const VYearsTable = defineComponent({
         class: {
           'v-years__header-display': true,
         },
-      }), CURRENT_YEAR)
+      }), currentYear)
     }
 
     const genYearsTableHeader = () => {

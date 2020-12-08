@@ -41,11 +41,15 @@
 
   &__header > .v-list-group__append-icon {
     min-width: $append-icon-min-width;
+    max-width: $append-icon-max-width;
+    min-height: 100%;
     text-align: center;
   }
 
   &__header > .v-list-group__prepend-icon {
-    min-width: $append-icon-min-width;
+    min-width: $prepend-icon-min-width;
+    max-width: $prepend-icon-max-width;
+    min-height: 100%;
     text-align: left;
   }
 

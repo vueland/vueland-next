@@ -1,9 +1,10 @@
 @import "../../styles/scss/modules/global";
+@import "variables";
 
 .v-years {
   width: 100%;
-  max-width: 400px;
-  border-radius: 5px;
+  max-width: $date-picker-max-width;
+  border-radius: $date-picker-border-radius;
 
   &__header {
     @include flex(flex, flex-start, stretch);
@@ -18,8 +19,8 @@
       }
 
       &:hover {
-        background: #05142d;
-        color: #ffffff !important;
+        background: $date-picker-hover-background;
+        color: $date-picker-hover-color !important;
       }
     }
 
@@ -43,8 +44,8 @@
     transition: all .2s linear;
 
     &:hover {
-      background: #05142d;
-      color: #ffffff !important;
+      background: $date-picker-hover-background;
+      color: $date-picker-hover-color !important;
     }
   }
 

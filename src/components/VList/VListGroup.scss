@@ -10,10 +10,6 @@
   border: none;
   transition: all .3s $primary-transition;
 
-  &:not(.v-list-group__sub-group) {
-    box-shadow: 0 0 2px 0 rgba(0, 0, 0, .4);
-  }
-
   & > .v-list-group {
     box-shadow: none !important;
   }
@@ -41,16 +37,16 @@
 
   &__header > .v-list-group__append-icon {
     min-width: $append-icon-min-width;
-    max-width: $append-icon-max-width;
+    flex-shrink: 0;
+    flex-grow: 0;
     min-height: 100%;
-    text-align: center;
   }
 
   &__header > .v-list-group__prepend-icon {
     min-width: $prepend-icon-min-width;
-    max-width: $prepend-icon-max-width;
+    flex-shrink: 0;
+    flex-grow: 0;
     min-height: 100%;
-    text-align: left;
   }
 
   &__header > *:nth-child(2) {
@@ -60,7 +56,9 @@
 
   &__header--sub-group > .v-list-group__prepend-icon {
     min-width: $append-icon-min-width;
-    text-align: left;
+    flex-shrink: 0;
+    flex-grow: 0;
+    min-height: 100%;
   }
 
   &--expanded > .v-list-group__header >

@@ -16,6 +16,7 @@ import {
 
 // Effects
 import { useColors } from '../../effects/use-colors'
+import { elevationProps, useElevation } from '../../effects/use-elevation'
 
 // Components
 import { VIcon } from '../VIcon'
@@ -50,6 +51,7 @@ const vListGroupProps: any = {
   group: String,
   noAction: Boolean,
   subGroup: Boolean,
+  ...elevationProps()
 }
 
 export const VListGroup = defineComponent({
@@ -58,6 +60,7 @@ export const VListGroup = defineComponent({
 
   setup(props, { slots, emit }) {
     const { setTextColor } = useColors()
+    const { elevationClasses } = useElevation(props)
 
     const refGroup = ref(null)
     const isActive = ref(false)
@@ -82,6 +85,7 @@ export const VListGroup = defineComponent({
       'v-list-group__sub-group': props.subGroup,
       'v-list-group--expanded': isActive.value && !props.noAction,
       [props.activeClass]: isActive.value,
+      ...elevationClasses.value
     }))
 
     const onClick = () => {
@@ -90,7 +94,7 @@ export const VListGroup = defineComponent({
       groups?.items.length && groups.listClick(refGroup)
 
       children.value.length &&
-        children.value.forEach((it: any) => (it.active = false))
+      children.value.forEach((it: any) => (it.active = false))
 
       emit('click')
     }

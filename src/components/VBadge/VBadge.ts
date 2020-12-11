@@ -116,7 +116,7 @@ export const VBadge = defineComponent({
     const genBadge = (): VNode => {
       const dataProps = setBackground(props.color, {
         class: classes.value,
-        style: [styles.value],
+        style: styles.value,
       })
 
       return h('div', dataProps, genContent())

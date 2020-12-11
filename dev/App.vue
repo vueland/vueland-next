@@ -1,74 +1,93 @@
 <script lang="ts">
-import { reactive, computed, watch } from 'vue'
+  import { reactive, computed, watch } from 'vue'
 
-export default {
-  setup() {
-    const data = reactive({
-      always: true,
-      show: false,
-      test: true,
-      login: '',
-      email: '',
-      password: '',
-      user: { name: 'igor' },
-      checked: [],
-      user2: { name: 'alyona' },
-    })
+  export default {
+    setup() {
+      const data = reactive({
+        always: true,
+        show: false,
+        test: true,
+        login: '',
+        email: '',
+        password: '',
+        user: { name: 'igor' },
+        checked: [],
+        user2: { name: 'alyona' },
+      })
 
-    setTimeout(() => {
-      data.always = false
-    }, 2000)
+      setTimeout(() => {
+        data.always = false
+      }, 2000)
 
-    watch(() => data.checked, to => {
-      console.log(to)
-    })
+      watch(() => data.checked, to => {
+        console.log(to)
+      })
 
-    const toggleAlways = () => {
-      data.always = !data.always
-    }
+      const toggleAlways = () => {
+        data.always = !data.always
+      }
 
-    const testFunc = () => {
-      console.log('tested')
-    }
+      const testFunc = () => {
+        console.log('tested')
+      }
 
-    const forOut = computed(() => {
-      return data.always ? testFunc : undefined
-    })
+      const forOut = computed(() => {
+        return data.always ? testFunc : undefined
+      })
 
-    const items = [
-      { name: 'Alex', age: 24 },
-      { name: 'Andrew', age: 24 },
-      { name: 'Nikol', age: 24 },
-      { name: 'Anna', age: 24 },
-    ]
+      const items = [
+        { name: 'Alex', age: 24 },
+        { name: 'Andrew', age: 24 },
+        { name: 'Nikol', age: 24 },
+        { name: 'Anna', age: 24 },
+      ]
 
-    return {
-      data,
-      items,
-      toggleAlways,
-      forOut,
-    }
-  },
-}
+      return {
+        data,
+        items,
+        toggleAlways,
+        forOut,
+      }
+    },
+  }
 </script>
 
 <template>
-  <v-datepicker color="blue darken-4" dark />
+  <v-list>
+    <v-list-group>
+      <template v-slot:title>
+        <v-list-item-title>
+          salam
+        </v-list-item-title>
+      </template>
+      <template v-slot:prependIcon>
+        <v-icon icon="fas fa-book" size="18"/>
+      </template>
+      <v-list-item>salam</v-list-item>
+      <v-list-group sub-group>
+        <template v-slot:title>
+          <v-list-item-title>salam</v-list-item-title>
+        </template>
+      </v-list-group>
+    </v-list-group>
+  </v-list>
+
+  <v-datepicker color="blue darken-4" dark/>
   <v-form v-slot="{ validate }">
     <v-text-field
       label="test"
       :rules="[v => !!v || 'required', v => v.length > 5 || 'more than 5']"
     />
-    <v-button label="click" color="blue darken-3" @click="() => validate()" />
+    <v-button label="click" color="blue darken-3" @click="() => validate()"/>
   </v-form>
 
 
   <v-form>
     <v-card v-if="!data.show" elevation="5">
-      <v-resize right />
-      <v-resize bottom />
-      <v-resize top />
-      <v-resize left />
+      <v-resize right/>
+      <v-resize bottom/>
+      <v-resize top/>
+      <v-resize left/>
       <v-card-title>
         <span
           style="display: block; width: 55px; height: 55px; border-radius: 50px;"
@@ -108,50 +127,69 @@ export default {
       </v-card-content>
     </v-card>
   </v-form>
+  <v-modal v-model="data.show" overlay transition="scaleIn">
+    <v-card color="blue darken-2">
+      <v-card-title>
+        test
+      </v-card-title>
+      <v-card-content>
+        salam
+      </v-card-content>
+      <v-card-actions>
+        <v-button label="click" @click="data.show = !data.show"/>
+      </v-card-actions>
+    </v-card>
+  </v-modal>
 
-  <v-button elevation="3" label="toggle" color="blue" @click="data.show = !data.show" />
+  <v-badge
+    color="#fa5a5a"
+    content="2"
+  >
+    <v-button elevation="3" label="toggle" color="blue" @click="data.show = !data.show"/>
+  </v-badge>
+
 
 </template>
 
 <style lang="scss">
-.active-class {
-  background: #272727;
-  color: white !important;
-}
-
-.wrap {
-  position: absolute;
-  left: 60px;
-  top: 60px;
-  width: calc(100% - 60px);
-  height: calc(100vh - 60px);
-}
-
-.app {
-  &-header {
-    width: 100%;
-    height: 60px;
+  .active-class {
     background: #272727;
+    color: white !important;
   }
 
-  &-sidebar {
+  .wrap {
     position: absolute;
+    left: 60px;
     top: 60px;
-    left: 0;
-    width: 60px;
+    width: calc(100% - 60px);
     height: calc(100vh - 60px);
-    background: #272727;
   }
-}
 
-.text {
-  display: inline-block;
-}
+  .app {
+    &-header {
+      width: 100%;
+      height: 60px;
+      background: #272727;
+    }
 
-.test {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
+    &-sidebar {
+      position: absolute;
+      top: 60px;
+      left: 0;
+      width: 60px;
+      height: calc(100vh - 60px);
+      background: #272727;
+    }
+  }
+
+  .text {
+    display: inline-block;
+  }
+
+  .test {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
 
 </style>

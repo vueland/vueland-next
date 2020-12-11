@@ -38,16 +38,17 @@ export const VModal = defineComponent({
   props: vModalProps,
 
   setup(props, { slots }) {
-    const showOverlay = ref(false)
+    const OVERLAY_TIMEOUT = 100
 
+    const showOverlay = ref(false)
     const { isActive } = useToggle(props)
 
     if (props.overlay) {
-      watch(() => isActive.value, () => {
-        setTimeout(() => {
-          showOverlay.value = !showOverlay.value
-        })
-      }, { immediate: true })
+      showOverlay.value = isActive.value
+
+      watch(() => isActive.value, (to) => {
+        setTimeout(() => showOverlay.value = to, OVERLAY_TIMEOUT)
+      })
     }
 
     const genOverlay = () => {
@@ -57,7 +58,7 @@ export const VModal = defineComponent({
           hide: !showOverlay.value,
           color: props.overlayColor,
         }),
-        [[vShow, isActive.value]],
+        [[vShow, (isActive.value || showOverlay.value)]],
       )
 
       return useTransition({ transition: 'fade' }, overlay)
@@ -68,7 +69,6 @@ export const VModal = defineComponent({
         'div',
         {
           class: 'v-modal',
-          show: isActive.value,
         },
         slots.default && slots.default(),
       ), [[vShow, isActive.value]])

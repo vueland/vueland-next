@@ -2,7 +2,15 @@
 import './VModal.scss'
 
 // Vue API
-import { defineComponent, h, ref, watch, withDirectives, vShow } from 'vue'
+import {
+  h,
+  ref,
+  watch,
+  computed,
+  withDirectives,
+  defineComponent,
+  vShow
+} from 'vue'
 
 // Effects
 import { useTransition } from '../../effects/use-transition'
@@ -38,27 +46,35 @@ export const VModal = defineComponent({
   props: vModalProps,
 
   setup(props, { slots }) {
-    const OVERLAY_TIMEOUT = 100
-
-    const showOverlay = ref(false)
     const { isActive } = useToggle(props)
 
+    const overlayState = ref(false)
+
+    const overlayTimeout = computed<number>(() => {
+      return isActive.value ? 100 : 200
+    })
+
+    const isTimeToToggleOverlay = computed(() => {
+      if (isActive.value) return overlayState.value
+      return isActive.value
+    })
+
     if (props.overlay) {
-      showOverlay.value = isActive.value
+      overlayState.value = isActive.value
 
       watch(() => isActive.value, (to) => {
-        setTimeout(() => showOverlay.value = to, OVERLAY_TIMEOUT)
+        setTimeout(() => overlayState.value = to, overlayTimeout.value)
       })
     }
 
     const genOverlay = () => {
       const overlay = withDirectives(
         h(VOverlay, {
-          active: showOverlay.value,
-          hide: !showOverlay.value,
+          active: isTimeToToggleOverlay.value,
+          hide: !isTimeToToggleOverlay.value,
           color: props.overlayColor,
         }),
-        [[vShow, (isActive.value || showOverlay.value)]],
+        [[vShow, (isActive.value || overlayState.value)]],
       )
 
       return useTransition({ transition: 'fade' }, overlay)

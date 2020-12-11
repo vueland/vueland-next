@@ -19,6 +19,11 @@
     font-family: $mainFont;
   }
 
+  &__subtitle {
+    padding: 5px 20px;
+    font-size: 1rem;
+  }
+
   &__content {
     @include flex(flex, center, center, column);
     text-align: left;

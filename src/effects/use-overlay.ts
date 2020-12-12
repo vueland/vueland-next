@@ -10,6 +10,13 @@ import { SetupContext, VNode } from 'vue'
 // Helpers
 import { addOnceListener } from '@/helpers'
 
+interface Overlayable {
+  createOverlay: () => void
+  removeOverlay: () => void
+}
+
+const TIMEOUT = 40
+
 export function overlayProps(): Props {
   return {
     overlay: Boolean,
@@ -21,11 +28,6 @@ export function overlayProps(): Props {
   }
 }
 
-interface Overlayable {
-  createOverlay: () => void
-  removeOverlay: () => void
-}
-
 export function useOverlay(props: Props, overlayOn?: Element): Overlayable {
   const container = document.createElement('div')
 
@@ -35,34 +37,36 @@ export function useOverlay(props: Props, overlayOn?: Element): Overlayable {
     color: props.overlayColor,
   }
 
-  const overlayVNode = () =>
-    VOverlay.setup!(
+  const overlayVNode = () => {
+    return VOverlay.setup!(
       overlayPropsObject as typeof VOverlay.props,
       {} as SetupContext,
     )
+  }
 
-  const renderOverlay = () => render(overlayVNode() as VNode, container!)
+  const renderOverlay = () => {
+    render(overlayVNode() as VNode, container!)
+  }
 
   renderOverlay()
-
   const overlayElement = container.firstChild
 
-  function createOverlay() {
+  const createOverlay = () => {
     overlayOn?.parentNode?.insertBefore(overlayElement!, overlayOn)
 
     setTimeout(() => {
       overlayPropsObject.active = true
       overlayPropsObject.hide = !props.overlay
       renderOverlay()
-    })
+    }, TIMEOUT)
   }
 
-  function removeOverlay(): void {
+  const removeOverlay = () => {
     overlayPropsObject.active = false
 
     renderOverlay()
 
-    function remove() {
+    const remove = () => {
       overlayOn?.parentNode?.removeChild(overlayElement!)
     }
 

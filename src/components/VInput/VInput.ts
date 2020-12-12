@@ -12,7 +12,7 @@ import { VNode } from 'vue'
 
 // Effects
 import { useTransition } from '../../effects/use-transition'
-import { colorProps } from '../../effects/use-colors'
+import { colorProps, useColors } from '../../effects/use-colors'
 
 const vInputProps: any = {
   dark: Boolean,
@@ -39,6 +39,7 @@ export const VInput = defineComponent({
   props: vInputProps,
 
   setup(props, { slots }) {
+    const { setTextColor } = useColors()
     const isValid = computed<boolean>(() => {
       return props.isDirty && props.hasState && !props.hasError
     })
@@ -74,7 +75,7 @@ export const VInput = defineComponent({
     }
 
     const genSlotContent = (): VNode => {
-      const dataProps = {
+      const propsData = {
         class: {
           'v-input__select-slot': !!slots.select,
           'v-input__field-slot': !!slots.textField,
@@ -86,17 +87,17 @@ export const VInput = defineComponent({
         slots.textField && slots.textField(),
       ]
 
-      return h('div', dataProps, slotContent)
+      return h('div', setTextColor(props.color, propsData), slotContent)
     }
 
     const genStatusMessage = (): VNode => {
-      const dataProps = {
+      const propsData = {
         class: {
           'v-input__status-message': true,
         },
       }
 
-      return h('span', dataProps, props.message)
+      return h('span', propsData, props.message)
     }
 
     const genStatus = (): VNode => {
@@ -105,16 +106,16 @@ export const VInput = defineComponent({
         (props.message && genStatusMessage()) as VNode,
       )
 
-      const dataProps = {
+      const propsData = {
         class: {
           'v-input__status': true,
         },
       }
 
-      return h('div', dataProps, transitionedMessage)
+      return h('div', propsData, transitionedMessage)
     }
 
-    const genDataProps = () => {
+    const genPropsData = () => {
       return {
         class: {
           ...classes.value,
@@ -123,6 +124,6 @@ export const VInput = defineComponent({
     }
 
     return (): VNode =>
-      h('div', genDataProps(), [genSlotContent(), genStatus()])
+      h('div', genPropsData(), [genSlotContent(), genStatus()])
   },
 })

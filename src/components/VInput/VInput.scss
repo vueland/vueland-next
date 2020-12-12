@@ -5,6 +5,7 @@
   flex: 1 1 auto;
   width: 100%;
   position: relative;
+  background: transparent !important;
 
   &__select-slot {
     position: relative;
@@ -17,6 +18,8 @@
     position: relative;
     width: 100%;
     height: 100%;
+    color: inherit;
+    caret-color: currentColor;
     border-bottom: 1px solid $borderColor;
   }
 
@@ -31,7 +34,7 @@
       height: 2px;
       transform-origin: center;
       transform: scaleX(0);
-      background: $primary;
+      background-color: currentColor;
       transition: all .3s $primary-transition;
       will-change: transform;
     }
@@ -45,7 +48,7 @@
     &-message {
       font-size: .8rem;
       position: absolute;
-      color: $danger;
+      color: currentColor;
       bottom: 3px;
     }
   }
@@ -58,6 +61,10 @@
   &--not-valid > .v-input__field-slot:after,
   &--not-valid > .v-input__select-slot:after {
     background: $danger;
+  }
+
+  &--not-valid > .v-input__status > .v-input__status-message {
+    color: $danger;
   }
 
   &--not-valid > .v-input__field-slot,

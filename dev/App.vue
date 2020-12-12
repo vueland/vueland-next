@@ -75,7 +75,9 @@
   <v-datepicker color="blue darken-4" dark/>
   <v-form v-slot="{ validate }">
     <v-text-field
-      label="test"
+      label="teal"
+      color="orange darken-2"
+      dark
       :rules="[v => !!v || 'required', v => v.length > 5 || 'more than 5']"
     />
     <v-button label="click" color="blue darken-3" @click="() => validate()"/>

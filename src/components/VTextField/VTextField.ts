@@ -58,7 +58,8 @@ export const VTextField = defineComponent({
 
     state.value = props.modelValue
 
-    const fields: Ref<any[]> | undefined = props.rules?.length && inject('fields')
+    const fields: Ref<any[]> | undefined =
+      props.rules?.length && inject('fields')
 
     const { setTextColor } = useColors()
 
@@ -67,7 +68,6 @@ export const VTextField = defineComponent({
       dirty,
       update,
       errorState,
-      computedColor,
       validateClasses,
       validationState,
     } = useValidate(props)
@@ -78,8 +78,7 @@ export const VTextField = defineComponent({
         'v-text-field--disabled': props.disabled,
         'v-text-field--dirty': errorState.isDirty,
         'v-text-field--valid': errorState.isDirty && !errorState.innerError,
-        'v-text-field--not-valid':
-          errorState.isDirty && !!errorState.innerError,
+        'v-text-field--not-valid': errorState.isDirty && !!errorState.innerError,
         ...validateClasses.value,
       }),
     )
@@ -117,7 +116,7 @@ export const VTextField = defineComponent({
     }
 
     const genInput = (): VNode => {
-      const textFieldProps = {
+      const propsData = {
         disabled: props.disabled,
         value: state.value,
         class: {
@@ -129,18 +128,24 @@ export const VTextField = defineComponent({
       }
 
       if (props.tag === 'input') {
-        (textFieldProps as any).type = props.type
+        (propsData as any).type = props.type
       }
 
-      return h(props.tag, setTextColor(computedColor.value!, textFieldProps))
+      return h(props.tag,
+        props.dark
+          ? setTextColor('white', propsData)
+          : propsData,
+      )
     }
 
     const genTextField = () => {
-
-      return h('div', {
-        class: classes.value,
-      }, genInput())
-
+      return h(
+        'div',
+        {
+          class: classes.value,
+        },
+        genInput(),
+      )
     }
 
     watch(

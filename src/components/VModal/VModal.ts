@@ -76,7 +76,7 @@ export const VModal = defineComponent({
       const content = withDirectives(h(
         'div',
         {
-          class: 'v-modal__slot',
+          class: 'v-modal',
         },
         slots.default && slots.default(),
       ), [[vShow, isActive.value]])
@@ -84,6 +84,6 @@ export const VModal = defineComponent({
       return useTransition(props, content)
     }
 
-    return () => h('div', { class: 'v-modal' }, [props.overlay ? genOverlay() : null, genContent()])
+    return () => [props.overlay ? genOverlay() : null, genContent()]
   },
 })

@@ -13,17 +13,14 @@ import { Props } from '../../types'
 const overlayProps: Props = {
   hide: Boolean,
   active: Boolean,
-  color: {
-    type: String,
-    default: '#000000',
-  },
+  color: String,
 }
 
 export const VOverlay = defineComponent({
   name: 'v-overlay',
   props: overlayProps,
 
-  setup(props): () => VNode {
+  setup(props): VNode {
     const { setBackground } = useColors()
 
     const classes = computed(() => {
@@ -40,6 +37,6 @@ export const VOverlay = defineComponent({
       ref: 'overlay',
     })
 
-    return () => h('div', setBackground(props.color, genDataProps()))
+    return h('div', setBackground(props.color, genDataProps()))
   },
 })

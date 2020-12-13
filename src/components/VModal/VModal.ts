@@ -3,11 +3,11 @@ import './VModal.scss'
 
 // Vue API
 import {
-  defineComponent,
   h,
   ref,
   watch,
   withDirectives,
+  defineComponent,
   vShow,
   onMounted,
 } from 'vue'
@@ -21,10 +21,6 @@ import { useToggle } from '../../effects/use-toggle'
 import { VNode } from 'vue'
 
 const vModalProps: Record<string, any> = {
-  width: {
-    type: [String, Number],
-    default: 400,
-  },
   modelValue: Boolean,
   ...overlayProps(),
   ...transitionProps(),
@@ -53,6 +49,7 @@ export const VModal = defineComponent({
             to && createOverlay()
             !to && removeOverlay()
           },
+          { immediate: true },
         )
       }
     })
@@ -66,17 +63,18 @@ export const VModal = defineComponent({
 
     const genModal = () => {
       const propsData = {
-        class:'v-modal',
+        class: 'v-modal',
         ref: modalRef,
         'onUpdate:modelValue': val => emit('update:modelValue', val),
       }
 
-      return h('div', propsData, genContent())
+      return withDirectives(h('div', propsData, genContent()), [
+        [vShow, isActive.value],
+      ])
     }
 
     return () => {
-      const modal = useTransition(props, genModal())
-      return withDirectives(h(modal), [[vShow, isActive.value]])
+      return useTransition(props, genModal())
     }
   },
 })

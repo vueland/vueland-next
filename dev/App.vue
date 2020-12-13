@@ -5,7 +5,7 @@
     setup() {
       const data = reactive({
         always: true,
-        show: false,
+        show: true,
         test: true,
         login: '',
         email: '',
@@ -128,19 +128,22 @@
       </v-card-content>
     </v-card>
   </v-form>
-  <v-modal v-model="data.show" overlay transition="scaleIn">
-    <v-card color="blue darken-2">
-      <v-card-title>
-        test
-      </v-card-title>
-      <v-card-content>
-        salam
-      </v-card-content>
-      <v-card-actions>
-        <v-button label="click" @click="data.show = !data.show"/>
-      </v-card-actions>
-    </v-card>
-  </v-modal>
+  <teleport to="#modal">
+    <v-modal v-model="data.show" overlay transition="scaleIn">
+      <v-card color="blue darken-2">
+        <v-card-title>
+          test
+        </v-card-title>
+        <v-card-content>
+          salam
+        </v-card-content>
+        <v-card-actions>
+          <v-button label="click" @click="data.show = !data.show"/>
+        </v-card-actions>
+      </v-card>
+    </v-modal>
+  </teleport>
+
 
   <v-badge
     color="#fa5a5a"

@@ -20,7 +20,6 @@ const TIMEOUT = 40
 export function overlayProps(): Props {
   return {
     overlay: Boolean,
-    overlayOpacity: [Number, String],
     overlayColor: {
       type: String,
       default: '#000000',

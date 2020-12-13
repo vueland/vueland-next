@@ -5,7 +5,7 @@
     setup() {
       const data = reactive({
         always: true,
-        show: true,
+        show: false,
         test: true,
         login: '',
         email: '',
@@ -76,10 +76,10 @@
   <v-form v-slot="{ validate }">
     <v-text-field
       label="teal"
-      color="amber accent-3"
+      color="blue darken-3"
       :rules="[v => !!v || 'required', v => v.length > 5 || 'more than 5']"
     />
-    <v-button label="click" color="blue darken-3" @click="() => validate()"/>
+    <v-button label="click" color="blue darken-3" @click="validate"/>
   </v-form>
 
 
@@ -148,6 +148,8 @@
   <v-badge
     color="#fa5a5a"
     content="2"
+    border
+    right
   >
     <v-tooltip
       color="blue darken-3"

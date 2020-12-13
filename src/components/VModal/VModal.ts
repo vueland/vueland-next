@@ -43,13 +43,14 @@ export const VModal = defineComponent({
           modalRef.value!,
         )
 
+        isActive.value && createOverlay()
+
         watch(
           () => isActive.value,
           to => {
             to && createOverlay()
             !to && removeOverlay()
           },
-          { immediate: true },
         )
       }
     })

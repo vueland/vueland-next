@@ -1,7 +1,106 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`VBadge should mound component and match snapshot 1`] = `
+exports[`VBadge should mount component and match snapshot 1`] = `
 <div class="v-badge">
+  <transition-stub>
+    <div class="v-badge__badge primary">
+      <div class="v-badge__content">
+      </div>
+    </div>
+  </transition-stub>
+</div>
+`;
+
+exports[`VBadge should render default slot and match snapshot 1`] = `
+<div class="v-badge">
+  <transition-stub>
+    <div class="v-badge__badge primary">
+      <div class="v-badge__content">
+      </div>
+    </div>
+  </transition-stub>
+  <div>
+    slot content
+  </div>
+</div>
+`;
+
+exports[`VBadge should render default slot and match snapshot 2`] = `
+<div class="v-badge">
+  <transition-stub>
+    <div class="v-badge__badge primary">
+      <div class="v-badge__content">
+        10
+      </div>
+    </div>
+  </transition-stub>
+  <div>
+    slot content
+  </div>
+</div>
+`;
+
+exports[`VBadge should set avatar style and match snapshot 1`] = `
+<div class="v-badge v-badge--avatar">
+  <transition-stub>
+    <div class="v-badge__badge primary">
+      <div class="v-badge__content">
+      </div>
+    </div>
+  </transition-stub>
+</div>
+`;
+
+exports[`VBadge should set badge slot and match snapshot 1`] = `
+<div class="v-badge">
+  <transition-stub>
+    <div class="v-badge__badge primary">
+      <div class="v-badge__content">
+        <div class="v-badge__badge-slot">
+          content
+        </div>
+      </div>
+    </div>
+  </transition-stub>
+</div>
+`;
+
+exports[`VBadge should set border and match snapshot 1`] = `
+<div class="v-badge v-badge--border">
+  <transition-stub>
+    <div class="v-badge__badge primary">
+      <div class="v-badge__content">
+      </div>
+    </div>
+  </transition-stub>
+</div>
+`;
+
+exports[`VBadge should set color and match snapshot 1`] = `
+<div class="v-badge">
+  <transition-stub>
+    <div class="v-badge__badge red darken-3">
+      <div class="v-badge__content">
+      </div>
+    </div>
+  </transition-stub>
+</div>
+`;
+
+exports[`VBadge should set content and match snapshot 1`] = `
+<div class="v-badge">
+  <transition-stub>
+    <div class="v-badge__badge primary">
+      <div class="v-badge__content">
+        10
+      </div>
+    </div>
+  </transition-stub>
+</div>
+`;
+
+exports[`VBadge should set dot style and match snapshot 1`] = `
+<div class="v-badge v-badge--dot">
   <transition-stub>
     <div class="v-badge__badge primary">
       <div class="v-badge__content">

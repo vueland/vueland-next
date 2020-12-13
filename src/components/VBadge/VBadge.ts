@@ -48,7 +48,7 @@ export const VBadge = defineComponent({
 
     const calcPosition = (offsetVal: string | number = 0): string => {
       const value = offset.value + Number(offsetVal)
-      return `calc(100% - ${value}px)`
+      return `calc(100% - ${ value }px)`
     }
 
     const computedLeft = computed<string | boolean>(() => {
@@ -67,12 +67,16 @@ export const VBadge = defineComponent({
       return props.top && calcPosition(props.offsetY)
     })
 
-    const classes = computed<Record<string, boolean>>(() => {
+    const classes = computed<Record<string, boolean>>(() => ({
+      'v-badge': true,
+      'v-badge--border': props.border,
+      'v-badge--dot': props.dot,
+      'v-badge--avatar': props.avatar,
+    }))
+
+    const badgeClasses = computed<Record<string, boolean>>(() => {
       return {
         'v-badge__badge': true,
-        'v-badge--border': props.border,
-        'v-badge--dot': props.dot,
-        'v-badge--avatar': props.avatar,
         ...elevationClasses.value,
       }
     })
@@ -94,32 +98,32 @@ export const VBadge = defineComponent({
     }
 
     const genBadgeSlot = (): VNode | null => {
-      const dataProps = {
+      const propsData = {
         class: {
           'v-badge__badge-slot': true,
         },
       }
 
-      return slots.badge ? h('div', dataProps,  slots.badge()) : null
+      return slots.badge ? h('div', propsData, slots.badge()) : null
     }
 
     const genContent = () => {
-      const dataProps = {
+      const propsData = {
         class: {
           'v-badge__content': true,
         },
       }
 
-      return h('div', dataProps, [addContent(), genBadgeSlot()])
+      return h('div', propsData, [addContent(), genBadgeSlot()])
     }
 
     const genBadge = (): VNode => {
-      const dataProps = setBackground(props.color, {
-        class: classes.value,
+      const propsData = setBackground(props.color, {
+        class: badgeClasses.value,
         style: styles.value,
       })
 
-      return h('div', dataProps, genContent())
+      return h('div', propsData, genContent())
     }
 
     return (): VNode => {
@@ -130,8 +134,8 @@ export const VBadge = defineComponent({
         badge = withDirectives(badge, [[vShow, isActive.value]])
       }
 
-      const dataProps = {
-        class: 'v-badge',
+      const propsData = {
+        class: classes.value,
       }
 
       const children = [
@@ -139,7 +143,7 @@ export const VBadge = defineComponent({
         slots.default && slots.default(),
       ]
 
-      return h('div', dataProps, children)
+      return h('div', propsData, children)
     }
   },
 })

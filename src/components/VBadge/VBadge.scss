@@ -27,7 +27,6 @@
   }
 
   &__badge-slot {
-
     & > * {
       width: 100%;
       min-height: 100%;
@@ -35,7 +34,7 @@
     }
   }
 
-  &--avatar {
+  &.v-badge--avatar > .v-badge__badge {
     position: relative;
     width: 90px;
     min-width: 90px;
@@ -43,13 +42,13 @@
     z-index: 8;
   }
 
-  &--dot {
+  &.v-badge--dot > .v-badge__badge {
     min-width: .5rem;
     min-height: .5rem;
     padding: 2px;
   }
 
-  &--border {
+  &.v-badge--border > .v-badge__badge {
     border-color: #FFFFFF !important;
     border-width: .18rem;
     border-style: solid;

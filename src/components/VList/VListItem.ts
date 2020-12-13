@@ -39,7 +39,7 @@ export const VListItem = defineComponent({
           class: classes.value,
           onClick,
         },
-        [props.value || props.modelValue || (slots.default && slots.default())],
+        props.value || props.modelValue || (slots.default && slots.default()),
       )
   },
 })

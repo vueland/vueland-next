@@ -51,14 +51,14 @@ const vListGroupProps: any = {
   group: String,
   noAction: Boolean,
   subGroup: Boolean,
-  ...elevationProps()
+  ...elevationProps(),
 }
 
 export const VListGroup = defineComponent({
   name: 'v-list-group',
   props: vListGroupProps,
 
-  setup(props, { slots, emit }) {
+  setup(props, { slots }) {
     const { setTextColor } = useColors()
     const { elevationClasses } = useElevation(props)
 
@@ -85,26 +85,23 @@ export const VListGroup = defineComponent({
       'v-list-group__sub-group': props.subGroup,
       'v-list-group--expanded': isActive.value && !props.noAction,
       [props.activeClass]: isActive.value,
-      ...elevationClasses.value
+      ...elevationClasses.value,
     }))
 
     const onClick = () => {
       if (props.noAction) return
 
       groups?.items.length && groups.listClick(refGroup)
-
       children.value.length &&
-      children.value.forEach((it: any) => (it.active = false))
-
-      emit('click')
+        children.value.forEach((it: any) => (it.active = false))
     }
 
     const genIcon = (icon: string): VNode => {
-      const dataProps = {
+      const propsData = {
         size: Sizes.small,
       }
 
-      return h(VIcon, dataProps, {
+      return h(VIcon, propsData, {
         default: () => icon,
       })
     }
@@ -115,13 +112,13 @@ export const VListGroup = defineComponent({
 
       if (!icon && !slotIcon) return null
 
-      const dataProps = {
+      const propsData = {
         class: {
           'v-list-group__append-icon': true,
         },
       }
 
-      return h(VListItemIcon, dataProps, {
+      return h(VListItemIcon, propsData, {
         default: () => slotIcon || genIcon(icon as string),
       })
     }
@@ -136,19 +133,19 @@ export const VListGroup = defineComponent({
 
       if (!icon && !slotIcon) return null
 
-      const dataProps = {
+      const propsData = {
         class: {
           'v-list-group__prepend-icon': true,
         },
       }
 
-      return h(VListItemIcon, dataProps, {
+      return h(VListItemIcon, propsData, {
         default: () => slotIcon || genIcon(icon as string),
       })
     }
 
     const genGroupHeader = (): VNode => {
-      const dataProps = {
+      const propsData = {
         class: {
           'v-list-group__header': !props.subGroup,
           'v-list-group__header--sub-group': props.subGroup,
@@ -156,7 +153,7 @@ export const VListGroup = defineComponent({
         onClick,
       }
 
-      return h(VListItem, dataProps, {
+      return h(VListItem, propsData, {
         default: () => [
           genPrependIcon(),
           slots.title && slots.title(),
@@ -166,19 +163,19 @@ export const VListGroup = defineComponent({
     }
 
     const genItems = (): VNode => {
-      const dataProps = {
+      const propsData = {
         class: {
           'v-list-group__items': true,
         },
       }
 
       return withDirectives(
-        h('div', dataProps, slots.default && slots.default()),
+        h('div', propsData, slots.default && slots.default()),
         [[vShow, isActive.value]],
       )
     }
 
-    const genDataProps = () => {
+    const genPropsData = () => {
       return {
         class: classes.value,
         ref: refGroup,
@@ -193,13 +190,13 @@ export const VListGroup = defineComponent({
       const items = slots.default && VExpandTransition(genItems())
       const header = slots.title && genGroupHeader()
 
-      const dataProps = props.color
-        ? setTextColor(props.color, genDataProps())
-        : genDataProps()
+      const propsData = props.color
+        ? setTextColor(props.color, genPropsData())
+        : genPropsData()
 
       const children = [header, items]
 
-      return h('div', dataProps, children)
+      return h('div', propsData, children)
     }
   },
 })

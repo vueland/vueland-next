@@ -45,6 +45,7 @@
       return {
         data,
         items,
+        testFunc,
         toggleAlways,
         forOut,
       }
@@ -54,7 +55,7 @@
 
 <template>
   <v-list>
-    <v-list-group>
+    <v-list-group @click="testFunc">
       <template v-slot:title>
         <v-list-item-title>
           salam
@@ -63,7 +64,7 @@
       <template v-slot:prependIcon>
         <v-icon icon="fas fa-book" size="18"/>
       </template>
-      <v-list-item>salam</v-list-item>
+      <v-list-item @click.stop="testFunc">salam</v-list-item>
       <v-list-group sub-group>
         <template v-slot:title>
           <v-list-item-title>salam</v-list-item-title>

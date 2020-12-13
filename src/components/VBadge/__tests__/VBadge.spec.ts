@@ -21,7 +21,6 @@ describe('VBadge', () => {
     }
     const cmp = mountFunction({ slots })
 
-    expect(cmp.find('.v-badge__badge-slot').exists()).toBe(true)
     expect(cmp.find('.v-badge__badge-slot').text()).toEqual(slots.badge())
     expect(cmp.html()).toMatchSnapshot()
   })
@@ -32,7 +31,6 @@ describe('VBadge', () => {
     }
     const cmp = mountFunction({ props })
 
-    expect(cmp.find('.v-badge__badge').exists()).toBe(true)
     expect(cmp.find('.v-badge__badge').text()).toEqual(props.content)
     expect(cmp.html()).toMatchSnapshot()
   })

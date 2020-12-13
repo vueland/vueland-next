@@ -147,7 +147,7 @@
 
 
   <v-badge
-    color="#fa5a5a"
+    color="blue darken-3"
     border
     right
     top

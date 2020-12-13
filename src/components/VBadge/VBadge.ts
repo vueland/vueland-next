@@ -118,21 +118,25 @@ export const VBadge = defineComponent({
           'v-badge__content': true,
         },
       }
-      const color = props.dark ? 'white' : ''
 
-      return h('div',
-        setTextColor(color, propsData),
+      return h('div', propsData,
         [addContent(), genBadgeSlot()],
       )
     }
 
     const genBadge = (): VNode => {
-      const propsData = setBackground(props.color, {
-        class: badgeClasses.value,
-        style: styles.value,
-      })
+      const color = props.dark ? 'white' : ''
 
-      return h('div', propsData, genContent())
+      const propsData = setBackground(
+        props.color,
+        {
+          class: badgeClasses.value,
+          style: styles.value,
+        },
+      )
+
+      return h('div',
+        setTextColor(color, propsData), genContent())
     }
 
     return (): VNode => {

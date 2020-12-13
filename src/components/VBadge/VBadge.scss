@@ -48,7 +48,7 @@
   }
 
   &.v-badge--border > .v-badge__badge {
-    border-color: #FFFFFF !important;
+    border-color: currentColor !important;
     border-width: .18rem;
     border-style: solid;
   }

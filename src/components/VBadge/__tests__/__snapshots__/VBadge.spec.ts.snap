@@ -3,7 +3,7 @@
 exports[`VBadge should mount component and match snapshot 1`] = `
 <div class="v-badge">
   <transition-stub>
-    <div class="v-badge__badge primary">
+    <div class="v-badge__badge primary white--text">
       <div class="v-badge__content">
       </div>
     </div>
@@ -14,7 +14,7 @@ exports[`VBadge should mount component and match snapshot 1`] = `
 exports[`VBadge should render default slot and match snapshot 1`] = `
 <div class="v-badge">
   <transition-stub>
-    <div class="v-badge__badge primary">
+    <div class="v-badge__badge primary white--text">
       <div class="v-badge__content">
       </div>
     </div>
@@ -28,7 +28,7 @@ exports[`VBadge should render default slot and match snapshot 1`] = `
 exports[`VBadge should set avatar style and match snapshot 1`] = `
 <div class="v-badge v-badge--avatar">
   <transition-stub>
-    <div class="v-badge__badge primary">
+    <div class="v-badge__badge primary white--text">
       <div class="v-badge__content">
       </div>
     </div>
@@ -39,7 +39,7 @@ exports[`VBadge should set avatar style and match snapshot 1`] = `
 exports[`VBadge should set badge slot and match snapshot 1`] = `
 <div class="v-badge">
   <transition-stub>
-    <div class="v-badge__badge primary">
+    <div class="v-badge__badge primary white--text">
       <div class="v-badge__content">
         <div class="v-badge__badge-slot">
           content
@@ -53,7 +53,7 @@ exports[`VBadge should set badge slot and match snapshot 1`] = `
 exports[`VBadge should set border and match snapshot 1`] = `
 <div class="v-badge v-badge--border">
   <transition-stub>
-    <div class="v-badge__badge primary">
+    <div class="v-badge__badge primary white--text">
       <div class="v-badge__content">
       </div>
     </div>
@@ -64,7 +64,7 @@ exports[`VBadge should set border and match snapshot 1`] = `
 exports[`VBadge should set bottom to true and match snapshot 1`] = `
 <div class="v-badge">
   <transition-stub>
-    <div class="v-badge__badge primary"
+    <div class="v-badge__badge primary white--text"
          style="bottom: -12px;"
     >
       <div class="v-badge__content">
@@ -78,7 +78,7 @@ exports[`VBadge should set bottom to true and match snapshot 1`] = `
 exports[`VBadge should set color and match snapshot 1`] = `
 <div class="v-badge">
   <transition-stub>
-    <div class="v-badge__badge red darken-3">
+    <div class="v-badge__badge red darken-3 white--text">
       <div class="v-badge__content">
       </div>
     </div>
@@ -89,7 +89,7 @@ exports[`VBadge should set color and match snapshot 1`] = `
 exports[`VBadge should set content and match snapshot 1`] = `
 <div class="v-badge">
   <transition-stub>
-    <div class="v-badge__badge primary">
+    <div class="v-badge__badge primary white--text">
       <div class="v-badge__content">
         10
       </div>
@@ -101,7 +101,7 @@ exports[`VBadge should set content and match snapshot 1`] = `
 exports[`VBadge should set dot style and match snapshot 1`] = `
 <div class="v-badge v-badge--dot">
   <transition-stub>
-    <div class="v-badge__badge primary">
+    <div class="v-badge__badge primary white--text">
       <div class="v-badge__content">
       </div>
     </div>
@@ -112,7 +112,7 @@ exports[`VBadge should set dot style and match snapshot 1`] = `
 exports[`VBadge should set left to true and match snapshot 1`] = `
 <div class="v-badge">
   <transition-stub>
-    <div class="v-badge__badge primary"
+    <div class="v-badge__badge primary white--text"
          style="left: -12px;"
     >
       <div class="v-badge__content">
@@ -129,7 +129,7 @@ exports[`VBadge should set left to true and match snapshot 1`] = `
 exports[`VBadge should set offset-x and match snapshot 1`] = `
 <div class="v-badge">
   <transition-stub>
-    <div class="v-badge__badge primary"
+    <div class="v-badge__badge primary white--text"
          style="right: -24px;"
     >
       <div class="v-badge__content">
@@ -143,7 +143,7 @@ exports[`VBadge should set offset-x and match snapshot 1`] = `
 exports[`VBadge should set offset-y and match snapshot 1`] = `
 <div class="v-badge">
   <transition-stub>
-    <div class="v-badge__badge primary"
+    <div class="v-badge__badge primary white--text"
          style="top: 0px;"
     >
       <div class="v-badge__content">
@@ -157,7 +157,7 @@ exports[`VBadge should set offset-y and match snapshot 1`] = `
 exports[`VBadge should set right to true and match snapshot 1`] = `
 <div class="v-badge">
   <transition-stub>
-    <div class="v-badge__badge primary"
+    <div class="v-badge__badge primary white--text"
          style="right: -12px;"
     >
       <div class="v-badge__content">
@@ -171,7 +171,7 @@ exports[`VBadge should set right to true and match snapshot 1`] = `
 exports[`VBadge should set top to true and match snapshot 1`] = `
 <div class="v-badge">
   <transition-stub>
-    <div class="v-badge__badge primary"
+    <div class="v-badge__badge primary white--text"
          style="top: -12px;"
     >
       <div class="v-badge__content">

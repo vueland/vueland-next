@@ -21,10 +21,10 @@ export const VMonthTable = defineComponent({
   props: vMonthTableProps,
 
   setup(props) {
-    const CELLS_IN_ROW = 3
+    // const CELLS_IN_ROW = 3
 
-    const currentMonth = locale[props.lang].months[new Date().getMonth()]
-    const selectedMonth = props.month || currentMonth
+    // const currentMonth = locale[props.lang].months[new Date().getMonth()]
+    // const selectedMonth = props.month || currentMonth
     const months = locale[props.lang].months
 
     const genMothsTableCells = () => {

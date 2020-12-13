@@ -41,17 +41,6 @@ exports[`VModal should open modal and match snapshot 1`] = `
 </div>
 `;
 
-exports[`VModal should set fade transition and match snapshot 1`] = `
-<transition-stub>
-  <div class="v-modal"
-       style="display: none;"
-  >
-    <div class="v-modal__content">
-    </div>
-  </div>
-</transition-stub>
-`;
-
 exports[`VModal should set overlay color and match snapshot 1`] = `
 <div>
   <transition-stub>

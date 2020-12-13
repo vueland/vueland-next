@@ -93,14 +93,14 @@ export const VBadge = defineComponent({
       return undefined
     }
 
-    const genBadgeSlot = (): VNode => {
+    const genBadgeSlot = (): VNode | null => {
       const dataProps = {
         class: {
           'v-badge__badge-slot': true,
         },
       }
 
-      return h('div', dataProps, slots.badge && slots.badge())
+      return slots.badge ? h('div', dataProps,  slots.badge()) : null
     }
 
     const genContent = () => {

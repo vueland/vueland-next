@@ -76,8 +76,7 @@
   <v-form v-slot="{ validate }">
     <v-text-field
       label="teal"
-      color="orange darken-2"
-      dark
+      color="amber accent-3"
       :rules="[v => !!v || 'required', v => v.length > 5 || 'more than 5']"
     />
     <v-button label="click" color="blue darken-3" @click="() => validate()"/>
@@ -147,7 +146,24 @@
     color="#fa5a5a"
     content="2"
   >
-    <v-button elevation="3" label="toggle" color="blue" @click="data.show = !data.show"/>
+    <v-tooltip
+      color="blue darken-3"
+      right
+      offset-x="12"
+      min-width="250"
+    >
+      <template v-slot:activator="{on}">
+        <v-button
+          elevation="3"
+          label="toggle"
+          color="blue"
+          v-on="on"
+          @click="data.show = !data.show"
+        />
+      </template>
+      <span>button</span>
+    </v-tooltip>
+
   </v-badge>
 
 

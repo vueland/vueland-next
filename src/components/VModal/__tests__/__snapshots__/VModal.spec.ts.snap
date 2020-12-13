@@ -1,68 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`VModal should mount component and match snapshot 1`] = `
-<transition-stub>
-  <div class="v-modal"
-       show="false"
-       style="display: none;"
-  >
-  </div>
-</transition-stub>
-`;
-
-exports[`VModal should set modelValue prop to true and match snapshot 1`] = `
-<transition-stub>
-  <div class="v-overlay v-overlay--active"
-       style="background-color: rgb(0, 0, 0); border-color: #000000;"
-  >
-  </div>
-</transition-stub>
-<transition-stub>
-  <div class="v-modal"
-       show="true"
-  >
-  </div>
-</transition-stub>
-`;
-
-exports[`VModal should set overlay and match snapshot 1`] = `
-<transition-stub>
-  <div class="v-overlay v-overlay--hidden"
-       style="background-color: rgb(0, 0, 0); border-color: #000000; display: none;"
-  >
-  </div>
-</transition-stub>
-<transition-stub>
-  <div class="v-modal"
-       show="false"
-       style="display: none;"
-  >
-  </div>
-</transition-stub>
-`;
-
-exports[`VModal should set overlay color and match snapshot 1`] = `
-<transition-stub>
-  <div class="v-overlay v-overlay--hidden red darken-2"
-       style="display: none;"
-  >
-  </div>
-</transition-stub>
-<transition-stub>
-  <div class="v-modal"
-       show="false"
-       style="display: none;"
-  >
+<transition-stub style="display: none;">
+  <div class="v-modal">
+    <div class="v-modal__content">
+    </div>
   </div>
 </transition-stub>
 `;
 
 exports[`VModal should set transition and match snapshot 1`] = `
-<transition-stub>
-  <div class="v-modal"
-       show="false"
-       style="display: none;"
-  >
+<transition-stub style="display: none;">
+  <div class="v-modal">
+    <div class="v-modal__content">
+    </div>
   </div>
 </transition-stub>
 `;

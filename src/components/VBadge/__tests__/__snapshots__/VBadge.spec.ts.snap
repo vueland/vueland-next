@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VBadge should mound component and match snapshot 1`] = `
+<div class="v-badge">
+  <transition-stub>
+    <div class="v-badge__badge primary">
+      <div class="v-badge__content">
+      </div>
+    </div>
+  </transition-stub>
+</div>
+`;

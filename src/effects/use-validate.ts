@@ -33,7 +33,7 @@ export function useValidate(props) {
   const validationState = computed<string | undefined>(() => {
     if (errorState.innerError) return 'danger'
     if (!errorState.innerError && errorState.innerError !== null)
-      return 'success'
+      return computedColor.value
     return computedColor.value || 'primary'
   })
 

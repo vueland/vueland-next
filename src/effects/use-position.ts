@@ -16,8 +16,14 @@ export const positionProps = (): Props => {
     right: Boolean,
     top: Boolean,
     bottom: Boolean,
-    offsetX: [String, Number],
-    offsetY: [String, Number],
+    offsetX: {
+      type: [String, Number],
+      default: 0
+    },
+    offsetY: {
+      type: [String, Number],
+      default: 0
+    },
   }
 }
 

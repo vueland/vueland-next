@@ -33,11 +33,11 @@ export function useActivator() {
   const genActivatorListeners = (props, isActive) => {
     if (props.openOnHover) {
       listeners.mouseenter = () => {
-        isActive.value = !isActive.value
+        isActive.value = true
       }
 
       listeners.mouseleave = () => {
-        isActive.value = !isActive.value
+        isActive.value = false
       }
     }
 

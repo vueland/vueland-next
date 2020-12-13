@@ -1,7 +1,6 @@
 import { h } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
 import { VBadge } from '../VBadge'
-import 'regenerator-runtime/runtime'
 
 describe('VBadge', () => {
   let mountFunction: (options?: any) => VueWrapper<any>
@@ -106,14 +105,11 @@ describe('VBadge', () => {
   })
 
   it('should set right to true and match snapshot', () => {
-    const slots = {
-      default: () => h('div', 'slot content'),
-    }
     const props = {
       right: true,
       content: '10',
     }
-    const cmp = mountFunction({ props, slots })
+    const cmp = mountFunction({ props })
 
     expect(cmp.find('.v-badge__badge').attributes().style).toContain(
       'right: -12px;',
@@ -122,14 +118,11 @@ describe('VBadge', () => {
   })
 
   it('should set top to true and match snapshot', () => {
-    const slots = {
-      default: () => h('div', 'slot content'),
-    }
     const props = {
       top: true,
       content: '10',
     }
-    const cmp = mountFunction({ props, slots })
+    const cmp = mountFunction({ props })
 
     expect(cmp.find('.v-badge__badge').attributes().style).toContain(
       'top: -12px;',
@@ -138,14 +131,11 @@ describe('VBadge', () => {
   })
 
   it('should set bottom to true and match snapshot', () => {
-    const slots = {
-      default: () => h('div', 'slot content'),
-    }
     const props = {
       bottom: true,
       content: '10',
     }
-    const cmp = mountFunction({ props, slots })
+    const cmp = mountFunction({ props })
 
     expect(cmp.find('.v-badge__badge').attributes().style).toContain(
       'bottom: -12px;',
@@ -154,15 +144,12 @@ describe('VBadge', () => {
   })
 
   it('should set offset-x and match snapshot', () => {
-    const slots = {
-      default: () => h('div', 'slot content'),
-    }
     const props = {
       right: true,
       content: '10',
       offsetX: 12,
     }
-    const cmp = mountFunction({ props, slots })
+    const cmp = mountFunction({ props })
 
     expect(cmp.find('.v-badge__badge').attributes().style).toContain(
       'right: -24px;',
@@ -171,15 +158,12 @@ describe('VBadge', () => {
   })
 
   it('should set offset-y and match snapshot', () => {
-    const slots = {
-      default: () => h('div', 'slot content'),
-    }
     const props = {
       top: true,
       content: '10',
       offsetY: -12,
     }
-    const cmp = mountFunction({ props, slots })
+    const cmp = mountFunction({ props })
 
     expect(cmp.find('.v-badge__badge').attributes().style).toContain(
       'top: 0px;',

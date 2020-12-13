@@ -72,9 +72,6 @@ exports[`VBadge should set bottom to true and match snapshot 1`] = `
       </div>
     </div>
   </transition-stub>
-  <div>
-    slot content
-  </div>
 </div>
 `;
 
@@ -140,9 +137,6 @@ exports[`VBadge should set offset-x and match snapshot 1`] = `
       </div>
     </div>
   </transition-stub>
-  <div>
-    slot content
-  </div>
 </div>
 `;
 
@@ -157,9 +151,6 @@ exports[`VBadge should set offset-y and match snapshot 1`] = `
       </div>
     </div>
   </transition-stub>
-  <div>
-    slot content
-  </div>
 </div>
 `;
 
@@ -174,9 +165,6 @@ exports[`VBadge should set right to true and match snapshot 1`] = `
       </div>
     </div>
   </transition-stub>
-  <div>
-    slot content
-  </div>
 </div>
 `;
 
@@ -191,8 +179,5 @@ exports[`VBadge should set top to true and match snapshot 1`] = `
       </div>
     </div>
   </transition-stub>
-  <div>
-    slot content
-  </div>
 </div>
 `;

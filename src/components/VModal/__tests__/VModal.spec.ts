@@ -4,7 +4,7 @@ import { VModal } from '../VModal'
 import 'regenerator-runtime/runtime'
 
 const OVERLAY_TIMEOUT = 100
-const waitOverlay = () => new Promise(res => setTimeout(res, OVERLAY_TIMEOUT))
+const delay = () => new Promise(res => setTimeout(res, OVERLAY_TIMEOUT))
 const WrapComponentFunction = props =>
   defineComponent({
     setup() {
@@ -55,7 +55,7 @@ describe('VModal', () => {
       modelValue: true,
     }
     const wrap = mount(WrapComponentFunction(props))
-    await waitOverlay()
+    await delay()
 
     expect(wrap.find('.v-overlay').exists()).toBe(true)
     expect(wrap.find('.v-overlay').attributes().style).toContain(
@@ -70,7 +70,7 @@ describe('VModal', () => {
       modelValue: true,
     }
     const wrap = mount(WrapComponentFunction(props))
-    await waitOverlay()
+    await delay()
 
     expect(wrap.find('.v-overlay').exists()).toBe(true)
     expect(wrap.html()).toMatchSnapshot()
@@ -82,7 +82,7 @@ describe('VModal', () => {
       modelValue: false,
     }
     const wrap = mount(WrapComponentFunction(props))
-    await waitOverlay()
+    await delay()
 
     expect(wrap.find('.v-overlay').exists()).toBe(false)
     expect(wrap.find('.v-modal').attributes().style).toContain('display: none;')

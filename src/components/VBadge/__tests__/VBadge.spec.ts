@@ -12,6 +12,18 @@ describe('VBadge', () => {
   it('should mount component and match snapshot', () => {
     const cmp = mountFunction()
 
+    expect(cmp.find('.v-badge__badge').attributes().class).toContain(
+      'white--text',
+    )
+    expect(cmp.html()).toMatchSnapshot()
+  })
+
+  it('should remove dark mode style and match snapshot', () => {
+    const props = {
+      dark: false,
+    }
+    const cmp = mountFunction({ props })
+    expect(cmp.find('.white--text').exists()).toBe(false)
     expect(cmp.html()).toMatchSnapshot()
   })
 

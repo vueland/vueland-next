@@ -14,8 +14,6 @@
     min-width: 26px;
     min-height: 26px;
     text-align: center;
-    color: $mainWhite;
-    font-family: $mainFont;
     overflow: hidden;
     will-change: transform;
   }
@@ -31,6 +29,7 @@
       width: 100%;
       min-height: 100%;
       object-fit: contain;
+      color: currentColor;
     }
   }
 

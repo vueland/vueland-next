@@ -148,11 +148,13 @@
 
   <v-badge
     color="#fa5a5a"
-    content="2"
     border
     right
     top
   >
+    <template v-slot:badge>
+      <span>2</span>
+    </template>
     <v-tooltip
       color="blue darken-3"
       right

@@ -150,6 +150,8 @@
     content="2"
     border
     right
+    top
+    offset-y="-20"
   >
     <v-tooltip
       color="blue darken-3"

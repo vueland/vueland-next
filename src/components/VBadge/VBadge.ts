@@ -47,24 +47,24 @@ export const VBadge = defineComponent({
     })
 
     const calcPosition = (offsetVal: string | number = 0): string => {
-      const value = offset.value + Number(offsetVal)
-      return `calc(100% - ${ value }px)`
+      const value = -offset.value - Number(offsetVal)
+      return `${ value }px`
     }
 
     const computedLeft = computed<string | boolean>(() => {
-      return props.right && calcPosition(props.offsetX)
-    })
-
-    const computedRight = computed<string | boolean>(() => {
       return props.left && calcPosition(props.offsetX)
     })
 
+    const computedRight = computed<string | boolean>(() => {
+      return props.right && calcPosition(props.offsetX)
+    })
+
     const computedTop = computed<string | boolean>(() => {
-      return props.bottom && calcPosition(props.offsetY)
+      return props.top && calcPosition(props.offsetY)
     })
 
     const computedBottom = computed<string | boolean>(() => {
-      return props.top && calcPosition(props.offsetY)
+      return props.bottom && calcPosition(props.offsetY)
     })
 
     const classes = computed<Record<string, boolean>>(() => ({

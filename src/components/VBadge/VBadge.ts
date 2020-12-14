@@ -18,10 +18,6 @@ const vBadgeProps: any = {
   avatar: Boolean,
   border: Boolean,
   toggle: Boolean,
-  dark: {
-    type: Boolean,
-    default: true,
-  },
   content: {
     required: false,
   },
@@ -44,7 +40,7 @@ export const VBadge = defineComponent({
 
   setup(props, { slots }): () => VNode {
     const { elevationClasses } = useElevation(props)
-    const { setBackground, setTextColor } = useColors()
+    const { setBackground } = useColors()
 
     const offset = computed<number>(() => {
       return props.dot ? 4 : 12
@@ -125,8 +121,6 @@ export const VBadge = defineComponent({
     }
 
     const genBadge = (): VNode => {
-      const color = props.dark ? 'white' : ''
-
       const propsData = setBackground(
         props.color,
         {
@@ -135,8 +129,7 @@ export const VBadge = defineComponent({
         },
       )
 
-      return h('div',
-        setTextColor(color, propsData), genContent())
+      return h('div', propsData, genContent())
     }
 
     return (): VNode => {

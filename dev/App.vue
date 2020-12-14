@@ -145,7 +145,6 @@
     </v-modal>
   </teleport>
 
-
   <v-badge
     color="blue darken-3"
     border

@@ -29,7 +29,7 @@
       width: 100%;
       min-height: 100%;
       object-fit: contain;
-      color: currentColor;
+      color: $mainWhite;
     }
   }
 
@@ -48,7 +48,7 @@
   }
 
   &.v-badge--border > .v-badge__badge {
-    border-color: currentColor !important;
+    border-color: $mainWhite !important;
     border-width: .18rem;
     border-style: solid;
   }

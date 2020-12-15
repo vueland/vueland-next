@@ -24,7 +24,7 @@ export const locale = {
       'воскресенье',
     ],
   },
-  eng: {
+  en: {
     months: [
       'january',
       'february',

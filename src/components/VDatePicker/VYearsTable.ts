@@ -29,11 +29,11 @@ export const VYearsTable = defineComponent({
   name: 'v-years-table',
   props: vYearsProps,
 
-  setup(props) {
+  setup(props, { emit }) {
     const RANGE = 20
     const CELLS_IN_ROW = 4
 
-    const currentYear = +props.year! || new Date().getFullYear()
+    const currentYear = ref(+props.year! || new Date().getFullYear())
     const color = props.dark ? 'white' : ''
     const years = ref([])
 
@@ -44,7 +44,7 @@ export const VYearsTable = defineComponent({
         years.value.length - 1 : 0
 
       const year = years.value[ind] + (!!ind ? 1 : -1)
-      const startFrom = year || currentYear
+      const startFrom = year || currentYear.value
 
       years.value = []
 
@@ -57,6 +57,11 @@ export const VYearsTable = defineComponent({
       }
 
       !isForward && years.value.reverse()
+    }
+
+    const selectYear = (year) => {
+      currentYear.value = year
+      emit('update:year', year)
     }
 
     const genArrowButton = (isRight) => {
@@ -83,7 +88,7 @@ export const VYearsTable = defineComponent({
         class: {
           'v-years__header-display': true,
         },
-      }), currentYear)
+      }), currentYear.value)
     }
 
     const genYearsTableHeader = () => {
@@ -101,7 +106,9 @@ export const VYearsTable = defineComponent({
         return h('div', setTextColor(color, {
           class: {
             'v-years__cell': true,
+            'v-years__cell--selected': year === currentYear.value,
           },
+          onClick: () => selectYear(year),
           key: year,
         }), year)
       })
@@ -109,7 +116,7 @@ export const VYearsTable = defineComponent({
 
     const genYearTableRows = () => {
       const yearsVNodes: VNode[] = genYearTableCells()
-      const tableRows: VNode[] = []
+      const yearTableRows: VNode[] = []
 
       const genTableRow = dateVNodes => {
         return h('div', {
@@ -122,14 +129,14 @@ export const VYearsTable = defineComponent({
       for (let i = 0; i <= yearsVNodes.length; i += 1) {
 
         if (i && !(i % CELLS_IN_ROW)) {
-          tableRows.push(genTableRow(rowYears))
+          yearTableRows.push(genTableRow(rowYears))
           rowYears = []
         }
 
         rowYears.push(yearsVNodes[i])
       }
 
-      return tableRows
+      return yearTableRows
     }
 
     const genYearsTable = () => {

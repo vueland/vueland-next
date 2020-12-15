@@ -73,7 +73,11 @@
     </v-list-group>
   </v-list>
 
-  <v-datepicker color="blue darken-4" dark/>
+  <v-datepicker
+    color="blue darken-4"
+    lang="en"
+    dark
+  />
   <v-form v-slot="{ validate }">
     <v-text-field
       label="teal"

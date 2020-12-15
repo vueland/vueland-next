@@ -1,0 +1,25 @@
+@import "../../styles/scss/modules/global";
+@import "variables";
+
+.v-months {
+  @include flex(flex, flex-start, flex-start, column);
+  width: 100%;
+  max-width: $date-picker-max-width;
+  border-radius: $date-picker-border-radius;
+  overflow: hidden;
+
+  &__row {
+    @include flex(flex, flex-start, flex-start);
+    width: 100%;
+  }
+
+  &__cell {
+    width: 33.3%;
+    text-align: center;
+    padding: 30px 20px;
+
+    &:hover {
+      background: $primary;
+    }
+  }
+}

@@ -4,7 +4,9 @@ import { VModal } from '../VModal'
 import 'regenerator-runtime/runtime'
 
 const OVERLAY_TIMEOUT = 100
+
 const delay = () => new Promise(res => setTimeout(res, OVERLAY_TIMEOUT))
+
 const WrapComponentFunction = props =>
   defineComponent({
     setup() {

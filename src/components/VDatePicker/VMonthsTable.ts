@@ -1,18 +1,21 @@
 // Styles
-import './VMonthTable.scss'
+import './VMonthsTable.scss'
 
 // Vue API
-import { h, defineComponent } from 'vue'
+import { h, ref, defineComponent } from 'vue'
 
 // Services
 import { locale } from '../../services/locale'
 
+// Types
+import { VNode } from 'vue'
+
 const vMonthTableProps: any = {
   lang: {
     type: String,
-    default: 'eng',
+    default: 'en',
   },
-  month: String,
+  month: [String, Number],
 }
 
 export const VMonthTable = defineComponent({
@@ -20,21 +23,60 @@ export const VMonthTable = defineComponent({
 
   props: vMonthTableProps,
 
-  setup(props) {
-    // const CELLS_IN_ROW = 3
-
-    // const currentMonth = locale[props.lang].months[new Date().getMonth()]
-    // const selectedMonth = props.month || currentMonth
+  setup(props, { emit }) {
+    const CELLS_IN_ROW = 3
+    const currentMonth = ref(+props.month || new Date().getMonth())
     const months = locale[props.lang].months
 
+    const selectMonth = (month) => {
+      currentMonth.value = month
+      emit('update:month', month)
+    }
+
     const genMothsTableCells = () => {
-      return months.map(month => {
+      return months.map((month, i) => {
         return h('div', {
-          class: 'v-months__cell',
+          class: {
+            'v-months__cell':true,
+            'v-moths__cell--selected': i === currentMonth
+          },
+          onClick: () => selectMonth(i)
         }, month)
       })
     }
 
-    return () => h('div', {}, genMothsTableCells())
+    const genMonthRows = () => {
+      const monthsVNodes = genMothsTableCells()
+      const monthsTableRows: VNode[] = []
+
+      const genTableRow = monthsVNodes => {
+        return h('div', {
+          class: 'v-months__row',
+        }, monthsVNodes)
+      }
+
+      let rowMonths: VNode[] = []
+
+      for (let i = 0; i <= monthsVNodes.length; i += 1) {
+        if (i && !(i % CELLS_IN_ROW)) {
+          monthsTableRows.push(genTableRow(rowMonths))
+          rowMonths = []
+        }
+
+        rowMonths.push(monthsVNodes[i])
+      }
+
+      return monthsTableRows
+    }
+
+    const genMonthsTable = () => {
+      return h('div', {
+        class: {
+          'v-months': true,
+        },
+      }, genMonthRows())
+    }
+
+    return () => genMonthsTable()
   },
 })

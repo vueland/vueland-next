@@ -69,9 +69,10 @@ export const VModal = defineComponent({
         'onUpdate:modelValue': val => emit('update:modelValue', val),
       }
 
-      return withDirectives(h('div', propsData, genContent()), [
-        [vShow, isActive.value],
-      ])
+      return withDirectives(
+        h('div', propsData, genContent()),
+        [[vShow, isActive.value]],
+      )
     }
 
     return () => {

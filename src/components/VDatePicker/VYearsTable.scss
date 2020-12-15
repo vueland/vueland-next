@@ -5,6 +5,7 @@
   width: 100%;
   max-width: $date-picker-max-width;
   border-radius: $date-picker-border-radius;
+  overflow: hidden;
 
   &__header {
     @include flex(flex, flex-start, stretch);
@@ -46,6 +47,10 @@
     &:hover {
       background: $date-picker-hover-background;
       color: $date-picker-hover-color !important;
+    }
+
+    &--selected {
+      background: $primary;
     }
   }
 

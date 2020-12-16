@@ -13,6 +13,7 @@ import { parseDate } from './helpers'
 // Components
 import { VYearsTable } from './VYearsTable'
 import { VMonthTable } from './VMonthsTable'
+import { VDatepickerHeader } from './VDatepickerHeader'
 
 const vDatePickerProps: any = {
   dark: Boolean,
@@ -44,7 +45,13 @@ export const VDatepicker = defineComponent({
 
     watch(() => props.value, setParsedDate, { immediate: true })
 
-    const genYearsTable = () => {
+    const genDatepickerHeader = () => {
+      return h(VDatepickerHeader, {
+        dark: props.dark
+      })
+    }
+
+    const genDatepickerYearsTable = () => {
       const propsData = {
         dark: props.dark,
         year: year.value,
@@ -54,7 +61,7 @@ export const VDatepicker = defineComponent({
       return h(VYearsTable, propsData)
     }
 
-    const genMonthsTable = () => {
+    const genDatepickerMonthsTable = () => {
       const propsData = {
         dark: props.dark,
         lang: props.lang,
@@ -68,11 +75,12 @@ export const VDatepicker = defineComponent({
     return () => {
       return h('div', setBackground(props.color, {
         class: {
-          'v-datepicker': true
+          'v-datepicker': true,
         },
       }), [
-        genYearsTable(),
-        genMonthsTable(),
+        genDatepickerHeader(),
+        genDatepickerYearsTable(),
+        genDatepickerMonthsTable(),
       ])
     }
   },

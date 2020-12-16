@@ -2,13 +2,13 @@
 import './VMonthsTable.scss'
 
 // Vue API
-import { h, ref, defineComponent } from 'vue'
+import { h, computed, defineComponent } from 'vue'
 
 // Services
 import { locale } from '../../services/locale'
 
-// Types
-import { VNode } from 'vue'
+// Helpers
+import { genTableRows } from './helpers'
 
 const vMonthTableProps: any = {
   lang: {
@@ -25,8 +25,17 @@ export const VMonthTable = defineComponent({
 
   setup(props, { emit }) {
     const CELLS_IN_ROW = 3
-    const currentMonth = ref(+props.month || new Date().getMonth())
     const months = locale[props.lang].months
+
+    const currentMonth = computed({
+      get() {
+        return +props.month || new Date().getMonth()
+      },
+
+      set(val) {
+        emit('update:month', val)
+      }
+    })
 
     const selectMonth = (month) => {
       currentMonth.value = month
@@ -37,36 +46,22 @@ export const VMonthTable = defineComponent({
       return months.map((month, i) => {
         return h('div', {
           class: {
-            'v-months__cell':true,
-            'v-moths__cell--selected': i === currentMonth
+            'v-months__cell': true,
+            'v-moths__cell--selected': i === currentMonth.value,
           },
-          onClick: () => selectMonth(i)
+          onClick: () => selectMonth(i),
         }, month)
       })
     }
 
     const genMonthRows = () => {
       const monthsVNodes = genMothsTableCells()
-      const monthsTableRows: VNode[] = []
 
-      const genTableRow = monthsVNodes => {
-        return h('div', {
-          class: 'v-months__row',
-        }, monthsVNodes)
-      }
-
-      let rowMonths: VNode[] = []
-
-      for (let i = 0; i <= monthsVNodes.length; i += 1) {
-        if (i && !(i % CELLS_IN_ROW)) {
-          monthsTableRows.push(genTableRow(rowMonths))
-          rowMonths = []
-        }
-
-        rowMonths.push(monthsVNodes[i])
-      }
-
-      return monthsTableRows
+      return genTableRows(
+        monthsVNodes,
+        'v-months__row',
+        CELLS_IN_ROW,
+      )
     }
 
     const genMonthsTable = () => {

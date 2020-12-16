@@ -13,6 +13,7 @@
         user: { name: 'igor' },
         checked: [],
         user2: { name: 'alyona' },
+        date: new Date(),
       })
 
       setTimeout(() => {
@@ -28,6 +29,7 @@
       }
 
       const testFunc = () => {
+        data.date = new Date(2019, 5, 4)
         console.log('tested')
       }
 
@@ -75,8 +77,9 @@
 
   <v-datepicker
     color="blue darken-4"
-    lang="en"
+    lang="ru"
     dark
+    :value="data.date"
   />
   <v-form v-slot="{ validate }">
     <v-text-field

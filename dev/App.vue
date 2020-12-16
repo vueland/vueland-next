@@ -77,7 +77,7 @@
 
   <v-datepicker
     color="blue darken-4"
-    lang="ru"
+    lang="en"
     dark
     :value="data.date"
   />

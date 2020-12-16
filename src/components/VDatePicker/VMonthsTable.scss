@@ -4,9 +4,7 @@
 .v-months {
   @include flex(flex, flex-start, flex-start, column);
   width: 100%;
-  max-width: $date-picker-max-width;
-  max-height: $date-picker-max-height;
-  border-radius: $date-picker-border-radius;
+  height: 400px;
   overflow: hidden;
 
   &__row {
@@ -15,9 +13,9 @@
   }
 
   &__cell {
+    @include flex(flex, center, center);
     width: 33.3%;
-    text-align: center;
-    padding: 30px 20px;
+    height: 100px;
 
     &:hover {
       background: $primary;

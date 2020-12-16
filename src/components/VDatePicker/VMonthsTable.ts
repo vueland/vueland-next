@@ -7,6 +7,9 @@ import { h, computed, defineComponent } from 'vue'
 // Services
 import { locale } from '../../services/locale'
 
+// Effects
+import { useColors } from '../../effects/use-colors'
+
 // Helpers
 import { genTableRows } from './helpers'
 
@@ -15,6 +18,7 @@ const vMonthTableProps: any = {
     type: String,
     default: 'en',
   },
+  dark: Boolean,
   month: [String, Number],
 }
 
@@ -27,6 +31,8 @@ export const VMonthTable = defineComponent({
     const CELLS_IN_ROW = 3
     const months = locale[props.lang].months
 
+    const { setTextColor } = useColors()
+
     const currentMonth = computed({
       get() {
         return +props.month || new Date().getMonth()
@@ -34,7 +40,7 @@ export const VMonthTable = defineComponent({
 
       set(val) {
         emit('update:month', val)
-      }
+      },
     })
 
     const selectMonth = (month) => {
@@ -43,14 +49,16 @@ export const VMonthTable = defineComponent({
     }
 
     const genMothsTableCells = () => {
+      const color = props.dark ? 'white' : ''
       return months.map((month, i) => {
-        return h('div', {
+        return h('div', setTextColor(color, {
           class: {
             'v-months__cell': true,
             'v-moths__cell--selected': i === currentMonth.value,
           },
           onClick: () => selectMonth(i),
-        }, month)
+        }), month)
+
       })
     }
 

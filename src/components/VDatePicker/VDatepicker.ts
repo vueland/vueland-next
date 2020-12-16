@@ -5,7 +5,7 @@ import './VDatepicker.scss'
 import { h, ref, watch, defineComponent } from 'vue'
 
 // Effects
-import { colorProps } from '../../effects/use-colors'
+import { colorProps, useColors } from '../../effects/use-colors'
 
 // Helpers
 import { parseDate } from './helpers'
@@ -31,6 +31,8 @@ export const VDatepicker = defineComponent({
     const month = ref<number | null>(null)
     const date = ref<number | null>(null)
 
+    const { setBackground } = useColors()
+
     const setParsedDate = selectedDate => {
       const dateForParsing = selectedDate || new Date()
       const parsedDate = parseDate(dateForParsing)
@@ -44,7 +46,6 @@ export const VDatepicker = defineComponent({
 
     const genYearsTable = () => {
       const propsData = {
-        color: props.color,
         dark: props.dark,
         year: year.value,
         ['onUpdate:year']: ($event) => year.value = $event,
@@ -55,6 +56,7 @@ export const VDatepicker = defineComponent({
 
     const genMonthsTable = () => {
       const propsData = {
+        dark: props.dark,
         lang: props.lang,
         month: month.value,
         ['onUpdate:month']: ($event) => month.value = $event,
@@ -64,9 +66,13 @@ export const VDatepicker = defineComponent({
     }
 
     return () => {
-      return h('div', {}, [
+      return h('div', setBackground(props.color, {
+        class: {
+          'v-datepicker': true
+        },
+      }), [
         genYearsTable(),
-        genMonthsTable()
+        genMonthsTable(),
       ])
     }
   },

@@ -22,10 +22,6 @@ import { VNode } from 'vue'
 const vYearsProps: any = {
   year: [Number, String],
   dark: Boolean,
-  color: {
-    type: String,
-    default: 'white',
-  },
 }
 
 export const VYearsTable = defineComponent({
@@ -40,7 +36,7 @@ export const VYearsTable = defineComponent({
     const color = props.dark ? 'white' : ''
     const years = ref([])
 
-    const { setTextColor, setBackground } = useColors()
+    const { setTextColor } = useColors()
 
     const currentYear = computed({
       get() {
@@ -139,11 +135,11 @@ export const VYearsTable = defineComponent({
 
     const genYearsTable = () => {
       return h('div',
-        setBackground(props.color, {
+         {
           class: {
             'v-years': true,
           },
-        }),
+        },
         [
           genYearsTableHeader(),
           genYearTableRows(),

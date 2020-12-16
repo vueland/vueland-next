@@ -3,21 +3,20 @@
 
 .v-years {
   width: 100%;
-  max-width: $date-picker-max-width;
-  max-height: $date-picker-max-height;
-  border-radius: $date-picker-border-radius;
+  height: 400px;
   overflow: hidden;
 
   &__header {
     @include flex(flex, flex-start, stretch);
     width: 100%;
+    height: $date-picker-header-height;
 
     &-button {
       text-align: center;
       transition: all .2s linear;
 
       & > .v-icon {
-        padding: 20px;
+        padding: 15px 20px;
       }
 
       &:hover {
@@ -39,9 +38,9 @@
   }
 
   &__cell {
+    @include flex(flex, center, center);
     width: 25%;
-    text-align: center;
-    padding: 20px 5px;
+    height: $date-picker-years-cell-height;
     cursor: pointer;
     transition: all .2s linear;
 

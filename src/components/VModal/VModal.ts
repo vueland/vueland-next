@@ -75,8 +75,6 @@ export const VModal = defineComponent({
       )
     }
 
-    return () => {
-      return useTransition(props, genModal())
-    }
+    return () => useTransition(genModal(), props.transition)
   },
 })

@@ -145,7 +145,7 @@ export const VBadge = defineComponent({
       }
 
       const children = [
-        useTransition(props, badge),
+        useTransition(badge, props.transition),
         slots.default && slots.default(),
       ]
 

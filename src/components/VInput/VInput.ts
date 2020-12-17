@@ -102,8 +102,8 @@ export const VInput = defineComponent({
 
     const genStatus = (): VNode => {
       const transitionedMessage = useTransition(
-        { transition: 'fade' } as object,
         (props.message && genStatusMessage()) as VNode,
+        'fade'
       )
 
       const propsData = {

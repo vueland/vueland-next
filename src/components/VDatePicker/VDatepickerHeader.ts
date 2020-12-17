@@ -11,7 +11,7 @@ import { useColors } from '../../effects/use-colors'
 import { FaIcons } from '../../services/icons'
 import { VIcon } from '@/components'
 
-const vDatepickerHeaderProps: any = {
+const props: any = {
   dark: Boolean,
   year: String,
   month: String,
@@ -21,7 +21,7 @@ const vDatepickerHeaderProps: any = {
 
 export const VDatepickerHeader = defineComponent({
   name: 'v-datepicker-header',
-  props: vDatepickerHeaderProps,
+  props,
 
   setup(props, { slots }) {
     const color = props.dark ? 'white' : ''
@@ -36,10 +36,10 @@ export const VDatepickerHeader = defineComponent({
         setTextColor(color as string, {
           icon,
           clickable: true,
+          size: 18,
           onClick: () => isRight ?
             props.onNext() :
             props.onPrev(),
-          size: 18,
         }),
       )
 

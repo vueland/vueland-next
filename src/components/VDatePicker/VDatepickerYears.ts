@@ -14,47 +14,51 @@ import { genTableRows } from './helpers'
 import { VNode } from 'vue'
 import { useTransition } from '../../effects/use-transition'
 
-const vYearsProps: any = {
+const props: any = {
   year: [Number, String],
   dark: Boolean,
 }
 
 export const VDatepickerYears = defineComponent({
   name: 'v-years-table',
-  props: vYearsProps,
+  props,
 
   setup(props, { emit }) {
+    // constants
     const LIMIT = 100
     const ON_TABLE = 20
     const CELLS_IN_ROW = 4
     const ANIMATION_TIMEOUT = 100
 
+    // reactive
     const years = ref<Array<number[]>>([])
     const onTableIndex = ref<number>(0)
     const isListChanged = ref<boolean>(false)
     const transition = ref<string>('')
-
-    const handlers = inject('handlers') as any
     const color: string = props.dark ? 'white' : ''
 
+    // injects
+    const handlers = inject('handlers') as any
+
+    // effects
     const { setTextColor } = useColors()
 
     watchEffect(
-      () =>
-        isListChanged.value &&
-        setTimeout(() => (isListChanged.value = false), ANIMATION_TIMEOUT),
+      () => isListChanged.value &&
+        setTimeout(() => isListChanged.value = false, ANIMATION_TIMEOUT),
     )
 
+    // computed values
     const computedYear = computed<number>({
       get() {
         return +props.year! || new Date().getFullYear()
       },
-
       set(val: number) {
         emit('update:year', val)
       },
     })
 
+    // methods
     const setCurrentTransition = isNext => {
       transition.value = isNext ? 'fade-in-down' : 'fade-in-up'
     }
@@ -71,8 +75,10 @@ export const VDatepickerYears = defineComponent({
       const max = years.value.length - 1
       const val = isNext ? 1 : -1
 
-      if (onTableIndex.value === max && val > 0) return
-      if (onTableIndex.value === 0 && val < 0) return
+      if (
+        (onTableIndex.value === max && val > 0) ||
+        (onTableIndex.value === 0 && val < 0)
+      ) return
 
       setCurrentTransition(isNext)
 
@@ -126,19 +132,18 @@ export const VDatepickerYears = defineComponent({
     }
 
     const genDatepickerYearsList = (): VNode | boolean => {
+      const propsData = {
+        class: 'v-datepicker-years__list',
+      }
       return (
-        !isListChanged.value &&
-        h('div', {
-            class: 'v-datepicker-years__list',
-          }, genDatepickerYearsRows(),
-        )
+        !isListChanged.value && h('div', propsData, genDatepickerYearsRows())
       )
     }
 
     const genDatepickerYearsTable = (): VNode => {
       const content = useTransition(
-        { transition: transition.value },
         genDatepickerYearsList() as VNode,
+        transition.value,
       )
       const propsData = {
         class: {

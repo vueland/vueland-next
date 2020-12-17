@@ -150,8 +150,8 @@ export const VTooltip = defineComponent({
 
     const genTooltip = (): VNode => {
       const content = useTransition(
-        { transition: innerActive.value ? 'scaleIn' : 'fade' },
         genContent() as VNode,
+        innerActive.value ? 'scaleIn' : 'fade'
       )
 
       return h(

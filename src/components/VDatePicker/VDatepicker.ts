@@ -99,13 +99,17 @@ export const VDatepicker = defineComponent({
     }
 
     const genDisplayValue = value => {
-      return useTransition({ transition: 'fade-in-down' },
-        h('span', {
-          class: {
-            'v-datepicker__display-value': true,
-          },
-          key: value,
-        }, value), 'out-in')
+      const propsData = {
+        class: {
+          'v-datepicker__display-value': true,
+        },
+        key: value,
+      }
+      return useTransition(
+        h('span', propsData, value),
+        'fade-in-down',
+        'out-in',
+      )
     }
 
     const genDatepickerDisplay = () => {
@@ -136,7 +140,7 @@ export const VDatepicker = defineComponent({
       const propsData = {
         dark: props.dark,
         year: tableYear.value,
-        ['onUpdate:year']: onYearUpdate
+        ['onUpdate:year']: onYearUpdate,
       }
 
       return h(VDatepickerYears, propsData)
@@ -148,7 +152,7 @@ export const VDatepicker = defineComponent({
         lang: props.lang,
         month: tableMonth.value,
         locale: localeMonths,
-        ['onUpdate:month']: onMonthUpdate
+        ['onUpdate:month']: onMonthUpdate,
       }
 
       return h(VDatepickerMonths, propsData)
@@ -159,10 +163,10 @@ export const VDatepicker = defineComponent({
         class: {
           'v-datepicker__body': true,
         },
-      }, useTransition({ transition: 'slide-in-left' }, (
+      }, useTransition((
         isYears.value && genDatepickerYearsTable() ||
         isMonths.value && genDatepickerMonthsTable()
-      ) as any, 'out-in'))
+      ) as any, 'slide-in-left', 'out-in'))
     }
 
     return () => {

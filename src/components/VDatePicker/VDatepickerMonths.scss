@@ -4,7 +4,6 @@
 .v-months {
   @include flex(flex, flex-start, flex-start, column);
   width: 100%;
-  height: 400px;
   overflow: hidden;
 
   &__row {
@@ -15,7 +14,9 @@
   &__cell {
     @include flex(flex, center, center);
     width: 33.3%;
-    height: 100px;
+    height: $date-picker-month-cell-height;
+    cursor: pointer;
+    transition: background .2s $primary-transition;
 
     &:hover {
       background: $primary;

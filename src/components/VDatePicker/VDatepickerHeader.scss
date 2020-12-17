@@ -4,12 +4,25 @@
 .v-datepicker-header {
   @include flex(flex, space-between, center);
 
+  &__display {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    padding: 15px 0;
+    cursor: pointer;
+    transition: color .2s $primary-transition;
+
+    &:hover {
+      color: $primary !important;
+    }
+  }
+
   &__button {
     text-align: center;
     transition: all .2s linear;
 
     & > .v-icon {
-      padding: 15px 20px;
+      padding: 16px 20px;
     }
 
     &:hover {

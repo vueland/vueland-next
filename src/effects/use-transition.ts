@@ -9,8 +9,12 @@ export function transitionProps() {
   }
 }
 
-export function useTransition({ transition }: Props, vNode: VNode): VNode {
-  const props = { name: transition }
+export function useTransition(
+  { transition }: Props,
+  vNode: VNode,
+  mode: string = '',
+): VNode {
+  const props = { name: transition, mode }
   return createBlock(Transition, props, {
     default: withCtx(() => vNode && [h(vNode)]),
   })

@@ -1,11 +1,30 @@
 @import "../../styles/scss/modules/global";
 @import "variables";
 
-
 .v-datepicker {
   width: 100%;
   max-width: $date-picker-max-width;
-  //max-height: $date-picker-max-height;
+  height: $date-picker-height;
   border-radius: $date-picker-border-radius;
   overflow: hidden;
+
+  &__display {
+    @include flex(flex, flex-start, center);
+    padding: 20px;
+    width: 100%;
+    height: 75px;
+    background: #ffffff;
+
+    &-value {
+      display: block;
+      margin-right: 8px;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: currentColor;
+    }
+  }
+
+  &__body {
+    position: relative;
+  }
 }

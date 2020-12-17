@@ -33,6 +33,7 @@ export function parseDate(selectedDate: string) {
     year: date.getFullYear(),
     month: date.getMonth(),
     date: date.getDate(),
+    day: date.getDay()
   }
 }
 

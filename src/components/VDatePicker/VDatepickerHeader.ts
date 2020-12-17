@@ -15,15 +15,15 @@ const vDatepickerHeaderProps: any = {
   dark: Boolean,
   year: String,
   month: String,
-  rightHandler: Function,
-  leftHandler: Function,
+  onNext: Function,
+  onPrev: Function,
 }
 
 export const VDatepickerHeader = defineComponent({
   name: 'v-datepicker-header',
   props: vDatepickerHeaderProps,
 
-  setup(props) {
+  setup(props, { slots }) {
     const color = props.dark ? 'white' : ''
     const { setTextColor } = useColors()
 
@@ -37,8 +37,8 @@ export const VDatepickerHeader = defineComponent({
           icon,
           clickable: true,
           onClick: () => isRight ?
-            props.rightHandler() :
-            props.leftHandler(),
+            props.onNext() :
+            props.onPrev(),
           size: 18,
         }),
       )
@@ -53,7 +53,7 @@ export const VDatepickerHeader = defineComponent({
         class: {
           'v-datepicker-header__display': true,
         },
-      }) )
+      }), slots.default && slots.default())
     }
 
     return () => h('div', {

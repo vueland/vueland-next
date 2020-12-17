@@ -79,6 +79,7 @@
     color="blue darken-4"
     lang="en"
     dark
+    elevation="4"
     :value="data.date"
   />
   <v-form v-slot="{ validate }">
@@ -137,7 +138,7 @@
     </v-card>
   </v-form>
   <teleport to="#modal">
-    <v-modal v-model="data.show" overlay transition="scaleIn">
+    <v-modal v-model="data.show" overlay transition="scale-in">
       <v-card color="blue darken-2">
         <v-card-title>
           test

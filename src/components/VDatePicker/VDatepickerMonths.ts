@@ -1,11 +1,8 @@
 // Styles
-import './VMonthsTable.scss'
+import './VDatepickerMonths.scss'
 
 // Vue API
 import { h, computed, defineComponent } from 'vue'
-
-// Services
-import { locale } from '../../services/locale'
 
 // Effects
 import { useColors } from '../../effects/use-colors'
@@ -20,16 +17,17 @@ const vMonthTableProps: any = {
   },
   dark: Boolean,
   month: [String, Number],
+  locale: [Array]
 }
 
-export const VMonthTable = defineComponent({
+export const VDatepickerMonths = defineComponent({
   name: 'v-months-table',
 
   props: vMonthTableProps,
 
   setup(props, { emit }) {
     const CELLS_IN_ROW = 3
-    const months = locale[props.lang].months
+    const months = props.locale
 
     const { setTextColor } = useColors()
 

@@ -151,7 +151,7 @@ export const VDatepicker = defineComponent({
         dark: props.dark,
         lang: props.lang,
         month: tableMonth.value,
-        locale: localeMonths,
+        localeMonths,
         ['onUpdate:month']: onMonthUpdate,
       }
 

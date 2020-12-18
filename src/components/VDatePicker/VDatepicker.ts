@@ -70,7 +70,7 @@ export const VDatepicker = defineComponent({
       tableMonth: null,
       tableYear: null,
       isYears: false,
-      isMonths: false,
+      isMonths: true,
       isDates: true,
     })
 

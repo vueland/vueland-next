@@ -77,10 +77,10 @@
 
   <v-datepicker
     color="grey darken-4"
-    lang="ru"
+    lang="en"
     dark
     elevation="4"
-    :value="new Date(2019, 7, 25)"
+    :value="data.date"
   />
   <v-form v-slot="{ validate }">
     <v-text-field

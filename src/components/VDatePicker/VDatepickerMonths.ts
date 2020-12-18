@@ -25,9 +25,11 @@ export const VDatepickerMonths = defineComponent({
     const CELLS_IN_ROW = 3
     const MONTHS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 
+    const currentMonth = new Date().getMonth()
+
     const computedMonth = computed({
       get() {
-        return +props.month || new Date().getMonth()
+        return props.month !== undefined ? +props.month : currentMonth
       },
 
       set(val) {

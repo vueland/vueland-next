@@ -19,6 +19,7 @@ export const VDatepickerDates = defineComponent({
   props,
 
   setup(props, { emit }) {
+    const MAX_DATE = 31
     const WEEK = [0, 1, 2, 3, 4, 5, 6]
     const CURRENT_DATE = new Date().getDate()
 
@@ -51,26 +52,28 @@ export const VDatepickerDates = defineComponent({
       let day: number | null = null
 
       for (let i = 0; i <= daysInMonth.value; i += 1) {
-
         if (day === null) {
           day = new Date(props.year, props.month, i).getDay()
 
-          for (let j = 0; j < day; j+= 1) {
+          for (let j = 0; j < day; j += 1) {
             dates.value.push(null as any)
           }
 
           dates.value[day] = i
         }
 
-        dates.value[day + i] = i + 1
+        if ((i + 1) <= MAX_DATE) {
+          dates.value[day + i] = i + 1
+        }
       }
     }
 
 
-    watch(() => props.month, to => to && genTableDates(), { immediate: true })
+    watch(() => props.month,
+      to => to && genTableDates(),
+      { immediate: true })
 
     const genDateCell = date => {
-
       const isSelected = props.date || date === computedDate.value
 
       return h('div', {
@@ -101,7 +104,6 @@ export const VDatepickerDates = defineComponent({
     }
 
     const genDatesTable = () => {
-
       return h('div', {
         class: 'v-datepicker-dates__dates',
       }, genDateRows())

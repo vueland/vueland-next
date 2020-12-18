@@ -60,7 +60,7 @@ const props: any = {
 export const VDatepicker = defineComponent({
   name: 'v-datepicker',
   props,
-  setup(props) {
+  setup(props, { emit }) {
 
     const data: Data = reactive({
       year: null,
@@ -70,7 +70,7 @@ export const VDatepicker = defineComponent({
       tableMonth: null,
       tableYear: null,
       isYears: false,
-      isMonths: true,
+      isMonths: false,
       isDates: true,
     })
 
@@ -96,6 +96,8 @@ export const VDatepicker = defineComponent({
       data.month = parsedDate.month
       data.date = parsedDate.date
       data.day = parsedDate.day ? parsedDate.day - 1 : 0
+
+      console.log(data)
     }
 
     watch(() => props.value, setParsedDate, { immediate: true })
@@ -107,8 +109,8 @@ export const VDatepicker = defineComponent({
 
     const headerValue = computed<string>(() => {
       return (data.isYears || data.isMonths) ?
-        `${ data.tableYear }` : data.isDates ?
-          `${ data.tableYear } ${ localeMonths[data.tableMonth] }` : ''
+        `${data.tableYear}` : data.isDates ?
+          `${data.tableYear} ${localeMonths[data.tableMonth]}` : ''
     })
 
     const onYearUpdate = ($event) => {
@@ -188,7 +190,10 @@ export const VDatepicker = defineComponent({
         localeWeek,
         month: data.tableMonth,
         year: data.tableYear,
-        date: data.date
+        date: data.date,
+        ['onUpdate:date']: $event => emit('update:value', new Date(
+          data.year as number, data.month as number, $event
+        )),
       })
     }
 

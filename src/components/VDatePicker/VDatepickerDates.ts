@@ -15,7 +15,7 @@ const props: any = {
 }
 
 export const VDatepickerDates = defineComponent({
-  name: 'v-datepicker-dates',
+  name: 'v-dates',
   props,
 
   setup(props, { emit }) {
@@ -28,17 +28,17 @@ export const VDatepickerDates = defineComponent({
 
     const computedDate = computed<number>({
       get() {
-        return +props.date || CURRENT_DATE
+        return props.date !== undefined ? +props.date : CURRENT_DATE
       },
       set(val) {
-        emit('update:date', val)
+       !!val && emit('update:date', val)
       },
     })
 
     const genWeekDays = () => {
       const propsData = {
         class: {
-          'v-datepicker-dates__day': true,
+          'v-dates__day': true,
         },
       }
 
@@ -68,7 +68,6 @@ export const VDatepickerDates = defineComponent({
       }
     }
 
-
     watch(() => props.month,
       to => to && genTableDates(),
       { immediate: true })
@@ -78,9 +77,10 @@ export const VDatepickerDates = defineComponent({
 
       return h('div', {
         class: {
-          'v-datepicker-dates__cell': true,
-          'v-datepicker-dates__cell--selected': isSelected,
-          'v-datepicker-dates__cell--current-date': date === CURRENT_DATE,
+          'v-dates__cell': true,
+          'v-dates__cell--selected': isSelected,
+          'v-dates__cell--current-date': date === CURRENT_DATE,
+          'v-dates__cell--holiday': false
         },
         onClick: () => computedDate.value = date,
       }, date)
@@ -98,23 +98,22 @@ export const VDatepickerDates = defineComponent({
 
       return genTableRows(
         datesVNodes,
-        'v-datepicker-dates__row',
+        'v-dates__row',
         WEEK.length,
       )
     }
 
     const genDatesTable = () => {
       return h('div', {
-        class: 'v-datepicker-dates__dates',
+        class: 'v-dates__dates',
       }, genDateRows())
     }
 
     const genWeek = () => {
       return h('div', {
-        class: 'v-datepicker-dates__week',
+        class: 'v-dates__week',
       }, genWeekDays())
     }
-
 
     return () => h('div', {}, [genWeek(), genDatesTable()])
   },

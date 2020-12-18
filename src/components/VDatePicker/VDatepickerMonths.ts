@@ -31,7 +31,6 @@ export const VDatepickerMonths = defineComponent({
       get() {
         return props.month !== undefined ? +props.month : currentMonth
       },
-
       set(val) {
         emit('update:month', val)
       },

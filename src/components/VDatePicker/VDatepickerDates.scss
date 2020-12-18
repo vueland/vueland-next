@@ -1,7 +1,7 @@
 @import "../../styles/scss/modules/global";
 @import "variables";
 
-.v-datepicker-dates {
+.v-dates {
   &__week {
     @include flex(flex, flex-start, stretch);
   }
@@ -16,6 +16,7 @@
     width: calc(100% / 7);
     text-align: center;
     border: thin solid transparent;
+    cursor: pointer;
 
     &--current-date {
       border-color: currentColor;

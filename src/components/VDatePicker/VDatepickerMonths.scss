@@ -1,7 +1,7 @@
 @import "../../styles/scss/modules/global";
 @import "variables";
 
-.v-months {
+.v-datepicker-months {
   @include flex(flex, flex-start, flex-start, column);
   width: 100%;
   overflow: hidden;
@@ -14,12 +14,17 @@
   &__cell {
     @include flex(flex, center, center);
     width: 33.3%;
-    height: $date-picker-month-cell-height;
+    padding: 22px;
     cursor: pointer;
+    border: thin solid transparent;
     transition: background .2s $primary-transition;
 
+    &--selected {
+      border-color: currentColor;
+    }
+
     &:hover {
-      background: $primary;
+      color: $date-picker-hover-color !important;
     }
   }
 }

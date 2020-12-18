@@ -12,11 +12,9 @@ import { FaIcons } from '../../services/icons'
 import { VIcon } from '@/components'
 
 const props: any = {
-  dark: Boolean,
-  year: String,
-  month: String,
   onNext: Function,
   onPrev: Function,
+  color: String,
 }
 
 export const VDatepickerHeader = defineComponent({
@@ -24,7 +22,6 @@ export const VDatepickerHeader = defineComponent({
   props,
 
   setup(props, { slots }) {
-    const color = props.dark ? 'white' : ''
     const { setTextColor } = useColors()
 
     const genHeaderButton = (isRight) => {
@@ -33,7 +30,7 @@ export const VDatepickerHeader = defineComponent({
         FaIcons.$arrowLeft
 
       const arrowBtn = h(VIcon,
-        setTextColor(color as string, {
+        setTextColor(props.color, {
           icon,
           clickable: true,
           size: 18,
@@ -44,20 +41,20 @@ export const VDatepickerHeader = defineComponent({
       )
 
       return h('div', {
-        class: 'v-datepicker-header__button',
+        class: 'v-datepicker__header-button',
       }, arrowBtn)
     }
 
     const genHeaderDisplay = () => {
-      return h('div', setTextColor(color, {
+      return h('div', setTextColor(props.color, {
         class: {
-          'v-datepicker-header__display': true,
+          'v-datepicker__header-display': true,
         },
       }), slots.default && slots.default())
     }
 
     return () => h('div', {
-      class: 'v-datepicker-header',
+      class: 'v-datepicker__header',
     }, [
       genHeaderButton(false),
       genHeaderDisplay(),

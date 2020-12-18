@@ -4,9 +4,6 @@ import './VDatepickerYears.scss'
 // VUe API
 import { h, ref, watchEffect, inject, computed, defineComponent } from 'vue'
 
-// Effects
-import { useColors } from '../../effects/use-colors'
-
 // Helpers
 import { genTableRows } from './helpers'
 
@@ -16,7 +13,6 @@ import { useTransition } from '../../effects/use-transition'
 
 const props: any = {
   year: [Number, String],
-  dark: Boolean,
 }
 
 export const VDatepickerYears = defineComponent({
@@ -29,29 +25,28 @@ export const VDatepickerYears = defineComponent({
     const ON_TABLE = 20
     const CELLS_IN_ROW = 4
     const ANIMATION_TIMEOUT = 100
+    const CURRENT_YEAR = new Date().getFullYear()
 
     // reactive
     const years = ref<Array<number[]>>([])
     const onTableIndex = ref<number>(0)
     const isListChanged = ref<boolean>(false)
     const transition = ref<string>('')
-    const color: string = props.dark ? 'white' : ''
 
     // injects
     const handlers = inject('handlers') as any
 
-    // effects
-    const { setTextColor } = useColors()
-
     watchEffect(
       () => isListChanged.value &&
-        setTimeout(() => isListChanged.value = false, ANIMATION_TIMEOUT),
+        setTimeout(() => {
+          isListChanged.value = false
+        }, ANIMATION_TIMEOUT),
     )
 
     // computed values
     const computedYear = computed<number>({
       get() {
-        return +props.year! || new Date().getFullYear()
+        return +props.year! || CURRENT_YEAR
       },
       set(val: number) {
         emit('update:year', val)
@@ -64,10 +59,8 @@ export const VDatepickerYears = defineComponent({
     }
 
     const setTableIndex = () => {
-      onTableIndex.value = years.value.findIndex(range => {
-        return range.find(year => {
-          return year === computedYear.value
-        })
+      onTableIndex.value = years.value.findIndex(row => {
+        return row.find(year => year === computedYear.value)
       })
     }
 
@@ -87,8 +80,7 @@ export const VDatepickerYears = defineComponent({
     }
 
     const genTableYears = () => {
-      const init = new Date().getFullYear()
-      const fromYear = init - LIMIT
+      const fromYear = CURRENT_YEAR - LIMIT
       const maxYears = LIMIT * 2
 
       let yearsList: number[] = []
@@ -102,27 +94,28 @@ export const VDatepickerYears = defineComponent({
       }
     }
 
-    const genDatepickerYearCell = year => {
+    const genYearCell = year => {
       const isSelected = year === computedYear.value
 
-      const propsData = setTextColor(color, {
+      const propsData = {
         class: {
           'v-datepicker-years__cell': true,
           'v-datepicker-years__cell--selected': isSelected,
+          'v-datepicker-years__cell--current-year': year === CURRENT_YEAR,
         },
         onClick: () => (computedYear.value = year),
-      })
+      }
 
       return h('div', propsData, year)
     }
 
-    const genDatepickerYearsCells = (range): VNode[] => {
-      return range.map(genDatepickerYearCell)
+    const genYearsCells = (range): VNode[] => {
+      return range.map(genYearCell)
     }
 
-    const genDatepickerYearsRows = () => {
+    const genYearsRows = () => {
       const currentYears = years.value[onTableIndex.value]
-      const yearsVNodes = genDatepickerYearsCells(currentYears)
+      const yearsVNodes = genYearsCells(currentYears)
 
       return genTableRows(
         yearsVNodes,
@@ -131,18 +124,18 @@ export const VDatepickerYears = defineComponent({
       )
     }
 
-    const genDatepickerYearsList = (): VNode | boolean => {
+    const genYearsList = (): VNode | boolean => {
       const propsData = {
         class: 'v-datepicker-years__list',
       }
       return (
-        !isListChanged.value && h('div', propsData, genDatepickerYearsRows())
+        !isListChanged.value && h('div', propsData, genYearsRows())
       )
     }
 
-    const genDatepickerYearsTable = (): VNode => {
+    const genYearsTable = (): VNode => {
       const content = useTransition(
-        genDatepickerYearsList() as VNode,
+        genYearsList() as VNode,
         transition.value,
       )
       const propsData = {
@@ -162,6 +155,6 @@ export const VDatepickerYears = defineComponent({
     genTableYears()
     setTableIndex()
 
-    return () => genDatepickerYearsTable()
+    return () => genYearsTable()
   },
 })

@@ -76,11 +76,11 @@
   </v-list>
 
   <v-datepicker
-    color="blue darken-4"
-    lang="en"
+    color="grey darken-4"
+    lang="ru"
     dark
     elevation="4"
-    :value="data.date"
+    :value="new Date(2019, 7, 25)"
   />
   <v-form v-slot="{ validate }">
     <v-text-field
@@ -90,7 +90,6 @@
     />
     <v-button label="click" color="blue darken-3" @click="validate"/>
   </v-form>
-
 
   <v-form>
     <v-card v-if="!data.show" elevation="5">

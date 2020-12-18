@@ -2,8 +2,7 @@
 @import "variables";
 
 .v-datepicker {
-  width: 100%;
-  max-width: $date-picker-max-width;
+  width: $date-picker-max-width;
   height: $date-picker-height;
   border-radius: $date-picker-border-radius;
   overflow: hidden;
@@ -13,7 +12,6 @@
     padding: 20px;
     width: 100%;
     height: 75px;
-    background: #ffffff;
 
     &-value {
       display: block;
@@ -26,5 +24,6 @@
 
   &__body {
     position: relative;
+    padding: 20px;
   }
 }

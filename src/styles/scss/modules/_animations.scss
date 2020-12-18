@@ -31,23 +31,23 @@
 .fade-in-down {
   &-enter-from, &-leave-to {
     opacity: 0;
-    transform: translateY(-20px);
+    transform: translateY(-15px);
   }
 
   &-enter-active {
-    transition: .4s all $primary-transition !important;
+    transition: .2s all $primary-transition !important;
   }
 
   &-leave-active {
-    transform: translateY(20px);
-    transition: .4s all $primary-transition !important;
+    transform: translateY(15px);
+    transition: .2s all $primary-transition !important;
   }
 }
 
 .fade-in-up {
   &-enter-from, &-leave-to {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(15px);
   }
 
   &-enter-active {
@@ -55,7 +55,7 @@
   }
 
   &-leave-active {
-    transform: translateY(-20px);
+    transform: translateY(-15px);
     transition: .4s all $primary-transition !important;
   }
 }

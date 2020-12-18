@@ -23,6 +23,10 @@ export function genTableRows(
     vNodesInRow.push(vNodesArray[i])
   }
 
+  if (vNodesInRow.length) {
+    tableRows.push(genTableRow(vNodesInRow) as any)
+  }
+
   return tableRows
 }
 
@@ -33,7 +37,7 @@ export function parseDate(selectedDate: string) {
     year: date.getFullYear(),
     month: date.getMonth(),
     date: date.getDate(),
-    day: date.getDay()
+    day: date.getDay(),
   }
 }
 

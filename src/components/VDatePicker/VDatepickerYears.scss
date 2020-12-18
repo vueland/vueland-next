@@ -13,17 +13,22 @@
   &__cell {
     @include flex(flex, center, center);
     width: 25%;
-    height: $date-picker-years-cell-height;
+    padding: 15px 10px;
     cursor: pointer;
+    color: currentColor;
+    border: thin solid transparent;
     transition: all .2s linear;
 
     &:hover {
-      background: $date-picker-hover-background;
       color: $date-picker-hover-color !important;
     }
 
     &--selected {
-      background: $primary;
+      border-color: currentColor;
+    }
+
+    &--current-year {
+      border-color: $primary;
     }
   }
 

@@ -4,34 +4,26 @@ import './VDatepickerMonths.scss'
 // Vue API
 import { h, computed, defineComponent } from 'vue'
 
-// Effects
-import { useColors } from '../../effects/use-colors'
-
 // Helpers
 import { genTableRows } from './helpers'
 
-const vMonthTableProps: any = {
+const props: any = {
   lang: {
     type: String,
     default: 'en',
   },
-  dark: Boolean,
   month: [String, Number],
   localeMonths: [Array],
 }
 
 export const VDatepickerMonths = defineComponent({
-  name: 'v-months-table',
+  name: 'v-datepicker-months',
 
-  props: vMonthTableProps,
+  props,
 
   setup(props, { emit }) {
     const CELLS_IN_ROW = 3
-
-    const months = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-    const color = props.dark ? 'white' : ''
-
-    const { setTextColor } = useColors()
+    const MONTHS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 
     const computedMonth = computed({
       get() {
@@ -43,20 +35,20 @@ export const VDatepickerMonths = defineComponent({
       },
     })
 
-    const genDatepickerMonthCell = month => {
+    const genMonthCell = month => {
       const isSelected = month === computedMonth.value
 
-      return h('div', setTextColor(color, {
+      return h('div', {
         class: {
-          'v-months__cell': true,
-          'v-moths__cell--selected': isSelected,
+          'v-datepicker-months__cell': true,
+          'v-datepicker-months__cell--selected': isSelected,
         },
         onClick: () => computedMonth.value = month,
-      }), props.localeMonths[month])
+      }, props.localeMonths[month])
     }
 
     const genMothsTableCells = () => {
-      return months.map(genDatepickerMonthCell)
+      return MONTHS.map(genMonthCell)
     }
 
     const genMonthRows = () => {
@@ -64,7 +56,7 @@ export const VDatepickerMonths = defineComponent({
 
       return genTableRows(
         monthsVNodes,
-        'v-months__row',
+        'v-datepicker-months__row',
         CELLS_IN_ROW,
       )
     }
@@ -72,7 +64,7 @@ export const VDatepickerMonths = defineComponent({
     const genMonthsTable = () => {
       return h('div', {
         class: {
-          'v-months': true,
+          'v-datepicker-months': true,
         },
       }, genMonthRows())
     }

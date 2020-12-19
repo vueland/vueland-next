@@ -19,11 +19,11 @@
     cursor: pointer;
 
     &--current-date {
-      border-color: currentColor;
+      border-color: $warning;
     }
 
     &--holiday {
-      background: #c6c5c5;
+      color: #5a5858;
     }
 
     &--selected {

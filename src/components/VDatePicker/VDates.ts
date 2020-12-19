@@ -164,8 +164,7 @@ export const VDates = defineComponent({
     function genDates(): VNode | null {
       return (
         (!isDatesChanged.value &&
-          h('div', { class: 'v-dates__dates' }, genDateRows())) ||
-        null
+          h('div', { class: 'v-dates__dates' }, genDateRows())) || null
       )
     }
 

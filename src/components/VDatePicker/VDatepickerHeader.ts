@@ -34,9 +34,7 @@ export const VDatepickerHeader = defineComponent({
           icon,
           clickable: true,
           size: 18,
-          onClick: () => isRight ?
-            props.onNext() :
-            props.onPrev(),
+          onClick: () => isRight ? props.onNext() : props.onPrev()
         }),
       )
 

@@ -36,7 +36,7 @@ import { locale } from '../../services/locale'
 const props: any = {
   dark: Boolean,
   lang: String,
-  textColor: String,
+  contentColor: String,
   value: [String, Date],
   modelValue: [String, Date],
   disabledDates: Object,
@@ -77,7 +77,7 @@ export const VDatepicker = defineComponent({
 
     const localeMonths: string[] = locale[props.lang].months
     const localeWeek: string[] = locale[props.lang].week
-    const contentColor: string = props.dark ? 'white' : props.textColor
+    const contentColor: string = props.dark ? 'white' : props.contentColor
 
     const handlers = ref<DatePickerBtnHandlers>({})
 
@@ -95,9 +95,9 @@ export const VDatepicker = defineComponent({
 
     const headerValue = computed<string>(() => {
       return data.isYears || data.isMonths
-        ? `${data.tableYear}`
+        ? `${ data.tableYear }`
         : data.isDates
-          ? `${data.tableYear} ${localeMonths[data.tableMonth!]}`
+          ? `${ data.tableYear } ${ localeMonths[data.tableMonth!] }`
           : ''
     })
 
@@ -164,9 +164,20 @@ export const VDatepicker = defineComponent({
 
       return useTransition(
         h('span', propsData, value),
-        'fade-in-down',
+        'fade',
         'out-in',
       )
+    }
+
+    function genDatepickerDisplayInner() {
+      return h('div', {
+        class: 'v-datepicker__display-inner',
+      }, [
+        genDisplayValue(data.year as number),
+        genDisplayValue(localeMonths[data.month!]),
+        genDisplayValue(data.date as number),
+        genDisplayValue(localeWeek[data.day!]),
+      ])
     }
 
     function genDatepickerDisplay(): VNode {
@@ -176,12 +187,7 @@ export const VDatepicker = defineComponent({
         },
       }
 
-      return h('div', propsData, [
-        genDisplayValue(data.year as number),
-        genDisplayValue(localeMonths[data.month!]),
-        genDisplayValue(data.date as number),
-        genDisplayValue(localeWeek[data.day!]),
-      ])
+      return h('div', propsData, genDatepickerDisplayInner())
     }
 
     function genDatepickerHeader(): VNode {

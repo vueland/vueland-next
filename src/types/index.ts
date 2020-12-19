@@ -8,3 +8,8 @@ export type OffsetSizes = {
   width: number
   height: number
 }
+
+export type DatePickerBtnHandlers = {
+  onNext?: () => any
+  onPrev?: () => any
+}

@@ -9,7 +9,7 @@ import { genTableRows } from './helpers'
 
 // Types
 import { VNode, Ref } from 'vue'
-import { DatePickerBtnHandlers } from './VDatepicker'
+import { DatePickerBtnHandlers } from '../../types'
 
 // Effects
 import { useTransition } from '../../effects/use-transition'
@@ -30,13 +30,11 @@ export const VYears = defineComponent({
     const ANIMATION_TIMEOUT = 100
     const CURRENT_YEAR = new Date().getFullYear()
 
-    // reactive
     const years = ref<Array<number[]>>([])
     const onTableIndex = ref<number>(0)
     const isListChanged = ref<boolean>(false)
     const transition = ref<string>('')
 
-    // injects
     const handlers = inject('handlers') as Ref<DatePickerBtnHandlers>
 
     watchEffect(
@@ -46,7 +44,6 @@ export const VYears = defineComponent({
         }, ANIMATION_TIMEOUT),
     )
 
-    // computed values
     const computedYear = computed<number>({
       get() {
         return +props.year! || CURRENT_YEAR
@@ -56,7 +53,6 @@ export const VYears = defineComponent({
       },
     })
 
-    // methods
     const setCurrentTransition = isNext => {
       transition.value = isNext ? 'fade-in-down' : 'fade-in-up'
     }
@@ -127,18 +123,18 @@ export const VYears = defineComponent({
       )
     }
 
-    const genYearsList = (): VNode | boolean => {
+    const genYears = (): VNode | null => {
       const propsData = {
-        class: 'v-years__list',
+        class: 'v-years__years',
       }
       return (
-        !isListChanged.value && h('div', propsData, genYearsRows())
+        !isListChanged.value && h('div', propsData, genYearsRows()) || null
       )
     }
 
     const genYearsTable = (): VNode => {
       const content = useTransition(
-        genYearsList() as VNode,
+        genYears() as VNode,
         transition.value,
       )
       const propsData = {

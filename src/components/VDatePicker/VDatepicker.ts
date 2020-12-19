@@ -27,15 +27,11 @@ import { VYears } from './VYears'
 import { VMonths } from './VMonths'
 
 // Types
-// import { Ref } from 'vue'
+import { DatePickerBtnHandlers } from '../../types'
 
 // Services
 import { locale } from '../../services/locale'
 
-export type DatePickerBtnHandlers = {
-  onNext?: () => any
-  onPrev?: () => any
-}
 
 type Data = {
   year: number | null
@@ -109,10 +105,10 @@ export const VDatepicker = defineComponent({
 
     const headerValue = computed<string>(() => {
       return data.isYears || data.isMonths
-        ? `${data.tableYear}`
+        ? `${ data.tableYear }`
         : data.isDates
-        ? `${data.tableYear} ${localeMonths[data.tableMonth!]}`
-        : ''
+          ? `${ data.tableYear } ${ localeMonths[data.tableMonth!] }`
+          : ''
     })
 
     const onYearUpdate = $event => {
@@ -216,10 +212,10 @@ export const VDatepicker = defineComponent({
             'v-datepicker__body': true,
           },
         }, useTransition(((data.isYears && genDatepickerYearsTable()) ||
-            (data.isMonths && genDatepickerMonthsTable()) ||
-            (data.isDates && genDatepickerDatesTable())) as any,
-          'slide-in-left',
-          'out-in',
+        (data.isMonths && genDatepickerMonthsTable()) ||
+        (data.isDates && genDatepickerDatesTable())) as any,
+        'slide-in-left',
+        'out-in',
         ),
       )
     }

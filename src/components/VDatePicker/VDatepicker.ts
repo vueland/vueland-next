@@ -33,7 +33,7 @@ import { VMonths } from './VMonths'
 import { locale } from '../../services/locale'
 
 export type DatePickerBtnHandlers = {
-  onNext?: () => any,
+  onNext?: () => any
   onPrev?: () => any
 }
 
@@ -44,8 +44,8 @@ type Data = {
   day: number | null
   tableMonth: number | null
   tableYear: number | null
-  isYears: boolean,
-  isMonths: boolean,
+  isYears: boolean
+  isMonths: boolean
   isDates: boolean
 }
 
@@ -64,7 +64,6 @@ export const VDatepicker = defineComponent({
   name: 'v-datepicker',
   props,
   setup(props, { emit }) {
-
     const data: Data = reactive({
       year: null,
       month: null,
@@ -103,29 +102,20 @@ export const VDatepicker = defineComponent({
 
     watch(() => props.value, setParsedDate, { immediate: true })
 
-    // watch(() => data.tableMonth, (to: number) => {
-    //   if (to > 11) {
-    //     data.tableMonth = 0
-    //     data.tableYear! += 1
-    //   }
-    //   if (to < 0) {
-    //     data.tableMonth = 11
-    //     data.tableYear! -= 1
-    //   }
-    // })
-
     const classes = computed<Record<string, boolean>>(() => ({
       'v-datepicker': true,
       ...elevationClasses.value,
     }))
 
     const headerValue = computed<string>(() => {
-      return (data.isYears || data.isMonths) ?
-        `${data.tableYear}` : data.isDates ?
-          `${data.tableYear} ${localeMonths[data.tableMonth as number]}` : ''
+      return data.isYears || data.isMonths
+        ? `${data.tableYear}`
+        : data.isDates
+        ? `${data.tableYear} ${localeMonths[data.tableMonth!]}`
+        : ''
     })
 
-    const onYearUpdate = ($event) => {
+    const onYearUpdate = $event => {
       data.tableYear = $event
       data.isMonths = true
       data.isYears = false
@@ -135,6 +125,15 @@ export const VDatepicker = defineComponent({
       data.tableMonth = $event
       data.isMonths = false
       data.isYears = true
+    }
+
+    const onDateUpdate = $event => {
+      emit('update:value', new Date(data.tableYear!, data.tableMonth!, $event))
+    }
+
+    const onDateMonthUpdate = $event => {
+      data.tableMonth = $event.month
+      if ($event.year) data.tableYear = $event.year
     }
 
     const genDisplayValue = value => {
@@ -160,21 +159,24 @@ export const VDatepicker = defineComponent({
       }
 
       return h('div', propsData, [
-          genDisplayValue(data.year),
-          genDisplayValue(localeMonths[data.month as number]),
-          genDisplayValue(data.date),
-          genDisplayValue(localeWeek[data.day as number]),
-        ],
-      )
+        genDisplayValue(data.year),
+        genDisplayValue(localeMonths[data.month!]),
+        genDisplayValue(data.date),
+        genDisplayValue(localeWeek[data.day!]),
+      ])
     }
 
     const genDatepickerHeader = () => {
-      return h(VDatepickerHeader, {
-        onNext: () => handlers.value.onNext!(),
-        onPrev: () => handlers.value.onPrev!(),
-      }, {
-        default: () => headerValue.value,
-      })
+      return h(
+        VDatepickerHeader,
+        {
+          onNext: () => handlers.value.onNext!(),
+          onPrev: () => handlers.value.onPrev!(),
+        },
+        {
+          default: () => headerValue.value,
+        },
+      )
     }
 
     const genDatepickerYearsTable = () => {
@@ -203,26 +205,23 @@ export const VDatepicker = defineComponent({
         month: data.tableMonth,
         year: data.tableYear,
         date: data.date,
-        ['onUpdate:date']: $event => emit('update:value', new Date(
-          data.tableYear as number, data.tableMonth as number, $event,
-        )),
-        ['onUpdate:month']: $event => {
-          data.tableMonth = $event.month
-          if ($event.year) data.tableYear = $event.year
-        },
+        ['onUpdate:date']: onDateUpdate,
+        ['onUpdate:month']: onDateMonthUpdate,
       })
     }
 
     const genDatepickerBody = () => {
       return h('div', {
-        class: {
-          'v-datepicker__body': true,
-        },
-      }, useTransition((
-        data.isYears && genDatepickerYearsTable() ||
-        data.isMonths && genDatepickerMonthsTable() ||
-        data.isDates && genDatepickerDatesTable()
-      ) as any, 'slide-in-left', 'out-in'))
+          class: {
+            'v-datepicker__body': true,
+          },
+        }, useTransition(((data.isYears && genDatepickerYearsTable()) ||
+            (data.isMonths && genDatepickerMonthsTable()) ||
+            (data.isDates && genDatepickerDatesTable())) as any,
+          'slide-in-left',
+          'out-in',
+        ),
+      )
     }
 
     return () => {

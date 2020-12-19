@@ -77,7 +77,7 @@
 
   <v-datepicker
     color="white"
-    lang="en"
+    lang="ru"
     elevation="4"
     v-model:value="data.date"
   />

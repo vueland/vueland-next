@@ -12,6 +12,8 @@ import { VNode, Ref } from 'vue'
 import { DatePickerBtnHandlers } from './VDatepicker'
 
 type Date = {
+  year: number
+  month: number
   date: number | null
   day: number
   isHoliday?: boolean
@@ -39,11 +41,18 @@ export const VDates = defineComponent({
     const dates = ref<(Date | null)[]>([])
     const handlers = inject('handlers') as Ref<DatePickerBtnHandlers>
 
-    const changeMonth = (isNext) => {
+    const updateMonth = isNext => {
       const params: any = {}
+
       params.month = props.month + (isNext ? 1 : -1)
-      params.month = params.month < FIRST_MONTH ? LAST_MONTH : params.month
-      params.month = params.month > LAST_MONTH ? FIRST_MONTH : params.month
+
+      if (!isNext && params.month! < FIRST_MONTH) {
+        params.month = LAST_MONTH
+      }
+
+      if (isNext && params.month > LAST_MONTH) {
+        params.month = FIRST_MONTH
+      }
 
       if (isNext && !params.month) {
         params.year = props.year + 1
@@ -57,8 +66,8 @@ export const VDates = defineComponent({
     }
 
     handlers.value = {
-      onNext: () => changeMonth(true),
-      onPrev: () => changeMonth(false),
+      onNext: () => updateMonth(true),
+      onPrev: () => updateMonth(false),
     }
 
     const daysInMonth = computed<number>(() => {
@@ -86,57 +95,55 @@ export const VDates = defineComponent({
       })
     }
 
+    const genDateObject = (date): Date => {
+      const { year, month } = props
+      const day = new Date(year, month, date).getDay()
+      const isHoliday = !day || !(day % LAST_DAY)
+
+      return { year, month, date, day, isHoliday }
+    }
+
     const genTableDates = () => {
       dates.value = []
 
       for (let i = 1; i <= daysInMonth.value; i += 1) {
-
-        const day = new Date(props.year, props.month, i).getDay()
-        const isHoliday = !day || !(day % LAST_DAY)
-        const date = i
-
-        const dateObject: Date = { date, day, isHoliday }
+        const dateObject = genDateObject(i)
 
         if (i === 1) {
-          if (dateObject.day === FIRST_DAY) {
+          const tillDay = dateObject.day || LAST_DAY
+          const startDay = dateObject.day ? i : FIRST_DAY
 
-            for (let j = FIRST_DAY; j < LAST_DAY; j += 1) {
-              dates.value[j] = { date: null } as Date
-            }
-
-            dates.value[LAST_DAY] = dateObject
+          for (let j = startDay; j < tillDay; j += i) {
+            dates.value[j] = { date: null } as Date
           }
 
-          if (dateObject.day > FIRST_DAY) {
-
-            for (let j = i; j < dateObject.day; j += 1) {
-              dates.value[j] = { date: null } as Date
-            }
-
-            dates.value[dateObject.day] = dateObject
-          }
+          dates.value[tillDay] = dateObject
         } else {
           dates.value[dates.value.length] = dateObject
         }
       }
     }
 
-    watch(() => props.month,
+    watch(
+      () => props.month,
       () => genTableDates(),
-      { immediate: true })
+      { immediate: true },
+    )
 
     const genDateCell = obj => {
       const isSelected = props.date || obj.date === computedDate.value
 
       return h('div', {
-        class: {
-          'v-dates__cell': true,
-          'v-dates__cell--selected': isSelected,
-          'v-dates__cell--current-date': obj.date === currentDate,
-          'v-dates__cell--holiday': obj.isHoliday,
+          class: {
+            'v-dates__cell': true,
+            'v-dates__cell--selected': isSelected,
+            'v-dates__cell--current-date': obj.date === currentDate,
+            'v-dates__cell--holiday': obj.isHoliday,
+          },
+          onClick: () => (computedDate.value = obj.date),
         },
-        onClick: () => computedDate.value = obj.date,
-      }, obj.date)
+        obj.date,
+      )
     }
 
     const genDateCells = () => {
@@ -148,24 +155,15 @@ export const VDates = defineComponent({
 
     const genDateRows = () => {
       const datesVNodes = genDateCells()
-
-      return genTableRows(
-        datesVNodes,
-        'v-dates__row',
-        WEEK.length,
-      )
+      return genTableRows(datesVNodes, 'v-dates__row', WEEK.length)
     }
 
     const genDatesTable = () => {
-      return h('div', {
-        class: 'v-dates__dates',
-      }, genDateRows())
+      return h('div', { class: 'v-dates__dates' }, genDateRows())
     }
 
     const genWeek = () => {
-      return h('div', {
-        class: 'v-dates__week',
-      }, genWeekDays())
+      return h('div', { class: 'v-dates__week' }, genWeekDays())
     }
 
     return () => [genWeek(), genDatesTable()]

@@ -15,13 +15,13 @@ export const locale = {
       'Дек',
     ],
     week: [
+      'Вс',
       'Пн',
       'Вт',
       'Ср',
       'Чт',
       'Пт',
       'Сб',
-      'Вс',
     ],
   },
   en: {
@@ -40,13 +40,13 @@ export const locale = {
       'Dec',
     ],
     week: [
+      'Su',
       'Mo',
       'Tu',
       'We',
       'Th',
       'Fr',
       'Sa',
-      'Su',
     ],
   },
 }

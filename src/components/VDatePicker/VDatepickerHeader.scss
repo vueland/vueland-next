@@ -12,26 +12,15 @@
     padding: 15px 0;
     cursor: pointer;
     color: currentColor;
-    border: thin solid transparent;
-    transition: color .2s $primary-transition;
-
-    &:hover {
-      border-color: currentColor;
-    }
+    font-weight: 700;
   }
 
   &-button {
     text-align: center;
-    transition: border-color .2s $primary-transition;
-    border: thin solid transparent;
 
     & > .v-icon {
       padding: 16px 20px;
       color: currentColor;
-    }
-
-    &:hover {
-      border-color: currentColor;
     }
   }
 }

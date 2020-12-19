@@ -14,8 +14,6 @@ import { useTransition } from '../../effects/use-transition'
 import { VNode, Ref } from 'vue'
 import { DatePickerBtnHandlers, DatePickerDate } from '../../types'
 
-
-
 type UpdateParams = {
   month?: number
   year?: number
@@ -26,7 +24,7 @@ const props: any = {
   year: [String, Number],
   month: [String, Number],
   date: [String, Number],
-  value: Object
+  value: Object,
 }
 
 export const VDates = defineComponent({
@@ -36,9 +34,7 @@ export const VDates = defineComponent({
   setup(props, { emit }): () => VNode {
     const FIRST_MONTH = 0
     const LAST_MONTH = 11
-    const FIRST_DAY = 0
-    const LAST_DAY = 6
-    const WEEK = [0, 1, 2, 3, 4, 5, 6]
+    const WEEK = [1, 2, 3, 4, 5, 6, 0]
     const ANIMATION_TIMEOUT = 100
     const TODAY = parseDate(new Date())
 
@@ -65,8 +61,8 @@ export const VDates = defineComponent({
     watch(
       () => isDatesChanged.value,
       () => setTimeout(() => {
-          isDatesChanged.value = false
-        }, ANIMATION_TIMEOUT),
+        isDatesChanged.value = false
+      }, ANIMATION_TIMEOUT),
     )
 
     function updateMonth(isNext: boolean) {
@@ -101,10 +97,13 @@ export const VDates = defineComponent({
     }
 
     function setEmptiesBeforeFirstDate(dateObject) {
-      const tillDay = dateObject.day || LAST_DAY
-      const startDay = dateObject.day ? 1 : FIRST_DAY
+      const firstDay = WEEK[0]
+      const lastDay = WEEK[WEEK.length - 1]
 
-      for (let i = startDay; i < tillDay; i += 1) {
+      const tillDay = dateObject.day || WEEK.length - 1
+      const startDay = dateObject.day ? firstDay : dateObject.day
+
+      for (let i = startDay; i <= tillDay; i += 1) {
         dates.value[i] = { date: null } as any
       }
 
@@ -136,7 +135,8 @@ export const VDates = defineComponent({
     function genDateCell(obj): VNode {
       const propsData = {
         class: {
-          'v-dates__cell': true,
+          'v-dates__cell': !!obj.date,
+          'v-dates__cell--empty': !obj.date,
           'v-dates__cell--selected': compareDates(obj, props.value),
           'v-dates__cell--current-date': compareDates(obj, TODAY),
           'v-dates__cell--holiday': obj.isHoliday,

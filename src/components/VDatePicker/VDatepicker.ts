@@ -95,10 +95,12 @@ export const VDatepicker = defineComponent({
 
     const headerValue = computed<string>(() => {
       return data.isYears || data.isMonths
-        ? `${ data.tableYear }`
-        : data.isDates
-          ? `${ data.tableYear } ${ localeMonths[data.tableMonth!] }`
-          : ''
+        ? `${ data.tableYear }` : data.isDates
+          ? `${ data.tableYear } ${ localeMonths[data.tableMonth!] }` : ''
+    })
+
+    const displayDate = computed(() => {
+      return `${ localeMonths[data.month!] } ${ data.date } ${ localeWeek[data.day!] }`
     })
 
     function onTableChange(): void | boolean {
@@ -119,7 +121,6 @@ export const VDatepicker = defineComponent({
     function setParsedDate(selectedDate) {
       const dateForParsing = selectedDate || new Date()
       const { year, month, day, date } = parseDate(dateForParsing)
-
       data.selected = { year, month, day, date }
 
       data.tableMonth = month
@@ -128,7 +129,7 @@ export const VDatepicker = defineComponent({
       data.year = year
       data.month = month
       data.date = date
-      data.day = day ? day - 1 : 0
+      data.day = day
     }
 
     function onYearUpdate($event) {
@@ -164,7 +165,7 @@ export const VDatepicker = defineComponent({
 
       return useTransition(
         h('span', propsData, value),
-        'fade',
+        'scale-in-out',
         'out-in',
       )
     }
@@ -174,20 +175,18 @@ export const VDatepicker = defineComponent({
         class: 'v-datepicker__display-inner',
       }, [
         genDisplayValue(data.year as number),
-        genDisplayValue(localeMonths[data.month!]),
-        genDisplayValue(data.date as number),
-        genDisplayValue(localeWeek[data.day!]),
+        genDisplayValue(displayDate.value)
       ])
     }
 
     function genDatepickerDisplay(): VNode {
-      const propsData = {
+      const propsData = setBackground(props.contentColor, {
         class: {
           'v-datepicker__display': true,
         },
-      }
+      })
 
-      return h('div', propsData, genDatepickerDisplayInner())
+      return h('div', setTextColor(props.color, propsData), genDatepickerDisplayInner())
     }
 
     function genDatepickerHeader(): VNode {

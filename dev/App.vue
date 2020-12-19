@@ -76,10 +76,10 @@
   </v-list>
 
   <v-datepicker
-    color="grey darken-4"
-    content-color="amber accent-3"
-    lang="en"
-    elevation="4"
+    color="teal accent-4"
+    content-color="white"
+    lang="ru"
+    elevation="15"
     v-model="data.date"
   />
   <v-form v-slot="{ validate }">

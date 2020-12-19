@@ -22,7 +22,6 @@
 
     &-value {
       display: block;
-      margin-right: 8px;
       text-align: center;
       font-size: 1.5rem;
       font-weight: 700;
@@ -33,8 +32,8 @@
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        font-size: 5rem;
-        opacity: .1;
+        font-size: 4.5rem;
+        opacity: .3;
       }
     }
   }

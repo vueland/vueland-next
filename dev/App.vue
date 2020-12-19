@@ -13,7 +13,7 @@
         user: { name: 'igor' },
         checked: [],
         user2: { name: 'alyona' },
-        date: new Date(),
+        date: new Date(2020, 10,17),
       })
 
       setTimeout(() => {
@@ -79,7 +79,7 @@
     color="white"
     lang="ru"
     elevation="4"
-    v-model:value="data.date"
+    v-model="data.date"
   />
   <v-form v-slot="{ validate }">
     <v-text-field

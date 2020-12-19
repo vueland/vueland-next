@@ -25,6 +25,10 @@
     &--holiday {
       background: #c6c5c5;
     }
+
+    &--selected {
+      border-color: $primary
+    }
   }
 
   &__day {

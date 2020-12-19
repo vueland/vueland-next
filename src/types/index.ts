@@ -13,3 +13,11 @@ export type DatePickerBtnHandlers = {
   onNext?: () => any
   onPrev?: () => any
 }
+
+export type DatePickerDate = {
+  year: number
+  month: number
+  date: number | null
+  day: number
+  isHoliday?: boolean
+}

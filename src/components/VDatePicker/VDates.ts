@@ -12,15 +12,9 @@ import { useTransition } from '../../effects/use-transition'
 
 // Types
 import { VNode, Ref } from 'vue'
-import { DatePickerBtnHandlers } from '../../types'
+import { DatePickerBtnHandlers, DatePickerDate } from '../../types'
 
-type Date = {
-  year: number
-  month: number
-  date: number | null
-  day: number
-  isHoliday?: boolean
-}
+
 
 type UpdateParams = {
   month?: number
@@ -32,6 +26,7 @@ const props: any = {
   year: [String, Number],
   month: [String, Number],
   date: [String, Number],
+  value: Object
 }
 
 export const VDates = defineComponent({
@@ -52,7 +47,6 @@ export const VDates = defineComponent({
 
     const handlers = inject('handlers') as Ref<DatePickerBtnHandlers>
 
-
     handlers.value = {
       onNext: () => updateMonth(true),
       onPrev: () => updateMonth(false),
@@ -60,15 +54,6 @@ export const VDates = defineComponent({
 
     const daysInMonth = computed<number>(() => {
       return new Date(props.year, props.month + 1, 0).getDate()
-    })
-
-    const computedDate = computed<number>({
-      get() {
-        return props.date !== undefined ? +props.date : TODAY.date
-      },
-      set(val) {
-        !!val && emit('update:date', val)
-      },
     })
 
     watch(
@@ -80,8 +65,8 @@ export const VDates = defineComponent({
     watch(
       () => isDatesChanged.value,
       () => setTimeout(() => {
-        isDatesChanged.value = false
-      }, ANIMATION_TIMEOUT),
+          isDatesChanged.value = false
+        }, ANIMATION_TIMEOUT),
     )
 
     function updateMonth(isNext: boolean) {
@@ -89,21 +74,10 @@ export const VDates = defineComponent({
 
       params.month = props.month + (isNext ? 1 : -1)
 
-      if (!isNext && params.month! < FIRST_MONTH) {
-        params.month = LAST_MONTH
-      }
-
-      if (isNext && params.month! > LAST_MONTH) {
-        params.month = FIRST_MONTH
-      }
-
-      if (isNext && !params.month) {
-        params.year = props.year + 1
-      }
-
-      if (!isNext && params.month === LAST_MONTH) {
-        params.year = props.year - 1
-      }
+      if (!isNext && params.month! < FIRST_MONTH) params.month = LAST_MONTH
+      if (isNext && params.month! > LAST_MONTH) params.month = FIRST_MONTH
+      if (isNext && !params.month) params.year = props.year + 1
+      if (!isNext && params.month === LAST_MONTH) params.year = props.year - 1
 
       isDatesChanged.value = true
       emit('update:month', params)
@@ -121,20 +95,17 @@ export const VDates = defineComponent({
       })
     }
 
-    function genDateObject(date): Date {
+    function genDateObject(date): DatePickerDate {
       const { year, month } = props
-      const day = new Date(year, month, date).getDay()
-      const isHoliday = !day || !(day % LAST_DAY)
-
-      return { year, month, date, day, isHoliday }
+      return parseDate(new Date(year, month, date))
     }
 
     function setEmptiesBeforeFirstDate(dateObject) {
       const tillDay = dateObject.day || LAST_DAY
       const startDay = dateObject.day ? 1 : FIRST_DAY
 
-      for (let j = startDay; j < tillDay; j += 1) {
-        dates.value[j] = { date: null } as Date
+      for (let i = startDay; i < tillDay; i += 1) {
+        dates.value[i] = { date: null } as any
       }
 
       dates.value[tillDay] = dateObject
@@ -145,29 +116,34 @@ export const VDates = defineComponent({
 
       for (let i = 1; i <= daysInMonth.value; i += 1) {
         const dateObject = genDateObject(i)
+
         if (i === 1) {
           setEmptiesBeforeFirstDate(dateObject)
         } else {
-          dates.value[dates.value.length] = dateObject
+          dates.value[dates.value.length] = dateObject as any
         }
       }
     }
 
-    function compareWithCurrentDate(obj) {
-      return obj.date === TODAY.date &&
-        obj.month === TODAY.month &&
-        obj.year === TODAY.year
+    function compareDates(date1, date2) {
+      return (
+        date1.date === date2.date &&
+        date1.month === date2.month &&
+        date1.year === date2.year
+      )
     }
 
     function genDateCell(obj): VNode {
       const propsData = {
         class: {
           'v-dates__cell': true,
-          'v-dates__cell--selected': obj.date === computedDate.value,
-          'v-dates__cell--current-date': compareWithCurrentDate(obj),
+          'v-dates__cell--selected': compareDates(obj, props.value),
+          'v-dates__cell--current-date': compareDates(obj, TODAY),
           'v-dates__cell--holiday': obj.isHoliday,
         },
-        onClick: () => (computedDate.value = obj.date),
+        onClick: () => {
+          emit('update:value', obj)
+        },
       }
 
       return h('div', propsData, obj.date)
@@ -188,7 +164,8 @@ export const VDates = defineComponent({
     function genDates(): VNode | null {
       return (
         (!isDatesChanged.value &&
-          h('div', { class: 'v-dates__dates' }, genDateRows())) || null
+          h('div', { class: 'v-dates__dates' }, genDateRows())) ||
+        null
       )
     }
 

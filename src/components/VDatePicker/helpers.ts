@@ -30,14 +30,16 @@ export function genTableRows(
   return tableRows
 }
 
-export function parseDate(selectedDate: Date) {
+export function parseDate(selectedDate: Date | string) {
   const date = new Date(selectedDate)
+  const day = date.getDay()
 
   return {
     year: date.getFullYear(),
     month: date.getMonth(),
     date: date.getDate(),
-    day: date.getDay(),
+    isHoliday: day === 0 || day === 6,
+    day,
   }
 }
 

@@ -30,7 +30,7 @@ export function genTableRows(
   return tableRows
 }
 
-export function parseDate(selectedDate: string) {
+export function parseDate(selectedDate: Date) {
   const date = new Date(selectedDate)
 
   return {

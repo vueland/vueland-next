@@ -27,8 +27,8 @@ export const VYears = defineComponent({
     const LIMIT = 100
     const ON_TABLE = 20
     const CELLS_IN_ROW = 4
-    const ANIMATION_TIMEOUT = 100
     const CURRENT_YEAR = new Date().getFullYear()
+    const ANIMATION_TIMEOUT = 100
 
     const years = ref<Array<number[]>>([])
     const onTableIndex = ref<number>(0)

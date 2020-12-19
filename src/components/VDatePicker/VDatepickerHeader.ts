@@ -21,7 +21,7 @@ export const VDatepickerHeader = defineComponent({
   name: 'v-datepicker-header',
   props,
 
-  setup(props, { slots }) {
+  setup(props, { slots, emit }) {
     const { setTextColor } = useColors()
 
     const genHeaderButton = (isRight) => {
@@ -50,6 +50,7 @@ export const VDatepickerHeader = defineComponent({
         class: {
           'v-datepicker__header-display': true,
         },
+        onClick: () => emit('table')
       }), slots.default && slots.default())
     }
 

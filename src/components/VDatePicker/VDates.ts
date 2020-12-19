@@ -5,7 +5,7 @@ import './VDates.scss'
 import { h, ref, inject, computed, watch, defineComponent } from 'vue'
 
 // Helpers
-import { genTableRows } from './helpers'
+import { genTableRows, parseDate } from './helpers'
 
 // Effects
 import { useTransition } from '../../effects/use-transition'
@@ -45,14 +45,46 @@ export const VDates = defineComponent({
     const LAST_DAY = 6
     const WEEK = [0, 1, 2, 3, 4, 5, 6]
     const ANIMATION_TIMEOUT = 100
+    const TODAY = parseDate(new Date())
 
-    const currentDate = new Date().getDate()
     const dates = ref<(Date | null)[]>([])
     const isDatesChanged = ref<boolean>(false)
 
     const handlers = inject('handlers') as Ref<DatePickerBtnHandlers>
 
-    const updateMonth = isNext => {
+
+    handlers.value = {
+      onNext: () => updateMonth(true),
+      onPrev: () => updateMonth(false),
+    }
+
+    const daysInMonth = computed<number>(() => {
+      return new Date(props.year, props.month + 1, 0).getDate()
+    })
+
+    const computedDate = computed<number>({
+      get() {
+        return props.date !== undefined ? +props.date : TODAY.date
+      },
+      set(val) {
+        !!val && emit('update:date', val)
+      },
+    })
+
+    watch(
+      () => props.month,
+      () => genTableDates(),
+      { immediate: true },
+    )
+
+    watch(
+      () => isDatesChanged.value,
+      () => setTimeout(() => {
+        isDatesChanged.value = false
+      }, ANIMATION_TIMEOUT),
+    )
+
+    function updateMonth(isNext: boolean) {
       const params: UpdateParams = {}
 
       params.month = props.month + (isNext ? 1 : -1)
@@ -77,25 +109,7 @@ export const VDates = defineComponent({
       emit('update:month', params)
     }
 
-    handlers.value = {
-      onNext: () => updateMonth(true),
-      onPrev: () => updateMonth(false),
-    }
-
-    const daysInMonth = computed<number>(() => {
-      return new Date(props.year, props.month + 1, 0).getDate()
-    })
-
-    const computedDate = computed<number>({
-      get() {
-        return props.date !== undefined ? +props.date : currentDate
-      },
-      set(val) {
-        !!val && emit('update:date', val)
-      },
-    })
-
-    const genWeekDays = () => {
+    function genWeekDays(): VNode[] {
       const propsData = {
         class: {
           'v-dates__day': true,
@@ -107,7 +121,7 @@ export const VDates = defineComponent({
       })
     }
 
-    const genDateObject = (date): Date => {
+    function genDateObject(date): Date {
       const { year, month } = props
       const day = new Date(year, month, date).getDay()
       const isHoliday = !day || !(day % LAST_DAY)
@@ -115,7 +129,7 @@ export const VDates = defineComponent({
       return { year, month, date, day, isHoliday }
     }
 
-    const setEmptiesBeforeFirstDate = dateObject => {
+    function setEmptiesBeforeFirstDate(dateObject) {
       const tillDay = dateObject.day || LAST_DAY
       const startDay = dateObject.day ? 1 : FIRST_DAY
 
@@ -126,33 +140,31 @@ export const VDates = defineComponent({
       dates.value[tillDay] = dateObject
     }
 
-    const genTableDates = () => {
+    function genTableDates() {
       dates.value = []
 
       for (let i = 1; i <= daysInMonth.value; i += 1) {
         const dateObject = genDateObject(i)
-        if (i === 1) setEmptiesBeforeFirstDate(dateObject)
-        else dates.value[dates.value.length] = dateObject
+        if (i === 1) {
+          setEmptiesBeforeFirstDate(dateObject)
+        } else {
+          dates.value[dates.value.length] = dateObject
+        }
       }
     }
 
-    watch(
-      () => props.month,
-      () => genTableDates(),
-      { immediate: true },
-    )
+    function compareWithCurrentDate(obj) {
+      return obj.date === TODAY.date &&
+        obj.month === TODAY.month &&
+        obj.year === TODAY.year
+    }
 
-    watch(() => isDatesChanged.value,
-      () => setTimeout(() => isDatesChanged.value = false, ANIMATION_TIMEOUT))
-
-    const genDateCell = obj => {
-      const isSelected = props.date || obj.date === computedDate.value
-
+    function genDateCell(obj): VNode {
       const propsData = {
         class: {
           'v-dates__cell': true,
-          'v-dates__cell--selected': isSelected,
-          'v-dates__cell--current-date': obj.date === currentDate,
+          'v-dates__cell--selected': obj.date === computedDate.value,
+          'v-dates__cell--current-date': compareWithCurrentDate(obj),
           'v-dates__cell--holiday': obj.isHoliday,
         },
         onClick: () => (computedDate.value = obj.date),
@@ -161,27 +173,26 @@ export const VDates = defineComponent({
       return h('div', propsData, obj.date)
     }
 
-    const genDateCells = () => {
+    function genDateCells(): VNode[] {
       return dates.value.reduce((acc, dateObject) => {
         acc.push(genDateCell(dateObject))
         return acc
       }, [] as any)
     }
 
-    const genDateRows = () => {
+    function genDateRows(): VNode[] {
       const datesVNodes = genDateCells()
       return genTableRows(datesVNodes, 'v-dates__row', WEEK.length)
     }
 
-    const genDates = () => {
+    function genDates(): VNode | null {
       return (
         (!isDatesChanged.value &&
-          h('div', { class: 'v-dates__dates' }, genDateRows())) ||
-        null
+          h('div', { class: 'v-dates__dates' }, genDateRows())) || null
       )
     }
 
-    const genWeek = () => {
+    function genWeek(): VNode {
       return h('div', { class: 'v-dates__week' }, genWeekDays())
     }
 

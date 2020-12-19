@@ -168,6 +168,11 @@ export const VDatepicker = defineComponent({
         {
           onNext: () => handlers.value.onNext!(),
           onPrev: () => handlers.value.onPrev!(),
+          onTable: () => {
+            data.isDates = false
+            data.isMonths = true
+
+          },
         },
         {
           default: () => headerValue.value,

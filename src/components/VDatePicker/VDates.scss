@@ -21,6 +21,10 @@
     &--current-date {
       border-color: currentColor;
     }
+
+    &--holiday {
+      background: #c6c5c5;
+    }
   }
 
   &__day {

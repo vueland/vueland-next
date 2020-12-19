@@ -1,7 +1,7 @@
 @import "../../styles/scss/modules/global";
 @import "variables";
 
-.v-datepicker-months {
+.v-months {
   @include flex(flex, flex-start, flex-start, column);
   width: 100%;
   overflow: hidden;

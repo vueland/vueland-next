@@ -1,5 +1,5 @@
 // Styles
-import './VDatepickerYears.scss'
+import './VYears.scss'
 
 // VUe API
 import { h, ref, watchEffect, inject, computed, defineComponent } from 'vue'
@@ -8,15 +8,18 @@ import { h, ref, watchEffect, inject, computed, defineComponent } from 'vue'
 import { genTableRows } from './helpers'
 
 // Types
-import { VNode } from 'vue'
+import { VNode, Ref } from 'vue'
+import { DatePickerBtnHandlers } from './VDatepicker'
+
+// Effects
 import { useTransition } from '../../effects/use-transition'
 
 const props: any = {
   year: [Number, String],
 }
 
-export const VDatepickerYears = defineComponent({
-  name: 'v-years-table',
+export const VYears = defineComponent({
+  name: 'v-years',
   props,
 
   setup(props, { emit }) {
@@ -34,7 +37,7 @@ export const VDatepickerYears = defineComponent({
     const transition = ref<string>('')
 
     // injects
-    const handlers = inject('handlers') as any
+    const handlers = inject('handlers') as Ref<DatePickerBtnHandlers>
 
     watchEffect(
       () => isListChanged.value &&
@@ -99,9 +102,9 @@ export const VDatepickerYears = defineComponent({
 
       const propsData = {
         class: {
-          'v-datepicker-years__cell': true,
-          'v-datepicker-years__cell--selected': isSelected,
-          'v-datepicker-years__cell--current-year': year === CURRENT_YEAR,
+          'v-years__cell': true,
+          'v-years__cell--selected': isSelected,
+          'v-years__cell--current-year': year === CURRENT_YEAR,
         },
         onClick: () => (computedYear.value = year),
       }
@@ -119,14 +122,14 @@ export const VDatepickerYears = defineComponent({
 
       return genTableRows(
         yearsVNodes,
-        'v-datepicker-years__row',
+        'v-years__row',
         CELLS_IN_ROW,
       )
     }
 
     const genYearsList = (): VNode | boolean => {
       const propsData = {
-        class: 'v-datepicker-years__list',
+        class: 'v-years__list',
       }
       return (
         !isListChanged.value && h('div', propsData, genYearsRows())
@@ -140,7 +143,7 @@ export const VDatepickerYears = defineComponent({
       )
       const propsData = {
         class: {
-          'v-datepicker-years': true,
+          'v-years': true,
         },
       }
 

@@ -1,5 +1,5 @@
 // Styles
-import './VDatepickerMonths.scss'
+import './VMonths.scss'
 
 // Vue API
 import { h, computed, defineComponent } from 'vue'
@@ -16,8 +16,8 @@ const props: any = {
   localeMonths: [Array],
 }
 
-export const VDatepickerMonths = defineComponent({
-  name: 'v-datepicker-months',
+export const VMonths = defineComponent({
+  name: 'v-months',
 
   props,
 
@@ -41,8 +41,8 @@ export const VDatepickerMonths = defineComponent({
 
       return h('div', {
         class: {
-          'v-datepicker-months__cell': true,
-          'v-datepicker-months__cell--selected': isSelected,
+          'v-months__cell': true,
+          'v-months__cell--selected': isSelected,
         },
         onClick: () => computedMonth.value = month,
       }, props.localeMonths[month])
@@ -57,7 +57,7 @@ export const VDatepickerMonths = defineComponent({
 
       return genTableRows(
         monthsVNodes,
-        'v-datepicker-months__row',
+        'v-months__row',
         CELLS_IN_ROW,
       )
     }
@@ -65,7 +65,7 @@ export const VDatepickerMonths = defineComponent({
     const genMonthsTable = () => {
       return h('div', {
         class: {
-          'v-datepicker-months': true,
+          'v-months': true,
         },
       }, genMonthRows())
     }

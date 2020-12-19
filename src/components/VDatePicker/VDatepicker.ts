@@ -22,17 +22,20 @@ import { parseDate } from './helpers'
 
 // Components
 import { VDatepickerHeader } from './VDatepickerHeader'
-import { VDatepickerDates } from './VDatepickerDates'
-import { VDatepickerYears } from './VDatepickerYears'
-import { VDatepickerMonths } from './VDatepickerMonths'
+import { VDates } from './VDates'
+import { VYears } from './VYears'
+import { VMonths } from './VMonths'
+
+// Types
+// import { Ref } from 'vue'
 
 // Services
 import { locale } from '../../services/locale'
 
-type Handlers = Partial<{
-  onNext: () => any,
-  onPrev: () => any
-}>
+export type DatePickerBtnHandlers = {
+  onNext?: () => any,
+  onPrev?: () => any
+}
 
 type Data = {
   year: number | null
@@ -74,11 +77,11 @@ export const VDatepicker = defineComponent({
       isDates: true,
     })
 
-    const localeMonths = locale[props.lang].months
-    const localeWeek = locale[props.lang].week
+    const localeMonths: string[] = locale[props.lang].months
+    const localeWeek: string[] = locale[props.lang].week
+    const contentColor: string = props.dark ? 'white' : props.textColor
 
-    const handlers = ref<Handlers>({})
-    const contentColor = props.dark ? 'white' : props.textColor
+    const handlers = ref<DatePickerBtnHandlers>({})
 
     const { setTextColor, setBackground } = useColors()
     const { elevationClasses } = useElevation(props)
@@ -96,11 +99,20 @@ export const VDatepicker = defineComponent({
       data.month = parsedDate.month
       data.date = parsedDate.date
       data.day = parsedDate.day ? parsedDate.day - 1 : 0
-
-      console.log(data)
     }
 
     watch(() => props.value, setParsedDate, { immediate: true })
+
+    // watch(() => data.tableMonth, (to: number) => {
+    //   if (to > 11) {
+    //     data.tableMonth = 0
+    //     data.tableYear! += 1
+    //   }
+    //   if (to < 0) {
+    //     data.tableMonth = 11
+    //     data.tableYear! -= 1
+    //   }
+    // })
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-datepicker': true,
@@ -110,7 +122,7 @@ export const VDatepicker = defineComponent({
     const headerValue = computed<string>(() => {
       return (data.isYears || data.isMonths) ?
         `${data.tableYear}` : data.isDates ?
-          `${data.tableYear} ${localeMonths[data.tableMonth]}` : ''
+          `${data.tableYear} ${localeMonths[data.tableMonth as number]}` : ''
     })
 
     const onYearUpdate = ($event) => {
@@ -149,9 +161,9 @@ export const VDatepicker = defineComponent({
 
       return h('div', propsData, [
           genDisplayValue(data.year),
-          genDisplayValue(localeMonths[data.month]),
+          genDisplayValue(localeMonths[data.month as number]),
           genDisplayValue(data.date),
-          genDisplayValue(localeWeek[data.day]),
+          genDisplayValue(localeWeek[data.day as number]),
         ],
       )
     }
@@ -171,7 +183,7 @@ export const VDatepicker = defineComponent({
         ['onUpdate:year']: onYearUpdate,
       }
 
-      return h(VDatepickerYears, propsData)
+      return h(VYears, propsData)
     }
 
     const genDatepickerMonthsTable = () => {
@@ -182,18 +194,22 @@ export const VDatepicker = defineComponent({
         ['onUpdate:month']: onMonthUpdate,
       }
 
-      return h(VDatepickerMonths, propsData)
+      return h(VMonths, propsData)
     }
 
     const genDatepickerDatesTable = () => {
-      return h(VDatepickerDates, {
+      return h(VDates, {
         localeWeek,
         month: data.tableMonth,
         year: data.tableYear,
         date: data.date,
         ['onUpdate:date']: $event => emit('update:value', new Date(
-          data.year as number, data.month as number, $event
+          data.tableYear as number, data.tableMonth as number, $event,
         )),
+        ['onUpdate:month']: $event => {
+          data.tableMonth = $event.month
+          if ($event.year) data.tableYear = $event.year
+        },
       })
     }
 

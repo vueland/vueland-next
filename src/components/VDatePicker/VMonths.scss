@@ -22,9 +22,5 @@
     &--selected {
       border-color: currentColor;
     }
-
-    &:hover {
-      color: $date-picker-hover-color !important;
-    }
   }
 }

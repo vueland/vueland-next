@@ -98,10 +98,12 @@ export const VDates = defineComponent({
 
     function setEmptiesBeforeFirstDate(dateObject) {
       const firstDay = WEEK[0]
-      const lastDay = WEEK[WEEK.length - 1]
 
-      const tillDay = dateObject.day || WEEK.length - 1
-      const startDay = dateObject.day ? firstDay : dateObject.day
+      const startDay = firstDay && !dateObject.day ?
+        dateObject.day : firstDay
+
+      const tillDay = firstDay && !dateObject.day ?
+        WEEK.length - 1 : dateObject.day
 
       for (let i = startDay; i <= tillDay; i += 1) {
         dates.value[i] = { date: null } as any

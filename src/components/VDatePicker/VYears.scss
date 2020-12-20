@@ -19,10 +19,6 @@
     border: thin solid transparent;
     transition: all .2s linear;
 
-    &:hover {
-      color: $date-picker-hover-color !important;
-    }
-
     &--selected {
       border-color: currentColor;
     }

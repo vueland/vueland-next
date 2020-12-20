@@ -37,12 +37,12 @@
     }
 
     &--holiday {
-      color: #504e4e;
+      background: #b3b4bb;
       box-shadow: 0 0 12px -2px rgba(0, 0, 0, .3);
     }
 
     &--selected {
-      border-color: $primary
+      border-color: currentColor;
     }
   }
 

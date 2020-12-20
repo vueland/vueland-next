@@ -33,18 +33,6 @@ import { DatePickerBtnHandlers, DatePickerDate } from '../../types'
 // Services
 import { locale } from '../../services/locale'
 
-const props: any = {
-  dark: Boolean,
-  lang: String,
-  contentColor: String,
-  value: [String, Date],
-  modelValue: [String, Date],
-  disabledDates: Object,
-  highlighted: Object,
-  ...colorProps(),
-  ...elevationProps(),
-}
-
 type Data = {
   year: number | null
   month: number | null
@@ -56,6 +44,19 @@ type Data = {
   isYears: boolean
   isMonths: boolean
   isDates: boolean
+}
+
+const props: any = {
+  dark: Boolean,
+  mondayFirst: Boolean,
+  lang: String,
+  contentColor: String,
+  value: [String, Date],
+  modelValue: [String, Date],
+  disabledDates: Object,
+  highlighted: Object,
+  ...colorProps(),
+  ...elevationProps(),
 }
 
 export const VDatepicker = defineComponent({
@@ -95,13 +96,13 @@ export const VDatepicker = defineComponent({
 
     const headerValue = computed<string>(() => {
       return data.isYears || data.isMonths
-        ? `${data.tableYear}` : data.isDates
-          ? `${data.tableYear} ${localeMonths[data.tableMonth!]}` : ''
+        ? `${ data.tableYear }` : data.isDates
+          ? `${ data.tableYear } ${ localeMonths[data.tableMonth!] }` : ''
     })
 
     const displayDate = computed(() => {
       const { month, date, day } = data.selected as DatePickerDate
-      return `${localeMonths[month]} ${date} ${localeWeek[day]}`
+      return `${ localeMonths[month] } ${ date } ${ localeWeek[day] }`
     })
 
     function onTableChange(): void | boolean {
@@ -122,6 +123,7 @@ export const VDatepicker = defineComponent({
     function setParsedDate(selectedDate) {
       const dateForParsing = selectedDate || new Date()
       const { year, month, day, date } = parseDate(dateForParsing)
+
       data.selected = { year, month, day, date }
 
       data.tableMonth = month
@@ -234,6 +236,7 @@ export const VDatepicker = defineComponent({
     function genDatepickerDatesTable(): VNode {
       return h(VDates, {
         localeWeek,
+        mondayFirst: props.mondayFirst,
         month: data.tableMonth,
         year: data.tableYear,
         value: data.selected,

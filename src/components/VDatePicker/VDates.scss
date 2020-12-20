@@ -39,7 +39,7 @@
     }
 
     &--selected {
-      border-color: currentColor;
+      border-color: $date-picker-cell-selected-color;
     }
   }
 

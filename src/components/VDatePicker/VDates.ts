@@ -25,6 +25,7 @@ const props: any = {
   month: [String, Number],
   date: [String, Number],
   value: Object,
+  mondayFirst: Boolean,
 }
 
 export const VDates = defineComponent({
@@ -34,7 +35,7 @@ export const VDates = defineComponent({
   setup(props, { emit }): () => VNode {
     const FIRST_MONTH = 0
     const LAST_MONTH = 11
-    const WEEK = [1, 2, 3, 4, 5, 6, 0]
+    const WEEK = [0, 1, 2, 3, 4, 5, 6]
     const ANIMATION_TIMEOUT = 100
     const TODAY = parseDate(new Date())
 
@@ -46,6 +47,10 @@ export const VDates = defineComponent({
     handlers.value = {
       onNext: () => updateMonth(true),
       onPrev: () => updateMonth(false),
+    }
+
+    if (props.mondayFirst) {
+      WEEK.push(WEEK.splice(0, 1)[0])
     }
 
     const daysInMonth = computed<number>(() => {
@@ -64,6 +69,7 @@ export const VDates = defineComponent({
         isDatesChanged.value = false
       }, ANIMATION_TIMEOUT),
     )
+
 
     function updateMonth(isNext: boolean) {
       const params: UpdateParams = {}

@@ -23,7 +23,7 @@
     transition: background .2s $primary-transition;
 
     &--selected {
-      border-color: currentColor;
+      border-color: $date-picker-cell-selected-color;
     }
   }
 }

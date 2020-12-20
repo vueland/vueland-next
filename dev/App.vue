@@ -13,14 +13,14 @@
         user: { name: 'igor' },
         checked: [],
         user2: { name: 'alyona' },
-        date: new Date(2020, 10,17),
+        date: new Date(2020, 11, 25),
       })
 
       setTimeout(() => {
         data.always = false
       }, 2000)
 
-      watch(() => data.checked, to => {
+      watch(() => data.date, to => {
         console.log(to)
       })
 
@@ -29,7 +29,7 @@
       }
 
       const testFunc = () => {
-        data.date = new Date(2019, 5, 4)
+        data.date = new Date(2019, 5, 4) as any
         console.log('tested')
       }
 
@@ -76,8 +76,8 @@
   </v-list>
 
   <v-datepicker
-    color="amber accent-3"
-    content-color="#272727"
+    color="red accent-3"
+    content-color="white"
     lang="ru"
     elevation="15"
     v-model="data.date"

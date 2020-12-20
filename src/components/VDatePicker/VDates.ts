@@ -143,9 +143,7 @@ export const VDates = defineComponent({
           'v-dates__cell--current-date': compareDates(obj, TODAY),
           'v-dates__cell--holiday': obj.isHoliday,
         },
-        onClick: () => {
-          emit('update:value', obj)
-        },
+        onClick: () => emit('update:value', obj),
       }
 
       return h('div', propsData, obj.date)

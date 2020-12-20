@@ -95,12 +95,13 @@ export const VDatepicker = defineComponent({
 
     const headerValue = computed<string>(() => {
       return data.isYears || data.isMonths
-        ? `${ data.tableYear }` : data.isDates
-          ? `${ data.tableYear } ${ localeMonths[data.tableMonth!] }` : ''
+        ? `${data.tableYear}` : data.isDates
+          ? `${data.tableYear} ${localeMonths[data.tableMonth!]}` : ''
     })
 
     const displayDate = computed(() => {
-      return `${ localeMonths[data.month!] } ${ data.date } ${ localeWeek[data.day!] }`
+      const { month, date, day } = data.selected as DatePickerDate
+      return `${localeMonths[month]} ${date} ${localeWeek[day]}`
     })
 
     function onTableChange(): void | boolean {
@@ -147,7 +148,12 @@ export const VDatepicker = defineComponent({
 
     function onDateUpdate($event) {
       const event = props.value ? 'update:value' : 'update:modelValue'
-      emit(event, new Date(data.tableYear!, data.tableMonth!, $event.date))
+      const selected = new Date($event.year, $event.month, $event.date)
+
+      data.selected = $event
+
+      emit(event, selected)
+      emit('selected', selected)
     }
 
     function onDateMonthUpdate($event) {
@@ -174,8 +180,8 @@ export const VDatepicker = defineComponent({
       return h('div', {
         class: 'v-datepicker__display-inner',
       }, [
-        genDisplayValue(data.year as number),
-        genDisplayValue(displayDate.value)
+        genDisplayValue(data.selected!.year as number),
+        genDisplayValue(displayDate.value),
       ])
     }
 

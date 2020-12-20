@@ -3,6 +3,7 @@
 
 .v-years {
   width: 100%;
+  padding: 5px;
   overflow: hidden;
 
   &__row {
@@ -12,11 +13,15 @@
 
   &__cell {
     @include flex(flex, center, center);
-    width: 25%;
-    padding: 15px 10px;
+    position: relative;
+    z-index: 1;
+    width: $date-picker-years-cell-size;
+    height: $date-picker-years-cell-size;
+    margin: 2.5px;
     cursor: pointer;
     color: currentColor;
-    border: thin solid transparent;
+    border: 2px solid transparent;
+    border-radius: $date-picker-border-radius;
     transition: all .2s linear;
 
     &--selected {

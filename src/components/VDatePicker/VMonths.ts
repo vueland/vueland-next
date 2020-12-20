@@ -57,6 +57,7 @@ export const VMonths = defineComponent({
         class: {
           'v-months__cell': true,
           'v-months__cell--selected': isSelected,
+          'v-months__cell--current-month': month === CURRENT_MONTH
         },
         onClick: () => (computedMonth.value = month),
       }

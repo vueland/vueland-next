@@ -1,11 +1,12 @@
 $date-picker-width: 350px;
 $date-picker-max-width: 350px;
-$date-picker-height: 460px;
+$date-picker-height: 470px;
 $date-picker-border-radius: 5px;
 
 $date-picker-hover-background: #064cc4;
 $date-picker-hover-color: #bfb8b8;
 
 $date-picker-header-height: 50px;
-$date-picker-years-cell-height: 60px;
+$date-picker-years-cell-size: 55px;
 $date-picker-month-cell-height: 75px;
+$date-picker-cell-shadow: 0 0 12px -2px rgba(0, 0, 0, .3);

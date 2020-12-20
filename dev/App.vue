@@ -76,9 +76,9 @@
   </v-list>
 
   <v-datepicker
-    color="red accent-3"
-    content-color="white"
-    lang="ru"
+    color="amber accent-3"
+    content-color="grey darken-4"
+    lang="en"
     elevation="15"
     v-model="data.date"
   />

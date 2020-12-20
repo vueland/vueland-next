@@ -78,7 +78,7 @@
   <v-datepicker
     color="grey darken-4"
     content-color="amber accent-3"
-    lang="en"
+    lang="ru"
     elevation="15"
     monday-first
     v-model:value="data.date"

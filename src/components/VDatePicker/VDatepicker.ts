@@ -49,10 +49,12 @@ type Data = {
 const props: any = {
   dark: Boolean,
   mondayFirst: Boolean,
+  millis: Boolean,
+  toUtc: Boolean,
   lang: String,
   contentColor: String,
-  value: [String, Date],
-  modelValue: [String, Date],
+  value: [String, Date, Number],
+  modelValue: [String, Date, Number],
   disabledDates: Object,
   highlighted: Object,
   ...colorProps(),
@@ -62,6 +64,11 @@ const props: any = {
 export const VDatepicker = defineComponent({
   name: 'v-datepicker',
   props,
+  emits: [
+    'update:value',
+    'update:modelValue',
+    'selected',
+  ],
   setup(props, { emit }) {
     const data: Data = reactive({
       year: null,
@@ -96,13 +103,23 @@ export const VDatepicker = defineComponent({
 
     const headerValue = computed<string>(() => {
       return data.isYears || data.isMonths
-        ? `${ data.tableYear }` : data.isDates
-          ? `${ data.tableYear } ${ localeMonths[data.tableMonth!] }` : ''
+        ? `${data.tableYear}` : data.isDates
+          ? `${data.tableYear} ${localeMonths[data.tableMonth!]}` : ''
     })
 
     const displayDate = computed(() => {
       const { month, date, day } = data.selected as DatePickerDate
-      return `${ localeMonths[month] } ${ date } ${ localeWeek[day] }`
+      return `${localeMonths[month]} ${date} ${localeWeek[day]}`
+    })
+
+    const computedValue = computed<string | number | Date>(() => {
+      const { year, month, date } = data.selected as DatePickerDate
+      const selectedDate = new Date(year, month, date as number)
+
+      if (props.millis) return selectedDate.getTime()
+      if (props.toUtc) return selectedDate.toUTCString()
+
+      return selectedDate
     })
 
     function onTableChange(): void | boolean {
@@ -149,13 +166,11 @@ export const VDatepicker = defineComponent({
     }
 
     function onDateUpdate($event) {
-      const event = props.value ? 'update:value' : 'update:modelValue'
-      const selected = new Date($event.year, $event.month, $event.date)
-
       data.selected = $event
 
-      emit(event, selected)
-      emit('selected', selected)
+      props.value && emit('update:value', computedValue.value)
+      props.modelValue && emit('update:modelValue', computedValue.value)
+      emit('selected', computedValue.value)
     }
 
     function onDateMonthUpdate($event) {
@@ -221,16 +236,14 @@ export const VDatepicker = defineComponent({
     }
 
     function genDatepickerMonthsTable(): VNode {
-      const propsData = {
+      return h(VMonths, {
         lang: props.lang,
         month: data.tableMonth,
         year: data.tableYear,
         localeMonths,
         ['onUpdate:month']: onMonthUpdate,
         ['onUpdate:year']: onYearUpdate,
-      }
-
-      return h(VMonths, propsData)
+      })
     }
 
     function genDatepickerDatesTable(): VNode {

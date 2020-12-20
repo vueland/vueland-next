@@ -31,7 +31,7 @@
 .scale-in-out {
   &-enter-from, &-leave-to {
     opacity: 0;
-    transform: scale(.7);
+    transform: scale(.9);
   }
 
   &-enter-active {
@@ -39,7 +39,7 @@
   }
 
   &-leave-active {
-    transform: scale(1.2);
+    transform: scale(1.1);
     transition: .2s all $primary-transition !important;
   }
 }

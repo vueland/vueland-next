@@ -76,8 +76,8 @@
   </v-list>
 
   <v-datepicker
-    color="blue darken-4"
-    content-color="white"
+    color="grey darken-4"
+    content-color="amber accent-3"
     lang="en"
     elevation="15"
     monday-first

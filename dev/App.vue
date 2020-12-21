@@ -76,9 +76,15 @@
   </v-list>
 
   <v-datepicker
+<<<<<<< HEAD
     color="white"
     content-color="blue darken-4"
     lang="en"
+=======
+    color="grey darken-4"
+    content-color="amber accent-3"
+    lang="ru"
+>>>>>>> 6314d63e1ea7db391fb37ad1824d82b0f6258da4
     elevation="15"
     monday-first
     v-model:value="data.date"

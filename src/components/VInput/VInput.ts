@@ -14,31 +14,30 @@ import { VNode } from 'vue'
 import { useTransition } from '../../effects/use-transition'
 import { colorProps, useColors } from '../../effects/use-colors'
 
-const vInputProps: any = {
-  dark: Boolean,
-  focused: Boolean,
-  hasState: Boolean,
-  hasError: Boolean,
-  isDirty: Boolean,
-  label: String,
-  message: String,
-  type: {
-    type: String,
-    default: 'text',
-  },
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
-  modelValue: [String, Number],
-  ...colorProps(),
-}
-
 export const VInput = defineComponent({
   name: 'v-input',
-  props: vInputProps,
 
-  setup(props, { slots }) {
+  props: {
+    dark: Boolean,
+    focused: Boolean,
+    hasState: Boolean,
+    hasError: Boolean,
+    isDirty: Boolean,
+    label: String,
+    message: String,
+    type: {
+      type: String,
+      default: 'text',
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+    modelValue: [String, Number],
+    ...colorProps(),
+  } as any,
+
+  setup(props, { slots }): () => VNode {
     const { setTextColor } = useColors()
     const isValid = computed<boolean>(() => {
       return props.isDirty && props.hasState && !props.hasError
@@ -48,19 +47,17 @@ export const VInput = defineComponent({
       return props.isDirty && props.hasError
     })
 
-    const classes = computed<Record<string, boolean>>(() => {
-      return {
-        'v-input': true,
-        'v-input--disabled': props.disabled,
-        'v-input--dirty': props.isDirty,
-        'v-input--valid': isValid.value,
-        'v-input--not-valid': isNotValid.value,
-        'v-input--focused': props.focused,
-      }
-    })
+    const classes = computed<Record<string, boolean>>(() => ({
+      'v-input': true,
+      'v-input--disabled': props.disabled,
+      'v-input--dirty': props.isDirty,
+      'v-input--valid': isValid.value,
+      'v-input--not-valid': isNotValid.value,
+      'v-input--focused': props.focused,
+    }))
 
-    const genLabel = (): VNode => {
-      const labelProps = {
+    function genLabel(): VNode {
+      const propsData = {
         absolute: true,
         onField: true,
         hasState: props.hasState,
@@ -69,12 +66,12 @@ export const VInput = defineComponent({
         color: props.color,
       }
 
-      return h(VLabel, labelProps, {
+      return h(VLabel, propsData, {
         default: () => props.label,
       })
     }
 
-    const genSlotContent = (): VNode => {
+    function genSlotContent(): VNode {
       const propsData = {
         class: {
           'v-input__select-slot': !!slots.select,
@@ -90,7 +87,7 @@ export const VInput = defineComponent({
       return h('div', setTextColor(props.color, propsData), slotContent)
     }
 
-    const genStatusMessage = (): VNode => {
+    function genStatusMessage(): VNode {
       const propsData = {
         class: {
           'v-input__status-message': true,
@@ -100,10 +97,10 @@ export const VInput = defineComponent({
       return h('span', propsData, props.message)
     }
 
-    const genStatus = (): VNode => {
+    function genStatus(): VNode {
       const transitionedMessage = useTransition(
         (props.message && genStatusMessage()) as VNode,
-        'fade'
+        'fade',
       )
 
       const propsData = {
@@ -115,7 +112,7 @@ export const VInput = defineComponent({
       return h('div', propsData, transitionedMessage)
     }
 
-    const genPropsData = () => {
+    function genPropsData() {
       return {
         class: {
           ...classes.value,
@@ -123,7 +120,6 @@ export const VInput = defineComponent({
       }
     }
 
-    return (): VNode =>
-      h('div', genPropsData(), [genSlotContent(), genStatus()])
+    return () => h('div', genPropsData(), [genSlotContent(), genStatus()])
   },
 })

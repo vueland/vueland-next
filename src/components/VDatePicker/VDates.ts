@@ -19,18 +19,17 @@ type UpdateParams = {
   year?: number
 }
 
-const props: any = {
-  localeWeek: Array,
-  year: [String, Number],
-  month: [String, Number],
-  date: [String, Number],
-  value: Object,
-  mondayFirst: Boolean,
-}
-
 export const VDates = defineComponent({
   name: 'v-dates',
-  props,
+
+  props: {
+    localeWeek: Array,
+    year: [String, Number],
+    month: [String, Number],
+    date: [String, Number],
+    value: Object,
+    mondayFirst: Boolean,
+  } as any,
 
   setup(props, { emit }): () => VNode {
     const FIRST_MONTH = 0
@@ -178,10 +177,9 @@ export const VDates = defineComponent({
       return h('div', { class: 'v-dates__week' }, genWeekDays())
     }
 
-    return () =>
-      h('div', { class: 'v-dates' }, [
-        genWeek(),
-        useTransition(genDates() as any, 'fade'),
-      ])
+    return () => h('div', { class: 'v-dates' }, [
+      genWeek(),
+      useTransition(genDates() as any, 'fade'),
+    ])
   },
 })

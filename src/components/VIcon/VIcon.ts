@@ -17,44 +17,43 @@ import { VNode } from 'vue'
 // Services
 import { Sizes } from '../../services/sizes'
 
-const vIconProps: any = {
-  disabled: Boolean,
-  active: Boolean,
-  clickable: Boolean,
-  size: [String, Number],
-  dense: Boolean,
-  icon: String,
-  iconType: String,
-  tag: {
-    type: String,
-    default: 'i',
-  },
-  ...colorProps(),
-  ...sizeProps(),
-}
 
 export const VIcon = defineComponent({
   name: 'v-icon',
-  props: vIconProps,
+
+  props: {
+    disabled: Boolean,
+    active: Boolean,
+    clickable: Boolean,
+    size: [String, Number],
+    dense: Boolean,
+    icon: String,
+    iconType: String,
+    tag: {
+      type: String,
+      default: 'i',
+    },
+    ...colorProps(),
+    ...sizeProps(),
+  } as any,
 
   setup(props, { slots }): () => VNode {
     const { setTextColor } = useColors()
+    const iconTag = props.clickable ? 'button' : props.tag
 
     const icon = computed<string>(() => {
       return props.icon || (slots.default && slots.default()[0].children)
     })
 
-    const classes = computed<Record<string, boolean>>(() => {
-      return {
-        'v-icon': true,
-        'v-icon--disabled': props.disabled,
-        'v-icon--link': props.clickable,
-        'v-icon--dense': props.dense,
-        'v-icon--clickable': props.clickable,
-        [props.iconType]: !!props.iconType,
-        [icon.value]: !!icon.value,
-      }
-    })
+    const classes = computed<Record<string, boolean>>(() => ({
+      'v-icon': true,
+      'v-icon--disabled': props.disabled,
+      'v-icon--link': props.clickable,
+      'v-icon--dense': props.dense,
+      'v-icon--clickable': props.clickable,
+      [props.iconType]: !!props.iconType,
+      [icon.value]: !!icon.value,
+    }))
 
     const isMedium = computed<boolean>(() => {
       return (
@@ -66,7 +65,7 @@ export const VIcon = defineComponent({
       )
     })
 
-    const getSizes = (): string => {
+    function getSizes(): string {
       const sizeProps = {
         large: props.large,
         small: props.small,
@@ -74,13 +73,12 @@ export const VIcon = defineComponent({
         xSmall: props.xSmall,
         medium: isMedium.value,
       }
-
       const explicitSize = Object.keys(sizeProps).find(key => sizeProps[key])
 
       return (explicitSize && Sizes[explicitSize]) || convertToUnit(props.size)
     }
 
-    const genDataProps = (): Record<string, any> => {
+    function genDataProps(): Record<string, any> {
       return {
         class: classes.value,
         style: {
@@ -89,8 +87,6 @@ export const VIcon = defineComponent({
       }
     }
 
-    const iconTag = props.clickable ? 'button' : props.tag
-
-    return (): VNode => h(iconTag, setTextColor(props.color, genDataProps()))
+    return () => h(iconTag, setTextColor(props.color, genDataProps()))
   },
 })

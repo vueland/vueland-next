@@ -10,20 +10,18 @@ import { genTableRows } from './helpers'
 // Types
 import { DatePickerBtnHandlers } from '../../types'
 
-const props: any = {
-  lang: {
-    type: String,
-    default: 'en',
-  },
-  month: [String, Number],
-  year: [String, Number],
-  localeMonths: [Array],
-}
-
 export const VMonths = defineComponent({
   name: 'v-months',
 
-  props,
+  props: {
+    lang: {
+      type: String,
+      default: 'en',
+    },
+    month: [String, Number],
+    year: [String, Number],
+    localeMonths: [Array],
+  } as any,
 
   setup(props, { emit }) {
     const CELLS_IN_ROW = 3
@@ -57,7 +55,7 @@ export const VMonths = defineComponent({
         class: {
           'v-months__cell': true,
           'v-months__cell--selected': isSelected,
-          'v-months__cell--current-month': month === CURRENT_MONTH
+          'v-months__cell--current-month': month === CURRENT_MONTH,
         },
         onClick: () => (computedMonth.value = month),
       }
@@ -65,16 +63,12 @@ export const VMonths = defineComponent({
       return h('div', propsData, props.localeMonths[month])
     }
 
-    function genMothsTableCells() {
-      return MONTHS.map(genMonthCell)
-    }
-
     function genMonthRows() {
-      const monthsVNodes = genMothsTableCells()
+      const monthsVNodes = MONTHS.map(genMonthCell)
       return genTableRows(monthsVNodes, 'v-months__row', CELLS_IN_ROW)
     }
 
-    function genMonthsTable() {
+    return () => {
       const propsData = {
         class: {
           'v-months': true,
@@ -82,7 +76,5 @@ export const VMonths = defineComponent({
       }
       return h('div', propsData, genMonthRows())
     }
-
-    return () => genMonthsTable()
   },
 })

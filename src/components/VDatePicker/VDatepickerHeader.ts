@@ -11,53 +11,63 @@ import { useColors } from '../../effects/use-colors'
 import { FaIcons } from '../../services/icons'
 import { VIcon } from '@/components'
 
-const props: any = {
-  onNext: Function,
-  onPrev: Function,
-  color: String,
-}
-
 export const VDatepickerHeader = defineComponent({
   name: 'v-datepicker-header',
-  props,
+
+  props: {
+    onNext: Function,
+    onPrev: Function,
+    color: String,
+  } as any,
 
   setup(props, { slots, emit }) {
     const { setTextColor } = useColors()
 
-    const genHeaderButton = (isRight) => {
-      const icon = isRight ?
-        FaIcons.$arrowRight :
-        FaIcons.$arrowLeft
+    const genHeaderButton = isRight => {
+      const icon = isRight ? FaIcons.$arrowRight : FaIcons.$arrowLeft
 
-      const arrowBtn = h(VIcon,
-        setTextColor(props.color, {
-          icon,
-          clickable: true,
-          size: 18,
-          onClick: () => isRight ? props.onNext() : props.onPrev()
-        }),
+      const propsData = {
+        class: 'v-datepicker__header-button',
+      }
+
+      const iconPropsData = {
+        icon,
+        clickable: true,
+        size: 18,
+        onClick: () => (isRight ? props.onNext() : props.onPrev()),
+      }
+
+      const arrowBtn = h(
+        VIcon,
+        props.color ? setTextColor(props.color, iconPropsData) : iconPropsData,
       )
 
-      return h('div', {
-        class: 'v-datepicker__header-button',
-      }, arrowBtn)
+      return h('div', propsData, arrowBtn)
     }
 
     const genHeaderDisplay = () => {
-      return h('div', setTextColor(props.color, {
+      const propsData = {
         class: {
           'v-datepicker__header-display': true,
         },
-        onClick: () => emit('table')
-      }), slots.default && slots.default())
+        onClick: () => emit('table'),
+      }
+
+      return h(
+        'div',
+        props.color ? setTextColor(props.color, propsData) : propsData,
+        slots.default && slots.default(),
+      )
     }
 
     return () => h('div', {
-      class: 'v-datepicker__header',
-    }, [
-      genHeaderButton(false),
-      genHeaderDisplay(),
-      genHeaderButton(true),
-    ])
+        class: 'v-datepicker__header',
+      },
+      [
+        genHeaderButton(false),
+        genHeaderDisplay(),
+        genHeaderButton(true),
+      ],
+    )
   },
 })

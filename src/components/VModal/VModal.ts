@@ -20,16 +20,14 @@ import { useToggle } from '../../effects/use-toggle'
 // Types
 import { VNode } from 'vue'
 
-const vModalProps: Record<string, any> = {
-  modelValue: Boolean,
-  ...overlayProps(),
-  ...transitionProps(),
-}
-
 export const VModal = defineComponent({
   name: 'v-modal',
 
-  props: vModalProps,
+  props: {
+    modelValue: Boolean,
+    ...overlayProps(),
+    ...transitionProps(),
+  } as any,
 
   setup(props, { slots, emit }) {
     const { isActive } = useToggle(props)
@@ -55,18 +53,18 @@ export const VModal = defineComponent({
       }
     })
 
-    const genContent = (): VNode => {
+    function genContent(): VNode {
       const propsData = {
         class: 'v-modal__content',
       }
       return h('div', propsData, slots.default && slots.default())
     }
 
-    const genModal = () => {
+    function genModal() {
       const propsData = {
         class: 'v-modal',
         ref: modalRef,
-        'onUpdate:modelValue': val => emit('update:modelValue', val),
+        ['onUpdate:modelValue']: val => emit('update:modelValue', val),
       }
 
       return withDirectives(

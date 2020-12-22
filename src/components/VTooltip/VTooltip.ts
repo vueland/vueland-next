@@ -30,28 +30,27 @@ import { VNode } from 'vue'
 // Helpers
 import { convertToUnit } from '../../helpers'
 
-const vTooltipProps: any = {
-  openOnHover: {
-    type: Boolean,
-    default: true,
-  },
-  color: {
-    type: String,
-    default: 'grey lighten-1',
-  },
-  zIndex: [Number, String],
-  maxWidth: [Number, String],
-  minWidth: [Number, String],
-  modelValue: Boolean,
-  ...elevationProps(),
-  ...positionProps(),
-}
-
 // TODO fix behavior on window resize if v-model used on component
 
 export const VTooltip = defineComponent({
   name: 'v-tooltip',
-  props: vTooltipProps,
+
+  props: {
+    openOnHover: {
+      type: Boolean,
+      default: true,
+    },
+    color: {
+      type: String,
+      default: 'grey lighten-1',
+    },
+    zIndex: [Number, String],
+    maxWidth: [Number, String],
+    minWidth: [Number, String],
+    modelValue: Boolean,
+    ...elevationProps(),
+    ...positionProps(),
+  } as any,
 
   setup(props, { slots }): () => VNode {
     const tooltip = reactive<Partial<OffsetSizes>>({})
@@ -86,10 +85,8 @@ export const VTooltip = defineComponent({
 
     const computeTopPosition = computed<number>(() => {
       return (
-        (props.top
-          ? activator!.top! - tooltip.height!
-          : props.bottom
-            ? activator.top! + activator.height!
+        (props.top ? activator!.top! - tooltip.height!
+          : props.bottom ? activator.top! + activator.height!
             : activator.top! + (activator.height! - tooltip.height!) / 2) +
         +props.offsetY
       )
@@ -97,11 +94,9 @@ export const VTooltip = defineComponent({
 
     const computeLeftPosition = computed<number>(() => {
       return (
-        (props.left
-          ? activator.left! - tooltip.width!
-          : props.right
-            ? activator.left! + activator.width!
-            : activator.left! + (activator.width! - tooltip.width!) / 2) +
+        (props.left ? activator.left! - tooltip.width! : props.right
+          ? activator.left! + activator.width!
+          : activator.left! + (activator.width! - tooltip.width!) / 2) +
         +props.offsetX
       )
     })
@@ -114,56 +109,34 @@ export const VTooltip = defineComponent({
       zIndex: props.zIndex,
     }))
 
-    const genActivator = (): VNode | null => {
+    function genActivator(): VNode | null {
       const slotContent = renderSlot(slots, 'activator', {
         on: listeners,
       })
 
-      return h(
-        'div',
-        {
+      return h('div', {
           class: 'v-tooltip__activator',
           ref: activatorRef,
-        },
-        slotContent,
+        }, slotContent,
       )
     }
 
-    const genContentDataProps = (): Record<string, any> => {
-      return {
+    function genContent(): VNode {
+      const propsData = {
         class: contentClasses.value,
         style: styles.value,
         ref: tooltipRef,
       }
-    }
 
-    const genContent = (): VNode => {
       return withDirectives(
-        h(
-          'span',
-          setBackground(props.color, genContentDataProps()),
+        h('span', setBackground(props.color, propsData),
           slots.default && slots.default(),
         ),
         [[vShow, innerActive.value]],
       )
     }
 
-    const genTooltip = (): VNode => {
-      const content = useTransition(
-        genContent() as VNode,
-        innerActive.value ? 'scaleIn' : 'fade',
-      )
-
-      return h(
-        'div',
-        {
-          class: classes.value,
-        },
-        [genActivator(), content],
-      )
-    }
-
-    const setTooltipPosition = () => {
+    function setTooltipPosition() {
       if (tooltipRef.value) {
         tooltip.width = tooltipRef.value!.offsetWidth
         tooltip.height = tooltipRef.value!.offsetHeight
@@ -200,6 +173,16 @@ export const VTooltip = defineComponent({
       )
     })
 
-    return () => genTooltip()
+    return () => {
+      const content = useTransition(
+        genContent() as VNode,
+        innerActive.value ? 'scale-in' : 'fade',
+      )
+
+      return h('div', {
+          class: classes.value,
+        }, [genActivator(), content],
+      )
+    }
   },
 })

@@ -46,24 +46,22 @@ type Data = {
   isDates: boolean
 }
 
-const props: any = {
-  dark: Boolean,
-  mondayFirst: Boolean,
-  millis: Boolean,
-  toUtc: Boolean,
-  lang: String,
-  contentColor: String,
-  value: [String, Date, Number],
-  modelValue: [String, Date, Number],
-  disabledDates: Object,
-  highlighted: Object,
-  ...colorProps(),
-  ...elevationProps(),
-}
-
 export const VDatepicker = defineComponent({
   name: 'v-datepicker',
-  props,
+  props: {
+    dark: Boolean,
+    mondayFirst: Boolean,
+    millis: Boolean,
+    toUtc: Boolean,
+    lang: String,
+    contentColor: String,
+    value: [String, Date, Number],
+    modelValue: [String, Date, Number],
+    disabledDates: Object,
+    highlighted: Object,
+    ...colorProps(),
+    ...elevationProps(),
+  } as any,
   emits: [
     'update:value',
     'update:modelValue',
@@ -103,13 +101,13 @@ export const VDatepicker = defineComponent({
 
     const headerValue = computed<string>(() => {
       return data.isYears || data.isMonths
-        ? `${data.tableYear}` : data.isDates
-          ? `${data.tableYear} ${localeMonths[data.tableMonth!]}` : ''
+        ? `${ data.tableYear }` : data.isDates
+          ? `${ data.tableYear } ${ localeMonths[data.tableMonth!] }` : ''
     })
 
     const displayDate = computed(() => {
       const { month, date, day } = data.selected as DatePickerDate
-      return `${localeMonths[month]} ${date} ${localeWeek[day]}`
+      return `${ localeMonths[month] } ${ date } ${ localeWeek[day] }`
     })
 
     const computedValue = computed<string | number | Date>(() => {

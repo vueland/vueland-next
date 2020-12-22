@@ -11,17 +11,15 @@ import { elevationProps, useElevation } from '../../effects/use-elevation'
 // Types
 import { VNode } from 'vue'
 
-const cardProps: any = {
-  width: {
-    type: [String, Number],
-    default: 350,
-  },
-  ...colorProps(),
-  ...elevationProps(),
-}
-
 export const VCard = defineComponent({
-  props: cardProps,
+  props: {
+    width: {
+      type: [String, Number],
+      default: 350,
+    },
+    ...colorProps(),
+    ...elevationProps(),
+  } as any,
 
   setup(props, { slots }): () => VNode {
     const { setBackground } = useColors()

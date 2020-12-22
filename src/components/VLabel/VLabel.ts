@@ -13,26 +13,25 @@ import { colorProps, useColors } from '../../effects/use-colors'
 // Types
 import { VNode } from 'vue'
 
-const labelProps: any = {
-  absolute: Boolean,
-  disabled: Boolean,
-  focused: Boolean,
-  onField: Boolean,
-  left: {
-    type: [Number, String],
-    default: 0,
-  },
-  right: {
-    type: [Number, String],
-    default: 'auto',
-  },
-  hasState: Boolean,
-  ...colorProps(),
-}
-
 export const VLabel = defineComponent({
   name: 'v-label',
-  props: labelProps,
+
+  props: {
+    absolute: Boolean,
+    disabled: Boolean,
+    focused: Boolean,
+    onField: Boolean,
+    left: {
+      type: [Number, String],
+      default: 0,
+    },
+    right: {
+      type: [Number, String],
+      default: 'auto',
+    },
+    hasState: Boolean,
+    ...colorProps(),
+  } as any,
 
   setup(props, { slots }): () => VNode {
     const { setTextColor } = useColors()
@@ -41,21 +40,17 @@ export const VLabel = defineComponent({
       return !!props.hasState || !!props.focused
     })
 
-    const classes = computed<Record<string, boolean>>(() => {
-      return {
-        'v-label': true,
-        'v-label--active': isActive.value,
-        'v-label--on-field': props.onField,
-        'v-label--has-state': props.hasState,
-        'v-label--is-disabled': !!props.disabled,
-      }
-    })
+    const classes = computed<Record<string, boolean>>(() => ({
+      'v-label': true,
+      'v-label--active': isActive.value,
+      'v-label--on-field': props.onField,
+      'v-label--has-state': props.hasState,
+      'v-label--is-disabled': !!props.disabled,
+    }))
 
-    const genDataProps = (): Record<string, any> => {
+    function genPropsData(): Record<string, any> {
       return {
-        class: {
-          ...classes.value,
-        },
+        class: classes.value,
         style: {
           left: convertToUnit(props.left),
           right: convertToUnit(props.right),
@@ -65,9 +60,11 @@ export const VLabel = defineComponent({
     }
 
     return (): VNode => {
-      const dataProps = setTextColor(props.color!, genDataProps())
+      const propsData = genPropsData()
 
-      return h('label', dataProps, slots.default && slots.default())
+      return h('label',
+        props.color ? setTextColor(props.color!, propsData) : propsData,
+        slots.default && slots.default())
     }
   },
 })

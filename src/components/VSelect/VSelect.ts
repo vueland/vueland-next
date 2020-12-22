@@ -18,8 +18,7 @@ import { validateProps, useValidate } from '../../effects/use-validate'
 import { colorProps, useColors } from '../../effects/use-colors'
 
 // Types
-import { Props } from '../../types'
-import { Ref } from 'vue'
+import { VNode, Ref } from 'vue'
 
 // Components
 import { VInput } from '../VInput'
@@ -28,18 +27,6 @@ import { VSelectList } from './VSelectList'
 // Directives
 import { clickOutside } from '../../directives'
 
-const vSelectProps: Props = {
-  label: String,
-  items: Array,
-  dark: Boolean,
-  valueKey: String,
-  idKey: String,
-  disabled: Boolean,
-  readonly: Boolean,
-  modelValue: [Array, String, Object],
-  ...validateProps(),
-  ...colorProps(),
-}
 
 type SelectState = {
   selected: any | null
@@ -49,9 +36,21 @@ type SelectState = {
 
 export const VSelect = defineComponent({
   name: 'v-select',
-  props: vSelectProps,
 
-  setup(props, { emit }) {
+  props: {
+    label: String,
+    items: Array,
+    dark: Boolean,
+    valueKey: String,
+    idKey: String,
+    disabled: Boolean,
+    readonly: Boolean,
+    modelValue: [Array, String, Object],
+    ...validateProps(),
+    ...colorProps(),
+  } as any,
+
+  setup(props, { emit }): () => VNode {
     const state: SelectState = reactive({
       selected: null,
       focused: false,
@@ -79,9 +78,16 @@ export const VSelect = defineComponent({
     const directive = computed(() => {
       return state.focused ? {
         handler: onBlur,
-        closeConditional: true
+        closeConditional: true,
       } : undefined
     })
+
+    const classes = computed<Record<string, boolean>>(() => ({
+      'v-select': true,
+      'v-select--disabled': props.disabled,
+      'v-select--focused': state.focused,
+      ...validateClasses.value,
+    }))
 
     watch(
       () => props.modelValue,
@@ -93,40 +99,31 @@ export const VSelect = defineComponent({
       fields!.value.push(validateValue)
     }
 
-    const toggleState = () => {
+    function toggleState() {
       state.focused = !state.focused
       state.isMenuActive = !state.isMenuActive
     }
 
-    const onBlur = () => {
+    function onBlur() {
       toggleState()
       setTimeout(validateValue)
       emit('blur')
     }
 
-    const onClick = () => {
+    function onClick() {
       dirty()
       update(errorState.innerError)
       toggleState()
       emit('focus')
     }
 
-    const selectItem = it => {
+    function selectItem(it) {
       state.selected = it
       emit('select', it)
       emit('update:modelValue', it)
     }
 
-    const classes = computed<Record<string, boolean>>(() => {
-      return {
-        'v-select': true,
-        'v-select--disabled': props.disabled,
-        'v-select--focused': state.focused,
-        ...validateClasses.value,
-      }
-    })
-
-    const genInput = () => {
+    function genInput(): VNode {
       const inputProps = {
         value: state.selected && state.selected[props.valueKey as string],
         disabled: props.disabled,
@@ -139,7 +136,7 @@ export const VSelect = defineComponent({
       return h('input', setTextColor(computedColor.value!, inputProps))
     }
 
-    const genSelectList = () => {
+    function genSelectList(): VNode {
       return h(VSelectList, {
         items: props.items,
         valueKey: props.valueKey,
@@ -149,16 +146,14 @@ export const VSelect = defineComponent({
       })
     }
 
-    const genSelect = () => {
-      const select = h(
-        'div',
-        {
+    function genSelect(): VNode {
+      const selectVNode = h('div', {
           class: classes.value,
         },
         [genInput(), genSelectList()],
       )
 
-      return withDirectives(select, [[clickOutside, directive.value]])
+      return withDirectives(selectVNode, [[clickOutside, directive.value]])
     }
 
     onBeforeUnmount(() => {
@@ -167,23 +162,24 @@ export const VSelect = defineComponent({
       }
     })
 
-    return () =>
-      h(
-        VInput,
-        {
-          label: props.label,
-          focused: state.focused,
-          hasState: !!state.selected,
-          hasError: errorState.innerError,
-          dark: !!props.dark,
-          color: validationState.value,
-          disabled: !!props.disabled,
-          isDirty: !!errorState.isDirty,
-          message: errorState.innerErrorMessage,
-        } as any,
-        {
+    return () => {
+      const propsData = {
+        label: props.label,
+        focused: state.focused,
+        hasState: !!state.selected,
+        hasError: errorState.innerError,
+        dark: !!props.dark,
+        color: validationState.value,
+        disabled: !!props.disabled,
+        isDirty: !!errorState.isDirty,
+        message: errorState.innerErrorMessage,
+      } as any
+
+      return h(VInput, propsData, {
           select: () => (props.items?.length ? genSelect() : null),
         },
       )
+    }
+
   },
 })

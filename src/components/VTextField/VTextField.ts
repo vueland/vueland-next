@@ -21,25 +21,6 @@ import { VInput } from '../VInput'
 
 // Types
 import { VNode, Ref } from 'vue'
-import { Props } from '../../types'
-
-const vTextFieldProps: Props = {
-  dark: Boolean,
-  disabled: Boolean,
-  label: String,
-  isDirty: Boolean,
-  type: {
-    type: String,
-    default: 'text',
-  },
-  modelValue: [String, Number],
-  tag: {
-    type: String,
-    default: 'input',
-  },
-  ...validateProps(),
-  ...colorProps(),
-}
 
 type TextFieldState = {
   value: string | number
@@ -48,9 +29,25 @@ type TextFieldState = {
 
 export const VTextField = defineComponent({
   name: 'v-text-field',
-  props: vTextFieldProps,
+  props: {
+    dark: Boolean,
+    disabled: Boolean,
+    label: String,
+    isDirty: Boolean,
+    type: {
+      type: String,
+      default: 'text',
+    },
+    modelValue: [String, Number],
+    tag: {
+      type: String,
+      default: 'input',
+    },
+    ...validateProps(),
+    ...colorProps(),
+  } as any,
 
-  setup(props, { emit }) {
+  setup(props, { emit }): () => VNode {
     const state: TextFieldState = reactive({
       value: '',
       focused: false,
@@ -72,8 +69,13 @@ export const VTextField = defineComponent({
       validationState,
     } = useValidate(props)
 
-    const classes = computed(
-      (): Record<string, boolean> => ({
+    watch(() => props.modelValue, value => {
+        state.value = value
+        !value && validateValue()
+      },
+    )
+
+    const classes = computed<Record<string, boolean>>(() => ({
         'v-text-field': true,
         'v-text-field--disabled': props.disabled,
         'v-text-field--dirty': errorState.isDirty,
@@ -83,7 +85,7 @@ export const VTextField = defineComponent({
       }),
     )
 
-    const validateValue = () => {
+    function validateValue(): boolean | void {
       return props.rules?.length && validate(state.value)
     }
 
@@ -97,25 +99,25 @@ export const VTextField = defineComponent({
       }
     })
 
-    const focusHandler = () => {
+    function focusHandler() {
       dirty()
       update(errorState.innerError)
       state.focused = true
       emit('focus')
     }
 
-    const blurHandler = () => {
+    function blurHandler() {
       state.focused = false
       emit('blur')
       validateValue()
     }
 
-    const inputHandler = e => {
+    function inputHandler(e) {
       state.value = e.target.value
       emit('update:modelValue', state.value)
     }
 
-    const genInput = (): VNode => {
+    function genInput(): VNode {
       const propsData = {
         disabled: props.disabled,
         value: state.value,
@@ -138,41 +140,30 @@ export const VTextField = defineComponent({
       )
     }
 
-    const genTextField = () => {
-      return h(
-        'div',
-        {
+    function genTextField(): VNode {
+      return h('div', {
           class: classes.value,
-        },
-        genInput(),
+        }, genInput(),
       )
     }
 
-    watch(
-      () => props.modelValue,
-      value => {
-        state.value = value
-        if (!value) return validateValue()
-      },
-    )
+    return () => {
+      const propsData = {
+        label: props.label,
+        focused: state.focused,
+        hasState: !!state.value,
+        hasError: errorState.innerError,
+        dark: props.dark,
+        color: validationState.value,
+        isDirty: errorState.isDirty,
+        disabled: props.disabled,
+        message: errorState.innerErrorMessage,
+      }
 
-    return () =>
-      h(
-        VInput,
-        {
-          label: props.label,
-          focused: state.focused,
-          hasState: !!state.value,
-          hasError: errorState.innerError,
-          dark: props.dark,
-          color: validationState.value,
-          isDirty: errorState.isDirty,
-          disabled: props.disabled,
-          message: errorState.innerErrorMessage,
-        } as any,
-        {
+      return h(VInput, propsData, {
           textField: () => genTextField(),
         },
       )
+    }
   },
 })

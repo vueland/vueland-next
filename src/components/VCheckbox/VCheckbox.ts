@@ -20,32 +20,30 @@ import { warning } from '../../helpers'
 // Types
 import { VNode, Ref } from 'vue'
 
-export const vCheckboxProps: any = {
-  onIcon: {
-    type: String,
-    default: FaIcons.$checkOn,
-  },
-  offIcon: {
-    type: String,
-    default: FaIcons.$checkOff,
-  },
-  dark: Boolean,
-  label: String,
-  disabled: Boolean,
-  validate: Boolean,
-  modelValue: [Array, Boolean],
-  value: {
-    default: null,
-  },
-  color: {
-    type: String,
-    default: 'primary',
-  },
-}
-
 export const VCheckbox = defineComponent({
   name: 'v-checkbox',
-  props: vCheckboxProps,
+  props: {
+    onIcon: {
+      type: String,
+      default: FaIcons.$checkOn,
+    },
+    offIcon: {
+      type: String,
+      default: FaIcons.$checkOff,
+    },
+    dark: Boolean,
+    label: String,
+    disabled: Boolean,
+    validate: Boolean,
+    modelValue: [Array, Boolean],
+    value: {
+      default: null,
+    },
+    color: {
+      type: String,
+      default: 'primary',
+    },
+  } as any,
 
   setup(props, { emit }): () => VNode {
     const isChecked = ref(false)

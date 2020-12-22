@@ -31,32 +31,30 @@ import { VNode } from 'vue'
 import { FaIcons } from '../../services/icons'
 import { Sizes } from '../../services/sizes'
 
-const vListGroupProps: any = {
-  activeClass: {
-    type: String,
-    default: '',
-  },
-  appendIcon: {
-    type: String,
-    default: FaIcons.$expand,
-  },
-  prependIcon: {
-    type: String,
-    default: '',
-  },
-  color: {
-    type: String,
-  },
-  disabled: Boolean,
-  group: String,
-  noAction: Boolean,
-  subGroup: Boolean,
-  ...elevationProps(),
-}
-
 export const VListGroup = defineComponent({
   name: 'v-list-group',
-  props: vListGroupProps,
+  props: {
+    activeClass: {
+      type: String,
+      default: '',
+    },
+    appendIcon: {
+      type: String,
+      default: FaIcons.$expand,
+    },
+    prependIcon: {
+      type: String,
+      default: '',
+    },
+    color: {
+      type: String,
+    },
+    disabled: Boolean,
+    group: String,
+    noAction: Boolean,
+    subGroup: Boolean,
+    ...elevationProps(),
+  } as any,
 
   setup(props, { slots }) {
     const { setTextColor } = useColors()
@@ -88,15 +86,15 @@ export const VListGroup = defineComponent({
       ...elevationClasses.value,
     }))
 
-    const onClick = () => {
+    function onClick() {
       if (props.noAction) return
 
       groups?.items.length && groups.listClick(refGroup)
       children.value.length &&
-        children.value.forEach((it: any) => (it.active = false))
+      children.value.forEach((it: any) => (it.active = false))
     }
 
-    const genIcon = (icon: string): VNode => {
+    function genIcon(icon: string): VNode {
       const propsData = {
         size: Sizes.small,
       }
@@ -106,7 +104,7 @@ export const VListGroup = defineComponent({
       })
     }
 
-    const genAppendIcon = (): VNode | null => {
+    function genAppendIcon(): VNode | null {
       const slotIcon = slots.appendIcon && slots.appendIcon()
       const icon = !props.subGroup && !props.noAction ? props.appendIcon : false
 
@@ -123,7 +121,7 @@ export const VListGroup = defineComponent({
       })
     }
 
-    const genPrependIcon = (): VNode | null => {
+    function genPrependIcon(): VNode | null {
       const icon =
         props.subGroup && !props.noAction
           ? FaIcons.$subgroup
@@ -144,7 +142,7 @@ export const VListGroup = defineComponent({
       })
     }
 
-    const genGroupHeader = (): VNode => {
+    function genGroupHeader(): VNode {
       const propsData = {
         class: {
           'v-list-group__header': !props.subGroup,
@@ -162,7 +160,7 @@ export const VListGroup = defineComponent({
       })
     }
 
-    const genItems = (): VNode => {
+    function genItems(): VNode {
       const propsData = {
         class: {
           'v-list-group__items': true,
@@ -175,7 +173,7 @@ export const VListGroup = defineComponent({
       )
     }
 
-    const genPropsData = () => {
+    function genPropsData() {
       return {
         class: classes.value,
         ref: refGroup,

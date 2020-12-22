@@ -67,7 +67,9 @@ export const VCheckbox = defineComponent({
       'v-validatable': props.validate,
     }))
 
-    const validateValue = () => validate(isChecked.value)
+    function validateValue(): boolean | void {
+      return validate(isChecked.value)
+    }
 
     if (isArray.value) {
       if (isValueSet.value) {
@@ -83,7 +85,7 @@ export const VCheckbox = defineComponent({
       fields!.value.push(validateValue)
     }
 
-    const genLabel = (): VNode => {
+    function genLabel(): VNode {
       const propsData = {
         absolute: false,
         color: props.dark ? 'white' : '',
@@ -96,30 +98,30 @@ export const VCheckbox = defineComponent({
       })
     }
 
-    const genIcon = (): VNode => {
+    function genIcon(): VNode {
       const icon = isChecked.value ? props.onIcon : props.offIcon
 
-      const dataProps = {
+      const propsData = {
         icon,
         size: 26,
         color: validationState.value,
         disabled: props.disabled,
       }
 
-      return h(VIcon, dataProps)
+      return h(VIcon, propsData)
     }
 
-    const genCheckbox = (): VNode => {
-      const dataProps = {
+    function genCheckbox(): VNode {
+      const propsData = {
         class: {
           'v-checkbox__square': true,
         },
       }
 
-      return h('div', dataProps, genIcon())
+      return h('div', propsData, genIcon())
     }
 
-    const computeValue = (): boolean | any[] => {
+    function computeValue(): boolean | any[] {
       let { modelValue } = props
 
       if (isArray.value) {
@@ -142,7 +144,7 @@ export const VCheckbox = defineComponent({
       return (isChecked.value = !isChecked.value)
     }
 
-    const onClick = () => {
+    function onClick() {
       if (props.disabled) return
 
       const value = computeValue()

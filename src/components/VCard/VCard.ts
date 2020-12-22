@@ -12,6 +12,8 @@ import { elevationProps, useElevation } from '../../effects/use-elevation'
 import { VNode } from 'vue'
 
 export const VCard = defineComponent({
+  name: 'v-card',
+
   props: {
     width: {
       type: [String, Number],

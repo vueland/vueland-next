@@ -14,6 +14,7 @@ import { VNode } from 'vue'
 
 export const VButton = defineComponent({
   name: 'v-button',
+
   props: {
     disabled: Boolean,
     outlined: Boolean,
@@ -48,13 +49,7 @@ export const VButton = defineComponent({
       }),
     )
 
-    const genPropsData = () => {
-      return {
-        class: classes.value,
-      }
-    }
-
-    const genLabel = () => {
+    function genLabel() {
       const propsData = {
         class: {
           'v-button__label': true,
@@ -69,8 +64,8 @@ export const VButton = defineComponent({
       const content: any[] = []
 
       const propsData = props.color
-        ? setColor(props.color, genPropsData())
-        : genPropsData()
+        ? setColor(props.color, { class: classes.value })
+        : { class: classes.value }
 
       props.label && content.push(genLabel())
       slots.default && content.push(slots.default())

@@ -13,30 +13,28 @@ import { useTransition } from '../../effects/use-transition'
 // Types
 import { VNode } from 'vue'
 
-const vBadgeProps: any = {
-  dot: Boolean,
-  avatar: Boolean,
-  border: Boolean,
-  toggle: Boolean,
-  content: {
-    required: false,
-  },
-  color: {
-    type: String,
-    default: 'primary',
-  },
-  transition: {
-    type: String,
-    default: 'scaleIn',
-  },
-  ...positionProps(),
-  ...elevationProps(),
-}
-
 export const VBadge = defineComponent({
   name: 'v-badge',
 
-  props: vBadgeProps,
+  props: {
+    dot: Boolean,
+    avatar: Boolean,
+    border: Boolean,
+    toggle: Boolean,
+    content: {
+      required: false,
+    },
+    color: {
+      type: String,
+      default: 'primary',
+    },
+    transition: {
+      type: String,
+      default: 'scaleIn',
+    },
+    ...positionProps(),
+    ...elevationProps(),
+  } as any,
 
   setup(props, { slots }): () => VNode {
     const { elevationClasses } = useElevation(props)
@@ -90,14 +88,14 @@ export const VBadge = defineComponent({
       }
     })
 
-    const addContent = (): string | undefined => {
+    function addContent(): string | undefined {
       if (props.dot) return undefined
       if (props.content) return String(props.content)
 
       return undefined
     }
 
-    const genBadgeSlot = (): VNode | null => {
+    function genBadgeSlot(): VNode | null {
       const propsData = {
         class: {
           'v-badge__badge-slot': true,
@@ -108,22 +106,19 @@ export const VBadge = defineComponent({
         propsData, slots.badge()) : null
     }
 
-    const genContent = () => {
+    function genContent(): VNode {
       const propsData = {
         class: {
           'v-badge__content': true,
         },
       }
 
-      return h('div', propsData,
-        [addContent(), genBadgeSlot()],
-      )
+      return h('div', propsData, [addContent(), genBadgeSlot()])
     }
 
-    const genBadge = (): VNode => {
+    function genBadge(): VNode {
       const propsData = setBackground(
-        props.color,
-        {
+        props.color, {
           class: badgeClasses.value,
           style: styles.value,
         },

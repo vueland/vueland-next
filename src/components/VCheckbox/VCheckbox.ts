@@ -22,6 +22,7 @@ import { VNode, Ref } from 'vue'
 
 export const VCheckbox = defineComponent({
   name: 'v-checkbox',
+
   props: {
     onIcon: {
       type: String,

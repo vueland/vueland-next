@@ -52,13 +52,8 @@ export const VCheckbox = defineComponent({
 
     const { validate, validationState } = useValidate(props)
 
-    const isArray = computed<boolean>(() => {
-      return Array.isArray(props.modelValue)
-    })
-
-    const isValueSet = computed<boolean>(() => {
-      return props.value !== null
-    })
+    const isArray = computed<boolean>(() => Array.isArray(props.modelValue))
+    const isValueSet = computed<boolean>(() => props.value !== null)
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-checkbox': true,
@@ -66,10 +61,6 @@ export const VCheckbox = defineComponent({
       'v-checkbox--checked': isChecked.value,
       'v-validatable': props.validate,
     }))
-
-    function validateValue(): boolean | void {
-      return validate(isChecked.value)
-    }
 
     if (isArray.value) {
       if (isValueSet.value) {
@@ -83,6 +74,10 @@ export const VCheckbox = defineComponent({
 
     if (fields?.value) {
       fields!.value.push(validateValue)
+    }
+
+    function validateValue(): boolean | void {
+      return validate(isChecked.value)
     }
 
     function genLabel(): VNode {

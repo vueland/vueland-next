@@ -2,9 +2,7 @@
 node_modules
 
 # builds
-dist
-es5
-lib
+
 
 # local env files
 

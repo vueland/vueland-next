@@ -50,6 +50,13 @@ export const VYears = defineComponent({
       },
     })
 
+    if (handlers?.value) {
+      handlers.value = {
+        onNext: () => changeYearsList(true),
+        onPrev: () => changeYearsList(false),
+      }
+    }
+
     function setCurrentTransition(isNext) {
       transition.value = isNext ? 'fade-in-down' : 'fade-in-up'
     }
@@ -122,11 +129,6 @@ export const VYears = defineComponent({
       return (
         !isListChanged.value && h('div', propsData, genYearsRows()) || null
       )
-    }
-
-    handlers.value = {
-      onNext: () => changeYearsList(true),
-      onPrev: () => changeYearsList(false),
     }
 
     genTableYears()

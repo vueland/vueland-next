@@ -124,8 +124,11 @@ export const VSelect = defineComponent({
     }
 
     function genInput(): VNode {
+      const selectedValue = typeof state.selected === 'string' ?
+        state.selected : state.selected[props.valueKey as string]
+
       const inputProps = {
-        value: state.selected && state.selected[props.valueKey as string],
+        value: selectedValue,
         disabled: props.disabled,
         readonly: props.readonly,
         class: {

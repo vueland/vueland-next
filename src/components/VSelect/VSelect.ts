@@ -107,7 +107,7 @@ export const VSelect = defineComponent({
 
     function onBlur() {
       requestAnimationFrame(validateValue)
-      setTimeout(toggleState)
+      setTimeout(toggleState, 50)
       emit('blur')
     }
 

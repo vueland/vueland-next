@@ -86,11 +86,8 @@ export default {
   <v-form v-slot="{ validate }">
     <v-text-field
       label="teal"
-<<<<<<< HEAD
-=======
       color="blue darken-3"
       autocomplete="new-password"
->>>>>>> 3f21e51744ef927d103142a34f2e1a6d3670d6ce
       :rules="[v => !!v || 'required', v => v.length > 5 || 'more than 5']"
     />
     <v-select

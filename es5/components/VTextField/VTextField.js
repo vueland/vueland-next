@@ -41,7 +41,8 @@ var VTextField = (0, _vue.defineComponent)({
   setup: function setup(props, _ref) {
     var _props$rules, _props$rules3;
 
-    var emit = _ref.emit;
+    var emit = _ref.emit,
+        attrs = _ref.attrs;
     var state = (0, _vue.reactive)({
       value: '',
       focused: false
@@ -113,16 +114,17 @@ var VTextField = (0, _vue.defineComponent)({
     }
 
     function genInput() {
-      var propsData = {
+      var propsData = _objectSpread(_objectSpread({
         disabled: props.disabled,
         value: state.value,
         "class": {
           'v-text-field__input': true
-        },
+        }
+      }, attrs), {}, {
         onFocus: focusHandler,
         onBlur: blurHandler,
         onInput: inputHandler
-      };
+      });
 
       if (props.tag === 'input') {
         propsData.type = props.type;

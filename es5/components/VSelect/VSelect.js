@@ -41,7 +41,8 @@ var VSelect = (0, _vue.defineComponent)({
   setup: function setup(props, _ref) {
     var _props$rules2;
 
-    var emit = _ref.emit;
+    var emit = _ref.emit,
+        attrs = _ref.attrs;
     var state = (0, _vue.reactive)({
       selected: null,
       focused: false,
@@ -119,15 +120,18 @@ var VSelect = (0, _vue.defineComponent)({
 
     function genInput() {
       var selectedValue = typeof state.selected === 'string' ? state.selected : state.selected[props.valueKey];
-      var inputProps = {
+
+      var inputProps = _objectSpread(_objectSpread({
         value: selectedValue,
         disabled: props.disabled,
         readonly: props.readonly,
         "class": {
           'v-select__input': true
-        },
+        }
+      }, attrs), {}, {
         onClick: onClick
-      };
+      });
+
       return (0, _vue.h)('input', setTextColor(computedColor.value, inputProps));
     }
 

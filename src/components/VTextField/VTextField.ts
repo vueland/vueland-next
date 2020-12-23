@@ -47,7 +47,7 @@ export const VTextField = defineComponent({
     ...colorProps(),
   } as any,
 
-  setup(props, { emit }): () => VNode {
+  setup(props, { emit, attrs }): () => VNode {
     const state: TextFieldState = reactive({
       value: '',
       focused: false,
@@ -124,6 +124,7 @@ export const VTextField = defineComponent({
         class: {
           'v-text-field__input': true,
         },
+        ...attrs,
         onFocus: focusHandler,
         onBlur: blurHandler,
         onInput: inputHandler,

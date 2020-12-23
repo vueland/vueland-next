@@ -51,7 +51,7 @@ export const VSelect = defineComponent({
     ...colorProps(),
   } as any,
 
-  setup(props, { emit }): () => VNode {
+  setup(props, { emit, attrs }): () => VNode {
     const state: SelectState = reactive({
       selected: null,
       focused: false,
@@ -135,6 +135,7 @@ export const VSelect = defineComponent({
         class: {
           'v-select__input': true,
         },
+        ...attrs,
         onClick,
       }
       return h('input', setTextColor(computedColor.value!, inputProps))

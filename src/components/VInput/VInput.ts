@@ -36,7 +36,7 @@ export const VInput = defineComponent({
     modelValue: [String, Number],
     color: {
       type: String,
-      default: 'primary',
+      // default: 'primary',
     },
   } as any,
 

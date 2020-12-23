@@ -65,7 +65,6 @@ export const VSelect = defineComponent({
       dirty,
       update,
       errorState,
-      computedColor,
       validateClasses,
       validationState,
     } = useValidate(props)
@@ -128,7 +127,9 @@ export const VSelect = defineComponent({
       const selectedValue = typeof state.selected === 'string' ?
         state.selected : state.selected[props.valueKey as string]
 
-      const inputProps = {
+      const color = props.dark ? 'white' : ''
+
+      const propsData = {
         value: selectedValue,
         disabled: props.disabled,
         readonly: props.readonly,
@@ -138,12 +139,11 @@ export const VSelect = defineComponent({
         ...attrs,
         onClick,
       }
-      return h('input', setTextColor(computedColor.value!, inputProps))
+      return h('input', setTextColor(color, propsData))
     }
 
     function genSelectList(): VNode {
       const propsData = {
-        class: {},
         items: props.items,
         valueKey: props.valueKey,
         idKey: props.idKey,

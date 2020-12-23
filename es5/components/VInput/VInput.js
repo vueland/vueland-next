@@ -41,8 +41,7 @@ var VInput = (0, _vue.defineComponent)({
     },
     modelValue: [String, Number],
     color: {
-      type: String,
-      "default": 'primary'
+      type: String
     }
   },
   setup: function setup(props, _ref) {

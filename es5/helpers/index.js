@@ -19,10 +19,11 @@ function createSimpleFunctional(c) {
     name: name || c.replace(/__/g, '-'),
     setup: function setup(_, _ref) {
       var slots = _ref.slots;
+      var propsData = {
+        "class": _defineProperty({}, c.trim(), true)
+      };
       return function () {
-        return (0, _vue.h)(el, {
-          "class": _defineProperty({}, c.trim(), true)
-        }, slots["default"] && slots["default"]());
+        return (0, _vue.h)(el, propsData, slots["default"] && slots["default"]());
       };
     }
   });

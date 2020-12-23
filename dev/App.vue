@@ -86,8 +86,8 @@ export default {
   <v-form v-slot="{ validate }">
     <v-text-field
       label="teal"
-      color="blue darken-3"
       autocomplete="new-password"
+      dark
       :rules="[v => !!v || 'required', v => v.length > 5 || 'more than 5']"
     />
     <v-select
@@ -95,7 +95,6 @@ export default {
       v-model="data.email"
       :items="['name', 'age']"
       :rules="[v => !!v || 'required']"
-      list-color="blue darken-4"
       dark
     />
     <v-button label="click" color="blue darken-3" @click="validate" />

@@ -57,7 +57,6 @@ var VSelect = (0, _vue.defineComponent)({
         dirty = _useValidate.dirty,
         update = _useValidate.update,
         errorState = _useValidate.errorState,
-        computedColor = _useValidate.computedColor,
         validateClasses = _useValidate.validateClasses,
         validationState = _useValidate.validationState;
 
@@ -120,8 +119,9 @@ var VSelect = (0, _vue.defineComponent)({
 
     function genInput() {
       var selectedValue = typeof state.selected === 'string' ? state.selected : state.selected[props.valueKey];
+      var color = props.dark ? 'white' : '';
 
-      var inputProps = _objectSpread(_objectSpread({
+      var propsData = _objectSpread(_objectSpread({
         value: selectedValue,
         disabled: props.disabled,
         readonly: props.readonly,
@@ -132,12 +132,11 @@ var VSelect = (0, _vue.defineComponent)({
         onClick: onClick
       });
 
-      return (0, _vue.h)('input', setTextColor(computedColor.value, inputProps));
+      return (0, _vue.h)('input', setTextColor(color, propsData));
     }
 
     function genSelectList() {
       var propsData = {
-        "class": {},
         items: props.items,
         valueKey: props.valueKey,
         idKey: props.idKey,

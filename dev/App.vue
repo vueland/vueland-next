@@ -89,6 +89,12 @@
       color="blue darken-3"
       :rules="[v => !!v || 'required', v => v.length > 5 || 'more than 5']"
     />
+    <v-select
+      label="select"
+      :items="['name', 'age']"
+      v-model="data.date"
+      :rules="[v => !!v || 'required']"
+    />
     <v-button label="click" color="blue darken-3" @click="validate"/>
   </v-form>
 

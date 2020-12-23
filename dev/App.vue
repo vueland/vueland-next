@@ -91,9 +91,11 @@
     />
     <v-select
       label="select"
-      :items="['name', 'age']"
       v-model="data.date"
+      :items="['name', 'age']"
       :rules="[v => !!v || 'required']"
+      list-color="blue darken-4"
+      dark
     />
     <v-button label="click" color="blue darken-3" @click="validate"/>
   </v-form>

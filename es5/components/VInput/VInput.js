@@ -88,7 +88,7 @@ var VInput = (0, _vue.defineComponent)({
         }
       };
       var slotContent = [genLabel(), slots.select && slots.select(), slots.textField && slots.textField()];
-      return (0, _vue.h)('div', setTextColor(props.color, propsData), slotContent);
+      return (0, _vue.h)('div', props.color ? setTextColor(props.color, propsData) : propsData, slotContent);
     }
 
     function genStatusMessage() {

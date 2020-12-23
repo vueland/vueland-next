@@ -6,10 +6,11 @@ import { h, defineComponent, withDirectives, vShow } from 'vue'
 
 // Components
 import { VList, VListItem, VListItemTitle } from '../VList'
-import { VFadeTransition } from '../transitions'
 
 // Effects
-import { useToggle } from '@/effects/use-toggle'
+import { useToggle } from '../../effects/use-toggle'
+import { useTransition } from '../../effects/use-transition'
+import { useElevation } from '../../effects/use-elevation'
 
 // Types
 import { VNode } from 'vue'
@@ -21,10 +22,15 @@ export const VSelectList = defineComponent({
     valueKey: String,
     idKey: String,
     active: Boolean,
+    elevation: {
+      type: [String, Number],
+      default: 4,
+    },
   } as any,
 
   setup(props, { emit }) {
     const { isActive } = useToggle(props, 'active')
+    const { elevationClasses } = useElevation(props)
 
     function genItems(): VNode[] {
       const key = props.valueKey
@@ -52,11 +58,16 @@ export const VSelectList = defineComponent({
       )
 
       return withDirectives(
-        h('div', { class: 'v-select-list' }, listVNode),
+        h('div', {
+          class: {
+            'v-select-list': true,
+            ...elevationClasses.value,
+          },
+        }, listVNode),
         [[vShow, isActive.value]],
       )
     }
 
-    return () => VFadeTransition(genSelectList())
+    return () => useTransition(genSelectList(), 'fade')
   },
 })

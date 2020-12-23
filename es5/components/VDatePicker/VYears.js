@@ -44,6 +44,17 @@ var VYears = (0, _vue.defineComponent)({
       }
     });
 
+    if (handlers !== null && handlers !== void 0 && handlers.value) {
+      handlers.value = {
+        onNext: function onNext() {
+          return changeYearsList(true);
+        },
+        onPrev: function onPrev() {
+          return changeYearsList(false);
+        }
+      };
+    }
+
     function setCurrentTransition(isNext) {
       transition.value = isNext ? 'fade-in-down' : 'fade-in-up';
     }
@@ -108,14 +119,6 @@ var VYears = (0, _vue.defineComponent)({
       return !isListChanged.value && (0, _vue.h)('div', propsData, genYearsRows()) || null;
     }
 
-    handlers.value = {
-      onNext: function onNext() {
-        return changeYearsList(true);
-      },
-      onPrev: function onPrev() {
-        return changeYearsList(false);
-      }
-    };
     genTableYears();
     setTableIndex();
     return function () {

@@ -100,7 +100,7 @@ var VSelect = (0, _vue.defineComponent)({
 
     function onBlur() {
       requestAnimationFrame(validateValue);
-      setTimeout(toggleState);
+      setTimeout(toggleState, 50);
       emit('blur');
     }
 

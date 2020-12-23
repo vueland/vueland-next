@@ -58,7 +58,7 @@ export const VSelect = defineComponent({
       isMenuActive: false,
     })
 
-    const { setTextColor, setBackground } = useColors()
+    const { setTextColor } = useColors()
 
     const {
       validate,
@@ -106,8 +106,8 @@ export const VSelect = defineComponent({
     }
 
     function onBlur() {
-      requestAnimationFrame(toggleState)
-      setTimeout(validateValue)
+      requestAnimationFrame(validateValue)
+      setTimeout(toggleState)
       emit('blur')
     }
 
@@ -147,11 +147,11 @@ export const VSelect = defineComponent({
         valueKey: props.valueKey,
         idKey: props.idKey,
         active: state.isMenuActive,
+        color: props.dark ? 'white' : '',
+        listColor: props.listColor,
         onSelect: it => selectItem(it),
       }
-      return h(VSelectList,
-        props.listColor ? setBackground(props.listColor, propsData) : propsData,
-      )
+      return h(VSelectList, propsData)
     }
 
     function genSelect(): VNode {

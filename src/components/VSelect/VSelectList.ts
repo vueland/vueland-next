@@ -11,6 +11,7 @@ import { VList, VListItem, VListItemTitle } from '../VList'
 import { useToggle } from '../../effects/use-toggle'
 import { useTransition } from '../../effects/use-transition'
 import { useElevation } from '../../effects/use-elevation'
+import { colorProps, useColors } from '../../effects/use-colors'
 
 // Types
 import { VNode } from 'vue'
@@ -22,21 +23,30 @@ export const VSelectList = defineComponent({
     valueKey: String,
     idKey: String,
     active: Boolean,
+    listColor: String,
     elevation: {
       type: [String, Number],
       default: 4,
     },
+    ...colorProps(),
   } as any,
 
   setup(props, { emit }) {
     const { isActive } = useToggle(props, 'active')
     const { elevationClasses } = useElevation(props)
+    const { setTextColor, setBackground } = useColors()
 
     function genItems(): VNode[] {
       const key = props.valueKey
+      const propsData = {
+        class: {},
+        style: {},
+      }
 
       return props.items!.map((it: any) => {
-        const item = h(VListItemTitle, {}, {
+        const item = h(VListItemTitle,
+          props.color ? setTextColor(props.color, propsData) : propsData,
+          {
             default: () => (key ? it[key] : it),
           },
         )
@@ -51,23 +61,28 @@ export const VSelectList = defineComponent({
       })
     }
 
-    function genSelectList(): VNode {
-      const listVNode = h(VList, {
+    function genSelectListItems(): VNode {
+      return h(VList, {
           class: 'v-select--items-list',
         }, { default: () => genItems() },
       )
-
-      return withDirectives(
-        h('div', {
-          class: {
-            'v-select-list': true,
-            ...elevationClasses.value,
-          },
-        }, listVNode),
-        [[vShow, isActive.value]],
-      )
     }
 
-    return () => useTransition(genSelectList(), 'fade')
+    function genList(): VNode {
+      const propsData = {
+        class: {
+          'v-select-list': true,
+          ...elevationClasses.value,
+        },
+        style: {},
+      }
+
+      return withDirectives(h('div',
+        props.listColor ? setBackground(props.listColor, propsData) : propsData,
+        genSelectListItems(),
+      ), [[vShow, isActive.value]])
+    }
+
+    return () => useTransition(genList(), 'fade')
   },
 })

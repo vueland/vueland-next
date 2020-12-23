@@ -91,7 +91,7 @@
     />
     <v-select
       label="select"
-      v-model="data.date"
+      v-model="data.email"
       :items="['name', 'age']"
       :rules="[v => !!v || 'required']"
       list-color="blue darken-4"

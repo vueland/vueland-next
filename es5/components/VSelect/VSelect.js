@@ -49,8 +49,7 @@ var VSelect = (0, _vue.defineComponent)({
     });
 
     var _useColors = (0, _useColors2.useColors)(),
-        setTextColor = _useColors.setTextColor,
-        setBackground = _useColors.setBackground;
+        setTextColor = _useColors.setTextColor;
 
     var _useValidate = (0, _useValidate2.useValidate)(props),
         validate = _useValidate.validate,
@@ -100,8 +99,8 @@ var VSelect = (0, _vue.defineComponent)({
     }
 
     function onBlur() {
-      requestAnimationFrame(toggleState);
-      setTimeout(validateValue);
+      requestAnimationFrame(validateValue);
+      setTimeout(toggleState);
       emit('blur');
     }
 
@@ -139,11 +138,13 @@ var VSelect = (0, _vue.defineComponent)({
         valueKey: props.valueKey,
         idKey: props.idKey,
         active: state.isMenuActive,
+        color: props.dark ? 'white' : '',
+        listColor: props.listColor,
         onSelect: function onSelect(it) {
           return selectItem(it);
         }
       };
-      return (0, _vue.h)(_VSelectList.VSelectList, props.listColor ? setBackground(props.listColor, propsData) : propsData);
+      return (0, _vue.h)(_VSelectList.VSelectList, propsData);
     }
 
     function genSelect() {

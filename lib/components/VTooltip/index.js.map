@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../../../src/components/VTooltip/index.ts"],"names":[],"mappings":"AAAA,cAAc,YAAd","sourcesContent":["export * from './VTooltip'\n"],"sourceRoot":"","file":"index.js"}

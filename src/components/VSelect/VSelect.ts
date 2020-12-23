@@ -43,6 +43,7 @@ export const VSelect = defineComponent({
     dark: Boolean,
     valueKey: String,
     idKey: String,
+    listColor: String,
     disabled: Boolean,
     readonly: Boolean,
     modelValue: [Array, String, Object],
@@ -50,7 +51,7 @@ export const VSelect = defineComponent({
     ...colorProps(),
   } as any,
 
-  setup(props, { emit }): () => VNode {
+  setup(props, { emit, attrs }): () => VNode {
     const state: SelectState = reactive({
       selected: null,
       focused: false,
@@ -105,8 +106,8 @@ export const VSelect = defineComponent({
     }
 
     function onBlur() {
-      toggleState()
-      setTimeout(validateValue)
+      requestAnimationFrame(validateValue)
+      setTimeout(toggleState, 50)
       emit('blur')
     }
 
@@ -124,26 +125,34 @@ export const VSelect = defineComponent({
     }
 
     function genInput(): VNode {
+      const selectedValue = typeof state.selected === 'string' ?
+        state.selected : state.selected[props.valueKey as string]
+
       const inputProps = {
-        value: state.selected && state.selected[props.valueKey as string],
+        value: selectedValue,
         disabled: props.disabled,
         readonly: props.readonly,
         class: {
           'v-select__input': true,
         },
+        ...attrs,
         onClick,
       }
       return h('input', setTextColor(computedColor.value!, inputProps))
     }
 
     function genSelectList(): VNode {
-      return h(VSelectList, {
+      const propsData = {
+        class: {},
         items: props.items,
         valueKey: props.valueKey,
         idKey: props.idKey,
         active: state.isMenuActive,
+        color: props.dark ? 'white' : '',
+        listColor: props.listColor,
         onSelect: it => selectItem(it),
-      })
+      }
+      return h(VSelectList, propsData)
     }
 
     function genSelect(): VNode {

@@ -13,9 +13,11 @@
   overflow: auto;
 
   & > .v-list > .v-list-item {
-    &:hover {
-      background: whitesmoke;
-      cursor: pointer;
+    position: relative;
+    cursor: pointer;
+
+    &:hover:after {
+      opacity: 1 !important;
     }
   }
 }

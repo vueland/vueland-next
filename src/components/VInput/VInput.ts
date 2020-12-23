@@ -87,7 +87,9 @@ export const VInput = defineComponent({
         slots.textField && slots.textField(),
       ]
 
-      return h('div', setTextColor(props.color, propsData), slotContent)
+      return h('div',
+        props.color ? setTextColor(props.color, propsData) : propsData,
+        slotContent)
     }
 
     function genStatusMessage(): VNode {

@@ -12,7 +12,7 @@ import { VNode } from 'vue'
 
 // Effects
 import { useTransition } from '../../effects/use-transition'
-import { colorProps, useColors } from '../../effects/use-colors'
+import { useColors } from '../../effects/use-colors'
 
 export const VInput = defineComponent({
   name: 'v-input',
@@ -34,7 +34,10 @@ export const VInput = defineComponent({
       default: false,
     },
     modelValue: [String, Number],
-    ...colorProps(),
+    color: {
+      type: String,
+      default: 'primary',
+    },
   } as any,
 
   setup(props, { slots }): () => VNode {

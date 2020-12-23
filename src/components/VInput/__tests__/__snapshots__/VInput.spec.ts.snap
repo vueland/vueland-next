@@ -2,8 +2,8 @@
 
 exports[`VInput should mount component and match snapshot 1`] = `
 <div class="v-input">
-  <div class>
-    <label class="v-label v-label--on-field"
+  <div class="primary--text">
+    <label class="v-label v-label--on-field primary--text"
            style="left: 0px; position: absolute;"
     >
     </label>

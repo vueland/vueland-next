@@ -23,7 +23,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var VInput = (0, _vue.defineComponent)({
   name: 'v-input',
-  props: _objectSpread({
+  props: {
     dark: Boolean,
     focused: Boolean,
     hasState: Boolean,
@@ -39,8 +39,12 @@ var VInput = (0, _vue.defineComponent)({
       type: Boolean,
       "default": false
     },
-    modelValue: [String, Number]
-  }, (0, _useColors2.colorProps)()),
+    modelValue: [String, Number],
+    color: {
+      type: String,
+      "default": 'primary'
+    }
+  },
   setup: function setup(props, _ref) {
     var slots = _ref.slots;
 

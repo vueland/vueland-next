@@ -86,7 +86,6 @@
   <v-form v-slot="{ validate }">
     <v-text-field
       label="teal"
-      color="blue darken-3"
       :rules="[v => !!v || 'required', v => v.length > 5 || 'more than 5']"
     />
     <v-button label="click" color="blue darken-3" @click="validate"/>

@@ -96,9 +96,10 @@
       flex-grow: 0;
       min-height: $append-icon-min-height;
     }
+
     & > .v-list-group__header--sub-group >
     .v-list-item__title {
-      padding: 0 40px;
+      padding: 0 20px;
     }
 
     & > .v-list-group__header--sub-group >

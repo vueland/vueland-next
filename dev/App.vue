@@ -87,7 +87,6 @@
     <v-text-field
       label="teal"
       autocomplete="new-password"
-      dark
       :rules="[v => !!v || 'required', v => v.length > 5 || 'more than 5']"
     />
     <v-select
@@ -95,11 +94,10 @@
       v-model="data.email"
       :items="['name', 'age']"
       :rules="[v => !!v || 'required']"
-      dark
     />
     <v-button
       label="click"
-      :disabled="true"
+      :disabled="false"
       color="blue darken-3"
       @click="validate"
     />

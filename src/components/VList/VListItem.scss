@@ -1,9 +1,7 @@
 @import "../../styles/scss/modules/global";
 
 .v-list-item {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
+  @include flex(flex, flex-start, center);
   flex: 1 1 100%;
   width: 100%;
   min-height: 48px;
@@ -36,7 +34,7 @@
   &__title {
     display: block;
     width: 100%;
-    padding: 0 5px;
+    padding: 0 10px;
   }
 
   &__icon {

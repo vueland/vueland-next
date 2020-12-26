@@ -108,7 +108,9 @@ export const VListGroup = defineComponent({
       const slotIcon = slots.appendIcon && slots.appendIcon()
       const icon = !props.subGroup && !props.noAction ? props.appendIcon : false
 
-      if (!icon && !slotIcon) return null
+      if (!icon && !slotIcon ||
+        !props.subGroup && props.noAction
+      ) return null
 
       const propsData = {
         class: {

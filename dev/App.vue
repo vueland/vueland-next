@@ -63,11 +63,11 @@
           salam
         </v-list-item-title>
       </template>
-      <template v-slot:prependIcon>
-        <v-icon icon="fas fa-book" size="18"/>
-      </template>
+<!--      <template v-slot:prependIcon>-->
+<!--        <v-icon icon="fas fa-book" size="18"/>-->
+<!--      </template>-->
       <v-list-item @click.stop="testFunc">salam</v-list-item>
-      <v-list-group sub-group>
+      <v-list-group sub-group no-action>
         <template v-slot:title>
           <v-list-item-title>salam</v-list-item-title>
         </template>

@@ -114,17 +114,17 @@ var VTextField = (0, _vue.defineComponent)({
     }
 
     function genInput() {
-      var propsData = _objectSpread(_objectSpread({
+      var propsData = {
         disabled: props.disabled,
         value: state.value,
         "class": {
           'v-text-field__input': true
-        }
-      }, attrs), {}, {
+        },
+        autocomplete: attrs.autocomplete,
         onFocus: focusHandler,
         onBlur: blurHandler,
         onInput: inputHandler
-      });
+      };
 
       if (props.tag === 'input') {
         propsData.type = props.type;

@@ -23,6 +23,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var VButton = (0, _vue.defineComponent)({
   name: 'v-button',
+  emits: ['click'],
   props: _objectSpread(_objectSpread(_objectSpread({
     disabled: Boolean,
     outlined: Boolean,
@@ -33,7 +34,8 @@ var VButton = (0, _vue.defineComponent)({
     label: String
   }, (0, _useColors2.colorProps)()), (0, _useElevation2.elevationProps)()), (0, _usePosition2.positionProps)()),
   setup: function setup(props, _ref) {
-    var slots = _ref.slots;
+    var slots = _ref.slots,
+        emit = _ref.emit;
 
     var _useColors = (0, _useColors2.useColors)(),
         setTextColor = _useColors.setTextColor,
@@ -69,14 +71,15 @@ var VButton = (0, _vue.defineComponent)({
     return function () {
       var setColor = isFlat.value ? setTextColor : setBackground;
       var content = [];
-      var propsData = props.color ? setColor(props.color, {
-        "class": classes.value
-      }) : {
-        "class": classes.value
+      var propsData = {
+        "class": classes.value,
+        onClick: function onClick() {
+          return !props.disabled && emit('click');
+        }
       };
       props.label && content.push(genLabel());
       slots["default"] && content.push(slots["default"]());
-      return (0, _vue.h)('button', propsData, content);
+      return (0, _vue.h)('button', props.color && !props.disabled ? setColor(props.color, propsData) : propsData, content);
     };
   }
 });

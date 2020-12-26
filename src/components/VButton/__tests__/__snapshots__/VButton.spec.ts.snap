@@ -10,6 +10,11 @@ exports[`VButton should set color and match snapshot 1`] = `
 </button>
 `;
 
+exports[`VButton should set disabled and match snapshot 1`] = `
+<button class="v-button v-button--disabled">
+</button>
+`;
+
 exports[`VButton should set label and match snapshot 1`] = `
 <button class="v-button">
   <span class="v-button__label">

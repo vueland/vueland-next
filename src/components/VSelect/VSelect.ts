@@ -25,7 +25,7 @@ import { VInput } from '../VInput'
 import { VSelectList } from './VSelectList'
 
 // Directives
-import { clickOutside } from '../../directives'
+import { vClickOutside } from '../../directives'
 
 
 type SelectState = {
@@ -162,7 +162,7 @@ export const VSelect = defineComponent({
         [genInput(), genSelectList()],
       )
 
-      return withDirectives(selectVNode, [[clickOutside, directive.value]])
+      return withDirectives(selectVNode, [[vClickOutside, directive.value]])
     }
 
     onBeforeUnmount(() => {

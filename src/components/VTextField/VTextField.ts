@@ -32,13 +32,14 @@ export const VTextField = defineComponent({
   props: {
     dark: Boolean,
     disabled: Boolean,
+    readonly: Boolean,
     label: String,
     isDirty: Boolean,
     type: {
       type: String,
       default: 'text',
     },
-    modelValue: [String, Number],
+    modelValue: [String, Number, Date],
     tag: {
       type: String,
       default: 'input',
@@ -53,7 +54,7 @@ export const VTextField = defineComponent({
       focused: false,
     })
 
-    state.value = props.modelValue
+    state.value = props.modelValue || props.value
 
     const fields: Ref<any[]> | undefined =
       props.rules?.length && inject('fields')
@@ -69,7 +70,7 @@ export const VTextField = defineComponent({
       validationState,
     } = useValidate(props)
 
-    watch(() => props.modelValue, value => {
+    watch(() => (props.modelValue || props.value), value => {
         state.value = value
         !value && validateValue()
       },
@@ -112,22 +113,29 @@ export const VTextField = defineComponent({
       validateValue()
     }
 
+    function changeHandler() {
+      emit('change')
+    }
+
     function inputHandler(e) {
       state.value = e.target.value
       emit('update:modelValue', state.value)
+      emit('update:value', state.value)
     }
 
     function genInput(): VNode {
       const propsData = {
         disabled: props.disabled,
+        readonly: props.readonly,
         value: state.value,
+        autocomplete: attrs.autocomplete,
         class: {
           'v-text-field__input': true,
         },
-        autocomplete: attrs.autocomplete,
         onFocus: focusHandler,
         onBlur: blurHandler,
         onInput: inputHandler,
+        onChange: changeHandler,
       }
 
       if (props.tag === 'input') {

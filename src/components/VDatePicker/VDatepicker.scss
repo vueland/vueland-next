@@ -2,10 +2,16 @@
 @import "variables";
 
 .v-datepicker {
-  width: $date-picker-max-width;
-  height: $date-picker-height;
-  border-radius: $date-picker-border-radius;
-  overflow: hidden;
+  position: relative;
+
+  &__table {
+    width: $date-picker-max-width;
+    height: $date-picker-height;
+    border-radius: $date-picker-border-radius;
+    overflow: hidden;
+    position: absolute;
+    z-index: 200;
+  }
 
   &__display {
     @include flex(flex, center, center);

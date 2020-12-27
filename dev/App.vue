@@ -13,7 +13,7 @@
         user: { name: 'igor' },
         checked: [],
         user2: { name: 'alyona' },
-        date: new Date(2020, 11, 25),
+        date: null,
       })
 
       setTimeout(() => {
@@ -28,9 +28,9 @@
         data.always = !data.always
       }
 
-      const testFunc = () => {
-        data.date = new Date(2019, 5, 4) as any
-        console.log('tested')
+      const testFunc = (date) => {
+        // data.date = new Date(2019, 5, 4) as any
+        console.log(date)
       }
 
       const forOut = computed(() => {
@@ -80,7 +80,9 @@
     color="blue-grey darken-3"
     content-color="green lighten-1"
     elevation="15"
+    format="yyyy-mm-dd"
     monday-first
+    @selected="testFunc"
     v-model:value="data.date"
   />
   <v-form v-slot="{ validate }">

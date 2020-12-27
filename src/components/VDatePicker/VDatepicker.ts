@@ -9,8 +9,13 @@ import {
   watch,
   provide,
   computed,
+  withDirectives,
   defineComponent,
 } from 'vue'
+
+// Directives
+import { vShow } from 'vue'
+import { vClickOutside } from '../../directives'
 
 // Effects
 import { colorProps, useColors } from '../../effects/use-colors'
@@ -21,6 +26,7 @@ import { useTransition } from '../../effects/use-transition'
 import { parseDate } from './helpers'
 
 // Components
+import { VTextField } from '../VTextField'
 import { VDatepickerHeader } from './VDatepickerHeader'
 import { VDates } from './VDates'
 import { VYears } from './VYears'
@@ -44,17 +50,25 @@ type Data = {
   isYears: boolean
   isMonths: boolean
   isDates: boolean
+  isActive: boolean
 }
 
 export const VDatepicker = defineComponent({
   name: 'v-datepicker',
   props: {
     dark: Boolean,
+    disabled: Boolean,
+    readonly: Boolean,
     mondayFirst: Boolean,
-    millis: Boolean,
-    toUtc: Boolean,
+    useMls: Boolean,
+    useUtc: Boolean,
     lang: String,
     contentColor: String,
+    label: String,
+    format: {
+      type: String,
+      default: 'yyyy-mm-dd',
+    },
     value: [String, Date, Number],
     modelValue: [String, Date, Number],
     disabledDates: Object,
@@ -79,6 +93,7 @@ export const VDatepicker = defineComponent({
       isYears: false,
       isMonths: false,
       isDates: true,
+      isActive: false,
     })
 
     const localeMonths: string[] = locale[props.lang].months
@@ -92,33 +107,67 @@ export const VDatepicker = defineComponent({
 
     provide('handlers', handlers)
 
-    watch(() => (props.value || props.modelValue), setParsedDate, { immediate: true })
+    watch(() => (props.value || props.modelValue),
+      setParsedDate,
+      { immediate: true },
+    )
 
     const classes = computed<Record<string, boolean>>(() => ({
-      'v-datepicker': true,
+      'v-datepicker__table': true,
       ...elevationClasses.value,
     }))
 
     const headerValue = computed<string>(() => {
       return data.isYears || data.isMonths
-        ? `${ data.tableYear }` : data.isDates
-          ? `${ data.tableYear } ${ localeMonths[data.tableMonth!] }` : ''
+        ? `${data.tableYear}` : data.isDates
+          ? `${data.tableYear} ${localeMonths[data.tableMonth!]}` : ''
     })
 
     const displayDate = computed(() => {
       const { month, date, day } = data.selected as DatePickerDate
-      return `${ localeMonths[month] } ${ date } ${ localeWeek[day] }`
+      return `${localeMonths[month]} ${date} ${localeWeek[day]}`
     })
 
     const computedValue = computed<string | number | Date>(() => {
       const { year, month, date } = data.selected as DatePickerDate
-      const selectedDate = new Date(year, month, date as number)
 
-      if (props.millis) return selectedDate.getTime()
-      if (props.toUtc) return selectedDate.toUTCString()
-
-      return selectedDate
+      if (props.useMls) return new Date(year, month, date as number).getTime()
+      if (props.useUtc) return new Date(year, month, date as number).toUTCString()
+      return formatDate()
     })
+
+    const directive = computed(() => {
+      return data.isActive ? {
+        handler: () => data.isActive = false,
+        closeConditional: false,
+      } : undefined
+    })
+
+    function formatDate(): string {
+      const separator = props.format.match(/(\.|-|\\|\/)/)[0]
+
+      const keys = props.format.split(separator)
+
+      const formatObject = {
+        y: data.selected!.year,
+        m: data.selected!.month + 1,
+        d: data.selected!.date,
+      }
+
+      let dateString = ''
+
+      for (let i = 0; i < keys.length; i += 1) {
+        if (keys[i].length === 2 && formatObject[keys[i][0]] < 10) {
+          dateString += ('0' + formatObject[keys[i][0]])
+        } else {
+          dateString += formatObject[keys[i][0]]
+        }
+        dateString += (i < keys.length - 1 ? separator : '')
+      }
+
+      return dateString
+    }
+
 
     function onTableChange(): void | boolean {
       if (data.isYears) {
@@ -168,7 +217,9 @@ export const VDatepicker = defineComponent({
 
       props.value && emit('update:value', computedValue.value)
       props.modelValue && emit('update:modelValue', computedValue.value)
+
       emit('selected', computedValue.value)
+      data.isActive = false
     }
 
     function onDateMonthUpdate($event) {
@@ -270,16 +321,43 @@ export const VDatepicker = defineComponent({
       )
     }
 
-    return () => {
+    function genDatepickerInput() {
+      return h(VTextField, {
+        value: computedValue.value,
+        label: props.label,
+        readonly: props.readonly,
+        disabled: props.disabled,
+        onFocus: () => data.isActive = true,
+        // onBlur: (e) => setParsedDate(e),
+      })
+    }
+
+
+    function genDatepickerTable() {
       const propsData = setBackground(props.color, {
         class: classes.value,
       })
 
-      return h('div', setTextColor(contentColor, propsData), [
-        genDatepickerDisplay(),
-        genDatepickerHeader(),
-        genDatepickerBody(),
-      ])
+      return withDirectives(h('div',
+        setTextColor(contentColor, propsData),
+        [
+          genDatepickerDisplay(),
+          genDatepickerHeader(),
+          genDatepickerBody(),
+        ]), [[vShow, data.isActive]])
     }
+
+    function genDatepicker() {
+      return withDirectives(h('div', {
+        class: {
+          'v-datepicker': true,
+        },
+      }, [
+        genDatepickerInput(),
+        useTransition(genDatepickerTable(), 'fade'),
+      ]), [[vClickOutside, directive.value]])
+    }
+
+    return () => genDatepicker()
   },
 })

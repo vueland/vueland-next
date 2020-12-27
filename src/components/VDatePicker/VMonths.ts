@@ -8,6 +8,7 @@ import { h, inject, computed, defineComponent } from 'vue'
 import { genTableRows } from './helpers'
 
 // Types
+import { VNode } from 'vue'
 import { DatePickerBtnHandlers } from '../../types'
 
 export const VMonths = defineComponent({
@@ -35,7 +36,7 @@ export const VMonths = defineComponent({
       onPrev: () => updateYear(false),
     }
 
-    const computedMonth = computed({
+    const computedMonth = computed<number>({
       get() {
         return props.month !== undefined ? +props.month : CURRENT_MONTH
       },
@@ -49,7 +50,7 @@ export const VMonths = defineComponent({
       emit('update:year', year)
     }
 
-    function genMonthCell(month) {
+    function genMonthCell(month): VNode {
       const isSelected = month === computedMonth.value
       const propsData = {
         class: {
@@ -63,7 +64,7 @@ export const VMonths = defineComponent({
       return h('div', propsData, props.localeMonths[month])
     }
 
-    function genMonthRows() {
+    function genMonthRows(): VNode[] {
       const monthsVNodes = MONTHS.map(genMonthCell)
       return genTableRows(monthsVNodes, 'v-months__row', CELLS_IN_ROW)
     }
@@ -74,6 +75,7 @@ export const VMonths = defineComponent({
           'v-months': true,
         },
       }
+
       return h('div', propsData, genMonthRows())
     }
   },

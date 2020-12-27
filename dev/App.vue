@@ -1,58 +1,58 @@
 <script lang="ts">
-import { reactive, computed, watch } from 'vue'
+  import { reactive, computed, watch } from 'vue'
 
-export default {
-  setup() {
-    const data = reactive({
-      always: true,
-      show: false,
-      test: true,
-      login: '',
-      email: '',
-      password: '',
-      user: { name: 'igor' },
-      checked: [],
-      user2: { name: 'alyona' },
-      date: new Date(2020, 11, 25),
-    })
+  export default {
+    setup() {
+      const data = reactive({
+        always: true,
+        show: false,
+        test: true,
+        login: '',
+        email: '',
+        password: '',
+        user: { name: 'igor' },
+        checked: [],
+        user2: { name: 'alyona' },
+        date: new Date(2020, 11, 25),
+      })
 
-    setTimeout(() => {
-      data.always = false
-    }, 2000)
+      setTimeout(() => {
+        data.always = false
+      }, 2000)
 
-    watch(() => data.date, to => {
-      console.log(to)
-    })
+      watch(() => data.date, to => {
+        console.log(to)
+      })
 
-    const toggleAlways = () => {
-      data.always = !data.always
-    }
+      const toggleAlways = () => {
+        data.always = !data.always
+      }
 
-    const testFunc = () => {
-      data.date = new Date(2019, 5, 4) as any
-      console.log('tested')
-    }
+      const testFunc = () => {
+        data.date = new Date(2019, 5, 4) as any
+        console.log('tested')
+      }
 
-    const forOut = computed(() => {
-      return data.always ? testFunc : undefined
-    })
+      const forOut = computed(() => {
+        return data.always ? testFunc : undefined
+      })
 
-    const items = [
-      { name: 'Alex', age: 24 },
-      { name: 'Andrew', age: 24 },
-      { name: 'Nikol', age: 24 },
-      { name: 'Anna', age: 24 },
-    ]
+      const items = [
+        { name: 'Alex', age: 24 },
+        { name: 'Andrew', age: 24 },
+        { name: 'Nikol', age: 24 },
+        { name: 'Anna', age: 24 },
+      ]
 
-    return {
-      data,
-      items,
-      testFunc,
-      toggleAlways,
-      forOut,
-    }
-  },
-}
+      return {
+        data,
+        items,
+        testFunc,
+        toggleAlways,
+        forOut,
+      }
+    },
+  }
 </script>
 
 <template>
@@ -63,11 +63,11 @@ export default {
           salam
         </v-list-item-title>
       </template>
-      <template v-slot:prependIcon>
-        <v-icon icon="fas fa-book" size="18" />
-      </template>
+<!--      <template v-slot:prependIcon>-->
+<!--        <v-icon icon="fas fa-book" size="18"/>-->
+<!--      </template>-->
       <v-list-item @click.stop="testFunc">salam</v-list-item>
-      <v-list-group sub-group>
+      <v-list-group sub-group no-action>
         <template v-slot:title>
           <v-list-item-title>salam</v-list-item-title>
         </template>
@@ -86,7 +86,6 @@ export default {
   <v-form v-slot="{ validate }">
     <v-text-field
       label="teal"
-      color="blue darken-3"
       autocomplete="new-password"
       :rules="[v => !!v || 'required', v => v.length > 5 || 'more than 5']"
     />
@@ -95,18 +94,21 @@ export default {
       v-model="data.email"
       :items="['name', 'age']"
       :rules="[v => !!v || 'required']"
-      list-color="blue darken-4"
-      dark
     />
-    <v-button label="click" color="blue darken-3" @click="validate" />
+    <v-button
+      label="click"
+      :disabled="false"
+      color="blue darken-3"
+      @click="validate"
+    />
   </v-form>
 
   <v-form>
     <v-card v-if="!data.show" elevation="5">
-      <v-resize right />
-      <v-resize bottom />
-      <v-resize top />
-      <v-resize left />
+      <v-resize right/>
+      <v-resize bottom/>
+      <v-resize top/>
+      <v-resize left/>
       <v-card-title>
         <span
           style="display: block; width: 55px; height: 55px; border-radius: 50px;"
@@ -135,7 +137,7 @@ export default {
     <v-card v-if="data.show" elevation="5">
       <v-card-title>
         <span style="">Testting header</span>
-        <v-checkbox label="test" />
+        <v-checkbox label="test"/>
       </v-card-title>
       <v-card-content>
         <span style="display: block;">some little text</span>
@@ -156,7 +158,7 @@ export default {
           salam
         </v-card-content>
         <v-card-actions>
-          <v-button label="click" @click="data.show = !data.show" />
+          <v-button label="click" @click="data.show = !data.show"/>
         </v-card-actions>
       </v-card>
     </v-modal>
@@ -193,44 +195,44 @@ export default {
 </template>
 
 <style lang="scss">
-.active-class {
-  background: #272727;
-  color: white !important;
-}
-
-.wrap {
-  position: absolute;
-  left: 60px;
-  top: 60px;
-  width: calc(100% - 60px);
-  height: calc(100vh - 60px);
-}
-
-.app {
-  &-header {
-    width: 100%;
-    height: 60px;
+  .active-class {
     background: #272727;
+    color: white !important;
   }
 
-  &-sidebar {
+  .wrap {
     position: absolute;
+    left: 60px;
     top: 60px;
-    left: 0;
-    width: 60px;
+    width: calc(100% - 60px);
     height: calc(100vh - 60px);
-    background: #272727;
   }
-}
 
-.text {
-  display: inline-block;
-}
+  .app {
+    &-header {
+      width: 100%;
+      height: 60px;
+      background: #272727;
+    }
 
-.test {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
+    &-sidebar {
+      position: absolute;
+      top: 60px;
+      left: 0;
+      width: 60px;
+      height: calc(100vh - 60px);
+      background: #272727;
+    }
+  }
+
+  .text {
+    display: inline-block;
+  }
+
+  .test {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
 
 </style>

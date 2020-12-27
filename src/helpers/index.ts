@@ -9,16 +9,15 @@ export function createSimpleFunctional(
     name: name || c.replace(/__/g, '-'),
 
     setup(_, { slots }) {
-      return () =>
-        h(
-          el,
-          {
-            class: {
-              [c.trim()]: true,
-            },
-          },
-          slots.default && slots.default(),
-        )
+      const propsData = {
+        class: {
+          [c.trim()]: true,
+        },
+      }
+
+      return () => h(el, propsData,
+        slots.default && slots.default(),
+      )
     },
   })
 }
@@ -46,7 +45,7 @@ export function convertToUnit(
   } else if (isNaN(+str!)) {
     return String(str)
   } else {
-    return `${Number(str)}${unit}`
+    return `${ Number(str) }${ unit }`
   }
 }
 

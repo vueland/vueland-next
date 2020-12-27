@@ -44,7 +44,7 @@ var VYears = (0, _vue.defineComponent)({
       }
     });
 
-    if (handlers !== null && handlers !== void 0 && handlers.value) {
+    if (handlers === null || handlers === void 0 ? void 0 : handlers.value) {
       handlers.value = {
         onNext: function onNext() {
           return changeYearsList(true);

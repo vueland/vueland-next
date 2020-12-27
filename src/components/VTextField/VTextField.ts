@@ -124,7 +124,7 @@ export const VTextField = defineComponent({
         class: {
           'v-text-field__input': true,
         },
-        ...attrs,
+        autocomplete: attrs.autocomplete,
         onFocus: focusHandler,
         onBlur: blurHandler,
         onInput: inputHandler,

@@ -105,7 +105,7 @@ var VListGroup = (0, _vue.defineComponent)({
     function genAppendIcon() {
       var slotIcon = slots.appendIcon && slots.appendIcon();
       var icon = !props.subGroup && !props.noAction ? props.appendIcon : false;
-      if (!icon && !slotIcon) return null;
+      if (!icon && !slotIcon || !props.subGroup && props.noAction) return null;
       var propsData = {
         "class": {
           'v-list-group__append-icon': true

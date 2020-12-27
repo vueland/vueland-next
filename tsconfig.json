@@ -54,11 +54,11 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
-    "src/**/*.vue",
-    "src/**/*.spec.ts"
+    "src/**/*.vue"
   ],
   "exclude": [
     "node_modules",
-    "dev/**/*.ts"
+    "dev/**/*.ts",
+    "src/**/*.spec.ts"
   ]
 }

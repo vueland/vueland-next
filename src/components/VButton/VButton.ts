@@ -14,7 +14,7 @@ import { VNode } from 'vue'
 
 export const VButton = defineComponent({
   name: 'v-button',
-
+  emits: ['click'],
   props: {
     disabled: Boolean,
     outlined: Boolean,
@@ -28,7 +28,7 @@ export const VButton = defineComponent({
     ...positionProps(),
   } as any,
 
-  setup(props, { slots }): () => VNode {
+  setup(props, { slots, emit }): () => VNode {
     const { setTextColor, setBackground } = useColors()
 
     const { elevationClasses } = useElevation(props)
@@ -63,14 +63,20 @@ export const VButton = defineComponent({
       const setColor = isFlat.value ? setTextColor : setBackground
       const content: any[] = []
 
-      const propsData = props.color
-        ? setColor(props.color, { class: classes.value })
-        : { class: classes.value }
+      const propsData = {
+        class: classes.value,
+        onClick: () => !props.disabled && emit('click')
+      }
 
       props.label && content.push(genLabel())
+
       slots.default && content.push(slots.default())
 
-      return h('button', propsData, content)
+      return h('button',
+        props.color && !props.disabled
+          ? setColor(props.color, propsData) : propsData,
+        content,
+      )
     }
   },
 })

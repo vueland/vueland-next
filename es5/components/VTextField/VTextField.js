@@ -83,12 +83,12 @@ var VTextField = (0, _vue.defineComponent)({
       return ((_props$rules2 = props.rules) === null || _props$rules2 === void 0 ? void 0 : _props$rules2.length) && validate(state.value);
     }
 
-    if (fields !== null && fields !== void 0 && fields.value && (_props$rules3 = props.rules) !== null && _props$rules3 !== void 0 && _props$rules3.length) {
+    if ((fields === null || fields === void 0 ? void 0 : fields.value) && ((_props$rules3 = props.rules) === null || _props$rules3 === void 0 ? void 0 : _props$rules3.length)) {
       fields.value.push(validateValue);
     }
 
     (0, _vue.onBeforeUnmount)(function () {
-      if (fields !== null && fields !== void 0 && fields.value) {
+      if (fields === null || fields === void 0 ? void 0 : fields.value) {
         fields.value = fields.value.filter(function (v) {
           return v !== validateValue;
         });
@@ -114,17 +114,17 @@ var VTextField = (0, _vue.defineComponent)({
     }
 
     function genInput() {
-      var propsData = _objectSpread(_objectSpread({
+      var propsData = {
         disabled: props.disabled,
         value: state.value,
         "class": {
           'v-text-field__input': true
-        }
-      }, attrs), {}, {
+        },
+        autocomplete: attrs.autocomplete,
         onFocus: focusHandler,
         onBlur: blurHandler,
         onInput: inputHandler
-      });
+      };
 
       if (props.tag === 'input') {
         propsData.type = props.type;

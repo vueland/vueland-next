@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.clickOutside = void 0;
+exports.vClickOutside = void 0;
 
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -19,7 +19,7 @@ function removeListener(el) {
   delete el._binds;
 }
 
-var clickOutside = {
+var vClickOutside = {
   beforeMount: function beforeMount(el, binding) {
     el._binds = binding;
   },
@@ -37,5 +37,5 @@ var clickOutside = {
     removeListener(el);
   }
 };
-exports.clickOutside = clickOutside;
+exports.vClickOutside = vClickOutside;
 //# sourceMappingURL=index.js.map

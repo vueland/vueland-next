@@ -77,7 +77,7 @@ var VCheckbox = (0, _vue.defineComponent)({
       isChecked.value = !!props.modelValue;
     }
 
-    if (fields === null || fields === void 0 ? void 0 : fields.value) {
+    if (fields !== null && fields !== void 0 && fields.value) {
       fields.value.push(validateValue);
     }
 

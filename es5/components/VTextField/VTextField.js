@@ -26,13 +26,14 @@ var VTextField = (0, _vue.defineComponent)({
   props: _objectSpread(_objectSpread({
     dark: Boolean,
     disabled: Boolean,
+    readonly: Boolean,
     label: String,
     isDirty: Boolean,
     type: {
       type: String,
       "default": 'text'
     },
-    modelValue: [String, Number],
+    modelValue: [String, Number, Date],
     tag: {
       type: String,
       "default": 'input'
@@ -47,7 +48,7 @@ var VTextField = (0, _vue.defineComponent)({
       value: '',
       focused: false
     });
-    state.value = props.modelValue;
+    state.value = props.modelValue || props.value;
     var fields = ((_props$rules = props.rules) === null || _props$rules === void 0 ? void 0 : _props$rules.length) && (0, _vue.inject)('fields');
 
     var _useColors = (0, _useColors2.useColors)(),
@@ -62,7 +63,7 @@ var VTextField = (0, _vue.defineComponent)({
         validationState = _useValidate.validationState;
 
     (0, _vue.watch)(function () {
-      return props.modelValue;
+      return props.modelValue || props.value;
     }, function (value) {
       state.value = value;
       !value && validateValue();
@@ -83,12 +84,12 @@ var VTextField = (0, _vue.defineComponent)({
       return ((_props$rules2 = props.rules) === null || _props$rules2 === void 0 ? void 0 : _props$rules2.length) && validate(state.value);
     }
 
-    if ((fields === null || fields === void 0 ? void 0 : fields.value) && ((_props$rules3 = props.rules) === null || _props$rules3 === void 0 ? void 0 : _props$rules3.length)) {
+    if (fields !== null && fields !== void 0 && fields.value && (_props$rules3 = props.rules) !== null && _props$rules3 !== void 0 && _props$rules3.length) {
       fields.value.push(validateValue);
     }
 
     (0, _vue.onBeforeUnmount)(function () {
-      if (fields === null || fields === void 0 ? void 0 : fields.value) {
+      if (fields !== null && fields !== void 0 && fields.value) {
         fields.value = fields.value.filter(function (v) {
           return v !== validateValue;
         });
@@ -108,22 +109,29 @@ var VTextField = (0, _vue.defineComponent)({
       validateValue();
     }
 
+    function changeHandler() {
+      emit('change');
+    }
+
     function inputHandler(e) {
       state.value = e.target.value;
       emit('update:modelValue', state.value);
+      emit('update:value', state.value);
     }
 
     function genInput() {
       var propsData = {
         disabled: props.disabled,
+        readonly: props.readonly,
         value: state.value,
+        autocomplete: attrs.autocomplete,
         "class": {
           'v-text-field__input': true
         },
-        autocomplete: attrs.autocomplete,
         onFocus: focusHandler,
         onBlur: blurHandler,
-        onInput: inputHandler
+        onInput: inputHandler,
+        onChange: changeHandler
       };
 
       if (props.tag === 'input') {

@@ -14,7 +14,7 @@ var validateProps = function validateProps() {
       type: Array,
       "default": null
     },
-    value: [String, Number]
+    value: [String, Number, Date]
   };
 };
 

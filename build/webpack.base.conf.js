@@ -28,7 +28,7 @@ module.exports = {
   externals: {
     path: PATH,
   },
-
+  target: process.env.NODE_ENV === "development" ? "web" : "browserslist",
   optimization: {
     mergeDuplicateChunks: true,
     // providedExports: true,
@@ -121,7 +121,8 @@ module.exports = {
     extensions: ['*', '.js', '.json', '.vue', '.ts']
   },
   node: {
-    fs: 'empty'
+    global: false,
+    // fs: 'empty'
   },
   plugins: [
     new MiniCssExtractPlugin({

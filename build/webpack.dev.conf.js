@@ -1,13 +1,13 @@
 const webpack = require('webpack')
-const merge = require('webpack-merge')
+const { merge } = require('webpack-merge')
 const baseConfig = require('./webpack.base.conf.js')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const devConfig = merge(baseConfig, {
   mode: 'development',
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'eval-cheap-module-source-map',
   devServer: {
-    contentBase: baseConfig.externals.path.dist,
+    // contentBase: baseConfig.externals.path.dist,
     port: 8080,
     overlay: {
       warnings: false,

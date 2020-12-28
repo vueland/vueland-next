@@ -9,6 +9,8 @@ require("../../../src/components/VDatePicker/VDatepicker.scss");
 
 var _vue = require("vue");
 
+var _directives = require("../../directives");
+
 var _useColors2 = require("../../effects/use-colors");
 
 var _useElevation2 = require("../../effects/use-elevation");
@@ -16,6 +18,8 @@ var _useElevation2 = require("../../effects/use-elevation");
 var _useTransition = require("../../effects/use-transition");
 
 var _helpers = require("./helpers");
+
+var _VTextField = require("../VTextField");
 
 var _VDatepickerHeader = require("./VDatepickerHeader");
 
@@ -37,11 +41,18 @@ var VDatepicker = (0, _vue.defineComponent)({
   name: 'v-datepicker',
   props: _objectSpread(_objectSpread({
     dark: Boolean,
+    disabled: Boolean,
+    readonly: Boolean,
     mondayFirst: Boolean,
-    millis: Boolean,
-    toUtc: Boolean,
+    useMls: Boolean,
+    useUtc: Boolean,
     lang: String,
     contentColor: String,
+    label: String,
+    format: {
+      type: String,
+      "default": 'yyyy-mm-dd'
+    },
     value: [String, Date, Number],
     modelValue: [String, Date, Number],
     disabledDates: Object,
@@ -60,7 +71,8 @@ var VDatepicker = (0, _vue.defineComponent)({
       tableYear: null,
       isYears: false,
       isMonths: false,
-      isDates: true
+      isDates: true,
+      isActive: false
     });
     var localeMonths = _locale.locale[props.lang].months;
     var localeWeek = _locale.locale[props.lang].week;
@@ -82,7 +94,7 @@ var VDatepicker = (0, _vue.defineComponent)({
     });
     var classes = (0, _vue.computed)(function () {
       return _objectSpread({
-        'v-datepicker': true
+        'v-datepicker__table': true
       }, elevationClasses.value);
     });
     var headerValue = (0, _vue.computed)(function () {
@@ -100,11 +112,41 @@ var VDatepicker = (0, _vue.defineComponent)({
           year = _data$selected2.year,
           month = _data$selected2.month,
           date = _data$selected2.date;
-      var selectedDate = new Date(year, month, date);
-      if (props.millis) return selectedDate.getTime();
-      if (props.toUtc) return selectedDate.toUTCString();
-      return selectedDate;
+      if (props.useMls) return new Date(year, month, date).getTime();
+      if (props.useUtc) return new Date(year, month, date).toUTCString();
+      return formatDate();
     });
+    var directive = (0, _vue.computed)(function () {
+      return data.isActive ? {
+        handler: function handler() {
+          return data.isActive = false;
+        },
+        closeConditional: false
+      } : undefined;
+    });
+
+    function formatDate() {
+      var separator = props.format.match(/(\.|-|\\|\/)/)[0];
+      var keys = props.format.split(separator);
+      var formatObject = {
+        y: data.selected.year,
+        m: data.selected.month + 1,
+        d: data.selected.date
+      };
+      var dateString = '';
+
+      for (var i = 0; i < keys.length; i += 1) {
+        if (keys[i].length === 2 && formatObject[keys[i][0]] < 10) {
+          dateString += '0' + formatObject[keys[i][0]];
+        } else {
+          dateString += formatObject[keys[i][0]];
+        }
+
+        dateString += i < keys.length - 1 ? separator : '';
+      }
+
+      return dateString;
+    }
 
     function onTableChange() {
       if (data.isYears) {
@@ -164,6 +206,7 @@ var VDatepicker = (0, _vue.defineComponent)({
       props.value && emit('update:value', computedValue.value);
       props.modelValue && emit('update:modelValue', computedValue.value);
       emit('selected', computedValue.value);
+      data.isActive = false;
     }
 
     function onDateMonthUpdate($event) {
@@ -251,11 +294,35 @@ var VDatepicker = (0, _vue.defineComponent)({
       }, (0, _useTransition.useTransition)(data.isYears && genDatepickerYearsTable() || data.isMonths && genDatepickerMonthsTable() || data.isDates && genDatepickerDatesTable(), 'slide-in-left', 'out-in'));
     }
 
-    return function () {
+    function genDatepickerInput() {
+      return (0, _vue.h)(_VTextField.VTextField, {
+        value: computedValue.value,
+        label: props.label,
+        readonly: props.readonly,
+        disabled: props.disabled,
+        onFocus: function onFocus() {
+          return data.isActive = true;
+        }
+      });
+    }
+
+    function genDatepickerTable() {
       var propsData = setBackground(props.color, {
         "class": classes.value
       });
-      return (0, _vue.h)('div', setTextColor(contentColor, propsData), [genDatepickerDisplay(), genDatepickerHeader(), genDatepickerBody()]);
+      return (0, _vue.withDirectives)((0, _vue.h)('div', setTextColor(contentColor, propsData), [genDatepickerDisplay(), genDatepickerHeader(), genDatepickerBody()]), [[_vue.vShow, data.isActive]]);
+    }
+
+    function genDatepicker() {
+      return (0, _vue.withDirectives)((0, _vue.h)('div', {
+        "class": {
+          'v-datepicker': true
+        }
+      }, [genDatepickerInput(), (0, _useTransition.useTransition)(genDatepickerTable(), 'fade')]), [[_directives.vClickOutside, directive.value]]);
+    }
+
+    return function () {
+      return genDatepicker();
     };
   }
 });

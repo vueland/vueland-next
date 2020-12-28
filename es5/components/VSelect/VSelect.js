@@ -89,7 +89,7 @@ var VSelect = (0, _vue.defineComponent)({
       immediate: true
     });
 
-    if ((fields === null || fields === void 0 ? void 0 : fields.value) && ((_props$rules2 = props.rules) === null || _props$rules2 === void 0 ? void 0 : _props$rules2.length)) {
+    if (fields !== null && fields !== void 0 && fields.value && (_props$rules2 = props.rules) !== null && _props$rules2 !== void 0 && _props$rules2.length) {
       fields.value.push(validateValue);
     }
 
@@ -154,7 +154,7 @@ var VSelect = (0, _vue.defineComponent)({
       var selectVNode = (0, _vue.h)('div', {
         "class": classes.value
       }, [genInput(), genSelectList()]);
-      return (0, _vue.withDirectives)(selectVNode, [[_directives.clickOutside, directive.value]]);
+      return (0, _vue.withDirectives)(selectVNode, [[_directives.vClickOutside, directive.value]]);
     }
 
     (0, _vue.onBeforeUnmount)(function () {
@@ -180,7 +180,7 @@ var VSelect = (0, _vue.defineComponent)({
         select: function select() {
           var _props$items;
 
-          return ((_props$items = props.items) === null || _props$items === void 0 ? void 0 : _props$items.length) ? genSelect() : null;
+          return (_props$items = props.items) !== null && _props$items !== void 0 && _props$items.length ? genSelect() : null;
         }
       });
     };

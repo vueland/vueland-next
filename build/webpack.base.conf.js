@@ -20,7 +20,7 @@ const PATH = {
 
 exports.config = {
   node: {
-    fs: 'empty'
+    fs: 'empty',
   },
 }
 
@@ -28,7 +28,7 @@ module.exports = {
   externals: {
     path: PATH,
   },
-  target: process.env.NODE_ENV === "development" ? "web" : "browserslist",
+  target: process.env.NODE_ENV === 'development' ? 'web' : 'browserslist',
   optimization: {
     mergeDuplicateChunks: true,
     // providedExports: true,
@@ -63,17 +63,17 @@ module.exports = {
         loader: 'vue-loader',
         options: {
           loader: {
-            scss: 'vue-style-loader!css-loader!sass-loader'
+            scss: 'vue-style-loader!css-loader!sass-loader',
           },
-          esModule: false
-        }
+          esModule: false,
+        },
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
         loader: 'file-loader',
         options: {
-          name: '[name].[ext]'
-        }
+          name: '[name].[ext]',
+        },
       },
       {
         test: /\.scss$/,
@@ -92,7 +92,7 @@ module.exports = {
             options: {
               sourceMap: true,
             },
-          }
+          },
         ],
       },
       {
@@ -116,9 +116,9 @@ module.exports = {
       '@': PATH.src,
       '@dev': PATH.dev,
       '/': PATH.public,
-      'vue': 'vue'
+      'vue': 'vue',
     },
-    extensions: ['*', '.js', '.json', '.vue', '.ts']
+    extensions: ['*', '.js', '.json', '.vue', '.ts'],
   },
   node: {
     global: false,
@@ -129,6 +129,10 @@ module.exports = {
       filename: '[name].css',
       chunkFilename: 'css/chunk.[name].[hash].css',
     }),
-    new VueLoaderPlugin()
+    new webpack.DefinePlugin({
+      __VUE_OPTIONS_API__: false,
+      __VUE_PROD_DEVTOOLS__: false,
+    }),
+    new VueLoaderPlugin(),
   ],
 }

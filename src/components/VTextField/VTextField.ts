@@ -29,6 +29,14 @@ type TextFieldState = {
 
 export const VTextField = defineComponent({
   name: 'v-text-field',
+  emits: [
+    'input',
+    'focus',
+    'blur',
+    'change',
+    'update:value',
+    'update:modelValue'
+  ],
   props: {
     dark: Boolean,
     disabled: Boolean,
@@ -109,18 +117,19 @@ export const VTextField = defineComponent({
 
     function blurHandler() {
       state.focused = false
-      emit('blur')
+      emit('blur', state.value)
       validateValue()
     }
 
     function changeHandler() {
-      emit('change')
+      emit('change', state.value)
     }
 
     function inputHandler(e) {
       state.value = e.target.value
       emit('update:modelValue', state.value)
       emit('update:value', state.value)
+      emit('input', state.value)
     }
 
     function genInput(): VNode {

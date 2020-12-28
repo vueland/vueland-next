@@ -81,6 +81,7 @@
     content-color="green lighten-1"
     elevation="15"
     format="yyyy-mm-dd"
+    use-mls
     monday-first
     @selected="testFunc"
     v-model:value="data.date"

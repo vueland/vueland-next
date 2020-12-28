@@ -119,21 +119,22 @@ export const VDatepicker = defineComponent({
 
     const headerValue = computed<string>(() => {
       return data.isYears || data.isMonths
-        ? `${data.tableYear}` : data.isDates
-          ? `${data.tableYear} ${localeMonths[data.tableMonth!]}` : ''
+        ? `${ data.tableYear }` : data.isDates
+          ? `${ data.tableYear } ${ localeMonths[data.tableMonth!] }` : ''
     })
 
     const displayDate = computed(() => {
       const { month, date, day } = data.selected as DatePickerDate
-      return `${localeMonths[month]} ${date} ${localeWeek[day]}`
+      return `${ localeMonths[month] } ${ date } ${ localeWeek[day] }`
     })
 
     const computedValue = computed<string | number | Date>(() => {
       const { year, month, date } = data.selected as DatePickerDate
+      const selectedDate = new Date(year, month, date as number)
 
-      if (props.useMls) return new Date(year, month, date as number).getTime()
-      if (props.useUtc) return new Date(year, month, date as number).toUTCString()
-      return formatDate()
+      if (props.useMls) return selectedDate.getTime()
+      if (props.useUtc) return selectedDate.toUTCString()
+      return selectedDate
     })
 
     const directive = computed(() => {
@@ -143,10 +144,43 @@ export const VDatepicker = defineComponent({
       } : undefined
     })
 
-    function formatDate(): string {
-      const separator = props.format.match(/(\.|-|\\|\/)/)[0]
+    function divideByFormat(str) {
+      const separator = str.match(/(\.|-|\\|\/)/)[0]
+      const divided = str.split(separator)
 
-      const keys = props.format.split(separator)
+      return { separator, divided }
+    }
+
+    function stringToDate(stringDate) {
+      if (stringDate.length !== props.format.length) return
+
+      const formatDate = divideByFormat(stringDate)
+      const formatObject = divideByFormat(props.format)
+
+      const dateObject = {
+        y: 0,
+        m: 0,
+        d: 0,
+      }
+
+      formatObject.divided.forEach((it, i) => {
+        dateObject[it[0]] = +formatDate.divided[i]
+      })
+
+      dateObject.m -= 1
+
+      data.tableMonth = dateObject.m
+      data.tableYear = dateObject.y
+
+      data.selected = parseDate(new Date(
+        dateObject.y,
+        dateObject.m,
+        dateObject.d,
+      ))
+    }
+
+    function formatDate(): string {
+      const { divided, separator } = divideByFormat(props.format)
 
       const formatObject = {
         y: data.selected!.year,
@@ -156,18 +190,17 @@ export const VDatepicker = defineComponent({
 
       let dateString = ''
 
-      for (let i = 0; i < keys.length; i += 1) {
-        if (keys[i].length === 2 && formatObject[keys[i][0]] < 10) {
-          dateString += ('0' + formatObject[keys[i][0]])
+      for (let i = 0; i < divided.length; i += 1) {
+        if (divided[i].length === 2 && formatObject[divided[i][0]] < 10) {
+          dateString += ('0' + formatObject[divided[i][0]])
         } else {
-          dateString += formatObject[keys[i][0]]
+          dateString += formatObject[divided[i][0]]
         }
-        dateString += (i < keys.length - 1 ? separator : '')
+        dateString += (i < divided.length - 1 ? separator : '')
       }
 
       return dateString
     }
-
 
     function onTableChange(): void | boolean {
       if (data.isYears) {
@@ -323,15 +356,17 @@ export const VDatepicker = defineComponent({
 
     function genDatepickerInput() {
       return h(VTextField, {
-        value: computedValue.value,
+        value: formatDate(),
         label: props.label,
         readonly: props.readonly,
         disabled: props.disabled,
         onFocus: () => data.isActive = true,
-        // onBlur: (e) => setParsedDate(e),
+        onInput: (e) => {
+          data.isActive = false
+          stringToDate(e)
+        },
       })
     }
-
 
     function genDatepickerTable() {
       const propsData = setBackground(props.color, {

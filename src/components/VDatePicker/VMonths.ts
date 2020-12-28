@@ -2,7 +2,7 @@
 import './VMonths.scss'
 
 // Vue API
-import { h, inject, computed, defineComponent } from 'vue'
+import { h, inject, watch, computed, defineComponent } from 'vue'
 
 // Helpers
 import { genTableRows } from './helpers'
@@ -35,6 +35,8 @@ export const VMonths = defineComponent({
       onNext: () => updateYear(true),
       onPrev: () => updateYear(false),
     }
+
+    watch(() => props.month, to => console.log(to))
 
     const computedMonth = computed<number>({
       get() {

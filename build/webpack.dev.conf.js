@@ -11,12 +11,12 @@ const devConfig = merge(baseConfig, {
     port: 8080,
     overlay: {
       warnings: false,
-      errors: true
+      errors: true,
     },
     historyApiFallback: true,
   },
   entry: {
-    retn: `${ baseConfig.externals.path.dev }/app.ts`
+    retn: `${ baseConfig.externals.path.dev }/app.ts`,
   },
   output: {
     filename: `index.js`,
@@ -26,20 +26,15 @@ const devConfig = merge(baseConfig, {
   },
   plugins: [
     new webpack.SourceMapDevToolPlugin({
-      filename: '[file].map'
+      filename: '[file].map',
     }),
     new HtmlWebpackPlugin({
       hash: false,
       template: `${ baseConfig.externals.path.dev }/index.html`,
       filename: 'index.html',
-      inject: true
+      inject: true,
     }),
-
-    new webpack.DefinePlugin({
-      __VUE_OPTIONS_API__: false,
-      __VUE_PROD_DEVTOOLS__: false
-    })
-  ]
+  ],
 })
 
 module.exports = new Promise((res, rej) => {

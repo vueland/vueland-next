@@ -31,8 +31,6 @@ module.exports = {
   target: process.env.NODE_ENV === 'development' ? 'web' : 'browserslist',
   optimization: {
     mergeDuplicateChunks: true,
-    // providedExports: true,
-    // usedExports: true,
   },
 
   module: {

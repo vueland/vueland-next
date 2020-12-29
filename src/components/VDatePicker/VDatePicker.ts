@@ -291,7 +291,7 @@ export const VDatePicker = defineComponent({
       )
     }
 
-    function genDatepickerDisplayInner() {
+    function genDatepickerDisplayInner(): VNode {
       return h('div', {
         class: 'v-date-picker__display-inner',
       }, [
@@ -373,7 +373,7 @@ export const VDatePicker = defineComponent({
       )
     }
 
-    function genDatepickerInput() {
+    function genDatepickerInput(): VNode {
       return h(VTextField, {
         value: formatDate(),
         label: props.label,
@@ -385,7 +385,7 @@ export const VDatePicker = defineComponent({
       })
     }
 
-    function genDatepickerTable() {
+    function genDatepickerTable(): VNode {
       const propsData = setBackground(props.color, {
         class: tableClasses.value,
       })
@@ -399,7 +399,7 @@ export const VDatePicker = defineComponent({
         ]), [[vShow, data.isActive]])
     }
 
-    function genDatepicker() {
+    function genDatepicker(): VNode {
       return withDirectives(h('div', {
         class: classes.value,
       }, [

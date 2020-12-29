@@ -7,7 +7,6 @@ const devConfig = merge(baseConfig, {
   mode: 'development',
   devtool: 'eval-cheap-module-source-map',
   devServer: {
-    // contentBase: baseConfig.externals.path.dist,
     port: 8080,
     overlay: {
       warnings: false,
@@ -16,7 +15,7 @@ const devConfig = merge(baseConfig, {
     historyApiFallback: true,
   },
   entry: {
-    retn: `${ baseConfig.externals.path.dev }/app.ts`,
+    vueland: `${ baseConfig.externals.path.dev }/app.ts`,
   },
   output: {
     filename: `index.js`,

@@ -122,7 +122,6 @@ module.exports = {
   },
   node: {
     global: false,
-    // fs: 'empty'
   },
   plugins: [
     new MiniCssExtractPlugin({

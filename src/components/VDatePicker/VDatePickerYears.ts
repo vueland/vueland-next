@@ -15,7 +15,7 @@ import { DatePickerBtnHandlers } from '../../types'
 import { useTransition } from '../../effects/use-transition'
 
 export const VDatePickerYears = defineComponent({
-  name: 'v-years',
+  name: 'v-date-picker-years',
   props: {
     year: [Number, String],
   } as any,
@@ -101,9 +101,9 @@ export const VDatePickerYears = defineComponent({
       const isSelected = year === computedYear.value
       const propsData = {
         class: {
-          'v-years__cell': true,
-          'v-years__cell--selected': isSelected,
-          'v-years__cell--current-year': year === CURRENT_YEAR,
+          'v-date-picker-years__cell': true,
+          'v-date-picker-years__cell--selected': isSelected,
+          'v-date-picker-years__cell--current-year': year === CURRENT_YEAR,
         },
         onClick: () => (computedYear.value = year),
       }
@@ -117,14 +117,14 @@ export const VDatePickerYears = defineComponent({
 
       return genTableRows(
         yearsVNodes,
-        'v-years__row',
+        'v-date-picker-years__row',
         CELLS_IN_ROW,
       )
     }
 
     function genYears(): VNode | null {
       const propsData = {
-        class: 'v-years__years',
+        class: 'v-date-picker-years__years',
       }
       return (
         !isListChanged.value && h('div', propsData, genYearsRows()) || null
@@ -141,7 +141,7 @@ export const VDatePickerYears = defineComponent({
       )
       const propsData = {
         class: {
-          'v-years': true,
+          'v-date-picker-years': true,
         },
       }
 

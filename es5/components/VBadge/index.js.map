@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../../../src/components/VBadge/index.ts"],"names":[],"mappings":";;;;;;AAAA;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA","sourcesContent":["export * from './VBadge'\n"],"sourceRoot":"","file":"index.js"}

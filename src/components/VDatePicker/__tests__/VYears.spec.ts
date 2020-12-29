@@ -1,5 +1,5 @@
 import { mount, VueWrapper } from '@vue/test-utils'
-import { VDatePickerYears } from '../VYears'
+import { VDatePickerYears } from '../VDatePickerYears'
 import 'regenerator-runtime/runtime'
 
 describe('VYears', () => {
@@ -21,7 +21,7 @@ describe('VYears', () => {
         year: 2020,
       },
     })
-    const cells = cmp.findAll('.v-years__cell')
+    const cells = cmp.findAll('.v-date-picker-years__cell')
 
     expect(cmp.props().year).toEqual(2020)
     expect(cells.length).toEqual(20)
@@ -37,7 +37,7 @@ describe('VYears', () => {
       },
     })
 
-    const cells = cmp.findAll('.v-years__cell')
+    const cells = cmp.findAll('.v-date-picker-years__cell')
     await cells[1].trigger('click')
 
     expect(stub).toBeCalledTimes(1)

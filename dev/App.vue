@@ -75,8 +75,11 @@
     </v-list-group>
   </v-list>
 
-  <v-form v-slot="{ validate }">
-    <v-datepicker
+  <v-form
+    v-slot="{ validate }"
+    style="display: block; margin: 20px; width: 400px;"
+  >
+    <v-date-picker
       v-model:value="data.date"
       lang="ru"
       label="set date"
@@ -85,7 +88,7 @@
       :rules="[val => !!val || 'Required']"
       elevation="15"
       use-mls
-      today
+      readonly
       monday-first
     />
     <v-text-field

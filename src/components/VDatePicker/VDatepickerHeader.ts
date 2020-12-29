@@ -1,5 +1,5 @@
 // Styles
-import './VDatepickerHeader.scss'
+import './VDatePickerHeader.scss'
 
 // Vue API
 import { h, defineComponent } from 'vue'
@@ -12,7 +12,7 @@ import { FaIcons } from '../../services/icons'
 import { VIcon } from '@/components'
 
 export const VDatepickerHeader = defineComponent({
-  name: 'v-datepicker-header',
+  name: 'v-date-picker-header',
 
   props: {
     onNext: Function,
@@ -27,7 +27,7 @@ export const VDatepickerHeader = defineComponent({
       const icon = isRight ? FaIcons.$arrowRight : FaIcons.$arrowLeft
 
       const propsData = {
-        class: 'v-datepicker__header-button',
+        class: 'v-date-picker__header-button',
       }
 
       const iconPropsData = {
@@ -48,7 +48,7 @@ export const VDatepickerHeader = defineComponent({
     const genHeaderDisplay = () => {
       const propsData = {
         class: {
-          'v-datepicker__header-display': true,
+          'v-date-picker__header-display': true,
         },
         onClick: () => emit('table'),
       }
@@ -61,7 +61,7 @@ export const VDatepickerHeader = defineComponent({
     }
 
     return () => h('div', {
-        class: 'v-datepicker__header',
+        class: 'v-date-picker__header',
       },
       [
         genHeaderButton(false),

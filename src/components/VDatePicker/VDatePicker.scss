@@ -1,8 +1,16 @@
 @import "../../styles/scss/modules/global";
 @import "variables";
 
-.v-datepicker {
+.v-date-picker {
   position: relative;
+
+  &--inputable > .v-date-picker__table {
+    top: 100%
+  }
+
+  &--readonly > .v-date-picker__table {
+    top: 0
+  }
 
   &__table {
     width: $date-picker-max-width;

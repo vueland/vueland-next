@@ -1,5 +1,5 @@
 // Styles
-import './VYears.scss'
+import './VDatePickerYears.scss'
 
 // VUe API
 import { h, ref, watchEffect, inject, computed, defineComponent } from 'vue'
@@ -14,7 +14,7 @@ import { DatePickerBtnHandlers } from '../../types'
 // Effects
 import { useTransition } from '../../effects/use-transition'
 
-export const VYears = defineComponent({
+export const VDatePickerYears = defineComponent({
   name: 'v-years',
   props: {
     year: [Number, String],

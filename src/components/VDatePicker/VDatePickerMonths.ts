@@ -1,5 +1,5 @@
 // Styles
-import './VMonths.scss'
+import './VDatePickerMonths.scss'
 
 // Vue API
 import { h, inject, watch, computed, defineComponent } from 'vue'
@@ -11,8 +11,8 @@ import { genTableRows } from './helpers'
 import { VNode } from 'vue'
 import { DatePickerBtnHandlers } from '../../types'
 
-export const VMonths = defineComponent({
-  name: 'v-months',
+export const VDatePickerMonths = defineComponent({
+  name: 'v-date-picker-months',
 
   props: {
     lang: {
@@ -56,9 +56,9 @@ export const VMonths = defineComponent({
       const isSelected = month === computedMonth.value
       const propsData = {
         class: {
-          'v-months__cell': true,
-          'v-months__cell--selected': isSelected,
-          'v-months__cell--current-month': month === CURRENT_MONTH,
+          'v-date-picker-months__cell': true,
+          'v-date-picker-months__cell--selected': isSelected,
+          'v-date-picker-months__cell--current-month': month === CURRENT_MONTH,
         },
         onClick: () => (computedMonth.value = month),
       }
@@ -68,13 +68,18 @@ export const VMonths = defineComponent({
 
     function genMonthRows(): VNode[] {
       const monthsVNodes = MONTHS.map(genMonthCell)
-      return genTableRows(monthsVNodes, 'v-months__row', CELLS_IN_ROW)
+
+      return genTableRows(
+        monthsVNodes,
+        'v-date-picker-months__row',
+        CELLS_IN_ROW,
+      )
     }
 
     return () => {
       const propsData = {
         class: {
-          'v-months': true,
+          'v-date-picker-months': true,
         },
       }
 

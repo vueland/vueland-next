@@ -1,12 +1,12 @@
 import { mount, VueWrapper } from '@vue/test-utils'
-import { VYears } from '../VYears'
+import { VDatePickerYears } from '../VYears'
 import 'regenerator-runtime/runtime'
 
 describe('VYears', () => {
   let mountFunction: (options?: any) => VueWrapper<any>
 
   beforeEach(() => {
-    mountFunction = (options = {}) => mount(VYears, { ...options })
+    mountFunction = (options = {}) => mount(VDatePickerYears, { ...options })
   })
 
   it('should mount component and match snapshot', () => {

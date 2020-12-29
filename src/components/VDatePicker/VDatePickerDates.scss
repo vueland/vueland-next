@@ -1,7 +1,7 @@
 @import "../../styles/scss/modules/global";
 @import "variables";
 
-.v-dates {
+.v-date-picker-dates {
   &__week {
     @include flex(flex, flex-start, stretch);
   }

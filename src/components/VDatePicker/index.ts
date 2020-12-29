@@ -1,1 +1,1 @@
-export * from './VDatepicker'
+export * from './VDatePicker'

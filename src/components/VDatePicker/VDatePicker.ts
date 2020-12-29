@@ -1,12 +1,11 @@
 // Styles
-import './VDatepicker.scss'
+import './VDatePicker.scss'
 
 // Vue API
 import {
   h,
   ref,
   reactive,
-  // watch,
   provide,
   computed,
   withDirectives,
@@ -29,9 +28,9 @@ import { warning } from '../../helpers'
 // Components
 import { VTextField } from '../VTextField'
 import { VDatepickerHeader } from './VDatepickerHeader'
-import { VDates } from './VDates'
-import { VYears } from './VYears'
-import { VMonths } from './VMonths'
+import { VDatePickerDates } from './VDatePickerDates'
+import { VDatePickerYears } from './VDatePickerYears'
+import { VDatePickerMonths } from './VDatePickerMonths'
 
 // Types
 import { VNode } from 'vue'
@@ -54,8 +53,8 @@ type Data = {
   isActive: boolean
 }
 
-export const VDatepicker = defineComponent({
-  name: 'v-datepicker',
+export const VDatePicker = defineComponent({
+  name: 'v-date-picker',
   props: {
     dark: Boolean,
     disabled: Boolean,
@@ -115,7 +114,13 @@ export const VDatepicker = defineComponent({
     else setParsedDate()
 
     const classes = computed<Record<string, boolean>>(() => ({
-      'v-datepicker__table': true,
+      'v-date-picker': true,
+      'v-date-picker--inputable': !props.readonly,
+      'v-date-picker--readonly': props.readonly,
+    }))
+
+    const tableClasses = computed<Record<string, boolean>>(() => ({
+      'v-date-picker__table': true,
       ...elevationClasses.value,
     }))
 
@@ -274,7 +279,7 @@ export const VDatepicker = defineComponent({
     function genDisplayValue(value: string | number): VNode {
       const propsData = {
         class: {
-          'v-datepicker__display-value': true,
+          'v-date-picker__display-value': true,
         },
         key: value,
       }
@@ -288,7 +293,7 @@ export const VDatepicker = defineComponent({
 
     function genDatepickerDisplayInner() {
       return h('div', {
-        class: 'v-datepicker__display-inner',
+        class: 'v-date-picker__display-inner',
       }, [
         genDisplayValue(data.selected!.year as number),
         genDisplayValue(displayDate.value),
@@ -298,7 +303,7 @@ export const VDatepicker = defineComponent({
     function genDatepickerDisplay(): VNode {
       const propsData = setBackground(props.contentColor, {
         class: {
-          'v-datepicker__display': true,
+          'v-date-picker__display': true,
         },
       })
 
@@ -328,11 +333,11 @@ export const VDatepicker = defineComponent({
         ['onUpdate:year']: onYearUpdate,
       }
 
-      return h(VYears, propsData)
+      return h(VDatePickerYears, propsData)
     }
 
     function genDatepickerMonthsTable(): VNode {
-      return h(VMonths, {
+      return h(VDatePickerMonths, {
         lang: props.lang,
         month: data.tableMonth,
         year: data.tableYear,
@@ -343,7 +348,7 @@ export const VDatepicker = defineComponent({
     }
 
     function genDatepickerDatesTable(): VNode {
-      return h(VDates, {
+      return h(VDatePickerDates, {
         localeWeek,
         mondayFirst: props.mondayFirst,
         month: data.tableMonth,
@@ -357,7 +362,7 @@ export const VDatepicker = defineComponent({
     function genDatepickerBody(): VNode {
       return h('div', {
           class: {
-            'v-datepicker__body': true,
+            'v-date-picker__body': true,
           },
         }, useTransition(((data.isYears && genDatepickerYearsTable()) ||
         (data.isMonths && genDatepickerMonthsTable()) ||
@@ -382,7 +387,7 @@ export const VDatepicker = defineComponent({
 
     function genDatepickerTable() {
       const propsData = setBackground(props.color, {
-        class: classes.value,
+        class: tableClasses.value,
       })
 
       return withDirectives(h('div',
@@ -396,9 +401,7 @@ export const VDatepicker = defineComponent({
 
     function genDatepicker() {
       return withDirectives(h('div', {
-        class: {
-          'v-datepicker': true,
-        },
+        class: classes.value,
       }, [
         genDatepickerInput(),
         useTransition(genDatepickerTable(), 'fade'),

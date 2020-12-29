@@ -1,5 +1,5 @@
 // Styles
-import './VDates.scss'
+import './VDatePickerDates.scss'
 
 // Vue API
 import { h, ref, inject, computed, watch, defineComponent } from 'vue'
@@ -19,8 +19,8 @@ type UpdateParams = {
   year?: number
 }
 
-export const VDates = defineComponent({
-  name: 'v-dates',
+export const VDatePickerDates = defineComponent({
+  name: 'v-date-picker-dates',
 
   props: {
     localeWeek: Array,
@@ -87,7 +87,7 @@ export const VDates = defineComponent({
     function genWeekDays(): VNode[] {
       const propsData = {
         class: {
-          'v-dates__day': true,
+          'v-date-picker-dates__day': true,
         },
       }
 
@@ -142,11 +142,11 @@ export const VDates = defineComponent({
     function genDateCell(obj): VNode {
       const propsData = {
         class: {
-          'v-dates__cell': !!obj.date,
-          'v-dates__cell--empty': !obj.date,
-          'v-dates__cell--selected': compareDates(obj, props.value),
-          'v-dates__cell--current-date': compareDates(obj, TODAY),
-          'v-dates__cell--holiday': obj.isHoliday,
+          'v-date-picker-dates__cell': !!obj.date,
+          'v-date-picker-dates__cell--empty': !obj.date,
+          'v-date-picker-dates__cell--selected': compareDates(obj, props.value),
+          'v-date-picker-dates__cell--current-date': compareDates(obj, TODAY),
+          'v-date-picker-dates__cell--holiday': obj.isHoliday,
         },
         onClick: () => emit('update:value', obj),
       }
@@ -163,21 +163,21 @@ export const VDates = defineComponent({
 
     function genDateRows(): VNode[] {
       const datesVNodes = genDateCells()
-      return genTableRows(datesVNodes, 'v-dates__row', WEEK.length)
+      return genTableRows(datesVNodes, 'v-date-picker-dates__row', WEEK.length)
     }
 
     function genDates(): VNode | null {
       return (
         (!isDatesChanged.value &&
-          h('div', { class: 'v-dates__dates' }, genDateRows())) || null
+          h('div', { class: 'v-date-picker-dates__dates' }, genDateRows())) || null
       )
     }
 
     function genWeek(): VNode {
-      return h('div', { class: 'v-dates__week' }, genWeekDays())
+      return h('div', { class: 'v-date-picker-dates__week' }, genWeekDays())
     }
 
-    return () => h('div', { class: 'v-dates' }, [
+    return () => h('div', { class: 'v-date-picker-dates' }, [
       genWeek(),
       useTransition(genDates() as any, 'fade'),
     ])

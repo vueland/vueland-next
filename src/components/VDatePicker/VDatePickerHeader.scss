@@ -1,7 +1,7 @@
 @import "../../styles/scss/modules/global";
 @import "variables";
 
-.v-datepicker__header {
+.v-date-picker__header {
   @include flex(flex, space-between, center);
   padding: 0 20px;
 

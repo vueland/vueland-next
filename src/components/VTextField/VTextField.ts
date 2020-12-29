@@ -35,7 +35,7 @@ export const VTextField = defineComponent({
     'blur',
     'change',
     'update:value',
-    'update:modelValue'
+    'update:modelValue',
   ],
   props: {
     dark: Boolean,
@@ -64,8 +64,7 @@ export const VTextField = defineComponent({
 
     state.value = props.modelValue || props.value
 
-    const fields: Ref<any[]> | undefined =
-      props.rules?.length && inject('fields')
+    const fields: Ref<any[]> | undefined = props.rules && inject('fields')
 
     const { setTextColor } = useColors()
 
@@ -80,7 +79,7 @@ export const VTextField = defineComponent({
 
     watch(() => (props.modelValue || props.value), value => {
         state.value = value
-        !value && validateValue()
+        validateValue()
       },
     )
 
@@ -117,7 +116,7 @@ export const VTextField = defineComponent({
 
     function blurHandler() {
       state.focused = false
-      emit('blur', state.value)
+      emit('blur')
       validateValue()
     }
 

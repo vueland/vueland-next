@@ -6,7 +6,7 @@ import {
   h,
   ref,
   reactive,
-  watch,
+  // watch,
   provide,
   computed,
   withDirectives,
@@ -60,6 +60,7 @@ export const VDatepicker = defineComponent({
     disabled: Boolean,
     readonly: Boolean,
     mondayFirst: Boolean,
+    today: Boolean,
     useMls: Boolean,
     useUtc: Boolean,
     lang: String,
@@ -69,6 +70,7 @@ export const VDatepicker = defineComponent({
       type: String,
       default: 'yyyy-mm-dd',
     },
+    rules: Array,
     value: [String, Date, Number],
     modelValue: [String, Date, Number],
     disabledDates: Object,
@@ -107,10 +109,9 @@ export const VDatepicker = defineComponent({
 
     provide('handlers', handlers)
 
-    watch(() => (props.value || props.modelValue),
-      setParsedDate,
-      { immediate: true },
-    )
+    if (props.value) setParsedDate(props.value)
+    else if (props.modelValue) setParsedDate(props.modelValue)
+    else setParsedDate()
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-datepicker__table': true,
@@ -137,51 +138,101 @@ export const VDatepicker = defineComponent({
       return selectedDate
     })
 
-    const directive = computed(() => {
+    const directive = computed<object | undefined>(() => {
       return data.isActive ? {
         handler: () => data.isActive = false,
         closeConditional: false,
       } : undefined
     })
 
-    function divideByFormat(str) {
-      const separator = str.match(/(\.|-|\\|\/)/)[0]
+    function onTableChange(): void | boolean {
+      if (data.isYears) {
+        data.isYears = false
+        return data.isMonths = true
+      }
+      if (data.isMonths) {
+        data.isMonths = false
+        return data.isYears = true
+      }
+      if (data.isDates) {
+        data.isDates = false
+        return data.isMonths = true
+      }
+    }
+
+    function setDataDate({ year, month, date, day }) {
+      data.tableMonth = month
+      data.tableYear = year
+
+      data.year = year
+      data.month = month
+      data.date = date
+      data.day = day
+    }
+
+    function setParsedDate(selectedDate = null) {
+      const dateForParsing = selectedDate || new Date()
+
+      data.selected = parseDate(dateForParsing)
+      setDataDate(data.selected)
+    }
+
+    function onYearUpdate($event) {
+      data.tableYear = $event
+      data.isMonths = true
+      data.isYears = false
+    }
+
+    function onMonthUpdate($event) {
+      data.tableMonth = $event
+      data.isMonths = false
+      data.isYears = false
+      data.isDates = true
+    }
+
+    function onDateUpdate($event) {
+      data.selected = $event
+      setDataDate(data.selected as DatePickerDate)
+
+      emit('update:value', computedValue.value)
+      emit('update:modelValue', computedValue.value)
+
+      emit('selected', computedValue.value)
+      data.isActive = false
+    }
+
+    function onDateMonthUpdate($event) {
+      data.tableMonth = $event.month
+      if ($event.year) data.tableYear = $event.year
+    }
+
+    function divideWithSeparator(str) {
+      const separator = str.match(/\W/)[0]
       const divided = str.split(separator)
 
       return { separator, divided }
     }
 
-    function stringToDate(stringDate) {
+    function stringToDate(stringDate: string): DatePickerDate | undefined {
       if (stringDate.length !== props.format.length) return
 
-      const formatDate = divideByFormat(stringDate)
-      const formatObject = divideByFormat(props.format)
-
-      const dateObject = {
-        y: 0,
-        m: 0,
-        d: 0,
-      }
+      const dateObject = {}
+      const formattedDate = divideWithSeparator(stringDate)
+      const formatObject = divideWithSeparator(props.format)
 
       formatObject.divided.forEach((it, i) => {
-        dateObject[it[0]] = +formatDate.divided[i]
+        dateObject[it] = +formattedDate.divided[i]
       })
 
-      dateObject.m -= 1
+      const { yyyy, mm, dd } = dateObject as any
 
-      data.tableMonth = dateObject.m
-      data.tableYear = dateObject.y
-
-      data.selected = parseDate(new Date(
-        dateObject.y,
-        dateObject.m,
-        dateObject.d,
-      ))
+      return parseDate(new Date(yyyy, mm - 1, dd))
     }
 
     function formatDate(): string {
-      const { divided, separator } = divideByFormat(props.format)
+      if (!props.value && !props.modelValue && !props.today) return ''
 
+      const { divided, separator } = divideWithSeparator(props.format)
       const formatObject = {
         y: data.selected!.year,
         m: data.selected!.month + 1,
@@ -200,64 +251,6 @@ export const VDatepicker = defineComponent({
       }
 
       return dateString
-    }
-
-    function onTableChange(): void | boolean {
-      if (data.isYears) {
-        data.isYears = false
-        return data.isMonths = true
-      }
-      if (data.isMonths) {
-        data.isMonths = false
-        return data.isYears = true
-      }
-      if (data.isDates) {
-        data.isDates = false
-        return data.isMonths = true
-      }
-    }
-
-    function setParsedDate(selectedDate) {
-      const dateForParsing = selectedDate || new Date()
-      const { year, month, day, date } = parseDate(dateForParsing)
-
-      data.selected = { year, month, day, date }
-
-      data.tableMonth = month
-      data.tableYear = year
-
-      data.year = year
-      data.month = month
-      data.date = date
-      data.day = day
-    }
-
-    function onYearUpdate($event) {
-      data.tableYear = $event
-      data.isMonths = true
-      data.isYears = false
-    }
-
-    function onMonthUpdate($event) {
-      data.tableMonth = $event
-      data.isMonths = false
-      data.isYears = false
-      data.isDates = true
-    }
-
-    function onDateUpdate($event) {
-      data.selected = $event
-
-      props.value && emit('update:value', computedValue.value)
-      props.modelValue && emit('update:modelValue', computedValue.value)
-
-      emit('selected', computedValue.value)
-      data.isActive = false
-    }
-
-    function onDateMonthUpdate($event) {
-      data.tableMonth = $event.month
-      if ($event.year) data.tableYear = $event.year
     }
 
     function genDisplayValue(value: string | number): VNode {
@@ -347,7 +340,7 @@ export const VDatepicker = defineComponent({
           },
         }, useTransition(((data.isYears && genDatepickerYearsTable()) ||
         (data.isMonths && genDatepickerMonthsTable()) ||
-        (data.isDates && genDatepickerDatesTable())) as any,
+        (data.isDates && genDatepickerDatesTable())) as VNode,
         'slide-in-left',
         'out-in',
         ),
@@ -360,10 +353,11 @@ export const VDatepicker = defineComponent({
         label: props.label,
         readonly: props.readonly,
         disabled: props.disabled,
+        rules: props.rules,
         onFocus: () => data.isActive = true,
         onInput: (e) => {
           data.isActive = false
-          stringToDate(e)
+          onDateUpdate(stringToDate(e))
         },
       })
     }

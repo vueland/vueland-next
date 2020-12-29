@@ -76,15 +76,16 @@
   </v-list>
 
   <v-datepicker
+    v-model:value="data.date"
     lang="ru"
+    label="set date"
     color="blue-grey darken-3"
-    content-color="green lighten-1"
+    content-color="amber lighten-1"
     elevation="15"
-    format="yyyy-mm-dd"
+    :rules="[val => !!val || 'Required']"
+    today
     use-mls
     monday-first
-    @selected="testFunc"
-    v-model:value="data.date"
   />
   <v-form v-slot="{ validate }">
     <v-text-field

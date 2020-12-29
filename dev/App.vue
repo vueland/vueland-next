@@ -87,7 +87,6 @@
       content-color="amber lighten-1"
       :rules="[val => !!val || 'Required']"
       elevation="15"
-      use-mls
       readonly
       monday-first
     />

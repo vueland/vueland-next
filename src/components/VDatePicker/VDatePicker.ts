@@ -63,6 +63,8 @@ export const VDatePicker = defineComponent({
     today: Boolean,
     useMls: Boolean,
     useUtc: Boolean,
+    useIso: Boolean,
+    useJson: Boolean,
     lang: String,
     contentColor: String,
     label: String,
@@ -126,13 +128,13 @@ export const VDatePicker = defineComponent({
 
     const headerValue = computed<string>(() => {
       return data.isYears || data.isMonths
-        ? `${ data.tableYear }` : data.isDates
-          ? `${ data.tableYear } ${ localeMonths[data.tableMonth!] }` : ''
+        ? `${data.tableYear}` : data.isDates
+          ? `${data.tableYear} ${localeMonths[data.tableMonth!]}` : ''
     })
 
     const displayDate = computed(() => {
       const { month, date, day } = data.selected as DatePickerDate
-      return `${ localeMonths[month] } ${ date } ${ localeWeek[day] }`
+      return `${localeMonths[month]} ${date} ${localeWeek[day]}`
     })
 
     const computedValue = computed<string | number | Date>(() => {
@@ -141,6 +143,9 @@ export const VDatePicker = defineComponent({
 
       if (props.useMls) return selectedDate.getTime()
       if (props.useUtc) return selectedDate.toUTCString()
+      if (props.useIso) return selectedDate.toISOString()
+      if (props.useJson) return selectedDate.toJSON()
+
       return selectedDate
     })
 
@@ -221,24 +226,24 @@ export const VDatePicker = defineComponent({
     }
 
     function divideWithSeparator(str) {
-      const matchArray = str.match(/\W/)
-      const separator = matchArray && matchArray[0]
+      const matchArray: any[] = str.match(/\W/)
+      const separator: string = matchArray && matchArray[0]
 
       if (separator) {
         const divided = str.split(separator)
         return { separator, divided }
       }
 
-      return warning(`the date string should be in ${ props.format } format`)
+      return warning(`the date string should be in ${props.format} format`)
     }
 
     function stringToDate(stringDate: string): DatePickerDate | undefined {
       const dateObject = {}
       const formattedDate = divideWithSeparator(stringDate)
-      const formatObject = divideWithSeparator(props.format) as any
+      const formatObject = divideWithSeparator(props.format)
 
       if (formattedDate) {
-        formatObject.divided.forEach((it, i) => {
+        (formatObject as any).divided.forEach((it, i) => {
           dateObject[it] = +formattedDate.divided[i]
         })
         const { yyyy, mm, dd } = dateObject as any
@@ -249,13 +254,11 @@ export const VDatePicker = defineComponent({
       return undefined
     }
 
-    function formatDate(): string {
-      if (!props.value
-        && !props.modelValue
-        && !props.today
-      ) return ''
+    function formatDate(): string | undefined {
+      if (!props.value && !props.modelValue && !props.today) return
 
       const { divided, separator } = divideWithSeparator(props.format) as any
+
       const formatObject = {
         y: data.selected!.year,
         m: data.selected!.month + 1,
@@ -390,13 +393,15 @@ export const VDatePicker = defineComponent({
         class: tableClasses.value,
       })
 
-      return withDirectives(h('div',
-        setTextColor(contentColor, propsData),
-        [
-          genDatepickerDisplay(),
-          genDatepickerHeader(),
-          genDatepickerBody(),
-        ]), [[vShow, data.isActive]])
+      return withDirectives(
+        h('div', setTextColor(contentColor, propsData),
+          [
+            genDatepickerDisplay(),
+            genDatepickerHeader(),
+            genDatepickerBody(),
+          ]),
+        [[vShow, data.isActive]],
+      )
     }
 
     function genDatepicker(): VNode {

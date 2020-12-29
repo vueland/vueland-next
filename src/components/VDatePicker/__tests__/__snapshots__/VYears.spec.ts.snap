@@ -1,80 +1,80 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`VYears should mount component and match snapshot 1`] = `
-<div class="v-years">
+<div class="v-date-picker-years">
   <transition-stub>
-    <div class="v-years__years">
-      <div class="v-years__row">
-        <div class="v-years__cell v-years__cell--selected v-years__cell--current-year">
+    <div class="v-date-picker-years__years">
+      <div class="v-date-picker-years__row">
+        <div class="v-date-picker-years__cell v-date-picker-years__cell--selected v-date-picker-years__cell--current-year">
           2020
         </div>
-        <div class="v-years__cell">
+        <div class="v-date-picker-years__cell">
           2021
         </div>
-        <div class="v-years__cell">
+        <div class="v-date-picker-years__cell">
           2022
         </div>
-        <div class="v-years__cell">
+        <div class="v-date-picker-years__cell">
           2023
         </div>
       </div>
-      <div class="v-years__row">
-        <div class="v-years__cell">
+      <div class="v-date-picker-years__row">
+        <div class="v-date-picker-years__cell">
           2024
         </div>
-        <div class="v-years__cell">
+        <div class="v-date-picker-years__cell">
           2025
         </div>
-        <div class="v-years__cell">
+        <div class="v-date-picker-years__cell">
           2026
         </div>
-        <div class="v-years__cell">
+        <div class="v-date-picker-years__cell">
           2027
         </div>
       </div>
-      <div class="v-years__row">
-        <div class="v-years__cell">
+      <div class="v-date-picker-years__row">
+        <div class="v-date-picker-years__cell">
           2028
         </div>
-        <div class="v-years__cell">
+        <div class="v-date-picker-years__cell">
           2029
         </div>
-        <div class="v-years__cell">
+        <div class="v-date-picker-years__cell">
           2030
         </div>
-        <div class="v-years__cell">
+        <div class="v-date-picker-years__cell">
           2031
         </div>
       </div>
-      <div class="v-years__row">
-        <div class="v-years__cell">
+      <div class="v-date-picker-years__row">
+        <div class="v-date-picker-years__cell">
           2032
         </div>
-        <div class="v-years__cell">
+        <div class="v-date-picker-years__cell">
           2033
         </div>
-        <div class="v-years__cell">
+        <div class="v-date-picker-years__cell">
           2034
         </div>
-        <div class="v-years__cell">
+        <div class="v-date-picker-years__cell">
           2035
         </div>
       </div>
-      <div class="v-years__row">
-        <div class="v-years__cell">
+      <div class="v-date-picker-years__row">
+        <div class="v-date-picker-years__cell">
           2036
         </div>
-        <div class="v-years__cell">
+        <div class="v-date-picker-years__cell">
           2037
         </div>
-        <div class="v-years__cell">
+        <div class="v-date-picker-years__cell">
           2038
         </div>
-        <div class="v-years__cell">
+        <div class="v-date-picker-years__cell">
           2039
         </div>
       </div>
-      <div class="v-years__row">
+      <div class="v-date-picker-years__row">
       </div>
     </div>
   </transition-stub>
@@ -82,80 +82,80 @@ exports[`VYears should mount component and match snapshot 1`] = `
 `;
 
 exports[`VYears should set year prop and match snapshot 1`] = `
-<div class="v-years">
+<div class="v-date-picker-years">
   <transition-stub>
-    <div class="v-years__years">
-      <div class="v-years__row">
-        <div class="v-years__cell v-years__cell--selected v-years__cell--current-year">
+    <div class="v-date-picker-years__years">
+      <div class="v-date-picker-years__row">
+        <div class="v-date-picker-years__cell v-date-picker-years__cell--selected v-date-picker-years__cell--current-year">
           2020
         </div>
-        <div class="v-years__cell">
+        <div class="v-date-picker-years__cell">
           2021
         </div>
-        <div class="v-years__cell">
+        <div class="v-date-picker-years__cell">
           2022
         </div>
-        <div class="v-years__cell">
+        <div class="v-date-picker-years__cell">
           2023
         </div>
       </div>
-      <div class="v-years__row">
-        <div class="v-years__cell">
+      <div class="v-date-picker-years__row">
+        <div class="v-date-picker-years__cell">
           2024
         </div>
-        <div class="v-years__cell">
+        <div class="v-date-picker-years__cell">
           2025
         </div>
-        <div class="v-years__cell">
+        <div class="v-date-picker-years__cell">
           2026
         </div>
-        <div class="v-years__cell">
+        <div class="v-date-picker-years__cell">
           2027
         </div>
       </div>
-      <div class="v-years__row">
-        <div class="v-years__cell">
+      <div class="v-date-picker-years__row">
+        <div class="v-date-picker-years__cell">
           2028
         </div>
-        <div class="v-years__cell">
+        <div class="v-date-picker-years__cell">
           2029
         </div>
-        <div class="v-years__cell">
+        <div class="v-date-picker-years__cell">
           2030
         </div>
-        <div class="v-years__cell">
+        <div class="v-date-picker-years__cell">
           2031
         </div>
       </div>
-      <div class="v-years__row">
-        <div class="v-years__cell">
+      <div class="v-date-picker-years__row">
+        <div class="v-date-picker-years__cell">
           2032
         </div>
-        <div class="v-years__cell">
+        <div class="v-date-picker-years__cell">
           2033
         </div>
-        <div class="v-years__cell">
+        <div class="v-date-picker-years__cell">
           2034
         </div>
-        <div class="v-years__cell">
+        <div class="v-date-picker-years__cell">
           2035
         </div>
       </div>
-      <div class="v-years__row">
-        <div class="v-years__cell">
+      <div class="v-date-picker-years__row">
+        <div class="v-date-picker-years__cell">
           2036
         </div>
-        <div class="v-years__cell">
+        <div class="v-date-picker-years__cell">
           2037
         </div>
-        <div class="v-years__cell">
+        <div class="v-date-picker-years__cell">
           2038
         </div>
-        <div class="v-years__cell">
+        <div class="v-date-picker-years__cell">
           2039
         </div>
       </div>
-      <div class="v-years__row">
+      <div class="v-date-picker-years__row">
       </div>
     </div>
   </transition-stub>

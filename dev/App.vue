@@ -63,9 +63,9 @@
           salam
         </v-list-item-title>
       </template>
-<!--      <template v-slot:prependIcon>-->
-<!--        <v-icon icon="fas fa-book" size="18"/>-->
-<!--      </template>-->
+      <template v-slot:prependIcon>
+        <v-icon icon="fas fa-book" size="18"/>
+      </template>
       <v-list-item @click.stop="testFunc">salam</v-list-item>
       <v-list-group sub-group no-action>
         <template v-slot:title>
@@ -86,7 +86,6 @@
       elevation="15"
       use-mls
       today
-      readonly
       monday-first
     />
     <v-text-field

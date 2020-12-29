@@ -192,6 +192,7 @@ export const VDatepicker = defineComponent({
     }
 
     function onDateUpdate($event: DatePickerDate) {
+      if (!$event) return
       data.selected = $event
       setDataDate(data.selected)
 
@@ -235,7 +236,6 @@ export const VDatepicker = defineComponent({
         formatObject.divided.forEach((it, i) => {
           dateObject[it] = +formattedDate.divided[i]
         })
-
         const { yyyy, mm, dd } = dateObject as any
 
         return parseDate(new Date(yyyy, mm - 1, dd))

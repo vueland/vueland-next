@@ -24,6 +24,7 @@ import { useTransition } from '../../effects/use-transition'
 
 // Helpers
 import { parseDate } from './helpers'
+import { warning } from '../../helpers'
 
 // Components
 import { VTextField } from '../VTextField'
@@ -177,22 +178,22 @@ export const VDatepicker = defineComponent({
       setDataDate(data.selected)
     }
 
-    function onYearUpdate($event) {
+    function onYearUpdate($event: number) {
       data.tableYear = $event
       data.isMonths = true
       data.isYears = false
     }
 
-    function onMonthUpdate($event) {
+    function onMonthUpdate($event: number) {
       data.tableMonth = $event
       data.isMonths = false
       data.isYears = false
       data.isDates = true
     }
 
-    function onDateUpdate($event) {
+    function onDateUpdate($event: DatePickerDate) {
       data.selected = $event
-      setDataDate(data.selected as DatePickerDate)
+      setDataDate(data.selected)
 
       emit('update:value', computedValue.value)
       emit('update:modelValue', computedValue.value)
@@ -206,33 +207,50 @@ export const VDatepicker = defineComponent({
       if ($event.year) data.tableYear = $event.year
     }
 
-    function divideWithSeparator(str) {
-      const separator = str.match(/\W/)[0]
-      const divided = str.split(separator)
+    function onDateInput($event: string) {
+      data.isActive = false
+      if ($event.length !== props.format.length) return
 
-      return { separator, divided }
+      onDateUpdate(stringToDate($event)!)
+    }
+
+    function divideWithSeparator(str) {
+      const matchArray = str.match(/\W/)
+      const separator = matchArray && matchArray[0]
+
+      if (separator) {
+        const divided = str.split(separator)
+        return { separator, divided }
+      }
+
+      return warning(`the date string should be in ${ props.format } format`)
     }
 
     function stringToDate(stringDate: string): DatePickerDate | undefined {
-      if (stringDate.length !== props.format.length) return
-
       const dateObject = {}
       const formattedDate = divideWithSeparator(stringDate)
-      const formatObject = divideWithSeparator(props.format)
+      const formatObject = divideWithSeparator(props.format) as any
 
-      formatObject.divided.forEach((it, i) => {
-        dateObject[it] = +formattedDate.divided[i]
-      })
+      if (formattedDate) {
+        formatObject.divided.forEach((it, i) => {
+          dateObject[it] = +formattedDate.divided[i]
+        })
 
-      const { yyyy, mm, dd } = dateObject as any
+        const { yyyy, mm, dd } = dateObject as any
 
-      return parseDate(new Date(yyyy, mm - 1, dd))
+        return parseDate(new Date(yyyy, mm - 1, dd))
+      }
+
+      return undefined
     }
 
     function formatDate(): string {
-      if (!props.value && !props.modelValue && !props.today) return ''
+      if (!props.value
+        && !props.modelValue
+        && !props.today
+      ) return ''
 
-      const { divided, separator } = divideWithSeparator(props.format)
+      const { divided, separator } = divideWithSeparator(props.format) as any
       const formatObject = {
         y: data.selected!.year,
         m: data.selected!.month + 1,
@@ -284,7 +302,10 @@ export const VDatepicker = defineComponent({
         },
       })
 
-      return h('div', setTextColor(props.color, propsData), genDatepickerDisplayInner())
+      return h('div',
+        setTextColor(props.color, propsData),
+        genDatepickerDisplayInner(),
+      )
     }
 
     function genDatepickerHeader(): VNode {
@@ -355,10 +376,7 @@ export const VDatepicker = defineComponent({
         disabled: props.disabled,
         rules: props.rules,
         onFocus: () => data.isActive = true,
-        onInput: (e) => {
-          data.isActive = false
-          onDateUpdate(stringToDate(e))
-        },
+        onInput: onDateInput,
       })
     }
 

@@ -75,19 +75,20 @@
     </v-list-group>
   </v-list>
 
-  <v-datepicker
-    v-model:value="data.date"
-    lang="ru"
-    label="set date"
-    color="blue-grey darken-3"
-    content-color="amber lighten-1"
-    elevation="15"
-    :rules="[val => !!val || 'Required']"
-    today
-    use-mls
-    monday-first
-  />
   <v-form v-slot="{ validate }">
+    <v-datepicker
+      v-model:value="data.date"
+      lang="ru"
+      label="set date"
+      color="blue-grey darken-3"
+      content-color="amber lighten-1"
+      :rules="[val => !!val || 'Required']"
+      elevation="15"
+      use-mls
+      today
+      readonly
+      monday-first
+    />
     <v-text-field
       label="teal"
       autocomplete="new-password"

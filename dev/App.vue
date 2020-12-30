@@ -81,10 +81,10 @@
   >
     <v-date-picker
       v-model:value="data.date"
-      lang="ru"
+      lang="en"
       label="set date"
-      color="blue-grey darken-3"
-      content-color="amber lighten-1"
+      color="amber accent-3"
+      content-color="grey darken-4"
       :rules="[val => !!val || 'Required']"
       elevation="15"
       readonly

@@ -42,6 +42,10 @@
         { name: 'Andrew', age: 24 },
         { name: 'Nikol', age: 24 },
         { name: 'Anna', age: 24 },
+        { name: 'Alex', age: 24 },
+        { name: 'Andrew', age: 24 },
+        { name: 'Nikol', age: 24 },
+        { name: 'Anna', age: 24 },
       ]
 
       return {
@@ -56,6 +60,7 @@
 </script>
 
 <template>
+  <v-data-table></v-data-table>
   <v-list>
     <v-list-group @click="testFunc">
       <template v-slot:title>
@@ -98,7 +103,8 @@
     <v-select
       label="select"
       v-model="data.email"
-      :items="['name', 'age']"
+      :items="items"
+      value-key="name"
       :rules="[v => !!v || 'required']"
     />
     <v-button

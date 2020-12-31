@@ -2,13 +2,22 @@
 import './VDataTable.scss'
 
 // Vue API
-import { h, defineComponent } from 'vue'
+import { h, computed, defineComponent } from 'vue'
+
+import { VDataTableHeader } from './VDataTableHeader'
 
 export const VDataTable = defineComponent({
   name: 'v-data-table',
   props: {},
 
   setup() {
-    return () => h('div')
+
+    const classes = computed<Record<string, boolean>>(() => ({
+      'v-data-table': true,
+    }))
+
+    return () => h('div', {
+      class: classes.value,
+    }, h(VDataTableHeader, {}))
   },
 })

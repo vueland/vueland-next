@@ -36,10 +36,10 @@ export const VDatePickerDates = defineComponent({
     const LAST_MONTH = 11
     const WEEK = [0, 1, 2, 3, 4, 5, 6]
     const ANIMATION_TIMEOUT = 100
-    const TODAY = parseDate(new Date())
 
     const dates = ref<(Date | null)[]>([])
     const isDatesChanged = ref<boolean>(false)
+    const today = parseDate(new Date())
 
     const handlers = inject('handlers') as Ref<DatePickerBtnHandlers>
 
@@ -64,11 +64,11 @@ export const VDatePickerDates = defineComponent({
 
     watch(
       () => isDatesChanged.value,
-      () => setTimeout(() => {
-        isDatesChanged.value = false
-      }, ANIMATION_TIMEOUT),
+      () =>
+        setTimeout(() => {
+          isDatesChanged.value = false
+        }, ANIMATION_TIMEOUT),
     )
-
 
     function updateMonth(isNext: boolean) {
       const params: UpdateParams = {}
@@ -91,24 +91,24 @@ export const VDatePickerDates = defineComponent({
         },
       }
 
-      return WEEK.map(day => {
-        return h('span', propsData, props.localeWeek![day] as string)
-      })
+      return WEEK.map(day =>
+        h('span', propsData, props.localeWeek![day] as string),
+      )
     }
 
     function genDateObject(date): DatePickerDate {
       const { year, month } = props
+
       return parseDate(new Date(year, month, date))
     }
 
     function setEmptiesBeforeFirstDate(dateObject) {
       const firstDay = WEEK[0]
 
-      const startDay = firstDay && !dateObject.day ?
-        dateObject.day : firstDay
+      const startDay = firstDay && !dateObject.day ? dateObject.day : firstDay
 
-      const tillDay = firstDay && !dateObject.day ?
-        WEEK.length - 1 : dateObject.day
+      const tillDay =
+        firstDay && !dateObject.day ? WEEK.length - 1 : dateObject.day
 
       for (let i = startDay; i <= tillDay; i += 1) {
         dates.value[i] = { date: null } as any
@@ -145,7 +145,7 @@ export const VDatePickerDates = defineComponent({
           'v-date-picker-dates__cell': !!obj.date,
           'v-date-picker-dates__cell--empty': !obj.date,
           'v-date-picker-dates__cell--selected': compareDates(obj, props.value),
-          'v-date-picker-dates__cell--current-date': compareDates(obj, TODAY),
+          'v-date-picker-dates__cell--current-date': compareDates(obj, today),
           'v-date-picker-dates__cell--holiday': obj.isHoliday,
         },
         onClick: () => emit('update:value', obj),
@@ -163,13 +163,15 @@ export const VDatePickerDates = defineComponent({
 
     function genDateRows(): VNode[] {
       const datesVNodes = genDateCells()
+
       return genTableRows(datesVNodes, 'v-date-picker-dates__row', WEEK.length)
     }
 
     function genDates(): VNode | null {
       return (
         (!isDatesChanged.value &&
-          h('div', { class: 'v-date-picker-dates__dates' }, genDateRows())) || null
+          h('div', { class: 'v-date-picker-dates__dates' }, genDateRows())) ||
+        null
       )
     }
 
@@ -177,9 +179,10 @@ export const VDatePickerDates = defineComponent({
       return h('div', { class: 'v-date-picker-dates__week' }, genWeekDays())
     }
 
-    return () => h('div', { class: 'v-date-picker-dates' }, [
-      genWeek(),
-      useTransition(genDates() as any, 'fade'),
-    ])
+    return () =>
+      h('div', { class: 'v-date-picker-dates' }, [
+        genWeek(),
+        useTransition(genDates() as any, 'fade'),
+      ])
   },
 })

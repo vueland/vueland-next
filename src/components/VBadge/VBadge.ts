@@ -127,7 +127,7 @@ export const VBadge = defineComponent({
       return h('div', propsData, genContent())
     }
 
-    return (): VNode => {
+    return () => {
       let badge = genBadge()
 
       if (props.toggle && !slots.badge) {

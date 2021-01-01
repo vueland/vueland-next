@@ -80,11 +80,13 @@ export const VDatePicker = defineComponent({
     ...colorProps(),
     ...elevationProps(),
   } as any,
+
   emits: [
     'update:value',
     'update:modelValue',
     'selected',
   ],
+
   setup(props, { emit }) {
     const data: Data = reactive({
       year: null,
@@ -128,8 +130,10 @@ export const VDatePicker = defineComponent({
 
     const headerValue = computed<string>(() => {
       return data.isYears || data.isMonths
-        ? `${data.tableYear}` : data.isDates
-          ? `${data.tableYear} ${localeMonths[data.tableMonth!]}` : ''
+        ? `${data.tableYear}`
+        : data.isDates
+          ? `${data.tableYear} ${localeMonths[data.tableMonth!]}`
+          : ''
     })
 
     const displayDate = computed(() => {
@@ -150,24 +154,26 @@ export const VDatePicker = defineComponent({
     })
 
     const directive = computed<object | undefined>(() => {
-      return data.isActive ? {
-        handler: () => data.isActive = false,
-        closeConditional: false,
-      } : undefined
+      return data.isActive
+        ? {
+          handler: () => (data.isActive = false),
+          closeConditional: false,
+        }
+        : undefined
     })
 
     function onTableChange(): void | boolean {
       if (data.isYears) {
         data.isYears = false
-        return data.isMonths = true
+        return (data.isMonths = true)
       }
       if (data.isMonths) {
         data.isMonths = false
-        return data.isYears = true
+        return (data.isYears = true)
       }
       if (data.isDates) {
         data.isDates = false
-        return data.isMonths = true
+        return (data.isMonths = true)
       }
     }
 
@@ -269,11 +275,11 @@ export const VDatePicker = defineComponent({
 
       for (let i = 0; i < divided.length; i += 1) {
         if (divided[i].length === 2 && formatObject[divided[i][0]] < 10) {
-          dateString += ('0' + formatObject[divided[i][0]])
+          dateString += '0' + formatObject[divided[i][0]]
         } else {
           dateString += formatObject[divided[i][0]]
         }
-        dateString += (i < divided.length - 1 ? separator : '')
+        dateString += i < divided.length - 1 ? separator : ''
       }
 
       return dateString
@@ -284,7 +290,6 @@ export const VDatePicker = defineComponent({
         class: {
           'v-date-picker__display-value': true,
         },
-        key: value,
       }
 
       return useTransition(
@@ -295,12 +300,16 @@ export const VDatePicker = defineComponent({
     }
 
     function genDatepickerDisplayInner(): VNode {
-      return h('div', {
-        class: 'v-date-picker__display-inner',
-      }, [
-        genDisplayValue(data.selected!.year as number),
-        genDisplayValue(displayDate.value),
-      ])
+      return h(
+        'div',
+        {
+          class: 'v-date-picker__display-inner',
+        },
+        [
+          genDisplayValue(data.selected!.year as number),
+          genDisplayValue(displayDate.value),
+        ],
+      )
     }
 
     function genDatepickerDisplay(): VNode {
@@ -363,13 +372,16 @@ export const VDatePicker = defineComponent({
     }
 
     function genDatepickerBody(): VNode {
-      return h('div', {
-          class: {
-            'v-date-picker__body': true,
-          },
-        }, useTransition(((data.isYears && genDatepickerYearsTable()) ||
-        (data.isMonths && genDatepickerMonthsTable()) ||
-        (data.isDates && genDatepickerDatesTable())) as VNode,
+      const propsData = {
+        class: {
+          'v-date-picker__body': true,
+        },
+      }
+
+      return h('div', propsData, useTransition(
+        ((data.isYears && genDatepickerYearsTable()) ||
+          (data.isMonths && genDatepickerMonthsTable()) ||
+          (data.isDates && genDatepickerDatesTable())) as VNode,
         'slide-in-left',
         'out-in',
         ),
@@ -383,7 +395,7 @@ export const VDatePicker = defineComponent({
         readonly: props.readonly,
         disabled: props.disabled,
         rules: props.rules,
-        onFocus: () => data.isActive = true,
+        onFocus: () => (data.isActive = true),
         onInput: onDateInput,
       })
     }
@@ -394,23 +406,28 @@ export const VDatePicker = defineComponent({
       })
 
       return withDirectives(
-        h('div', setTextColor(contentColor, propsData),
-          [
-            genDatepickerDisplay(),
-            genDatepickerHeader(),
-            genDatepickerBody(),
-          ]),
+        h('div', setTextColor(contentColor, propsData), [
+          genDatepickerDisplay(),
+          genDatepickerHeader(),
+          genDatepickerBody(),
+        ]),
         [[vShow, data.isActive]],
       )
     }
 
     function genDatepicker(): VNode {
-      return withDirectives(h('div', {
+      const propsData = {
         class: classes.value,
-      }, [
-        genDatepickerInput(),
-        useTransition(genDatepickerTable(), 'fade'),
-      ]), [[vClickOutside, directive.value]])
+      }
+
+      return withDirectives(
+        h('div', propsData, [
+            genDatepickerInput(),
+            useTransition(genDatepickerTable(), 'fade'),
+          ],
+        ),
+        [[vClickOutside, directive.value]],
+      )
     }
 
     return () => genDatepicker()

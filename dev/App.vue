@@ -62,8 +62,6 @@
 <template>
   <v-data-table
     :cols="items"
-    header-color="grey darken-3"
-    dark
   />
   <v-list>
     <v-list-group @click="testFunc">

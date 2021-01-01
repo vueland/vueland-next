@@ -9,7 +9,9 @@ import { useColors } from '../../effects/use-colors'
 
 // Services
 import { FaIcons } from '../../services/icons'
-import { VIcon } from '@/components'
+
+// Components
+import { VIcon } from '../VIcon'
 
 export const VDatepickerHeader = defineComponent({
   name: 'v-date-picker-header',

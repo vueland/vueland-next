@@ -17,8 +17,7 @@ export class VueLand {
 
     Object.keys(directives).forEach(key => {
       if (key && (directives as any)[key]) {
-        const directive = (directives as any)[key]
-        Vue.directive(key, directive as any)
+        Vue.directive(key, (directives as any)[key])
       }
     })
   }

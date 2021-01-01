@@ -1,0 +1,8 @@
+@import "../../styles/scss/modules/global";
+
+.v-data-table-cell {
+  @include flex(flex, center, center);
+  position: relative;
+  border-right: 1px solid #ececef;
+  padding: 5px;
+}

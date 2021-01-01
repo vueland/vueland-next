@@ -38,14 +38,14 @@
       })
 
       const items = [
-        { name: 'Alex', age: 24 },
-        { name: 'Andrew', age: 24 },
-        { name: 'Nikol', age: 24 },
-        { name: 'Anna', age: 24 },
-        { name: 'Alex', age: 24 },
-        { name: 'Andrew', age: 24 },
-        { name: 'Nikol', age: 24 },
-        { name: 'Anna', age: 24 },
+        { text: 'Alex', age: 24, resizeable: true },
+        { text: 'Andrew', age: 24 },
+        { text: 'Nikol', age: 24 },
+        { text: 'Anna', age: 24 },
+        { text: 'Alex', age: 24 },
+        { text: 'Andrew', age: 24 },
+        { text: 'Nikol', age: 24 },
+        { text: 'Anna', age: 24 },
       ]
 
       return {
@@ -60,7 +60,11 @@
 </script>
 
 <template>
-  <v-data-table></v-data-table>
+  <v-data-table
+    :cols="items"
+    header-color="grey darken-3"
+    dark
+  />
   <v-list>
     <v-list-group @click="testFunc">
       <template v-slot:title>
@@ -104,7 +108,7 @@
       label="select"
       v-model="data.email"
       :items="items"
-      value-key="name"
+      value-key="text"
       :rules="[v => !!v || 'required']"
     />
     <v-button

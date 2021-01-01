@@ -8,9 +8,15 @@ import { VDataTableHeader } from './VDataTableHeader'
 
 export const VDataTable = defineComponent({
   name: 'v-data-table',
-  props: {},
+  props: {
+    cols: Array,
+    items: Array,
+    itemsPerPage: [String, Number],
+    headerColor: String,
+    dark: Boolean
+  } as any,
 
-  setup() {
+  setup(props) {
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-data-table': true,
@@ -18,6 +24,10 @@ export const VDataTable = defineComponent({
 
     return () => h('div', {
       class: classes.value,
-    }, h(VDataTableHeader, {}))
+    }, h(VDataTableHeader, {
+      cols: props.cols,
+      color: props.headerColor,
+      dark: props.dark
+    }))
   },
 })

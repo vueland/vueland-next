@@ -1,5 +1,9 @@
+@import "../../styles/scss/modules/global";
+
 .v-data-table-header {
-  width: 100%;
-  height: 60px;
-  background: #0D47A1;
+  @include flex(inline-flex, flex-start, stretch);
+  min-width: 100%;
+  height: 50px;
+  position: sticky;
+  top: 0;
 }

@@ -8,6 +8,7 @@ import { h, ref, computed, defineComponent } from 'vue'
 import { colorProps, useColors } from '../../effects/use-colors'
 
 // Components
+import { VIcon } from '../VIcon'
 import { VDataTableCell } from './VDataTableCell'
 
 // Types
@@ -23,18 +24,33 @@ export const VDataTableHeader = defineComponent({
       type: [String, Number],
       default: 125,
     },
+    align: String,
     ...colorProps(),
   } as any,
 
-  setup(props) {
-    const cols = ref<any[] | null>(null)
+  setup(props, { emit }) {
+    const cols = ref<any[] | null>([])
     const { setBackground } = useColors()
 
-    cols.value = props.cols
+    cols.value!.push({
+      width: 50,
+      text: '№',
+      align: 'center'
+    })
+
+    cols.value = [...cols.value!, ...props.cols]
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-data-table-header': true,
     }))
+
+    function genSortButton() {
+      return h(VIcon, {
+        clickable: true,
+        size: 18,
+        onClick: () => emit('sort'),
+      })
+    }
 
     function genHeaderCells() {
       return cols.value!.map((item: Column) => {
@@ -46,9 +62,10 @@ export const VDataTableHeader = defineComponent({
           resizeable: item.resizeable,
           filterable: item.filterable,
           sortable: item.sortable,
-          onSize: size => item.width = size,
+          align: props.align || item.align,
+          onResize: $size => item.width = $size,
         }, {
-          default: () => item.text,
+          default: () => h('span', {}, item.text),
         })
       })
     }
@@ -60,7 +77,8 @@ export const VDataTableHeader = defineComponent({
 
       return h('div',
         props.color ? setBackground(props.color, propsData) : propsData,
-        genHeaderCells())
+        genHeaderCells(),
+      )
     }
   },
 })

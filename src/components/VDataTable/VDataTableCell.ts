@@ -18,6 +18,10 @@ export const VDataTableCell = defineComponent({
   props: {
     dark: Boolean,
     resizeable: Boolean,
+    align: {
+      type: String,
+      default: 'start'
+    },
     width: {
       type: [String, Number],
       default: 75,
@@ -29,13 +33,14 @@ export const VDataTableCell = defineComponent({
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-data-table-cell': true,
+      [`text-align--${props.align}`]: !!props.align
     }))
 
     function genResize() {
       return h(VResize, {
         right: true,
         emit: true,
-        onSize: $size => emit('size', $size),
+        onResize: $size => emit('resize', $size),
       })
     }
 

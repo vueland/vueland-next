@@ -1,0 +1,14 @@
+@import "../../styles/scss/modules/global";
+
+.v-data-table-body {
+  min-width: 100%;
+
+  &__row {
+    @include flex(inline-flex, flex-start, stretch);
+    border-bottom: 1px solid rgba(237, 237, 243, 0.82);
+    transition: background .2s;
+    height: 36px;
+    min-width: 100%;
+    cursor: pointer;
+  }
+}

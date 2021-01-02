@@ -126,7 +126,7 @@ export const VResize = defineComponent({
     }
 
     function setOrEmitSize(size) {
-      if (props.emit) return emit('size', size)
+      if (props.emit) return emit('resize', size)
 
       data.parentNode!.style[sizeProp.value] = `${ size }px`
 

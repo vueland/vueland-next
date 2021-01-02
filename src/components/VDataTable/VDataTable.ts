@@ -5,15 +5,17 @@ import './VDataTable.scss'
 import { h, computed, defineComponent } from 'vue'
 
 import { VDataTableHeader } from './VDataTableHeader'
+import { VDataTableBody } from './VDataTableBody'
 
 export const VDataTable = defineComponent({
   name: 'v-data-table',
   props: {
     cols: Array,
-    items: Array,
+    rows: Array,
     itemsPerPage: [String, Number],
     headerColor: String,
-    dark: Boolean
+    align: String,
+    dark: Boolean,
   } as any,
 
   setup(props) {
@@ -22,12 +24,28 @@ export const VDataTable = defineComponent({
       'v-data-table': true,
     }))
 
+    function genTableBody() {
+      return h(VDataTableBody, {
+        cols: props.cols,
+        rows: props.rows,
+        align: props.align
+      })
+    }
+
+    function genTableHeader() {
+      return h(VDataTableHeader, {
+        cols: props.cols,
+        color: props.headerColor,
+        dark: props.dark,
+        align: props.align
+      })
+    }
+
     return () => h('div', {
       class: classes.value,
-    }, h(VDataTableHeader, {
-      cols: props.cols,
-      color: props.headerColor,
-      dark: props.dark
-    }))
+    }, [
+      genTableHeader(),
+      genTableBody(),
+    ])
   },
 })

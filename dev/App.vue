@@ -37,20 +37,27 @@
         return data.always ? testFunc : undefined
       })
 
-      const items = [
-        { text: 'Alex', age: 24, resizeable: true },
-        { text: 'Andrew', age: 24 },
-        { text: 'Nikol', age: 24 },
-        { text: 'Anna', age: 24 },
-        { text: 'Alex', age: 24 },
-        { text: 'Andrew', age: 24 },
-        { text: 'Nikol', age: 24 },
-        { text: 'Anna', age: 24 },
+      const cols = [
+        { key: 'name', text: 'Name', resizeable: true },
+        { key: 'age', text: 'Age', resizeable: true },
+        { key: 'car', text: 'Car', resizeable: true },
+      ]
+
+      const rows = [
+        { name: 'Alex', age: 24, car: 'Audi' },
+        { name: 'Andrew', age: 24, car: 'Audi' },
+        { name: 'Nikol', age: 24, car: 'Audi' },
+        { name: 'Anna', age: 24, car: 'Audi' },
+        { name: 'Alex', age: 24, car: 'Audi' },
+        { name: 'Andrew', age: 24, car: 'Audi' },
+        { name: 'Nikol', age: 24, car: 'Audi' },
+        { name: 'Anna', age: 24, car: 'Audi' },
       ]
 
       return {
         data,
-        items,
+        cols,
+        rows,
         testFunc,
         toggleAlways,
         forOut,
@@ -61,7 +68,8 @@
 
 <template>
   <v-data-table
-    :cols="items"
+    :cols="cols"
+    :rows="rows"
   />
   <v-list>
     <v-list-group @click="testFunc">

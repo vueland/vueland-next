@@ -28,6 +28,7 @@ export type Column = {
   resizeable?: boolean
   sortable?: boolean
   filterable?: boolean
+  align?: string
 }
 
 export type TableCol<T> = T extends keyof Column ? T : any

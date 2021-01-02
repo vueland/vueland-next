@@ -2,7 +2,7 @@
 import './VDataTable.scss'
 
 // Vue API
-import { h, computed, defineComponent, renderSlot } from 'vue'
+import { h, computed, defineComponent } from 'vue'
 
 import { VDataTableHeader } from './VDataTableHeader'
 import { VDataTableBody } from './VDataTableBody'
@@ -42,10 +42,8 @@ export const VDataTable = defineComponent({
         },
 
         rowKeys.reduce((acc, slot) => {
-
           const slotContent = (row = {}) => {
-            return slots[slot] &&
-              renderSlot(slots, slot, { row })
+            return slots[slot] && slots[slot]!({ row })
           }
 
           if (slotContent()) acc[slot] = slotContent

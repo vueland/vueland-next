@@ -59,7 +59,11 @@ export const VDataTableBody = defineComponent({
       for (let i = 0; i < rowsLength; i += 1) {
 
         rowCells.push(
-          h(VDataTableCell, { width: 50, align: 'center' },
+          h(VDataTableCell, {
+              width: 50,
+              align: 'center',
+              dark: props.dark,
+            },
             { default: () => i + 1 },
           ),
         )
@@ -73,6 +77,7 @@ export const VDataTableBody = defineComponent({
             h(VDataTableCell, {
               width: cols.value![j].width,
               align: props.align || cols.value![j].align,
+              dark: props.dark,
             }, {
               default: () => slotContent || rows.value![i][cols.value![j].key],
             }))

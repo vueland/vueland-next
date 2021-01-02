@@ -41,6 +41,7 @@
         { key: 'name', title: 'Name', resizeable: true },
         { key: 'age', title: 'Age', resizeable: true },
         { key: 'car', title: 'Car', resizeable: true },
+        { key: 'job', title: 'Job', resizeable: true },
       ]
 
       const rows = [
@@ -121,7 +122,9 @@
     :cols="cols"
     :rows="rows"
     align="start"
-    header-color="white"
+    header-color="grey darken-3"
+    class="grey darken-3"
+    dark
   >
     <template v-slot:car="{row}">
       <v-icon icon="fas fa-envelope" size="14" color="blue"/>

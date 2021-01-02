@@ -39,6 +39,7 @@ export const VDataTable = defineComponent({
           cols: props.cols,
           rows: props.rows,
           align: props.align,
+          dark: props.dark,
         },
 
         rowKeys.reduce((acc, slot) => {

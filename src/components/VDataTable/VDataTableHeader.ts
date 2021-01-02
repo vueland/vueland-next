@@ -5,7 +5,7 @@ import './VDataTableHeader.scss'
 import { h, ref, computed, defineComponent } from 'vue'
 
 // Effects
-import { colorProps, useColors } from '../../effects/use-colors'
+import { useColors } from '../../effects/use-colors'
 
 // Components
 import { VIcon } from '../VIcon'
@@ -26,7 +26,10 @@ export const VDataTableHeader = defineComponent({
       default: 125,
     },
     align: String,
-    ...colorProps(),
+    color: {
+      type: String,
+      default: 'white'
+    },
   } as any,
 
   setup(props, { emit }) {

@@ -34,14 +34,14 @@ export const VDataTableHeader = defineComponent({
 
     cols.value!.push({
       width: 50,
-      text: '№',
+      title: '№',
       align: 'center'
     })
 
     cols.value = [...cols.value!, ...props.cols]
 
     const classes = computed<Record<string, boolean>>(() => ({
-      'v-data-table-header': true,
+      'v-data-table__header': true,
     }))
 
     function genSortButton() {
@@ -65,7 +65,7 @@ export const VDataTableHeader = defineComponent({
           align: props.align || item.align,
           onResize: $size => item.width = $size,
         }, {
-          default: () => h('span', {}, item.text),
+          default: () => h('span', {}, item.title),
         })
       })
     }

@@ -8,12 +8,11 @@ import { h, ref, computed, defineComponent } from 'vue'
 import { colorProps, useColors } from '../../effects/use-colors'
 
 // Components
-import { VIcon } from '../VIcon'
+// import { VIcon } from '../VIcon'
 import { VDataTableCell } from './VDataTableCell'
 
 // Types
 import { VNode } from 'vue'
-import { Column } from '../../types'
 
 export const VDataTableBody = defineComponent({
   name: 'v-data-table-body',
@@ -30,7 +29,7 @@ export const VDataTableBody = defineComponent({
     ...colorProps(),
   } as any,
 
-  setup(props) {
+  setup(props, { slots }) {
 
     const cols = ref<any[] | null>([])
     const rows = ref<any[] | null>([])
@@ -41,23 +40,24 @@ export const VDataTableBody = defineComponent({
     const { setBackground } = useColors()
 
     const classes = computed<Record<string, boolean>>(() => ({
-      'v-data-table-body': true,
+      'v-data-table__body': true,
     }))
 
     function genTableRow(cells) {
       return h('div', {
         class: {
-          'v-data-table-body__row': true,
+          'v-data-table__body-row': true,
         },
       }, cells)
     }
-
 
     function genTableRows() {
       const tableRows: VNode[] = []
       const rowsLength = rows.value!.length
       const colsLength = cols.value!.length
       let rowCells: VNode[] = []
+
+      const rowKeys = Object.keys(rows.value![0])
 
       for (let i = 0; i < rowsLength; i += 1) {
 
@@ -73,7 +73,10 @@ export const VDataTableBody = defineComponent({
               width: cols.value![j].width,
               align: props.align || cols.value![j].align,
             }, {
-              default: () => rows.value![i][cols.value![j].key],
+              default: () => {
+                return cols.value![j].key === rowKeys[j] && slots[rowKeys[i]] && slots[rowKeys[i]]!() ||
+                  rows.value![i][cols.value![j].key]
+              },
             }))
         }
 

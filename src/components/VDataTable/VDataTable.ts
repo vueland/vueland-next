@@ -18,18 +18,33 @@ export const VDataTable = defineComponent({
     dark: Boolean,
   } as any,
 
-  setup(props) {
+  setup(props, { slots }) {
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-data-table': true,
     }))
 
+    function genTableInner() {
+      return h('div', {
+        class: {
+          'v-data-table__inner': true,
+        },
+      }, [genTableHeader(), genTableBody()])
+    }
+
     function genTableBody() {
+      const rowKeys = Object.keys(props.rows[0])
+
       return h(VDataTableBody, {
-        cols: props.cols,
-        rows: props.rows,
-        align: props.align
-      })
+          cols: props.cols,
+          rows: props.rows,
+          align: props.align,
+        },
+        rowKeys.reduce((acc, slot) => {
+          acc[slot] = () => slots[slot] && slots[slot]!()
+
+          return acc
+        }, {}))
     }
 
     function genTableHeader() {
@@ -37,15 +52,12 @@ export const VDataTable = defineComponent({
         cols: props.cols,
         color: props.headerColor,
         dark: props.dark,
-        align: props.align
+        align: props.align,
       })
     }
 
     return () => h('div', {
       class: classes.value,
-    }, [
-      genTableHeader(),
-      genTableBody(),
-    ])
+    }, genTableInner())
   },
 })

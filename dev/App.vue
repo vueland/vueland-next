@@ -38,9 +38,9 @@
       })
 
       const cols = [
-        { key: 'name', text: 'Name', resizeable: true },
-        { key: 'age', text: 'Age', resizeable: true },
-        { key: 'car', text: 'Car', resizeable: true },
+        { key: 'name', title: 'Name', resizeable: true },
+        { key: 'age', title: 'Age', resizeable: true },
+        { key: 'car', title: 'Car', resizeable: true },
       ]
 
       const rows = [
@@ -70,7 +70,13 @@
   <v-data-table
     :cols="cols"
     :rows="rows"
-  />
+    dark
+    header-color="blue darken-3"
+  >
+    <template v-slot:car>
+      <v-icon icon="fas fa-envelope" color="blue"/>
+    </template>
+  </v-data-table>
   <v-list>
     <v-list-group @click="testFunc">
       <template v-slot:title>

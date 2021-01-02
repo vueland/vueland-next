@@ -32,7 +32,7 @@ export const VDataTableCell = defineComponent({
     const { setTextColor } = useColors()
 
     const classes = computed<Record<string, boolean>>(() => ({
-      'v-data-table-cell': true,
+      'v-data-table__cell': true,
       [`text-align--${props.align}`]: !!props.align
     }))
 

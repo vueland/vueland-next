@@ -23,7 +23,7 @@ export type DatePickerDate = {
 }
 
 export type Column = {
-  text: string,
+  title: string,
   width?: string | number
   resizeable?: boolean
   sortable?: boolean

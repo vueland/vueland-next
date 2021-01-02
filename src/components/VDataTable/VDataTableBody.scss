@@ -1,9 +1,9 @@
 @import "../../styles/scss/modules/global";
 
-.v-data-table-body {
+.v-data-table__body {
   min-width: 100%;
 
-  &__row {
+  &-row {
     @include flex(inline-flex, flex-start, stretch);
     border-bottom: 1px solid rgba(237, 237, 243, 0.82);
     transition: background .2s;

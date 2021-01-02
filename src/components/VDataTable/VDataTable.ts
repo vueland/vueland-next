@@ -4,6 +4,10 @@ import './VDataTable.scss'
 // Vue API
 import { h, computed, defineComponent } from 'vue'
 
+// Effects
+import { useColors } from '../../effects/use-colors'
+
+// Components
 import { VDataTableHeader } from './VDataTableHeader'
 import { VDataTableBody } from './VDataTableBody'
 
@@ -16,9 +20,14 @@ export const VDataTable = defineComponent({
     headerColor: String,
     align: String,
     dark: Boolean,
+    color: {
+      type: String,
+      default: 'white',
+    },
   } as any,
 
   setup(props, { slots }) {
+    const { setBackground } = useColors()
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-data-table': true,
@@ -56,14 +65,21 @@ export const VDataTable = defineComponent({
     function genTableHeader() {
       return h(VDataTableHeader, {
         cols: props.cols,
-        color: props.headerColor,
+        color: props.headerColor || props.color,
         dark: props.dark,
         align: props.align,
       })
     }
 
-    return () => h('div', {
-      class: classes.value,
-    }, genTableInner())
+    return () => {
+      const propsData = {
+        class: classes.value,
+      }
+
+      return h('div',
+        setBackground(props.color, propsData),
+        genTableInner(),
+      )
+    }
   },
 })

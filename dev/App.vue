@@ -122,8 +122,8 @@
     :cols="cols"
     :rows="rows"
     align="start"
-    header-color="grey darken-3"
-    class="grey darken-3"
+    header-color="green darken-1"
+    color="grey darken-3"
     dark
   >
     <template v-slot:car="{row}">

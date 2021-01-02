@@ -3,8 +3,11 @@
 .v-data-table__cell {
   display: flex;
   align-items: center;
-  position: relative;
   padding: 5px;
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .text-align--start {

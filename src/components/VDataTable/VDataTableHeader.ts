@@ -53,8 +53,10 @@ export const VDataTableHeader = defineComponent({
       cells.push(h(VDataTableCell, {
         align: 'center',
         dark: props.dark,
-        width: 50
-      }, '№'))
+        width: 50,
+      }, {
+        default: () => '№',
+      }))
 
       cols.value!.forEach((item: Column) => {
         item.width = item.width || props.colWidth

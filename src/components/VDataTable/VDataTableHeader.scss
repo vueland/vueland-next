@@ -1,12 +1,18 @@
 @import "../../styles/scss/modules/global";
+@import "variables";
 
 .v-data-table__header {
   @include flex(inline-flex, flex-start, stretch);
-  border-bottom: 1px solid rgba(237, 237, 243, 0.82);
-  min-width: 100%;
-  height: 50px;
+  min-width: $table-row-min-width;
+  height: $table-header-height;
+  border-bottom-left-radius: $table-border-radius;
+  border-bottom-right-radius: $table-border-radius;
+  box-shadow: 0 0 5px -2px rgba(0, 0, 0, .4);
+  margin: 0 5px 5px 5px;
   position: sticky;
   top: 0;
+  z-index: 10;
+
 
   &-title {
     display: block;

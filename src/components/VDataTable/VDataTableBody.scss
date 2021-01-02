@@ -1,14 +1,19 @@
 @import "../../styles/scss/modules/global";
+@import "variables";
 
 .v-data-table__body {
   min-width: 100%;
+  position: relative;
+  z-index: 9;
 
   &-row {
     @include flex(inline-flex, flex-start, stretch);
-    border-bottom: 1px solid rgba(237, 237, 243, 0.82);
-    transition: background .2s;
-    height: 36px;
-    min-width: 100%;
+    height: $table-row-height;
+    min-width: $table-row-min-width;
+    border-radius: $table-border-radius;
     cursor: pointer;
+    margin: 2px 5px;
+    overflow: hidden;
+    box-shadow: 0 0 5px -2px rgba(0, 0, 0, .4);
   }
 }

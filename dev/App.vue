@@ -44,9 +44,41 @@
       ]
 
       const rows = [
-        { name: 'Alex', age: 24, car: 'Mers' },
+        { name: 'AlexAlexAlexAlexAlex', age: 24, car: 'Mers' },
         { name: 'Andrew', age: 24, car: 'Audi' },
         { name: 'Nikol', age: 24, car: 'BMW' },
+        { name: 'Anna', age: 24, car: 'Audi' },
+        { name: 'Alex', age: 24, car: 'Audi' },
+        { name: 'Andrew', age: 24, car: 'Audi' },
+        { name: 'Nikol', age: 24, car: 'Audi' },
+        { name: 'Anna', age: 24, car: 'Audi' },
+        { name: 'Anna', age: 24, car: 'Audi' },
+        { name: 'Alex', age: 24, car: 'Audi' },
+        { name: 'Andrew', age: 24, car: 'Audi' },
+        { name: 'Nikol', age: 24, car: 'Audi' },
+        { name: 'Anna', age: 24, car: 'Audi' },
+        { name: 'Andrew', age: 24, car: 'Audi' },
+        { name: 'Nikol', age: 24, car: 'Audi' },
+        { name: 'Anna', age: 24, car: 'Audi' },
+        { name: 'Anna', age: 24, car: 'Audi' },
+        { name: 'Alex', age: 24, car: 'Audi' },
+        { name: 'Andrew', age: 24, car: 'Audi' },
+        { name: 'Nikol', age: 24, car: 'Audi' },
+        { name: 'Anna', age: 24, car: 'Audi' },
+        { name: 'Nikol', age: 24, car: 'BMW' },
+        { name: 'Anna', age: 24, car: 'Audi' },
+        { name: 'Alex', age: 24, car: 'Audi' },
+        { name: 'Andrew', age: 24, car: 'Audi' },
+        { name: 'Nikol', age: 24, car: 'Audi' },
+        { name: 'Anna', age: 24, car: 'Audi' },
+        { name: 'Anna', age: 24, car: 'Audi' },
+        { name: 'Alex', age: 24, car: 'Audi' },
+        { name: 'Andrew', age: 24, car: 'Audi' },
+        { name: 'Nikol', age: 24, car: 'Audi' },
+        { name: 'Anna', age: 24, car: 'Audi' },
+        { name: 'Andrew', age: 24, car: 'Audi' },
+        { name: 'Nikol', age: 24, car: 'Audi' },
+        { name: 'Anna', age: 24, car: 'Audi' },
         { name: 'Anna', age: 24, car: 'Audi' },
         { name: 'Alex', age: 24, car: 'Audi' },
         { name: 'Andrew', age: 24, car: 'Audi' },
@@ -89,8 +121,7 @@
     :cols="cols"
     :rows="rows"
     align="start"
-    dark
-    header-color="grey darken-3"
+    header-color="white"
   >
     <template v-slot:car="{row}">
       <v-icon icon="fas fa-envelope" size="14" color="blue"/>

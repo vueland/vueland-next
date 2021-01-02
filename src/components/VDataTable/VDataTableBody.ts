@@ -2,13 +2,12 @@
 import './VDataTableBody.scss'
 
 // Vue API
-import { h, ref, computed, defineComponent } from 'vue'
+import { h, ref, inject, computed, defineComponent } from 'vue'
 
 // Effects
 import { colorProps, useColors } from '../../effects/use-colors'
 
 // Components
-// import { VIcon } from '../VIcon'
 import { VDataTableCell } from './VDataTableCell'
 
 // Types
@@ -30,7 +29,6 @@ export const VDataTableBody = defineComponent({
   } as any,
 
   setup(props, { slots }) {
-
     const cols = ref<any[] | null>([])
     const rows = ref<any[] | null>([])
 
@@ -68,15 +66,21 @@ export const VDataTableBody = defineComponent({
         )
 
         for (let j = 0; j < colsLength; j += 1) {
+
+          const slotContent = (rowKeys[j] === cols.value![j].key) &&
+            slots[rowKeys[j]] && slots[rowKeys[j]]!() || null
+
+          const content = slotContent && (slotContent as any)[0].children ||
+            rows.value![i][cols.value![j].key]
+
+          // if (slotContent) (currentRow as any).value = rows.value![i]
+
           rowCells.push(
             h(VDataTableCell, {
               width: cols.value![j].width,
               align: props.align || cols.value![j].align,
             }, {
-              default: () => {
-                return cols.value![j].key === rowKeys[j] && slots[rowKeys[i]] && slots[rowKeys[i]]!() ||
-                  rows.value![i][cols.value![j].key]
-              },
+              default: () =>  content,
             }))
         }
 

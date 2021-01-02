@@ -73,8 +73,9 @@
     dark
     header-color="blue darken-3"
   >
-    <template v-slot:car>
+    <template v-slot:car="{row}">
       <v-icon icon="fas fa-envelope" color="blue"/>
+      <span>{{row}}</span>
     </template>
   </v-data-table>
   <v-list>

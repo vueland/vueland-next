@@ -7,6 +7,10 @@
   height: 50px;
   position: sticky;
   top: 0;
+
+  &-title {
+    display: block;
+  }
 }
 
 .v-data-table__header > .v-data-table__cell {

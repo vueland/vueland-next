@@ -44,9 +44,9 @@
       ]
 
       const rows = [
-        { name: 'Alex', age: 24, car: 'Audi' },
+        { name: 'Alex', age: 24, car: 'Mers' },
         { name: 'Andrew', age: 24, car: 'Audi' },
-        { name: 'Nikol', age: 24, car: 'Audi' },
+        { name: 'Nikol', age: 24, car: 'BMW' },
         { name: 'Anna', age: 24, car: 'Audi' },
         { name: 'Alex', age: 24, car: 'Audi' },
         { name: 'Andrew', age: 24, car: 'Audi' },
@@ -67,17 +67,6 @@
 </script>
 
 <template>
-  <v-data-table
-    :cols="cols"
-    :rows="rows"
-    dark
-    header-color="blue darken-3"
-  >
-    <template v-slot:car="{row}">
-      <v-icon icon="fas fa-envelope" color="blue"/>
-      <span>{{row}}</span>
-    </template>
-  </v-data-table>
   <v-list>
     <v-list-group @click="testFunc">
       <template v-slot:title>
@@ -96,7 +85,22 @@
       </v-list-group>
     </v-list-group>
   </v-list>
-
+  <v-data-table
+    :cols="cols"
+    :rows="rows"
+    align="start"
+    dark
+    header-color="grey darken-3"
+  >
+    <template v-slot:car="{row}">
+      <v-icon icon="fas fa-envelope" size="14" color="blue"/>
+      <div style="margin-left: 15px;">{{ row.car }}</div>
+    </template>
+    <template v-slot:name="{row}">
+      <v-icon icon="fas fa-user" size="14" color="green"/>
+      <div style="margin-left: 15px;">{{ row.name }}</div>
+    </template>
+  </v-data-table>
   <v-form
     v-slot="{ validate }"
     style="display: block; margin: 20px; width: 400px;"
@@ -120,8 +124,8 @@
     <v-select
       label="select"
       v-model="data.email"
-      :items="items"
-      value-key="text"
+      :items="rows"
+      value-key="name"
       :rules="[v => !!v || 'required']"
     />
     <v-button

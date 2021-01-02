@@ -12,6 +12,7 @@ import { VIcon } from '../VIcon'
 import { VDataTableCell } from './VDataTableCell'
 
 // Types
+import { VNode } from 'vue'
 import { Column } from '../../types'
 
 export const VDataTableHeader = defineComponent({
@@ -32,13 +33,7 @@ export const VDataTableHeader = defineComponent({
     const cols = ref<any[] | null>([])
     const { setBackground } = useColors()
 
-    cols.value!.push({
-      width: 50,
-      title: '№',
-      align: 'center'
-    })
-
-    cols.value = [...cols.value!, ...props.cols]
+    cols.value = props.cols
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-data-table__header': true,
@@ -53,10 +48,18 @@ export const VDataTableHeader = defineComponent({
     }
 
     function genHeaderCells() {
-      return cols.value!.map((item: Column) => {
+      const cells: VNode[] = []
+
+      cells.push(h(VDataTableCell, {
+        align: 'center',
+        dark: props.dark,
+        width: 50
+      }, '№'))
+
+      cols.value!.forEach((item: Column) => {
         item.width = item.width || props.colWidth
 
-        return h(VDataTableCell, {
+        const vnode = h(VDataTableCell, {
           dark: props.dark,
           width: item.width,
           resizeable: item.resizeable,
@@ -65,9 +68,15 @@ export const VDataTableHeader = defineComponent({
           align: props.align || item.align,
           onResize: $size => item.width = $size,
         }, {
-          default: () => h('span', {}, item.title),
+          default: () => h('div', {
+            class: 'v-data-table__header-title',
+          }, [item.title, genSortButton()]),
         })
+
+        cells.push(vnode)
       })
+
+      return cells
     }
 
     return () => {

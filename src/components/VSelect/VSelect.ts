@@ -159,7 +159,7 @@ export const VSelect = defineComponent({
       const selectVNode = h('div', {
           class: classes.value,
         },
-        [genInput(), genSelectList()],
+        [genInput(), props.items && genSelectList()],
       )
 
       return withDirectives(selectVNode, [[vClickOutside, directive.value]])
@@ -185,7 +185,7 @@ export const VSelect = defineComponent({
       } as any
 
       return h(VInput, propsData, {
-          select: () => (props.items?.length ? genSelect() : null),
+          select: () => genSelect(),
         },
       )
     }

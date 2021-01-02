@@ -6,4 +6,10 @@
   border-radius: 5px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, .4);
   overflow: hidden;
+
+  &__inner {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+  }
 }

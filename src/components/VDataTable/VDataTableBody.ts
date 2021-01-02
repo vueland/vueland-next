@@ -2,7 +2,7 @@
 import './VDataTableBody.scss'
 
 // Vue API
-import { h, ref, inject, computed, defineComponent } from 'vue'
+import { h, ref, computed, defineComponent } from 'vue'
 
 // Effects
 import { colorProps, useColors } from '../../effects/use-colors'
@@ -53,9 +53,8 @@ export const VDataTableBody = defineComponent({
       const tableRows: VNode[] = []
       const rowsLength = rows.value!.length
       const colsLength = cols.value!.length
-      let rowCells: VNode[] = []
 
-      const rowKeys = Object.keys(rows.value![0])
+      let rowCells: VNode[] = []
 
       for (let i = 0; i < rowsLength; i += 1) {
 
@@ -67,20 +66,15 @@ export const VDataTableBody = defineComponent({
 
         for (let j = 0; j < colsLength; j += 1) {
 
-          const slotContent = (rowKeys[j] === cols.value![j].key) &&
-            slots[rowKeys[j]] && slots[rowKeys[j]]!() || null
-
-          const content = slotContent && (slotContent as any)[0].children ||
-            rows.value![i][cols.value![j].key]
-
-          // if (slotContent) (currentRow as any).value = rows.value![i]
+          const slotContent = slots[cols.value![j].key] &&
+            slots[cols.value![j].key]!(rows.value![i])
 
           rowCells.push(
             h(VDataTableCell, {
               width: cols.value![j].width,
               align: props.align || cols.value![j].align,
             }, {
-              default: () =>  content,
+              default: () => slotContent || rows.value![i][cols.value![j].key],
             }))
         }
 

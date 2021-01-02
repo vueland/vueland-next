@@ -2,7 +2,7 @@
 import './VDataTable.scss'
 
 // Vue API
-import { h, ref, provide, computed, defineComponent, renderSlot } from 'vue'
+import { h, computed, defineComponent, renderSlot } from 'vue'
 
 import { VDataTableHeader } from './VDataTableHeader'
 import { VDataTableBody } from './VDataTableBody'
@@ -33,7 +33,7 @@ export const VDataTable = defineComponent({
     }
 
     function genTableBody() {
-      const rowKeys = Object.keys(props.rows[0])
+      const rowKeys = props.cols.map(col => col.key)
 
       return h(VDataTableBody, {
           cols: props.cols,
@@ -42,8 +42,11 @@ export const VDataTable = defineComponent({
         },
 
         rowKeys.reduce((acc, slot) => {
-          const slotContent = () => slots[slot] &&
-            renderSlot(slots, slot, { row: 'some' })
+
+          const slotContent = (row = {}) => {
+            return slots[slot] &&
+              renderSlot(slots, slot, { row })
+          }
 
           if (slotContent()) acc[slot] = slotContent
 

@@ -26,8 +26,10 @@ export type Column = {
   title: string,
   width?: string | number
   resizeable?: boolean
-  sortable?: boolean
   filterable?: boolean
+  sortable?: boolean
+  sorted?: boolean
+  filtered?: boolean
   align?: string
 }
 

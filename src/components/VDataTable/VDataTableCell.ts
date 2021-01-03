@@ -45,6 +45,12 @@ export const VDataTableCell = defineComponent({
       })
     }
 
+    function genCellContent() {
+      return h('div', {
+        class: 'v-data-table__cell-content',
+      }, slots.default && slots.default())
+    }
+
     return () => {
       const propsData = {
         class: classes.value,
@@ -52,12 +58,10 @@ export const VDataTableCell = defineComponent({
           width: convertToUnit(+props.width),
         },
       }
+
       return h('div',
         props.dark ? setTextColor('white', propsData) : propsData,
-        [
-          slots.default && slots.default(),
-          props.resizeable ? genResize() : null,
-        ],
+        [genCellContent(), props.resizeable ? genResize() : null],
       )
     }
   },

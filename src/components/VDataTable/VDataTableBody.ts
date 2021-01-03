@@ -18,6 +18,7 @@ export const VDataTableBody = defineComponent({
 
   props: {
     dark: Boolean,
+    numbered: Boolean,
     cols: Array,
     rows: Array,
     align: String,
@@ -58,7 +59,7 @@ export const VDataTableBody = defineComponent({
 
       for (let i = 0; i < rowsLength; i += 1) {
 
-        rowCells.push(
+        props.numbered && rowCells.push(
           h(VDataTableCell, {
               width: 50,
               align: 'center',

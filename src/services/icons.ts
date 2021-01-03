@@ -9,5 +9,6 @@ export enum FaIcons {
   $checkOn = 'fas fa-check-square',
   $checkOff = 'far fa-square',
   $arrowRight = 'fas fa-chevron-right',
-  $arrowLeft = 'fas fa-chevron-left'
+  $arrowLeft = 'fas fa-chevron-left',
+  $arrowUp = 'fas fa-arrow-up'
 }

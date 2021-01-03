@@ -5,12 +5,15 @@
   align-items: center;
   padding: 5px;
   position: relative;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+
+  &-content {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
 }
 
-.text-align--start {
+.text-align--start{
   justify-content: flex-start;
 }
 

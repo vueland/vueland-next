@@ -15,11 +15,15 @@ import { VDataTableCell } from './VDataTableCell'
 import { VNode } from 'vue'
 import { Column } from '../../types'
 
+// Services
+import { FaIcons } from '../../services/icons'
+
 export const VDataTableHeader = defineComponent({
   name: 'v-data-table-header',
 
   props: {
     dark: Boolean,
+    numbered: Boolean,
     cols: Array,
     colWidth: {
       type: [String, Number],
@@ -28,6 +32,10 @@ export const VDataTableHeader = defineComponent({
     align: String,
     ...colorProps(),
   } as any,
+
+  emits: [
+    'sort',
+  ],
 
   setup(props, { emit }) {
     const cols = ref<any[] | null>([])
@@ -39,30 +47,54 @@ export const VDataTableHeader = defineComponent({
       'v-data-table__header': true,
     }))
 
-    function genSortButton() {
+    function onSort(item) {
+      item.sorted = !item.sorted
+      emit('sort', item)
+    }
+
+    function genSortButton(item) {
       return h(VIcon, {
         clickable: true,
-        size: 18,
-        onClick: () => emit('sort'),
+        class: 'v-data-table--sort',
+        size: 14,
+        icon: FaIcons.$arrowUp,
+        color: props.dark ? 'white' : '',
+        onClick: () => onSort(item),
       })
+    }
+
+    function genHeaderTitle(item) {
+      return h('div', {
+          class: 'v-data-table__header-title',
+        }, [
+          item.title,
+          item.sortable && genSortButton(item),
+        ],
+      )
     }
 
     function genHeaderCells() {
       const cells: VNode[] = []
 
-      cells.push(h(VDataTableCell, {
-        align: 'center',
-        dark: props.dark,
-        width: 50,
-      }, {
-        default: () => '№',
-      }))
+      props.numbered && cells.push(
+        h(VDataTableCell, {
+            align: 'center',
+            dark: props.dark,
+            width: 50,
+          }, {
+            default: () => '№',
+          },
+        ),
+      )
 
       cols.value!.forEach((item: Column) => {
         item.width = item.width || props.colWidth
 
         const vnode = h(VDataTableCell, {
           dark: props.dark,
+          class: {
+            'v-data-table--sorted': item.sorted
+          },
           width: item.width,
           resizeable: item.resizeable,
           filterable: item.filterable,
@@ -70,9 +102,7 @@ export const VDataTableHeader = defineComponent({
           align: props.align || item.align,
           onResize: $size => item.width = $size,
         }, {
-          default: () => h('div', {
-            class: 'v-data-table__header-title',
-          }, [item.title, genSortButton()]),
+          default: () => genHeaderTitle(item),
         })
 
         cells.push(vnode)

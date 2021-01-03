@@ -38,7 +38,7 @@
       })
 
       const cols = [
-        { key: 'name', title: 'Name', resizeable: true },
+        { key: 'name', title: 'Name', resizeable: true, sortable: true },
         { key: 'age', title: 'Age', resizeable: true },
         { key: 'car', title: 'Car', resizeable: true },
         { key: 'job', title: 'Job', resizeable: true },
@@ -121,20 +121,23 @@
   <v-data-table
     :cols="cols"
     :rows="rows"
-    align="start"
-    header-color="green darken-1"
-    color="grey darken-3"
-    dark
+
+    class="elevation-5"
+    numbered
   >
     <template v-slot:car="{row}">
       <v-icon icon="fas fa-envelope" size="14" color="blue"/>
-      <div style="margin-left: 15px;">{{ row.car }}</div>
+      <span style="margin-left: 15px;">{{ row.car }}</span>
     </template>
     <template v-slot:name="{row}">
-      <v-icon icon="fas fa-user" size="14" color="green"/>
-      <div style="margin-left: 15px;">{{ row.name }}</div>
+      <v-icon icon="fas fa-user" size="12" color="green"/>
+      <span style="margin-left: 15px;">{{ row.name }}</span>
+    </template>
+    <template v-slot:job="{row}">
+      <v-icon icon="fas fa-user" size="12" color="green"/>
     </template>
   </v-data-table>
+
   <v-form
     v-slot="{ validate }"
     style="display: block; margin: 20px; width: 400px;"
@@ -145,8 +148,8 @@
       label="set date"
       color="amber accent-3"
       content-color="grey darken-4"
-      :rules="[val => !!val || 'Required']"
       elevation="15"
+      :rules="[val => !!val || 'Required']"
       readonly
       monday-first
     />

@@ -10,6 +10,7 @@ import { useColors } from '../../effects/use-colors'
 // Components
 import { VDataTableHeader } from './VDataTableHeader'
 import { VDataTableBody } from './VDataTableBody'
+import { VDataTableFooter } from './VDataTableFooter'
 
 export const VDataTable = defineComponent({
   name: 'v-data-table',
@@ -20,6 +21,7 @@ export const VDataTable = defineComponent({
     headerColor: String,
     align: String,
     dark: Boolean,
+    numbered: Boolean,
     color: {
       type: String,
       default: 'white',
@@ -33,14 +35,6 @@ export const VDataTable = defineComponent({
       'v-data-table': true,
     }))
 
-    function genTableInner() {
-      return h('div', {
-        class: {
-          'v-data-table__inner': true,
-        },
-      }, [genTableHeader(), genTableBody()])
-    }
-
     function genTableBody() {
       const rowKeys = props.cols.map(col => col.key)
 
@@ -49,6 +43,7 @@ export const VDataTable = defineComponent({
           rows: props.rows,
           align: props.align,
           dark: props.dark,
+          numbered: props.numbered,
         },
 
         rowKeys.reduce((acc, slot) => {
@@ -68,7 +63,24 @@ export const VDataTable = defineComponent({
         color: props.headerColor || props.color,
         dark: props.dark,
         align: props.align,
+        numbered: props.numbered,
       })
+    }
+
+    function genTableFooter() {
+      return h(VDataTableFooter, {})
+    }
+
+    function genTableInner() {
+      return h('div', {
+        class: {
+          'v-data-table__inner': true,
+        },
+      }, [
+        genTableHeader(),
+        genTableBody(),
+
+      ])
     }
 
     return () => {
@@ -78,7 +90,8 @@ export const VDataTable = defineComponent({
 
       return h('div',
         setBackground(props.color, propsData),
-        genTableInner(),
+        [genTableInner(),
+        genTableFooter()]
       )
     }
   },

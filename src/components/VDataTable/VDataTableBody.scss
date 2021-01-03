@@ -3,17 +3,14 @@
 
 .v-data-table__body {
   min-width: 100%;
-  position: relative;
   z-index: 9;
 
   &-row {
     @include flex(inline-flex, flex-start, stretch);
     height: $table-row-height;
-    min-width: $table-row-min-width;
+    min-width: 100%;
     border-radius: $table-border-radius;
-    cursor: pointer;
-    margin: 2px 5px;
-    overflow: hidden;
+    margin: 2px 0;
     box-shadow: 0 0 5px -2px rgba(0, 0, 0, .4);
   }
 }

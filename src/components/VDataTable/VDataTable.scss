@@ -1,11 +1,11 @@
 @import "../../styles/scss/modules/global";
+@import "variables";
 
 .v-data-table {
   @include flex(flex, flex-start, flex-start, column);
-  max-height: 800px;
-  margin: 5px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, .4);
+  height: 100%;
+  max-height: calc(100vh - 50px);
+  border-radius: $table-border-radius;
   overflow: hidden;
 
   &__inner {

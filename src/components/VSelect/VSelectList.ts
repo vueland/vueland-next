@@ -38,6 +38,7 @@ export const VSelectList = defineComponent({
 
     function genItems(): VNode[] {
       const key = props.valueKey
+
       const propsData = {
         class: {},
         style: {},

@@ -18,6 +18,7 @@ export const VDataTableFooter = defineComponent({
     pages: Number,
     counts: Array,
     page: Number,
+    color: String,
   } as any,
 
   setup(props, { emit }) {
@@ -43,12 +44,33 @@ export const VDataTableFooter = defineComponent({
       return h('span', {}, props.page)
     }
 
-    function genPageItemsSelect() {
-
+    function genSelect() {
       return h(VSelect, {
         items: props.counts,
-        modelValue: itemsOnPage.value
+        modelValue: itemsOnPage.value,
+        dark: props.dark,
+        listColor: props.color,
+        style: {
+          width: '50px',
+          textAlign: 'center',
+        },
+        onSelect: e => console.log(e),
       })
+    }
+
+    function genSelectCaption() {
+      return h('span', {
+        class: 'v-data-table__options-label'
+      }, 'Rows per page')
+    }
+
+    function genPageItemsSelect() {
+      return h('div', {
+        class: 'v-data-table__options'
+      }, [
+        genSelectCaption(),
+        genSelect()
+      ])
     }
 
     function genButtons() {

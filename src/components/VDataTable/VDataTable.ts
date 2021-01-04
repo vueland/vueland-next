@@ -134,6 +134,7 @@ export const VDataTable = defineComponent({
         page: page.value,
         counts: [5, 10, 15, 20],
         dark: props.dark,
+        color: props.color,
         onPrev: onPrevTable,
         onNext: onNextTable,
       })
@@ -160,7 +161,7 @@ export const VDataTable = defineComponent({
         setBackground(props.color, propsData),
         [
           genTableInner(),
-          genTableFooter(),
+          genTableFooter()
         ],
       )
     }

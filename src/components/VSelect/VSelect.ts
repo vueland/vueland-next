@@ -69,7 +69,7 @@ export const VSelect = defineComponent({
       validationState,
     } = useValidate(props)
 
-    const fields: Ref<any[]> | undefined = inject('fields')
+    const fields: Ref<any[]> | undefined = props.rules && inject('fields')
 
     const validateValue = () => {
       return props.rules?.length && validate(state.selected || props.modelValue)
@@ -90,15 +90,13 @@ export const VSelect = defineComponent({
     }))
 
     watch(
-      () => (props.modelValue || props.value),
-      value => (state.selected = value || '' as any),
+      () => props.modelValue,
+      value => (state.selected = value as any),
       { immediate: true },
     )
 
-    console.log(state)
-
     if (fields?.value && props.rules?.length) {
-      fields!.value.push(validateValue)
+      fields.value.push(validateValue)
     }
 
     function toggleState() {
@@ -126,7 +124,7 @@ export const VSelect = defineComponent({
     }
 
     function genInput(): VNode {
-      const selectedValue = typeof state.selected === 'string' ?
+      const selectedValue = !props.valueKey ?
         state.selected : state.selected[props.valueKey as string]
 
       const color = props.dark ? 'white' : ''

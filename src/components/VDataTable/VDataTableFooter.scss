@@ -2,15 +2,30 @@
 @import "variables";
 
 .v-data-table__footer {
-  @include flex(flex, center, center);
+  @include flex(flex, flex-end, center);
   flex-shrink: 0;
   width: 100%;
-  height: $table-header-height;
+  height: 75px;
   border-top-left-radius: $table-border-radius;
   border-top-right-radius: $table-border-radius;
   box-shadow: 0 0 5px -2px rgba(0, 0, 0, .4);
 
   &-pagination {
-    @include flex(flex, flex-start, center);
+    @include flex(flex, space-around, center);
+    width: auto;
+    margin: 0 15px;
+
+    & > * {
+      flex-grow: 0;
+    }
+  }
+}
+
+.v-data-table__options {
+  @include flex(flex, flex-start, center);
+  margin: 0 15px;
+
+  &-label {
+    margin: 0 15px;
   }
 }

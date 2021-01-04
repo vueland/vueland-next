@@ -44,10 +44,14 @@ export const useColors = (): Colorable => {
     } else if (color) {
       const [colorName, colorModifier] = color.trim().split(' ', 2)
 
-      data.class = {
-        ...data.class,
-        [`${ colorName }--text`]: true,
+      if (typeof data.class === 'string') {
+        data.class = {
+          [data.class]: true,
+        }
       }
+
+      data.class[`${ colorName }--text`] = true
+
 
       if (colorModifier) {
         data.class[`text--${ colorModifier }`] = true

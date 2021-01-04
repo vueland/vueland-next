@@ -39,52 +39,32 @@
 
       const cols = [
         { key: 'name', title: 'Name', resizeable: true, sortable: true },
-        { key: 'age', title: 'Age', resizeable: true },
+        { key: 'age', title: 'Age', resizeable: true, sortable: true },
         { key: 'car', title: 'Car', resizeable: true },
-        { key: 'job', title: 'Job', resizeable: true },
+        { key: 'date', title: 'Date', resizeable: true, sortable: true },
       ]
 
       const rows = [
-        { name: 'AlexAlexAlexAlexAlex', age: 24, car: 'Mers' },
-        { name: 'Andrew', age: 24, car: 'Audi' },
-        { name: 'Nikol', age: 24, car: 'BMW' },
-        { name: 'Anna', age: 24, car: 'Audi' },
-        { name: 'Alex', age: 24, car: 'Audi' },
-        { name: 'Andrew', age: 24, car: 'Audi' },
-        { name: 'Nikol', age: 24, car: 'Audi' },
-        { name: 'Anna', age: 24, car: 'Audi' },
-        { name: 'Anna', age: 24, car: 'Audi' },
-        { name: 'Alex', age: 24, car: 'Audi' },
-        { name: 'Andrew', age: 24, car: 'Audi' },
-        { name: 'Nikol', age: 24, car: 'Audi' },
-        { name: 'Anna', age: 24, car: 'Audi' },
-        { name: 'Andrew', age: 24, car: 'Audi' },
-        { name: 'Nikol', age: 24, car: 'Audi' },
-        { name: 'Anna', age: 24, car: 'Audi' },
-        { name: 'Anna', age: 24, car: 'Audi' },
-        { name: 'Alex', age: 24, car: 'Audi' },
-        { name: 'Andrew', age: 24, car: 'Audi' },
-        { name: 'Nikol', age: 24, car: 'Audi' },
-        { name: 'Anna', age: 24, car: 'Audi' },
-        { name: 'Nikol', age: 24, car: 'BMW' },
-        { name: 'Anna', age: 24, car: 'Audi' },
-        { name: 'Alex', age: 24, car: 'Audi' },
-        { name: 'Andrew', age: 24, car: 'Audi' },
-        { name: 'Nikol', age: 24, car: 'Audi' },
-        { name: 'Anna', age: 24, car: 'Audi' },
-        { name: 'Anna', age: 24, car: 'Audi' },
-        { name: 'Alex', age: 24, car: 'Audi' },
-        { name: 'Andrew', age: 24, car: 'Audi' },
-        { name: 'Nikol', age: 24, car: 'Audi' },
-        { name: 'Anna', age: 24, car: 'Audi' },
-        { name: 'Andrew', age: 24, car: 'Audi' },
-        { name: 'Nikol', age: 24, car: 'Audi' },
-        { name: 'Anna', age: 24, car: 'Audi' },
-        { name: 'Anna', age: 24, car: 'Audi' },
-        { name: 'Alex', age: 24, car: 'Audi' },
-        { name: 'Andrew', age: 24, car: 'Audi' },
-        { name: 'Nikol', age: 24, car: 'Audi' },
-        { name: 'Anna', age: 24, car: 'Audi' },
+        { name: 'AlexAlexAlexAlexAlex', age: 24, car: 'Mers', date: '2021-01-01' },
+        { name: 'Andrew', age: 24, car: 'Audi', date: '2021-01-10' },
+        { name: 'Nikol', age: 24, car: 'BMW', date: '2021-01-03' },
+        { name: 'Anna', age: 24, car: 'Audi', date: '2021-01-07' },
+        { name: 'Alex', age: 24, car: 'Audi', date: '2021-01-10' },
+        { name: 'Andrew', age: 17, car: 'Audi', date: '2021-01-10' },
+        { name: 'Nikol', age: 24, car: 'Audi', date: '2021-01-10' },
+        { name: 'Anna', age: 24, car: 'Audi', date: '2021-01-10' },
+        { name: 'Anna', age: 27, car: 'Audi', date: '2021-01-10' },
+        { name: 'Alex', age: 24, car: 'Audi', date: '2021-01-10' },
+        { name: 'Andrew', age: 24, car: 'Audi', date: '2021-01-10' },
+        { name: 'Nikol', age: 24, car: 'Audi', date: '2021-01-15' },
+        { name: 'Anna', age: 23, car: 'Audi', date: '2021-01-07' },
+        { name: 'Andrew', age: 24, car: 'Audi', date: '2021-01-10' },
+        { name: 'Nikol', age: 124, car: 'Audi', date: '2021-01-10' },
+        { name: 'Anna', age: 24, car: 'Audi', date: '2021-01-10' },
+        { name: 'Anna', age: 24, car: 'Audi', date: '2021-01-10' },
+        { name: 'Alex', age: 31, car: 'Audi', date: '2021-01-10' },
+        { name: 'Andrew', age: 24, car: 'Audi', date: '2021-01-10' },
+        { name: 'Andrew', age: 24, car: 'Audi', date: '2021-01-10' },
       ]
 
       return {
@@ -121,12 +101,13 @@
   <v-data-table
     :cols="cols"
     :rows="rows"
-
+    color="grey darken-3"
     class="elevation-5"
+    dark
     numbered
   >
     <template v-slot:car="{row}">
-      <v-icon icon="fas fa-envelope" size="14" color="blue"/>
+      <v-icon icon="fas fa-envelope" size="12" color="blue"/>
       <span style="margin-left: 15px;">{{ row.car }}</span>
     </template>
     <template v-slot:name="{row}">

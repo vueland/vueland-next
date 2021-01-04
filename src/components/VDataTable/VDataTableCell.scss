@@ -10,6 +10,10 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+
+    & > .v-icon {
+      padding-bottom: .25rem;
+    }
   }
 }
 

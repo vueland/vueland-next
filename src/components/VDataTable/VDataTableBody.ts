@@ -2,7 +2,7 @@
 import './VDataTableBody.scss'
 
 // Vue API
-import { h, ref, computed, defineComponent } from 'vue'
+import { h, computed, defineComponent } from 'vue'
 
 // Effects
 import { colorProps, useColors } from '../../effects/use-colors'
@@ -30,12 +30,6 @@ export const VDataTableBody = defineComponent({
   } as any,
 
   setup(props, { slots }) {
-    const cols = ref<any[] | null>([])
-    const rows = ref<any[] | null>([])
-
-    cols.value = props.cols
-    rows.value = props.rows
-
     const { setBackground } = useColors()
 
     const classes = computed<Record<string, boolean>>(() => ({
@@ -52,8 +46,8 @@ export const VDataTableBody = defineComponent({
 
     function genTableRows() {
       const tableRows: VNode[] = []
-      const rowsLength = rows.value!.length
-      const colsLength = cols.value!.length
+      const rowsLength = props.rows.length
+      const colsLength = props.cols.length
 
       let rowCells: VNode[] = []
 
@@ -71,16 +65,16 @@ export const VDataTableBody = defineComponent({
 
         for (let j = 0; j < colsLength; j += 1) {
 
-          const slotContent = slots[cols.value![j].key] &&
-            slots[cols.value![j].key]!(rows.value![i])
+          const slotContent = slots[props.cols[j].key] &&
+            slots[props.cols[j].key]!(props.rows[i])
 
           rowCells.push(
             h(VDataTableCell, {
-              width: cols.value![j].width,
-              align: props.align || cols.value![j].align,
+              width: props.cols[j].width,
+              align: props.align || props.cols[j].align,
               dark: props.dark,
             }, {
-              default: () => slotContent || rows.value![i][cols.value![j].key],
+              default: () => slotContent || props.rows[i][props.cols[j].key],
             }))
         }
 

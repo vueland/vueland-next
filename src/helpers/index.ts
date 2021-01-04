@@ -52,3 +52,7 @@ export function convertToUnit(
 export function warning(warningText) {
   console.warn(warningText)
 }
+
+export function copyWithoutRef(obj) {
+  return JSON.parse(JSON.stringify(obj))
+}

@@ -48,7 +48,6 @@ export const VDataTableHeader = defineComponent({
     }))
 
     function onSort(item) {
-      item.sorted = !item.sorted
       emit('sort', item)
     }
 
@@ -93,7 +92,7 @@ export const VDataTableHeader = defineComponent({
         const vnode = h(VDataTableCell, {
           dark: props.dark,
           class: {
-            'v-data-table--sorted': item.sorted
+            'v-data-table--sorted': item.sorted,
           },
           width: item.width,
           resizeable: item.resizeable,

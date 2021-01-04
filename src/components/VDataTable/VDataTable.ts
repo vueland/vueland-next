@@ -2,7 +2,7 @@
 import './VDataTable.scss'
 
 // Vue API
-import { h, computed, defineComponent } from 'vue'
+import { h, watch, computed, defineComponent, ref } from 'vue'
 
 // Effects
 import { useColors } from '../../effects/use-colors'
@@ -11,6 +11,9 @@ import { useColors } from '../../effects/use-colors'
 import { VDataTableHeader } from './VDataTableHeader'
 import { VDataTableBody } from './VDataTableBody'
 import { VDataTableFooter } from './VDataTableFooter'
+
+// Helpers
+import { copyWithoutRef } from '../../helpers'
 
 export const VDataTable = defineComponent({
   name: 'v-data-table',
@@ -29,18 +32,46 @@ export const VDataTable = defineComponent({
   } as any,
 
   setup(props, { slots }) {
+    const cols = ref<any[] | null>([])
+    const rows = ref<any[] | null>([])
+
     const { setBackground } = useColors()
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-data-table': true,
     }))
 
+    watch(() => props.cols,
+      to => cols.value = copyWithoutRef(to),
+      { immediate: true },
+    )
+
+    watch(() => props.rows,
+      to => rows.value = copyWithoutRef(to),
+      { immediate: true },
+    )
+
+    function onTableSort(col) {
+      if (col.sorted) {
+        col.sorted = !col.sorted
+        rows.value!.reverse()
+        return
+      }
+
+      cols.value!.forEach(c => c.sorted = col.key === c.key)
+
+      rows.value!.sort((a, b) => {
+        if (a[col.key] > b[col.key]) return 1
+        return -1
+      })
+    }
+
     function genTableBody() {
       const rowKeys = props.cols.map(col => col.key)
 
       return h(VDataTableBody, {
-          cols: props.cols,
-          rows: props.rows,
+          cols: cols.value,
+          rows: rows.value,
           align: props.align,
           dark: props.dark,
           numbered: props.numbered,
@@ -59,11 +90,12 @@ export const VDataTable = defineComponent({
 
     function genTableHeader() {
       return h(VDataTableHeader, {
-        cols: props.cols,
+        cols: cols.value,
         color: props.headerColor || props.color,
         dark: props.dark,
         align: props.align,
         numbered: props.numbered,
+        onSort: onTableSort,
       })
     }
 
@@ -91,7 +123,7 @@ export const VDataTable = defineComponent({
       return h('div',
         setBackground(props.color, propsData),
         [genTableInner(),
-        genTableFooter()]
+          genTableFooter()],
       )
     }
   },

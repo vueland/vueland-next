@@ -46,7 +46,7 @@ export const VSelect = defineComponent({
     listColor: String,
     disabled: Boolean,
     readonly: Boolean,
-    modelValue: [Array, String, Object],
+    modelValue: [Array, String, Object, Number],
     ...validateProps(),
     ...colorProps(),
   } as any,
@@ -90,10 +90,12 @@ export const VSelect = defineComponent({
     }))
 
     watch(
-      () => props.modelValue,
-      value => (state.selected = value as any),
+      () => (props.modelValue || props.value),
+      value => (state.selected = value || '' as any),
       { immediate: true },
     )
+
+    console.log(state)
 
     if (fields?.value && props.rules?.length) {
       fields!.value.push(validateValue)

@@ -77,14 +77,13 @@ export const VDataTable = defineComponent({
       if (col.sorted) {
         col.sorted = !col.sorted
         rows.value!.reverse()
-        return
+      } else {
+        cols.value!.forEach(c => {
+          c.sorted = col.key === c.key
+        })
+
+        sortColumn(col)
       }
-
-      cols.value!.forEach(c => {
-        c.sorted = col.key === c.key
-      })
-
-      sortColumn(col)
     }
 
     function sortColumn(col) {
@@ -159,8 +158,10 @@ export const VDataTable = defineComponent({
 
       return h('div',
         setBackground(props.color, propsData),
-        [genTableInner(),
-          genTableFooter()],
+        [
+          genTableInner(),
+          genTableFooter(),
+        ],
       )
     }
   },

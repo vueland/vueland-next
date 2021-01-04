@@ -1,9 +1,13 @@
 // Styles
 import './VDataTableFooter.scss'
+
 // Vue API
-import { defineComponent, h } from 'vue'
+import { defineComponent, h, ref } from 'vue'
+
 // Components
 import { VIcon } from '../VIcon'
+import { VSelect } from '../VSelect'
+
 // Services
 import { FaIcons } from '@/services/icons'
 
@@ -17,6 +21,8 @@ export const VDataTableFooter = defineComponent({
   } as any,
 
   setup(props, { emit }) {
+
+    const itemsOnPage = ref<number>(10)
 
     function changePagination(isNext) {
       const event = isNext ? 'next' : 'prev'
@@ -37,14 +43,22 @@ export const VDataTableFooter = defineComponent({
       return h('span', {}, props.page)
     }
 
+    function genPageItemsSelect() {
+
+      return h(VSelect, {
+        items: props.counts,
+        modelValue: itemsOnPage.value
+      })
+    }
+
     function genButtons() {
       return h('div', {
         class: 'v-data-table__footer-pagination',
       }, [
+        genPageItemsSelect(),
         genButton(false),
         genPageDisplay(),
         genButton(true),
-        `from ${props.pages}`
       ])
     }
 

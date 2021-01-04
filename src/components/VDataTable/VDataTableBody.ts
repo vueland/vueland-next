@@ -66,7 +66,9 @@ export const VDataTableBody = defineComponent({
               align: 'center',
               dark: props.dark,
             },
-            { default: () => count += 1 },
+            {
+              default: () => count += 1,
+            },
           ),
         )
 
@@ -96,7 +98,7 @@ export const VDataTableBody = defineComponent({
       const propsData = {
         class: classes.value,
         style: {
-          height: `${ BODY_HEIGHT }px`,
+          height: `${BODY_HEIGHT}px`,
         },
       }
 

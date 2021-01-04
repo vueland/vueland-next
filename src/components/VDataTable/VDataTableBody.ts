@@ -26,10 +26,16 @@ export const VDataTableBody = defineComponent({
       type: [String, Number],
       default: 125,
     },
+    bodyHeight: {},
+    page: Number,
+    rowsPerPage: Number,
     ...colorProps(),
   } as any,
 
   setup(props, { slots }) {
+    const ROW_HEIGHT = 36
+    const BODY_HEIGHT = ROW_HEIGHT * props.rowsPerPage
+
     const { setBackground } = useColors()
 
     const classes = computed<Record<string, boolean>>(() => ({
@@ -46,25 +52,25 @@ export const VDataTableBody = defineComponent({
 
     function genTableRows() {
       const tableRows: VNode[] = []
+
       const rowsLength = props.rows.length
       const colsLength = props.cols.length
 
       let rowCells: VNode[] = []
+      let count = (props.page - 1) * props.rowsPerPage
 
       for (let i = 0; i < rowsLength; i += 1) {
-
         props.numbered && rowCells.push(
           h(VDataTableCell, {
               width: 50,
               align: 'center',
               dark: props.dark,
             },
-            { default: () => i + 1 },
+            { default: () => count += 1 },
           ),
         )
 
         for (let j = 0; j < colsLength; j += 1) {
-
           const slotContent = slots[props.cols[j].key] &&
             slots[props.cols[j].key]!(props.rows[i])
 
@@ -89,6 +95,9 @@ export const VDataTableBody = defineComponent({
     return () => {
       const propsData = {
         class: classes.value,
+        style: {
+          height: `${ BODY_HEIGHT }px`,
+        },
       }
 
       return h('div',

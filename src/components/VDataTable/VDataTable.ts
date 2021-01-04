@@ -20,7 +20,6 @@ export const VDataTable = defineComponent({
   props: {
     cols: Array,
     rows: Array,
-    itemsPerPage: [String, Number],
     headerColor: String,
     align: String,
     dark: Boolean,
@@ -32,14 +31,26 @@ export const VDataTable = defineComponent({
   } as any,
 
   setup(props, { slots }) {
-    const cols = ref<any[] | null>([])
-    const rows = ref<any[] | null>([])
+    const cols = ref<any[]>([])
+    const rows = ref<any[]>([])
+
+    // const colsOnTable = ref<any[]>([])
+
+    const page = ref<number>(1)
+    const rowsPerPage = ref<number>(10)
 
     const { setBackground } = useColors()
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-data-table': true,
     }))
+
+    const rowsOnTable = computed(() => {
+      return rows.value.slice(
+        (page.value - 1) * rowsPerPage.value,
+        page.value * rowsPerPage.value,
+      )
+    })
 
     watch(() => props.cols,
       to => cols.value = copyWithoutRef(to),
@@ -51,15 +62,32 @@ export const VDataTable = defineComponent({
       { immediate: true },
     )
 
-    function onTableSort(col) {
+    function onPrevTable(num) {
+      page.value = page.value > 1 ? page.value + num : page.value
+    }
+
+    function onNextTable(num) {
+      if ((rows.value.length - (page.value * rowsPerPage.value)) > 0) {
+        page.value += num
+      }
+      return
+    }
+
+    function onSort(col) {
       if (col.sorted) {
         col.sorted = !col.sorted
         rows.value!.reverse()
         return
       }
 
-      cols.value!.forEach(c => c.sorted = col.key === c.key)
+      cols.value!.forEach(c => {
+        c.sorted = col.key === c.key
+      })
 
+      sortColumn(col)
+    }
+
+    function sortColumn(col) {
       rows.value!.sort((a, b) => {
         if (a[col.key] > b[col.key]) return 1
         return -1
@@ -71,7 +99,9 @@ export const VDataTable = defineComponent({
 
       return h(VDataTableBody, {
           cols: cols.value,
-          rows: rows.value,
+          rows: rowsOnTable.value,
+          page: page.value,
+          rowsPerPage: rowsPerPage.value,
           align: props.align,
           dark: props.dark,
           numbered: props.numbered,
@@ -95,12 +125,19 @@ export const VDataTable = defineComponent({
         dark: props.dark,
         align: props.align,
         numbered: props.numbered,
-        onSort: onTableSort,
+        onSort,
       })
     }
 
     function genTableFooter() {
-      return h(VDataTableFooter, {})
+      return h(VDataTableFooter, {
+        pages: Math.ceil(rows.value!.length / rowsPerPage.value),
+        page: page.value,
+        counts: [5, 10, 15, 20],
+        dark: props.dark,
+        onPrev: onPrevTable,
+        onNext: onNextTable,
+      })
     }
 
     function genTableInner() {

@@ -42,6 +42,7 @@
         { key: 'age', title: 'Age', resizeable: true, sortable: true },
         { key: 'car', title: 'Car', resizeable: true },
         { key: 'date', title: 'Date', resizeable: true, sortable: true },
+        { key: 'action', title: 'action', resizeable: true, sortable: false },
       ]
 
       const rows = [
@@ -64,7 +65,11 @@
         { name: 'Anna', age: 24, car: 'Audi', date: '2021-01-10' },
         { name: 'Alex', age: 31, car: 'Audi', date: '2021-01-10' },
         { name: 'Andrew', age: 24, car: 'Audi', date: '2021-01-10' },
+        { name: 'Andrew', age: 24, car: 'Audi', date: '2021-01-10', action: '' },        { name: 'Anna', age: 24, car: 'Audi', date: '2021-01-10' },
+        { name: 'Anna', age: 24, car: 'Audi', date: '2021-01-10' },
+        { name: 'Alex', age: 31, car: 'Audi', date: '2021-01-10' },
         { name: 'Andrew', age: 24, car: 'Audi', date: '2021-01-10' },
+        { name: 'Andrew', age: 24, car: 'Audi', date: '2021-01-10', action: '' },
       ]
 
       return {
@@ -116,6 +121,10 @@
     </template>
     <template v-slot:job="{row}">
       <v-icon icon="fas fa-user" size="12" color="green"/>
+    </template>
+    <template v-slot:action="{row}">
+      <v-icon icon="fas fa-user" size="12" color="green"/>
+      <v-icon icon="fas fa-address-card" size="16" color="red" style="margin-left: 5px;" clickable @click="testFunc(row)"/>
     </template>
   </v-data-table>
 

@@ -40,7 +40,7 @@
       const cols = [
         { key: 'name', title: 'Name', resizeable: true, sortable: true },
         { key: 'age', title: 'Age', resizeable: true, sortable: true },
-        { key: 'car', title: 'Car', resizeable: true },
+        { key: 'car', title: 'Car', resizeable: true, sortable: true, filterable: true },
         { key: 'date', title: 'Date', resizeable: true, sortable: true },
         { key: 'action', title: 'action', resizeable: true, sortable: false },
       ]
@@ -141,11 +141,13 @@
       elevation="15"
       :rules="[val => !!val || 'Required']"
       readonly
+      prepend-icon="fas fa-calendar"
       monday-first
     />
     <v-text-field
       label="teal"
       autocomplete="new-password"
+      prepend-icon="fas fa-search"
       :rules="[v => !!v || 'required', v => v.length > 5 || 'more than 5']"
     />
     <v-select
@@ -153,6 +155,7 @@
       v-model="data.email"
       :items="rows"
       value-key="name"
+      prepend-icon="fas fa-search"
       :rules="[v => !!v || 'required']"
     />
     <v-button

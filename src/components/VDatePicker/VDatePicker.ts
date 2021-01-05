@@ -68,6 +68,7 @@ export const VDatePicker = defineComponent({
     lang: String,
     contentColor: String,
     label: String,
+    prependIcon: String,
     format: {
       type: String,
       default: 'yyyy-mm-dd',
@@ -394,6 +395,7 @@ export const VDatePicker = defineComponent({
         label: props.label,
         readonly: props.readonly,
         disabled: props.disabled,
+        prependIcon: props.prependIcon,
         rules: props.rules,
         onFocus: () => (data.isActive = true),
         onInput: onDateInput,

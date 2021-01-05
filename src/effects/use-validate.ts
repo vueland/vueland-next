@@ -28,6 +28,7 @@ export function useValidate(props) {
     if (props.disabled) return undefined
     if (props.color) return props.color
     if (props.dark) return 'white'
+    // return 'primary'
   })
 
   const validationState = computed<string | undefined>(() => {

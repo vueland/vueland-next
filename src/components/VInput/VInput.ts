@@ -6,6 +6,7 @@ import { h, computed, defineComponent } from 'vue'
 
 // Components
 import { VLabel } from '../VLabel'
+import { VIcon } from '../VIcon'
 
 // Types
 import { VNode } from 'vue'
@@ -23,21 +24,20 @@ export const VInput = defineComponent({
     hasState: Boolean,
     hasError: Boolean,
     isDirty: Boolean,
+    disabled: Boolean,
     label: String,
+    prependIcon: String,
+    appendIcon: String,
     message: String,
     type: {
       type: String,
       default: 'text',
     },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    modelValue: [String, Number],
     color: {
       type: String,
       default: 'primary',
     },
+    modelValue: [String, Number],
   } as any,
 
   setup(props, { slots }): () => VNode {
@@ -74,6 +74,27 @@ export const VInput = defineComponent({
       })
     }
 
+    function genIcon(iconName) {
+      return h(VIcon, {
+        color: props.color,
+        dark: props.dark,
+        icon: iconName,
+        size: 16,
+      })
+    }
+
+    function genPrependIcon() {
+      return h('div', {
+        class: 'v-input__prepend-icon',
+      }, genIcon(props.prependIcon))
+    }
+
+    function genAppendIcon() {
+      return h('div', {
+        class: 'v-input__append-icon',
+      }, genIcon(props.appendIcon))
+    }
+
     function genSlotContent(): VNode {
       const propsData = {
         class: {
@@ -81,15 +102,16 @@ export const VInput = defineComponent({
           'v-input__field-slot': !!slots.textField,
         },
       }
-      const slotContent = [
-        genLabel(),
-        slots.select && slots.select(),
-        slots.textField && slots.textField(),
-      ]
 
       return h('div',
         props.color ? setTextColor(props.color, propsData) : propsData,
-        slotContent)
+        [
+          props.prependIcon && genPrependIcon(),
+          props.appendIcon && genAppendIcon(),
+          genLabel(),
+          slots.select && slots.select(),
+          slots.textField && slots.textField(),
+        ])
     }
 
     function genStatusMessage(): VNode {
@@ -125,6 +147,9 @@ export const VInput = defineComponent({
       }
     }
 
-    return () => h('div', genPropsData(), [genSlotContent(), genStatus()])
+    return () => h('div', genPropsData(), [
+      genSlotContent(),
+      genStatus(),
+    ])
   },
 })

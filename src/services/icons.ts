@@ -10,5 +10,8 @@ export enum FaIcons {
   $checkOff = 'far fa-square',
   $arrowRight = 'fas fa-chevron-right',
   $arrowLeft = 'fas fa-chevron-left',
-  $arrowUp = 'fas fa-arrow-up'
+  $arrowUp = 'fas fa-arrow-up',
+  $filter = 'fas fa-filter',
+  $marker = 'fas fa-map-marker-alt',
+  $search = 'fas fa-search'
 }

@@ -48,6 +48,10 @@ export const useColors = (): Colorable => {
         data.class = {
           [data.class]: true,
         }
+      } else {
+        data.class = {
+          ...data.class,
+        }
       }
 
       data.class[`${ colorName }--text`] = true

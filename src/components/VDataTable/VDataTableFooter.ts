@@ -54,7 +54,7 @@ export const VDataTableFooter = defineComponent({
           width: '50px',
           textAlign: 'center',
         },
-        onSelect: e => console.log(e),
+        onSelect: e => emit('select', e),
       })
     }
 

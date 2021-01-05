@@ -137,6 +137,7 @@ export const VDataTable = defineComponent({
         color: props.color,
         onPrev: onPrevTable,
         onNext: onNextTable,
+        onSelect: $count => rowsPerPage.value = $count
       })
     }
 

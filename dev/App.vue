@@ -39,7 +39,7 @@
 
       const cols = [
         { key: 'name', title: 'Name', resizeable: true, sortable: true },
-        { key: 'age', title: 'Age', resizeable: true, sortable: true },
+        { key: 'age', title: 'Age', resizeable: true, sortable: true, filterable: true },
         { key: 'car', title: 'Car', resizeable: true, sortable: true, filterable: true },
         { key: 'date', title: 'Date', resizeable: true, sortable: true },
         { key: 'action', title: 'action', resizeable: true, sortable: false },
@@ -106,9 +106,8 @@
   <v-data-table
     :cols="cols"
     :rows="rows"
-    color="grey darken-3"
     class="elevation-5"
-    dark
+    filter-in
     numbered
   >
     <template v-slot:car="{row}">

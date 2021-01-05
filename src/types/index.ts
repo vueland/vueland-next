@@ -30,6 +30,7 @@ export type Column = {
   sortable?: boolean
   sorted?: boolean
   filtered?: boolean
+  addFilter?: boolean
   align?: string
 }
 

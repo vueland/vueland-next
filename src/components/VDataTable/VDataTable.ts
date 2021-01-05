@@ -24,17 +24,17 @@ export const VDataTable = defineComponent({
     align: String,
     dark: Boolean,
     numbered: Boolean,
+    filterIn: Boolean,
     color: {
       type: String,
       default: 'white',
     },
   } as any,
 
-  setup(props, { slots }) {
+  setup(props, { slots, emit }) {
     const cols = ref<any[]>([])
     const rows = ref<any[]>([])
-
-    // const colsOnTable = ref<any[]>([])
+    const filters = ref({})
 
     const page = ref<number>(1)
     const rowsPerPage = ref<number>(10)
@@ -93,6 +93,30 @@ export const VDataTable = defineComponent({
       })
     }
 
+    function onFilter({ value, col }) {
+
+      filters.value[col.key] = value
+
+      if (props.filterIn) {
+
+        if (!value) {
+          return rows.value = copyWithoutRef(props.rows)
+        }
+
+        rows.value = props.rows.reduce((acc, row) => {
+          Object.keys(filters.value).forEach(key => {
+            if (String(row[key]).includes(filters.value[key])) {
+              acc.push(row)
+            }
+          })
+          return acc
+        }, [])
+
+      } else {
+        emit('filter', { value, col })
+      }
+    }
+
     function genTableBody() {
       const rowKeys = props.cols.map(col => col.key)
 
@@ -124,6 +148,7 @@ export const VDataTable = defineComponent({
         dark: props.dark,
         align: props.align,
         numbered: props.numbered,
+        onFilter,
         onSort,
       })
     }
@@ -137,7 +162,7 @@ export const VDataTable = defineComponent({
         color: props.color,
         onPrev: onPrevTable,
         onNext: onNextTable,
-        onSelect: $count => rowsPerPage.value = $count
+        onSelect: $count => rowsPerPage.value = $count,
       })
     }
 
@@ -162,7 +187,7 @@ export const VDataTable = defineComponent({
         setBackground(props.color, propsData),
         [
           genTableInner(),
-          genTableFooter()
+          genTableFooter(),
         ],
       )
     }

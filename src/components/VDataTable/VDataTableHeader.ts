@@ -54,8 +54,14 @@ export const VDataTableHeader = defineComponent({
       emit('sort', item)
     }
 
-    function onFilter(item) {
-      emit('filter', item)
+    function onInput($value, item) {
+      emit('filter', {
+        value: $value, col: item,
+      })
+    }
+
+    function addFilter(item) {
+      item.addFilter = !item.addFilter
     }
 
     function genSortButton(item) {
@@ -64,7 +70,7 @@ export const VDataTableHeader = defineComponent({
         class: 'v-data-table--sort',
         size: 14,
         icon: FaIcons.$arrowUp,
-        color: props.dark ? 'white' : '',
+        color: item.sorted ? 'primary' : props.dark ? 'white' : '',
         onClick: () => onSort(item),
       })
     }
@@ -75,31 +81,31 @@ export const VDataTableHeader = defineComponent({
         class: 'v-data-table--filter',
         size: 12,
         icon: FaIcons.$filter,
-        color: props.dark ? 'white' : '',
-        onClick: () => onFilter(item),
+        color: item.addFilter ? 'primary' : props.dark ? 'white' : '',
+        onClick: () => addFilter(item),
       })
     }
 
-    function genFilterInput() {
+    function genFilterInput(item) {
       return h(VTextField, {
         label: 'insert',
         dark: props.dark,
-        color: props.dark ? 'white' : props.color,
+        color: props.dark ? 'white' : '',
         appendIcon: FaIcons.$search,
-        onInput: $value => emit('update:filter', $value),
+        onInput: $value => onInput($value, item),
       })
     }
 
-    function genFilterWrapper() {
+    function genFilterWrapper(item) {
       const propsData = {
         class: {
           'v-data-table__header-filter': true,
         },
       }
 
-      return h('div',
+      return item.addFilter && h('div',
         setBackground(props.color, propsData),
-        genFilterInput(),
+        genFilterInput(item),
       )
     }
 
@@ -143,7 +149,10 @@ export const VDataTableHeader = defineComponent({
           align: props.align || item.align,
           onResize: $size => item.width = $size,
         }, {
-          default: () => [genHeaderTitle(item), genFilterWrapper()],
+          default: () => [
+            genHeaderTitle(item),
+            genFilterWrapper(item),
+          ],
         })
 
         cells.push(vnode)

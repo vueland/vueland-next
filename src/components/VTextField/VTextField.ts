@@ -165,7 +165,6 @@ export const VTextField = defineComponent({
     }
 
     return () => {
-      console.log(validationState.value)
       const propsData = {
         label: props.label,
         focused: state.focused,

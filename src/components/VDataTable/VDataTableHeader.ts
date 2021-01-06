@@ -155,6 +155,26 @@ export const VDataTableHeader = defineComponent({
       )
     }
 
+    function genHeaderCell(item) {
+      return h(VDataTableCell, {
+        dark: props.dark,
+        class: {
+          'v-data-table-col': true,
+          'v-data-table-col--sorted': item.sorted,
+        },
+        width: item.width,
+        resizeable: item.resizeable,
+        align: props.align || item.align,
+        onResize: $size => item.width = $size,
+      }, {
+        default: () => [
+          genHeaderTitle(item),
+          genHeaderActions(item),
+          genFilterWrapper(item),
+        ],
+      })
+    }
+
     function genHeaderCells() {
       const cells: VNode[] = []
 
@@ -172,25 +192,7 @@ export const VDataTableHeader = defineComponent({
       cols.value!.forEach((item: Column) => {
         item.width = item.width || props.colWidth
 
-        const vnode = h(VDataTableCell, {
-          dark: props.dark,
-          class: {
-            'v-data-table-col': true,
-            'v-data-table-col--sorted': item.sorted,
-          },
-          width: item.width,
-          resizeable: item.resizeable,
-          align: props.align || item.align,
-          onResize: $size => item.width = $size,
-        }, {
-          default: () => [
-            genHeaderTitle(item),
-            genHeaderActions(item),
-            genFilterWrapper(item),
-          ],
-        })
-
-        cells.push(vnode)
+        cells.push(genHeaderCell(item))
       })
 
       return cells

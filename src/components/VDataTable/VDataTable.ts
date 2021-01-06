@@ -25,7 +25,7 @@ export const VDataTable = defineComponent({
     align: String,
     dark: Boolean,
     numbered: Boolean,
-    filterIn: Boolean,
+    filterOut: Boolean,
     color: {
       type: String,
       default: 'white',
@@ -38,7 +38,7 @@ export const VDataTable = defineComponent({
     const filters = {}
 
     const page = ref<number>(1)
-    const rowsPerPage = ref<number>(10)
+    const rowsPerPage = ref<number>(20)
 
     const { setBackground } = useColors()
 
@@ -123,7 +123,7 @@ export const VDataTable = defineComponent({
     }
 
     function onFilter({ value, col }) {
-      if (props.filterIn) {
+      if (!props.filterOut) {
         if (!value) {
           delete filters[col.key]
 
@@ -184,6 +184,7 @@ export const VDataTable = defineComponent({
         pages: Math.ceil(rows.value!.length / rowsPerPage.value),
         page: page.value,
         counts: [5, 10, 15, 20],
+        rowsPerPage: rowsPerPage.value,
         dark: props.dark,
         color: props.color,
         onPrev: onPrevTable,

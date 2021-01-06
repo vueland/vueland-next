@@ -2,7 +2,7 @@
 import './VDataTableFooter.scss'
 
 // Vue API
-import { defineComponent, h, ref } from 'vue'
+import { defineComponent, h } from 'vue'
 
 // Components
 import { VIcon } from '../VIcon'
@@ -19,12 +19,10 @@ export const VDataTableFooter = defineComponent({
     counts: Array,
     page: Number,
     color: String,
+    rowsPerPage: Number
   } as any,
 
   setup(props, { emit }) {
-
-    const itemsOnPage = ref<number>(10)
-
     function changePagination(isNext) {
       const event = isNext ? 'next' : 'prev'
       emit(event, isNext ? 1 : -1)
@@ -47,7 +45,7 @@ export const VDataTableFooter = defineComponent({
     function genSelect() {
       return h(VSelect, {
         items: props.counts,
-        modelValue: itemsOnPage.value,
+        modelValue: props.rowsPerPage,
         dark: props.dark,
         listColor: props.color,
         style: {

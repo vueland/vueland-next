@@ -149,7 +149,9 @@
     :cols="cols"
     :rows="rows"
     class="elevation-5"
-    filter-in
+    color="grey darken-3"
+    dark
+    @filter="testFunc"
     numbered
   >
     <template v-slot:car="{ row }">

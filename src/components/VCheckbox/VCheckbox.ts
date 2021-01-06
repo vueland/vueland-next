@@ -2,7 +2,7 @@
 import './VCheckbox.scss'
 
 // Vue API
-import { h, ref, computed, defineComponent, inject } from 'vue'
+import { h, ref, watch, computed, defineComponent, inject } from 'vue'
 
 // Effects
 import { useValidate } from '@/effects/use-validate'
@@ -62,15 +62,18 @@ export const VCheckbox = defineComponent({
       'v-validatable': props.validate,
     }))
 
-    if (isArray.value) {
-      if (isValueSet.value) {
-        isChecked.value = props.modelValue.includes(props.value)
+    watch(() => props.modelValue, () => {
+      if (isArray.value) {
+        if (isValueSet.value) {
+          isChecked.value = props.modelValue.includes(props.value)
+        } else {
+          warning('v-checkbox: set the "value" property')
+        }
       } else {
-        warning('v-checkbox: set the "value" property')
+        isChecked.value = !!props.modelValue
       }
-    } else {
-      isChecked.value = !!props.modelValue
-    }
+    }, { immediate: true })
+
 
     if (fields?.value) {
       fields!.value.push(validateValue)
@@ -98,7 +101,7 @@ export const VCheckbox = defineComponent({
 
       const propsData = {
         icon,
-        size: 26,
+        size: 20,
         color: validationState.value,
         disabled: props.disabled,
       }
@@ -120,28 +123,22 @@ export const VCheckbox = defineComponent({
       let { modelValue } = props
 
       if (isArray.value) {
-        if (isValueSet.value) {
-          isChecked.value = !modelValue.includes(props.value)
+        isChecked.value = !modelValue.includes(props.value)
 
-          if (!isChecked.value) {
-            modelValue = modelValue.filter(it => it !== props.value)
-          } else {
-            modelValue.push(props.value)
-          }
-
+        if (!isChecked.value) {
+          modelValue = modelValue.filter(it => it !== props.value)
         } else {
-          return (isChecked.value = !isChecked.value)
+          modelValue.push(props.value)
         }
 
         return modelValue
       }
 
-      return (isChecked.value = !isChecked.value)
+      return (isChecked.value = (modelValue || !isChecked.value))
     }
 
     function onClick() {
       if (props.disabled) return
-
       const value = computeValue()
 
       props.validate && validateValue()
@@ -155,7 +152,10 @@ export const VCheckbox = defineComponent({
         onClick,
       }
 
-      return h('div', dataProps, [genCheckbox(), genLabel()])
+      return h('div', dataProps, [
+        genCheckbox(),
+        props.label && genLabel(),
+      ])
     }
   },
 })

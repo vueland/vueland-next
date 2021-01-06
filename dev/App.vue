@@ -149,10 +149,9 @@
     :cols="cols"
     :rows="rows"
     class="elevation-5"
-    color="grey darken-3"
-    dark
     @filter="testFunc"
     numbered
+    checkbox
   >
     <template v-slot:car="{ row }">
       <v-icon icon="fas fa-envelope" size="12" color="blue" />

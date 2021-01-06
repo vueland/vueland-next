@@ -9,6 +9,7 @@ import { colorProps, useColors } from '../../effects/use-colors'
 
 // Components
 import { VIcon } from '../VIcon'
+import { VCheckbox } from '../VCheckbox'
 import { VDataTableCell } from './VDataTableCell'
 import { VTextField } from '../VTextField'
 
@@ -29,6 +30,7 @@ export const VDataTableHeader = defineComponent({
   props: {
     dark: Boolean,
     numbered: Boolean,
+    checkbox: Boolean,
     cols: Array,
     colWidth: {
       type: [String, Number],
@@ -41,6 +43,7 @@ export const VDataTableHeader = defineComponent({
   emits: [
     'sort',
     'filter',
+    'check-all'
   ],
 
   setup(props, { emit }) {
@@ -99,8 +102,8 @@ export const VDataTableHeader = defineComponent({
     function genHeaderActions(item) {
       return h('span', {
         class: {
-          'v-data-table-col__actions': true
-        }
+          'v-data-table-col__actions': true,
+        },
       }, [
         item.sortable && genSortButton(item),
         item.filterable && genFilterButton(item),
@@ -186,6 +189,19 @@ export const VDataTableHeader = defineComponent({
             width: 50,
           }, {
             default: () => '№',
+          },
+        ),
+      )
+
+      props.checkbox && cells.push(
+        h(VDataTableCell, {
+            align: 'center',
+            dark: props.dark,
+            width: 50,
+          }, {
+            default: () => h(VCheckbox, {
+              onChecked: (e) => emit('check-all', e)
+            }),
           },
         ),
       )

@@ -25,6 +25,7 @@ export const VDataTable = defineComponent({
     align: String,
     dark: Boolean,
     numbered: Boolean,
+    checkbox: Boolean,
     filterOut: Boolean,
     color: {
       type: String,
@@ -35,10 +36,13 @@ export const VDataTable = defineComponent({
   setup(props, { slots, emit }) {
     const cols = ref<any[]>([])
     const rows = ref<any[]>([])
-    const filters = {}
-
     const page = ref<number>(1)
     const rowsPerPage = ref<number>(20)
+    const isAllRowsChecked = ref(false)
+
+    let checkedRows: any[] = []
+
+    const filters = {}
 
     const { setBackground } = useColors()
 
@@ -46,12 +50,6 @@ export const VDataTable = defineComponent({
       'v-data-table': true,
     }))
 
-    const rowsOnTable = computed(() => {
-      return rows.value.slice(
-        (page.value - 1) * rowsPerPage.value,
-        page.value * rowsPerPage.value,
-      )
-    })
 
     watch(
       () => props.cols,
@@ -64,6 +62,20 @@ export const VDataTable = defineComponent({
       to => (rows.value = copyWithoutRef(to)),
       { immediate: true },
     )
+
+    function onCheckAll(value) {
+      isAllRowsChecked.value = value
+      rows.value.forEach(row => row.checked = value)
+    }
+
+    function onCheck(update) {
+      if (update.value) {
+        checkedRows.push(update.row)
+      } else {
+        checkedRows = checkedRows.filter(row => row !== update.row)
+      }
+      // console.log(checkedRows)
+    }
 
     function onPrevTable(num) {
       page.value = page.value > 1 ? page.value + num : page.value
@@ -86,6 +98,24 @@ export const VDataTable = defineComponent({
         })
 
         sortColumn(col)
+      }
+    }
+
+    function onFilter({ value, col }) {
+      if (!props.filterOut) {
+        if (!value) {
+          delete filters[col.key]
+
+          if (!Object.keys(filters).length) {
+            return (rows.value = copyWithoutRef(props.rows))
+          }
+        }
+
+        if (value) filters[col.key] = value
+
+        rows.value = filterRows(props.rows)
+      } else {
+        emit('filter', { value, col })
       }
     }
 
@@ -122,22 +152,18 @@ export const VDataTable = defineComponent({
       }, [])
     }
 
-    function onFilter({ value, col }) {
-      if (!props.filterOut) {
-        if (!value) {
-          delete filters[col.key]
-
-          if (!Object.keys(filters).length) {
-            return (rows.value = copyWithoutRef(props.rows))
-          }
-        }
-
-        if (value) filters[col.key] = value
-
-        rows.value = filterRows(props.rows)
-      } else {
-        emit('filter', { value, col })
-      }
+    function genTableHeader() {
+      return h(VDataTableHeader, {
+        cols: cols.value,
+        color: props.headerColor || props.color,
+        checkbox: props.checkbox,
+        dark: props.dark,
+        align: props.align,
+        numbered: props.numbered,
+        onFilter,
+        onSort,
+        onCheckAll,
+      })
     }
 
     function genTableBody() {
@@ -147,12 +173,15 @@ export const VDataTable = defineComponent({
         VDataTableBody,
         {
           cols: cols.value,
-          rows: rowsOnTable.value,
+          rows: rows.value,
           page: page.value,
           rowsPerPage: rowsPerPage.value,
+          checkbox: props.checkbox,
+          checkAllRows: isAllRowsChecked.value,
           align: props.align,
           dark: props.dark,
           numbered: props.numbered,
+          onCheck,
         },
 
         rowKeys.reduce((acc, slot) => {
@@ -165,18 +194,6 @@ export const VDataTable = defineComponent({
           return acc
         }, {}),
       )
-    }
-
-    function genTableHeader() {
-      return h(VDataTableHeader, {
-        cols: cols.value,
-        color: props.headerColor || props.color,
-        dark: props.dark,
-        align: props.align,
-        numbered: props.numbered,
-        onFilter,
-        onSort,
-      })
     }
 
     function genTableFooter() {

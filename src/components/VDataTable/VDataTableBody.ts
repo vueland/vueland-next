@@ -2,7 +2,7 @@
 import './VDataTableBody.scss'
 
 // Vue API
-import { h, computed, defineComponent } from 'vue'
+import { h, ref, watch, computed, defineComponent } from 'vue'
 
 // Effects
 import { colorProps, useColors } from '../../effects/use-colors'
@@ -12,6 +12,7 @@ import { VDataTableCell } from './VDataTableCell'
 
 // Types
 import { VNode } from 'vue'
+import { VCheckbox } from '@/components'
 
 export const VDataTableBody = defineComponent({
   name: 'v-data-table-body',
@@ -19,6 +20,8 @@ export const VDataTableBody = defineComponent({
   props: {
     dark: Boolean,
     numbered: Boolean,
+    checkbox: Boolean,
+    checkAllRows: Boolean,
     cols: Array,
     rows: Array,
     align: String,
@@ -35,11 +38,27 @@ export const VDataTableBody = defineComponent({
   setup(props, { slots }) {
     const ROW_HEIGHT = 36
 
+    const checkedRows = ref([])
+
     const { setBackground } = useColors()
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-data-table__body': true,
     }))
+
+    const rowsOnTable = computed(() => {
+      return props.rows.slice(
+        (props.page - 1) * props.rowsPerPage,
+        props.page * props.rowsPerPage,
+      )
+    })
+
+
+    watch(() => props.checkAllRows, to => {
+      if (to) checkedRows.value = props.rows
+      else checkedRows.value = []
+      console.log(checkedRows.value)
+    })
 
     function genTableRow(cells) {
       return h('div', {
@@ -52,13 +71,14 @@ export const VDataTableBody = defineComponent({
     function genTableRows() {
       const tableRows: VNode[] = []
 
-      const rowsLength = props.rows.length
+      const rowsLength = rowsOnTable.value.length
       const colsLength = props.cols.length
 
       let rowCells: VNode[] = []
       let count = (props.page - 1) * props.rowsPerPage
 
       for (let i = 0; i < rowsLength; i += 1) {
+
         props.numbered && rowCells.push(
           h(VDataTableCell, {
               width: 50,
@@ -71,7 +91,23 @@ export const VDataTableBody = defineComponent({
           ),
         )
 
+        props.checkbox && rowCells.push(
+          h(VDataTableCell, {
+              align: 'center',
+              dark: props.dark,
+              width: 50,
+            }, {
+              default: () => h(VCheckbox, {
+                modelValue: checkedRows.value,
+                value: props.rows[i],
+                ['onUpdate:modelValue']: $rows => checkedRows.value = $rows,
+              }),
+            },
+          ),
+        )
+
         for (let j = 0; j < colsLength; j += 1) {
+
           const slotContent = slots[props.cols[j].key] &&
             slots[props.cols[j].key]!(props.rows[i])
 
@@ -97,7 +133,7 @@ export const VDataTableBody = defineComponent({
       const propsData = {
         class: classes.value,
         style: {
-          height: `${ROW_HEIGHT * props.rowsPerPage}px`,
+          height: `${ ROW_HEIGHT * props.rowsPerPage }px`,
         },
       }
 

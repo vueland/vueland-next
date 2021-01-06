@@ -38,9 +38,8 @@ export const VDataTable = defineComponent({
     const rows = ref<any[]>([])
     const page = ref<number>(1)
     const rowsPerPage = ref<number>(20)
-    const isAllRowsChecked = ref(false)
-
-    let checkedRows: any[] = []
+    const isAllRowsChecked = ref<boolean>(false)
+    const checkedRows = ref<any[]>([])
 
     const filters = {}
 
@@ -49,7 +48,6 @@ export const VDataTable = defineComponent({
     const classes = computed<Record<string, boolean>>(() => ({
       'v-data-table': true,
     }))
-
 
     watch(
       () => props.cols,
@@ -68,13 +66,8 @@ export const VDataTable = defineComponent({
       rows.value.forEach(row => row.checked = value)
     }
 
-    function onCheck(update) {
-      if (update.value) {
-        checkedRows.push(update.row)
-      } else {
-        checkedRows = checkedRows.filter(row => row !== update.row)
-      }
-      // console.log(checkedRows)
+    function onCheck(rows) {
+      checkedRows.value = rows
     }
 
     function onPrevTable(num) {
@@ -181,7 +174,7 @@ export const VDataTable = defineComponent({
           align: props.align,
           dark: props.dark,
           numbered: props.numbered,
-          onCheck,
+          onCheck
         },
 
         rowKeys.reduce((acc, slot) => {
@@ -207,13 +200,13 @@ export const VDataTable = defineComponent({
         onPrev: onPrevTable,
         onNext: onNextTable,
         onSelect: $count => (rowsPerPage.value = $count),
+      }, {
+        toolbar: () => slots.toolbar && slots.toolbar()
       })
     }
 
     function genTableInner() {
-      return h(
-        'div',
-        {
+      return h('div', {
           class: {
             'v-data-table__inner': true,
           },

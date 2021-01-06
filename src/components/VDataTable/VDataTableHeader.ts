@@ -43,7 +43,7 @@ export const VDataTableHeader = defineComponent({
   emits: [
     'sort',
     'filter',
-    'check-all'
+    'check-all',
   ],
 
   setup(props, { emit }) {
@@ -68,9 +68,7 @@ export const VDataTableHeader = defineComponent({
 
       if (!$value) item.filtered = false
 
-      emit('filter', {
-        value: $value, col: item,
-      })
+      emit('filter', { value: $value, col: item })
     }
 
     function addFilter(item) {
@@ -200,7 +198,8 @@ export const VDataTableHeader = defineComponent({
             width: 50,
           }, {
             default: () => h(VCheckbox, {
-              onChecked: (e) => emit('check-all', e)
+              color: props.dark ? 'white' : '',
+              onChecked: (e) => emit('check-all', e),
             }),
           },
         ),

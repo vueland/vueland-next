@@ -11,6 +11,7 @@ import { positionProps, usePosition } from '../../effects/use-position'
 
 // Types
 import { VNode } from 'vue'
+import { convertToUnit } from '@/helpers'
 
 export const VButton = defineComponent({
   name: 'v-button',
@@ -23,6 +24,7 @@ export const VButton = defineComponent({
     right: Boolean,
     text: Boolean,
     label: String,
+    width: [String, Number],
     ...colorProps(),
     ...elevationProps(),
     ...positionProps(),
@@ -65,6 +67,9 @@ export const VButton = defineComponent({
 
       const propsData = {
         class: classes.value,
+        style: {
+          minWidth: props.width && convertToUnit(props.width)
+        },
         onClick: () => !props.disabled && emit('click')
       }
 

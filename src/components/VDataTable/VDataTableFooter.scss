@@ -2,7 +2,7 @@
 @import "variables";
 
 .v-data-table__footer {
-  @include flex(flex, flex-end, center);
+  @include flex(flex, space-between, center);
   flex-shrink: 0;
   width: 100%;
   height: 75px;
@@ -27,5 +27,14 @@
 
   &-label {
     margin: 0 15px;
+  }
+}
+
+.v-data-table__toolbar {
+  @include flex(flex, center, center)
+  margin: 0 20px;
+
+  & > * {
+    margin-right: 10px;
   }
 }

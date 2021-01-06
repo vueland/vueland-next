@@ -35,7 +35,7 @@ export const VDataTableBody = defineComponent({
     ...colorProps(),
   } as any,
 
-  setup(props, { slots }) {
+  setup(props, { slots, emit }) {
     const ROW_HEIGHT = 36
 
     const checkedRows = ref([])
@@ -53,12 +53,15 @@ export const VDataTableBody = defineComponent({
       )
     })
 
-
     watch(() => props.checkAllRows, to => {
-      if (to) checkedRows.value = props.rows
+      if (to) onCheckRows(props.rows)
       else checkedRows.value = []
-      console.log(checkedRows.value)
     })
+
+    function onCheckRows($rows) {
+      checkedRows.value = $rows
+      emit('check', checkedRows.value)
+    }
 
     function genTableRow(cells) {
       return h('div', {
@@ -99,8 +102,9 @@ export const VDataTableBody = defineComponent({
             }, {
               default: () => h(VCheckbox, {
                 modelValue: checkedRows.value,
+                color: props.dark ? 'white' : '',
                 value: props.rows[i],
-                ['onUpdate:modelValue']: $rows => checkedRows.value = $rows,
+                ['onUpdate:modelValue']: onCheckRows,
               }),
             },
           ),

@@ -30,8 +30,9 @@ export type Column = {
   sortable?: boolean
   sorted?: boolean
   filtered?: boolean
-  addFilter?: boolean
   align?: string
+  useOnCreate?: boolean
+  useOnEdit?: boolean
 }
 
 export type TableCol<T> = T extends keyof Column ? T : any

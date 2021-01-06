@@ -117,17 +117,17 @@ export const VTextField = defineComponent({
       requestAnimationFrame(validateValue)
     }
 
+    function onBlur() {
+      state.focused = false
+      emit('blur')
+      requestAnimationFrame(validateValue)
+    }
+
     function onFocus() {
       dirty()
       update(errorState.innerError)
       state.focused = true
       emit('focus')
-    }
-
-    function onBlur() {
-      state.focused = false
-      emit('blur')
-      requestAnimationFrame(validateValue)
     }
 
     function onChange() {

@@ -11,12 +11,14 @@
   position: sticky;
   top: 0;
   z-index: 10;
+}
 
-  &-title {
+.v-data-table-col {
+  &__title {
     display: block;
   }
 
-  &-filter {
+  &__filter {
     position: absolute;
     width: 250px;
     top: 100%;
@@ -24,28 +26,46 @@
     padding: 10px;
     border-radius: 3px;
     box-shadow: 0 0 8px -2px rgba(0, 0, 0, .4);
+
+    &-header {
+      display: block;
+      width: 100%;
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-bottom: 5px;
+    }
   }
 }
 
-.v-data-table__header > .v-data-table__cell >
-.v-data-table__cell-content > .v-data-table__header-title >
-.v-data-table--sort {
+.v-data-table-col__title {
+  @include flex(flex, center, center)
+}
+
+.v-data-table-col > .v-data-table__cell-content {
+  display: flex;
+}
+
+.v-data-table__header > .v-data-table-col > .v-data-table__cell-content >
+.v-data-table-col__actions > .v-data-table-col__actions-sort {
   transition: transform .2s linear;
 }
 
-.v-data-table--sorted > .v-data-table__cell-content >
-.v-data-table__header-title > .v-data-table--sort {
+.v-data-table-col--sorted > .v-data-table__cell-content >
+.v-data-table-col__actions > .v-data-table-col__actions-sort {
   transform: rotate(180deg);
 }
 
-.v-data-table--sort,
-.v-data-table--filter {
+.v-data-table-col__actions-sort,
+.v-data-table-col__actions-filter {
   width: 22px;
   height: 22px;
   margin: 3px;
   border-radius: 3px;
-  line-height: 1.5rem;
   //box-shadow: 0 0 4px 0 rgba(0, 0, 0, .4);
+}
+
+.v-data-table-col__actions-filter {
+  line-height: 1.5rem;
 }
 
 

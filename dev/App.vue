@@ -20,15 +20,18 @@
         data.always = false
       }, 2000)
 
-      watch(() => data.date, to => {
-        console.log(to)
-      })
+      watch(
+        () => data.date,
+        to => {
+          console.log(to)
+        },
+      )
 
       const toggleAlways = () => {
         data.always = !data.always
       }
 
-      const testFunc = (date) => {
+      const testFunc = date => {
         // data.date = new Date(2019, 5, 4) as any
         console.log(date)
       }
@@ -38,15 +41,43 @@
       })
 
       const cols = [
-        { key: 'name', title: 'Name', resizeable: true, sortable: true },
-        { key: 'age', title: 'Age', resizeable: true, sortable: true, filterable: true },
-        { key: 'car', title: 'Car', resizeable: true, sortable: true, filterable: true },
-        { key: 'date', title: 'Date', resizeable: true, sortable: true },
+        { key: 'name',
+          title: 'Name',
+          resizeable: true,
+          sortable: true,
+          filterable: true
+        },
+        {
+          key: 'age',
+          title: 'Age',
+          resizeable: true,
+          sortable: true,
+          filterable: true,
+        },
+        {
+          key: 'car',
+          title: 'Car',
+          resizeable: true,
+          sortable: true,
+          filterable: true,
+        },
+        {
+          key: 'date',
+          title: 'Date',
+          resizeable: true,
+          sortable: true,
+          filterable: true,
+        },
         { key: 'action', title: 'action', resizeable: true, sortable: false },
       ]
 
       const rows = [
-        { name: 'AlexAlexAlexAlexAlex', age: 24, car: 'Mers', date: '2021-01-01' },
+        {
+          name: 'AlexAlexAlexAlexAlex',
+          age: 24,
+          car: 'Mers',
+          date: '2021-01-01',
+        },
         { name: 'Andrew', age: 24, car: 'Audi', date: '2021-01-10' },
         { name: 'Nikol', age: 24, car: 'BMW', date: '2021-01-03' },
         { name: 'Anna', age: 24, car: 'Audi', date: '2021-01-07' },
@@ -65,11 +96,24 @@
         { name: 'Anna', age: 24, car: 'Audi', date: '2021-01-10' },
         { name: 'Alex', age: 31, car: 'Audi', date: '2021-01-10' },
         { name: 'Andrew', age: 24, car: 'Audi', date: '2021-01-10' },
-        { name: 'Andrew', age: 24, car: 'Audi', date: '2021-01-10', action: '' },        { name: 'Anna', age: 24, car: 'Audi', date: '2021-01-10' },
+        {
+          name: 'Andrew',
+          age: 24,
+          car: 'Audi',
+          date: '2021-01-10',
+          action: '',
+        },
+        { name: 'Anna', age: 24, car: 'Audi', date: '2021-01-10' },
         { name: 'Anna', age: 24, car: 'Audi', date: '2021-01-10' },
         { name: 'Alex', age: 31, car: 'Audi', date: '2021-01-10' },
         { name: 'Andrew', age: 24, car: 'Audi', date: '2021-01-10' },
-        { name: 'Andrew', age: 24, car: 'Audi', date: '2021-01-10', action: '' },
+        {
+          name: 'Andrew',
+          age: 24,
+          car: 'Audi',
+          date: '2021-01-10',
+          action: '',
+        },
       ]
 
       return {
@@ -88,12 +132,10 @@
   <v-list>
     <v-list-group @click="testFunc">
       <template v-slot:title>
-        <v-list-item-title>
-          salam
-        </v-list-item-title>
+        <v-list-item-title> salam </v-list-item-title>
       </template>
       <template v-slot:prependIcon>
-        <v-icon icon="fas fa-book" size="18"/>
+        <v-icon icon="fas fa-book" size="18" />
       </template>
       <v-list-item @click.stop="testFunc">salam</v-list-item>
       <v-list-group sub-group no-action>
@@ -110,26 +152,33 @@
     filter-in
     numbered
   >
-    <template v-slot:car="{row}">
-      <v-icon icon="fas fa-envelope" size="12" color="blue"/>
-      <span style="margin-left: 15px;">{{ row.car }}</span>
+    <template v-slot:car="{ row }">
+      <v-icon icon="fas fa-envelope" size="12" color="blue" />
+      <span style="margin-left: 15px">{{ row.car }}</span>
     </template>
-    <template v-slot:name="{row}">
-      <v-icon icon="fas fa-user" size="12" color="green"/>
-      <span style="margin-left: 15px;">{{ row.name }}</span>
+    <template v-slot:name="{ row }">
+      <v-icon icon="fas fa-user" size="12" color="green" />
+      <span style="margin-left: 15px">{{ row.name }}</span>
     </template>
-    <template v-slot:job="{row}">
-      <v-icon icon="fas fa-user" size="12" color="green"/>
+    <template v-slot:job="{ row }">
+      <v-icon icon="fas fa-user" size="12" color="green" />
     </template>
-    <template v-slot:action="{row}">
-      <v-icon icon="fas fa-user" size="12" color="green"/>
-      <v-icon icon="fas fa-address-card" size="16" color="red" style="margin-left: 5px;" clickable @click="testFunc(row)"/>
+    <template v-slot:action="{ row }">
+      <v-icon icon="fas fa-user" size="12" color="green" />
+      <v-icon
+        icon="fas fa-address-card"
+        size="16"
+        color="red"
+        style="margin-left: 5px"
+        clickable
+        @click="testFunc(row)"
+      />
     </template>
   </v-data-table>
 
   <v-form
     v-slot="{ validate }"
-    style="display: block; margin: 20px; width: 400px;"
+    style="display: block; margin: 20px; width: 400px"
   >
     <v-date-picker
       v-model:value="data.date"
@@ -167,31 +216,55 @@
 
   <v-form>
     <v-card v-if="!data.show" elevation="5">
-      <v-resize right/>
-      <v-resize bottom/>
-      <v-resize top/>
-      <v-resize left/>
+      <v-resize right />
+      <v-resize bottom />
+      <v-resize top />
+      <v-resize left />
       <v-card-title>
         <span
-          style="display: block; width: 55px; height: 55px; border-radius: 50px;"
-          class="v-loading v-loading--dynamic"></span>
+          style="display: block; width: 55px; height: 55px; border-radius: 50px"
+          class="v-loading v-loading--dynamic"
+        ></span>
       </v-card-title>
       <v-card-content>
-        <div style="width: 100%;">
-          <div style="display: flex; align-items: center;" class="v-loading--dynamic">
-            <span style="width: 40px; height: 40px; border-radius: 50px; margin-right:10px;" class="v-loading"></span>
-            <span style="display: block; height: 25px;" class="v-loading">some little text</span>
+        <div style="width: 100%">
+          <div
+            style="display: flex; align-items: center"
+            class="v-loading--dynamic"
+          >
+            <span
+              style="
+                width: 40px;
+                height: 40px;
+                border-radius: 50px;
+                margin-right: 10px;
+              "
+              class="v-loading"
+            ></span>
+            <span style="display: block; height: 25px" class="v-loading"
+              >some little text</span
+            >
           </div>
-          <span style="display: block; width: 100%; margin: 15px 0; height: 25px;"
-                class="v-loading v-loading--dynamic"></span>
-          <span style="display: block; width: 100%; margin: 15px 0; height: 25px;"
-                class="v-loading v-loading--dynamic"></span>
-          <span style="display: block; width: 100%; margin: 15px 0; height: 25px;"
-                class="v-loading v-loading--dynamic"></span>
-          <span style="display: block; width: 100%; margin: 15px 0; height: 25px;"
-                class="v-loading v-loading--dynamic"></span>
-          <span style="display: block; width: 100%; margin: 15px 0; height: 25px;"
-                class="v-loading v-loading--dynamic"></span>
+          <span
+            style="display: block; width: 100%; margin: 15px 0; height: 25px"
+            class="v-loading v-loading--dynamic"
+          ></span>
+          <span
+            style="display: block; width: 100%; margin: 15px 0; height: 25px"
+            class="v-loading v-loading--dynamic"
+          ></span>
+          <span
+            style="display: block; width: 100%; margin: 15px 0; height: 25px"
+            class="v-loading v-loading--dynamic"
+          ></span>
+          <span
+            style="display: block; width: 100%; margin: 15px 0; height: 25px"
+            class="v-loading v-loading--dynamic"
+          ></span>
+          <span
+            style="display: block; width: 100%; margin: 15px 0; height: 25px"
+            class="v-loading v-loading--dynamic"
+          ></span>
         </div>
       </v-card-content>
     </v-card>
@@ -199,49 +272,35 @@
     <v-card v-if="data.show" elevation="5">
       <v-card-title>
         <span style="">Testting header</span>
-        <v-checkbox label="test"/>
+        <v-checkbox label="test" />
       </v-card-title>
       <v-card-content>
-        <span style="display: block;">some little text</span>
-        <span style="display: block;">some little text</span>
-        <span style="display: block;">some little text</span>
-        <span style="display: block;">some little text</span>
-        <span style="display: block;">some little text</span>
+        <span style="display: block">some little text</span>
+        <span style="display: block">some little text</span>
+        <span style="display: block">some little text</span>
+        <span style="display: block">some little text</span>
+        <span style="display: block">some little text</span>
       </v-card-content>
     </v-card>
   </v-form>
   <teleport to="#modal">
     <v-modal v-model="data.show" overlay transition="scale-in">
       <v-card color="blue darken-2">
-        <v-card-title>
-          test
-        </v-card-title>
-        <v-card-content>
-          salam
-        </v-card-content>
+        <v-card-title> test </v-card-title>
+        <v-card-content> salam </v-card-content>
         <v-card-actions>
-          <v-button label="click" @click="data.show = !data.show"/>
+          <v-button label="click" @click="data.show = !data.show" />
         </v-card-actions>
       </v-card>
     </v-modal>
   </teleport>
 
-  <v-badge
-    color="blue darken-3"
-    border
-    right
-    top
-  >
+  <v-badge color="blue darken-3" border right top>
     <template v-slot:badge>
       <span>2</span>
     </template>
-    <v-tooltip
-      color="blue darken-3"
-      right
-      offset-x="12"
-      min-width="250"
-    >
-      <template v-slot:activator="{on}">
+    <v-tooltip color="blue darken-3" right offset-x="12" min-width="250">
+      <template v-slot:activator="{ on }">
         <v-button
           elevation="3"
           label="toggle"
@@ -252,7 +311,6 @@
       </template>
       <span>button</span>
     </v-tooltip>
-
   </v-badge>
 </template>
 
@@ -296,5 +354,4 @@
     justify-content: center;
     width: 100%;
   }
-
 </style>

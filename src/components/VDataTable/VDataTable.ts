@@ -14,6 +14,7 @@ import { VDataTableFooter } from './VDataTableFooter'
 
 // Helpers
 import { copyWithoutRef } from '../../helpers'
+import { toComparableStringFormat } from './helpers'
 
 export const VDataTable = defineComponent({
   name: 'v-data-table',
@@ -34,7 +35,7 @@ export const VDataTable = defineComponent({
   setup(props, { slots, emit }) {
     const cols = ref<any[]>([])
     const rows = ref<any[]>([])
-    const filters = ref({})
+    const filters = {}
 
     const page = ref<number>(1)
     const rowsPerPage = ref<number>(10)
@@ -52,13 +53,15 @@ export const VDataTable = defineComponent({
       )
     })
 
-    watch(() => props.cols,
-      to => cols.value = copyWithoutRef(to),
+    watch(
+      () => props.cols,
+      to => (cols.value = copyWithoutRef(to)),
       { immediate: true },
     )
 
-    watch(() => props.rows,
-      to => rows.value = copyWithoutRef(to),
+    watch(
+      () => props.rows,
+      to => (rows.value = copyWithoutRef(to)),
       { immediate: true },
     )
 
@@ -67,7 +70,7 @@ export const VDataTable = defineComponent({
     }
 
     function onNextTable(num) {
-      if ((rows.value.length - (page.value * rowsPerPage.value)) > 0) {
+      if (rows.value.length - page.value * rowsPerPage.value > 0) {
         page.value += num
       }
       return
@@ -93,25 +96,45 @@ export const VDataTable = defineComponent({
       })
     }
 
-    function onFilter({ value, col }) {
+    function filterRows(rows) {
+      const filterKeys = Object.keys(filters)
 
-      filters.value[col.key] = value
+      return rows.reduce((acc, row) => {
+        const rowResults: any[] = []
 
-      if (props.filterIn) {
+        filterKeys.forEach(key => {
+          const rowKeyValue = toComparableStringFormat(row[key])
+          const filterKeyValue = toComparableStringFormat(filters[key])
 
-        if (!value) {
-          return rows.value = copyWithoutRef(props.rows)
+          if (rowKeyValue.includes(filterKeyValue)) {
+            rowResults.push(!!row[key])
+          }
+        })
+
+        if (
+          rowResults.length === filterKeys.length &&
+          rowResults.every(v => !!v)
+        ) {
+          acc.push(row)
         }
 
-        rows.value = props.rows.reduce((acc, row) => {
-          Object.keys(filters.value).forEach(key => {
-            if (String(row[key]).includes(filters.value[key])) {
-              acc.push(row)
-            }
-          })
-          return acc
-        }, [])
+        return acc
+      }, [])
+    }
 
+    function onFilter({ value, col }) {
+      if (props.filterIn) {
+        if (!value) {
+          delete filters[col.key]
+
+          if (!Object.keys(filters).length) {
+            return (rows.value = copyWithoutRef(props.rows))
+          }
+        }
+
+        if (value) filters[col.key] = value
+
+        rows.value = filterRows(props.rows)
       } else {
         emit('filter', { value, col })
       }
@@ -120,7 +143,9 @@ export const VDataTable = defineComponent({
     function genTableBody() {
       const rowKeys = props.cols.map(col => col.key)
 
-      return h(VDataTableBody, {
+      return h(
+        VDataTableBody,
+        {
           cols: cols.value,
           rows: rowsOnTable.value,
           page: page.value,
@@ -138,7 +163,8 @@ export const VDataTable = defineComponent({
           if (slotContent()) acc[slot] = slotContent
 
           return acc
-        }, {}))
+        }, {}),
+      )
     }
 
     function genTableHeader() {
@@ -162,20 +188,20 @@ export const VDataTable = defineComponent({
         color: props.color,
         onPrev: onPrevTable,
         onNext: onNextTable,
-        onSelect: $count => rowsPerPage.value = $count,
+        onSelect: $count => (rowsPerPage.value = $count),
       })
     }
 
     function genTableInner() {
-      return h('div', {
-        class: {
-          'v-data-table__inner': true,
+      return h(
+        'div',
+        {
+          class: {
+            'v-data-table__inner': true,
+          },
         },
-      }, [
-        genTableHeader(),
-        genTableBody(),
-
-      ])
+        [genTableHeader(), genTableBody()],
+      )
     }
 
     return () => {
@@ -183,13 +209,10 @@ export const VDataTable = defineComponent({
         class: classes.value,
       }
 
-      return h('div',
-        setBackground(props.color, propsData),
-        [
-          genTableInner(),
-          genTableFooter(),
-        ],
-      )
+      return h('div', setBackground(props.color, propsData), [
+        genTableInner(),
+        genTableFooter(),
+      ])
     }
   },
 })

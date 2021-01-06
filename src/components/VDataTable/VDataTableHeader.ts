@@ -2,7 +2,7 @@
 import './VDataTableHeader.scss'
 
 // Vue API
-import { h, ref, computed, defineComponent } from 'vue'
+import { h, ref, computed, withDirectives, defineComponent } from 'vue'
 
 // Effects
 import { colorProps, useColors } from '../../effects/use-colors'
@@ -11,6 +11,10 @@ import { colorProps, useColors } from '../../effects/use-colors'
 import { VIcon } from '../VIcon'
 import { VDataTableCell } from './VDataTableCell'
 import { VTextField } from '../VTextField'
+
+// Directives
+import { vShow } from 'vue'
+import { vClickOutside } from '../../directives/v-click-outside'
 
 // Types
 import { VNode } from 'vue'
@@ -37,11 +41,11 @@ export const VDataTableHeader = defineComponent({
   emits: [
     'sort',
     'filter',
-    'update:filter',
   ],
 
   setup(props, { emit }) {
     const cols = ref<any[] | null>([])
+
     const { setBackground } = useColors()
 
     cols.value = props.cols
@@ -55,6 +59,12 @@ export const VDataTableHeader = defineComponent({
     }
 
     function onInput($value, item) {
+      if (!item.filtered) {
+        item.filtered = true
+      }
+
+      if (!$value) item.filtered = false
+
       emit('filter', {
         value: $value, col: item,
       })
@@ -67,7 +77,7 @@ export const VDataTableHeader = defineComponent({
     function genSortButton(item) {
       return h(VIcon, {
         clickable: true,
-        class: 'v-data-table--sort',
+        class: 'v-data-table-col__actions-sort',
         size: 14,
         icon: FaIcons.$arrowUp,
         color: item.sorted ? 'primary' : props.dark ? 'white' : '',
@@ -78,12 +88,23 @@ export const VDataTableHeader = defineComponent({
     function genFilterButton(item) {
       return h(VIcon, {
         clickable: true,
-        class: 'v-data-table--filter',
+        class: 'v-data-table-col__actions-filter',
         size: 12,
         icon: FaIcons.$filter,
-        color: item.addFilter ? 'primary' : props.dark ? 'white' : '',
+        color: item.filtered ? 'primary' : props.dark ? 'white' : '',
         onClick: () => addFilter(item),
       })
+    }
+
+    function genHeaderActions(item) {
+      return h('span', {
+        class: {
+          'v-data-table-col__actions': true
+        }
+      }, [
+        item.sortable && genSortButton(item),
+        item.filterable && genFilterButton(item),
+      ])
     }
 
     function genFilterInput(item) {
@@ -96,26 +117,40 @@ export const VDataTableHeader = defineComponent({
       })
     }
 
+    function genFilterHeader(item) {
+      return h('span', {
+        class: {
+          'v-data-table-col__filter-header': true,
+        },
+      }, item.title)
+    }
+
     function genFilterWrapper(item) {
+      const directive = item.addFilter ? {
+        handler: () => item.addFilter = false,
+        closeConditional: false,
+      } : undefined
+
       const propsData = {
         class: {
-          'v-data-table__header-filter': true,
+          'v-data-table-col__filter': true,
         },
       }
 
-      return item.addFilter && h('div',
+      return item.filterable && withDirectives(h('div',
         setBackground(props.color, propsData),
-        genFilterInput(item),
-      )
+        [
+          genFilterHeader(item),
+          genFilterInput(item),
+        ],
+      ), [[vClickOutside, directive], [vShow, item.addFilter]])
     }
 
     function genHeaderTitle(item) {
       return h('div', {
-          class: 'v-data-table__header-title',
+          class: 'v-data-table-col__title',
         }, [
           item.title,
-          item.sortable && genSortButton(item),
-          item.filterable && genFilterButton(item),
         ],
       )
     }
@@ -140,17 +175,17 @@ export const VDataTableHeader = defineComponent({
         const vnode = h(VDataTableCell, {
           dark: props.dark,
           class: {
-            'v-data-table--sorted': item.sorted,
+            'v-data-table-col': true,
+            'v-data-table-col--sorted': item.sorted,
           },
           width: item.width,
           resizeable: item.resizeable,
-          filterable: item.filterable,
-          sortable: item.sortable,
           align: props.align || item.align,
           onResize: $size => item.width = $size,
         }, {
           default: () => [
             genHeaderTitle(item),
+            genHeaderActions(item),
             genFilterWrapper(item),
           ],
         })

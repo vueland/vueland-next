@@ -80,7 +80,7 @@ export const VDataTableHeader = defineComponent({
         class: 'v-data-table-col__actions-sort',
         size: 14,
         icon: FaIcons.$arrowUp,
-        color: item.sorted ? 'primary' : props.dark ? 'white' : '',
+        color: item.sorted ? 'green accent-3' : props.dark ? 'white' : '',
         onClick: () => onSort(item),
       })
     }
@@ -91,7 +91,7 @@ export const VDataTableHeader = defineComponent({
         class: 'v-data-table-col__actions-filter',
         size: 12,
         icon: FaIcons.$filter,
-        color: item.filtered ? 'primary' : props.dark ? 'white' : '',
+        color: item.filtered ? 'green accent-3' : props.dark ? 'white' : '',
         onClick: () => addFilter(item),
       })
     }
@@ -112,7 +112,8 @@ export const VDataTableHeader = defineComponent({
         label: 'insert',
         dark: props.dark,
         color: props.dark ? 'white' : '',
-        appendIcon: FaIcons.$search,
+        prependIcon: FaIcons.$search,
+        clearable: true,
         onInput: $value => onInput($value, item),
       })
     }

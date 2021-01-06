@@ -58,6 +58,7 @@ export const VDatePicker = defineComponent({
   props: {
     dark: Boolean,
     disabled: Boolean,
+    clearable: Boolean,
     readonly: Boolean,
     mondayFirst: Boolean,
     today: Boolean,
@@ -397,6 +398,7 @@ export const VDatePicker = defineComponent({
         disabled: props.disabled,
         prependIcon: props.prependIcon,
         rules: props.rules,
+        clearable: props.clearable,
         onFocus: () => (data.isActive = true),
         onInput: onDateInput,
       })

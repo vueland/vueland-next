@@ -13,5 +13,6 @@ export enum FaIcons {
   $arrowUp = 'fas fa-arrow-up',
   $filter = 'fas fa-filter',
   $marker = 'fas fa-map-marker-alt',
-  $search = 'fas fa-search'
+  $search = 'fas fa-search',
+  $close = 'fas fa-times'
 }

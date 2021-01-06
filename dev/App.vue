@@ -191,6 +191,7 @@
       elevation="15"
       :rules="[val => !!val || 'Required']"
       readonly
+      clearable
       prepend-icon="fas fa-calendar"
       monday-first
     />
@@ -198,6 +199,8 @@
       label="teal"
       autocomplete="new-password"
       prepend-icon="fas fa-search"
+      v-model="data.password"
+      clearable
       :rules="[v => !!v || 'required', v => v.length > 5 || 'more than 5']"
     />
     <v-select

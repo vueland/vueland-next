@@ -14,6 +14,7 @@ import { VNode } from 'vue'
 // Effects
 import { useTransition } from '../../effects/use-transition'
 import { useColors } from '../../effects/use-colors'
+import { FaIcons } from '@/services/icons'
 
 export const VInput = defineComponent({
   name: 'v-input',
@@ -25,6 +26,7 @@ export const VInput = defineComponent({
     hasError: Boolean,
     isDirty: Boolean,
     disabled: Boolean,
+    clearable: Boolean,
     label: String,
     prependIcon: String,
     appendIcon: String,
@@ -40,7 +42,7 @@ export const VInput = defineComponent({
     modelValue: [String, Number],
   } as any,
 
-  setup(props, { slots }): () => VNode {
+  setup(props, { slots, emit }): () => VNode {
     const { setTextColor } = useColors()
     const isValid = computed<boolean>(() => {
       return props.isDirty && props.hasState && !props.hasError
@@ -74,12 +76,13 @@ export const VInput = defineComponent({
       })
     }
 
-    function genIcon(iconName) {
+    function genIcon(iconName, clickable = false) {
       return h(VIcon, {
         color: props.color,
         dark: props.dark,
         icon: iconName,
         size: 16,
+        clickable,
       })
     }
 
@@ -95,6 +98,13 @@ export const VInput = defineComponent({
       }, genIcon(props.appendIcon))
     }
 
+    function genClearIcon() {
+      return h('div', {
+        class: 'v-input__clear',
+        onClick: () => emit('clear'),
+      }, genIcon(FaIcons.$close, true))
+    }
+
     function genSlotContent(): VNode {
       const propsData = {
         class: {
@@ -107,7 +117,8 @@ export const VInput = defineComponent({
         props.color ? setTextColor(props.color, propsData) : propsData,
         [
           props.prependIcon && genPrependIcon(),
-          props.appendIcon && genAppendIcon(),
+          !props.clearable && props.appendIcon && genAppendIcon(),
+          props.clearable && genClearIcon(),
           genLabel(),
           slots.select && slots.select(),
           slots.textField && slots.textField(),

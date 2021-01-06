@@ -91,7 +91,7 @@ export const VSelect = defineComponent({
 
     watch(
       () => props.modelValue,
-      value => (state.selected = value as any),
+      value => state.selected = value,
       { immediate: true },
     )
 
@@ -105,8 +105,8 @@ export const VSelect = defineComponent({
     }
 
     function onBlur() {
+      toggleState()
       requestAnimationFrame(validateValue)
-      setTimeout(toggleState, 50)
       emit('blur')
     }
 

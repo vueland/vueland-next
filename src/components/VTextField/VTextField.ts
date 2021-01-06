@@ -59,7 +59,7 @@ export const VTextField = defineComponent({
   setup(props, { emit, attrs }): () => VNode {
     const state: TextFieldState = reactive({
       value: '',
-      focused: false,
+      focused: false
     })
 
     state.value = props.modelValue || props.value
@@ -77,9 +77,11 @@ export const VTextField = defineComponent({
       validationState,
     } = useValidate(props)
 
-    watch(() => (props.modelValue || props.value), value => {
-        state.value = value
-        validateValue()
+    watch(
+      () => (props.modelValue || props.value),
+      value => {
+        state.value = value as any
+        !state.focused && validateValue()
       },
     )
 
@@ -107,24 +109,32 @@ export const VTextField = defineComponent({
       }
     })
 
-    function focusHandler() {
+    function onClear() {
+      state.value = ''
+      emit('update:modelValue', '')
+      emit('update:value', '')
+      emit('input', '')
+      requestAnimationFrame(validateValue)
+    }
+
+    function onFocus() {
       dirty()
       update(errorState.innerError)
       state.focused = true
       emit('focus')
     }
 
-    function blurHandler() {
+    function onBlur() {
       state.focused = false
       emit('blur')
-      validateValue()
+      requestAnimationFrame(validateValue)
     }
 
-    function changeHandler() {
+    function onChange() {
       emit('change', state.value)
     }
 
-    function inputHandler(e) {
+    function onInput(e) {
       state.value = e.target.value
       emit('update:modelValue', state.value)
       emit('update:value', state.value)
@@ -140,10 +150,10 @@ export const VTextField = defineComponent({
         class: {
           'v-text-field__input': true,
         },
-        onFocus: focusHandler,
-        onBlur: blurHandler,
-        onInput: inputHandler,
-        onChange: changeHandler,
+        onFocus,
+        onBlur,
+        onInput,
+        onChange,
       }
 
       if (props.tag === 'input') {
@@ -175,6 +185,7 @@ export const VTextField = defineComponent({
         isDirty: errorState.isDirty,
         disabled: props.disabled,
         message: errorState.innerErrorMessage,
+        onClear,
       }
 
       return h(VInput, propsData, {

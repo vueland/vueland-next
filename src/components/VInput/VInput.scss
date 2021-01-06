@@ -27,12 +27,22 @@
       padding-right: 20px;
     }
 
+    & > .v-input__clear + .v-label +
+    .v-text-field > .v-text-field__input {
+      padding-right: 20px;
+    }
+
     & > .v-input__prepend-icon + .v-label +
     .v-text-field > .v-text-field__input {
       padding-left: 20px;
     }
 
     & > .v-input__prepend-icon + .v-input__append-icon +
+    .v-label + .v-text-field > .v-text-field__input {
+      padding-left: 20px;
+    }
+
+    & > .v-input__prepend-icon + .v-input__clear +
     .v-label + .v-text-field > .v-text-field__input {
       padding-left: 20px;
     }
@@ -47,6 +57,11 @@
     & > .v-input__append-icon + .v-label +
     .v-select > .v-select__input {
       padding-right: 20px;
+    }
+
+    & > .v-input__clear + .v-label +
+    .v-select > .v-select__input {
+      padding-right: 26px;
     }
 
     & > .v-input__prepend-icon + .v-input__append-icon +
@@ -77,12 +92,25 @@
       top: 16px;
     }
 
+    & > .v-input__clear {
+      @include flex(flex, center, center);
+      width: 24px;
+      height: 24px;
+      position: absolute;
+      top: 16px;
+      left: calc(100% - 24px)
+    }
+
     & > .v-input__prepend-icon + .v-label {
       left: 20px !important;
       color: currentColor;
     }
 
     & > .v-input__prepend-icon + .v-input__append-icon + .v-label {
+      left: 20px !important;
+    }
+
+    & > .v-input__prepend-icon + .v-input__clear + .v-label {
       left: 20px !important;
     }
 

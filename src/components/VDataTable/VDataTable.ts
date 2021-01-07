@@ -8,8 +8,7 @@ import { h, watch, computed, defineComponent, ref } from 'vue'
 import { useColors } from '../../effects/use-colors'
 
 // Components
-import { VModal } from '../VModal'
-import { VCard } from '../VCard'
+import { VDataTableModal } from './VDataTableModal'
 import { VDataTableHeader } from './VDataTableHeader'
 import { VDataTableBody } from './VDataTableBody'
 import { VDataTableFooter } from './VDataTableFooter'
@@ -231,10 +230,13 @@ export const VDataTable = defineComponent({
         class: classes.value,
       }
 
-      return h('div', setBackground(props.color, propsData), [
-        genTableInner(),
-        genTableFooter(),
-      ])
+      return [
+        h('div', setBackground(props.color, propsData), [
+          genTableInner(),
+          genTableFooter(),
+        ]),
+        h(VDataTableModal),
+      ]
     }
   },
 })

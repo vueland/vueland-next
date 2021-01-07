@@ -9,11 +9,14 @@ import { VCard, VCardTitle, VCardActions, VCardContent } from '../VCard'
 
 export const VDataTableModal = defineComponent({
   name: 'v-data-table-modal',
-  props: {
-
-  },
+  props: {},
 
   setup() {
+    function genModalTitle() {
+      return h(VCardTitle, {}, {
+        default: 'edit row',
+      })
+    }
 
     function genTableModal() {
       return h(VModal, {
@@ -21,6 +24,6 @@ export const VDataTableModal = defineComponent({
       }, h(VCard, {}))
     }
 
-    return () => h('div')
+    return () => genTableModal()
   },
 })

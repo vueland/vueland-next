@@ -27,7 +27,6 @@ import { VSelectList } from './VSelectList'
 // Directives
 import { vClickOutside } from '../../directives'
 
-
 type SelectState = {
   selected: any | null
   focused: boolean
@@ -76,10 +75,12 @@ export const VSelect = defineComponent({
     }
 
     const directive = computed(() => {
-      return state.focused ? {
-        handler: onBlur,
-        closeConditional: true,
-      } : undefined
+      return state.focused
+        ? {
+            handler: onBlur,
+            closeConditional: true,
+          }
+        : undefined
     })
 
     const classes = computed<Record<string, boolean>>(() => ({
@@ -90,8 +91,8 @@ export const VSelect = defineComponent({
     }))
 
     watch(
-      () => props.modelValue,
-      value => state.selected = value,
+      () => props.modelValue || props.value,
+      value => (state.selected = value),
       { immediate: true },
     )
 
@@ -117,15 +118,24 @@ export const VSelect = defineComponent({
       emit('focus')
     }
 
+    function onClear() {
+      selectItem('')
+      requestAnimationFrame(validateValue)
+    }
+
     function selectItem(it) {
       state.selected = it
       emit('select', it)
       emit('update:modelValue', it)
+      emit('update:value', it)
     }
 
     function genInput(): VNode {
-      const selectedValue = !props.valueKey ?
-        state.selected : state.selected[props.valueKey as string]
+      const selectedValue = state.selected
+        ? !props.valueKey
+          ? state.selected
+          : state.selected[props.valueKey as string]
+        : state.selected
 
       const color = props.dark ? 'white' : ''
 
@@ -156,7 +166,9 @@ export const VSelect = defineComponent({
     }
 
     function genSelect(): VNode {
-      const selectVNode = h('div', {
+      const selectVNode = h(
+        'div',
+        {
           class: classes.value,
         },
         [genInput(), props.items && genSelectList()],
@@ -182,13 +194,12 @@ export const VSelect = defineComponent({
         disabled: !!props.disabled,
         isDirty: !!errorState.isDirty,
         message: errorState.innerErrorMessage,
+        onClear,
       } as any
 
       return h(VInput, propsData, {
-          select: () => genSelect(),
-        },
-      )
+        select: () => genSelect(),
+      })
     }
-
   },
 })

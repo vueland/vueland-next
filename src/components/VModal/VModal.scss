@@ -1,7 +1,6 @@
 @import "../../styles/scss/modules/global";
 
 .v-modal {
-
   @include flex(flex, center, center);
   position: fixed;
   left: 0;
@@ -10,4 +9,5 @@
   bottom: 0;
   z-index: 101;
   padding: 20px;
+  overflow: hidden;
 }

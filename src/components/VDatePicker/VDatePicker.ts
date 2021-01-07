@@ -17,7 +17,7 @@ import { vShow } from 'vue'
 import { vClickOutside } from '../../directives'
 
 // Effects
-import { colorProps, useColors } from '../../effects/use-colors'
+import { useColors } from '../../effects/use-colors'
 import { elevationProps, useElevation } from '../../effects/use-elevation'
 import { useTransition } from '../../effects/use-transition'
 
@@ -59,14 +59,20 @@ export const VDatePicker = defineComponent({
     dark: Boolean,
     disabled: Boolean,
     clearable: Boolean,
-    readonly: Boolean,
+    readonly: {
+      type: Boolean,
+      default: true
+    },
     mondayFirst: Boolean,
     today: Boolean,
     useMls: Boolean,
     useUtc: Boolean,
     useIso: Boolean,
     useJson: Boolean,
-    lang: String,
+    lang: {
+      type: String,
+      default: 'en',
+    },
     contentColor: String,
     label: String,
     prependIcon: String,
@@ -79,7 +85,10 @@ export const VDatePicker = defineComponent({
     modelValue: [String, Date, Number],
     disabledDates: Object,
     highlighted: Object,
-    ...colorProps(),
+    color: {
+      type: String,
+      default: 'white',
+    },
     ...elevationProps(),
   } as any,
 
@@ -122,7 +131,7 @@ export const VDatePicker = defineComponent({
     const classes = computed<Record<string, boolean>>(() => ({
       'v-date-picker': true,
       'v-date-picker--inputable': !props.readonly,
-      'v-date-picker--readonly': props.readonly,
+      'v-date-picker--readonly': !!props.readonly,
     }))
 
     const tableClasses = computed<Record<string, boolean>>(() => ({
@@ -132,15 +141,15 @@ export const VDatePicker = defineComponent({
 
     const headerValue = computed<string>(() => {
       return data.isYears || data.isMonths
-        ? `${data.tableYear}`
+        ? `${ data.tableYear }`
         : data.isDates
-          ? `${data.tableYear} ${localeMonths[data.tableMonth!]}`
+          ? `${ data.tableYear } ${ localeMonths[data.tableMonth!] }`
           : ''
     })
 
     const displayDate = computed(() => {
       const { month, date, day } = data.selected as DatePickerDate
-      return `${localeMonths[month]} ${date} ${localeWeek[day]}`
+      return `${ localeMonths[month] } ${ date } ${ localeWeek[day] }`
     })
 
     const computedValue = computed<string | number | Date>(() => {
@@ -242,7 +251,7 @@ export const VDatePicker = defineComponent({
         return { separator, divided }
       }
 
-      return warning(`the date string should be in ${props.format} format`)
+      return warning(`the date string should be in ${ props.format } format`)
     }
 
     function stringToDate(stringDate: string): DatePickerDate | undefined {

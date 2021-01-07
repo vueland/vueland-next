@@ -32,7 +32,6 @@
       }
 
       const testFunc = date => {
-        // data.date = new Date(2019, 5, 4) as any
         console.log(date)
       }
 
@@ -41,11 +40,22 @@
       })
 
       const cols = [
-        { key: 'name',
+        {
+          key: 'name',
           title: 'Name',
           resizeable: true,
           sortable: true,
-          filterable: true
+          filterable: true,
+          useOnCreate: true,
+          isTextField: true,
+          isSelect: false,
+          isDate: false,
+          props: {
+            label: 'name',
+            rules: [v => !!v || 'Required'],
+            value: '',
+            clearable: true
+          },
         },
         {
           key: 'age',
@@ -53,6 +63,15 @@
           resizeable: true,
           sortable: true,
           filterable: true,
+          useOnCreate: true,
+          isSelect: true,
+          props: {
+            label: 'age',
+            items: [17, 18, 19, 20, 21, 22],
+            rules: [v => !!v || 'Required'],
+            value: '',
+            clearable: true
+          },
         },
         {
           key: 'car',
@@ -60,6 +79,19 @@
           resizeable: true,
           sortable: true,
           filterable: true,
+          useOnCreate: true,
+          isDate: true,
+          props: {
+            label: 'car',
+            rules: [v => !!v || 'Required'],
+            value: '',
+            mondayFirst: true,
+            color: 'grey darken-3',
+            contentColor: 'amber accent-3',
+            elevation: 5,
+            useMls: true,
+            clearable: true
+          },
         },
         {
           key: 'date',
@@ -67,6 +99,7 @@
           resizeable: true,
           sortable: true,
           filterable: true,
+          value: '',
         },
         { key: 'action', title: 'action', resizeable: true, sortable: false },
       ]
@@ -132,10 +165,10 @@
   <v-list>
     <v-list-group @click="testFunc">
       <template v-slot:title>
-        <v-list-item-title> salam </v-list-item-title>
+        <v-list-item-title> salam</v-list-item-title>
       </template>
       <template v-slot:prependIcon>
-        <v-icon icon="fas fa-book" size="18" />
+        <v-icon icon="fas fa-book" size="18"/>
       </template>
       <v-list-item @click.stop="testFunc">salam</v-list-item>
       <v-list-group sub-group no-action>
@@ -150,25 +183,27 @@
     :rows="rows"
     class="elevation-5"
     @filter="testFunc"
+    @add="testFunc"
     style="margin: 10px;"
     numbered
     checkbox
+    state-out
     dark
     color="grey darken-3"
   >
     <template v-slot:car="{ row }">
-      <v-icon icon="fas fa-envelope" size="12" color="blue" />
+      <v-icon icon="fas fa-envelope" size="12" color="blue"/>
       <span style="margin-left: 15px">{{ row.car }}</span>
     </template>
     <template v-slot:name="{ row }">
-      <v-icon icon="fas fa-user" size="12" color="green" />
+      <v-icon icon="fas fa-user" size="12" color="green"/>
       <span style="margin-left: 15px">{{ row.name }}</span>
     </template>
     <template v-slot:job="{ row }">
-      <v-icon icon="fas fa-user" size="12" color="green" />
+      <v-icon icon="fas fa-user" size="12" color="green"/>
     </template>
     <template v-slot:action="{ row }">
-      <v-icon icon="fas fa-user" size="12" color="green" />
+      <v-icon icon="fas fa-user" size="12" color="green"/>
       <v-icon
         icon="fas fa-address-card"
         size="16"
@@ -226,10 +261,10 @@
 
   <v-form>
     <v-card v-if="!data.show" elevation="5">
-      <v-resize right />
-      <v-resize bottom />
-      <v-resize top />
-      <v-resize left />
+      <v-resize right/>
+      <v-resize bottom/>
+      <v-resize top/>
+      <v-resize left/>
       <v-card-title>
         <span
           style="display: block; width: 55px; height: 55px; border-radius: 50px"
@@ -252,7 +287,7 @@
               class="v-loading"
             ></span>
             <span style="display: block; height: 25px" class="v-loading"
-              >some little text</span
+            >some little text</span
             >
           </div>
           <span
@@ -282,7 +317,7 @@
     <v-card v-if="data.show" elevation="5">
       <v-card-title>
         <span style="">Testting header</span>
-        <v-checkbox label="test" />
+        <v-checkbox label="test"/>
       </v-card-title>
       <v-card-content>
         <span style="display: block">some little text</span>
@@ -296,10 +331,10 @@
   <teleport to="#modal">
     <v-modal v-model="data.show" overlay transition="scale-in">
       <v-card color="blue darken-2">
-        <v-card-title> test </v-card-title>
-        <v-card-content> salam </v-card-content>
+        <v-card-title> test</v-card-title>
+        <v-card-content> salam</v-card-content>
         <v-card-actions>
-          <v-button label="click" @click="data.show = !data.show" />
+          <v-button label="click" @click="data.show = !data.show"/>
         </v-card-actions>
       </v-card>
     </v-modal>

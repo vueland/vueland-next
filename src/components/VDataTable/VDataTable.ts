@@ -27,7 +27,7 @@ export const VDataTable = defineComponent({
     dark: Boolean,
     numbered: Boolean,
     checkbox: Boolean,
-    filterOut: Boolean,
+    stateOut: Boolean,
     color: {
       type: String,
       default: 'white',
@@ -39,8 +39,15 @@ export const VDataTable = defineComponent({
     const rows = ref<any[]>([])
     const page = ref<number>(1)
     const rowsPerPage = ref<number>(20)
-    const isAllRowsChecked = ref<boolean>(false)
     const checkedRows = ref<any[]>([])
+    const isAllRowsChecked = ref<boolean>(false)
+    const showModal = ref<boolean>(false)
+
+    const modal = ref<any>({
+      title: '',
+      fields: [],
+      actions: [],
+    })
 
     const filters = {}
 
@@ -52,7 +59,7 @@ export const VDataTable = defineComponent({
 
     watch(
       () => props.cols,
-      to => (cols.value = copyWithoutRef(to)),
+      to => (cols.value = to),
       { immediate: true },
     )
 
@@ -96,7 +103,7 @@ export const VDataTable = defineComponent({
     }
 
     function onFilter({ value, col }) {
-      if (!props.filterOut) {
+      if (!props.stateOut) {
         if (!value) {
           delete filters[col.key]
 
@@ -114,7 +121,26 @@ export const VDataTable = defineComponent({
     }
 
     function onAddNewRow() {
-      console.log(checkedRows.value)
+      modal.value = {
+        title: 'add new',
+        fields: cols.value.reduce((acc, col) => {
+          col.useOnCreate && acc.push(col)
+          return acc
+        }, []),
+        actions: [{
+          type: 'success',
+          label: 'save',
+          onClick() {
+            if (props.stateOut) {
+              emit('add', copyWithoutRef(modal.value.fields))
+              modal.value.fields.forEach(it => it.props.value = '')
+            }
+            showModal.value = false
+          },
+        }],
+      }
+
+      showModal.value = true
     }
 
     function onSelectCount(count) {
@@ -225,18 +251,24 @@ export const VDataTable = defineComponent({
       )
     }
 
+    function genTableModal() {
+      return h(VDataTableModal, {
+        modelValue: showModal.value,
+        transition: 'scale-in',
+        form: modal.value,
+      })
+    }
+
     return () => {
       const propsData = {
         class: classes.value,
       }
 
-      return [
-        h('div', setBackground(props.color, propsData), [
-          genTableInner(),
-          genTableFooter(),
-        ]),
-        h(VDataTableModal),
-      ]
+      return h('div', setBackground(props.color, propsData), [
+        genTableInner(),
+        genTableFooter(),
+        genTableModal(),
+      ])
     }
   },
 })

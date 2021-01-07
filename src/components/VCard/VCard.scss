@@ -6,7 +6,7 @@
   background: $mainWhite;
   border-radius: 6px;
   position: relative;
-  overflow: hidden;
+  //overflow: hidden;
   z-index: 3;
 
   &__title {
@@ -25,7 +25,6 @@
   }
 
   &__content {
-    @include flex(flex, center, center, column);
     text-align: left;
     width: 100%;
     min-height: 100px;
@@ -36,7 +35,7 @@
   }
 
   &__actions {
-    @include flex(flex, space-evenly, center);
+    @include flex(flex, flex-start, center);
     width: 100%;
     min-height: 60px;
     padding: 0 20px;

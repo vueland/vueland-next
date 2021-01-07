@@ -116,18 +116,17 @@ export const VDataTableBody = defineComponent({
           const slotContent = slots[props.cols[j].key] &&
             slots[props.cols[j].key]!(rowsOnTable.value[i])
 
-          console.log(slotContent)
-
           rowCells.push(
             h(VDataTableCell, {
               width: props.cols[j].width,
               align: props.align || props.cols[j].align,
               dark: props.dark,
             }, {
-              default: () => slotContent || rowsOnTable.value[i][props.cols[j].key],
+              default: () => slotContent ||
+                String(rowsOnTable.value[i][props.cols[j].key]),
             }))
-
         }
+
         tableRows.push(genTableRow(rowCells))
 
         rowCells = []
@@ -140,7 +139,7 @@ export const VDataTableBody = defineComponent({
       const propsData = {
         class: classes.value,
         style: {
-          height: `${ ROW_HEIGHT * props.rowsPerPage }px`,
+          height: `${ROW_HEIGHT * props.rowsPerPage}px`,
         },
       }
 

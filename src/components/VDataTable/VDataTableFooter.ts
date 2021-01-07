@@ -28,13 +28,15 @@ export const VDataTableFooter = defineComponent({
     function genAddButton() {
       return h(VButton, {
         class: 'v-data-table__add',
-        color: 'primary',
+        color: props.dark ? 'white' : 'primary',
         width: 42,
+        outlined: props.dark,
+        onClick: () => emit('add')
       }, {
         default: () => h(VIcon, {
           icon: FaIcons.$add,
           size: 20,
-          color: 'white',
+          color: props.dark ? 'white' : '',
         }),
       })
     }
@@ -42,13 +44,15 @@ export const VDataTableFooter = defineComponent({
     function genDeleteButton() {
       return h(VButton, {
         class: 'v-data-table__add',
-        color: 'danger',
+        color: props.dark ? 'white' : 'danger',
         width: 42,
+        outlined: props.dark,
+        onClick: () => emit('delete')
       }, {
         default: () => h(VIcon, {
           icon: FaIcons.$delete,
           size: 20,
-          color: 'white',
+          color: props.dark ? 'white' : '',
         }),
       })
     }
@@ -56,13 +60,14 @@ export const VDataTableFooter = defineComponent({
     function genEditButton() {
       return h(VButton, {
         class: 'v-data-table__add',
-        color: 'primary',
+        color: props.dark ? 'white' : 'primary',
         width: 42,
+        outlined: props.dark
       }, {
         default: () => h(VIcon, {
           icon: FaIcons.$edit,
           size: 20,
-          color: 'white',
+          color: props.dark ? 'white' : '',
         }),
       })
     }
@@ -70,7 +75,7 @@ export const VDataTableFooter = defineComponent({
     function genTableTools() {
       return h('div', {
         class: {
-          'v-data-table__toolbar': true,
+          'v-data-table__footer-toolbar': true,
         },
       }, {
         default: () => [
@@ -90,12 +95,13 @@ export const VDataTableFooter = defineComponent({
     function genButton(isNext) {
       return h(VButton, {
         width: 42,
-        color: 'primary',
-        onClick: () => changeTableRowsPage(isNext),
+        color: props.dark ? 'white' : 'primary',
+        outlined: props.dark,
+        onClick: () => changeTableRowsPage(isNext)
       }, {
         default: () => h(VIcon, {
           icon: isNext ? FaIcons.$arrowRight : FaIcons.$arrowLeft,
-          color: 'white',
+          color: props.dark ? 'white' : '',
           size: 18,
         }),
       })
@@ -111,23 +117,19 @@ export const VDataTableFooter = defineComponent({
         modelValue: props.rowsPerPage,
         dark: props.dark,
         listColor: props.color,
-        style: {
-          width: '50px',
-          textAlign: 'center',
-        },
         onSelect: e => emit('select', e),
       })
     }
 
     function genSelectCaption() {
       return h('span', {
-        class: 'v-data-table__options-label',
+        class: 'v-data-table__footer-options-label',
       }, 'Rows per page')
     }
 
     function genPageItemsSelect() {
       return h('div', {
-        class: 'v-data-table__options',
+        class: 'v-data-table__footer-options',
       }, [
         genSelectCaption(),
         genSelect(),

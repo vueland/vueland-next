@@ -8,6 +8,8 @@ import { h, watch, computed, defineComponent, ref } from 'vue'
 import { useColors } from '../../effects/use-colors'
 
 // Components
+import { VModal } from '../VModal'
+import { VCard } from '../VCard'
 import { VDataTableHeader } from './VDataTableHeader'
 import { VDataTableBody } from './VDataTableBody'
 import { VDataTableFooter } from './VDataTableFooter'
@@ -112,6 +114,14 @@ export const VDataTable = defineComponent({
       }
     }
 
+    function onAddNewRow() {
+      console.log(checkedRows.value)
+    }
+
+    function onSelectCount(count) {
+      rowsPerPage.value = count
+    }
+
     function sortColumn(col) {
       rows.value!.sort((a, b) => {
         if (a[col.key] > b[col.key]) return 1
@@ -174,7 +184,7 @@ export const VDataTable = defineComponent({
           align: props.align,
           dark: props.dark,
           numbered: props.numbered,
-          onCheck
+          onCheck,
         },
 
         rowKeys.reduce((acc, slot) => {
@@ -193,15 +203,16 @@ export const VDataTable = defineComponent({
       return h(VDataTableFooter, {
         pages: Math.ceil(rows.value!.length / rowsPerPage.value),
         page: page.value,
-        counts: [5, 10, 15, 20],
+        counts: [10, 15, 20, 25],
         rowsPerPage: rowsPerPage.value,
         dark: props.dark,
         color: props.color,
         onPrev: onPrevTable,
         onNext: onNextTable,
-        onSelect: $count => (rowsPerPage.value = $count),
+        onSelect: onSelectCount,
+        onAdd: onAddNewRow,
       }, {
-        toolbar: () => slots.toolbar && slots.toolbar()
+        toolbar: () => slots.toolbar && slots.toolbar(),
       })
     }
 

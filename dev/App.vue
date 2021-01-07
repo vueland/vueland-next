@@ -150,6 +150,7 @@
     :rows="rows"
     class="elevation-5"
     @filter="testFunc"
+    style="margin: 10px;"
     numbered
     checkbox
     dark

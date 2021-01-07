@@ -46,6 +46,7 @@ export const VDataTableCell = defineComponent({
     }
 
     function genCellContent() {
+      console.log(slots.default && slots.default())
       return h('div', {
         class: 'v-data-table__cell-content',
       }, slots.default && slots.default())

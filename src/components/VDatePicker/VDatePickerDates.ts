@@ -148,7 +148,7 @@ export const VDatePickerDates = defineComponent({
           'v-date-picker-dates__cell--current-date': compareDates(obj, today),
           'v-date-picker-dates__cell--holiday': obj.isHoliday,
         },
-        onClick: () => emit('update:value', obj),
+        onClick: () => obj.date && emit('update:value', obj),
       }
 
       return h('div', propsData, obj.date)

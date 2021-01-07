@@ -116,6 +116,8 @@ export const VDataTableBody = defineComponent({
           const slotContent = slots[props.cols[j].key] &&
             slots[props.cols[j].key]!(rowsOnTable.value[i])
 
+          console.log(slotContent)
+
           rowCells.push(
             h(VDataTableCell, {
               width: props.cols[j].width,

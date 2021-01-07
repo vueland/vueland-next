@@ -22,7 +22,9 @@ export const VForm = defineComponent({
         promises.push(it())
       })
 
-      return Promise.resolve(!promises.some(f => !f))
+      return !promises.some(f => !f) ?
+        Promise.resolve() :
+        Promise.reject()
     }
 
     const genSlot = () => {

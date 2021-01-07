@@ -16,13 +16,17 @@ export const VDataTableModal = defineComponent({
   name: 'v-data-table-modal',
   props: {
     form: Object,
+    dark: Boolean,
+    color: String
   } as any,
 
   setup(props) {
     const key = ref<number>(0)
 
     function genModalTitle() {
-      return h(VCardTitle, {}, {
+      return h(VCardTitle, {
+        class: props.dark ? 'white--text' : ''
+      }, {
         default: () => props.form.title,
       })
     }
@@ -45,6 +49,9 @@ export const VDataTableModal = defineComponent({
     function genFields() {
       return props.form.fields.map(f => {
         f.props['onUpdate:value'] = $value => f.props.value = $value
+        f.props.dark = props.dark
+        f.props.label = f.key
+        if (f.isSelect) f.props.listColor = props.color
         return h(fieldComponent(f) as any, f.props)
       })
     }
@@ -55,22 +62,27 @@ export const VDataTableModal = defineComponent({
       })
     }
 
+    function modalActionsHandler(it, validate) {
+      if (it.validate) {
+        return validate()
+          .then(it.onClick)
+          .then(() => setTimeout(() => key.value += 1, 200))
+          .catch(() => false)
+      }
+
+      it.onClick()
+      key.value += 1
+    }
+
     function genModalActions(validate) {
       return h(VCardActions, {}, {
         default: () => props.form.actions.map(it => {
           return h(VButton, {
-            color: it.type,
+            color: it.color,
             label: it.label,
             elevation: 3,
-            onClick: () => {
-              validate()
-                .then(res => {
-                  if (res) {
-                    res && it.onClick()
-                    key.value += 1
-                  }
-                })
-            },
+            style: { marginRight: '10px' },
+            onClick: () => modalActionsHandler(it, validate),
           })
         }),
       })
@@ -80,6 +92,7 @@ export const VDataTableModal = defineComponent({
       return h(VCard, {
         width: 400,
         elevation: 15,
+        color: props.color
       }, {
         default: () => [
           genModalTitle(),

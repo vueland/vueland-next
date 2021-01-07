@@ -35,4 +35,11 @@ export type Column = {
   useOnEdit?: boolean
 }
 
+export type TableModalOptions = {
+  title: string
+  icon?: string
+  fields: any[]
+  actions: any[]
+}
+
 export type TableCol<T> = T extends keyof Column ? T : any

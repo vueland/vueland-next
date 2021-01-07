@@ -51,10 +51,9 @@
           isSelect: false,
           isDate: false,
           props: {
-            label: 'name',
             rules: [v => !!v || 'Required'],
             value: '',
-            clearable: true
+            clearable: true,
           },
         },
         {
@@ -64,13 +63,12 @@
           sortable: true,
           filterable: true,
           useOnCreate: true,
-          isSelect: true,
+          isTextField: true,
           props: {
-            label: 'age',
-            items: [17, 18, 19, 20, 21, 22],
             rules: [v => !!v || 'Required'],
             value: '',
-            clearable: true
+            type: 'number',
+            clearable: true,
           },
         },
         {
@@ -80,18 +78,13 @@
           sortable: true,
           filterable: true,
           useOnCreate: true,
-          isDate: true,
+          isSelect: true,
           props: {
-            label: 'car',
+            items: ['Audi', 'BMW', 'Mercedes', 'Porsche', 'Bentley'],
             rules: [v => !!v || 'Required'],
             value: '',
-            mondayFirst: true,
-            color: 'grey darken-3',
-            contentColor: 'amber accent-3',
-            elevation: 5,
-            useMls: true,
-            clearable: true
-          },
+            clearable: true,
+          }
         },
         {
           key: 'date',
@@ -99,9 +92,21 @@
           resizeable: true,
           sortable: true,
           filterable: true,
+          useOnCreate: true,
           value: '',
+          isDate: true,
+          useMls: true,
+          props: {
+            rules: [v => !!v || 'Required'],
+            value: '',
+            mondayFirst: true,
+            color: 'grey darken-3',
+            contentColor: 'amber accent-3',
+            elevation: 5,
+            clearable: true
+          },
         },
-        { key: 'action', title: 'action', resizeable: true, sortable: false },
+        { key: 'delete', title: 'Actions', resizeable: true, sortable: false },
       ]
 
       const rows = [
@@ -134,7 +139,7 @@
           age: 24,
           car: 'Audi',
           date: '2021-01-10',
-          action: '',
+          delete: true,
         },
         { name: 'Anna', age: 24, car: 'Audi', date: '2021-01-10' },
         { name: 'Anna', age: 24, car: 'Audi', date: '2021-01-10' },
@@ -145,7 +150,7 @@
           age: 24,
           car: 'Audi',
           date: '2021-01-10',
-          action: '',
+          delete: true,
         },
       ]
 
@@ -187,7 +192,6 @@
     style="margin: 10px;"
     numbered
     checkbox
-    state-out
     dark
     color="grey darken-3"
   >
@@ -202,10 +206,9 @@
     <template v-slot:job="{ row }">
       <v-icon icon="fas fa-user" size="12" color="green"/>
     </template>
-    <template v-slot:action="{ row }">
-      <v-icon icon="fas fa-user" size="12" color="green"/>
+    <template v-slot:delete="{ row }">
       <v-icon
-        icon="fas fa-address-card"
+        icon="fas fa-trash-alt"
         size="16"
         color="red"
         style="margin-left: 5px"

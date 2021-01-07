@@ -77,9 +77,9 @@ export const VSelect = defineComponent({
     const directive = computed(() => {
       return state.focused
         ? {
-            handler: onBlur,
-            closeConditional: true,
-          }
+          handler: onBlur,
+          closeConditional: true,
+        }
         : undefined
     })
 
@@ -131,11 +131,9 @@ export const VSelect = defineComponent({
     }
 
     function genInput(): VNode {
-      const selectedValue = state.selected
-        ? !props.valueKey
-          ? state.selected
-          : state.selected[props.valueKey as string]
-        : state.selected
+      const selectedValue = (state.selected &&
+        state.selected[props.valueKey]) ||
+        state.selected
 
       const color = props.dark ? 'white' : ''
 

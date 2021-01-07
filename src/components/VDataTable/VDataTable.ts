@@ -17,6 +17,9 @@ import { VDataTableFooter } from './VDataTableFooter'
 import { copyWithoutRef } from '../../helpers'
 import { toComparableStringFormat } from './helpers'
 
+// Types
+import { TableModalOptions } from '../../types'
+
 export const VDataTable = defineComponent({
   name: 'v-data-table',
   props: {
@@ -43,7 +46,7 @@ export const VDataTable = defineComponent({
     const isAllRowsChecked = ref<boolean>(false)
     const showModal = ref<boolean>(false)
 
-    const modal = ref<any>({
+    const modal = ref<TableModalOptions>({
       title: '',
       fields: [],
       actions: [],
@@ -103,6 +106,7 @@ export const VDataTable = defineComponent({
     }
 
     function onFilter({ value, col }) {
+      page.value = 1
       if (!props.stateOut) {
         if (!value) {
           delete filters[col.key]
@@ -120,30 +124,46 @@ export const VDataTable = defineComponent({
       }
     }
 
-    function onAddNewRow() {
-      modal.value = {
-        title: 'add new',
-        fields: cols.value.reduce((acc, col) => {
-          col.useOnCreate && acc.push(col)
-          return acc
-        }, []),
-        actions: [{
-          type: 'success',
-          label: 'save',
-          onClick() {
-            if (props.stateOut) {
-              emit('add', copyWithoutRef(modal.value.fields))
-              modal.value.fields.forEach(it => it.props.value = '')
-            }
-            showModal.value = false
-          },
-        }],
+    function saveNewRow() {
+      const row = {}
+
+      modal.value.fields!.forEach(it => {
+        row[it.key] = it.props.value
+        it.props.value = ''
+      })
+      if (props.stateOut) {
+        emit('add', row)
+      } else {
+        rows.value.push(row)
+        console.log(rows.value)
       }
+      showModal.value = false
+    }
+
+    function onAddNewRow() {
+      modal.value.title = 'add new row'
+
+      modal.value.fields = cols.value.reduce((acc, col) => {
+        col.useOnCreate && acc.push(col)
+        return acc
+      }, [])
+
+      modal.value.actions!.push({
+          color: 'primary',
+          label: 'save',
+          validate: true,
+          onClick: saveNewRow,
+        },
+        {
+          color: 'warning',
+          label: 'close',
+          onClick: () => showModal.value = false,
+        })
 
       showModal.value = true
     }
 
-    function onSelectCount(count) {
+    function onSelectRowsCount(count) {
       rowsPerPage.value = count
     }
 
@@ -234,7 +254,7 @@ export const VDataTable = defineComponent({
         color: props.color,
         onPrev: onPrevTable,
         onNext: onNextTable,
-        onSelect: onSelectCount,
+        onSelect: onSelectRowsCount,
         onAdd: onAddNewRow,
       }, {
         toolbar: () => slots.toolbar && slots.toolbar(),
@@ -256,6 +276,8 @@ export const VDataTable = defineComponent({
         modelValue: showModal.value,
         transition: 'scale-in',
         form: modal.value,
+        color: props.color,
+        dark: props.dark,
       })
     }
 

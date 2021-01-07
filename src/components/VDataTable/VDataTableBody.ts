@@ -46,6 +46,7 @@ export const VDataTableBody = defineComponent({
       'v-data-table__body': true,
     }))
 
+
     const rowsOnTable = computed(() => {
       return props.rows.slice(
         (props.page - 1) * props.rowsPerPage,
@@ -113,7 +114,7 @@ export const VDataTableBody = defineComponent({
         for (let j = 0; j < colsLength; j += 1) {
 
           const slotContent = slots[props.cols[j].key] &&
-            slots[props.cols[j].key]!(props.rows[i])
+            slots[props.cols[j].key]!(rowsOnTable.value[i])
 
           rowCells.push(
             h(VDataTableCell, {
@@ -121,7 +122,7 @@ export const VDataTableBody = defineComponent({
               align: props.align || props.cols[j].align,
               dark: props.dark,
             }, {
-              default: () => slotContent || props.rows[i][props.cols[j].key],
+              default: () => slotContent || rowsOnTable.value[i][props.cols[j].key],
             }))
         }
 
@@ -137,7 +138,7 @@ export const VDataTableBody = defineComponent({
       const propsData = {
         class: classes.value,
         style: {
-          height: `${ ROW_HEIGHT * props.rowsPerPage }px`,
+          height: `${ROW_HEIGHT * props.rowsPerPage}px`,
         },
       }
 

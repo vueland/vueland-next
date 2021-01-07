@@ -152,7 +152,7 @@ export const VDatePicker = defineComponent({
       return `${ localeMonths[month] } ${ date } ${ localeWeek[day] }`
     })
 
-    const computedValue = computed<string | number | Date>(() => {
+    const computedValue = computed<string | number | Date | undefined>(() => {
       const { year, month, date } = data.selected as DatePickerDate
       const selectedDate = new Date(year, month, date as number)
 
@@ -223,10 +223,12 @@ export const VDatePicker = defineComponent({
       data.selected = $event
       setDataDate(data.selected)
 
-      emit('update:value', computedValue.value)
-      emit('update:modelValue', computedValue.value)
+      const dateValue = computedValue.value || formatDate()
 
-      emit('selected', computedValue.value)
+      emit('update:value', dateValue)
+      emit('update:modelValue', dateValue)
+
+      emit('selected', dateValue)
       data.isActive = false
     }
 
@@ -402,6 +404,7 @@ export const VDatePicker = defineComponent({
     function genDatepickerInput(): VNode {
       return h(VTextField, {
         value: formatDate(),
+        dark: props.dark,
         label: props.label,
         readonly: props.readonly,
         disabled: props.disabled,

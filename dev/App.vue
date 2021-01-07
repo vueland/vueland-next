@@ -95,7 +95,6 @@
           useOnCreate: true,
           value: '',
           isDate: true,
-          useMls: true,
           props: {
             rules: [v => !!v || 'Required'],
             value: '',
@@ -103,10 +102,11 @@
             color: 'grey darken-3',
             contentColor: 'amber accent-3',
             elevation: 5,
-            clearable: true
+            clearable: true,
+            // useMls: true,
           },
         },
-        { key: 'delete', title: 'Actions', resizeable: true, sortable: false },
+        { key: 'delete', title: 'Actions', resizeable: true, sortable: false, align: 'center', width: 75 },
       ]
 
       const rows = [
@@ -211,7 +211,6 @@
         icon="fas fa-trash-alt"
         size="16"
         color="red"
-        style="margin-left: 5px"
         clickable
         @click="testFunc(row)"
       />
@@ -234,6 +233,7 @@
       elevation="15"
       :rules="[val => !!val || 'Required']"
       readonly
+      use-mls
       clearable
       prepend-icon="fas fa-calendar"
       monday-first

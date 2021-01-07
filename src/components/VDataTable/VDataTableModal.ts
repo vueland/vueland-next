@@ -17,7 +17,7 @@ export const VDataTableModal = defineComponent({
   props: {
     form: Object,
     dark: Boolean,
-    color: String
+    color: String,
   } as any,
 
   setup(props) {
@@ -25,7 +25,7 @@ export const VDataTableModal = defineComponent({
 
     function genModalTitle() {
       return h(VCardTitle, {
-        class: props.dark ? 'white--text' : ''
+        class: props.dark ? 'white--text' : '',
       }, {
         default: () => props.form.title,
       })
@@ -47,12 +47,12 @@ export const VDataTableModal = defineComponent({
     }
 
     function genFields() {
-      return props.form.fields.map(f => {
-        f.props['onUpdate:value'] = $value => f.props.value = $value
-        f.props.dark = props.dark
-        f.props.label = f.key
-        if (f.isSelect) f.props.listColor = props.color
-        return h(fieldComponent(f) as any, f.props)
+      return props.form.fields.map(field => {
+        field.props['onUpdate:value'] = $value => field.props.value = $value
+        field.props.dark = props.dark
+        field.props.label = field.key
+        if (field.isSelect) field.props.listColor = props.color
+        return h(fieldComponent(field) as any, field.props)
       })
     }
 
@@ -65,8 +65,10 @@ export const VDataTableModal = defineComponent({
     function modalActionsHandler(it, validate) {
       if (it.validate) {
         return validate()
-          .then(it.onClick)
-          .then(() => setTimeout(() => key.value += 1, 200))
+          .then(() => {
+            it.onClick()
+            key.value += 1
+          })
           .catch(() => false)
       }
 
@@ -92,7 +94,7 @@ export const VDataTableModal = defineComponent({
       return h(VCard, {
         width: 400,
         elevation: 15,
-        color: props.color
+        color: props.color,
       }, {
         default: () => [
           genModalTitle(),

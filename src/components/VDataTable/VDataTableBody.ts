@@ -124,8 +124,8 @@ export const VDataTableBody = defineComponent({
             }, {
               default: () => slotContent || rowsOnTable.value[i][props.cols[j].key],
             }))
-        }
 
+        }
         tableRows.push(genTableRow(rowCells))
 
         rowCells = []
@@ -138,7 +138,7 @@ export const VDataTableBody = defineComponent({
       const propsData = {
         class: classes.value,
         style: {
-          height: `${ROW_HEIGHT * props.rowsPerPage}px`,
+          height: `${ ROW_HEIGHT * props.rowsPerPage }px`,
         },
       }
 

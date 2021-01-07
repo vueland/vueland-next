@@ -43,6 +43,7 @@ export const VDataTable = defineComponent({
     const page = ref<number>(1)
     const rowsPerPage = ref<number>(20)
     const checkedRows = ref<any[]>([])
+    const filteredRows = ref<any[] | null>(null)
     const isAllRowsChecked = ref<boolean>(false)
     const showModal = ref<boolean>(false)
 
@@ -105,23 +106,29 @@ export const VDataTable = defineComponent({
       }
     }
 
-    function onFilter({ value, col }) {
+    function onFilter({ value, col }): any {
       page.value = 1
+
       if (!props.stateOut) {
         if (!value) {
           delete filters[col.key]
 
           if (!Object.keys(filters).length) {
-            return (rows.value = copyWithoutRef(props.rows))
+            return filteredRows.value = null
           }
         }
 
         if (value) filters[col.key] = value
 
-        rows.value = filterRows(props.rows)
+        filteredRows.value = filterRows(rows.value)
       } else {
         emit('filter', { value, col })
       }
+    }
+
+    function closeModal() {
+      showModal.value = false
+      modal.value.actions = []
     }
 
     function saveNewRow() {
@@ -131,13 +138,14 @@ export const VDataTable = defineComponent({
         row[it.key] = it.props.value
         it.props.value = ''
       })
+
       if (props.stateOut) {
         emit('add', row)
       } else {
         rows.value.push(row)
-        console.log(rows.value)
       }
-      showModal.value = false
+
+      closeModal()
     }
 
     function onAddNewRow() {
@@ -157,7 +165,7 @@ export const VDataTable = defineComponent({
         {
           color: 'warning',
           label: 'close',
-          onClick: () => showModal.value = false,
+          onClick: closeModal,
         })
 
       showModal.value = true
@@ -221,7 +229,7 @@ export const VDataTable = defineComponent({
         VDataTableBody,
         {
           cols: cols.value,
-          rows: rows.value,
+          rows: filteredRows.value || rows.value,
           page: page.value,
           rowsPerPage: rowsPerPage.value,
           checkbox: props.checkbox,

@@ -191,8 +191,6 @@
     style="margin: 10px;"
     numbered
     checkbox
-    dark
-    color="grey darken-3"
   >
     <template v-slot:car="{ row }">
       <v-icon icon="fas fa-envelope" size="12" color="blue"/>

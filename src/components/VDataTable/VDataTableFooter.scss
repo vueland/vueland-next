@@ -9,46 +9,47 @@
   border-top-left-radius: $table-border-radius;
   border-top-right-radius: $table-border-radius;
   box-shadow: 0 0 5px -2px rgba(0, 0, 0, .4);
+}
 
-  &-pagination {
-    @include flex(flex, space-around, center);
-    width: auto;
-    margin: 0 15px;
-
-    & > * {
-      flex-grow: 0;
-    }
-  }
-
-  &-options {
+.v-data-table {
+  &__pagination {
     @include flex(flex, flex-start, center);
-    margin: 0 15px;
+    margin: 0 20px;
+
+    &-select {
+      @include flex(flex, flex-start, center);
+      margin: 0 15px;
+    }
 
     &-label {
       margin: 0 15px;
     }
 
-    & > .v-input > .v-input__select-slot >
+    &-route {
+      margin: 0 10px;
+    }
+
+    &-select > .v-input > .v-input__select-slot >
     .v-select > .v-select-list {
       top: -140px;
     }
 
-    & > .v-input > .v-input__select-slot >
+    &-select > .v-input > .v-input__select-slot >
     .v-select > .v-select__input {
       text-align: center !important;
     }
 
-    & > .v-input > .v-input__select-slot > .v-select >
+    &-select > .v-input > .v-input__select-slot > .v-select >
     .v-select-list > .v-list > .v-list-item > .v-list-item__title {
       text-align: center !important;
     }
 
-    & > .v-input {
+    &-select> .v-input {
       width: 50px !important;
     }
   }
 
-  &-toolbar {
+  &__toolbar {
     @include flex(flex, center, center);
     margin: 0 20px;
 

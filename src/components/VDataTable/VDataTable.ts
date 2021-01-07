@@ -128,7 +128,6 @@ export const VDataTable = defineComponent({
 
     function closeModal() {
       showModal.value = false
-      modal.value.actions = []
     }
 
     function saveNewRow() {
@@ -151,12 +150,8 @@ export const VDataTable = defineComponent({
     function onAddNewRow() {
       modal.value.title = 'add new row'
 
-      modal.value.fields = cols.value.reduce((acc, col) => {
-        col.useOnCreate && acc.push(col)
-        return acc
-      }, [])
-
-      modal.value.actions!.push({
+      const actions = [
+        {
           color: 'primary',
           label: 'save',
           validate: true,
@@ -166,7 +161,15 @@ export const VDataTable = defineComponent({
           color: 'warning',
           label: 'close',
           onClick: closeModal,
-        })
+        },
+      ]
+
+      modal.value.fields = cols.value.reduce((acc, col) => {
+        col.useOnCreate && acc.push(col)
+        return acc
+      }, [])
+
+      modal.value.actions! = actions
 
       showModal.value = true
     }

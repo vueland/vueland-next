@@ -44,12 +44,30 @@ export const VDataTable = defineComponent({
   setup(props, { slots, emit }) {
     const cols = ref<any[]>([])
     const rows = ref<any[]>([])
-    const page = ref<number>(1)
-    const rowsPerPage = ref<number>(20)
+    const rowsOnTable = ref<any[]>([])
     const checkedRows = ref<any[]>([])
-    const filteredRows = ref<any[] | null>(null)
+
+    const rowsPerPage = ref<number>(20)
+    const page = ref<number>(1)
+
     const isAllRowsChecked = ref<boolean>(false)
     const showModal = ref<boolean>(false)
+
+    const actions = {
+      add: [
+        {
+          color: 'primary',
+          label: 'save',
+          validate: true,
+          onClick: saveNewRow,
+        },
+        {
+          color: 'warning',
+          label: 'close',
+          onClick: closeModal,
+        },
+      ],
+    }
 
     const modal = ref<TableModalOptions>({
       title: '',
@@ -65,12 +83,6 @@ export const VDataTable = defineComponent({
       'v-data-table': true,
     }))
 
-    const currentRowsCount = computed<number>(() => {
-      return filteredRows.value ?
-        filteredRows.value.length :
-        rows.value.length
-    })
-
     const pages = computed(() => {
       return Math.ceil(rows.value!.length / rowsPerPage.value)
     })
@@ -83,7 +95,11 @@ export const VDataTable = defineComponent({
 
     watch(
       () => props.rows,
-      to => (rows.value = copyWithoutRef(to)),
+      to => {
+        rows.value = copyWithoutRef(to)
+        rowsOnTable.value = Object.keys(filters).length ?
+          filterRows(rows.value) : rows.value
+      },
       { immediate: true },
     )
 
@@ -110,7 +126,7 @@ export const VDataTable = defineComponent({
     function onSort(col) {
       if (col.sorted) {
         col.sorted = !col.sorted
-        rows.value!.reverse()
+        rowsOnTable.value!.reverse()
       } else {
         cols.value!.forEach(c => {
           c.sorted = col.key === c.key
@@ -121,23 +137,23 @@ export const VDataTable = defineComponent({
     }
 
     function onFilter({ value, col }): any {
-      page.value = 1
-
       if (!props.stateOut) {
         if (!value) {
           delete filters[col.key]
 
           if (!Object.keys(filters).length) {
-            return filteredRows.value = null
+            return rowsOnTable.value = rows.value
           }
         }
 
         if (value) filters[col.key] = value
 
-        filteredRows.value = filterRows(rows.value)
+        rowsOnTable.value = filterRows(rows.value)
       } else {
         emit('filter', { value, col })
       }
+
+      page.value = 1
     }
 
     function closeModal() {
@@ -164,26 +180,12 @@ export const VDataTable = defineComponent({
     function onAddNewRow() {
       modal.value.title = 'add new row'
 
-      const actions = [
-        {
-          color: 'primary',
-          label: 'save',
-          validate: true,
-          onClick: saveNewRow,
-        },
-        {
-          color: 'warning',
-          label: 'close',
-          onClick: closeModal,
-        },
-      ]
-
       modal.value.fields = cols.value.reduce((acc, col) => {
         col.useOnCreate && acc.push(col)
         return acc
       }, [])
 
-      modal.value.actions! = actions
+      modal.value.actions! = actions.add
 
       showModal.value = true
     }
@@ -193,7 +195,7 @@ export const VDataTable = defineComponent({
     }
 
     function sortColumn(col) {
-      rows.value!.sort((a, b) => {
+      rowsOnTable.value!.sort((a, b) => {
         if (a[col.key] > b[col.key]) return 1
         return -1
       })
@@ -246,7 +248,7 @@ export const VDataTable = defineComponent({
         VDataTableBody,
         {
           cols: cols.value,
-          rows: filteredRows.value || rows.value,
+          rows: rowsOnTable.value,
           page: page.value,
           rowsPerPage: rowsPerPage.value,
           checkbox: props.checkbox,
@@ -274,7 +276,7 @@ export const VDataTable = defineComponent({
         pages: pages.value,
         page: page.value,
         counts: [10, 15, 20, 25],
-        rowsCount: currentRowsCount.value,
+        rowsCount: rowsOnTable.value.length,
         rowsPerPage: rowsPerPage.value,
         dark: props.dark,
         color: props.color,

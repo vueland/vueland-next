@@ -2,7 +2,7 @@
 import './VDataTableFooter.scss'
 
 // Vue API
-import { defineComponent, h } from 'vue'
+import { computed, defineComponent, h } from 'vue'
 
 // Components
 import { VIcon } from '../VIcon'
@@ -28,72 +28,117 @@ export const VDataTableFooter = defineComponent({
   } as any,
 
   setup(props, { slots, emit }) {
-
     const { setTextColor } = useColors()
 
+    const lastOnPage = computed<number>(() => {
+      const { page, rowsCount, rowsPerPage } = props
+      return page * rowsPerPage > rowsCount ? rowsCount : page * rowsPerPage
+    })
+
+    const firstOnPage = computed<number>(() => {
+      const { page, rowsPerPage } = props
+      return page === 1 ? 1 : (page - 1) * rowsPerPage + 1
+    })
+
+    const paginationDisplay = computed<string>(() => {
+      return props.rowsCount
+        ? `${firstOnPage.value} - 
+      ${lastOnPage.value} from ${props.rowsCount}`
+        : '-'
+    })
+
+    const overPages = computed<number | null>(() => {
+      const { page, rowsCount, rowsPerPage } = props
+
+      if ((page - 1) * rowsPerPage > rowsCount) {
+        return Math.ceil(((page - 1) * rowsPerPage - rowsCount) / rowsPerPage)
+      }
+
+      return null
+    })
+
     function genAddButton() {
-      return h(VButton, {
-        class: 'v-data-table__add',
-        color: props.dark ? 'white' : 'primary',
-        width: 42,
-        outlined: props.dark,
-        elevation: 3,
-        onClick: () => emit('add'),
-      }, {
-        default: () => h(VIcon, {
-          icon: FaIcons.$add,
-          size: 20,
-          color: props.dark ? 'white' : '',
-        }),
-      })
+      return h(
+        VButton,
+        {
+          class: 'v-data-table__add',
+          color: props.dark ? 'white' : 'primary',
+          width: 42,
+          outlined: props.dark,
+          elevation: 3,
+          onClick: () => emit('add'),
+        },
+        {
+          default: () =>
+            h(VIcon, {
+              icon: FaIcons.$add,
+              size: 20,
+              color: props.dark ? 'white' : '',
+            }),
+        },
+      )
     }
 
     function genDeleteButton() {
-      return h(VButton, {
-        class: 'v-data-table__add',
-        color: props.dark ? 'white' : 'danger',
-        width: 42,
-        outlined: props.dark,
-        elevation: 3,
-        onClick: () => emit('delete'),
-      }, {
-        default: () => h(VIcon, {
-          icon: FaIcons.$delete,
-          size: 20,
-          color: props.dark ? 'white' : '',
-        }),
-      })
+      return h(
+        VButton,
+        {
+          class: 'v-data-table__add',
+          color: props.dark ? 'white' : 'danger',
+          width: 42,
+          outlined: props.dark,
+          elevation: 3,
+          onClick: () => emit('delete'),
+        },
+        {
+          default: () =>
+            h(VIcon, {
+              icon: FaIcons.$delete,
+              size: 20,
+              color: props.dark ? 'white' : '',
+            }),
+        },
+      )
     }
 
     function genEditButton() {
-      return h(VButton, {
-        class: 'v-data-table__add',
-        color: props.dark ? 'white' : 'primary',
-        width: 42,
-        outlined: props.dark,
-        elevation: 3,
-      }, {
-        default: () => h(VIcon, {
-          icon: FaIcons.$edit,
-          size: 20,
-          color: props.dark ? 'white' : '',
-        }),
-      })
+      return h(
+        VButton,
+        {
+          class: 'v-data-table__add',
+          color: props.dark ? 'white' : 'primary',
+          width: 42,
+          outlined: props.dark,
+          elevation: 3,
+        },
+        {
+          default: () =>
+            h(VIcon, {
+              icon: FaIcons.$edit,
+              size: 20,
+              color: props.dark ? 'white' : '',
+            }),
+        },
+      )
     }
 
     function genTableTools() {
-      return h('div', {
-        class: {
-          'v-data-table__toolbar': true,
+      return h(
+        'div',
+        {
+          class: {
+            'v-data-table__toolbar': true,
+          },
         },
-      }, {
-        default: () => [
-          genAddButton(),
-          genEditButton(),
-          genDeleteButton(),
-          slots.toolbar && slots.toolbar(),
-        ],
-      })
+        {
+          default: () => [
+            genAddButton(),
+            genEditButton(),
+            genDeleteButton(),
+            slots.toolbar && slots.toolbar(),
+          ],
+        },
+      )
     }
 
     function changeTableRowsPage(isNext) {
@@ -102,29 +147,38 @@ export const VDataTableFooter = defineComponent({
     }
 
     function genButton(isNext) {
-      return h(VButton, {
-        width: 42,
-        color: props.dark ? 'white' : 'primary',
-        outlined: props.dark,
-        onClick: () => changeTableRowsPage(isNext),
-      }, {
-        default: () => h(VIcon, {
-          icon: isNext ? FaIcons.$arrowRight : FaIcons.$arrowLeft,
-          color: props.dark ? 'white' : '',
-          size: 18,
-        }),
-      })
+      return h(
+        VButton,
+        {
+          width: 42,
+          color: props.dark ? 'white' : 'primary',
+          outlined: props.dark,
+          onClick: () => changeTableRowsPage(isNext),
+        },
+        {
+          default: () =>
+            h(VIcon, {
+              icon: isNext ? FaIcons.$arrowRight : FaIcons.$arrowLeft,
+              color: props.dark ? 'white' : '',
+              size: 18,
+            }),
+        },
+      )
     }
 
     function genPageDisplay() {
-      return h(VButton, {
-        width: 42,
-        style: { margin: '0 10px' },
-        color: props.dark ? 'white' : 'blue lighten-1',
-        outlined: props.dark,
-      }, {
-        default: () => props.page,
-      })
+      return h(
+        VButton,
+        {
+          width: 42,
+          style: { margin: '0 10px' },
+          color: props.dark ? 'white' : 'blue lighten-1',
+          outlined: props.dark,
+        },
+        {
+          default: () => props.page,
+        },
+      )
     }
 
     function genSelect() {
@@ -145,19 +199,21 @@ export const VDataTableFooter = defineComponent({
       }
       const color = props.dark ? 'white' : ''
 
-      return h('span',
+      return h(
+        'span',
         color ? setTextColor(color, propsData) : propsData,
         'Rows per page',
       )
     }
 
     function genPageItemsSelect() {
-      return h('div', {
-        class: 'v-data-table__pagination-select',
-      }, [
-        genSelectCaption(),
-        genSelect(),
-      ])
+      return h(
+        'div',
+        {
+          class: 'v-data-table__pagination-select',
+        },
+        [genSelectCaption(), genSelect()],
+      )
     }
 
     function genPagesCountDisplay() {
@@ -166,54 +222,55 @@ export const VDataTableFooter = defineComponent({
           'v-data-table__pagination-pages': true,
         },
       }
-      const { dark, page, rowsCount, rowsPerPage } = props
-      const color = dark ? 'white' : ''
 
-      const last = page * rowsPerPage > rowsCount ?
-        rowsCount : page * rowsPerPage
+      const color = props.dark ? 'white' : ''
 
-      if (((page - 1) * rowsPerPage) > rowsCount) {
-        const diff = ((page - 1) * rowsPerPage) - rowsCount
-        const inPages = Math.ceil(diff / rowsPerPage)
+      overPages.value && emit('resetPage', -overPages.value)
 
-        emit('resetPage', -inPages)
-      }
-
-      const current = page === 1 ? 1 : (page - 1) * rowsPerPage + 1
-
-      return h('div',
+      return h(
+        'div',
         color ? setTextColor(color, propsData) : propsData,
-        rowsCount ? `${ current } - ${ last } from ${ rowsCount }` : '-',
+        paginationDisplay.value,
       )
     }
 
     function genPaginationButtonsBlock() {
-      return h('div', {
-        class: {
-          'v-data-table__pagination-route': true,
+      return h(
+        'div',
+        {
+          class: {
+            'v-data-table__pagination-route': true,
+          },
         },
-      }, [
-        genButton(false),
-        genPageDisplay(),
-        genButton(true),
-      ])
+        [
+          genButton(false),
+          genPageDisplay(),
+          genButton(true)
+        ],
+      )
     }
 
     function genPaginationBlock() {
-      return h('div', {
-        class: 'v-data-table__pagination',
-      }, [
-        genPageItemsSelect(),
-        genPagesCountDisplay(),
-        genPaginationButtonsBlock(),
-      ])
+      return h(
+        'div',
+        {
+          class: 'v-data-table__pagination',
+        },
+        [
+          genPageItemsSelect(),
+          genPagesCountDisplay(),
+          genPaginationButtonsBlock(),
+        ],
+      )
     }
 
-    return () => h('div', {
-      class: 'v-data-table__footer',
-    }, [
-      genTableTools(),
-      genPaginationBlock(),
-    ])
+    return () =>
+      h(
+        'div',
+        {
+          class: 'v-data-table__footer',
+        },
+        [genTableTools(), genPaginationBlock()],
+      )
   },
 })

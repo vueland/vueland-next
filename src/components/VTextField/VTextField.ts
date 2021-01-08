@@ -111,9 +111,9 @@ export const VTextField = defineComponent({
 
     function onClear() {
       state.value = ''
-      emit('update:modelValue', '')
-      emit('update:value', '')
-      emit('input', '')
+      emit('update:modelValue', state.value)
+      emit('update:value', state.value)
+      emit('input', state.value)
       requestAnimationFrame(validateValue)
     }
 

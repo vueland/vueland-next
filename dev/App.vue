@@ -205,10 +205,8 @@
     :rows="rows"
     class="elevation-5"
     style="margin: 10px;"
-    color="grey darken-4"
     numbered
     checkbox
-    dark
     @filter="testFunc"
     @add="testFunc"
   >
@@ -229,7 +227,7 @@
         size="16"
         color="red"
         clickable
-        @click="testFunc(row)"
+        @click="row.edit = true"
       />
     </template>
     <template v-slot:toolbar>

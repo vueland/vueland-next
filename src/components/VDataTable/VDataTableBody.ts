@@ -9,10 +9,10 @@ import { colorProps, useColors } from '../../effects/use-colors'
 
 // Components
 import { VDataTableCell } from './VDataTableCell'
+import { VCheckbox } from '../VCheckbox'
 
 // Types
 import { VNode } from 'vue'
-import { VCheckbox } from '@/components'
 
 export const VDataTableBody = defineComponent({
   name: 'v-data-table-body',
@@ -123,7 +123,7 @@ export const VDataTableBody = defineComponent({
               dark: props.dark,
             }, {
               default: () => slotContent ||
-                String(rowsOnTable.value[i][props.cols[j].key]),
+                String(rowsOnTable.value[i][props.cols[j].key])
             }))
         }
 
@@ -139,7 +139,7 @@ export const VDataTableBody = defineComponent({
       const propsData = {
         class: classes.value,
         style: {
-          height: `${ROW_HEIGHT * props.rowsPerPage}px`,
+          height: `${ ROW_HEIGHT * props.rowsPerPage }px`,
         },
       }
 

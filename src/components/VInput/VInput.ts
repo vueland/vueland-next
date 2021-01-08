@@ -82,6 +82,7 @@ export const VInput = defineComponent({
         dark: props.dark,
         icon: iconName,
         size: 16,
+        disabled: props.disabled,
         clickable,
       })
     }
@@ -101,7 +102,7 @@ export const VInput = defineComponent({
     function genClearIcon() {
       return h('div', {
         class: 'v-input__clear',
-        onClick: () => emit('clear'),
+        onClick: () => !props.disabled && emit('clear'),
       }, genIcon(FaIcons.$close, true))
     }
 

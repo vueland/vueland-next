@@ -20,6 +20,9 @@ import { Sizes } from '../../services/sizes'
 
 export const VIcon = defineComponent({
   name: 'v-icon',
+  emits: [
+    'click',
+  ],
 
   props: {
     disabled: Boolean,
@@ -37,7 +40,7 @@ export const VIcon = defineComponent({
     ...sizeProps(),
   } as any,
 
-  setup(props, { slots }): () => VNode {
+  setup(props, { slots, emit }): () => VNode {
     const { setTextColor } = useColors()
     const iconTag = props.clickable ? 'button' : props.tag
 
@@ -78,12 +81,19 @@ export const VIcon = defineComponent({
       return (explicitSize && Sizes[explicitSize]) || convertToUnit(props.size)
     }
 
+    function onClick() {
+      if (!props.disabled && props.clickable) {
+        emit('click')
+      }
+    }
+
     function genDataProps(): Record<string, any> {
       return {
         class: classes.value,
         style: {
           fontSize: getSizes(),
         },
+        onClick,
       }
     }
 

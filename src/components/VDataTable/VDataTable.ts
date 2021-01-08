@@ -37,7 +37,6 @@ export const VDataTable = defineComponent({
     },
   } as any,
 
-  // TODO - sorting filtered rows
   // TODO - toolbar slot replace
   // TODO - state out pagination
 
@@ -53,22 +52,6 @@ export const VDataTable = defineComponent({
     const isAllRowsChecked = ref<boolean>(false)
     const showModal = ref<boolean>(false)
 
-    const actions = {
-      add: [
-        {
-          color: 'primary',
-          label: 'save',
-          validate: true,
-          onClick: saveNewRow,
-        },
-        {
-          color: 'warning',
-          label: 'close',
-          onClick: closeModal,
-        },
-      ],
-    }
-
     const modal = ref<TableModalOptions>({
       title: '',
       fields: [],
@@ -78,6 +61,26 @@ export const VDataTable = defineComponent({
     const filters = {}
 
     const { setBackground } = useColors()
+
+    const closeModalAction = {
+      color: 'warning',
+      label: 'close',
+      onClick: closeModal,
+    }
+
+    const addNewRowAction = {
+      color: 'primary',
+      label: 'save',
+      validate: true,
+      onClick: saveNewRow,
+    }
+
+    const editRowAction = {
+      color: 'primary',
+      label: 'save',
+      validate: true,
+      onClick: closeModal,
+    }
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-data-table': true,
@@ -97,8 +100,7 @@ export const VDataTable = defineComponent({
       () => props.rows,
       to => {
         rows.value = copyWithoutRef(to)
-        rowsOnTable.value = Object.keys(filters).length ?
-          filterRows(rows.value) : rows.value
+        rowsOnTable.value = rows.value
       },
       { immediate: true },
     )
@@ -177,6 +179,12 @@ export const VDataTable = defineComponent({
       closeModal()
     }
 
+    function onEditRowInfo() {
+      modal.value.title = 'edit row'
+      modal.value.actions = [editRowAction, closeModalAction]
+      showModal.value = true
+    }
+
     function onAddNewRow() {
       modal.value.title = 'add new row'
 
@@ -185,7 +193,7 @@ export const VDataTable = defineComponent({
         return acc
       }, [])
 
-      modal.value.actions! = actions.add
+      modal.value.actions! = [addNewRowAction, closeModalAction]
 
       showModal.value = true
     }
@@ -283,7 +291,8 @@ export const VDataTable = defineComponent({
         onPrev: onPrevTable,
         onNext: onNextTable,
         onSelect: onSelectRowsCount,
-        onAdd: onAddNewRow,
+        onAddRow: onAddNewRow,
+        onEditRow: onEditRowInfo,
         onResetPage: val => page.value += val,
       }, {
         toolbar: () => slots.toolbar && slots.toolbar(),

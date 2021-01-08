@@ -8,6 +8,8 @@ import { VModal } from '../VModal'
 import { VTextField } from '../VTextField'
 import { VSelect } from '../VSelect'
 import { VDatePicker } from '../VDatePicker'
+import { VTextarea } from '../VTextarea'
+import { VCheckbox } from '../VCheckbox'
 import { VCard, VCardTitle, VCardActions, VCardContent } from '../VCard'
 import { VForm } from '../VForm'
 import { VButton } from '../VButton'
@@ -35,6 +37,8 @@ export const VDataTableModal = defineComponent({
       if (field.isTextField) return VTextField
       if (field.isSelect) return VSelect
       if (field.isDate) return VDatePicker
+      if (field.isTextArea) return VTextarea
+      if (field.isCheckbox) return VCheckbox
       return undefined
     }
 

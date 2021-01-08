@@ -133,6 +133,24 @@
         { name: 'Anna', age: 24, car: 'Audi', date: '2021-01-10' },
         { name: 'Alex', age: 31, car: 'Audi', date: '2021-01-10' },
         { name: 'Andrew', age: 24, car: 'Audi', date: '2021-01-10' },
+        { name: 'Andrew', age: 24, car: 'Audi', date: '2021-01-10' },
+        { name: 'Nikol', age: 24, car: 'BMW', date: '2021-01-03' },
+        { name: 'Anna', age: 24, car: 'Audi', date: '2021-01-07' },
+        { name: 'Alex', age: 24, car: 'Audi', date: '2021-01-10' },
+        { name: 'Andrew', age: 17, car: 'Audi', date: '2021-01-10' },
+        { name: 'Nikol', age: 24, car: 'Audi', date: '2021-01-10' },
+        { name: 'Anna', age: 24, car: 'Audi', date: '2021-01-10' },
+        { name: 'Anna', age: 27, car: 'Audi', date: '2021-01-10' },
+        { name: 'Alex', age: 24, car: 'Audi', date: '2021-01-10' },
+        { name: 'Andrew', age: 24, car: 'Audi', date: '2021-01-10' },
+        { name: 'Nikol', age: 24, car: 'Audi', date: '2021-01-15' },
+        { name: 'Anna', age: 23, car: 'Audi', date: '2021-01-07' },
+        { name: 'Andrew', age: 24, car: 'Audi', date: '2021-01-10' },
+        { name: 'Nikol', age: 124, car: 'Audi', date: '2021-01-10' },
+        { name: 'Anna', age: 24, car: 'Audi', date: '2021-01-10' },
+        { name: 'Anna', age: 24, car: 'Audi', date: '2021-01-10' },
+        { name: 'Alex', age: 31, car: 'Audi', date: '2021-01-10' },
+        { name: 'Andrew', age: 24, car: 'Audi', date: '2021-01-10' },
         {
           name: 'Andrew',
           age: 24,
@@ -186,11 +204,13 @@
     :cols="cols"
     :rows="rows"
     class="elevation-5"
-    @filter="testFunc"
-    @add="testFunc"
     style="margin: 10px;"
+    color="grey darken-4"
     numbered
     checkbox
+    dark
+    @filter="testFunc"
+    @add="testFunc"
   >
     <template v-slot:car="{ row }">
       <v-icon icon="fas fa-envelope" size="12" color="blue"/>
@@ -213,7 +233,7 @@
       />
     </template>
     <template v-slot:toolbar>
-      <span>salam</span>
+
     </template>
   </v-data-table>
 

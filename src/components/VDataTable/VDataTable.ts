@@ -61,6 +61,16 @@ export const VDataTable = defineComponent({
       'v-data-table': true,
     }))
 
+    const currentRowsCount = computed<number>(() => {
+      return filteredRows.value ?
+        filteredRows.value.length :
+        rows.value.length
+    })
+
+    const pages = computed(() => {
+      return Math.ceil(rows.value!.length / rowsPerPage.value)
+    })
+
     watch(
       () => props.cols,
       to => (cols.value = to),
@@ -257,9 +267,10 @@ export const VDataTable = defineComponent({
 
     function genTableFooter() {
       return h(VDataTableFooter, {
-        pages: Math.ceil(rows.value!.length / rowsPerPage.value),
+        pages: pages.value,
         page: page.value,
         counts: [10, 15, 20, 25],
+        rowsCount: currentRowsCount.value,
         rowsPerPage: rowsPerPage.value,
         dark: props.dark,
         color: props.color,
@@ -267,6 +278,7 @@ export const VDataTable = defineComponent({
         onNext: onNextTable,
         onSelect: onSelectRowsCount,
         onAdd: onAddNewRow,
+        onResetPage: val => page.value += val,
       }, {
         toolbar: () => slots.toolbar && slots.toolbar(),
       })

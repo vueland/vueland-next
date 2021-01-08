@@ -20,9 +20,10 @@ export const VDataTableFooter = defineComponent({
   props: {
     dark: Boolean,
     pages: Number,
-    counts: Array,
     page: Number,
     rowsPerPage: Number,
+    rowsCount: Number,
+    counts: Array,
     ...colorProps(),
   } as any,
 
@@ -119,7 +120,7 @@ export const VDataTableFooter = defineComponent({
       return h(VButton, {
         width: 42,
         style: { margin: '0 10px' },
-        color: props.dark ? 'white' : 'warning',
+        color: props.dark ? 'white' : 'blue lighten-1',
         outlined: props.dark,
       }, {
         default: () => props.page,
@@ -165,12 +166,24 @@ export const VDataTableFooter = defineComponent({
           'v-data-table__pagination-pages': true,
         },
       }
+      const { dark, page, rowsCount, rowsPerPage } = props
+      const color = dark ? 'white' : ''
 
-      const color = props.dark ? 'white' : ''
+      const last = page * rowsPerPage > rowsCount ?
+        rowsCount : page * rowsPerPage
 
-      return h('span',
+      if (((page - 1) * rowsPerPage) > rowsCount) {
+        const diff = ((page - 1) * rowsPerPage) - rowsCount
+        const inPages = Math.ceil(diff / rowsPerPage)
+
+        emit('resetPage', -inPages)
+      }
+
+      const current = page === 1 ? 1 : (page - 1) * rowsPerPage + 1
+
+      return h('div',
         color ? setTextColor(color, propsData) : propsData,
-        `from ${props.pages}`,
+        rowsCount ? `${ current } - ${ last } from ${ rowsCount }` : '-',
       )
     }
 
@@ -191,8 +204,8 @@ export const VDataTableFooter = defineComponent({
         class: 'v-data-table__pagination',
       }, [
         genPageItemsSelect(),
-        genPaginationButtonsBlock(),
         genPagesCountDisplay(),
+        genPaginationButtonsBlock(),
       ])
     }
 

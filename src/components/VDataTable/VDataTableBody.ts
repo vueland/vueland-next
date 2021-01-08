@@ -112,9 +112,11 @@ export const VDataTableBody = defineComponent({
         )
 
         for (let j = 0; j < colsLength; j += 1) {
+          const { formatter } = props.cols[j]
 
           const slotContent = slots[props.cols[j].key] &&
             slots[props.cols[j].key]!(rowsOnTable.value[i])
+
 
           rowCells.push(
             h(VDataTableCell, {
@@ -122,9 +124,9 @@ export const VDataTableBody = defineComponent({
               align: props.align || props.cols[j].align,
               dark: props.dark,
             }, {
-              default: () => slotContent || props.cols[j].formatter ?
-                props.cols[j].formatter(rowsOnTable.value[i]) :
-                String(rowsOnTable.value[i][props.cols[j].key])
+              default: () => slotContent ? slotContent : formatter ?
+                formatter(rowsOnTable.value[i]) :
+                String(rowsOnTable.value[i][props.cols[j].key]),
             }))
         }
 

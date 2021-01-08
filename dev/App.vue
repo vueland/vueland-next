@@ -117,6 +117,7 @@
     :cols="cols"
     :rows="data.users"
     class="elevation-5"
+    :rows-on-table="[25,40,50]"
     style="margin: 10px;"
     toolbar
     numbered
@@ -125,6 +126,10 @@
     @checked="testFunc"
     @last-page="fetchItems"
   >
+    <template v-slot:email="{ row }">
+      <v-icon icon="fas fa-envelope" size="12" color="blue"/>
+      <span style="margin-left: 15px">{{ row.email }}</span>
+    </template>
     <!--    <template v-slot:address="{ row: {address: {city, street}} }">-->
     <!--      <v-icon icon="fas fa-envelope" size="12" color="blue" />-->
     <!--      <span style="margin-left: 15px">{{ city + ' ' + street }}</span>-->

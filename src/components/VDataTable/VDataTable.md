@@ -21,7 +21,11 @@
  - stateOut
  - numbered
  - checkbox
- - toolbar
  - align
+ 
+## Events
+ - filter
+ - checked
+ - lastPage
  
 

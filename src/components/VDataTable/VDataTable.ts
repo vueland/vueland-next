@@ -22,9 +22,9 @@ export const VDataTable = defineComponent({
     cols: Array,
     rows: Array,
     headerColor: String,
-    rowCounts: {
+    rowsOnTable: {
       type: Array,
-      default: () => [10, 15, 20, 25]
+      default: () => [10, 15, 20, 25],
     },
     dark: Boolean,
     numbered: Boolean,
@@ -223,7 +223,7 @@ export const VDataTable = defineComponent({
       return h(VDataTableFooter, {
         pages: pages.value,
         page: page.value,
-        counts: props.rowCounts,
+        counts: props.rowsOnTable,
         tableRowsCount: rows.value?.length,
         allRowsCount: props.rows.length,
         rowsPerPage: rowsPerPage.value,

@@ -72,7 +72,8 @@ export const VDataTableHeader = defineComponent({
     }
 
     function addFilter(item) {
-      item.addFilter = !item.addFilter
+      if (item.addFilter) return
+      item.addFilter = true
     }
 
     function genSortButton(item) {
@@ -129,7 +130,7 @@ export const VDataTableHeader = defineComponent({
 
     function genFilterWrapper(item) {
       const directive = item.addFilter ? {
-        handler: () => item.addFilter = false,
+        handler: () => setTimeout(() => item.addFilter = false),
         closeConditional: false,
       } : undefined
 

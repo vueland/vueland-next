@@ -2,7 +2,7 @@
 import './VDataTableFooter.scss'
 
 // Vue API
-import { computed, defineComponent, h } from 'vue'
+import { watch, computed, defineComponent, h } from 'vue'
 
 // Components
 import { VIcon } from '../VIcon'
@@ -29,6 +29,7 @@ export const VDataTableFooter = defineComponent({
   } as any,
 
   setup(props, { slots, emit }) {
+
     const { setTextColor } = useColors()
 
     const lastOnPage = computed<number>(() => {
@@ -42,19 +43,34 @@ export const VDataTableFooter = defineComponent({
     })
 
     const paginationDisplay = computed<string>(() => {
-      return props.rowsCount ? `${firstOnPage.value} - 
-      ${lastOnPage.value} from ${props.rowsCount}` : '-'
+      return props.rowsCount ? `${ firstOnPage.value } - 
+      ${ lastOnPage.value } from ${ props.rowsCount }` : '-'
+    })
+
+    const isLastPage = computed(() => {
+      return props.page >= props.pages
     })
 
     const overPages = computed<number | null>(() => {
       const { page, rowsCount, rowsPerPage } = props
 
       if ((page - 1) * rowsPerPage > rowsCount) {
-        return Math.ceil(((page - 1) * rowsPerPage - rowsCount) / rowsPerPage)
+        return Math.ceil(((page) * rowsPerPage - rowsCount) / rowsPerPage)
       }
 
       return null
     })
+
+    watch(() => isLastPage.value, to => {
+      to && emit('last-page', props.rowsCount)
+    })
+
+    function changeTableRowsPage(isNext) {
+      if ((props.page === props.pages) && isNext) return
+
+      const event = isNext ? 'next' : 'prev'
+      emit(event, isNext ? 1 : -1)
+    }
 
     function genTableTools() {
       return h('div', {
@@ -68,11 +84,6 @@ export const VDataTableFooter = defineComponent({
           ],
         },
       )
-    }
-
-    function changeTableRowsPage(isNext) {
-      const event = isNext ? 'next' : 'prev'
-      emit(event, isNext ? 1 : -1)
     }
 
     function genPaginationButton(isNext) {

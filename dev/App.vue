@@ -1,93 +1,99 @@
 <script lang="ts">
-import { reactive, computed, watch } from 'vue'
-import { FaIcons } from '../src/services/icons'
+  import { reactive, computed, watch } from 'vue'
+  import { FaIcons } from '../src/services/icons'
 
-export default {
-  setup() {
-    const data = reactive({
-      always: true,
-      show: false,
-      test: true,
-      login: '',
-      email: '',
-      password: '',
-      user: { name: 'igor' },
-      checked: [],
-      user2: { name: 'alyona' },
-      date: null,
-      users: null,
-    })
+  export default {
+    setup() {
+      const data = reactive({
+        always: true,
+        show: false,
+        test: true,
+        login: '',
+        email: '',
+        password: '',
+        user: { name: 'igor' },
+        checked: [],
+        user2: { name: 'alyona' },
+        date: null,
+        users: [],
+      })
 
-    fetch('https://jsonplaceholder.typicode.com/users')
-      .then(response => response.json())
-      .then(json => data.users = json)
-      .then(() => console.log(data.users))
 
-    setTimeout(() => {
-      data.always = false
-    }, 2000)
+      const fetchItems = () => {
+        fetch('https://jsonplaceholder.typicode.com/comments')
+          .then(response => response.json())
+          .then(json => data.users = [...data.users, ...json])
+      }
 
-    watch(
-      () => data.date,
-      to => {
-        console.log(to)
-      },
-    )
+      fetchItems()
 
-    const toggleAlways = () => {
-      data.always = !data.always
-    }
+      setTimeout(() => {
+        data.always = false
+      }, 2000)
 
-    const testFunc = date => {
-      console.log(date)
-    }
+      watch(
+        () => data.date,
+        to => {
+          console.log(to)
+        },
+      )
 
-    const forOut = computed(() => {
-      return data.always ? testFunc : undefined
-    })
+      const toggleAlways = () => {
+        data.always = !data.always
+      }
 
-    const cols = [
-      {
-        key: 'name',
-        title: 'Name',
-        resizeable: true,
-        sortable: true,
-        filterable: true,
-      },
-      {
-        key: 'username',
-        title: 'User name',
-        resizeable: true,
-        sortable: true,
-        filterable: true,
-      },
-      {
-        key: 'email',
-        title: 'Email',
-        resizeable: true,
-        sortable: true,
-        filterable: true,
-      },
-      {
-        key: 'address',
-        title: 'Address',
-        resizeable: true,
-        sortable: true,
-        filterable: true,
-        formatter: (val) => val.address.city + ' ' + val.address.street
-      },
-    ]
+      const testFunc = date => {
+        console.log(date)
+      }
 
-    return {
-      data,
-      cols,
-      testFunc,
-      toggleAlways,
-      forOut,
-      FaIcons
-    }
-  },
-}
+      const forOut = computed(() => {
+        return data.always ? testFunc : undefined
+      })
+
+      const cols = [
+        {
+          key: 'name',
+          title: 'Name',
+          resizeable: true,
+          sortable: true,
+          filterable: true,
+        },
+        {
+          key: 'body',
+          title: 'User Name',
+          resizeable: true,
+          sortable: true,
+          filterable: true,
+          width: 155,
+        },
+        {
+          key: 'email',
+          title: 'Email',
+          resizeable: true,
+          sortable: true,
+          filterable: true,
+        },
+        // {
+        //   key: 'address',
+        //   title: 'Address',
+        //   resizeable: true,
+        //   sortable: true,
+        //   filterable: true,
+        //   formatter: (val) => val.address.city + ' ' + val.address.street
+        // },
+      ]
+
+      return {
+        data,
+        cols,
+        testFunc,
+        toggleAlways,
+        fetchItems,
+        forOut,
+        FaIcons,
+      }
+    },
+  }
 </script>
 
 <template>
@@ -97,7 +103,7 @@ export default {
         <v-list-item-title> salam</v-list-item-title>
       </template>
       <template v-slot:prependIcon>
-        <v-icon icon="fas fa-book" size="18" />
+        <v-icon icon="fas fa-book" size="18"/>
       </template>
       <v-list-item @click.stop="testFunc">salam</v-list-item>
       <v-list-group sub-group no-action>
@@ -118,11 +124,12 @@ export default {
     toolbar
     @filter="testFunc"
     @checked="testFunc"
+    @last-page="fetchItems"
   >
-<!--    <template v-slot:address="{ row: {address: {city, street}} }">-->
-<!--      <v-icon icon="fas fa-envelope" size="12" color="blue" />-->
-<!--      <span style="margin-left: 15px">{{ city + ' ' + street }}</span>-->
-<!--    </template>-->
+    <!--    <template v-slot:address="{ row: {address: {city, street}} }">-->
+    <!--      <v-icon icon="fas fa-envelope" size="12" color="blue" />-->
+    <!--      <span style="margin-left: 15px">{{ city + ' ' + street }}</span>-->
+    <!--    </template>-->
     <template v-slot:toolbar>
       <v-button width="42" color="primary" elevation="5">
         <v-icon :icon="FaIcons.$add" color="white" size="16"/>
@@ -174,10 +181,10 @@ export default {
 
   <v-form>
     <v-card v-if="!data.show" elevation="5">
-      <v-resize right />
-      <v-resize bottom />
-      <v-resize top />
-      <v-resize left />
+      <v-resize right/>
+      <v-resize bottom/>
+      <v-resize top/>
+      <v-resize left/>
       <v-card-title>
         <span
           style="display: block; width: 55px; height: 55px; border-radius: 50px"
@@ -230,7 +237,7 @@ export default {
     <v-card v-if="data.show" elevation="5">
       <v-card-title>
         <span style="">Testting header</span>
-        <v-checkbox label="test" />
+        <v-checkbox label="test"/>
       </v-card-title>
       <v-card-content>
         <span style="display: block">some little text</span>
@@ -247,7 +254,7 @@ export default {
         <v-card-title> test</v-card-title>
         <v-card-content> salam</v-card-content>
         <v-card-actions>
-          <v-button label="click" @click="data.show = !data.show" />
+          <v-button label="click" @click="data.show = !data.show"/>
         </v-card-actions>
       </v-card>
     </v-modal>
@@ -273,43 +280,43 @@ export default {
 </template>
 
 <style lang="scss">
-.active-class {
-  background: #272727;
-  color: white !important;
-}
-
-.wrap {
-  position: absolute;
-  left: 60px;
-  top: 60px;
-  width: calc(100% - 60px);
-  height: calc(100vh - 60px);
-}
-
-.app {
-  &-header {
-    width: 100%;
-    height: 60px;
+  .active-class {
     background: #272727;
+    color: white !important;
   }
 
-  &-sidebar {
+  .wrap {
     position: absolute;
+    left: 60px;
     top: 60px;
-    left: 0;
-    width: 60px;
+    width: calc(100% - 60px);
     height: calc(100vh - 60px);
-    background: #272727;
   }
-}
 
-.text {
-  display: inline-block;
-}
+  .app {
+    &-header {
+      width: 100%;
+      height: 60px;
+      background: #272727;
+    }
 
-.test {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
+    &-sidebar {
+      position: absolute;
+      top: 60px;
+      left: 0;
+      width: 60px;
+      height: calc(100vh - 60px);
+      background: #272727;
+    }
+  }
+
+  .text {
+    display: inline-block;
+  }
+
+  .test {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
 </style>

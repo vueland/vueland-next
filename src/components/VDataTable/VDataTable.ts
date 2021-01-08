@@ -86,7 +86,7 @@ export const VDataTable = defineComponent({
 
     function onCheck(rows) {
       checkedRows.value = rows
-      props.stateOut && emit('checked', checkedRows.value)
+      emit('checked', checkedRows.value)
     }
 
     function onPrevTable(num) {
@@ -114,20 +114,20 @@ export const VDataTable = defineComponent({
     }
 
     function onFilter({ value, col }): any {
+
+      if (!value && filters[col.key]) delete filters[col.key]
+
+      if (value) filters[col.key] = value
+
       if (!props.stateOut) {
-        if (!value) {
-          delete filters[col.key]
 
-          if (!Object.keys(filters).length) {
-            return rowsOnTable.value = rows.value
-          }
+        if (!Object.keys(filters).length) {
+          return rowsOnTable.value = rows.value
         }
-
-        if (value) filters[col.key] = value
 
         rowsOnTable.value = filterRows(rows.value)
       } else {
-        emit('filter', { value, col })
+        emit('filter', filters)
       }
 
       page.value = 1
@@ -139,24 +139,28 @@ export const VDataTable = defineComponent({
 
     function sortColumn(col) {
       rowsOnTable.value!.sort((a, b) => {
-        if (a[col.key] > b[col.key]) return 1
+        if (col.formatter) {
+          if (col.formatter(a) > col.formatter(b)) return 1
+        } else {
+          if (a[col.key] > b[col.key]) return 1
+        }
         return -1
       })
     }
 
     function filterRows(rows) {
-      const filterKeys = Object.keys(filters)
-
       let value
       let rowKeyValue
       let filterKeyValue
+
+      const filterKeys = Object.keys(filters)
 
       return rows.reduce((acc, row) => {
         const rowResults: any[] = []
 
         filterKeys.forEach(key => {
 
-          if (typeof row[key] === 'string') {
+          if (typeof row[key] !== 'object') {
             value = row[key]
           } else {
             const col = cols.value.find(col => col.key === key)
@@ -239,6 +243,7 @@ export const VDataTable = defineComponent({
         onPrev: onPrevTable,
         onNext: onNextTable,
         onSelect: onSelectRowsCount,
+        onLastPage: val => emit('last-page', val),
         onResetPage: val => page.value += val,
       }, {
         toolbar: () => slots.toolbar && slots.toolbar(),

@@ -62,11 +62,7 @@ export const VDataTableHeader = defineComponent({
     }
 
     function onInput($value, item) {
-      if (!item.filtered) {
-        item.filtered = true
-      }
-
-      if (!$value) item.filtered = false
+      item.filtered = !!$value
 
       emit('filter', { value: $value, col: item })
     }

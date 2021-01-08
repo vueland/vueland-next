@@ -22,16 +22,16 @@ export const VDataTable = defineComponent({
     cols: Array,
     rows: Array,
     headerColor: String,
+    rowCounts: {
+      type: Array,
+      default: () => [10, 15, 20, 25]
+    },
     dark: Boolean,
     numbered: Boolean,
     checkbox: Boolean,
     stateOut: Boolean,
     toolbar: Boolean,
     align: String,
-    rowIdKey: {
-      type: String,
-      required: true,
-    },
     color: {
       type: String,
       default: 'white',
@@ -44,12 +44,9 @@ export const VDataTable = defineComponent({
   setup(props, { slots, emit }) {
     const cols = ref<any[]>([])
     const rows = ref<any[]>([])
-    const rowsOnTable = ref<any[]>([])
     const checkedRows = ref<any[]>([])
-
     const rowsPerPage = ref<number>(20)
     const page = ref<number>(1)
-
     const isAllRowsChecked = ref<boolean>(false)
 
     const filters = {}
@@ -72,10 +69,7 @@ export const VDataTable = defineComponent({
 
     watch(
       () => props.rows,
-      to => {
-        rows.value = copyWithoutRef(to)
-        rowsOnTable.value = rows.value
-      },
+      to => rows.value = copyWithoutRef(to),
       { immediate: true },
     )
 
@@ -103,7 +97,7 @@ export const VDataTable = defineComponent({
     function onSort(col) {
       if (col.sorted) {
         col.sorted = !col.sorted
-        rowsOnTable.value!.reverse()
+        rows.value!.reverse()
       } else {
         cols.value!.forEach(c => {
           c.sorted = col.key === c.key
@@ -114,18 +108,15 @@ export const VDataTable = defineComponent({
     }
 
     function onFilter({ value, col }): any {
-
       if (!value && filters[col.key]) delete filters[col.key]
 
       if (value) filters[col.key] = value
 
       if (!props.stateOut) {
-
         if (!Object.keys(filters).length) {
-          return rowsOnTable.value = rows.value
+          return rows.value = props.rows
         }
-
-        rowsOnTable.value = filterRows(rows.value)
+        rows.value = filterRows(props.rows)
       } else {
         emit('filter', filters)
       }
@@ -138,7 +129,7 @@ export const VDataTable = defineComponent({
     }
 
     function sortColumn(col) {
-      rowsOnTable.value!.sort((a, b) => {
+      rows.value!.sort((a, b) => {
         if (col.formatter) {
           if (col.formatter(a) > col.formatter(b)) return 1
         } else {
@@ -157,7 +148,6 @@ export const VDataTable = defineComponent({
 
       return rows.reduce((acc, row) => {
         const rowResults: any[] = []
-
         filterKeys.forEach(key => {
 
           if (typeof row[key] !== 'object') {
@@ -177,7 +167,7 @@ export const VDataTable = defineComponent({
 
         if (
           rowResults.length === filterKeys.length &&
-          rowResults.every(v => !!v)
+          rowResults.every(value => !!value)
         ) {
           acc.push(row)
         }
@@ -207,7 +197,7 @@ export const VDataTable = defineComponent({
         VDataTableBody,
         {
           cols: cols.value,
-          rows: rowsOnTable.value,
+          rows: rows.value,
           page: page.value,
           rowsPerPage: rowsPerPage.value,
           checkbox: props.checkbox,
@@ -234,8 +224,9 @@ export const VDataTable = defineComponent({
       return h(VDataTableFooter, {
         pages: pages.value,
         page: page.value,
-        counts: [10, 15, 20, 25],
-        rowsCount: rowsOnTable.value?.length,
+        counts: props.rowCounts,
+        tableRowsCount: rows.value?.length,
+        allRowsCount: props.rows.length,
         rowsPerPage: rowsPerPage.value,
         dark: props.dark,
         color: props.color,

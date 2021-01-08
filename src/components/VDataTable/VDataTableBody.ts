@@ -59,8 +59,8 @@ export const VDataTableBody = defineComponent({
       else onCheckRows([])
     })
 
-    function onCheckRows($rows) {
-      checkedRows.value = $rows
+    function onCheckRows(rows) {
+      checkedRows.value = rows
       emit('check', checkedRows.value)
     }
 

@@ -23,18 +23,19 @@ export const VDataTableFooter = defineComponent({
     pages: Number,
     page: Number,
     rowsPerPage: Number,
-    rowsCount: Number,
+    tableRowsCount: Number,
+    allRowsCount: Number,
     counts: Array,
     ...colorProps(),
   } as any,
 
   setup(props, { slots, emit }) {
-
     const { setTextColor } = useColors()
 
     const lastOnPage = computed<number>(() => {
-      const { page, rowsCount, rowsPerPage } = props
-      return page * rowsPerPage > rowsCount ? rowsCount : page * rowsPerPage
+      const { page, tableRowsCount, rowsPerPage } = props
+      return page * rowsPerPage > tableRowsCount
+        ? tableRowsCount : page * rowsPerPage
     })
 
     const firstOnPage = computed<number>(() => {
@@ -43,8 +44,9 @@ export const VDataTableFooter = defineComponent({
     })
 
     const paginationDisplay = computed<string>(() => {
-      return props.rowsCount ? `${ firstOnPage.value } - 
-      ${ lastOnPage.value } from ${ props.rowsCount }` : '-'
+      return props.tableRowsCount
+        ? `${ firstOnPage.value } - 
+      ${ lastOnPage.value } from ${ props.tableRowsCount }` : '-'
     })
 
     const isLastPage = computed(() => {
@@ -52,60 +54,66 @@ export const VDataTableFooter = defineComponent({
     })
 
     const overPages = computed<number | null>(() => {
-      const { page, rowsCount, rowsPerPage } = props
+      const { page, tableRowsCount, rowsPerPage } = props
 
-      if ((page - 1) * rowsPerPage > rowsCount) {
-        return Math.ceil(((page) * rowsPerPage - rowsCount) / rowsPerPage)
+      if ((page - 1) * rowsPerPage > tableRowsCount) {
+        return Math.ceil((page * rowsPerPage - tableRowsCount) / rowsPerPage)
       }
 
       return null
     })
 
-    watch(() => isLastPage.value, to => {
-      to && emit('last-page', props.rowsCount)
-    })
+    watch(
+      () => isLastPage.value,
+      to => {
+        if (to && props.tableRowsCount === props.allRowsCount) {
+          emit('last-page', props.allRowsCount)
+        }
+      },
+    )
 
     function changeTableRowsPage(isNext) {
-      if ((props.page === props.pages) && isNext) return
+      if (props.page === props.pages && isNext) return
 
       const event = isNext ? 'next' : 'prev'
       emit(event, isNext ? 1 : -1)
     }
 
     function genTableTools() {
-      return h('div', {
+      return h(
+        'div', {
           class: {
             'v-data-table__toolbar': true,
           },
-        },
-        {
-          default: () => [
-            slots.toolbar && slots.toolbar(),
-          ],
+        }, {
+          default: () => slots.toolbar && slots.toolbar(),
         },
       )
     }
 
     function genPaginationButton(isNext) {
-      return h(VButton, {
+      return h(
+        VButton,
+        {
           width: 42,
           color: props.dark ? 'white' : 'primary',
           outlined: props.dark,
           onClick: () => changeTableRowsPage(isNext),
         },
         {
-          default: () =>
-            h(VIcon, {
-              icon: isNext ? FaIcons.$arrowRight : FaIcons.$arrowLeft,
-              color: props.dark ? 'white' : '',
-              size: 18,
-            }),
+          default: () => h(VIcon, {
+            icon: isNext ? FaIcons.$arrowRight : FaIcons.$arrowLeft,
+            color: props.dark ? 'white' : '',
+            size: 18,
+          }),
         },
       )
     }
 
     function genPageDisplay() {
-      return h(VButton, {
+      return h(
+        VButton,
+        {
           width: 42,
           style: { margin: '0 10px' },
           color: props.dark ? 'white' : 'blue lighten-1',
@@ -171,11 +179,14 @@ export const VDataTableFooter = defineComponent({
     }
 
     function genPaginationButtonsBlock() {
-      return h('div', {
+      return h(
+        'div',
+        {
           class: {
             'v-data-table__pagination-route': true,
           },
-        }, [
+        },
+        [
           genPaginationButton(false),
           genPageDisplay(),
           genPaginationButton(true),
@@ -184,9 +195,12 @@ export const VDataTableFooter = defineComponent({
     }
 
     function genPaginationBlock() {
-      return h('div', {
+      return h(
+        'div',
+        {
           class: 'v-data-table__pagination',
-        }, [
+        },
+        [
           genPageItemsSelect(),
           genPagesCountDisplay(),
           genPaginationButtonsBlock(),
@@ -196,7 +210,8 @@ export const VDataTableFooter = defineComponent({
 
     return () => h('div', {
         class: 'v-data-table__footer',
-      }, [
+      },
+      [
         props.toolbar && genTableTools(),
         genPaginationBlock(),
       ],

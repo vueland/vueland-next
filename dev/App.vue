@@ -117,7 +117,6 @@
     :cols="cols"
     :rows="data.users"
     class="elevation-5"
-    row-id-key="id"
     style="margin: 10px;"
     numbered
     checkbox
@@ -166,7 +165,7 @@
     <v-select
       label="select"
       v-model="data.email"
-      :items="rows"
+      :items="data.users"
       value-key="name"
       prepend-icon="fas fa-search"
       :rules="[v => !!v || 'required']"

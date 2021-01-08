@@ -1,186 +1,149 @@
 <script lang="ts">
-  import { reactive, computed, watch } from 'vue'
+import { reactive, computed, watch } from 'vue'
 
-  export default {
-    setup() {
-      const data = reactive({
-        always: true,
-        show: false,
-        test: true,
-        login: '',
-        email: '',
-        password: '',
-        user: { name: 'igor' },
-        checked: [],
-        user2: { name: 'alyona' },
-        date: null,
-      })
+export default {
+  setup() {
+    const data = reactive({
+      always: true,
+      show: false,
+      test: true,
+      login: '',
+      email: '',
+      password: '',
+      user: { name: 'igor' },
+      checked: [],
+      user2: { name: 'alyona' },
+      date: null,
+      users: null,
+    })
 
-      setTimeout(() => {
-        data.always = false
-      }, 2000)
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then(response =>  response.json())
+      .then(json => data.users = json)
+      .then(() => console.log(data.users))
 
-      watch(
-        () => data.date,
-        to => {
-          console.log(to)
+
+
+    setTimeout(() => {
+      data.always = false
+    }, 2000)
+
+    watch(
+      () => data.date,
+      to => {
+        console.log(to)
+      },
+    )
+
+    const toggleAlways = () => {
+      data.always = !data.always
+    }
+
+    const testFunc = date => {
+      console.log(date)
+    }
+
+    const forOut = computed(() => {
+      return data.always ? testFunc : undefined
+    })
+
+    const cols = [
+      {
+        key: 'name',
+        title: 'Name',
+        resizeable: true,
+        sortable: true,
+        filterable: true,
+        useOnCreate: true,
+        useOnEdit: true,
+        disabledOnEdit: false,
+        field: {
+          input: true,
+          select: false,
+          date: false,
+          textarea: false,
+          checkbox: false
         },
-      )
-
-      const toggleAlways = () => {
-        data.always = !data.always
-      }
-
-      const testFunc = date => {
-        console.log(date)
-      }
-
-      const forOut = computed(() => {
-        return data.always ? testFunc : undefined
-      })
-
-      const cols = [
-        {
-          key: 'name',
-          title: 'Name',
-          resizeable: true,
-          sortable: true,
-          filterable: true,
-          useOnCreate: true,
-          isTextField: true,
-          isSelect: false,
-          isDate: false,
-          props: {
-            rules: [v => !!v || 'Required'],
-            value: '',
-            clearable: true,
-          },
-        },
-        {
-          key: 'age',
-          title: 'Age',
-          resizeable: true,
-          sortable: true,
-          filterable: true,
-          useOnCreate: true,
-          isTextField: true,
-          props: {
-            rules: [v => !!v || 'Required'],
-            value: '',
-            type: 'number',
-            clearable: true,
-          },
-        },
-        {
-          key: 'car',
-          title: 'Car',
-          resizeable: true,
-          sortable: true,
-          filterable: true,
-          useOnCreate: true,
-          isSelect: true,
-          props: {
-            items: ['Audi', 'BMW', 'Mercedes', 'Porsche', 'Bentley'],
-            rules: [v => !!v || 'Required'],
-            value: '',
-            clearable: true,
-          }
-        },
-        {
-          key: 'date',
-          title: 'Date',
-          resizeable: true,
-          sortable: true,
-          filterable: true,
-          useOnCreate: true,
+        props: {
+          rules: [v => !!v || 'Required'],
           value: '',
-          isDate: true,
-          props: {
-            rules: [v => !!v || 'Required'],
-            value: '',
-            mondayFirst: true,
-            color: 'grey darken-3',
-            contentColor: 'amber accent-3',
-            elevation: 5,
-            clearable: true,
-          },
+          clearable: true,
         },
-        { key: 'delete', title: 'Actions', resizeable: true, sortable: false, align: 'center', width: 75 },
-      ]
-
-      const rows = [
-        {
-          name: 'AlexAlexAlexAlexAlex',
-          age: 24,
-          car: 'Mers',
-          date: '2021-01-01',
+      },
+      {
+        key: 'username',
+        title: 'User name',
+        resizeable: true,
+        sortable: true,
+        filterable: true,
+        useOnCreate: true,
+        useOnEdit: true,
+        field: {
+          input: true,
+          select: false,
+          date: false,
+          textarea: false,
+          checkbox: false
         },
-        { name: 'Andrew', age: 24, car: 'Audi', date: '2021-01-10' },
-        { name: 'Nikol', age: 24, car: 'BMW', date: '2021-01-03' },
-        { name: 'Anna', age: 24, car: 'Audi', date: '2021-01-07' },
-        { name: 'Alex', age: 24, car: 'Audi', date: '2021-01-10' },
-        { name: 'Andrew', age: 17, car: 'Audi', date: '2021-01-10' },
-        { name: 'Nikol', age: 24, car: 'Audi', date: '2021-01-10' },
-        { name: 'Anna', age: 24, car: 'Audi', date: '2021-01-10' },
-        { name: 'Anna', age: 27, car: 'Audi', date: '2021-01-10' },
-        { name: 'Alex', age: 24, car: 'Audi', date: '2021-01-10' },
-        { name: 'Andrew', age: 24, car: 'Audi', date: '2021-01-10' },
-        { name: 'Nikol', age: 24, car: 'Audi', date: '2021-01-15' },
-        { name: 'Anna', age: 23, car: 'Audi', date: '2021-01-07' },
-        { name: 'Andrew', age: 24, car: 'Audi', date: '2021-01-10' },
-        { name: 'Nikol', age: 124, car: 'Audi', date: '2021-01-10' },
-        { name: 'Anna', age: 24, car: 'Audi', date: '2021-01-10' },
-        { name: 'Anna', age: 24, car: 'Audi', date: '2021-01-10' },
-        { name: 'Alex', age: 31, car: 'Audi', date: '2021-01-10' },
-        { name: 'Andrew', age: 24, car: 'Audi', date: '2021-01-10' },
-        { name: 'Andrew', age: 24, car: 'Audi', date: '2021-01-10' },
-        { name: 'Nikol', age: 24, car: 'BMW', date: '2021-01-03' },
-        { name: 'Anna', age: 24, car: 'Audi', date: '2021-01-07' },
-        { name: 'Alex', age: 24, car: 'Audi', date: '2021-01-10' },
-        { name: 'Andrew', age: 17, car: 'Audi', date: '2021-01-10' },
-        { name: 'Nikol', age: 24, car: 'Audi', date: '2021-01-10' },
-        { name: 'Anna', age: 24, car: 'Audi', date: '2021-01-10' },
-        { name: 'Anna', age: 27, car: 'Audi', date: '2021-01-10' },
-        { name: 'Alex', age: 24, car: 'Audi', date: '2021-01-10' },
-        { name: 'Andrew', age: 24, car: 'Audi', date: '2021-01-10' },
-        { name: 'Nikol', age: 24, car: 'Audi', date: '2021-01-15' },
-        { name: 'Anna', age: 23, car: 'Audi', date: '2021-01-07' },
-        { name: 'Andrew', age: 24, car: 'Audi', date: '2021-01-10' },
-        { name: 'Nikol', age: 124, car: 'Audi', date: '2021-01-10' },
-        { name: 'Anna', age: 24, car: 'Audi', date: '2021-01-10' },
-        { name: 'Anna', age: 24, car: 'Audi', date: '2021-01-10' },
-        { name: 'Alex', age: 31, car: 'Audi', date: '2021-01-10' },
-        { name: 'Andrew', age: 24, car: 'Audi', date: '2021-01-10' },
-        {
-          name: 'Andrew',
-          age: 24,
-          car: 'Audi',
-          date: '2021-01-10',
-          delete: true,
+        props: {
+          rules: [v => !!v || 'Required'],
+          value: '',
+          clearable: true,
         },
-        { name: 'Anna', age: 24, car: 'Audi', date: '2021-01-10' },
-        { name: 'Anna', age: 24, car: 'Audi', date: '2021-01-10' },
-        { name: 'Alex', age: 31, car: 'Audi', date: '2021-01-10' },
-        { name: 'Andrew', age: 24, car: 'Audi', date: '2021-01-10' },
-        {
-          name: 'Andrew',
-          age: 24,
-          car: 'Audi',
-          date: '2021-01-10',
-          delete: true,
+      },
+      {
+        key: 'email',
+        title: 'Email',
+        resizeable: true,
+        sortable: true,
+        filterable: true,
+        useOnCreate: true,
+        useOnEdit: true,
+        field: {
+          input: true,
+          select: false,
+          date: false,
+          textarea: false,
+          checkbox: false
         },
-      ]
-
-      return {
-        data,
-        cols,
-        rows,
-        testFunc,
-        toggleAlways,
-        forOut,
+        props: {
+          rules: [v => !!v || 'Required'],
+          value: '',
+          clearable: true,
+        },
+      },
+      {
+        key: 'address',
+        title: 'Address',
+        resizeable: true,
+        sortable: true,
+        filterable: true,
+        useOnCreate: true,
+        useOnEdit: false,
+        field: {
+          input: true,
+          select: false,
+          date: false,
+          textarea: false,
+          checkbox: false
+        },
+        props: {
+          rules: [v => !!v || 'Required'],
+          value: '',
+          clearable: true,
+        },
       }
-    },
-  }
+    ]
+
+    return {
+      data,
+      cols,
+      testFunc,
+      toggleAlways,
+      forOut,
+    }
+  },
+}
 </script>
 
 <template>
@@ -190,7 +153,7 @@
         <v-list-item-title> salam</v-list-item-title>
       </template>
       <template v-slot:prependIcon>
-        <v-icon icon="fas fa-book" size="18"/>
+        <v-icon icon="fas fa-book" size="18" />
       </template>
       <v-list-item @click.stop="testFunc">salam</v-list-item>
       <v-list-group sub-group no-action>
@@ -202,33 +165,19 @@
   </v-list>
   <v-data-table
     :cols="cols"
-    :rows="rows"
+    :rows="data.users"
     class="elevation-5"
+    row-id-key="id"
     style="margin: 10px;"
     numbered
     checkbox
+    toolbar
     @filter="testFunc"
     @add="testFunc"
   >
-    <template v-slot:car="{ row }">
-      <v-icon icon="fas fa-envelope" size="12" color="blue"/>
-      <span style="margin-left: 15px">{{ row.car }}</span>
-    </template>
-    <template v-slot:name="{ row }">
-      <v-icon icon="fas fa-user" size="12" color="green"/>
-      <span style="margin-left: 15px">{{ row.name }}</span>
-    </template>
-    <template v-slot:job="{ row }">
-      <v-icon icon="fas fa-user" size="12" color="green"/>
-    </template>
-    <template v-slot:delete="{ row }">
-      <v-icon
-        icon="fas fa-trash-alt"
-        size="16"
-        color="red"
-        clickable
-        @click="row.edit = true"
-      />
+    <template v-slot:address="{ row: {address: {city, street}} }">
+      <v-icon icon="fas fa-envelope" size="12" color="blue" />
+      <span style="margin-left: 15px">{{ city + ' ' + street }}</span>
     </template>
     <template v-slot:toolbar>
 
@@ -279,10 +228,10 @@
 
   <v-form>
     <v-card v-if="!data.show" elevation="5">
-      <v-resize right/>
-      <v-resize bottom/>
-      <v-resize top/>
-      <v-resize left/>
+      <v-resize right />
+      <v-resize bottom />
+      <v-resize top />
+      <v-resize left />
       <v-card-title>
         <span
           style="display: block; width: 55px; height: 55px; border-radius: 50px"
@@ -335,7 +284,7 @@
     <v-card v-if="data.show" elevation="5">
       <v-card-title>
         <span style="">Testting header</span>
-        <v-checkbox label="test"/>
+        <v-checkbox label="test" />
       </v-card-title>
       <v-card-content>
         <span style="display: block">some little text</span>
@@ -352,7 +301,7 @@
         <v-card-title> test</v-card-title>
         <v-card-content> salam</v-card-content>
         <v-card-actions>
-          <v-button label="click" @click="data.show = !data.show"/>
+          <v-button label="click" @click="data.show = !data.show" />
         </v-card-actions>
       </v-card>
     </v-modal>
@@ -378,43 +327,43 @@
 </template>
 
 <style lang="scss">
-  .active-class {
-    background: #272727;
-    color: white !important;
-  }
+.active-class {
+  background: #272727;
+  color: white !important;
+}
 
-  .wrap {
-    position: absolute;
-    left: 60px;
-    top: 60px;
-    width: calc(100% - 60px);
-    height: calc(100vh - 60px);
-  }
+.wrap {
+  position: absolute;
+  left: 60px;
+  top: 60px;
+  width: calc(100% - 60px);
+  height: calc(100vh - 60px);
+}
 
-  .app {
-    &-header {
-      width: 100%;
-      height: 60px;
-      background: #272727;
-    }
-
-    &-sidebar {
-      position: absolute;
-      top: 60px;
-      left: 0;
-      width: 60px;
-      height: calc(100vh - 60px);
-      background: #272727;
-    }
-  }
-
-  .text {
-    display: inline-block;
-  }
-
-  .test {
-    display: flex;
-    justify-content: center;
+.app {
+  &-header {
     width: 100%;
+    height: 60px;
+    background: #272727;
   }
+
+  &-sidebar {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 60px;
+    height: calc(100vh - 60px);
+    background: #272727;
+  }
+}
+
+.text {
+  display: inline-block;
+}
+
+.test {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
 </style>

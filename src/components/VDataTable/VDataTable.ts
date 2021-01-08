@@ -26,11 +26,16 @@ export const VDataTable = defineComponent({
     cols: Array,
     rows: Array,
     headerColor: String,
-    align: String,
     dark: Boolean,
     numbered: Boolean,
     checkbox: Boolean,
     stateOut: Boolean,
+    toolbar: Boolean,
+    align: String,
+    rowIdKey: {
+      type: String,
+      required: true
+    },
     color: {
       type: String,
       default: 'white',
@@ -79,7 +84,7 @@ export const VDataTable = defineComponent({
       color: 'primary',
       label: 'save',
       validate: true,
-      onClick: closeModal,
+      onClick: saveEditedRow,
     }
 
     const classes = computed<Record<string, boolean>>(() => ({
@@ -87,7 +92,7 @@ export const VDataTable = defineComponent({
     }))
 
     const pages = computed(() => {
-      return Math.ceil(rows.value!.length / rowsPerPage.value)
+      return Math.ceil(rows.value?.length / rowsPerPage.value)
     })
 
     watch(
@@ -177,6 +182,10 @@ export const VDataTable = defineComponent({
       }
 
       closeModal()
+    }
+
+    function saveEditedRow() {
+
     }
 
     function onEditRowInfo() {
@@ -272,7 +281,7 @@ export const VDataTable = defineComponent({
             return slots[slot] && slots[slot]!({ row })
           }
 
-          if (slotContent()) acc[slot] = slotContent
+          if (slots[slot]) acc[slot] = slotContent
 
           return acc
         }, {}),
@@ -284,10 +293,11 @@ export const VDataTable = defineComponent({
         pages: pages.value,
         page: page.value,
         counts: [10, 15, 20, 25],
-        rowsCount: rowsOnTable.value.length,
+        rowsCount: rowsOnTable.value?.length,
         rowsPerPage: rowsPerPage.value,
         dark: props.dark,
         color: props.color,
+        toolbar: props.toolbar,
         onPrev: onPrevTable,
         onNext: onNextTable,
         onSelect: onSelectRowsCount,

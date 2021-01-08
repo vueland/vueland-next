@@ -48,7 +48,7 @@ export const VDataTableBody = defineComponent({
 
 
     const rowsOnTable = computed(() => {
-      return props.rows.slice(
+      return props.rows?.slice(
         (props.page - 1) * props.rowsPerPage,
         props.page * props.rowsPerPage,
       )
@@ -75,7 +75,7 @@ export const VDataTableBody = defineComponent({
     function genTableRows() {
       const tableRows: VNode[] = []
 
-      const rowsLength = rowsOnTable.value.length
+      const rowsLength = rowsOnTable.value?.length
       const colsLength = props.cols.length
 
       let rowCells: VNode[] = []

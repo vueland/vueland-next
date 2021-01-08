@@ -19,6 +19,7 @@ export const VDataTableFooter = defineComponent({
   name: 'v-data-table-footer',
   props: {
     dark: Boolean,
+    toolbar: Boolean,
     pages: Number,
     page: Number,
     rowsPerPage: Number,
@@ -102,7 +103,7 @@ export const VDataTableFooter = defineComponent({
           width: 42,
           outlined: props.dark,
           elevation: 3,
-          onClick: () => emit('edit-row')
+          onClick: () => emit('edit-row'),
         },
         {
           default: () =>
@@ -226,11 +227,10 @@ export const VDataTableFooter = defineComponent({
           class: {
             'v-data-table__pagination-route': true,
           },
-        },
-        [
+        }, [
           genPaginationButton(false),
           genPageDisplay(),
-          genPaginationButton(true)
+          genPaginationButton(true),
         ],
       )
     }
@@ -238,8 +238,7 @@ export const VDataTableFooter = defineComponent({
     function genPaginationBlock() {
       return h('div', {
           class: 'v-data-table__pagination',
-        },
-        [
+        }, [
           genPageItemsSelect(),
           genPagesCountDisplay(),
           genPaginationButtonsBlock(),
@@ -248,9 +247,11 @@ export const VDataTableFooter = defineComponent({
     }
 
     return () => h('div', {
-          class: 'v-data-table__footer',
-        },
-        [genTableTools(), genPaginationBlock()],
-      )
+        class: 'v-data-table__footer',
+      }, [
+        props.toolbar && genTableTools(),
+        genPaginationBlock(),
+      ],
+    )
   },
 })

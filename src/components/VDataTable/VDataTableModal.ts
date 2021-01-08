@@ -33,12 +33,12 @@ export const VDataTableModal = defineComponent({
       })
     }
 
-    function fieldComponent(field) {
-      if (field.isTextField) return VTextField
-      if (field.isSelect) return VSelect
-      if (field.isDate) return VDatePicker
-      if (field.isTextArea) return VTextarea
-      if (field.isCheckbox) return VCheckbox
+    function fieldComponent(col) {
+      if (col.field.input) return VTextField
+      if (col.field.select) return VSelect
+      if (col.field.date) return VDatePicker
+      if (col.field.textarea) return VTextarea
+      if (col.field.checkbox) return VCheckbox
       return undefined
     }
 

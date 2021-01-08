@@ -56,66 +56,6 @@ export const VDataTableFooter = defineComponent({
       return null
     })
 
-    function genAddButton() {
-      return h(VButton, {
-          class: 'v-data-table__add',
-          color: props.dark ? 'white' : 'primary',
-          width: 42,
-          outlined: props.dark,
-          elevation: 3,
-          onClick: () => emit('add-row'),
-        },
-        {
-          default: () =>
-            h(VIcon, {
-              icon: FaIcons.$add,
-              size: 20,
-              color: props.dark ? 'white' : '',
-            }),
-        },
-      )
-    }
-
-    function genDeleteButton() {
-      return h(VButton, {
-          class: 'v-data-table__delete',
-          color: props.dark ? 'white' : 'danger',
-          width: 42,
-          outlined: props.dark,
-          elevation: 3,
-          onClick: () => emit('delete-row'),
-        },
-        {
-          default: () =>
-            h(VIcon, {
-              icon: FaIcons.$delete,
-              size: 20,
-              color: props.dark ? 'white' : '',
-            }),
-        },
-      )
-    }
-
-    function genEditButton() {
-      return h(VButton, {
-          class: 'v-data-table__edit',
-          color: props.dark ? 'white' : 'primary',
-          width: 42,
-          outlined: props.dark,
-          elevation: 3,
-          onClick: () => emit('edit-row'),
-        },
-        {
-          default: () =>
-            h(VIcon, {
-              icon: FaIcons.$edit,
-              size: 20,
-              color: props.dark ? 'white' : '',
-            }),
-        },
-      )
-    }
-
     function genTableTools() {
       return h('div', {
           class: {
@@ -124,9 +64,6 @@ export const VDataTableFooter = defineComponent({
         },
         {
           default: () => [
-            genAddButton(),
-            genEditButton(),
-            genDeleteButton(),
             slots.toolbar && slots.toolbar(),
           ],
         },

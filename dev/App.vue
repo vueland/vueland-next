@@ -1,5 +1,6 @@
 <script lang="ts">
 import { reactive, computed, watch } from 'vue'
+import { FaIcons } from '../src/services/icons'
 
 export default {
   setup() {
@@ -18,11 +19,9 @@ export default {
     })
 
     fetch('https://jsonplaceholder.typicode.com/users')
-      .then(response =>  response.json())
+      .then(response => response.json())
       .then(json => data.users = json)
       .then(() => console.log(data.users))
-
-
 
     setTimeout(() => {
       data.always = false
@@ -54,21 +53,6 @@ export default {
         resizeable: true,
         sortable: true,
         filterable: true,
-        useOnCreate: true,
-        useOnEdit: true,
-        disabledOnEdit: false,
-        field: {
-          input: true,
-          select: false,
-          date: false,
-          textarea: false,
-          checkbox: false
-        },
-        props: {
-          rules: [v => !!v || 'Required'],
-          value: '',
-          clearable: true,
-        },
       },
       {
         key: 'username',
@@ -76,20 +60,6 @@ export default {
         resizeable: true,
         sortable: true,
         filterable: true,
-        useOnCreate: true,
-        useOnEdit: true,
-        field: {
-          input: true,
-          select: false,
-          date: false,
-          textarea: false,
-          checkbox: false
-        },
-        props: {
-          rules: [v => !!v || 'Required'],
-          value: '',
-          clearable: true,
-        },
       },
       {
         key: 'email',
@@ -97,20 +67,6 @@ export default {
         resizeable: true,
         sortable: true,
         filterable: true,
-        useOnCreate: true,
-        useOnEdit: true,
-        field: {
-          input: true,
-          select: false,
-          date: false,
-          textarea: false,
-          checkbox: false
-        },
-        props: {
-          rules: [v => !!v || 'Required'],
-          value: '',
-          clearable: true,
-        },
       },
       {
         key: 'address',
@@ -118,21 +74,8 @@ export default {
         resizeable: true,
         sortable: true,
         filterable: true,
-        useOnCreate: true,
-        useOnEdit: false,
-        field: {
-          input: true,
-          select: false,
-          date: false,
-          textarea: false,
-          checkbox: false
-        },
-        props: {
-          rules: [v => !!v || 'Required'],
-          value: '',
-          clearable: true,
-        },
-      }
+        formatter: (val) => val.address.city + ' ' + val.address.street
+      },
     ]
 
     return {
@@ -141,6 +84,7 @@ export default {
       testFunc,
       toggleAlways,
       forOut,
+      FaIcons
     }
   },
 }
@@ -173,14 +117,16 @@ export default {
     checkbox
     toolbar
     @filter="testFunc"
-    @add="testFunc"
+    @checked="testFunc"
   >
-    <template v-slot:address="{ row: {address: {city, street}} }">
-      <v-icon icon="fas fa-envelope" size="12" color="blue" />
-      <span style="margin-left: 15px">{{ city + ' ' + street }}</span>
-    </template>
+<!--    <template v-slot:address="{ row: {address: {city, street}} }">-->
+<!--      <v-icon icon="fas fa-envelope" size="12" color="blue" />-->
+<!--      <span style="margin-left: 15px">{{ city + ' ' + street }}</span>-->
+<!--    </template>-->
     <template v-slot:toolbar>
-
+      <v-button width="42" color="primary" elevation="5">
+        <v-icon :icon="FaIcons.$add" color="white" size="16"/>
+      </v-button>
     </template>
   </v-data-table>
 

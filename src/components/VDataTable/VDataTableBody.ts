@@ -56,7 +56,7 @@ export const VDataTableBody = defineComponent({
 
     watch(() => props.checkAllRows, to => {
       if (to) onCheckRows(props.rows)
-      else checkedRows.value = []
+      else onCheckRows([])
     })
 
     function onCheckRows($rows) {
@@ -122,7 +122,8 @@ export const VDataTableBody = defineComponent({
               align: props.align || props.cols[j].align,
               dark: props.dark,
             }, {
-              default: () => slotContent ||
+              default: () => slotContent || props.cols[j].formatter ?
+                props.cols[j].formatter(rowsOnTable.value[i]) :
                 String(rowsOnTable.value[i][props.cols[j].key])
             }))
         }

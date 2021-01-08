@@ -19,7 +19,6 @@ export const VDataTableFooter = defineComponent({
   name: 'v-data-table-footer',
   props: {
     dark: Boolean,
-    toolbar: Boolean,
     pages: Number,
     page: Number,
     rowsPerPage: Number,
@@ -212,7 +211,7 @@ export const VDataTableFooter = defineComponent({
         class: 'v-data-table__footer',
       },
       [
-        props.toolbar && genTableTools(),
+        slots.toolbar && genTableTools(),
         genPaginationBlock(),
       ],
     )

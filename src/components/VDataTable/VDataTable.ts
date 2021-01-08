@@ -30,7 +30,6 @@ export const VDataTable = defineComponent({
     numbered: Boolean,
     checkbox: Boolean,
     stateOut: Boolean,
-    toolbar: Boolean,
     align: String,
     color: {
       type: String,

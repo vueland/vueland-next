@@ -118,9 +118,9 @@
     :rows="data.users"
     class="elevation-5"
     style="margin: 10px;"
+    toolbar
     numbered
     checkbox
-    toolbar
     @filter="testFunc"
     @checked="testFunc"
     @last-page="fetchItems"

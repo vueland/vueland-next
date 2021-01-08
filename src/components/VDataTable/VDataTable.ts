@@ -37,6 +37,10 @@ export const VDataTable = defineComponent({
     },
   } as any,
 
+  // TODO - sorting filtered rows
+  // TODO - toolbar slot replace
+  // TODO - state out pagination
+
   setup(props, { slots, emit }) {
     const cols = ref<any[]>([])
     const rows = ref<any[]>([])

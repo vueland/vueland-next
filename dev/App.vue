@@ -205,7 +205,7 @@
     :rows="rows"
     class="elevation-5"
     style="margin: 10px;"
-    color="grey darken-4"
+    color="blue darken-4"
     numbered
     checkbox
     dark

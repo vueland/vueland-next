@@ -11,6 +11,7 @@ import { useColors } from '../../effects/use-colors'
 import { VDataTableHeader } from './VDataTableHeader'
 import { VDataTableBody } from './VDataTableBody'
 import { VDataTableFooter } from './VDataTableFooter'
+import { VCheckbox } from '../VCheckbox'
 
 // Helpers
 import { copyWithoutRef } from '../../helpers'
@@ -36,9 +37,6 @@ export const VDataTable = defineComponent({
       default: 'white',
     },
   } as any,
-
-  // TODO - toolbar slot replace
-  // TODO - state out pagination
 
   setup(props, { slots, emit }) {
     const cols = ref<any[]>([])
@@ -139,10 +137,6 @@ export const VDataTable = defineComponent({
     }
 
     function filterRows(rows) {
-      let value
-      let rowKeyValue
-      let filterKeyValue
-
       const filterKeys = Object.keys(filters)
 
       return rows.reduce((acc, row) => {
@@ -150,13 +144,12 @@ export const VDataTable = defineComponent({
 
         filterKeys.forEach(key => {
           const { formatter } = cols.value.find(col => col.key === key)
+          const value = formatter ? formatter(row) : row[key]
 
-          value = formatter ? formatter(row) : row[key]
+          const rowKeyValue = toComparableStringFormat(value)
+          const filterValue = toComparableStringFormat(filters[key])
 
-          rowKeyValue = toComparableStringFormat(value)
-          filterKeyValue = toComparableStringFormat(filters[key])
-
-          if (rowKeyValue.includes(filterKeyValue)) {
+          if (rowKeyValue.includes(filterValue)) {
             rowResults.push(!!row[key])
           }
         })
@@ -170,6 +163,18 @@ export const VDataTable = defineComponent({
 
         return acc
       }, [])
+    }
+
+    function genTableTools() {
+      return h(
+        'div', {
+          class: {
+            'v-data-table__toolbar': true,
+          },
+        }, {
+          default: () => slots.toolbar && slots.toolbar(),
+        },
+      )
     }
 
     function genTableHeader() {
@@ -258,6 +263,7 @@ export const VDataTable = defineComponent({
       }
 
       return h('div', setBackground(props.color, propsData), [
+        genTableTools(),
         genTableInner(),
         genTableFooter(),
       ])

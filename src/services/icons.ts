@@ -1,6 +1,7 @@
 export enum FaIcons {
   $add = 'fas fa-plus',
   $delete = 'fas fa-trash-alt',
+  $sliders = 'fas fa-sliders-h',
   $edit = 'fas fa-pen',
   $menu = 'fas fa-bars',
   $expand = 'fas fa-chevron-down',

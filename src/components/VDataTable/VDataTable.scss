@@ -2,14 +2,22 @@
 @import "variables";
 
 .v-data-table {
-  @include flex(flex, flex-start, flex-start, column);
-  height: 100%;
-  max-height: calc(100vh - 50px);
+  @include flex(flex, stretch, stretch, column);
+  height: calc(100vh - 110px);
+  max-height: calc(100vh - 110px);
   border-radius: $table-border-radius;
   overflow: hidden;
 
   &__inner {
     width: 100%;
+    height: 100%;
     overflow: auto;
+  }
+
+  &__toolbar {
+    @include flex(flex, flex-end, center);
+    width: 100%;
+    padding: 10px 20px;
+    height: 60px;
   }
 }

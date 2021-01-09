@@ -36,8 +36,6 @@ export const VDataTableBody = defineComponent({
   } as any,
 
   setup(props, { slots, emit }) {
-    const ROW_HEIGHT = 36
-
     const checkedRows = ref([])
 
     const { setBackground } = useColors()
@@ -145,9 +143,6 @@ export const VDataTableBody = defineComponent({
     return () => {
       const propsData = {
         class: classes.value,
-        style: {
-          height: `${ ROW_HEIGHT * props.rowsPerPage }px`,
-        },
       }
 
       return h('div',

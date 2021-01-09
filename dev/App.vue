@@ -79,7 +79,7 @@
           resizeable: true,
           sortable: true,
           filterable: true,
-          formatter: row => row.address.city + ' ' + row.address.street,
+          formatter: row => `${row.address.city} ${row.address.street}`,
         },
         {
           key: 'phone',
@@ -141,11 +141,11 @@
     class="elevation-5"
     :rows-on-table="[25, 40, 50, 75]"
     style="margin: 10px;"
-    color="grey darken-4"
+
     toolbar
     numbered
     checkbox
-    dark
+
     @filter="testFunc"
     @checked="testFunc"
     @last-page="fetchItems"

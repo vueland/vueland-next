@@ -71,23 +71,41 @@ export const VDataTableFooter = defineComponent({
       },
     )
 
+    function genColsSettingsButton() {
+      return h(VButton, {
+          class: 'v-data-table__add',
+          color: props.dark ? 'white' : 'primary',
+          width: 42,
+          outlined: props.dark,
+          elevation: 3,
+          onClick: () => emit('cols-settings'),
+        },
+        {
+          default: () =>
+            h(VIcon, {
+              icon: FaIcons.$sliders,
+              size: 20,
+              color: props.dark ? 'white' : '',
+            }),
+        },
+      )
+    }
+
+    function genSettingsBlock() {
+      return h('div', {
+        class: {
+          'v-data-table__settings': true
+        }
+      }, [
+        genColsSettingsButton()
+      ])
+    }
+
     function changeTableRowsPage(isNext) {
       if (props.page === props.pages && isNext) return
 
       const event = isNext ? 'next' : 'prev'
       emit(event, isNext ? 1 : -1)
-    }
-
-    function genTableTools() {
-      return h(
-        'div', {
-          class: {
-            'v-data-table__toolbar': true,
-          },
-        }, {
-          default: () => slots.toolbar && slots.toolbar(),
-        },
-      )
     }
 
     function genPaginationButton(isNext) {
@@ -211,8 +229,8 @@ export const VDataTableFooter = defineComponent({
         class: 'v-data-table__footer',
       },
       [
-        slots.toolbar && genTableTools(),
-        genPaginationBlock(),
+        genSettingsBlock(),
+        genPaginationBlock()
       ],
     )
   },

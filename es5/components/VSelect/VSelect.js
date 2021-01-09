@@ -36,7 +36,7 @@ var VSelect = (0, _vue.defineComponent)({
     listColor: String,
     disabled: Boolean,
     readonly: Boolean,
-    modelValue: [Array, String, Object]
+    modelValue: [Array, String, Object, Number]
   }, (0, _useValidate2.validateProps)()), (0, _useColors2.colorProps)()),
   setup: function setup(props, _ref) {
     var _props$rules2;
@@ -60,7 +60,7 @@ var VSelect = (0, _vue.defineComponent)({
         validateClasses = _useValidate.validateClasses,
         validationState = _useValidate.validationState;
 
-    var fields = (0, _vue.inject)('fields');
+    var fields = props.rules && (0, _vue.inject)('fields');
 
     var validateValue = function validateValue() {
       var _props$rules;
@@ -82,7 +82,7 @@ var VSelect = (0, _vue.defineComponent)({
       }, validateClasses.value);
     });
     (0, _vue.watch)(function () {
-      return props.modelValue;
+      return props.modelValue || props.value;
     }, function (value) {
       return state.selected = value;
     }, {
@@ -99,8 +99,8 @@ var VSelect = (0, _vue.defineComponent)({
     }
 
     function onBlur() {
+      toggleState();
       requestAnimationFrame(validateValue);
-      setTimeout(toggleState, 50);
       emit('blur');
     }
 
@@ -111,14 +111,20 @@ var VSelect = (0, _vue.defineComponent)({
       emit('focus');
     }
 
+    function onClear() {
+      selectItem('');
+      requestAnimationFrame(validateValue);
+    }
+
     function selectItem(it) {
       state.selected = it;
       emit('select', it);
       emit('update:modelValue', it);
+      emit('update:value', it);
     }
 
     function genInput() {
-      var selectedValue = typeof state.selected === 'string' ? state.selected : state.selected[props.valueKey];
+      var selectedValue = state.selected && state.selected[props.valueKey] || state.selected;
       var color = props.dark ? 'white' : '';
 
       var propsData = _objectSpread(_objectSpread({
@@ -153,7 +159,7 @@ var VSelect = (0, _vue.defineComponent)({
     function genSelect() {
       var selectVNode = (0, _vue.h)('div', {
         "class": classes.value
-      }, [genInput(), genSelectList()]);
+      }, [genInput(), props.items && genSelectList()]);
       return (0, _vue.withDirectives)(selectVNode, [[_directives.vClickOutside, directive.value]]);
     }
 
@@ -174,13 +180,12 @@ var VSelect = (0, _vue.defineComponent)({
         color: validationState.value,
         disabled: !!props.disabled,
         isDirty: !!errorState.isDirty,
-        message: errorState.innerErrorMessage
+        message: errorState.innerErrorMessage,
+        onClear: onClear
       };
       return (0, _vue.h)(_VInput.VInput, propsData, {
         select: function select() {
-          var _props$items;
-
-          return (_props$items = props.items) !== null && _props$items !== void 0 && _props$items.length ? genSelect() : null;
+          return genSelect();
         }
       });
     };

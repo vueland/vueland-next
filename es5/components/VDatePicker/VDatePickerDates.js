@@ -29,9 +29,9 @@ var VDatePickerDates = (0, _vue.defineComponent)({
     var LAST_MONTH = 11;
     var WEEK = [0, 1, 2, 3, 4, 5, 6];
     var ANIMATION_TIMEOUT = 100;
-    var TODAY = (0, _helpers.parseDate)(new Date());
     var dates = (0, _vue.ref)([]);
     var isDatesChanged = (0, _vue.ref)(false);
+    var today = (0, _helpers.parseDate)(new Date());
     var handlers = (0, _vue.inject)('handlers');
     handlers.value = {
       onNext: function onNext() {
@@ -130,11 +130,11 @@ var VDatePickerDates = (0, _vue.defineComponent)({
           'v-date-picker-dates__cell': !!obj.date,
           'v-date-picker-dates__cell--empty': !obj.date,
           'v-date-picker-dates__cell--selected': compareDates(obj, props.value),
-          'v-date-picker-dates__cell--current-date': compareDates(obj, TODAY),
+          'v-date-picker-dates__cell--current-date': compareDates(obj, today),
           'v-date-picker-dates__cell--holiday': obj.isHoliday
         },
         onClick: function onClick() {
-          return emit('update:value', obj);
+          return obj.date && emit('update:value', obj);
         }
       };
       return (0, _vue.h)('div', propsData, obj.date);

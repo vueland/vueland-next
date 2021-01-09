@@ -67,7 +67,7 @@ var VTextField = (0, _vue.defineComponent)({
       return props.modelValue || props.value;
     }, function (value) {
       state.value = value;
-      validateValue();
+      !state.focused && validateValue();
     });
     var classes = (0, _vue.computed)(function () {
       return _objectSpread({
@@ -97,24 +97,32 @@ var VTextField = (0, _vue.defineComponent)({
       }
     });
 
-    function focusHandler() {
+    function onClear() {
+      state.value = '';
+      emit('update:modelValue', state.value);
+      emit('update:value', state.value);
+      emit('input', state.value);
+      requestAnimationFrame(validateValue);
+    }
+
+    function onBlur() {
+      state.focused = false;
+      emit('blur');
+      requestAnimationFrame(validateValue);
+    }
+
+    function onFocus() {
       dirty();
       update(errorState.innerError);
       state.focused = true;
       emit('focus');
     }
 
-    function blurHandler() {
-      state.focused = false;
-      emit('blur');
-      validateValue();
-    }
-
-    function changeHandler() {
+    function onChange() {
       emit('change', state.value);
     }
 
-    function inputHandler(e) {
+    function onInput(e) {
       state.value = e.target.value;
       emit('update:modelValue', state.value);
       emit('update:value', state.value);
@@ -130,10 +138,10 @@ var VTextField = (0, _vue.defineComponent)({
         "class": {
           'v-text-field__input': true
         },
-        onFocus: focusHandler,
-        onBlur: blurHandler,
-        onInput: inputHandler,
-        onChange: changeHandler
+        onFocus: onFocus,
+        onBlur: onBlur,
+        onInput: onInput,
+        onChange: onChange
       };
 
       if (props.tag === 'input') {
@@ -159,7 +167,8 @@ var VTextField = (0, _vue.defineComponent)({
         color: validationState.value,
         isDirty: errorState.isDirty,
         disabled: props.disabled,
-        message: errorState.innerErrorMessage
+        message: errorState.innerErrorMessage,
+        onClear: onClear
       };
       return (0, _vue.h)(_VInput.VInput, propsData, {
         textField: function textField() {

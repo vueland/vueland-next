@@ -21,9 +21,9 @@ var VForm = (0, _vue.defineComponent)({
       fields.value.forEach(function (it) {
         promises.push(it());
       });
-      return Promise.resolve(!promises.some(function (f) {
+      return !promises.some(function (f) {
         return !f;
-      }));
+      }) ? Promise.resolve() : Promise.reject();
     };
 
     var genSlot = function genSlot() {

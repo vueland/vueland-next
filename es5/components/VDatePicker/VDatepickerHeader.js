@@ -13,7 +13,7 @@ var _useColors2 = require("../../effects/use-colors");
 
 var _icons = require("../../services/icons");
 
-var _components = require("@/components");
+var _VIcon = require("../VIcon");
 
 var VDatepickerHeader = (0, _vue.defineComponent)({
   name: 'v-date-picker-header',
@@ -42,7 +42,7 @@ var VDatepickerHeader = (0, _vue.defineComponent)({
           return isRight ? props.onNext() : props.onPrev();
         }
       };
-      var arrowBtn = (0, _vue.h)(_components.VIcon, props.color ? setTextColor(props.color, iconPropsData) : iconPropsData);
+      var arrowBtn = (0, _vue.h)(_VIcon.VIcon, props.color ? setTextColor(props.color, iconPropsData) : iconPropsData);
       return (0, _vue.h)('div', propsData, arrowBtn);
     };
 

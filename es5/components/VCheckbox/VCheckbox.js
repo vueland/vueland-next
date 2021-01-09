@@ -66,16 +66,21 @@ var VCheckbox = (0, _vue.defineComponent)({
         'v-validatable': props.validate
       };
     });
-
-    if (isArray.value) {
-      if (isValueSet.value) {
-        isChecked.value = props.modelValue.includes(props.value);
+    (0, _vue.watch)(function () {
+      return props.modelValue;
+    }, function () {
+      if (isArray.value) {
+        if (isValueSet.value) {
+          isChecked.value = props.modelValue.includes(props.value);
+        } else {
+          (0, _helpers.warning)('v-checkbox: set the "value" property');
+        }
       } else {
-        (0, _helpers.warning)('v-checkbox: set the "value" property');
+        isChecked.value = !!props.modelValue;
       }
-    } else {
-      isChecked.value = !!props.modelValue;
-    }
+    }, {
+      immediate: true
+    });
 
     if (fields !== null && fields !== void 0 && fields.value) {
       fields.value.push(validateValue);
@@ -103,7 +108,7 @@ var VCheckbox = (0, _vue.defineComponent)({
       var icon = isChecked.value ? props.onIcon : props.offIcon;
       var propsData = {
         icon: icon,
-        size: 26,
+        size: 20,
         color: validationState.value,
         disabled: props.disabled
       };
@@ -123,18 +128,14 @@ var VCheckbox = (0, _vue.defineComponent)({
       var modelValue = props.modelValue;
 
       if (isArray.value) {
-        if (isValueSet.value) {
-          isChecked.value = !modelValue.includes(props.value);
+        isChecked.value = !modelValue.includes(props.value);
 
-          if (!isChecked.value) {
-            modelValue = modelValue.filter(function (it) {
-              return it !== props.value;
-            });
-          } else {
-            modelValue.push(props.value);
-          }
+        if (!isChecked.value) {
+          modelValue = modelValue.filter(function (it) {
+            return it !== props.value;
+          });
         } else {
-          return isChecked.value = !isChecked.value;
+          modelValue.push(props.value);
         }
 
         return modelValue;
@@ -156,7 +157,7 @@ var VCheckbox = (0, _vue.defineComponent)({
         "class": classes.value,
         onClick: onClick
       };
-      return (0, _vue.h)('div', dataProps, [genCheckbox(), genLabel()]);
+      return (0, _vue.h)('div', dataProps, [genCheckbox(), props.label && genLabel()]);
     };
   }
 });

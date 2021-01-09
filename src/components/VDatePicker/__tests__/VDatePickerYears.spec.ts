@@ -32,7 +32,7 @@ describe('VYears', () => {
     const stub = jest.fn()
     const cmp = mountFunction({
       props: {
-        year: 2020,
+        year: 2021,
         ['onUpdate:year']: stub,
       },
     })
@@ -41,6 +41,6 @@ describe('VYears', () => {
     await cells[1].trigger('click')
 
     expect(stub).toBeCalledTimes(1)
-    expect(stub).toBeCalledWith(2021)
+    expect(stub).toBeCalledWith(2022)
   })
 })

@@ -39,8 +39,7 @@ var VueLand = /*#__PURE__*/function () {
       });
       Object.keys(directives).forEach(function (key) {
         if (key && directives[key]) {
-          var directive = directives[key];
-          Vue.directive(key, directive);
+          Vue.directive(key, directives[key]);
         }
       });
     }

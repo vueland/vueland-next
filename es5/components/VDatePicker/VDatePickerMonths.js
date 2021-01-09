@@ -36,11 +36,6 @@ var VDatePickerMonths = (0, _vue.defineComponent)({
         return updateYear(false);
       }
     };
-    (0, _vue.watch)(function () {
-      return props.month;
-    }, function (to) {
-      return console.log(to);
-    });
     var computedMonth = (0, _vue.computed)({
       get: function get() {
         return props.month !== undefined ? +props.month : CURRENT_MONTH;

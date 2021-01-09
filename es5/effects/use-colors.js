@@ -60,7 +60,13 @@ var useColors = function useColors() {
           colorName = _color$trim$split2[0],
           colorModifier = _color$trim$split2[1];
 
-      data["class"] = _objectSpread(_objectSpread({}, data["class"]), {}, _defineProperty({}, "".concat(colorName, "--text"), true));
+      if (typeof data["class"] === 'string') {
+        data["class"] = _defineProperty({}, data["class"], true);
+      } else {
+        data["class"] = _objectSpread({}, data["class"]);
+      }
+
+      data["class"]["".concat(colorName, "--text")] = true;
 
       if (colorModifier) {
         data["class"]["text--".concat(colorModifier)] = true;

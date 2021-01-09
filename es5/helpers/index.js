@@ -7,6 +7,7 @@ exports.createSimpleFunctional = createSimpleFunctional;
 exports.addOnceListener = addOnceListener;
 exports.convertToUnit = convertToUnit;
 exports.warning = warning;
+exports.copyWithoutRef = copyWithoutRef;
 
 var _vue = require("vue");
 
@@ -54,5 +55,9 @@ function convertToUnit(str) {
 
 function warning(warningText) {
   console.warn(warningText);
+}
+
+function copyWithoutRef(obj) {
+  return JSON.parse(JSON.stringify(obj));
 }
 //# sourceMappingURL=index.js.map

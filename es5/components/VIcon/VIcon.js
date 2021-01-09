@@ -25,6 +25,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var VIcon = (0, _vue.defineComponent)({
   name: 'v-icon',
+  emits: ['click'],
   props: _objectSpread(_objectSpread({
     disabled: Boolean,
     active: Boolean,
@@ -39,7 +40,8 @@ var VIcon = (0, _vue.defineComponent)({
     }
   }, (0, _useColors2.colorProps)()), (0, _useSizes.sizeProps)()),
   setup: function setup(props, _ref) {
-    var slots = _ref.slots;
+    var slots = _ref.slots,
+        emit = _ref.emit;
 
     var _useColors = (0, _useColors2.useColors)(),
         setTextColor = _useColors.setTextColor;
@@ -77,12 +79,19 @@ var VIcon = (0, _vue.defineComponent)({
       return explicitSize && _sizes.Sizes[explicitSize] || (0, _helpers.convertToUnit)(props.size);
     }
 
+    function onClick() {
+      if (!props.disabled && props.clickable) {
+        emit('click');
+      }
+    }
+
     function genDataProps() {
       return {
         "class": classes.value,
         style: {
           fontSize: getSizes()
-        }
+        },
+        onClick: onClick
       };
     }
 

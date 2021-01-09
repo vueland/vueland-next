@@ -41,17 +41,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var VDatePicker = (0, _vue.defineComponent)({
   name: 'v-date-picker',
-  props: _objectSpread(_objectSpread({
+  props: _objectSpread({
     dark: Boolean,
     disabled: Boolean,
-    readonly: Boolean,
+    clearable: Boolean,
+    readonly: {
+      type: Boolean,
+      "default": true
+    },
     mondayFirst: Boolean,
     today: Boolean,
     useMls: Boolean,
     useUtc: Boolean,
-    lang: String,
+    useIso: Boolean,
+    useJson: Boolean,
+    lang: {
+      type: String,
+      "default": 'en'
+    },
     contentColor: String,
     label: String,
+    prependIcon: String,
     format: {
       type: String,
       "default": 'yyyy-mm-dd'
@@ -60,8 +70,12 @@ var VDatePicker = (0, _vue.defineComponent)({
     value: [String, Date, Number],
     modelValue: [String, Date, Number],
     disabledDates: Object,
-    highlighted: Object
-  }, (0, _useColors2.colorProps)()), (0, _useElevation2.elevationProps)()),
+    highlighted: Object,
+    color: {
+      type: String,
+      "default": 'white'
+    }
+  }, (0, _useElevation2.elevationProps)()),
   emits: ['update:value', 'update:modelValue', 'selected'],
   setup: function setup(props, _ref) {
     var emit = _ref.emit;
@@ -96,7 +110,7 @@ var VDatePicker = (0, _vue.defineComponent)({
       return {
         'v-date-picker': true,
         'v-date-picker--inputable': !props.readonly,
-        'v-date-picker--readonly': props.readonly
+        'v-date-picker--readonly': !!props.readonly
       };
     });
     var tableClasses = (0, _vue.computed)(function () {
@@ -122,6 +136,8 @@ var VDatePicker = (0, _vue.defineComponent)({
       var selectedDate = new Date(year, month, date);
       if (props.useMls) return selectedDate.getTime();
       if (props.useUtc) return selectedDate.toUTCString();
+      if (props.useIso) return selectedDate.toISOString();
+      if (props.useJson) return selectedDate.toJSON();
       return selectedDate;
     });
     var directive = (0, _vue.computed)(function () {
@@ -187,9 +203,10 @@ var VDatePicker = (0, _vue.defineComponent)({
       if (!$event) return;
       data.selected = $event;
       setDataDate(data.selected);
-      emit('update:value', computedValue.value);
-      emit('update:modelValue', computedValue.value);
-      emit('selected', computedValue.value);
+      var dateValue = computedValue.value || formatDate();
+      emit('update:value', dateValue);
+      emit('update:modelValue', dateValue);
+      emit('selected', dateValue);
       data.isActive = false;
     }
 
@@ -238,7 +255,7 @@ var VDatePicker = (0, _vue.defineComponent)({
     }
 
     function formatDate() {
-      if (!props.value && !props.modelValue && !props.today) return '';
+      if (!props.value && !props.modelValue && !props.today) return;
 
       var _divideWithSeparator = divideWithSeparator(props.format),
           divided = _divideWithSeparator.divided,
@@ -268,8 +285,7 @@ var VDatePicker = (0, _vue.defineComponent)({
       var propsData = {
         "class": {
           'v-date-picker__display-value': true
-        },
-        key: value
+        }
       };
       return (0, _useTransition.useTransition)((0, _vue.h)('span', propsData, value), 'scale-in-out', 'out-in');
     }
@@ -337,20 +353,24 @@ var VDatePicker = (0, _vue.defineComponent)({
     }
 
     function genDatepickerBody() {
-      return (0, _vue.h)('div', {
+      var propsData = {
         "class": {
           'v-date-picker__body': true
         }
-      }, (0, _useTransition.useTransition)(data.isYears && genDatepickerYearsTable() || data.isMonths && genDatepickerMonthsTable() || data.isDates && genDatepickerDatesTable(), 'slide-in-left', 'out-in'));
+      };
+      return (0, _vue.h)('div', propsData, (0, _useTransition.useTransition)(data.isYears && genDatepickerYearsTable() || data.isMonths && genDatepickerMonthsTable() || data.isDates && genDatepickerDatesTable(), 'slide-in-left', 'out-in'));
     }
 
     function genDatepickerInput() {
       return (0, _vue.h)(_VTextField.VTextField, {
         value: formatDate(),
+        dark: props.dark,
         label: props.label,
         readonly: props.readonly,
         disabled: props.disabled,
+        prependIcon: props.prependIcon,
         rules: props.rules,
+        clearable: props.clearable,
         onFocus: function onFocus() {
           return data.isActive = true;
         },
@@ -366,9 +386,10 @@ var VDatePicker = (0, _vue.defineComponent)({
     }
 
     function genDatepicker() {
-      return (0, _vue.withDirectives)((0, _vue.h)('div', {
+      var propsData = {
         "class": classes.value
-      }, [genDatepickerInput(), (0, _useTransition.useTransition)(genDatepickerTable(), 'fade')]), [[_directives.vClickOutside, directive.value]]);
+      };
+      return (0, _vue.withDirectives)((0, _vue.h)('div', propsData, [genDatepickerInput(), (0, _useTransition.useTransition)(genDatepickerTable(), 'fade')]), [[_directives.vClickOutside, directive.value]]);
     }
 
     return function () {

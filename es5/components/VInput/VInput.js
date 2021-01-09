@@ -11,9 +11,13 @@ var _vue = require("vue");
 
 var _VLabel = require("../VLabel");
 
+var _VIcon = require("../VIcon");
+
 var _useTransition = require("../../effects/use-transition");
 
 var _useColors2 = require("../../effects/use-colors");
+
+var _icons = require("@/services/icons");
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -29,24 +33,25 @@ var VInput = (0, _vue.defineComponent)({
     hasState: Boolean,
     hasError: Boolean,
     isDirty: Boolean,
+    disabled: Boolean,
+    clearable: Boolean,
     label: String,
+    prependIcon: String,
+    appendIcon: String,
     message: String,
     type: {
       type: String,
       "default": 'text'
     },
-    disabled: {
-      type: Boolean,
-      "default": false
-    },
-    modelValue: [String, Number],
     color: {
       type: String,
       "default": 'primary'
-    }
+    },
+    modelValue: [String, Number]
   },
   setup: function setup(props, _ref) {
-    var slots = _ref.slots;
+    var slots = _ref.slots,
+        emit = _ref.emit;
 
     var _useColors = (0, _useColors2.useColors)(),
         setTextColor = _useColors.setTextColor;
@@ -84,6 +89,39 @@ var VInput = (0, _vue.defineComponent)({
       });
     }
 
+    function genIcon(iconName) {
+      var clickable = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+      return (0, _vue.h)(_VIcon.VIcon, {
+        color: props.color,
+        dark: props.dark,
+        icon: iconName,
+        size: 16,
+        disabled: props.disabled,
+        clickable: clickable
+      });
+    }
+
+    function genPrependIcon() {
+      return (0, _vue.h)('div', {
+        "class": 'v-input__prepend-icon'
+      }, genIcon(props.prependIcon));
+    }
+
+    function genAppendIcon() {
+      return (0, _vue.h)('div', {
+        "class": 'v-input__append-icon'
+      }, genIcon(props.appendIcon));
+    }
+
+    function genClearIcon() {
+      return (0, _vue.h)('div', {
+        "class": 'v-input__clear',
+        onClick: function onClick() {
+          return !props.disabled && emit('clear');
+        }
+      }, genIcon(_icons.FaIcons.$close, true));
+    }
+
     function genSlotContent() {
       var propsData = {
         "class": {
@@ -91,8 +129,7 @@ var VInput = (0, _vue.defineComponent)({
           'v-input__field-slot': !!slots.textField
         }
       };
-      var slotContent = [genLabel(), slots.select && slots.select(), slots.textField && slots.textField()];
-      return (0, _vue.h)('div', props.color ? setTextColor(props.color, propsData) : propsData, slotContent);
+      return (0, _vue.h)('div', props.color ? setTextColor(props.color, propsData) : propsData, [props.prependIcon && genPrependIcon(), !props.clearable && props.appendIcon && genAppendIcon(), props.clearable && genClearIcon(), genLabel(), slots.select && slots.select(), slots.textField && slots.textField()]);
     }
 
     function genStatusMessage() {

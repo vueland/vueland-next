@@ -55,8 +55,13 @@
   left: 0;
   z-index: 20;
 }
-
 .v-data-table__header > .v-data-table-col__checkbox {
+  position: sticky;
+  left: 0;
+  z-index: 20;
+}
+
+.v-data-table__header > .v-data-table-col__number + .v-data-table-col__checkbox {
   position: sticky;
   left: 50px;
   z-index: 20;

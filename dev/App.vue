@@ -20,7 +20,7 @@
 
 
       const fetchItems = () => {
-        fetch('https://jsonplaceholder.typicode.com/comments')
+        fetch('https://jsonplaceholder.typicode.com/users')
           .then(response => response.json())
           .then(json => data.users = [...data.users, ...json])
       }
@@ -59,7 +59,7 @@
           filterable: true,
         },
         {
-          key: 'body',
+          key: 'username',
           title: 'User Name',
           resizeable: true,
           sortable: true,
@@ -73,14 +73,36 @@
           sortable: true,
           filterable: true,
         },
-        // {
-        //   key: 'address',
-        //   title: 'Address',
-        //   resizeable: true,
-        //   sortable: true,
-        //   filterable: true,
-        //   formatter: (val) => val.address.city + ' ' + val.address.street
-        // },
+        {
+          key: 'address',
+          title: 'Address',
+          resizeable: true,
+          sortable: true,
+          filterable: true,
+          formatter: row => row.address.city + ' ' + row.address.street,
+        },
+        {
+          key: 'phone',
+          title: 'Phone',
+          resizeable: true,
+          sortable: true,
+          filterable: true,
+        },
+        {
+          key: 'website',
+          title: 'Website',
+          resizeable: true,
+          sortable: true,
+          filterable: true,
+        },
+        {
+          key: 'company',
+          title: 'Company',
+          resizeable: true,
+          sortable: true,
+          filterable: true,
+          formatter: row => row.company.name,
+        },
       ]
 
       return {
@@ -117,23 +139,21 @@
     :cols="cols"
     :rows="data.users"
     class="elevation-5"
-    :rows-on-table="[25,40,50]"
+    :rows-on-table="[25, 40, 50, 75]"
     style="margin: 10px;"
+    color="grey darken-4"
     toolbar
     numbered
     checkbox
+    dark
     @filter="testFunc"
     @checked="testFunc"
     @last-page="fetchItems"
   >
-    <template v-slot:email="{ row }">
-      <v-icon icon="fas fa-envelope" size="12" color="blue"/>
-      <span style="margin-left: 15px">{{ row.email }}</span>
+    <template v-slot:address="{ row, formatter }">
+      <v-icon icon="fas fa-envelope" size="12" :color="formatter(row).includes('h') ? 'red':'blue'"/>
+      <span style="margin-left: 15px">{{ formatter(row) }}</span>
     </template>
-    <!--    <template v-slot:address="{ row: {address: {city, street}} }">-->
-    <!--      <v-icon icon="fas fa-envelope" size="12" color="blue" />-->
-    <!--      <span style="margin-left: 15px">{{ city + ' ' + street }}</span>-->
-    <!--    </template>-->
     <template v-slot:toolbar>
       <v-button width="42" color="primary" elevation="5">
         <v-icon :icon="FaIcons.$add" color="white" size="16"/>

@@ -75,7 +75,10 @@ export const VDataTableHeader = defineComponent({
     function genSortButton(item) {
       return h(VIcon, {
         clickable: true,
-        class: 'v-data-table-col__actions-sort',
+        class: {
+          'v-data-table-col__actions-sort': true,
+          'v-data-table-col__actions-sort--active': item.sorted,
+        },
         size: 14,
         icon: FaIcons.$arrowUp,
         color: item.sorted ? 'green accent-3' : props.dark ? 'white' : '',
@@ -86,8 +89,11 @@ export const VDataTableHeader = defineComponent({
     function genFilterButton(item) {
       return h(VIcon, {
         clickable: true,
-        class: 'v-data-table-col__actions-filter',
-        size: 12,
+        class: {
+          'v-data-table-col__actions-filter': true,
+          'v-data-table-col__actions-filter--active': item.filtered,
+        },
+        size: 14,
         icon: FaIcons.$filter,
         color: item.filtered ? 'green accent-3' : props.dark ? 'white' : '',
         onClick: () => addFilter(item),
@@ -142,7 +148,10 @@ export const VDataTableHeader = defineComponent({
           genFilterHeader(item),
           genFilterInput(item),
         ],
-      ), [[vClickOutside, directive], [vShow, item.addFilter]])
+      ), [
+        [vClickOutside, directive],
+        [vShow, item.addFilter],
+      ])
     }
 
     function genHeaderTitle(item) {
@@ -180,7 +189,9 @@ export const VDataTableHeader = defineComponent({
       props.numbered && cells.push(
         h(VDataTableCell, {
             align: 'center',
+            class: 'v-data-table-col__number',
             dark: props.dark,
+            color: props.color,
             width: 50,
           }, {
             default: () => '№',
@@ -191,7 +202,9 @@ export const VDataTableHeader = defineComponent({
       props.checkbox && cells.push(
         h(VDataTableCell, {
             align: 'center',
+            class: 'v-data-table-col__checkbox',
             dark: props.dark,
+            color: props.color,
             width: 50,
           }, {
             default: () => h(VCheckbox, {
@@ -204,8 +217,10 @@ export const VDataTableHeader = defineComponent({
 
       cols.value!.forEach((item: Column) => {
         item.width = item.width || props.colWidth
-
-        cells.push(genHeaderCell(item))
+        if (!item.hasOwnProperty('show')) {
+          item.show = !item.show
+        }
+        item.show && cells.push(genHeaderCell(item))
       })
 
       return cells

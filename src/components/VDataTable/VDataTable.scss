@@ -6,10 +6,10 @@
   height: 100%;
   max-height: calc(100vh - 50px);
   border-radius: $table-border-radius;
+  overflow: hidden;
 
   &__inner {
     width: 100%;
-    padding: 0 2px 2px 2px;
     overflow: auto;
   }
 }

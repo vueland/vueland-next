@@ -33,6 +33,7 @@ export type Column = {
   align?: string
   useOnCreate?: boolean
   useOnEdit?: boolean
+  show?: boolean
 }
 
 export type TableModalOptions = {

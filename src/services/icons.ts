@@ -14,7 +14,7 @@ export enum FaIcons {
   $arrowRight = 'fas fa-chevron-right',
   $arrowLeft = 'fas fa-chevron-left',
   $arrowUp = 'fas fa-arrow-up',
-  $filter = 'fas fa-filter',
+  $filter = 'fas fa-align-justify',
   $marker = 'fas fa-map-marker-alt',
   $search = 'fas fa-search',
   $close = 'fas fa-times'

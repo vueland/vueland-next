@@ -67,7 +67,7 @@ export const VDataTableBody = defineComponent({
     function genTableRow(cells) {
       return h('div', {
         class: {
-          'v-data-table__body-row': true,
+          'v-data-table__row': true,
         },
       }, cells)
     }
@@ -88,6 +88,8 @@ export const VDataTableBody = defineComponent({
               width: 50,
               align: 'center',
               dark: props.dark,
+              color: props.color,
+              class: 'v-data-table__row-number',
             },
             {
               default: () => count += 1,
@@ -97,9 +99,11 @@ export const VDataTableBody = defineComponent({
 
         props.checkbox && rowCells.push(
           h(VDataTableCell, {
+              width: 50,
               align: 'center',
               dark: props.dark,
-              width: 50,
+              color: props.color,
+              class: 'v-data-table__row-checkbox',
             }, {
               default: () => h(VCheckbox, {
                 modelValue: checkedRows.value,
@@ -118,7 +122,7 @@ export const VDataTableBody = defineComponent({
             slots[props.cols[j].key]!(rowsOnTable.value[i])
 
 
-          rowCells.push(
+          props.cols[j].show && rowCells.push(
             h(VDataTableCell, {
               width: props.cols[j].width,
               align: props.align || props.cols[j].align,

@@ -50,22 +50,85 @@
   transition: transform .2s linear;
 }
 
+.v-data-table__header > .v-data-table-col__number{
+  position: sticky;
+  left: 0;
+  z-index: 20;
+}
+
+.v-data-table__header > .v-data-table-col__checkbox {
+  position: sticky;
+  left: 50px;
+  z-index: 20;
+}
+
+.v-data-table-col > .v-resize {
+  border-radius: 5px;
+  height: 80%;
+  top: 10%;
+  transition: transform .2s linear;
+  box-shadow: 0 0 7px 0 rgba(0, 0, 0, .3);
+}
+
 .v-data-table-col--sorted > .v-data-table__cell-content >
 .v-data-table-col__actions > .v-data-table-col__actions-sort {
   transform: rotate(180deg);
 }
 
-.v-data-table-col__actions-sort,
-.v-data-table-col__actions-filter {
-  width: 22px;
-  height: 22px;
-  margin: 3px;
-  border-radius: 3px;
-  //box-shadow: 0 0 4px 0 rgba(0, 0, 0, .4);
+.v-data-table__header > .v-data-table-col >
+.v-data-table__cell-content > .v-data-table-col__actions >
+.v-data-table-col__actions-sort {
+  transition: all .2s linear;
 }
 
+.v-data-table__header > .v-data-table-col >
+.v-data-table__cell-content > .v-data-table-col__actions >
 .v-data-table-col__actions-filter {
-  line-height: 1.5rem;
+  transition: all .2s linear;
+}
+
+.v-data-table-col > .v-data-table__cell-content > .v-data-table-col__actions >
+.v-data-table-col__actions-sort:not(.v-data-table-col__actions-sort--active) {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.v-data-table-col > .v-data-table__cell-content > .v-data-table-col__actions >
+.v-data-table-col__actions-filter:not(.v-data-table-col__actions-filter--active) {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.v-data-table-col > .v-resize {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.v-data-table-col:hover .v-resize {
+  opacity: 1;
+  visibility: visible;
+}
+
+.v-data-table-col:hover >
+.v-data-table__cell-content > .v-data-table-col__actions >
+.v-data-table-col__actions-sort:not(.v-data-table-col__actions-sort--active) {
+  visibility: visible;
+  opacity: 1;
+}
+
+.v-data-table-col:hover >
+.v-data-table__cell-content > .v-data-table-col__actions >
+.v-data-table-col__actions-filter:not(.v-data-table-col__actions-filter--active) {
+  visibility: visible;
+  opacity: 1;
+}
+
+.v-data-table-col__actions-sort,
+.v-data-table-col__actions-filter {
+  width: 15px;
+  margin: 3px;
+  border-radius: 3px;
+  transition: all .2s linear;
 }
 
 

@@ -147,14 +147,11 @@ export const VDataTable = defineComponent({
 
       return rows.reduce((acc, row) => {
         const rowResults: any[] = []
-        filterKeys.forEach(key => {
 
-          if (typeof row[key] !== 'object') {
-            value = row[key]
-          } else {
-            const col = cols.value.find(col => col.key === key)
-            value = col.formatter(row)
-          }
+        filterKeys.forEach(key => {
+          const { formatter } = cols.value.find(col => col.key === key)
+
+          value = formatter ? formatter(row) : row[key]
 
           rowKeyValue = toComparableStringFormat(value)
           filterKeyValue = toComparableStringFormat(filters[key])
@@ -190,8 +187,6 @@ export const VDataTable = defineComponent({
     }
 
     function genTableBody() {
-      const rowKeys = props.cols.map(col => col.key)
-
       return h(
         VDataTableBody,
         {
@@ -203,16 +198,23 @@ export const VDataTable = defineComponent({
           checkAllRows: isAllRowsChecked.value,
           align: props.align,
           dark: props.dark,
+          color: props.color,
           numbered: props.numbered,
           onCheck,
         },
 
-        rowKeys.reduce((acc, slot) => {
-          const slotContent = (row = {}) => {
-            return slots[slot] && slots[slot]!({ row })
+        props.cols.reduce((acc, col) => {
+          const slotContent = (row) => {
+            const scoped: any = { row }
+
+            if (col.formatter) {
+              scoped.formatter = col.formatter
+            }
+
+            return slots[col.key] && slots[col.key]!(scoped)
           }
 
-          if (slots[slot]) acc[slot] = slotContent
+          if (slots[col.key]) acc[col.key] = slotContent
 
           return acc
         }, {}),

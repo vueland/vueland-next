@@ -4,12 +4,25 @@
 .v-data-table__body {
   min-width: 100%;
   z-index: 9;
+}
 
-  &-row {
-    @include flex(inline-flex, flex-start, stretch);
-    height: $table-row-height;
-    min-width: 100%;
-    border-radius: $table-border-radius;
-    border-bottom: thin solid rgba(0, 0, 0, .2);
+.v-data-table__row {
+  @include flex(inline-flex, flex-start, stretch);
+  height: $table-row-height;
+  min-width: 100%;
+  border-radius: $table-border-radius;
+  border-bottom: thin solid rgba(0, 0, 0, .2);
+
+  &-number {
+    position: sticky;
+    left: 0;
+    z-index: 8;
+  }
+
+  &-checkbox {
+    position: sticky;
+    left: 50px;
+    z-index: 8;
   }
 }
+

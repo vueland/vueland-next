@@ -19,17 +19,19 @@
 
     &-select {
       @include flex(flex, flex-start, center);
-      padding: 0 15px;
+      padding: 0 10px;
     }
 
     &-pages {
       min-width: 150px;
-      padding: 15px;
+      padding: 10px;
       text-align: center;
+      font-size: .9rem;
     }
 
     &-label {
       margin: 0 15px;
+      font-size: .9rem;
     }
 
     &-route {
@@ -39,7 +41,7 @@
 
     &-select > .v-input > .v-input__select-slot >
     .v-select > .v-select-list {
-      top: -140px;
+      transform: translateY(-90%);
     }
 
     &-select > .v-input > .v-input__select-slot >

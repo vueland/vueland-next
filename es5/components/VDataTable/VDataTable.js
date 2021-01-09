@@ -21,11 +21,9 @@ var _VDataTableFooter = require("./VDataTableFooter");
 
 var _VCheckbox = require("../VCheckbox");
 
-var _helpers = require("../../helpers");
+var _VButton = require("../VButton");
 
-var _helpers2 = require("./helpers");
-
-var _components = require("@/components");
+var _helpers = require("./helpers");
 
 var VDataTable = (0, _vue.defineComponent)({
   name: 'v-data-table',
@@ -96,7 +94,7 @@ var VDataTable = (0, _vue.defineComponent)({
     (0, _vue.watch)(function () {
       return props.rows;
     }, function (to) {
-      return rows.value = (0, _helpers.copyWithoutRef)(to);
+      return rows.value = to;
     }, {
       immediate: true
     });
@@ -188,8 +186,8 @@ var VDataTable = (0, _vue.defineComponent)({
               formatter = _cols$value$find.formatter;
 
           var value = formatter ? formatter(row) : row[key];
-          var rowKeyValue = (0, _helpers2.toComparableStringFormat)(value);
-          var filterValue = (0, _helpers2.toComparableStringFormat)(filters[key]);
+          var rowKeyValue = (0, _helpers.toComparableStringFormat)(value);
+          var filterValue = (0, _helpers.toComparableStringFormat)(filters[key]);
 
           if (rowKeyValue.includes(filterValue)) {
             rowResults.push(!!row[key]);
@@ -317,7 +315,7 @@ var VDataTable = (0, _vue.defineComponent)({
     }
 
     function genColsSettingsActions() {
-      return (0, _vue.h)(_components.VButton, {
+      return (0, _vue.h)(_VButton.VButton, {
         dark: props.dark,
         color: props.dark ? 'white' : 'primary',
         outlined: props.dark,

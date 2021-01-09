@@ -19,13 +19,13 @@
       })
 
 
-      const fetchItems = () => {
-        fetch('https://jsonplaceholder.typicode.com/users')
-          .then(response => response.json())
-          .then(json => data.users = [...data.users, ...json])
-      }
+      // const fetchItems = () => {
+      //   fetch('https://jsonplaceholder.typicode.com/comments')
+      //     .then(response => response.json())
+      //     .then(json => data.users = [...data.users, ...json])
+      // }
 
-      fetchItems()
+      // fetchItems()
 
       setTimeout(() => {
         data.always = false
@@ -58,14 +58,14 @@
           sortable: true,
           filterable: true,
         },
-        {
-          key: 'username',
-          title: 'User Name',
-          resizeable: true,
-          sortable: true,
-          filterable: true,
-          width: 155,
-        },
+        // {
+        //   key: 'username',
+        //   title: 'User Name',
+        //   resizeable: true,
+        //   sortable: true,
+        //   filterable: true,
+        //   width: 155,
+        // },
         {
           key: 'email',
           title: 'Email',
@@ -74,43 +74,53 @@
           filterable: true,
         },
         {
-          key: 'address',
-          title: 'Address',
+          key: 'body',
+          title: 'Body',
           resizeable: true,
           sortable: true,
           filterable: true,
-          format: row => `${row.address.city} ${row.address.street}`,
-        },
-        {
-          key: 'phone',
-          title: 'Phone',
-          resizeable: true,
-          sortable: true,
-          filterable: true,
-        },
-        {
-          key: 'website',
-          title: 'Website',
-          resizeable: true,
-          sortable: true,
-          filterable: true,
-        },
-        {
-          key: 'company',
-          title: 'Company',
-          resizeable: true,
-          sortable: true,
-          filterable: true,
-          format: row => row.company.name,
-        },
+          // format: row => `${row.address.city} ${row.address.street}`,
+        }
+        // {
+        //   key: 'phone',
+        //   title: 'Phone',
+        //   resizeable: true,
+        //   sortable: true,
+        //   filterable: true,
+        // },
+        // {
+        //   key: 'website',
+        //   title: 'Website',
+        //   resizeable: true,
+        //   sortable: true,
+        //   filterable: true,
+        // },
+        // {
+        //   key: 'company',
+        //   title: 'Company',
+        //   resizeable: true,
+        //   sortable: true,
+        //   filterable: true,
+        //   format: row => row.company.name,
+        // }
       ]
+
+      const addItem = () => {
+        data.users.push({
+          name: 'Anar',
+          email: 'adsadasdasd',
+          body: 'sdfsddfsdfsdfsf'
+        })
+        console.log(data.users)
+      }
 
       return {
         data,
         cols,
+        addItem,
         testFunc,
         toggleAlways,
-        fetchItems,
+        // fetchItems,
         forOut,
         FaIcons,
       }
@@ -149,7 +159,7 @@
 
     @filter="testFunc"
     @checked="testFunc"
-    @last-page="fetchItems"
+
     @cols-settings="testFunc"
   >
     <template v-slot:address="{ row, format }">
@@ -157,8 +167,8 @@
       <span style="margin-left: 15px">{{ format(row) }}</span>
     </template>
     <template v-slot:toolbar>
-      <v-button width="42" color="primary" elevation="5">
-        <v-icon :icon="FaIcons.$add" color="white" size="16"/>
+      <v-button width="42" color="primary" elevation="5" @click="addItem">
+        <v-icon :icon="FaIcons.$add" color="white" size="16" />
       </v-button>
     </template>
   </v-data-table>

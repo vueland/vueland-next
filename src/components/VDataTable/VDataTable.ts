@@ -13,11 +13,10 @@ import { VDataTableBody } from './VDataTableBody'
 import { VDataTableModal } from './VDataTableModal'
 import { VDataTableFooter } from './VDataTableFooter'
 import { VCheckbox } from '../VCheckbox'
+import { VButton } from '../VButton'
 
 // Helpers
-import { copyWithoutRef } from '../../helpers'
 import { toComparableStringFormat } from './helpers'
-import { VButton } from '@/components'
 
 export const VDataTable = defineComponent({
   name: 'v-data-table',
@@ -77,7 +76,7 @@ export const VDataTable = defineComponent({
 
     watch(
       () => props.rows,
-      to => rows.value = copyWithoutRef(to),
+      to => rows.value = to,
       { immediate: true },
     )
 

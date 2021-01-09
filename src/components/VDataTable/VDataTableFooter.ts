@@ -28,7 +28,7 @@ export const VDataTableFooter = defineComponent({
     ...colorProps(),
   } as any,
 
-  setup(props, { slots, emit }) {
+  setup(props, { emit }) {
     const { setTextColor } = useColors()
 
     const lastOnPage = computed<number>(() => {

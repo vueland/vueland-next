@@ -10,12 +10,14 @@ import { useColors } from '../../effects/use-colors'
 // Components
 import { VDataTableHeader } from './VDataTableHeader'
 import { VDataTableBody } from './VDataTableBody'
+import { VDataTableModal } from './VDataTableModal'
 import { VDataTableFooter } from './VDataTableFooter'
 import { VCheckbox } from '../VCheckbox'
 
 // Helpers
 import { copyWithoutRef } from '../../helpers'
 import { toComparableStringFormat } from './helpers'
+import { VButton } from '@/components'
 
 export const VDataTable = defineComponent({
   name: 'v-data-table',
@@ -47,7 +49,9 @@ export const VDataTable = defineComponent({
     const isAllRowsChecked = ref<boolean>(false)
 
     const filters = {}
-
+    const settings = ref({
+      cols: false,
+    })
     const { setBackground } = useColors()
 
     const classes = computed<Record<string, boolean>>(() => ({
@@ -123,6 +127,11 @@ export const VDataTable = defineComponent({
 
     function onSelectRowsCount(count) {
       rowsPerPage.value = count
+    }
+
+    function colsSettings(val, col) {
+      col.show = val
+      emit('cols-settings', cols.value)
     }
 
     function sortColumn(col) {
@@ -242,8 +251,7 @@ export const VDataTable = defineComponent({
         onSelect: onSelectRowsCount,
         onLastPage: val => emit('last-page', val),
         onResetPage: val => page.value += val,
-      }, {
-        toolbar: () => slots.toolbar && slots.toolbar(),
+        onColsSettings: () => settings.value.cols = true,
       })
     }
 
@@ -257,6 +265,41 @@ export const VDataTable = defineComponent({
       )
     }
 
+    function genColsSettingsCheckboxes() {
+      return cols.value.map(col => {
+        return h(VCheckbox, {
+          label: col.title,
+          modelValue: col.show,
+          dark: props.dark,
+          color: props.dark ? 'white' : '',
+          style: { margin: '10px 0' },
+          onChecked: val => colsSettings(val, col),
+        })
+      })
+    }
+
+    function genColsSettingsActions() {
+      return h(VButton, {
+        dark: props.dark,
+        color: props.dark ? 'white' : '',
+        outlined: props.dark,
+        label: 'ok',
+        onClick: () => settings.value.cols = false
+      })
+    }
+
+    function genColsSettingsModal() {
+      return h(VDataTableModal, {
+        dark: props.dark,
+        color: props.color,
+        show: settings.value.cols,
+      }, {
+        title: () => 'Cols Settings',
+        content: () => genColsSettingsCheckboxes(),
+        actions: () => genColsSettingsActions()
+      })
+    }
+
     return () => {
       const propsData = {
         class: classes.value,
@@ -266,6 +309,7 @@ export const VDataTable = defineComponent({
         genTableTools(),
         genTableInner(),
         genTableFooter(),
+        genColsSettingsModal(),
       ])
     }
   },

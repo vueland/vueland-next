@@ -134,7 +134,7 @@ export const VCheckbox = defineComponent({
         return modelValue
       }
 
-      return (isChecked.value = (modelValue || !isChecked.value))
+      return (isChecked.value = !isChecked.value)
     }
 
     function onClick() {

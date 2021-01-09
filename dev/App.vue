@@ -12,7 +12,7 @@
         email: '',
         password: '',
         user: { name: 'igor' },
-        checked: [],
+        checked: false,
         user2: { name: 'alyona' },
         date: null,
         users: [],
@@ -135,20 +135,22 @@
       </v-list-group>
     </v-list-group>
   </v-list>
+  <v-checkbox label="test" v-model="data.checked"/>
   <v-data-table
     :cols="cols"
     :rows="data.users"
     class="elevation-5"
     :rows-on-table="[25, 40, 50, 75]"
     style="margin: 10px;"
-
+    color="grey darken-4"
     toolbar
     numbered
     checkbox
-
+    dark
     @filter="testFunc"
     @checked="testFunc"
     @last-page="fetchItems"
+    @cols-settings="testFunc"
   >
     <template v-slot:address="{ row, formatter }">
       <v-icon icon="fas fa-envelope" size="12" :color="formatter(row).includes('h') ? 'red':'blue'"/>

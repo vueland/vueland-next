@@ -164,7 +164,7 @@ var VSelect = (0, _vue.defineComponent)({
     }
 
     (0, _vue.onBeforeUnmount)(function () {
-      if (fields.value) {
+      if (fields !== null && fields !== void 0 && fields.value) {
         fields.value = fields.value.filter(function (v) {
           return v !== validateValue;
         });

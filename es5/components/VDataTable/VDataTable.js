@@ -350,7 +350,7 @@ var VDataTable = (0, _vue.defineComponent)({
       var propsData = {
         "class": classes.value
       };
-      return (0, _vue.h)('div', setBackground(props.color, propsData), [genTableTools(), genTableInner(), genTableFooter(), genColsSettingsModal()]);
+      return (0, _vue.h)('div', setBackground(props.color, propsData), [slots.toolbar && genTableTools(), genTableInner(), genTableFooter(), genColsSettingsModal()]);
     };
   }
 });

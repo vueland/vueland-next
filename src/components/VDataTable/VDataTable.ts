@@ -312,7 +312,7 @@ export const VDataTable = defineComponent({
       }
 
       return h('div', setBackground(props.color, propsData), [
-        genTableTools(),
+        slots.toolbar && genTableTools(),
         genTableInner(),
         genTableFooter(),
         genColsSettingsModal(),

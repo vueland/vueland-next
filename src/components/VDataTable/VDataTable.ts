@@ -22,8 +22,14 @@ import { VButton } from '@/components'
 export const VDataTable = defineComponent({
   name: 'v-data-table',
   props: {
-    cols: Array,
-    rows: Array,
+    cols: {
+      type: Array,
+      default: () => [],
+    },
+    rows: {
+      type: Array,
+      default: () => [],
+    },
     headerColor: String,
     rowsOnTable: {
       type: Array,
@@ -284,7 +290,7 @@ export const VDataTable = defineComponent({
         color: props.dark ? 'white' : '',
         outlined: props.dark,
         label: 'ok',
-        onClick: () => settings.value.cols = false
+        onClick: () => settings.value.cols = false,
       })
     }
 
@@ -296,7 +302,7 @@ export const VDataTable = defineComponent({
       }, {
         title: () => 'Cols Settings',
         content: () => genColsSettingsCheckboxes(),
-        actions: () => genColsSettingsActions()
+        actions: () => genColsSettingsActions(),
       })
     }
 

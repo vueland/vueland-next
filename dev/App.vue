@@ -79,7 +79,7 @@
           resizeable: true,
           sortable: true,
           filterable: true,
-          formatter: row => `${row.address.city} ${row.address.street}`,
+          format: row => `${row.address.city} ${row.address.street}`,
         },
         {
           key: 'phone',
@@ -101,7 +101,7 @@
           resizeable: true,
           sortable: true,
           filterable: true,
-          formatter: row => row.company.name,
+          format: row => row.company.name,
         },
       ]
 
@@ -142,19 +142,19 @@
     class="elevation-5"
     :rows-on-table="[25, 40, 50, 75]"
     style="margin: 10px;"
-    color="grey darken-4"
+
     toolbar
     numbered
     checkbox
-    dark
+
     @filter="testFunc"
     @checked="testFunc"
     @last-page="fetchItems"
     @cols-settings="testFunc"
   >
-    <template v-slot:address="{ row, formatter }">
-      <v-icon icon="fas fa-envelope" size="12" :color="formatter(row).includes('h') ? 'red':'blue'"/>
-      <span style="margin-left: 15px">{{ formatter(row) }}</span>
+    <template v-slot:address="{ row, format }">
+      <v-icon icon="fas fa-envelope" size="12" :color="format(row).includes('h') ? 'red':'blue'"/>
+      <span style="margin-left: 15px">{{ format(row) }}</span>
     </template>
     <template v-slot:toolbar>
       <v-button width="42" color="primary" elevation="5">

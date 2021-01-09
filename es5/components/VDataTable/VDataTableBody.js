@@ -114,7 +114,7 @@ var VDataTableBody = (0, _vue.defineComponent)({
         }));
 
         var _loop2 = function _loop2(j) {
-          var formatter = props.cols[j].formatter;
+          var format = props.cols[j].format;
           var slotContent = slots[props.cols[j].key] && slots[props.cols[j].key](rowsOnTable.value[i]);
           props.cols[j].show && rowCells.push((0, _vue.h)(_VDataTableCell.VDataTableCell, {
             width: props.cols[j].width,
@@ -122,7 +122,7 @@ var VDataTableBody = (0, _vue.defineComponent)({
             dark: props.dark
           }, {
             "default": function _default() {
-              return slotContent ? slotContent : formatter ? formatter(rowsOnTable.value[i]) : String(rowsOnTable.value[i][props.cols[j].key]);
+              return slotContent ? slotContent : format ? format(rowsOnTable.value[i]) : String(rowsOnTable.value[i][props.cols[j].key]);
             }
           }));
         };

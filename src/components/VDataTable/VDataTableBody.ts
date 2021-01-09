@@ -114,7 +114,7 @@ export const VDataTableBody = defineComponent({
         )
 
         for (let j = 0; j < colsLength; j += 1) {
-          const { formatter } = props.cols[j]
+          const { format } = props.cols[j]
 
           const slotContent = slots[props.cols[j].key] &&
             slots[props.cols[j].key]!(rowsOnTable.value[i])
@@ -126,8 +126,8 @@ export const VDataTableBody = defineComponent({
               align: props.align || props.cols[j].align,
               dark: props.dark,
             }, {
-              default: () => slotContent ? slotContent : formatter ?
-                formatter(rowsOnTable.value[i]) :
+              default: () => slotContent ? slotContent : format ?
+                format(rowsOnTable.value[i]) :
                 String(rowsOnTable.value[i][props.cols[j].key]),
             }))
         }

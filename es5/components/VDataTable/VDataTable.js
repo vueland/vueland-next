@@ -68,10 +68,10 @@ var VDataTable = (0, _vue.defineComponent)({
     var rowsPerPage = (0, _vue.ref)(20);
     var page = (0, _vue.ref)(1);
     var isAllRowsChecked = (0, _vue.ref)(false);
-    var filters = {};
     var settings = (0, _vue.ref)({
       cols: false
     });
+    var filters = {};
 
     var _useColors = (0, _useColors2.useColors)(),
         setBackground = _useColors.setBackground;
@@ -251,8 +251,8 @@ var VDataTable = (0, _vue.defineComponent)({
             row: row
           };
 
-          if (col.formatter) {
-            scoped.formatter = col.formatter;
+          if (col.format) {
+            scoped.format = col.format;
           }
 
           return slots[col.key] && slots[col.key](scoped);
@@ -319,7 +319,7 @@ var VDataTable = (0, _vue.defineComponent)({
     function genColsSettingsActions() {
       return (0, _vue.h)(_components.VButton, {
         dark: props.dark,
-        color: props.dark ? 'white' : '',
+        color: props.dark ? 'white' : 'primary',
         outlined: props.dark,
         label: 'ok',
         onClick: function onClick() {

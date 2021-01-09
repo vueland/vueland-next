@@ -54,10 +54,11 @@ export const VDataTable = defineComponent({
     const page = ref<number>(1)
     const isAllRowsChecked = ref<boolean>(false)
 
-    const filters = {}
     const settings = ref({
       cols: false,
     })
+
+    const filters = {}
     const { setBackground } = useColors()
 
     const classes = computed<Record<string, boolean>>(() => ({
@@ -227,8 +228,8 @@ export const VDataTable = defineComponent({
           const slotContent = (row) => {
             const scoped: any = { row }
 
-            if (col.formatter) {
-              scoped.formatter = col.formatter
+            if (col.format) {
+              scoped.format = col.format
             }
 
             return slots[col.key] && slots[col.key]!(scoped)
@@ -287,7 +288,7 @@ export const VDataTable = defineComponent({
     function genColsSettingsActions() {
       return h(VButton, {
         dark: props.dark,
-        color: props.dark ? 'white' : '',
+        color: props.dark ? 'white' : 'primary',
         outlined: props.dark,
         label: 'ok',
         onClick: () => settings.value.cols = false,

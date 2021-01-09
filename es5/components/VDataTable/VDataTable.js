@@ -30,8 +30,18 @@ var _components = require("@/components");
 var VDataTable = (0, _vue.defineComponent)({
   name: 'v-data-table',
   props: {
-    cols: Array,
-    rows: Array,
+    cols: {
+      type: Array,
+      "default": function _default() {
+        return [];
+      }
+    },
+    rows: {
+      type: Array,
+      "default": function _default() {
+        return [];
+      }
+    },
     headerColor: String,
     rowsOnTable: {
       type: Array,

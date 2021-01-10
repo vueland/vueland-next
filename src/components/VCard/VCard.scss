@@ -4,9 +4,8 @@
   @include flex(center, center, column);
   width: auto;
   background: $mainWhite;
-  border-radius: 6px;
+  border-radius: 5px;
   position: relative;
-  //overflow: hidden;
   z-index: 3;
 
   &__title {
@@ -17,6 +16,8 @@
     font-size: 1.4rem;
     position: relative;
     font-family: $mainFont;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
   }
 
   &__subtitle {

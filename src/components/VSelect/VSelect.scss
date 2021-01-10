@@ -12,3 +12,11 @@
     background: transparent;
   }
 }
+
+.v-select--readonly > .v-select-list {
+  top: 6px;
+}
+
+.v-select--typeable > .v-select-list {
+  top: 32px;
+}

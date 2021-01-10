@@ -19,13 +19,13 @@
       })
 
 
-      // const fetchItems = () => {
-      //   fetch('https://jsonplaceholder.typicode.com/comments')
-      //     .then(response => response.json())
-      //     .then(json => data.users = [...data.users, ...json])
-      // }
+      const fetchItems = () => {
+        fetch('https://jsonplaceholder.typicode.com/comments')
+          .then(response => response.json())
+          .then(json => data.users = [...data.users, ...json])
+      }
 
-      // fetchItems()
+      fetchItems()
 
       setTimeout(() => {
         data.always = false
@@ -43,7 +43,7 @@
       }
 
       const testFunc = date => {
-        console.log(date)
+        console.log(date, data)
       }
 
       const forOut = computed(() => {
@@ -204,8 +204,11 @@
       v-model="data.email"
       :items="data.users"
       value-key="name"
+      readonly
+      typeable
       prepend-icon="fas fa-search"
       :rules="[v => !!v || 'required']"
+      @input="testFunc"
     />
     <v-button
       label="click"

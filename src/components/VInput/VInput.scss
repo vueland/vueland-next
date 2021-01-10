@@ -54,6 +54,11 @@
       padding-left: 20px;
     }
 
+    & > .v-input__prepend-icon + .v-input__clear + .v-label +
+    .v-select > .v-select__input {
+      padding-left: 20px;
+    }
+
     & > .v-input__append-icon + .v-label +
     .v-select > .v-select__input {
       padding-right: 20px;

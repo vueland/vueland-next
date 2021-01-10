@@ -45,12 +45,13 @@ export const VSelect = defineComponent({
     listColor: String,
     disabled: Boolean,
     readonly: Boolean,
+    typeable: Boolean,
     modelValue: [Array, String, Object, Number],
     ...validateProps(),
     ...colorProps(),
   } as any,
 
-  setup(props, { emit, attrs }): () => VNode {
+  setup(props, { emit }): () => VNode {
     const state: SelectState = reactive({
       selected: null,
       focused: false,
@@ -86,7 +87,9 @@ export const VSelect = defineComponent({
     const classes = computed<Record<string, boolean>>(() => ({
       'v-select': true,
       'v-select--disabled': props.disabled,
+      'v-select--readonly': props.readonly && !props.typeable,
       'v-select--focused': state.focused,
+      'v-select--typeable': props.typeable,
       ...validateClasses.value,
     }))
 
@@ -118,6 +121,13 @@ export const VSelect = defineComponent({
       emit('focus')
     }
 
+    function onInput(e) {
+      if (!props.typeable) return
+      state.selected = e.target.value
+      emit('update:modelValue', state.selected)
+      emit('update:value', state.selected)
+    }
+
     function onClear() {
       selectItem('')
       requestAnimationFrame(validateValue)
@@ -140,12 +150,12 @@ export const VSelect = defineComponent({
       const propsData = {
         value: selectedValue,
         disabled: props.disabled,
-        readonly: props.readonly,
+        readonly: props.readonly && !props.typeable,
         class: {
           'v-select__input': true,
         },
-        ...attrs,
         onClick,
+        onInput,
       }
       return h('input', setTextColor(color, propsData))
     }

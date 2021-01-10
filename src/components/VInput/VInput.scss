@@ -103,7 +103,8 @@
       height: 24px;
       position: absolute;
       top: 16px;
-      left: calc(100% - 24px)
+      left: calc(100% - 24px);
+      z-index: 1;
     }
 
     & > .v-input__prepend-icon + .v-label {

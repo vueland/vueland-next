@@ -27,6 +27,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var VSelect = (0, _vue.defineComponent)({
   name: 'v-select',
+  emits: ['input', 'blur', 'focus', 'select', 'update:modelValue', 'update:value'],
   props: _objectSpread(_objectSpread({
     label: String,
     items: Array,
@@ -36,13 +37,13 @@ var VSelect = (0, _vue.defineComponent)({
     listColor: String,
     disabled: Boolean,
     readonly: Boolean,
+    typeable: Boolean,
     modelValue: [Array, String, Object, Number]
   }, (0, _useValidate2.validateProps)()), (0, _useColors2.colorProps)()),
   setup: function setup(props, _ref) {
     var _props$rules2;
 
-    var emit = _ref.emit,
-        attrs = _ref.attrs;
+    var emit = _ref.emit;
     var state = (0, _vue.reactive)({
       selected: null,
       focused: false,
@@ -78,7 +79,9 @@ var VSelect = (0, _vue.defineComponent)({
       return _objectSpread({
         'v-select': true,
         'v-select--disabled': props.disabled,
-        'v-select--focused': state.focused
+        'v-select--readonly': props.readonly && !props.typeable,
+        'v-select--focused': state.focused,
+        'v-select--typeable': props.typeable
       }, validateClasses.value);
     });
     (0, _vue.watch)(function () {
@@ -111,6 +114,13 @@ var VSelect = (0, _vue.defineComponent)({
       emit('focus');
     }
 
+    function onInput(e) {
+      state.selected = e.target.value;
+      emit('update:modelValue', state.selected);
+      emit('update:value', state.selected);
+      emit('input', state.selected);
+    }
+
     function onClear() {
       selectItem('');
       requestAnimationFrame(validateValue);
@@ -126,18 +136,16 @@ var VSelect = (0, _vue.defineComponent)({
     function genInput() {
       var selectedValue = state.selected && state.selected[props.valueKey] || state.selected;
       var color = props.dark ? 'white' : '';
-
-      var propsData = _objectSpread(_objectSpread({
+      var propsData = {
         value: selectedValue,
         disabled: props.disabled,
-        readonly: props.readonly,
+        readonly: props.readonly && !props.typeable,
         "class": {
           'v-select__input': true
-        }
-      }, attrs), {}, {
-        onClick: onClick
-      });
-
+        },
+        onClick: onClick,
+        onInput: onInput
+      };
       return (0, _vue.h)('input', setTextColor(color, propsData));
     }
 

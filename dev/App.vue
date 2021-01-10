@@ -205,7 +205,6 @@
       :items="data.users"
       value-key="name"
       readonly
-      typeable
       prepend-icon="fas fa-search"
       :rules="[v => !!v || 'required']"
       @input="testFunc"

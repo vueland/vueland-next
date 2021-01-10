@@ -36,6 +36,15 @@ type SelectState = {
 export const VSelect = defineComponent({
   name: 'v-select',
 
+  emits: [
+    'input',
+    'blur',
+    'focus',
+    'select',
+    'update:modelValue',
+    'update:value',
+  ],
+
   props: {
     label: String,
     items: Array,
@@ -122,10 +131,10 @@ export const VSelect = defineComponent({
     }
 
     function onInput(e) {
-      if (!props.typeable) return
       state.selected = e.target.value
       emit('update:modelValue', state.selected)
       emit('update:value', state.selected)
+      emit('input', state.selected)
     }
 
     function onClear() {

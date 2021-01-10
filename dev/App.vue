@@ -194,7 +194,7 @@
     <v-text-field
       label="teal"
       autocomplete="new-password"
-      prepend-icon="fas fa-search"
+      prepend-icon="fas fa-map-marked-alt"
       v-model="data.password"
       clearable
       :rules="[v => !!v || 'required', v => v.length > 5 || 'more than 5']"

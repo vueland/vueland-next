@@ -34,29 +34,29 @@
 
     & > .v-input__prepend-icon + .v-label +
     .v-text-field > .v-text-field__input {
-      padding-left: 20px;
+      padding-left: 23px;
     }
 
     & > .v-input__prepend-icon + .v-input__append-icon +
     .v-label + .v-text-field > .v-text-field__input {
-      padding-left: 20px;
+      padding-left: 23px;
     }
 
     & > .v-input__prepend-icon + .v-input__clear +
     .v-label + .v-text-field > .v-text-field__input {
-      padding-left: 20px;
+      padding-left: 23px;
     }
   }
 
   &__select-slot {
     & > .v-input__prepend-icon + .v-label +
     .v-select > .v-select__input {
-      padding-left: 20px;
+      padding-left: 23px;
     }
 
     & > .v-input__prepend-icon + .v-input__clear + .v-label +
     .v-select > .v-select__input {
-      padding-left: 20px;
+      padding-left: 23px;
     }
 
     & > .v-input__append-icon + .v-label +
@@ -66,7 +66,7 @@
 
     & > .v-input__clear + .v-label +
     .v-select > .v-select__input {
-      padding-right: 26px;
+      padding-right: 20px;
     }
 
     & > .v-input__prepend-icon + .v-input__append-icon +
@@ -108,16 +108,16 @@
     }
 
     & > .v-input__prepend-icon + .v-label {
-      left: 26px !important;
+      left: 23px !important;
       color: currentColor;
     }
 
     & > .v-input__prepend-icon + .v-input__append-icon + .v-label {
-      left: 26px !important;
+      left: 23px !important;
     }
 
     & > .v-input__prepend-icon + .v-input__clear + .v-label {
-      left: 26px !important;
+      left: 23px !important;
     }
 
     & > .v-input__append-icon {

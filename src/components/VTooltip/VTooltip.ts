@@ -52,7 +52,7 @@ export const VTooltip = defineComponent({
     ...positionProps(),
   } as any,
 
-  setup(props, { slots }): () => VNode {
+  setup(props, { slots }) {
     const tooltip = reactive<Partial<OffsetSizes>>({})
     const activator = reactive<Partial<OffsetSizes>>({})
 
@@ -104,8 +104,8 @@ export const VTooltip = defineComponent({
     const styles = computed<Record<string, string>>(() => ({
       top: tooltip.top ? convertToUnit(tooltip.top) as string : '',
       left: tooltip.top ? convertToUnit(tooltip.left) as string : '',
-      maxWidth: !!props.maxWidth ? `${ props.maxWidth }px` : '',
-      minWidth: !!props.minWidth ? `${ props.minWidth }px` : '',
+      maxWidth: !!props.maxWidth ? `${props.maxWidth}px` : '',
+      minWidth: !!props.minWidth ? `${props.minWidth}px` : '',
       zIndex: props.zIndex,
     }))
 
@@ -179,10 +179,10 @@ export const VTooltip = defineComponent({
         innerActive.value ? 'scale-in' : 'fade',
       )
 
-      return h('div', {
+      return [h('div', {
           class: classes.value,
-        }, [genActivator(), content],
-      )
+        },
+      ), content, genActivator()]
     }
   },
 })

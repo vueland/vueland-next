@@ -389,7 +389,7 @@ var VDatePicker = (0, _vue.defineComponent)({
       var propsData = {
         "class": classes.value
       };
-      return (0, _vue.withDirectives)((0, _vue.h)('div', propsData, [genDatepickerInput(), (0, _useTransition.useTransition)(genDatepickerTable(), 'fade')]), [[_directives.vClickOutside, directive.value]]);
+      return (0, _vue.withDirectives)((0, _vue.h)('div', propsData, [genDatepickerInput(), (0, _useTransition.useTransition)(genDatepickerTable(), 'fade')]), [[_directives.clickOutside, directive.value]]);
     }
 
     return function () {

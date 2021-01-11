@@ -168,7 +168,7 @@ var VSelect = (0, _vue.defineComponent)({
       var selectVNode = (0, _vue.h)('div', {
         "class": classes.value
       }, [genInput(), props.items && genSelectList()]);
-      return (0, _vue.withDirectives)(selectVNode, [[_directives.vClickOutside, directive.value]]);
+      return (0, _vue.withDirectives)(selectVNode, [[_directives.clickOutside, directive.value]]);
     }
 
     (0, _vue.onBeforeUnmount)(function () {

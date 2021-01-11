@@ -14,7 +14,7 @@ import {
 
 // Directives
 import { vShow } from 'vue'
-import { vClickOutside } from '../../directives'
+import { clickOutside } from '../../directives'
 
 // Effects
 import { useColors } from '../../effects/use-colors'
@@ -442,7 +442,7 @@ export const VDatePicker = defineComponent({
             useTransition(genDatepickerTable(), 'fade'),
           ],
         ),
-        [[vClickOutside, directive.value]],
+        [[clickOutside, directive.value]],
       )
     }
 

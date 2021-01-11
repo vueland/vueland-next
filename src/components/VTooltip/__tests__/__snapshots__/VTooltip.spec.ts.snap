@@ -2,209 +2,209 @@
 
 exports[`VTooltip should mount component and match snapshot 1`] = `
 <div class="v-tooltip">
-  <div class="v-tooltip__activator">
-  </div>
-  <transition-stub>
-    <span class="v-tooltip__content grey lighten-1"
-          style="display: none;"
-    >
-    </span>
-  </transition-stub>
+</div>
+<transition-stub>
+  <span class="v-tooltip__content grey lighten-1"
+        style="display: none;"
+  >
+  </span>
+</transition-stub>
+<div class="v-tooltip__activator">
 </div>
 `;
 
 exports[`VTooltip should render component with bottom and match snapshot 1`] = `
 <div class="v-tooltip v-tooltip--bottom">
-  <div class="v-tooltip__activator">
-    <div class="activator">
-    </div>
-  </div>
-  <transition-stub>
-    <span class="v-tooltip__content grey lighten-1"
-          style="display: none;"
-    >
-      <span>
-        some text
-      </span>
+</div>
+<transition-stub>
+  <span class="v-tooltip__content grey lighten-1"
+        style="display: none;"
+  >
+    <span>
+      some text
     </span>
-  </transition-stub>
+  </span>
+</transition-stub>
+<div class="v-tooltip__activator">
+  <div class="activator">
+  </div>
 </div>
 `;
 
 exports[`VTooltip should render component with left and match snapshot 1`] = `
 <div class="v-tooltip v-tooltip--left">
-  <div class="v-tooltip__activator">
-    <div class="activator">
-    </div>
-  </div>
-  <transition-stub>
-    <span class="v-tooltip__content grey lighten-1"
-          style="display: none;"
-    >
-      <span>
-        some text
-      </span>
+</div>
+<transition-stub>
+  <span class="v-tooltip__content grey lighten-1"
+        style="display: none;"
+  >
+    <span>
+      some text
     </span>
-  </transition-stub>
+  </span>
+</transition-stub>
+<div class="v-tooltip__activator">
+  <div class="activator">
+  </div>
 </div>
 `;
 
 exports[`VTooltip should render component with right and match snapshot 1`] = `
 <div class="v-tooltip v-tooltip--right">
-  <div class="v-tooltip__activator">
-    <div class="activator">
-    </div>
-  </div>
-  <transition-stub>
-    <span class="v-tooltip__content grey lighten-1"
-          style="display: none;"
-    >
-      <span>
-        some text
-      </span>
+</div>
+<transition-stub>
+  <span class="v-tooltip__content grey lighten-1"
+        style="display: none;"
+  >
+    <span>
+      some text
     </span>
-  </transition-stub>
+  </span>
+</transition-stub>
+<div class="v-tooltip__activator">
+  <div class="activator">
+  </div>
 </div>
 `;
 
 exports[`VTooltip should render component with top and match snapshot 1`] = `
 <div class="v-tooltip v-tooltip--top">
-  <div class="v-tooltip__activator">
-    <div class="activator">
-    </div>
-  </div>
-  <transition-stub>
-    <span class="v-tooltip__content grey lighten-1"
-          style="display: none;"
-    >
-      <span>
-        some text
-      </span>
+</div>
+<transition-stub>
+  <span class="v-tooltip__content grey lighten-1"
+        style="display: none;"
+  >
+    <span>
+      some text
     </span>
-  </transition-stub>
+  </span>
+</transition-stub>
+<div class="v-tooltip__activator">
+  <div class="activator">
+  </div>
 </div>
 `;
 
 exports[`VTooltip should set activator and match snapshot 1`] = `
 <div class="v-tooltip">
-  <div class="v-tooltip__activator">
-    <div class="activator">
-    </div>
-  </div>
-  <transition-stub>
-    <span class="v-tooltip__content grey lighten-1"
-          style="display: none;"
-    >
-      <span>
-        some text
-      </span>
+</div>
+<transition-stub>
+  <span class="v-tooltip__content grey lighten-1"
+        style="display: none;"
+  >
+    <span>
+      some text
     </span>
-  </transition-stub>
+  </span>
+</transition-stub>
+<div class="v-tooltip__activator">
+  <div class="activator">
+  </div>
 </div>
 `;
 
 exports[`VTooltip should set max width and match snapshot 1`] = `
 <div class="v-tooltip">
-  <div class="v-tooltip__activator">
-    <div class="activator">
-    </div>
-  </div>
-  <transition-stub>
-    <span class="v-tooltip__content grey lighten-1"
-          style="max-width: 270px; display: none;"
-    >
-      <span>
-        some text
-      </span>
+</div>
+<transition-stub>
+  <span class="v-tooltip__content grey lighten-1"
+        style="max-width: 270px; display: none;"
+  >
+    <span>
+      some text
     </span>
-  </transition-stub>
+  </span>
+</transition-stub>
+<div class="v-tooltip__activator">
+  <div class="activator">
+  </div>
 </div>
 `;
 
 exports[`VTooltip should set min width and match snapshot 1`] = `
 <div class="v-tooltip">
-  <div class="v-tooltip__activator">
-    <div class="activator">
-    </div>
-  </div>
-  <transition-stub>
-    <span class="v-tooltip__content grey lighten-1"
-          style="min-width: 150px; display: none;"
-    >
-      <span>
-        some text
-      </span>
+</div>
+<transition-stub>
+  <span class="v-tooltip__content grey lighten-1"
+        style="min-width: 150px; display: none;"
+  >
+    <span>
+      some text
     </span>
-  </transition-stub>
+  </span>
+</transition-stub>
+<div class="v-tooltip__activator">
+  <div class="activator">
+  </div>
 </div>
 `;
 
 exports[`VTooltip should set offsetX and match snapshot 1`] = `
 <div class="v-tooltip">
-  <div class="v-tooltip__activator">
-    <div class="activator">
-    </div>
-  </div>
-  <transition-stub>
-    <span class="v-tooltip__content grey lighten-1"
-          style="display: none;"
-    >
-      <span>
-        some text
-      </span>
+</div>
+<transition-stub>
+  <span class="v-tooltip__content grey lighten-1"
+        style="display: none;"
+  >
+    <span>
+      some text
     </span>
-  </transition-stub>
+  </span>
+</transition-stub>
+<div class="v-tooltip__activator">
+  <div class="activator">
+  </div>
 </div>
 `;
 
 exports[`VTooltip should set offsetY and match snapshot 1`] = `
 <div class="v-tooltip">
-  <div class="v-tooltip__activator">
-    <div class="activator">
-    </div>
-  </div>
-  <transition-stub>
-    <span class="v-tooltip__content grey lighten-1"
-          style="display: none;"
-    >
-      <span>
-        some text
-      </span>
+</div>
+<transition-stub>
+  <span class="v-tooltip__content grey lighten-1"
+        style="display: none;"
+  >
+    <span>
+      some text
     </span>
-  </transition-stub>
+  </span>
+</transition-stub>
+<div class="v-tooltip__activator">
+  <div class="activator">
+  </div>
 </div>
 `;
 
 exports[`VTooltip should trigger mouseenter event, show tooltip and match snapshot 1`] = `
 <div class="v-tooltip">
-  <div class="v-tooltip__activator">
-    <div class="activator">
-    </div>
-  </div>
-  <transition-stub>
-    <span class="v-tooltip__content grey lighten-1">
-      <span>
-        some text
-      </span>
+</div>
+<transition-stub>
+  <span class="v-tooltip__content grey lighten-1">
+    <span>
+      some text
     </span>
-  </transition-stub>
+  </span>
+</transition-stub>
+<div class="v-tooltip__activator">
+  <div class="activator">
+  </div>
 </div>
 `;
 
 exports[`VTooltip should trigger mouseleave event, hide tooltip and match snapshot 1`] = `
 <div class="v-tooltip">
-  <div class="v-tooltip__activator">
-    <div class="activator">
-    </div>
-  </div>
-  <transition-stub>
-    <span class="v-tooltip__content grey lighten-1"
-          style="display: none;"
-    >
-      <span>
-        some text
-      </span>
+</div>
+<transition-stub>
+  <span class="v-tooltip__content grey lighten-1"
+        style="display: none;"
+  >
+    <span>
+      some text
     </span>
-  </transition-stub>
+  </span>
+</transition-stub>
+<div class="v-tooltip__activator">
+  <div class="activator">
+  </div>
 </div>
 `;

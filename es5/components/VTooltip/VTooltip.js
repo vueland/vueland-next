@@ -157,9 +157,9 @@ var VTooltip = (0, _vue.defineComponent)({
     });
     return function () {
       var content = (0, _useTransition.useTransition)(genContent(), innerActive.value ? 'scale-in' : 'fade');
-      return (0, _vue.h)('div', {
+      return [(0, _vue.h)('div', {
         "class": classes.value
-      }, [genActivator(), content]);
+      }), content, genActivator()];
     };
   }
 });

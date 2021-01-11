@@ -149,7 +149,7 @@ var VDataTableHeader = (0, _vue.defineComponent)({
           'v-data-table-col__filter': true
         }
       };
-      return item.filterable && (0, _vue.withDirectives)((0, _vue.h)('div', setBackground(props.color, propsData), [genFilterHeader(item), genFilterInput(item)]), [[_vClickOutside.vClickOutside, directive], [_vue.vShow, item.addFilter]]);
+      return item.filterable && (0, _vue.withDirectives)((0, _vue.h)('div', setBackground(props.color, propsData), [genFilterHeader(item), genFilterInput(item)]), [[_vClickOutside.clickOutside, directive], [_vue.vShow, item.addFilter]]);
     }
 
     function genHeaderTitle(item) {

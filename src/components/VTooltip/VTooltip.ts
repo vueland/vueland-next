@@ -8,7 +8,6 @@ import {
   reactive,
   watch,
   computed,
-  renderSlot,
   withDirectives,
   defineComponent,
   onMounted,
@@ -104,21 +103,17 @@ export const VTooltip = defineComponent({
     const styles = computed<Record<string, string>>(() => ({
       top: tooltip.top ? convertToUnit(tooltip.top) as string : '',
       left: tooltip.top ? convertToUnit(tooltip.left) as string : '',
-      maxWidth: !!props.maxWidth ? `${props.maxWidth}px` : '',
-      minWidth: !!props.minWidth ? `${props.minWidth}px` : '',
+      maxWidth: !!props.maxWidth ? `${ props.maxWidth }px` : '',
+      minWidth: !!props.minWidth ? `${ props.minWidth }px` : '',
       zIndex: props.zIndex,
     }))
 
     function genActivator(): VNode | null {
-      const slotContent = renderSlot(slots, 'activator', {
+      const slotContent = slots.activator && slots.activator({
         on: listeners,
       })
 
-      return h('div', {
-          class: 'v-tooltip__activator',
-          ref: activatorRef,
-        }, slotContent,
-      )
+      return h(slotContent![0], { ref: activatorRef })
     }
 
     function genContent(): VNode {

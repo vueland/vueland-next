@@ -98,13 +98,12 @@ var VTooltip = (0, _vue.defineComponent)({
     });
 
     function genActivator() {
-      var slotContent = (0, _vue.renderSlot)(slots, 'activator', {
+      var slotContent = slots.activator && slots.activator({
         on: listeners
       });
-      return (0, _vue.h)('div', {
-        "class": 'v-tooltip__activator',
+      return (0, _vue.h)(slotContent[0], {
         ref: activatorRef
-      }, slotContent);
+      });
     }
 
     function genContent() {

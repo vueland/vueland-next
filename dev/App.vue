@@ -306,6 +306,7 @@
       <template v-slot:activator="{ on }">
         <v-button
           elevation="3"
+          style="margin-right: 10px;"
           label="toggle"
           color="blue"
           v-on="on"

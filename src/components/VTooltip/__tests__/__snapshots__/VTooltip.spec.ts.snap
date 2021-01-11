@@ -7,9 +7,12 @@ exports[`VTooltip should mount component and match snapshot 1`] = `
   <span class="v-tooltip__content grey lighten-1"
         style="display: none;"
   >
+    <span>
+      some text
+    </span>
   </span>
 </transition-stub>
-<div class="v-tooltip__activator">
+<div class="activator">
 </div>
 `;
 
@@ -25,9 +28,7 @@ exports[`VTooltip should render component with bottom and match snapshot 1`] = `
     </span>
   </span>
 </transition-stub>
-<div class="v-tooltip__activator">
-  <div class="activator">
-  </div>
+<div class="activator">
 </div>
 `;
 
@@ -43,9 +44,7 @@ exports[`VTooltip should render component with left and match snapshot 1`] = `
     </span>
   </span>
 </transition-stub>
-<div class="v-tooltip__activator">
-  <div class="activator">
-  </div>
+<div class="activator">
 </div>
 `;
 
@@ -61,9 +60,7 @@ exports[`VTooltip should render component with right and match snapshot 1`] = `
     </span>
   </span>
 </transition-stub>
-<div class="v-tooltip__activator">
-  <div class="activator">
-  </div>
+<div class="activator">
 </div>
 `;
 
@@ -79,9 +76,7 @@ exports[`VTooltip should render component with top and match snapshot 1`] = `
     </span>
   </span>
 </transition-stub>
-<div class="v-tooltip__activator">
-  <div class="activator">
-  </div>
+<div class="activator">
 </div>
 `;
 
@@ -97,9 +92,7 @@ exports[`VTooltip should set activator and match snapshot 1`] = `
     </span>
   </span>
 </transition-stub>
-<div class="v-tooltip__activator">
-  <div class="activator">
-  </div>
+<div class="activator">
 </div>
 `;
 
@@ -115,9 +108,7 @@ exports[`VTooltip should set max width and match snapshot 1`] = `
     </span>
   </span>
 </transition-stub>
-<div class="v-tooltip__activator">
-  <div class="activator">
-  </div>
+<div class="activator">
 </div>
 `;
 
@@ -133,9 +124,7 @@ exports[`VTooltip should set min width and match snapshot 1`] = `
     </span>
   </span>
 </transition-stub>
-<div class="v-tooltip__activator">
-  <div class="activator">
-  </div>
+<div class="activator">
 </div>
 `;
 
@@ -151,9 +140,7 @@ exports[`VTooltip should set offsetX and match snapshot 1`] = `
     </span>
   </span>
 </transition-stub>
-<div class="v-tooltip__activator">
-  <div class="activator">
-  </div>
+<div class="activator">
 </div>
 `;
 
@@ -169,9 +156,7 @@ exports[`VTooltip should set offsetY and match snapshot 1`] = `
     </span>
   </span>
 </transition-stub>
-<div class="v-tooltip__activator">
-  <div class="activator">
-  </div>
+<div class="activator">
 </div>
 `;
 
@@ -185,9 +170,7 @@ exports[`VTooltip should trigger mouseenter event, show tooltip and match snapsh
     </span>
   </span>
 </transition-stub>
-<div class="v-tooltip__activator">
-  <div class="activator">
-  </div>
+<div class="activator">
 </div>
 `;
 
@@ -203,8 +186,6 @@ exports[`VTooltip should trigger mouseleave event, hide tooltip and match snapsh
     </span>
   </span>
 </transition-stub>
-<div class="v-tooltip__activator">
-  <div class="activator">
-  </div>
+<div class="activator">
 </div>
 `;

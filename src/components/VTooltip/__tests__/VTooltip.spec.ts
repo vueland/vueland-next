@@ -20,7 +20,11 @@ describe('VTooltip', () => {
   })
 
   it('should mount component and match snapshot', () => {
-    const cmp = mountFunction()
+    const slots = {
+      activator: activatorSlot,
+      default: defaultSlot,
+    }
+    const cmp = mountFunction({ slots })
 
     expect(cmp.find('.v-tooltip__content').attributes().style).toBe(
       'display: none;',

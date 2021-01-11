@@ -76,13 +76,13 @@ export const VDataTable = defineComponent({
 
     watch(
       () => props.rows,
-      to => rows.value = to,
+      to => (rows.value = to),
       { immediate: true },
     )
 
     function onCheckAll(value) {
       isAllRowsChecked.value = value
-      rows.value.forEach(row => row.checked = value)
+      rows.value.forEach(row => (row.checked = value))
     }
 
     function onCheck(rows) {
@@ -121,7 +121,7 @@ export const VDataTable = defineComponent({
 
       if (!props.stateOut) {
         if (!Object.keys(filters).length) {
-          return rows.value = props.rows
+          return (rows.value = props.rows)
         }
         rows.value = filterRows(props.rows)
       } else {
@@ -142,8 +142,8 @@ export const VDataTable = defineComponent({
 
     function sortColumn(col) {
       rows.value!.sort((a, b) => {
-        if (col.formatter) {
-          if (col.formatter(a) > col.formatter(b)) return 1
+        if (col.format) {
+          if (col.format(a) > col.format(b)) return 1
         } else {
           if (a[col.key] > b[col.key]) return 1
         }
@@ -158,8 +158,8 @@ export const VDataTable = defineComponent({
         const rowResults: any[] = []
 
         filterKeys.forEach(key => {
-          const { formatter } = cols.value.find(col => col.key === key)
-          const value = formatter ? formatter(row) : row[key]
+          const { format } = cols.value.find(col => col.key === key)
+          const value = format ? format(row) : row[key]
 
           const rowKeyValue = toComparableStringFormat(value)
           const filterValue = toComparableStringFormat(filters[key])
@@ -182,11 +182,13 @@ export const VDataTable = defineComponent({
 
     function genTableTools() {
       return h(
-        'div', {
+        'div',
+        {
           class: {
             'v-data-table__toolbar': true,
           },
-        }, {
+        },
+        {
           default: () => slots.toolbar && slots.toolbar(),
         },
       )
@@ -224,7 +226,7 @@ export const VDataTable = defineComponent({
         },
 
         props.cols.reduce((acc, col) => {
-          const slotContent = (row) => {
+          const slotContent = row => {
             const scoped: any = { row }
 
             if (col.format) {
@@ -256,13 +258,15 @@ export const VDataTable = defineComponent({
         onNext: onNextTable,
         onSelect: onSelectRowsCount,
         onLastPage: val => emit('last-page', val),
-        onResetPage: val => page.value += val,
-        onColsSettings: () => settings.value.cols = true,
+        onResetPage: val => (page.value += val),
+        onColsSettings: () => (settings.value.cols = true),
       })
     }
 
     function genTableInner() {
-      return h('div', {
+      return h(
+        'div',
+        {
           class: {
             'v-data-table__inner': true,
           },
@@ -290,20 +294,24 @@ export const VDataTable = defineComponent({
         color: props.dark ? 'white' : 'primary',
         outlined: props.dark,
         label: 'ok',
-        onClick: () => settings.value.cols = false,
+        onClick: () => (settings.value.cols = false),
       })
     }
 
     function genColsSettingsModal() {
-      return h(VDataTableModal, {
-        dark: props.dark,
-        color: props.color,
-        show: settings.value.cols,
-      }, {
-        title: () => 'Cols Settings',
-        content: () => genColsSettingsCheckboxes(),
-        actions: () => genColsSettingsActions(),
-      })
+      return h(
+        VDataTableModal,
+        {
+          dark: props.dark,
+          color: props.color,
+          show: settings.value.cols,
+        },
+        {
+          title: () => 'Cols Settings',
+          content: () => genColsSettingsCheckboxes(),
+          actions: () => genColsSettingsActions(),
+        },
+      )
     }
 
     return () => {

@@ -165,8 +165,8 @@ var VDataTable = (0, _vue.defineComponent)({
 
     function sortColumn(col) {
       rows.value.sort(function (a, b) {
-        if (col.formatter) {
-          if (col.formatter(a) > col.formatter(b)) return 1;
+        if (col.format) {
+          if (col.format(a) > col.format(b)) return 1;
         } else {
           if (a[col.key] > b[col.key]) return 1;
         }
@@ -183,9 +183,9 @@ var VDataTable = (0, _vue.defineComponent)({
           var _cols$value$find = cols.value.find(function (col) {
             return col.key === key;
           }),
-              formatter = _cols$value$find.formatter;
+              format = _cols$value$find.format;
 
-          var value = formatter ? formatter(row) : row[key];
+          var value = format ? format(row) : row[key];
           var rowKeyValue = (0, _helpers.toComparableStringFormat)(value);
           var filterValue = (0, _helpers.toComparableStringFormat)(filters[key]);
 

@@ -134,7 +134,7 @@ var VSelect = (0, _vue.defineComponent)({
     }
 
     function genInput() {
-      var selectedValue = state.selected && state.selected[props.valueKey] || state.selected;
+      var selectedValue = state.selected ? props.valueKey ? state.selected[props.valueKey] : state.selected : '';
       var color = props.dark ? 'white' : '';
       var propsData = {
         value: selectedValue,

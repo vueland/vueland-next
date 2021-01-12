@@ -203,10 +203,6 @@ export const VSelect = defineComponent({
     })
 
     return () => {
-      console.log('v-select', 'focused: ' + state.focused, 'has state ' + (props.valueKey
-        ? !!state.selected[props.valueKey]
-        : !!state.selected))
-
       const propsData = {
         label: props.label,
         focused: state.focused,

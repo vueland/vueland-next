@@ -13,7 +13,7 @@
         password: '',
         user: { name: 'igor' },
         checked: false,
-        user2: { name: 'alyona' },
+        user2: { name: '', age: 25 },
         date: null,
         users: [],
       })
@@ -201,7 +201,7 @@
     />
     <v-select
       label="select"
-      v-model="data.email"
+      v-model="data.user2"
       :items="data.users"
       value-key="name"
       readonly

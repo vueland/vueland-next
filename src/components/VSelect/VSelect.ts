@@ -87,9 +87,9 @@ export const VSelect = defineComponent({
     const directive = computed(() => {
       return state.focused
         ? {
-            handler: onBlur,
-            closeConditional: true,
-          }
+          handler: onBlur,
+          closeConditional: true,
+        }
         : undefined
     })
 
@@ -203,6 +203,10 @@ export const VSelect = defineComponent({
     })
 
     return () => {
+      console.log('v-select', 'focused: ' + state.focused, 'has state ' + (props.valueKey
+        ? !!state.selected[props.valueKey]
+        : !!state.selected))
+
       const propsData = {
         label: props.label,
         focused: state.focused,

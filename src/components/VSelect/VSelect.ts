@@ -150,9 +150,8 @@ export const VSelect = defineComponent({
     }
 
     function genInput(): VNode {
-      const selectedValue = (state.selected &&
-        state.selected[props.valueKey]) ||
-        state.selected
+      const selectedValue = state.selected ? props.valueKey ?
+        state.selected[props.valueKey] : state.selected : ''
 
       const color = props.dark ? 'white' : ''
 

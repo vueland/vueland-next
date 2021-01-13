@@ -134,11 +134,7 @@ export const VSelect = defineComponent({
       if (!state.isMenuActive && props.items.length) {
         state.isMenuActive = true
       }
-      if (props.valueKey) {
-        state.selected[props.valueKey] = e.target.value
-      } else {
-        state.selected = e.target.value
-      }
+      state.selected = e.target.value
       emit('update:modelValue', state.selected)
       emit('update:value', state.selected)
       emit('input', state.selected)
@@ -215,7 +211,7 @@ export const VSelect = defineComponent({
         focused: state.focused,
         hasState: props.valueKey
           ? !!state.selected ? !!state.selected[props.valueKey]
-          : !!state.selected : false,
+            : !!state.selected : false,
         hasError: errorState.innerError,
         dark: !!props.dark,
         color: validationState.value,

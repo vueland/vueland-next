@@ -181,8 +181,8 @@
     />
     <v-autocomplete
       label="autocomplete"
-      v-model="data.user2"
-      :items="data.users"
+      v-model="data.email"
+      :items="undefined"
       value-key="name"
       clearable
       prepend-icon="fas fa-search"

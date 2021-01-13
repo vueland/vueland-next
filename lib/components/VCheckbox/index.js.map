@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../../src/components/VCheckbox/index.ts"],"names":[],"mappings":"AAAA,cAAc,aAAd","sourcesContent":["export * from './VCheckbox'\n"],"sourceRoot":"","file":"index.js"}

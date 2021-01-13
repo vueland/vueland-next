@@ -134,7 +134,7 @@ export const VAutocomplete = defineComponent({
     }
 
     function onClick() {
-      state.isMenuActive = true
+      state.isMenuActive = !!props.items && !!props.items.length
       dirty()
       update(errorState.innerError)
     }
@@ -147,6 +147,7 @@ export const VAutocomplete = defineComponent({
     function onBlur() {
       state.focused = false
       emit('blur')
+      console.log(state)
     }
 
     function onInput(e) {
@@ -167,7 +168,8 @@ export const VAutocomplete = defineComponent({
     }
 
     function setUpdatedValue(value) {
-      if (props.valueKey && state.selected) {
+      if (!state.selected) state.selected = value
+      if (props.valueKey && state.selected[props.valueKey]) {
         state.selected[props.valueKey] = value
       } else {
         state.selected = value

@@ -142,7 +142,7 @@ var VAutocomplete = (0, _vue.defineComponent)({
     }
 
     function setUpdatedValue(value) {
-      if (props.valueKey) {
+      if (props.valueKey && state.selected) {
         state.selected[props.valueKey] = value;
       } else {
         state.selected = value;

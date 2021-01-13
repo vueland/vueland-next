@@ -7,7 +7,7 @@ export const validateProps = () => {
       type: Array,
       default: null,
     },
-    value: [String, Number, Date],
+    value: [String, Number, Date, Object],
   }
 }
 

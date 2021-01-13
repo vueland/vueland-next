@@ -152,11 +152,15 @@ export const VAutocomplete = defineComponent({
 
     function onInput(e) {
       setUpdatedValue(e.target.value)
+      emit('update:modelValue', state.selected)
+      emit('update:value', state.selected)
       emit('input', state.selected)
     }
 
     function onClear() {
       setUpdatedValue('')
+      emit('update:modelValue', state.selected)
+      emit('update:value', state.selected)
       requestAnimationFrame(validateValue)
     }
 
@@ -168,14 +172,11 @@ export const VAutocomplete = defineComponent({
     }
 
     function setUpdatedValue(value) {
-      if (!state.selected) state.selected = value
-      if (props.valueKey && state.selected[props.valueKey]) {
+      if (props.valueKey && state.selected) {
         state.selected[props.valueKey] = value
       } else {
         state.selected = value
       }
-      emit('update:modelValue', state.selected)
-      emit('update:value', state.selected)
     }
 
     function genInput(): VNode {

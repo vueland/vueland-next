@@ -181,13 +181,14 @@
     />
     <v-autocomplete
       label="autocomplete"
-      v-model="data.email"
+      v-model="data.user"
       :items="undefined"
       value-key="name"
       clearable
       prepend-icon="fas fa-search"
       :rules="[v => !!v || 'required']"
       @select="testFunc(data.user2)"
+      @input="testFunc"
     />
     <v-button
       label="click"

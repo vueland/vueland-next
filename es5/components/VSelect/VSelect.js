@@ -179,7 +179,6 @@ var VSelect = (0, _vue.defineComponent)({
       }
     });
     return function () {
-      console.log('v-select', 'focused: ' + state.focused, 'has state ' + (props.valueKey ? !!state.selected[props.valueKey] : !!state.selected));
       var propsData = {
         label: props.label,
         focused: state.focused,

@@ -13,7 +13,7 @@
         password: '',
         user: { name: 'igor' },
         checked: false,
-        user2: { name: '', age: 25 },
+        user2: { name: 'Alen', age: 25 },
         date: null,
         users: [],
       })

@@ -1,5 +1,5 @@
 // Styles
-import './VSelect.scss'
+import './VAutocomplete.scss'
 
 // Vue API
 import {
@@ -22,7 +22,7 @@ import { VNode, Ref } from 'vue'
 
 // Components
 import { VInput } from '../VInput'
-import { VSelectList } from './VSelectList'
+import { VAutocompleteList } from './VAutocompleteList'
 
 // Directives
 import { clickOutside } from '../../directives'
@@ -33,7 +33,7 @@ type SelectState = {
   isMenuActive: boolean
 }
 
-export const VSelect = defineComponent({
+export const VAutocomplete = defineComponent({
   name: 'v-select',
 
   emits: [
@@ -53,7 +53,6 @@ export const VSelect = defineComponent({
     idKey: String,
     listColor: String,
     disabled: Boolean,
-    readonly: Boolean,
     modelValue: [Array, String, Object, Number],
     ...validateProps(),
     ...colorProps(),
@@ -79,6 +78,10 @@ export const VSelect = defineComponent({
 
     const fields: Ref<any[]> | undefined = props.rules && inject('fields')
 
+    const validateValue = () => {
+      return props.rules?.length && validate(state.selected)
+    }
+
     const directive = computed(() => {
       return state.focused
         ? {
@@ -89,11 +92,9 @@ export const VSelect = defineComponent({
     })
 
     const classes = computed<Record<string, boolean>>(() => ({
-      'v-select': true,
-      'v-select--disabled': props.disabled,
-      'v-select--readonly': props.readonly && !props.typeable,
-      'v-select--focused': state.focused,
-      'v-select--typeable': props.typeable,
+      'v-autocomplete': true,
+      'v-autocomplete--disabled': props.disabled,
+      'v-autocomplete--focused': state.focused,
       ...validateClasses.value,
     }))
 
@@ -102,7 +103,7 @@ export const VSelect = defineComponent({
         state.selected[props.valueKey] : state.selected : ''
     })
 
-    const computedValue = computed<any>(() => {
+    const computedValue = computed(() => {
       return props.modelValue || props.value
     })
 
@@ -119,10 +120,6 @@ export const VSelect = defineComponent({
 
     if (fields?.value && props.rules?.length) {
       fields.value.push(validateValue)
-    }
-
-    function validateValue() {
-      return props.rules?.length && validate(state.selected)
     }
 
     function toggleState() {
@@ -143,6 +140,13 @@ export const VSelect = defineComponent({
       emit('focus')
     }
 
+    function onInput(e) {
+      if (!state.isMenuActive && props.items.length) {
+        state.isMenuActive = true
+      }
+      emit('input', e.target.value)
+    }
+
     function onClear() {
       state.selected = ''
       requestAnimationFrame(validateValue)
@@ -156,6 +160,7 @@ export const VSelect = defineComponent({
     }
 
     function genInput(): VNode {
+
       const color = props.dark ? 'white' : ''
 
       const propsData = {
@@ -163,14 +168,15 @@ export const VSelect = defineComponent({
         disabled: props.disabled,
         readonly: props.readonly && !props.typeable,
         class: {
-          'v-select__input': true,
+          'v-autocomplete__input': true,
         },
         onClick,
+        onInput,
       }
       return h('input', setTextColor(color, propsData))
     }
 
-    function genSelectList(): VNode {
+    function genAutocompleteList(): VNode {
       const propsData = {
         items: props.items,
         valueKey: props.valueKey,
@@ -180,7 +186,7 @@ export const VSelect = defineComponent({
         listColor: props.listColor,
         onSelect: it => selectItem(it),
       }
-      return h(VSelectList, propsData)
+      return h(VAutocompleteList, propsData)
     }
 
     function genSelect(): VNode {
@@ -189,7 +195,7 @@ export const VSelect = defineComponent({
         {
           class: classes.value,
         },
-        [genInput(), props.items && genSelectList()],
+        [genInput(), props.items && genAutocompleteList()],
       )
 
       return withDirectives(selectVNode, [[clickOutside, directive.value]])

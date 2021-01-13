@@ -13,7 +13,7 @@
         password: '',
         user: { name: 'igor' },
         checked: false,
-        user2: { name: '', age: 25 },
+        user2: '',
         date: null,
         users: [],
       })
@@ -32,10 +32,10 @@
       }, 2000)
 
       watch(
-        () => data.date,
+        () => data.user2,
         to => {
-          console.log(to)
-        },
+          console.log(to, 'watch')
+        }, { immediate: true },
       )
 
       const toggleAlways = () => {
@@ -80,7 +80,7 @@
           sortable: true,
           filterable: true,
           // format: row => `${row.address.city} ${row.address.street}`,
-        }
+        },
         // {
         //   key: 'phone',
         //   title: 'Phone',
@@ -109,7 +109,7 @@
         data.users.push({
           name: 'Anar',
           email: 'adsadasdasd',
-          body: 'sdfsddfsdfsdfsf'
+          body: 'sdfsddfsdfsdfsf',
         })
         console.log(data.users)
       }
@@ -168,7 +168,7 @@
     </template>
     <template v-slot:toolbar>
       <v-button width="42" color="primary" elevation="5" @click="addItem">
-        <v-icon :icon="FaIcons.$add" color="white" size="16" />
+        <v-icon :icon="FaIcons.$add" color="white" size="16"/>
       </v-button>
     </template>
   </v-data-table>
@@ -202,13 +202,24 @@
     <v-select
       label="select"
       v-model="data.user2"
-      :items="[]"
+      :items="data.users"
       value-key="name"
       readonly
-      typeable
+      clearable
+      prepend-icon="fas fa-search"
+      :rules="[v => !!v || 'required']"
+
+    />
+    <v-autocomplete
+      label="autocomplete"
+      v-model="data.user2"
+      :items="data.users"
+      value-key="name"
+      clearable
       prepend-icon="fas fa-search"
       :rules="[v => !!v || 'required']"
       @input="testFunc"
+      @select="testFunc(data.user2)"
     />
     <v-button
       label="click"

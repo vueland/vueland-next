@@ -1,0 +1,22 @@
+@import "../../styles/scss/modules/global";
+
+.v-autocomplete-list {
+  width: 100%;
+  max-height: 240px;
+  position: absolute;
+  background: white;
+  border-radius: 3px;
+  z-index: 100;
+  transition: all .3s $primary-transition;
+  box-shadow: 0 0 18px 0 rgba(0, 0, 0, .2);
+  overflow: auto;
+
+  & > .v-list > .v-list-item {
+    cursor: pointer;
+    color: #272727;
+
+    &:hover:after {
+      opacity: 1;
+    }
+  }
+}

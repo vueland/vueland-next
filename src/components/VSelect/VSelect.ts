@@ -131,7 +131,14 @@ export const VSelect = defineComponent({
     }
 
     function onInput(e) {
-      state.selected = e.target.value
+      if (!state.isMenuActive && props.items.length) {
+        state.isMenuActive = true
+      }
+      if (props.valueKey) {
+        state.selected[props.valueKey] = e.target.value
+      } else {
+        state.selected = e.target.value
+      }
       emit('update:modelValue', state.selected)
       emit('update:value', state.selected)
       emit('input', state.selected)

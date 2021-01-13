@@ -13,7 +13,7 @@
         password: '',
         user: { name: 'igor' },
         checked: false,
-        user2: { name: 'Alen', age: 25 },
+        user2: { name: '', age: 25 },
         date: null,
         users: [],
       })
@@ -202,9 +202,10 @@
     <v-select
       label="select"
       v-model="data.user2"
-      :items="data.users"
+      :items="[]"
       value-key="name"
       readonly
+      typeable
       prepend-icon="fas fa-search"
       :rules="[v => !!v || 'required']"
       @input="testFunc"

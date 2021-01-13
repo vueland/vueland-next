@@ -122,7 +122,7 @@ export const VSelect = defineComponent({
     }
 
     function validateValue() {
-      return props.rules?.length && validate(state.selected)
+      return props.rules?.length && validate(computedInputValue.value)
     }
 
     function toggleState() {

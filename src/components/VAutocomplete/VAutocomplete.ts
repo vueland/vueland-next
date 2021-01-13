@@ -31,7 +31,6 @@ import { clickOutside } from '../../directives'
 type SelectState = {
   selected: any | null
   focused: boolean
-  input: string | number
   isMenuActive: boolean
 }
 
@@ -63,7 +62,6 @@ export const VAutocomplete = defineComponent({
   setup(props, { emit }): () => VNode {
     const state: SelectState = reactive({
       selected: null,
-      input: '',
       focused: false,
       isMenuActive: false,
     })
@@ -83,10 +81,6 @@ export const VAutocomplete = defineComponent({
 
     const fields: Ref<any[]> | undefined = props.rules && inject('fields')
 
-    const validateValue = () => {
-      return props.rules?.length && validate(state.selected)
-    }
-
     const directive = computed(() => {
       return state.isMenuActive && !state.focused
         ? {
@@ -104,7 +98,7 @@ export const VAutocomplete = defineComponent({
     }))
 
     const computedInputValue = computed<string>(() => {
-      return state.input ? state.input : state.selected ? props.valueKey ?
+      return state.selected ? props.valueKey ?
         state.selected[props.valueKey] : state.selected : ''
     })
 
@@ -127,8 +121,13 @@ export const VAutocomplete = defineComponent({
       fields.value.push(validateValue)
     }
 
+    function validateValue() {
+      return props.rules?.length && validate(
+        computedInputValue.value,
+      )
+    }
+
     function clickOutsideHandler() {
-      if (!state.selected) state.input = ''
       state.focused = false
       state.isMenuActive = false
       requestAnimationFrame(validateValue)
@@ -151,22 +150,30 @@ export const VAutocomplete = defineComponent({
     }
 
     function onInput(e) {
-      state.input = e.target.value
-      emit('input', state.input)
+      setUpdatedValue(e.target.value)
+      emit('input', state.selected)
     }
 
     function onClear() {
-      state.input = ''
-      state.selected = ''
+      setUpdatedValue('')
       requestAnimationFrame(validateValue)
     }
 
     function selectItem(it) {
-      state.input = ''
       state.selected = it
       emit('select', it)
       emit('update:modelValue', it)
       emit('update:value', it)
+    }
+
+    function setUpdatedValue(value) {
+      if (props.valueKey) {
+        state.selected[props.valueKey] = value
+      } else {
+        state.selected = value
+      }
+      emit('update:modelValue', state.selected)
+      emit('update:value', state.selected)
     }
 
     function genInput(): VNode {
@@ -184,8 +191,9 @@ export const VAutocomplete = defineComponent({
         onClick,
         onInput,
         onFocus,
-        onBlur
+        onBlur,
       }
+
       return h('input', setTextColor(color, propsData))
     }
 
@@ -199,19 +207,23 @@ export const VAutocomplete = defineComponent({
         listColor: props.listColor,
         onSelect: it => selectItem(it),
       }
-      return h(VAutocompleteList, propsData)
+      return withDirectives(
+        h(VAutocompleteList, propsData),
+        [[clickOutside, directive.value]],
+      )
     }
 
     function genAutocomplete(): VNode {
-      const selectVNode = h(
+      return h(
         'div',
         {
           class: classes.value,
         },
-        [genInput(), props.items && genAutocompleteList()],
+        [
+          genInput(),
+          props.items && genAutocompleteList(),
+        ],
       )
-
-      return withDirectives(selectVNode, [[clickOutside, directive.value]])
     }
 
     onBeforeUnmount(() => {

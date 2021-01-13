@@ -39,18 +39,19 @@ var VAutocomplete = (0, _vue.defineComponent)({
     modelValue: [Array, String, Object, Number]
   }, (0, _useValidate2.validateProps)()), (0, _useColors2.colorProps)()),
   setup: function setup(props, _ref) {
-    var _props$rules3;
+    var _props$rules2;
 
     var emit = _ref.emit;
     var state = (0, _vue.reactive)({
       selected: null,
-      input: '',
       focused: false,
       isMenuActive: false
     });
 
     var _useColors = (0, _useColors2.useColors)(),
         setTextColor = _useColors.setTextColor;
+
+    var inputTemplateRef = (0, _vue.ref)(null);
 
     var _useValidate = (0, _useValidate2.useValidate)(props),
         validate = _useValidate.validate,
@@ -61,16 +62,9 @@ var VAutocomplete = (0, _vue.defineComponent)({
         validationState = _useValidate.validationState;
 
     var fields = props.rules && (0, _vue.inject)('fields');
-
-    var validateValue = function validateValue() {
-      var _props$rules;
-
-      return ((_props$rules = props.rules) === null || _props$rules === void 0 ? void 0 : _props$rules.length) && validate(state.selected);
-    };
-
     var directive = (0, _vue.computed)(function () {
-      return state.focused ? {
-        handler: onBlur,
+      return state.isMenuActive && !state.focused ? {
+        handler: clickOutsideHandler,
         closeConditional: true
       } : undefined;
     });
@@ -82,7 +76,7 @@ var VAutocomplete = (0, _vue.defineComponent)({
       }, validateClasses.value);
     });
     var computedInputValue = (0, _vue.computed)(function () {
-      return state.input ? state.input : state.selected ? props.valueKey ? state.selected[props.valueKey] : state.selected : '';
+      return state.selected ? props.valueKey ? state.selected[props.valueKey] : state.selected : '';
     });
     var computedValue = (0, _vue.computed)(function () {
       return props.modelValue || props.value;
@@ -90,58 +84,72 @@ var VAutocomplete = (0, _vue.defineComponent)({
     (0, _vue.watch)(function () {
       return computedValue.value;
     }, function (value) {
-      var _props$rules2;
+      var _props$rules;
 
       state.selected = value;
-      !state.focused && errorState.isDirty && ((_props$rules2 = props.rules) === null || _props$rules2 === void 0 ? void 0 : _props$rules2.length) && validateValue();
+      !state.focused && errorState.isDirty && ((_props$rules = props.rules) === null || _props$rules === void 0 ? void 0 : _props$rules.length) && validateValue();
     }, {
       immediate: true
     });
 
-    if (fields !== null && fields !== void 0 && fields.value && (_props$rules3 = props.rules) !== null && _props$rules3 !== void 0 && _props$rules3.length) {
+    if (fields !== null && fields !== void 0 && fields.value && (_props$rules2 = props.rules) !== null && _props$rules2 !== void 0 && _props$rules2.length) {
       fields.value.push(validateValue);
     }
 
-    function toggleState() {
-      state.focused = !state.focused;
-      state.isMenuActive = !state.isMenuActive;
+    function validateValue() {
+      var _props$rules3;
+
+      return ((_props$rules3 = props.rules) === null || _props$rules3 === void 0 ? void 0 : _props$rules3.length) && validate(computedInputValue.value);
     }
 
-    function onBlur() {
-      if (!state.selected) state.input = '';
-      toggleState();
+    function clickOutsideHandler() {
+      state.focused = false;
+      state.isMenuActive = false;
       requestAnimationFrame(validateValue);
-      emit('blur');
     }
 
     function onClick() {
+      state.isMenuActive = true;
       dirty();
       update(errorState.innerError);
-      toggleState();
+    }
+
+    function onFocus() {
+      state.focused = true;
       emit('focus');
     }
 
-    function onInput(e) {
-      if (!state.isMenuActive && props.items.length) {
-        state.isMenuActive = true;
-      }
+    function onBlur() {
+      state.focused = false;
+      emit('blur');
+    }
 
-      state.input = e.target.value;
-      emit('input', state.input);
+    function onInput(e) {
+      setUpdatedValue(e.target.value);
+      emit('input', state.selected);
     }
 
     function onClear() {
-      state.input = '';
-      state.selected = '';
+      setUpdatedValue('');
       requestAnimationFrame(validateValue);
     }
 
     function selectItem(it) {
-      state.input = '';
       state.selected = it;
       emit('select', it);
       emit('update:modelValue', it);
       emit('update:value', it);
+    }
+
+    function setUpdatedValue(value) {
+      if (props.valueKey) {
+        state.selected[props.valueKey] = value;
+      } else {
+        state.selected = value;
+      }
+
+      emit('update:modelValue', state.selected);
+      emit('update:value', state.selected);
     }
 
     function genInput() {
@@ -150,11 +158,14 @@ var VAutocomplete = (0, _vue.defineComponent)({
         value: computedInputValue.value,
         disabled: props.disabled,
         readonly: props.readonly && !props.typeable,
+        ref: inputTemplateRef,
         "class": {
           'v-autocomplete__input': true
         },
         onClick: onClick,
-        onInput: onInput
+        onInput: onInput,
+        onFocus: onFocus,
+        onBlur: onBlur
       };
       return (0, _vue.h)('input', setTextColor(color, propsData));
     }
@@ -171,14 +182,13 @@ var VAutocomplete = (0, _vue.defineComponent)({
           return selectItem(it);
         }
       };
-      return (0, _vue.h)(_VAutocompleteList.VAutocompleteList, propsData);
+      return (0, _vue.withDirectives)((0, _vue.h)(_VAutocompleteList.VAutocompleteList, propsData), [[_directives.clickOutside, directive.value]]);
     }
 
     function genAutocomplete() {
-      var selectVNode = (0, _vue.h)('div', {
+      return (0, _vue.h)('div', {
         "class": classes.value
       }, [genInput(), props.items && genAutocompleteList()]);
-      return (0, _vue.withDirectives)(selectVNode, [[_directives.clickOutside, directive.value]]);
     }
 
     (0, _vue.onBeforeUnmount)(function () {
@@ -191,7 +201,7 @@ var VAutocomplete = (0, _vue.defineComponent)({
     return function () {
       var propsData = {
         label: props.label,
-        focused: state.focused,
+        focused: state.focused || state.isMenuActive,
         hasState: !!computedInputValue.value,
         hasError: errorState.innerError,
         dark: !!props.dark,

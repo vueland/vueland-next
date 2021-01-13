@@ -100,7 +100,7 @@ var VSelect = (0, _vue.defineComponent)({
     function validateValue() {
       var _props$rules3;
 
-      return ((_props$rules3 = props.rules) === null || _props$rules3 === void 0 ? void 0 : _props$rules3.length) && validate(state.selected);
+      return ((_props$rules3 = props.rules) === null || _props$rules3 === void 0 ? void 0 : _props$rules3.length) && validate(computedInputValue.value);
     }
 
     function toggleState() {

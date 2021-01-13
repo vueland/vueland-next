@@ -214,8 +214,8 @@ export const VSelect = defineComponent({
         label: props.label,
         focused: state.focused,
         hasState: props.valueKey
-          ? !!state.selected[props.valueKey]
-          : !!state.selected,
+          ? !!state.selected ? !!state.selected[props.valueKey]
+          : !!state.selected : false,
         hasError: errorState.innerError,
         dark: !!props.dark,
         color: validationState.value,

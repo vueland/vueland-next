@@ -299,7 +299,7 @@
     </v-modal>
   </teleport>
 
-  <v-badge color="blue darken-3" border right top>
+  <v-badge color="blue darken-3" border right>
     <template v-slot:badge>
       <span>2</span>
     </template>

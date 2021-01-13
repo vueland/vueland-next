@@ -30,6 +30,7 @@ import { clickOutside } from '../../directives'
 type SelectState = {
   selected: any | null
   focused: boolean
+  input: string | number
   isMenuActive: boolean
 }
 
@@ -61,6 +62,7 @@ export const VAutocomplete = defineComponent({
   setup(props, { emit }): () => VNode {
     const state: SelectState = reactive({
       selected: null,
+      input: '',
       focused: false,
       isMenuActive: false,
     })
@@ -99,7 +101,7 @@ export const VAutocomplete = defineComponent({
     }))
 
     const computedInputValue = computed<string>(() => {
-      return state.selected ? props.valueKey ?
+      return state.input ? state.input : state.selected ? props.valueKey ?
         state.selected[props.valueKey] : state.selected : ''
     })
 
@@ -128,6 +130,7 @@ export const VAutocomplete = defineComponent({
     }
 
     function onBlur() {
+      if (!state.selected) state.input = ''
       toggleState()
       requestAnimationFrame(validateValue)
       emit('blur')
@@ -144,15 +147,18 @@ export const VAutocomplete = defineComponent({
       if (!state.isMenuActive && props.items.length) {
         state.isMenuActive = true
       }
-      emit('input', e.target.value)
+      state.input = e.target.value
+      emit('input', state.input)
     }
 
     function onClear() {
+      state.input = ''
       state.selected = ''
       requestAnimationFrame(validateValue)
     }
 
     function selectItem(it) {
+      state.input = ''
       state.selected = it
       emit('select', it)
       emit('update:modelValue', it)
@@ -189,7 +195,7 @@ export const VAutocomplete = defineComponent({
       return h(VAutocompleteList, propsData)
     }
 
-    function genSelect(): VNode {
+    function genAutocomplete(): VNode {
       const selectVNode = h(
         'div',
         {
@@ -222,7 +228,7 @@ export const VAutocomplete = defineComponent({
       } as any
 
       return h(VInput, propsData, {
-        select: () => genSelect(),
+        select: () => genAutocomplete(),
       })
     }
   },

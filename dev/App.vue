@@ -58,14 +58,6 @@
           sortable: true,
           filterable: true,
         },
-        // {
-        //   key: 'username',
-        //   title: 'User Name',
-        //   resizeable: true,
-        //   sortable: true,
-        //   filterable: true,
-        //   width: 155,
-        // },
         {
           key: 'email',
           title: 'Email',
@@ -79,30 +71,7 @@
           resizeable: true,
           sortable: true,
           filterable: true,
-          // format: row => `${row.address.city} ${row.address.street}`,
         },
-        // {
-        //   key: 'phone',
-        //   title: 'Phone',
-        //   resizeable: true,
-        //   sortable: true,
-        //   filterable: true,
-        // },
-        // {
-        //   key: 'website',
-        //   title: 'Website',
-        //   resizeable: true,
-        //   sortable: true,
-        //   filterable: true,
-        // },
-        // {
-        //   key: 'company',
-        //   title: 'Company',
-        //   resizeable: true,
-        //   sortable: true,
-        //   filterable: true,
-        //   format: row => row.company.name,
-        // }
       ]
 
       const addItem = () => {
@@ -120,7 +89,7 @@
         addItem,
         testFunc,
         toggleAlways,
-        // fetchItems,
+        fetchItems,
         forOut,
         FaIcons,
       }
@@ -218,7 +187,7 @@
       clearable
       prepend-icon="fas fa-search"
       :rules="[v => !!v || 'required']"
-      @input="testFunc"
+      @input="fetchItems"
       @select="testFunc(data.user2)"
     />
     <v-button

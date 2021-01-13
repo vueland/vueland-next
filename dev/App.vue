@@ -187,7 +187,6 @@
       clearable
       prepend-icon="fas fa-search"
       :rules="[v => !!v || 'required']"
-      @input="fetchItems"
       @select="testFunc(data.user2)"
     />
     <v-button

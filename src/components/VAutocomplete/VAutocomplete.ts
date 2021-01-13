@@ -4,6 +4,7 @@ import './VAutocomplete.scss'
 // Vue API
 import {
   h,
+  ref,
   reactive,
   computed,
   defineComponent,
@@ -69,6 +70,8 @@ export const VAutocomplete = defineComponent({
 
     const { setTextColor } = useColors()
 
+    const inputTemplateRef = ref(null)
+
     const {
       validate,
       dirty,
@@ -85,9 +88,9 @@ export const VAutocomplete = defineComponent({
     }
 
     const directive = computed(() => {
-      return state.focused
+      return state.isMenuActive && !state.focused
         ? {
-          handler: onBlur,
+          handler: clickOutsideHandler,
           closeConditional: true,
         }
         : undefined
@@ -124,29 +127,30 @@ export const VAutocomplete = defineComponent({
       fields.value.push(validateValue)
     }
 
-    function toggleState() {
-      state.focused = !state.focused
-      state.isMenuActive = !state.isMenuActive
-    }
-
-    function onBlur() {
+    function clickOutsideHandler() {
       if (!state.selected) state.input = ''
-      toggleState()
+      state.focused = false
+      state.isMenuActive = false
       requestAnimationFrame(validateValue)
-      emit('blur')
     }
 
     function onClick() {
+      state.isMenuActive = true
       dirty()
       update(errorState.innerError)
-      toggleState()
+    }
+
+    function onFocus() {
+      state.focused = true
       emit('focus')
     }
 
+    function onBlur() {
+      state.focused = false
+      emit('blur')
+    }
+
     function onInput(e) {
-      if (!state.isMenuActive && props.items.length) {
-        state.isMenuActive = true
-      }
       state.input = e.target.value
       emit('input', state.input)
     }
@@ -173,11 +177,14 @@ export const VAutocomplete = defineComponent({
         value: computedInputValue.value,
         disabled: props.disabled,
         readonly: props.readonly && !props.typeable,
+        ref: inputTemplateRef,
         class: {
           'v-autocomplete__input': true,
         },
         onClick,
         onInput,
+        onFocus,
+        onBlur
       }
       return h('input', setTextColor(color, propsData))
     }
@@ -216,7 +223,7 @@ export const VAutocomplete = defineComponent({
     return () => {
       const propsData = {
         label: props.label,
-        focused: state.focused,
+        focused: state.focused || state.isMenuActive,
         hasState: !!computedInputValue.value,
         hasError: errorState.innerError,
         dark: !!props.dark,

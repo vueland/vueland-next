@@ -64,7 +64,7 @@ export const VAutocompleteList = defineComponent({
 
     function genAutocompleteListItems(): VNode {
       return h(VList, {
-          class: 'v-select--items-list',
+          class: 'v-autocomplete--items-list',
         }, { default: () => genItems() },
       )
     }
@@ -72,7 +72,7 @@ export const VAutocompleteList = defineComponent({
     function genList(): VNode {
       const propsData = {
         class: {
-          'v-select-list': true,
+          'v-autocomplete-list': true,
           ...elevationClasses.value,
         },
         style: {},

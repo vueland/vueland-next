@@ -123,7 +123,8 @@ export const VAutocomplete = defineComponent({
 
     function validateValue() {
       return props.rules?.length && validate(
-        computedInputValue.value,
+        computedInputValue.value[props.valueKey]
+        || computedInputValue.value,
       )
     }
 
@@ -147,7 +148,7 @@ export const VAutocomplete = defineComponent({
     function onBlur() {
       state.focused = false
       emit('blur')
-      console.log(state)
+      requestAnimationFrame(validateValue)
     }
 
     function onInput(e) {

@@ -32,7 +32,7 @@
       }, 2000)
 
       watch(
-        () => data.user2,
+        () => data.user,
         to => {
           console.log(to, 'watch')
         }, { immediate: true },

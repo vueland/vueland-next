@@ -102,8 +102,12 @@ export const VAutocomplete = defineComponent({
         state.selected[props.valueKey] : state.selected : ''
     })
 
-    const computedValue = computed(() => {
+    const computedValue = computed<any>(() => {
       return props.modelValue || props.value
+    })
+
+    const isListItemsExists = computed<boolean>(() => {
+      return !!props.items && !!props.items.length
     })
 
     watch(
@@ -134,14 +138,11 @@ export const VAutocomplete = defineComponent({
       requestAnimationFrame(validateValue)
     }
 
-    function onClick() {
-      state.isMenuActive = !!props.items && !!props.items.length
-      dirty()
-      update(errorState.innerError)
-    }
-
     function onFocus() {
       state.focused = true
+      state.isMenuActive = isListItemsExists.value
+      dirty()
+      update(errorState.innerError)
       emit('focus')
     }
 
@@ -152,6 +153,10 @@ export const VAutocomplete = defineComponent({
     }
 
     function onInput(e) {
+      if (isListItemsExists.value && !state.isMenuActive) {
+        state.isMenuActive = true
+      }
+
       setUpdatedValue(e.target.value)
       emit('update:modelValue', state.selected)
       emit('update:value', state.selected)
@@ -192,7 +197,6 @@ export const VAutocomplete = defineComponent({
         class: {
           'v-autocomplete__input': true,
         },
-        onClick,
         onInput,
         onFocus,
         onBlur,

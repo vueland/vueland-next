@@ -49,7 +49,6 @@ var VTooltip = (0, _vue.defineComponent)({
     var slots = _ref.slots;
     var tooltip = (0, _vue.reactive)({});
     var activator = (0, _vue.reactive)({});
-    var innerActive = (0, _vue.ref)(false);
     var tooltipRef = (0, _vue.ref)(null);
 
     var _useToggle = (0, _useToggle2.useToggle)(props),
@@ -66,7 +65,7 @@ var VTooltip = (0, _vue.defineComponent)({
         getActivatorSizes = _useActivator.getActivatorSizes,
         genActivatorListeners = _useActivator.genActivatorListeners;
 
-    var listeners = genActivatorListeners(props, innerActive);
+    var listeners = genActivatorListeners(props, isActive);
     var classes = (0, _vue.computed)(function () {
       return {
         'v-tooltip': true,
@@ -112,7 +111,7 @@ var VTooltip = (0, _vue.defineComponent)({
         style: styles.value,
         ref: tooltipRef
       };
-      return (0, _vue.withDirectives)((0, _vue.h)('span', setBackground(props.color, propsData), slots["default"] && slots["default"]()), [[_vue.vShow, innerActive.value]]);
+      return (0, _vue.withDirectives)((0, _vue.h)('span', setBackground(props.color, propsData), slots["default"] && slots["default"]()), [[_vue.vShow, isActive.value]]);
     }
 
     function setTooltipPosition() {
@@ -124,16 +123,9 @@ var VTooltip = (0, _vue.defineComponent)({
       }
     }
 
-    (0, _vue.watch)(function () {
-      return isActive.value;
-    }, function (to) {
-      return innerActive.value = to;
-    }, {
-      immediate: true
-    });
     (0, _vue.onMounted)(function () {
       (0, _vue.watch)(function () {
-        return innerActive.value;
+        return isActive.value;
       }, function (to) {
         if (to) {
           var _getActivatorSizes = getActivatorSizes(),
@@ -155,7 +147,7 @@ var VTooltip = (0, _vue.defineComponent)({
       });
     });
     return function () {
-      var content = (0, _useTransition.useTransition)(genContent(), innerActive.value ? 'scale-in' : 'fade');
+      var content = (0, _useTransition.useTransition)(genContent(), isActive.value ? 'scale-in' : 'fade');
       return [(0, _vue.h)('div', {
         "class": classes.value
       }), content, genActivator()];

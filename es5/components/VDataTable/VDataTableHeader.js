@@ -83,7 +83,7 @@ var VDataTableHeader = (0, _vue.defineComponent)({
         },
         size: 14,
         icon: _icons.FaIcons.$arrowUp,
-        color: item.sorted ? 'green accent-3' : props.dark ? 'white' : '',
+        color: item.sorted ? props.dark ? 'white' : '' : '',
         onClick: function onClick() {
           return onSort(item);
         }
@@ -99,7 +99,7 @@ var VDataTableHeader = (0, _vue.defineComponent)({
         },
         size: 14,
         icon: _icons.FaIcons.$filter,
-        color: item.filtered ? 'green accent-3' : props.dark ? 'white' : '',
+        color: item.filtered ? props.dark ? 'white' : '' : '',
         onClick: function onClick() {
           return addFilter(item);
         }

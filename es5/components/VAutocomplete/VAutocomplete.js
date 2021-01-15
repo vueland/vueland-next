@@ -81,6 +81,9 @@ var VAutocomplete = (0, _vue.defineComponent)({
     var computedValue = (0, _vue.computed)(function () {
       return props.modelValue || props.value;
     });
+    var isListItemsExists = (0, _vue.computed)(function () {
+      return !!props.items && !!props.items.length;
+    });
     (0, _vue.watch)(function () {
       return computedValue.value;
     }, function (value) {
@@ -108,14 +111,11 @@ var VAutocomplete = (0, _vue.defineComponent)({
       requestAnimationFrame(validateValue);
     }
 
-    function onClick() {
-      state.isMenuActive = !!props.items && !!props.items.length;
-      dirty();
-      update(errorState.innerError);
-    }
-
     function onFocus() {
       state.focused = true;
+      state.isMenuActive = isListItemsExists.value;
+      dirty();
+      update(errorState.innerError);
       emit('focus');
     }
 
@@ -126,6 +126,10 @@ var VAutocomplete = (0, _vue.defineComponent)({
     }
 
     function onInput(e) {
+      if (isListItemsExists.value && !state.isMenuActive) {
+        state.isMenuActive = true;
+      }
+
       setUpdatedValue(e.target.value);
       emit('update:modelValue', state.selected);
       emit('update:value', state.selected);
@@ -164,7 +168,6 @@ var VAutocomplete = (0, _vue.defineComponent)({
         "class": {
           'v-autocomplete__input': true
         },
-        onClick: onClick,
         onInput: onInput,
         onFocus: onFocus,
         onBlur: onBlur

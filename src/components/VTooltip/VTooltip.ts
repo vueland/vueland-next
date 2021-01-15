@@ -55,7 +55,6 @@ export const VTooltip = defineComponent({
     const tooltip = reactive<Partial<OffsetSizes>>({})
     const activator = reactive<Partial<OffsetSizes>>({})
 
-    const innerActive = ref<boolean>(false)
     const tooltipRef = ref<HTMLElement | null>(null)
 
     const { isActive } = useToggle(props)
@@ -67,7 +66,7 @@ export const VTooltip = defineComponent({
       genActivatorListeners,
     } = useActivator()
 
-    const listeners = genActivatorListeners(props, innerActive)
+    const listeners = genActivatorListeners(props, isActive)
 
     const classes = computed(() => ({
       'v-tooltip': true,
@@ -127,7 +126,7 @@ export const VTooltip = defineComponent({
         h('span', setBackground(props.color, propsData),
           slots.default && slots.default(),
         ),
-        [[vShow, innerActive.value]],
+        [[vShow, isActive.value]],
       )
     }
 
@@ -140,15 +139,9 @@ export const VTooltip = defineComponent({
       }
     }
 
-    watch(
-      () => isActive.value,
-      to => (innerActive.value = to),
-      { immediate: true },
-    )
-
     onMounted(() => {
       watch(
-        () => innerActive.value,
+        () => isActive.value,
         to => {
           if (to) {
             const { left, top, height, width } = getActivatorSizes()
@@ -171,7 +164,7 @@ export const VTooltip = defineComponent({
     return () => {
       const content = useTransition(
         genContent() as VNode,
-        innerActive.value ? 'scale-in' : 'fade',
+        isActive.value ? 'scale-in' : 'fade',
       )
 
       return [h('div', {

@@ -20,11 +20,9 @@ export function useActivator() {
   const activatorRef = ref<HTMLElement | null>(null)
   const activatorSizes: Partial<OffsetSizes> = {}
   const listeners: ActivatorListeners = {}
+  const el = (activatorRef.value! as any).$el || (activatorRef.value! as any)
 
   const getActivatorSizes = () => {
-    const el = (activatorRef.value! as any).$el ||
-      (activatorRef.value! as any)
-
     activatorSizes.left = el.offsetLeft
     activatorSizes.top = el.offsetTop
     activatorSizes.height = el.offsetHeight

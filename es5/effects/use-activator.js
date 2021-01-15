@@ -13,10 +13,11 @@ function useActivator() {
   var listeners = {};
 
   var getActivatorSizes = function getActivatorSizes() {
-    activatorSizes.left = activatorRef.value.$el.offsetLeft;
-    activatorSizes.top = activatorRef.value.$el.offsetTop;
-    activatorSizes.height = activatorRef.value.$el.offsetHeight;
-    activatorSizes.width = activatorRef.value.$el.offsetWidth;
+    var el = activatorRef.value.$el || activatorRef.value;
+    activatorSizes.left = el.offsetLeft;
+    activatorSizes.top = el.offsetTop;
+    activatorSizes.height = el.offsetHeight;
+    activatorSizes.width = el.offsetWidth;
     return activatorSizes;
   };
 

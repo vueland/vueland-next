@@ -22,10 +22,13 @@ export function useActivator() {
   const listeners: ActivatorListeners = {}
 
   const getActivatorSizes = () => {
-    activatorSizes.left = (activatorRef.value! as any).$el.offsetLeft
-    activatorSizes.top = (activatorRef.value! as any).$el.offsetTop
-    activatorSizes.height = (activatorRef.value! as any).$el.offsetHeight
-    activatorSizes.width = (activatorRef.value! as any).$el.offsetWidth
+    const el = (activatorRef.value! as any).$el ||
+      (activatorRef.value! as any)
+
+    activatorSizes.left = el.offsetLeft
+    activatorSizes.top = el.offsetTop
+    activatorSizes.height = el.offsetHeight
+    activatorSizes.width = el.offsetWidth
 
     return activatorSizes
   }

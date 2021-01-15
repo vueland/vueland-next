@@ -99,7 +99,7 @@ var VAutocomplete = (0, _vue.defineComponent)({
     function validateValue() {
       var _props$rules3;
 
-      return ((_props$rules3 = props.rules) === null || _props$rules3 === void 0 ? void 0 : _props$rules3.length) && validate(computedInputValue.value);
+      return ((_props$rules3 = props.rules) === null || _props$rules3 === void 0 ? void 0 : _props$rules3.length) && validate(computedInputValue.value[props.valueKey] || computedInputValue.value);
     }
 
     function clickOutsideHandler() {
@@ -109,7 +109,7 @@ var VAutocomplete = (0, _vue.defineComponent)({
     }
 
     function onClick() {
-      state.isMenuActive = true;
+      state.isMenuActive = !!props.items && !!props.items.length;
       dirty();
       update(errorState.innerError);
     }
@@ -122,15 +122,20 @@ var VAutocomplete = (0, _vue.defineComponent)({
     function onBlur() {
       state.focused = false;
       emit('blur');
+      requestAnimationFrame(validateValue);
     }
 
     function onInput(e) {
       setUpdatedValue(e.target.value);
+      emit('update:modelValue', state.selected);
+      emit('update:value', state.selected);
       emit('input', state.selected);
     }
 
     function onClear() {
       setUpdatedValue('');
+      emit('update:modelValue', state.selected);
+      emit('update:value', state.selected);
       requestAnimationFrame(validateValue);
     }
 
@@ -147,9 +152,6 @@ var VAutocomplete = (0, _vue.defineComponent)({
       } else {
         state.selected = value;
       }
-
-      emit('update:modelValue', state.selected);
-      emit('update:value', state.selected);
     }
 
     function genInput() {

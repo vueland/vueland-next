@@ -94,6 +94,13 @@ var VAutocomplete = (0, _vue.defineComponent)({
     }, {
       immediate: true
     });
+    (0, _vue.watch)(function () {
+      return isListItemsExists.value;
+    }, function (to) {
+      if (to && !state.isMenuActive) {
+        state.isMenuActive = true;
+      }
+    });
 
     if (fields !== null && fields !== void 0 && fields.value && (_props$rules2 = props.rules) !== null && _props$rules2 !== void 0 && _props$rules2.length) {
       fields.value.push(validateValue);
@@ -126,10 +133,6 @@ var VAutocomplete = (0, _vue.defineComponent)({
     }
 
     function onInput(e) {
-      if (isListItemsExists.value && !state.isMenuActive) {
-        state.isMenuActive = true;
-      }
-
       setUpdatedValue(e.target.value);
       emit('update:modelValue', state.selected);
       emit('update:value', state.selected);

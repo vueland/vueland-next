@@ -121,6 +121,12 @@ export const VAutocomplete = defineComponent({
       }, { immediate: true },
     )
 
+    watch(() => isListItemsExists.value, to => {
+      if (to && !state.isMenuActive) {
+        state.isMenuActive = true
+      }
+    })
+
     if (fields?.value && props.rules?.length) {
       fields.value.push(validateValue)
     }
@@ -153,10 +159,6 @@ export const VAutocomplete = defineComponent({
     }
 
     function onInput(e) {
-      if (isListItemsExists.value && !state.isMenuActive) {
-        state.isMenuActive = true
-      }
-
       setUpdatedValue(e.target.value)
       emit('update:modelValue', state.selected)
       emit('update:value', state.selected)

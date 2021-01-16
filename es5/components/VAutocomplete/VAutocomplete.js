@@ -39,14 +39,13 @@ var VAutocomplete = (0, _vue.defineComponent)({
     modelValue: [Array, String, Object, Number]
   }, (0, _useValidate2.validateProps)()), (0, _useColors2.colorProps)()),
   setup: function setup(props, _ref) {
-    var _props$rules2;
+    var _props$rules;
 
     var emit = _ref.emit;
     var state = (0, _vue.reactive)({
-      selected: null,
       focused: false,
       isMenuActive: false,
-      input: ''
+      search: ''
     });
 
     var _useColors = (0, _useColors2.useColors)(),
@@ -79,20 +78,13 @@ var VAutocomplete = (0, _vue.defineComponent)({
     var computedValue = (0, _vue.computed)(function () {
       return props.modelValue || props.value;
     });
+    var inputValue = (0, _vue.computed)(function () {
+      return props.valueKey ? computedValue.value[props.valueKey] : computedValue.value;
+    });
     var isListItemsExists = (0, _vue.computed)(function () {
       return !!props.items && !!props.items.length;
     });
-    state.input = props.valueKey ? computedValue.value[props.valueKey] : computedValue.value;
-    (0, _vue.watch)(function () {
-      return computedValue.value;
-    }, function (to) {
-      var _props$rules;
-
-      state.selected = to;
-      !state.focused && errorState.isDirty && ((_props$rules = props.rules) === null || _props$rules === void 0 ? void 0 : _props$rules.length) && validateValue();
-    }, {
-      immediate: true
-    });
+    state.search = computedValue.value ? inputValue.value : '';
     (0, _vue.watch)(function () {
       return isListItemsExists.value;
     }, function (to) {
@@ -101,14 +93,14 @@ var VAutocomplete = (0, _vue.defineComponent)({
       }
     });
 
-    if (fields !== null && fields !== void 0 && fields.value && (_props$rules2 = props.rules) !== null && _props$rules2 !== void 0 && _props$rules2.length) {
+    if (fields !== null && fields !== void 0 && fields.value && (_props$rules = props.rules) !== null && _props$rules !== void 0 && _props$rules.length) {
       fields.value.push(validateValue);
     }
 
     function validateValue() {
-      var _props$rules3;
+      var _props$rules2;
 
-      return ((_props$rules3 = props.rules) === null || _props$rules3 === void 0 ? void 0 : _props$rules3.length) && validate(props.value ? state.selected[props.valueKey] : state.selected);
+      return ((_props$rules2 = props.rules) === null || _props$rules2 === void 0 ? void 0 : _props$rules2.length) && validate(state.search);
     }
 
     function clickOutsideHandler() {
@@ -125,41 +117,46 @@ var VAutocomplete = (0, _vue.defineComponent)({
     }
 
     function onBlur() {
-      if (!state.selected) {
-        state.input = '';
+      if (!computedValue.value) {
+        state.search = '';
+      }
+
+      if (!state.search && computedValue.value) {
+        setTimeout(function () {
+          state.search = inputValue.value;
+          validateValue();
+        });
       }
 
       state.focused = false;
       emit('blur');
-      requestAnimationFrame(validateValue);
     }
 
     function onInput(e) {
-      state.input = e.target.value;
+      state.search = e.target.value;
       emit('input', e.target.value);
     }
 
     function onClear() {
-      state.input = '';
-      state.selected = '';
+      state.search = '';
       requestAnimationFrame(validateValue);
     }
 
     function selectItem(it) {
       if (props.valueKey) {
-        state.input = it[props.valueKey];
+        state.search = it[props.valueKey];
       }
 
-      state.selected = it;
       emit('select', it);
       emit('update:modelValue', it);
       emit('update:value', it);
+      requestAnimationFrame(validateValue);
     }
 
     function genInput() {
       var color = props.dark ? 'white' : '';
       var propsData = {
-        value: state.input,
+        value: state.search,
         disabled: props.disabled,
         readonly: props.readonly && !props.typeable,
         ref: inputTemplateRef,
@@ -205,7 +202,7 @@ var VAutocomplete = (0, _vue.defineComponent)({
       var propsData = {
         label: props.label,
         focused: state.focused || state.isMenuActive,
-        hasState: !!state.input,
+        hasState: !!state.search,
         hasError: errorState.innerError,
         dark: !!props.dark,
         color: validationState.value,

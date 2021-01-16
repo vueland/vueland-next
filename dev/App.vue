@@ -11,7 +11,7 @@
         login: '',
         email: '',
         password: '',
-        user: { name: 'igor' },
+        user: {  },
         checked: false,
         user2: { name: 'igor' },
         date: null,
@@ -181,7 +181,7 @@
     />
     <v-autocomplete
       label="autocomplete"
-      v-model="data.user"
+      v-model:value="data.user"
       :items="data.users"
       value-key="name"
       clearable

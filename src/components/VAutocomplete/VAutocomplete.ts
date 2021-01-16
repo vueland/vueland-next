@@ -32,6 +32,7 @@ type SelectState = {
   selected: any | null
   focused: boolean
   isMenuActive: boolean
+  input: string
 }
 
 export const VAutocomplete = defineComponent({
@@ -64,6 +65,7 @@ export const VAutocomplete = defineComponent({
       selected: null,
       focused: false,
       isMenuActive: false,
+      input: '',
     })
 
     const { setTextColor } = useColors()
@@ -97,11 +99,6 @@ export const VAutocomplete = defineComponent({
       ...validateClasses.value,
     }))
 
-    const computedInputValue = computed<string>(() => {
-      return state.selected ? props.valueKey ?
-        state.selected[props.valueKey] : state.selected : ''
-    })
-
     const computedValue = computed<any>(() => {
       return props.modelValue || props.value
     })
@@ -110,10 +107,12 @@ export const VAutocomplete = defineComponent({
       return !!props.items && !!props.items.length
     })
 
+    state.input = props.valueKey ? computedValue.value[props.valueKey] : computedValue.value
+
     watch(
       () => computedValue.value,
-      value => {
-        state.selected = value
+      (to) => {
+        state.selected = to
         !state.focused &&
         errorState.isDirty &&
         props.rules?.length &&
@@ -122,7 +121,7 @@ export const VAutocomplete = defineComponent({
     )
 
     watch(() => isListItemsExists.value, to => {
-      if (to && !state.isMenuActive) {
+      if (to && !state.isMenuActive && state.focused) {
         state.isMenuActive = true
       }
     })
@@ -133,15 +132,15 @@ export const VAutocomplete = defineComponent({
 
     function validateValue() {
       return props.rules?.length && validate(
-        computedInputValue.value[props.valueKey]
-        || computedInputValue.value,
+        props.value ?
+          state.selected[props.valueKey] :
+          state.selected,
       )
     }
 
     function clickOutsideHandler() {
       state.focused = false
       state.isMenuActive = false
-      requestAnimationFrame(validateValue)
     }
 
     function onFocus() {
@@ -153,38 +152,33 @@ export const VAutocomplete = defineComponent({
     }
 
     function onBlur() {
+      if (!state.selected) {
+        state.input = ''
+      }
       state.focused = false
       emit('blur')
       requestAnimationFrame(validateValue)
     }
 
     function onInput(e) {
-      setUpdatedValue(e.target.value)
-      emit('update:modelValue', state.selected)
-      emit('update:value', state.selected)
-      emit('input', state.selected)
+      state.input = e.target.value
+      emit('input', e.target.value)
     }
 
     function onClear() {
-      setUpdatedValue('')
-      emit('update:modelValue', state.selected)
-      emit('update:value', state.selected)
+      state.input = ''
+      state.selected = ''
       requestAnimationFrame(validateValue)
     }
 
     function selectItem(it) {
+      if (props.valueKey) {
+        state.input = it[props.valueKey]
+      }
       state.selected = it
       emit('select', it)
       emit('update:modelValue', it)
       emit('update:value', it)
-    }
-
-    function setUpdatedValue(value) {
-      if (props.valueKey && state.selected) {
-        state.selected[props.valueKey] = value
-      } else {
-        state.selected = value
-      }
     }
 
     function genInput(): VNode {
@@ -192,7 +186,7 @@ export const VAutocomplete = defineComponent({
       const color = props.dark ? 'white' : ''
 
       const propsData = {
-        value: computedInputValue.value,
+        value: state.input,
         disabled: props.disabled,
         readonly: props.readonly && !props.typeable,
         ref: inputTemplateRef,
@@ -246,7 +240,7 @@ export const VAutocomplete = defineComponent({
       const propsData = {
         label: props.label,
         focused: state.focused || state.isMenuActive,
-        hasState: !!computedInputValue.value,
+        hasState: !!state.input,
         hasError: errorState.innerError,
         dark: !!props.dark,
         color: validationState.value,

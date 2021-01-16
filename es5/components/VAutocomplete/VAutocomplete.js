@@ -45,7 +45,8 @@ var VAutocomplete = (0, _vue.defineComponent)({
     var state = (0, _vue.reactive)({
       selected: null,
       focused: false,
-      isMenuActive: false
+      isMenuActive: false,
+      input: ''
     });
 
     var _useColors = (0, _useColors2.useColors)(),
@@ -75,21 +76,19 @@ var VAutocomplete = (0, _vue.defineComponent)({
         'v-autocomplete--focused': state.focused
       }, validateClasses.value);
     });
-    var computedInputValue = (0, _vue.computed)(function () {
-      return state.selected ? props.valueKey ? state.selected[props.valueKey] : state.selected : '';
-    });
     var computedValue = (0, _vue.computed)(function () {
       return props.modelValue || props.value;
     });
     var isListItemsExists = (0, _vue.computed)(function () {
       return !!props.items && !!props.items.length;
     });
+    state.input = props.valueKey ? computedValue.value[props.valueKey] : computedValue.value;
     (0, _vue.watch)(function () {
       return computedValue.value;
-    }, function (value) {
+    }, function (to) {
       var _props$rules;
 
-      state.selected = value;
+      state.selected = to;
       !state.focused && errorState.isDirty && ((_props$rules = props.rules) === null || _props$rules === void 0 ? void 0 : _props$rules.length) && validateValue();
     }, {
       immediate: true
@@ -97,7 +96,7 @@ var VAutocomplete = (0, _vue.defineComponent)({
     (0, _vue.watch)(function () {
       return isListItemsExists.value;
     }, function (to) {
-      if (to && !state.isMenuActive) {
+      if (to && !state.isMenuActive && state.focused) {
         state.isMenuActive = true;
       }
     });
@@ -109,13 +108,12 @@ var VAutocomplete = (0, _vue.defineComponent)({
     function validateValue() {
       var _props$rules3;
 
-      return ((_props$rules3 = props.rules) === null || _props$rules3 === void 0 ? void 0 : _props$rules3.length) && validate(computedInputValue.value[props.valueKey] || computedInputValue.value);
+      return ((_props$rules3 = props.rules) === null || _props$rules3 === void 0 ? void 0 : _props$rules3.length) && validate(props.value ? state.selected[props.valueKey] : state.selected);
     }
 
     function clickOutsideHandler() {
       state.focused = false;
       state.isMenuActive = false;
-      requestAnimationFrame(validateValue);
     }
 
     function onFocus() {
@@ -127,44 +125,41 @@ var VAutocomplete = (0, _vue.defineComponent)({
     }
 
     function onBlur() {
+      if (!state.selected) {
+        state.input = '';
+      }
+
       state.focused = false;
       emit('blur');
       requestAnimationFrame(validateValue);
     }
 
     function onInput(e) {
-      setUpdatedValue(e.target.value);
-      emit('update:modelValue', state.selected);
-      emit('update:value', state.selected);
-      emit('input', state.selected);
+      state.input = e.target.value;
+      emit('input', e.target.value);
     }
 
     function onClear() {
-      setUpdatedValue('');
-      emit('update:modelValue', state.selected);
-      emit('update:value', state.selected);
+      state.input = '';
+      state.selected = '';
       requestAnimationFrame(validateValue);
     }
 
     function selectItem(it) {
+      if (props.valueKey) {
+        state.input = it[props.valueKey];
+      }
+
       state.selected = it;
       emit('select', it);
       emit('update:modelValue', it);
       emit('update:value', it);
     }
 
-    function setUpdatedValue(value) {
-      if (props.valueKey && state.selected) {
-        state.selected[props.valueKey] = value;
-      } else {
-        state.selected = value;
-      }
-    }
-
     function genInput() {
       var color = props.dark ? 'white' : '';
       var propsData = {
-        value: computedInputValue.value,
+        value: state.input,
         disabled: props.disabled,
         readonly: props.readonly && !props.typeable,
         ref: inputTemplateRef,
@@ -210,7 +205,7 @@ var VAutocomplete = (0, _vue.defineComponent)({
       var propsData = {
         label: props.label,
         focused: state.focused || state.isMenuActive,
-        hasState: !!computedInputValue.value,
+        hasState: !!state.input,
         hasError: errorState.innerError,
         dark: !!props.dark,
         color: validationState.value,

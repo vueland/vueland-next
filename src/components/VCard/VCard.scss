@@ -6,7 +6,6 @@
   background: $mainWhite;
   border-radius: 5px;
   position: relative;
-  z-index: 3;
 
   &__title {
     @include flex(flex, flex-start, center);

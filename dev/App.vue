@@ -99,7 +99,7 @@
 
 <template>
   <v-list>
-    <v-list-group @click="testFunc">
+    <v-list-group @click="testFunc" expanded>
       <template v-slot:title>
         <v-list-item-title> salam</v-list-item-title>
       </template>
@@ -107,11 +107,9 @@
         <v-icon icon="fas fa-book" size="18"/>
       </template>
       <v-list-item @click.stop="testFunc">salam</v-list-item>
-      <v-list-group sub-group no-action>
-        <template v-slot:title>
-          <v-list-item-title>salam</v-list-item-title>
-        </template>
-      </v-list-group>
+      <v-text-field label="Подъезд"/>
+      <v-text-field label="Этаж"/>
+      <v-text-field label="Домофон"/>
     </v-list-group>
   </v-list>
   <v-checkbox label="test" v-model="data.checked"/>

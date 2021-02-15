@@ -23,6 +23,7 @@ export type DatePickerDate = {
 }
 
 export type Column = {
+  key: string,
   title: string,
   width?: string | number
   resizeable?: boolean
@@ -34,6 +35,7 @@ export type Column = {
   useOnCreate?: boolean
   useOnEdit?: boolean
   show?: boolean
+  format?: (arg: any) => any
 }
 
 export type TableModalOptions = {
@@ -41,6 +43,11 @@ export type TableModalOptions = {
   icon?: string
   fields: any[]
   actions: any[]
+}
+
+export type TableFilter = {
+  value: string | number
+  col: Column
 }
 
 export type TableCol<T> = T extends keyof Column ? T : any

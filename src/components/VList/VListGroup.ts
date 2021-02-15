@@ -51,6 +51,7 @@ export const VListGroup = defineComponent({
     },
     disabled: Boolean,
     group: String,
+    expanded: Boolean,
     noAction: Boolean,
     subGroup: Boolean,
     ...elevationProps(),
@@ -74,9 +75,10 @@ export const VListGroup = defineComponent({
       active: isActive,
     }
 
-    groups && groups.register(currentGroup)
+    if (groups) groups.register(currentGroup)
+    if (subgroups) subgroups.value.push(currentGroup)
 
-    subgroups && subgroups.value.push(currentGroup)
+    !props.noAction && props.expanded && requestAnimationFrame(onClick)
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-list-group': true,

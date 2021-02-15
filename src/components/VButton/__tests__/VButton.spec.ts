@@ -26,6 +26,17 @@ describe('VButton', () => {
     expect(cmp.html()).toMatchSnapshot()
   })
 
+  it('should set button width and match snapshot', () => {
+    const cmp = mountFunction({
+      props: {
+        width: 150
+      }
+    })
+
+    expect(cmp.attributes().style).toContain('min-width: 150px;')
+    expect(cmp.html()).toMatchSnapshot()
+  })
+
   it('should set label and match snapshot', () => {
     const cmp = mountFunction(
       {

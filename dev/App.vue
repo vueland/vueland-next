@@ -148,10 +148,11 @@
       v-model:value="data.date"
       lang="en"
       label="set date"
-      color="#171717"
-      content-color="red darken-3"
-      format="dd.MM.yyyy"
+      color="#ffffff"
+      content-color="#171717"
+      format="dd.mm.yyyy"
       elevation="15"
+      :readonly="false"
       :rules="[val => !!val || 'Required']"
       use-mls
       clearable

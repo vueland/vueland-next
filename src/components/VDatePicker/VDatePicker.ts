@@ -64,7 +64,7 @@ export const VDatePicker = defineComponent({
     clearable: Boolean,
     readonly: {
       type: Boolean,
-      default: true
+      default: true,
     },
     mondayFirst: Boolean,
     today: Boolean,
@@ -276,7 +276,6 @@ export const VDatePicker = defineComponent({
       separated.forEach((it, i) => date[it] = +dateArray[i])
 
       return parseDate(new Date(date.yyyy, date.mm - 1, date.dd))
-
     }
 
     function convertToFormat(): string {

@@ -148,15 +148,16 @@
       v-model:value="data.date"
       lang="en"
       label="set date"
-      color="amber accent-3"
-      content-color="grey darken-4"
+      color="#171717"
+      content-color="red darken-3"
+      format="dd.MM.yyyy"
       elevation="15"
       :rules="[val => !!val || 'Required']"
-      readonly
       use-mls
       clearable
       prepend-icon="fas fa-calendar"
       monday-first
+      @selected="testFunc"
     />
     <v-text-field
       label="teal"

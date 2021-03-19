@@ -132,7 +132,7 @@ export const VDatePickerDates = defineComponent({
     }
 
     function compareDates(date1, date2) {
-      return (
+       return (
         date1.date === date2.date &&
         date1.month === date2.month &&
         date1.year === date2.year

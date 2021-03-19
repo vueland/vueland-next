@@ -22,6 +22,13 @@ export type DatePickerDate = {
   isHoliday?: boolean
 }
 
+export type DateParams = {
+  dd: number
+  mm: number
+  yyyy: number
+  MM: string
+}
+
 export type Column = {
   key: string,
   title: string,

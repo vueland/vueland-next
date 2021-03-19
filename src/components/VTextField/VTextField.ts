@@ -34,6 +34,7 @@ export const VTextField = defineComponent({
     'focus',
     'blur',
     'change',
+    'clear',
     'update:value',
     'update:modelValue',
   ],
@@ -114,6 +115,7 @@ export const VTextField = defineComponent({
       emit('update:modelValue', state.value)
       emit('update:value', state.value)
       emit('input', state.value)
+      emit('clear', state.value)
       requestAnimationFrame(validateValue)
     }
 

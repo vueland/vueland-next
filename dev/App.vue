@@ -99,7 +99,7 @@
 
 <template>
   <v-list>
-    <v-list-group @click="testFunc" expanded>
+    <v-list-group @click="testFunc">
       <template v-slot:title>
         <v-list-item-title> salam</v-list-item-title>
       </template>
@@ -116,17 +116,14 @@
   <v-data-table
     :cols="cols"
     :rows="data.users"
-    class="elevation-5"
     :rows-on-table="[25, 40, 50, 75]"
+    class="elevation-5"
     style="margin: 10px;"
-
     toolbar
     numbered
     checkbox
-
     @filter="testFunc"
     @checked="testFunc"
-
     @cols-settings="testFunc"
   >
     <template v-slot:address="{ row, format }">

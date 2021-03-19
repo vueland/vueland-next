@@ -123,7 +123,8 @@ export const VInput = defineComponent({
           genLabel(),
           slots.select && slots.select(),
           slots.textField && slots.textField(),
-        ])
+        ],
+      )
     }
 
     function genStatusMessage(): VNode {

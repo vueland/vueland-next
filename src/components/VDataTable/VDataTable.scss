@@ -4,7 +4,7 @@
 .v-data-table {
   @include flex(flex, stretch, stretch, column);
   height: 100%;
-  max-height: calc(100vh - 110px);
+  max-height: 100%;
   border-radius: $table-border-radius;
   overflow: hidden;
 

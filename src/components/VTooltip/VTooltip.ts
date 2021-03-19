@@ -29,6 +29,9 @@ import { VNode } from 'vue'
 // Helpers
 import { convertToUnit } from '../../helpers'
 
+// Services
+import { Transitions } from '../../services/transitions'
+
 // TODO fix behavior on window resize if v-model used on component
 
 export const VTooltip = defineComponent({
@@ -102,8 +105,8 @@ export const VTooltip = defineComponent({
     const styles = computed<Record<string, string>>(() => ({
       top: tooltip.top ? convertToUnit(tooltip.top) as string : '',
       left: tooltip.top ? convertToUnit(tooltip.left) as string : '',
-      maxWidth: !!props.maxWidth ? `${ props.maxWidth }px` : '',
-      minWidth: !!props.minWidth ? `${ props.minWidth }px` : '',
+      maxWidth: !!props.maxWidth ? `${props.maxWidth}px` : '',
+      minWidth: !!props.minWidth ? `${props.minWidth}px` : '',
       zIndex: props.zIndex,
     }))
 
@@ -164,13 +167,14 @@ export const VTooltip = defineComponent({
     return () => {
       const content = useTransition(
         genContent() as VNode,
-        isActive.value ? 'scale-in' : 'fade',
+        isActive.value ? Transitions.SCALE_IN : Transitions.FADE,
       )
 
-      return [h('div', {
-          class: classes.value,
-        },
-      ), content, genActivator()]
+      return [
+        h('div', { class: classes.value }),
+        content,
+        genActivator(),
+      ]
     }
   },
 })

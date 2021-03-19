@@ -84,9 +84,9 @@ export const VAutocomplete = defineComponent({
     const directive = computed(() => {
       return state.isMenuActive && !state.focused
         ? {
-          handler: clickOutsideHandler,
-          closeConditional: true,
-        }
+            handler: clickOutsideHandler,
+            closeConditional: true,
+          }
         : undefined
     })
 
@@ -102,8 +102,9 @@ export const VAutocomplete = defineComponent({
     })
 
     const inputValue = computed(() => {
-      return props.valueKey ? computedValue.value[props.valueKey] :
-        computedValue.value
+      return props.valueKey
+        ? computedValue.value[props.valueKey]
+        : computedValue.value
     })
 
     const isListItemsExists = computed<boolean>(() => {
@@ -112,20 +113,21 @@ export const VAutocomplete = defineComponent({
 
     state.search = computedValue.value ? inputValue.value : ''
 
-    watch(() => isListItemsExists.value, to => {
-      if (to && !state.isMenuActive && state.focused) {
-        state.isMenuActive = true
-      }
-    })
+    watch(
+      () => isListItemsExists.value,
+      to => {
+        if (to && !state.isMenuActive && state.focused) {
+          state.isMenuActive = true
+        }
+      },
+    )
 
     if (fields?.value && props.rules?.length) {
       fields.value.push(validateValue)
     }
 
     function validateValue() {
-      return props.rules?.length && validate(
-        state.search,
-      )
+      return props.rules?.length && validate(state.search)
     }
 
     function clickOutsideHandler() {
@@ -165,7 +167,7 @@ export const VAutocomplete = defineComponent({
       requestAnimationFrame(validateValue)
     }
 
-    function selectItem(it) {
+    function onSelect(it) {
       if (props.valueKey) {
         state.search = it[props.valueKey]
       }
@@ -176,7 +178,6 @@ export const VAutocomplete = defineComponent({
     }
 
     function genInput(): VNode {
-
       const color = props.dark ? 'white' : ''
 
       const propsData = {
@@ -184,9 +185,7 @@ export const VAutocomplete = defineComponent({
         disabled: props.disabled,
         readonly: props.readonly && !props.typeable,
         ref: inputTemplateRef,
-        class: {
-          'v-autocomplete__input': true,
-        },
+        class: 'v-autocomplete__input',
         onInput,
         onFocus,
         onBlur,
@@ -203,25 +202,18 @@ export const VAutocomplete = defineComponent({
         active: state.isMenuActive,
         color: props.dark ? 'white' : '',
         listColor: props.listColor,
-        onSelect: it => selectItem(it),
+        onSelect,
       }
-      return withDirectives(
-        h(VAutocompleteList, propsData),
-        [[clickOutside, directive.value]],
-      )
+      return withDirectives(h(VAutocompleteList, propsData), [
+        [clickOutside, directive.value],
+      ])
     }
 
     function genAutocomplete(): VNode {
-      return h(
-        'div',
-        {
-          class: classes.value,
-        },
-        [
-          genInput(),
-          props.items && genAutocompleteList(),
-        ],
-      )
+      return h('div', { class: classes.value }, [
+        genInput(),
+        props.items && genAutocompleteList(),
+      ])
     }
 
     onBeforeUnmount(() => {

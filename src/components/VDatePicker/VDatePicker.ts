@@ -283,8 +283,7 @@ export const VDatePicker = defineComponent({
 
       const { separated, symbol } = dateStringSeparator(props.format) as any
       const isLocale = separated.includes('MM')
-
-      const formatObject = {
+      const dateParams = {
         yyyy: data.selected!.year,
         mm: data.selected!.month + 1,
         dd: data.selected!.date,
@@ -295,10 +294,10 @@ export const VDatePicker = defineComponent({
 
       for (const val of separated) {
 
-        if (val.length === 2 && formatObject[val] < 10) {
-          dateString += '0' + formatObject[val]
+        if (val.length === 2 && dateParams[val] < 10) {
+          dateString += '0' + dateParams[val]
         } else {
-          dateString += formatObject[val]
+          dateString += dateParams[val]
         }
         dateString += dateString.length < 10 ? !isLocale ? symbol : ' ' : ''
       }

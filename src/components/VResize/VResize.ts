@@ -122,13 +122,13 @@ export const VResize = defineComponent({
         ? currentSize.value - size + left
         : currentSize.value - size + top
 
-      parentNode!.style[reverseTo] = `${ value }px`
+      parentNode!.style[reverseTo] = `${value}px`
     }
 
     function setOrEmitSize(size) {
       if (props.emit) return emit('resize', size)
 
-      data.parentNode!.style[sizeProp.value] = `${ size }px`
+      data.parentNode!.style[sizeProp.value] = `${size}px`
 
       isNeedReverse.value && moveReverse(size)
     }
@@ -187,7 +187,7 @@ export const VResize = defineComponent({
       const offset = reverseOffsetKey.value
 
       if (data[side] === data[offset]) {
-        data.parentNode!.style[side] = `${ data[offset] }px`
+        data.parentNode!.style[side] = `${data[offset]}px`
       }
     }
 
@@ -244,14 +244,14 @@ export const VResize = defineComponent({
       document.removeEventListener('mousedown', onMousedown)
     })
 
-    return () =>
-      h('div', {
+    return () => h('div', {
         class: {
           ...classes.value,
         },
         key: 'resize',
         ref: resRef,
         onMousedown,
-      })
+      },
+    )
   },
 })

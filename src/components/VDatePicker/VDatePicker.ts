@@ -117,8 +117,8 @@ export const VDatePicker = defineComponent({
       isActive: false,
     })
 
-    const localeMonths: string[] = locale[props.lang].months
-    const localeWeek: string[] = locale[props.lang].week
+    const localMonths: string[] = locale[props.lang].months
+    const localWeek: string[] = locale[props.lang].week
     const contentColor: string = props.dark ? 'white' : props.contentColor
 
     const handlers = ref<DatePickerBtnHandlers>({})
@@ -145,13 +145,13 @@ export const VDatePicker = defineComponent({
       return data.isYears || data.isMonths
         ? `${data.tableYear}`
         : data.isDates
-          ? `${data.tableYear} ${localeMonths[data.tableMonth!]}`
+          ? `${data.tableYear} ${localMonths[data.tableMonth!]}`
           : ''
     })
 
     const displayDate = computed<string>(() => {
       const { month, date, day } = data.selected as DatePickerDate
-      return `${localeMonths[month]} ${date} ${localeWeek[day]}`
+      return `${localMonths[month]} ${date} ${localWeek[day]}`
     })
 
     const computedValue = computed<string | number | Date>(() => {
@@ -283,17 +283,17 @@ export const VDatePicker = defineComponent({
 
       const { separated, symbol } = dateStringSeparator(props.format) as any
       const isLocale = separated.includes('MM')
+
       const dateParams = {
         yyyy: data.selected!.year,
         mm: data.selected!.month + 1,
         dd: data.selected!.date,
-        MM: localeMonths[data.selected!.month],
+        MM: localMonths[data.selected!.month],
       } as DateParams
 
       let dateString = ''
 
       for (const val of separated) {
-
         if (val.length === 2 && dateParams[val] < 10) {
           dateString += '0' + dateParams[val]
         } else {
@@ -307,9 +307,7 @@ export const VDatePicker = defineComponent({
 
     function genDisplayValue(value: string | number): VNode {
       const propsData = {
-        class: {
-          'v-date-picker__display-value': true,
-        },
+        class: 'v-date-picker__display-value'
       }
 
       return useTransition(
@@ -320,11 +318,11 @@ export const VDatePicker = defineComponent({
     }
 
     function genDatepickerDisplayInner(): VNode {
-      return h(
-        'div',
-        {
-          class: 'v-date-picker__display-inner',
-        },
+      const propsData = {
+        class: 'v-date-picker__display-inner',
+      }
+
+      return h('div',propsData,
         [
           genDisplayValue(data.selected!.year as number),
           genDisplayValue(displayDate.value),
@@ -373,7 +371,7 @@ export const VDatePicker = defineComponent({
         lang: props.lang,
         month: data.tableMonth,
         year: data.tableYear,
-        localeMonths,
+        localMonths,
         ['onUpdate:month']: onMonthUpdate,
         ['onUpdate:year']: onYearUpdate,
       })
@@ -381,7 +379,7 @@ export const VDatePicker = defineComponent({
 
     function genDatepickerDatesTable(): VNode {
       return h(VDatePickerDates, {
-        localeWeek,
+        localWeek,
         mondayFirst: props.mondayFirst,
         month: data.tableMonth,
         year: data.tableYear,

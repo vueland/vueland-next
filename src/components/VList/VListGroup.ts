@@ -76,9 +76,12 @@ export const VListGroup = defineComponent({
     }
 
     if (groups) groups.register(currentGroup)
+
     if (subgroups) subgroups.value.push(currentGroup)
 
-    !props.noAction && props.expanded && requestAnimationFrame(onClick)
+    if (!props.noAction && props.expanded) {
+      requestAnimationFrame(onClick)
+    }
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-list-group': true,
@@ -110,8 +113,8 @@ export const VListGroup = defineComponent({
       const slotIcon = slots.appendIcon && slots.appendIcon()
       const icon = !props.subGroup && !props.noAction ? props.appendIcon : false
 
-      if (!icon && !slotIcon ||
-        !props.subGroup && props.noAction
+      if ((!icon && !slotIcon) ||
+        (!props.subGroup && props.noAction)
       ) return null
 
       const propsData = {
@@ -126,19 +129,16 @@ export const VListGroup = defineComponent({
     }
 
     function genPrependIcon(): VNode | null {
-      const icon =
-        props.subGroup && !props.noAction
-          ? FaIcons.$subgroup
-          : props.prependIcon
+      const icon = props.subGroup && !props.noAction
+        ? FaIcons.$subgroup
+        : props.prependIcon
 
       const slotIcon = slots.prependIcon && slots.prependIcon()
 
       if (!icon && !slotIcon) return null
 
       const propsData = {
-        class: {
-          'v-list-group__prepend-icon': true,
-        },
+        class: 'v-list-group__prepend-icon',
       }
 
       return h(VListItemIcon, propsData, {
@@ -166,9 +166,7 @@ export const VListGroup = defineComponent({
 
     function genItems(): VNode {
       const propsData = {
-        class: {
-          'v-list-group__items': true,
-        },
+        class: 'v-list-group__items',
       }
 
       return withDirectives(

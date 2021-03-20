@@ -42,14 +42,7 @@ export type Column = {
   useOnCreate?: boolean
   useOnEdit?: boolean
   show?: boolean
-  format?: (arg: any) => any
-}
-
-export type TableModalOptions = {
-  title: string
-  icon?: string
-  fields: any[]
-  actions: any[]
+  format?: (...arg: any) => any
 }
 
 export type TableFilter = {

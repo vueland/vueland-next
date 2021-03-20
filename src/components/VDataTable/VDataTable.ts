@@ -143,7 +143,7 @@ export const VDataTable = defineComponent({
       emit('cols-settings', cols.value)
     }
 
-    function sortColumn(col: Column) {
+    function sortColumn(col: Column): void {
       rows.value!.sort((a, b) => {
         if (col.format) {
           if (col.format(a) > col.format(b)) return 1
@@ -188,8 +188,7 @@ export const VDataTable = defineComponent({
           class: {
             'v-data-table__toolbar': true,
           },
-        },
-        {
+        }, {
           default: () => slots.toolbar && slots.toolbar(),
         },
       )
@@ -210,9 +209,7 @@ export const VDataTable = defineComponent({
     }
 
     function genTableBody(): VNode {
-      return h(
-        VDataTableBody,
-        {
+      return h(VDataTableBody, {
           cols: cols.value,
           rows: rows.value,
           page: page.value,
@@ -265,14 +262,14 @@ export const VDataTable = defineComponent({
     }
 
     function genTableInner(): VNode {
-      return h(
-        'div',
-        {
+      return h('div', {
           class: {
             'v-data-table__inner': true,
           },
-        },
-        [genTableHeader(), genTableBody()],
+        }, [
+          genTableHeader(),
+          genTableBody()
+        ],
       )
     }
 

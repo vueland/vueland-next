@@ -43,7 +43,7 @@
       }
 
       const testFunc = date => {
-        console.log(date, data)
+        console.log(date)
       }
 
       const forOut = computed(() => {
@@ -99,7 +99,7 @@
 
 <template>
   <v-list>
-    <v-list-group @click="testFunc">
+    <v-list-group>
       <template v-slot:title>
         <v-list-item-title> salam</v-list-item-title>
       </template>
@@ -174,7 +174,6 @@
       clearable
       prepend-icon="fas fa-search"
       :rules="[v => !!v || 'required']"
-
     />
     <v-autocomplete
       label="autocomplete"
@@ -184,7 +183,7 @@
       clearable
       prepend-icon="fas fa-search"
       :rules="[v => !!v || 'required']"
-      @select="testFunc(data.user2)"
+      @select="testFunc"
     />
     <v-button
       label="click"

@@ -84,9 +84,9 @@ export const VAutocomplete = defineComponent({
     const directive = computed(() => {
       return state.isMenuActive && !state.focused
         ? {
-            handler: clickOutsideHandler,
-            closeConditional: true,
-          }
+          handler: clickOutsideHandler,
+          closeConditional: true,
+        }
         : undefined
     })
 
@@ -164,12 +164,17 @@ export const VAutocomplete = defineComponent({
 
     function onClear() {
       state.search = ''
+      emit('select', '')
+      emit('update:modelValue', '')
+      emit('update:value', '')
       requestAnimationFrame(validateValue)
     }
 
     function onSelect(it) {
       if (props.valueKey) {
         state.search = it[props.valueKey]
+      } else {
+        state.search = it
       }
       emit('select', it)
       emit('update:modelValue', it)

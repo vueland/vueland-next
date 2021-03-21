@@ -94,7 +94,7 @@ export const VListGroup = defineComponent({
     function onClick() {
       if (props.noAction) return
 
-      groups?.items.length && groups.listClick(refGroup)
+      groups?.items.value.length && groups.listClick(refGroup)
       children.value.length &&
       children.value.forEach((it: any) => (it.active = false))
     }

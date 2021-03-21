@@ -2,36 +2,34 @@
 import './VList.scss'
 
 // Vue API
-import { h, reactive, provide, defineComponent } from 'vue'
+import { h, ref, provide, defineComponent } from 'vue'
 
 export const VList = defineComponent({
   name: 'v-list',
 
   setup(_, { slots }) {
-    const groups = reactive({
-      items: [],
+    const items = ref<any>([])
 
-      register(group) {
-        this.items.push(group)
-      },
+    function register(group) {
+      items.value.push(group)
+    }
 
-      unRegister(group) {
-        this.items.filter(it => {
-          return it.ref !== group._value
-        })
-      },
+    function unRegister(group) {
+      items.value.filter((it: any) => {
+        return it.ref !== group._value
+      })
+    }
 
-      listClick(ref) {
-        this.items.length &&
-        this.items.forEach(group => {
-          if (group.ref === ref._value) {
-            group.active = !group.active
-          }
-        })
-      },
-    })
+    function listClick(ref) {
+      items.value.length &&
+      items.value.forEach((group: any) => {
+        if (group.ref === ref._value) {
+          group.active = !group.active
+        }
+      })
+    }
 
-    provide('groups', groups)
+    provide('groups', { items, register, unRegister, listClick })
 
     return () => {
       const dataProps = {

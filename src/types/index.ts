@@ -1,3 +1,5 @@
+import { ComponentPublicInstance } from 'vue'
+
 export type Props = {
   [key: string]: any
 }
@@ -51,3 +53,8 @@ export type TableFilter = {
 }
 
 export type TableCol<T> = T extends keyof Column ? T : any
+
+export type ListGroup = {
+  ref: ComponentPublicInstance<HTMLInputElement>,
+  active: boolean
+}

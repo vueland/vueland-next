@@ -25,7 +25,8 @@ import { VListItemIcon } from './index'
 import { VExpandTransition } from '../transitions'
 
 // Types
-import { VNode } from 'vue'
+import { VNode, ComponentPublicInstance } from 'vue'
+import { ListGroup } from '../../types'
 
 // Services
 import { FaIcons } from '../../services/icons'
@@ -61,24 +62,22 @@ export const VListGroup = defineComponent({
     const { setTextColor } = useColors()
     const { elevationClasses } = useElevation(props)
 
-    const refGroup = ref(null)
-    const isActive = ref(false)
-    const children = ref([])
-    const groups: any = inject('groups')
+    const refGroup = ref<ComponentPublicInstance<HTMLDivElement> | null>(null)
+    const isActive = ref<boolean>(false)
+    const children = ref<ListGroup[]>([])
+    const { groups, register, unRegister, listClick }: any = inject('groups')
 
     provide('subgroups', children)
 
     const subgroups: any = props.subGroup && inject('subgroups')
 
-    const currentGroup = {
+    const listGroup = {
       ref: refGroup,
       active: isActive,
     }
 
-    if (groups) groups.register(currentGroup)
-
-    if (subgroups) subgroups.value.push(currentGroup)
-
+    if (groups) register(listGroup)
+    if (subgroups) subgroups.value.push(listGroup)
     if (!props.noAction && props.expanded) {
       requestAnimationFrame(onClick)
     }
@@ -94,7 +93,7 @@ export const VListGroup = defineComponent({
     function onClick() {
       if (props.noAction) return
 
-      groups?.items.value.length && groups.listClick(refGroup)
+      groups?.value.length && listClick(refGroup)
       children.value.length &&
       children.value.forEach((it: any) => (it.active = false))
     }
@@ -118,9 +117,7 @@ export const VListGroup = defineComponent({
       ) return null
 
       const propsData = {
-        class: {
-          'v-list-group__append-icon': true,
-        },
+        class: 'v-list-group__append-icon',
       }
 
       return h(VListItemIcon, propsData, {
@@ -183,7 +180,7 @@ export const VListGroup = defineComponent({
     }
 
     onBeforeUnmount(() => {
-      groups.unRegister(refGroup)
+      unRegister(refGroup)
     })
 
     return () => {

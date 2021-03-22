@@ -21,7 +21,7 @@ export const VDatePickerMonths = defineComponent({
     },
     month: [String, Number],
     year: [String, Number],
-    localeMonths: [Array],
+    localMonths: [Array],
   } as any,
 
   setup(props, { emit }) {
@@ -61,7 +61,7 @@ export const VDatePickerMonths = defineComponent({
         onClick: () => (computedMonth.value = month),
       }
 
-      return h('div', propsData, props.localeMonths[month])
+      return h('div', propsData, props.localMonths[month])
     }
 
     function genMonthRows(): VNode[] {

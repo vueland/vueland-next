@@ -149,7 +149,6 @@
       content-color="#171717"
       format="dd.mm.yyyy"
       elevation="15"
-      :readonly="false"
       :rules="[val => !!val || 'Required']"
       use-mls
       clearable

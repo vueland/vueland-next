@@ -164,7 +164,11 @@ export const VDatePickerDates = defineComponent({
     function genDateRows(): VNode[] {
       const datesVNodes = genDateCells()
 
-      return genTableRows(datesVNodes, 'v-date-picker-dates__row', WEEK.length)
+      return genTableRows(
+        datesVNodes,
+        'v-date-picker-dates__row',
+        WEEK.length
+      )
     }
 
     function genDates(): VNode | null {
@@ -181,8 +185,7 @@ export const VDatePickerDates = defineComponent({
     }
 
     return () =>
-      h('div',
-        { class: 'v-date-picker-dates' },
+      h('div', { class: 'v-date-picker-dates' },
         [
           genWeek(),
           useTransition(genDates() as any, 'fade'),

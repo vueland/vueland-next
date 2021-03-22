@@ -76,7 +76,6 @@ export const VDatePicker = defineComponent({
       type: String,
       default: 'en',
     },
-    contentColor: String,
     label: String,
     prependIcon: String,
     format: {
@@ -88,6 +87,7 @@ export const VDatePicker = defineComponent({
     modelValue: [String, Date, Number],
     disabledDates: Object,
     highlighted: Object,
+    contentColor: String,
     color: {
       type: String,
       default: 'white',

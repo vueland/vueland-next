@@ -81,7 +81,7 @@ export const VDataTableHeader = defineComponent({
         },
         size: 14,
         icon: FaIcons.$arrowUp,
-        color: item.sorted ? props.dark ? 'white' : '' : '',
+        color: props.dark ? 'white' : '',
         onClick: () => onSort(item),
       })
     }
@@ -95,7 +95,7 @@ export const VDataTableHeader = defineComponent({
         },
         size: 14,
         icon: FaIcons.$filter,
-        color: item.filtered ? props.dark ? 'white' : '' : '',
+        color: props.dark ? 'white' : '',
         onClick: () => addFilter(item),
       })
     }

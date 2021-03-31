@@ -120,7 +120,7 @@
       :rows-on-table="[25, 40, 50, 75]"
       class="elevation-5"
       numbered
-      color="grey darken-4"
+      color="cyan darken-4"
       dark
       header-color="red"
       checkbox

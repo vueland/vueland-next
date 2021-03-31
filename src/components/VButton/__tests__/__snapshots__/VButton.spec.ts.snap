@@ -5,6 +5,13 @@ exports[`VButton should mount component and match snapshot 1`] = `
 </button>
 `;
 
+exports[`VButton should set button width and match snapshot 1`] = `
+<button class="v-button"
+        style="min-width: 150px;"
+>
+</button>
+`;
+
 exports[`VButton should set color and match snapshot 1`] = `
 <button class="v-button red darken-3">
 </button>

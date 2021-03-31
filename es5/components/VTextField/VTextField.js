@@ -23,7 +23,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var VTextField = (0, _vue.defineComponent)({
   name: 'v-text-field',
-  emits: ['input', 'focus', 'blur', 'change', 'update:value', 'update:modelValue'],
+  emits: ['input', 'focus', 'blur', 'change', 'clear', 'update:value', 'update:modelValue'],
   props: _objectSpread(_objectSpread({
     dark: Boolean,
     disabled: Boolean,
@@ -102,6 +102,7 @@ var VTextField = (0, _vue.defineComponent)({
       emit('update:modelValue', state.value);
       emit('update:value', state.value);
       emit('input', state.value);
+      emit('clear', state.value);
       requestAnimationFrame(validateValue);
     }
 

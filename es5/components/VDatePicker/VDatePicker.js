@@ -17,10 +17,6 @@ var _useElevation2 = require("../../effects/use-elevation");
 
 var _useTransition = require("../../effects/use-transition");
 
-var _helpers = require("./helpers");
-
-var _helpers2 = require("../../helpers");
-
 var _VTextField = require("../VTextField");
 
 var _VDatepickerHeader = require("./VDatepickerHeader");
@@ -31,7 +27,17 @@ var _VDatePickerYears = require("./VDatePickerYears");
 
 var _VDatePickerMonths = require("./VDatePickerMonths");
 
+var _helpers = require("./helpers");
+
+var _util = require("./util");
+
 var _locale = require("../../services/locale");
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -59,7 +65,6 @@ var VDatePicker = (0, _vue.defineComponent)({
       type: String,
       "default": 'en'
     },
-    contentColor: String,
     label: String,
     prependIcon: String,
     format: {
@@ -71,6 +76,7 @@ var VDatePicker = (0, _vue.defineComponent)({
     modelValue: [String, Date, Number],
     disabledDates: Object,
     highlighted: Object,
+    contentColor: String,
     color: {
       type: String,
       "default": 'white'
@@ -87,13 +93,14 @@ var VDatePicker = (0, _vue.defineComponent)({
       selected: null,
       tableMonth: null,
       tableYear: null,
+      convertedDateString: null,
       isYears: false,
       isMonths: false,
       isDates: true,
       isActive: false
     });
-    var localeMonths = _locale.locale[props.lang].months;
-    var localeWeek = _locale.locale[props.lang].week;
+    var localMonths = _locale.locale[props.lang].months;
+    var localWeek = _locale.locale[props.lang].week;
     var contentColor = props.dark ? 'white' : props.contentColor;
     var handlers = (0, _vue.ref)({});
 
@@ -105,12 +112,12 @@ var VDatePicker = (0, _vue.defineComponent)({
         elevationClasses = _useElevation.elevationClasses;
 
     (0, _vue.provide)('handlers', handlers);
-    if (props.value) setParsedDate(props.value);else if (props.modelValue) setParsedDate(props.modelValue);else setParsedDate();
+    setInitDate();
     var classes = (0, _vue.computed)(function () {
       return {
         'v-date-picker': true,
-        'v-date-picker--inputable': !props.readonly,
-        'v-date-picker--readonly': !!props.readonly
+        'v-date-picker--typeable': !props.readonly,
+        'v-date-picker--readonly': props.readonly
       };
     });
     var tableClasses = (0, _vue.computed)(function () {
@@ -119,14 +126,14 @@ var VDatePicker = (0, _vue.defineComponent)({
       }, elevationClasses.value);
     });
     var headerValue = (0, _vue.computed)(function () {
-      return data.isYears || data.isMonths ? "".concat(data.tableYear) : data.isDates ? "".concat(data.tableYear, " ").concat(localeMonths[data.tableMonth]) : '';
+      return data.isYears || data.isMonths ? "".concat(data.tableYear) : data.isDates ? "".concat(data.tableYear, " ").concat(localMonths[data.tableMonth]) : '';
     });
     var displayDate = (0, _vue.computed)(function () {
       var _data$selected = data.selected,
           month = _data$selected.month,
           date = _data$selected.date,
           day = _data$selected.day;
-      return "".concat(localeMonths[month], " ").concat(date, " ").concat(localeWeek[day]);
+      return "".concat(localMonths[month], " ").concat(date, " ").concat(localWeek[day]);
     });
     var computedValue = (0, _vue.computed)(function () {
       var _data$selected2 = data.selected,
@@ -148,6 +155,14 @@ var VDatePicker = (0, _vue.defineComponent)({
         closeConditional: false
       } : undefined;
     });
+
+    function setInitDate() {
+      if (props.value) setParsedDate(props.value);else if (props.modelValue) setParsedDate(props.modelValue);else setParsedDate();
+
+      if (props.today || props.value || props.modelValue) {
+        data.convertedDateString = convertToFormat();
+      }
+    }
 
     function onTableChange() {
       if (data.isYears) {
@@ -186,96 +201,94 @@ var VDatePicker = (0, _vue.defineComponent)({
       setDataDate(data.selected);
     }
 
-    function onYearUpdate($event) {
-      data.tableYear = $event;
+    function onYearUpdate(year) {
+      data.tableYear = year;
       data.isMonths = true;
       data.isYears = false;
     }
 
-    function onMonthUpdate($event) {
-      data.tableMonth = $event;
+    function onMonthUpdate(month) {
+      data.tableMonth = month;
       data.isMonths = false;
       data.isYears = false;
       data.isDates = true;
     }
 
-    function onDateUpdate($event) {
-      if (!$event) return;
-      data.selected = $event;
-      setDataDate(data.selected);
-      var dateValue = computedValue.value || formatDate();
+    function onDateUpdate(date) {
+      if (!date) return;
+      data.selected = date;
+      var converted = convertToFormat();
+      var dateValue = computedValue.value || converted;
+      data.convertedDateString = converted;
       emit('update:value', dateValue);
       emit('update:modelValue', dateValue);
       emit('selected', dateValue);
       data.isActive = false;
     }
 
-    function onDateMonthUpdate($event) {
-      data.tableMonth = $event.month;
-      if ($event.year) data.tableYear = $event.year;
+    function onDateMonthUpdate(dateObject) {
+      data.tableMonth = dateObject.month;
+      if (dateObject.year) data.tableYear = dateObject.year;
     }
 
-    function onDateInput($event) {
+    function onDateInput(date) {
       data.isActive = false;
-      if ($event.length !== props.format.length) return;
-      onDateUpdate(stringToDate($event));
-    }
-
-    function divideWithSeparator(str) {
-      var matchArray = str.match(/\W/);
-      var separator = matchArray && matchArray[0];
-
-      if (separator) {
-        var divided = str.split(separator);
-        return {
-          separator: separator,
-          divided: divided
-        };
-      }
-
-      return (0, _helpers2.warning)("the date string should be in ".concat(props.format, " format"));
+      data.convertedDateString = null;
+      if (date.length !== props.format.length) return;
+      onDateUpdate(stringToDate(date));
     }
 
     function stringToDate(stringDate) {
-      var dateObject = {};
-      var formattedDate = divideWithSeparator(stringDate);
-      var formatObject = divideWithSeparator(props.format);
+      var date = {};
 
-      if (formattedDate) {
-        formatObject.divided.forEach(function (it, i) {
-          dateObject[it] = +formattedDate.divided[i];
-        });
-        var yyyy = dateObject.yyyy,
-            mm = dateObject.mm,
-            dd = dateObject.dd;
-        return (0, _helpers.parseDate)(new Date(yyyy, mm - 1, dd));
-      }
+      var _dateStringSeparator = (0, _util.dateStringSeparator)(stringDate),
+          dateArray = _dateStringSeparator.separated;
 
-      return undefined;
+      var _dateStringSeparator2 = (0, _util.dateStringSeparator)(props.format),
+          separated = _dateStringSeparator2.separated;
+
+      if (!separated) return null;
+      separated.forEach(function (it, i) {
+        return date[it] = +dateArray[i];
+      });
+      return (0, _helpers.parseDate)(new Date(date.yyyy, date.mm - 1, date.dd));
     }
 
-    function formatDate() {
-      if (!props.value && !props.modelValue && !props.today) return;
+    function convertToFormat() {
+      if (!data.selected) return '';
 
-      var _divideWithSeparator = divideWithSeparator(props.format),
-          divided = _divideWithSeparator.divided,
-          separator = _divideWithSeparator.separator;
+      var _dateStringSeparator3 = (0, _util.dateStringSeparator)(props.format),
+          separated = _dateStringSeparator3.separated,
+          symbol = _dateStringSeparator3.symbol;
 
-      var formatObject = {
-        y: data.selected.year,
-        m: data.selected.month + 1,
-        d: data.selected.date
+      var isLocal = separated.includes('MM');
+      var dateParams = {
+        yyyy: data.selected.year,
+        mm: data.selected.month + 1,
+        dd: data.selected.date,
+        MM: localMonths[data.selected.month]
       };
       var dateString = '';
 
-      for (var i = 0; i < divided.length; i += 1) {
-        if (divided[i].length === 2 && formatObject[divided[i][0]] < 10) {
-          dateString += '0' + formatObject[divided[i][0]];
-        } else {
-          dateString += formatObject[divided[i][0]];
-        }
+      var _iterator = _createForOfIteratorHelper(separated),
+          _step;
 
-        dateString += i < divided.length - 1 ? separator : '';
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var val = _step.value;
+
+          if (val.length === 2 && dateParams[val] < 10) {
+            dateString += '0' + dateParams[val];
+          } else {
+            dateString += dateParams[val];
+          }
+
+          dateString += dateString.length < 10 ? !isLocal ? symbol : ' ' : '';
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
       }
 
       return dateString;
@@ -283,17 +296,16 @@ var VDatePicker = (0, _vue.defineComponent)({
 
     function genDisplayValue(value) {
       var propsData = {
-        "class": {
-          'v-date-picker__display-value': true
-        }
+        "class": 'v-date-picker__display-value'
       };
       return (0, _useTransition.useTransition)((0, _vue.h)('span', propsData, value), 'scale-in-out', 'out-in');
     }
 
     function genDatepickerDisplayInner() {
-      return (0, _vue.h)('div', {
+      var propsData = {
         "class": 'v-date-picker__display-inner'
-      }, [genDisplayValue(data.selected.year), genDisplayValue(displayDate.value)]);
+      };
+      return (0, _vue.h)('div', propsData, [genDisplayValue(data.selected.year), genDisplayValue(displayDate.value)]);
     }
 
     function genDatepickerDisplay() {
@@ -336,7 +348,7 @@ var VDatePicker = (0, _vue.defineComponent)({
         lang: props.lang,
         month: data.tableMonth,
         year: data.tableYear,
-        localeMonths: localeMonths
+        localMonths: localMonths
       }, _defineProperty(_h, 'onUpdate:month', onMonthUpdate), _defineProperty(_h, 'onUpdate:year', onYearUpdate), _h));
     }
 
@@ -344,7 +356,7 @@ var VDatePicker = (0, _vue.defineComponent)({
       var _h2;
 
       return (0, _vue.h)(_VDatePickerDates.VDatePickerDates, (_h2 = {
-        localeWeek: localeWeek,
+        localWeek: localWeek,
         mondayFirst: props.mondayFirst,
         month: data.tableMonth,
         year: data.tableYear,
@@ -363,7 +375,7 @@ var VDatePicker = (0, _vue.defineComponent)({
 
     function genDatepickerInput() {
       return (0, _vue.h)(_VTextField.VTextField, {
-        value: formatDate(),
+        value: data.convertedDateString,
         dark: props.dark,
         label: props.label,
         readonly: props.readonly,

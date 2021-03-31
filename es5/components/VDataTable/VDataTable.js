@@ -119,8 +119,6 @@ var VDataTable = (0, _vue.defineComponent)({
       if (rows.value.length - page.value * rowsPerPage.value > 0) {
         page.value += num;
       }
-
-      return;
     }
 
     function onSort(col) {

@@ -13,25 +13,34 @@ var VList = (0, _vue.defineComponent)({
   name: 'v-list',
   setup: function setup(_, _ref) {
     var slots = _ref.slots;
-    var groups = (0, _vue.reactive)({
-      items: [],
-      register: function register(group) {
-        this.items.push(group);
-      },
-      unRegister: function unRegister(group) {
-        this.items.filter(function (it) {
-          return it.ref !== group._value;
-        });
-      },
-      listClick: function listClick(ref) {
-        this.items.length && this.items.forEach(function (group) {
-          if (group.ref === ref._value) {
-            group.active = !group.active;
-          }
-        });
-      }
+    var groups = (0, _vue.ref)([]);
+
+    function register(group) {
+      groups.value.push(group);
+    }
+
+    function unRegister(group) {
+      groups.value.filter(function (it) {
+        return it.ref !== group.value;
+      });
+    }
+
+    function listClick(ref) {
+      groups.value.length && groups.value.forEach(function (group) {
+        if (group.ref === ref.value) {
+          group.active = !group.active;
+        }
+
+        console.log(groups.value[0].ref);
+      });
+    }
+
+    (0, _vue.provide)('groups', {
+      groups: groups,
+      register: register,
+      unRegister: unRegister,
+      listClick: listClick
     });
-    (0, _vue.provide)('groups', groups);
     return function () {
       var dataProps = {
         "class": {

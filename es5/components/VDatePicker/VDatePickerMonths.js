@@ -20,7 +20,7 @@ var VDatePickerMonths = (0, _vue.defineComponent)({
     },
     month: [String, Number],
     year: [String, Number],
-    localeMonths: [Array]
+    localMonths: [Array]
   },
   setup: function setup(props, _ref) {
     var emit = _ref.emit;
@@ -62,7 +62,7 @@ var VDatePickerMonths = (0, _vue.defineComponent)({
           return computedMonth.value = month;
         }
       };
-      return (0, _vue.h)('div', propsData, props.localeMonths[month]);
+      return (0, _vue.h)('div', propsData, props.localMonths[month]);
     }
 
     function genMonthRows() {

@@ -16,7 +16,7 @@ var _useTransition = require("../../effects/use-transition");
 var VDatePickerDates = (0, _vue.defineComponent)({
   name: 'v-date-picker-dates',
   props: {
-    localeWeek: Array,
+    localWeek: Array,
     year: [String, Number],
     month: [String, Number],
     date: [String, Number],
@@ -77,12 +77,10 @@ var VDatePickerDates = (0, _vue.defineComponent)({
 
     function genWeekDays() {
       var propsData = {
-        "class": {
-          'v-date-picker-dates__day': true
-        }
+        "class": 'v-date-picker-dates__day'
       };
       return WEEK.map(function (day) {
-        return (0, _vue.h)('span', propsData, props.localeWeek[day]);
+        return (0, _vue.h)('span', propsData, props.localWeek[day]);
       });
     }
 
@@ -124,20 +122,20 @@ var VDatePickerDates = (0, _vue.defineComponent)({
       return date1.date === date2.date && date1.month === date2.month && date1.year === date2.year;
     }
 
-    function genDateCell(obj) {
+    function genDateCell(dateObject) {
       var propsData = {
         "class": {
-          'v-date-picker-dates__cell': !!obj.date,
-          'v-date-picker-dates__cell--empty': !obj.date,
-          'v-date-picker-dates__cell--selected': compareDates(obj, props.value),
-          'v-date-picker-dates__cell--current-date': compareDates(obj, today),
-          'v-date-picker-dates__cell--holiday': obj.isHoliday
+          'v-date-picker-dates__cell': !!dateObject.date,
+          'v-date-picker-dates__cell--empty': !dateObject.date,
+          'v-date-picker-dates__cell--selected': compareDates(dateObject, props.value),
+          'v-date-picker-dates__cell--current-date': compareDates(dateObject, today),
+          'v-date-picker-dates__cell--holiday': dateObject.isHoliday
         },
         onClick: function onClick() {
-          return obj.date && emit('update:value', obj);
+          return dateObject.date && emit('update:value', dateObject);
         }
       };
-      return (0, _vue.h)('div', propsData, obj.date);
+      return (0, _vue.h)('div', propsData, dateObject.date);
     }
 
     function genDateCells() {

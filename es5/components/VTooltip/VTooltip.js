@@ -23,6 +23,8 @@ var _usePosition = require("../../effects/use-position");
 
 var _helpers = require("../../helpers");
 
+var _transitions = require("../../services/transitions");
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -147,7 +149,7 @@ var VTooltip = (0, _vue.defineComponent)({
       });
     });
     return function () {
-      var content = (0, _useTransition.useTransition)(genContent(), isActive.value ? 'scale-in' : 'fade');
+      var content = (0, _useTransition.useTransition)(genContent(), isActive.value ? _transitions.Transitions.SCALE_IN : _transitions.Transitions.FADE);
       return [(0, _vue.h)('div', {
         "class": classes.value
       }), content, genActivator()];

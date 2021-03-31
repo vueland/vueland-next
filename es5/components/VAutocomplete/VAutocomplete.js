@@ -139,12 +139,17 @@ var VAutocomplete = (0, _vue.defineComponent)({
 
     function onClear() {
       state.search = '';
+      emit('select', '');
+      emit('update:modelValue', '');
+      emit('update:value', '');
       requestAnimationFrame(validateValue);
     }
 
-    function selectItem(it) {
+    function onSelect(it) {
       if (props.valueKey) {
         state.search = it[props.valueKey];
+      } else {
+        state.search = it;
       }
 
       emit('select', it);
@@ -160,9 +165,7 @@ var VAutocomplete = (0, _vue.defineComponent)({
         disabled: props.disabled,
         readonly: props.readonly && !props.typeable,
         ref: inputTemplateRef,
-        "class": {
-          'v-autocomplete__input': true
-        },
+        "class": 'v-autocomplete__input',
         onInput: onInput,
         onFocus: onFocus,
         onBlur: onBlur
@@ -178,9 +181,7 @@ var VAutocomplete = (0, _vue.defineComponent)({
         active: state.isMenuActive,
         color: props.dark ? 'white' : '',
         listColor: props.listColor,
-        onSelect: function onSelect(it) {
-          return selectItem(it);
-        }
+        onSelect: onSelect
       };
       return (0, _vue.withDirectives)((0, _vue.h)(_VAutocompleteList.VAutocompleteList, propsData), [[_directives.clickOutside, directive.value]]);
     }

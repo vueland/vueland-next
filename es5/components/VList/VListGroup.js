@@ -51,6 +51,7 @@ var VListGroup = (0, _vue.defineComponent)({
     },
     disabled: Boolean,
     group: String,
+    expanded: Boolean,
     noAction: Boolean,
     subGroup: Boolean
   }, (0, _useElevation2.elevationProps)()),
@@ -66,15 +67,26 @@ var VListGroup = (0, _vue.defineComponent)({
     var refGroup = (0, _vue.ref)(null);
     var isActive = (0, _vue.ref)(false);
     var children = (0, _vue.ref)([]);
-    var groups = (0, _vue.inject)('groups');
+
+    var _inject = (0, _vue.inject)('groups'),
+        groups = _inject.groups,
+        register = _inject.register,
+        unRegister = _inject.unRegister,
+        listClick = _inject.listClick;
+
     (0, _vue.provide)('subgroups', children);
     var subgroups = props.subGroup && (0, _vue.inject)('subgroups');
-    var currentGroup = {
+    var listGroup = {
       ref: refGroup,
       active: isActive
     };
-    groups && groups.register(currentGroup);
-    subgroups && subgroups.value.push(currentGroup);
+    if (groups) register(listGroup);
+    if (subgroups) subgroups.value.push(listGroup);
+
+    if (!props.noAction && props.expanded) {
+      requestAnimationFrame(onClick);
+    }
+
     var classes = (0, _vue.computed)(function () {
       return _objectSpread(_defineProperty({
         'v-list-group': true,
@@ -85,7 +97,7 @@ var VListGroup = (0, _vue.defineComponent)({
 
     function onClick() {
       if (props.noAction) return;
-      (groups === null || groups === void 0 ? void 0 : groups.items.length) && groups.listClick(refGroup);
+      (groups === null || groups === void 0 ? void 0 : groups.value.length) && listClick(refGroup);
       children.value.length && children.value.forEach(function (it) {
         return it.active = false;
       });
@@ -107,9 +119,7 @@ var VListGroup = (0, _vue.defineComponent)({
       var icon = !props.subGroup && !props.noAction ? props.appendIcon : false;
       if (!icon && !slotIcon || !props.subGroup && props.noAction) return null;
       var propsData = {
-        "class": {
-          'v-list-group__append-icon': true
-        }
+        "class": 'v-list-group__append-icon'
       };
       return (0, _vue.h)(_index.VListItemIcon, propsData, {
         "default": function _default() {
@@ -123,9 +133,7 @@ var VListGroup = (0, _vue.defineComponent)({
       var slotIcon = slots.prependIcon && slots.prependIcon();
       if (!icon && !slotIcon) return null;
       var propsData = {
-        "class": {
-          'v-list-group__prepend-icon': true
-        }
+        "class": 'v-list-group__prepend-icon'
       };
       return (0, _vue.h)(_index.VListItemIcon, propsData, {
         "default": function _default() {
@@ -151,9 +159,7 @@ var VListGroup = (0, _vue.defineComponent)({
 
     function genItems() {
       var propsData = {
-        "class": {
-          'v-list-group__items': true
-        }
+        "class": 'v-list-group__items'
       };
       return (0, _vue.withDirectives)((0, _vue.h)('div', propsData, slots["default"] && slots["default"]()), [[_vue.vShow, isActive.value]]);
     }
@@ -166,7 +172,7 @@ var VListGroup = (0, _vue.defineComponent)({
     }
 
     (0, _vue.onBeforeUnmount)(function () {
-      groups.unRegister(refGroup);
+      unRegister(refGroup);
     });
     return function () {
       var items = slots["default"] && (0, _transitions.VExpandTransition)(genItems());

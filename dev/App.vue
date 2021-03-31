@@ -113,29 +113,33 @@
     </v-list-group>
   </v-list>
   <v-checkbox label="test" v-model="data.checked"/>
-  <v-data-table
-    :cols="cols"
-    :rows="data.users"
-    :rows-on-table="[25, 40, 50, 75]"
-    class="elevation-5"
-    style="margin: 10px;"
-    toolbar
-    numbered
-    checkbox
-    @filter="testFunc"
-    @checked="testFunc"
-    @cols-settings="testFunc"
-  >
-    <template v-slot:address="{ row, format }">
-      <v-icon icon="fas fa-envelope" size="12" :color="format(row).includes('h') ? 'red':'blue'"/>
-      <span style="margin-left: 15px">{{ format(row) }}</span>
-    </template>
-    <template v-slot:toolbar>
-      <v-button width="42" color="primary" elevation="5" @click="addItem">
-        <v-icon :icon="FaIcons.$add" color="white" size="16"/>
-      </v-button>
-    </template>
-  </v-data-table>
+  <div class="table-wrap" style="height: 600px;">
+    <v-data-table
+      :cols="cols"
+      :rows="data.users"
+      :rows-on-table="[25, 40, 50, 75]"
+      class="elevation-5"
+      numbered
+      color="grey darken-4"
+      dark
+      header-color="red"
+      checkbox
+      @filter="testFunc"
+      @checked="testFunc"
+      @cols-settings="testFunc"
+    >
+      <template v-slot:address="{ row, format }">
+        <v-icon icon="fas fa-envelope" size="12" :color="format(row).includes('h') ? 'red':'blue'"/>
+        <span style="margin-left: 15px">{{ format(row) }}</span>
+      </template>
+      <template v-slot:toolbar>
+        <v-button width="42" color="primary" elevation="5" @click="addItem">
+          <v-icon :icon="FaIcons.$add" color="white" size="16"/>
+        </v-button>
+      </template>
+    </v-data-table>
+  </div>
+
 
   <v-form
     v-slot="{ validate }"

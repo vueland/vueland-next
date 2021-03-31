@@ -8,10 +8,6 @@ const devConfig = merge(baseConfig, {
   devtool: 'eval-cheap-module-source-map',
   devServer: {
     port: 8080,
-    overlay: {
-      warnings: false,
-      errors: true,
-    },
     historyApiFallback: true,
   },
   entry: {

@@ -94,7 +94,7 @@ export const VDataTable = defineComponent({
       data.rows.forEach(row => (row.checked = value))
     }
 
-    function onCheck<T>(rows: T[]) {
+    function onCheck<T extends TableState['rows']>(rows: T) {
       data.checkedRows = rows
       emit('checked', data.checkedRows)
     }

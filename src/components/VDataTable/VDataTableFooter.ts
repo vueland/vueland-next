@@ -84,7 +84,8 @@ export const VDataTableFooter = defineComponent({
         {
           width: 42,
           color: props.dark ? 'white' : 'primary',
-          outlined: props.dark,
+          text: props.dark,
+          elevation: 3,
           onClick: () => changeTableRowsPage(isNext),
         },
         {
@@ -104,7 +105,8 @@ export const VDataTableFooter = defineComponent({
           width: 42,
           style: { margin: '0 10px' },
           color: props.dark ? 'white' : 'blue lighten-1',
-          outlined: props.dark,
+          text: props.dark,
+          elevation: 3,
         },
         {
           default: () => props.page,

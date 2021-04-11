@@ -15,13 +15,7 @@ var _VDataTableHeader = require("./VDataTableHeader");
 
 var _VDataTableBody = require("./VDataTableBody");
 
-var _VDataTableModal = require("./VDataTableModal");
-
 var _VDataTableFooter = require("./VDataTableFooter");
-
-var _VCheckbox = require("../VCheckbox");
-
-var _VButton = require("../VButton");
 
 var _helpers = require("./helpers");
 
@@ -60,14 +54,13 @@ var VDataTable = (0, _vue.defineComponent)({
   setup: function setup(props, _ref) {
     var slots = _ref.slots,
         emit = _ref.emit;
-    var cols = (0, _vue.ref)([]);
-    var rows = (0, _vue.ref)([]);
-    var checkedRows = (0, _vue.ref)([]);
-    var rowsPerPage = (0, _vue.ref)(20);
-    var page = (0, _vue.ref)(1);
-    var isAllRowsChecked = (0, _vue.ref)(false);
-    var settings = (0, _vue.ref)({
-      cols: false
+    var data = (0, _vue.reactive)({
+      cols: [],
+      rows: [],
+      checkedRows: [],
+      rowsPerPage: 20,
+      page: 1,
+      isAllRowsChecked: false
     });
     var filters = {};
 
@@ -80,53 +73,53 @@ var VDataTable = (0, _vue.defineComponent)({
       };
     });
     var pages = (0, _vue.computed)(function () {
-      var _rows$value;
+      var _data$rows;
 
-      return Math.ceil(((_rows$value = rows.value) === null || _rows$value === void 0 ? void 0 : _rows$value.length) / rowsPerPage.value);
+      return Math.ceil(((_data$rows = data.rows) === null || _data$rows === void 0 ? void 0 : _data$rows.length) / data.rowsPerPage);
     });
     (0, _vue.watch)(function () {
       return props.cols;
     }, function (to) {
-      return cols.value = to;
+      return data.cols = to;
     }, {
       immediate: true
     });
     (0, _vue.watch)(function () {
       return props.rows;
     }, function (to) {
-      return rows.value = to;
+      return data.rows = to;
     }, {
       immediate: true
     });
 
     function onCheckAll(value) {
-      isAllRowsChecked.value = value;
-      rows.value.forEach(function (row) {
+      data.isAllRowsChecked = value;
+      data.rows.forEach(function (row) {
         return row.checked = value;
       });
     }
 
     function onCheck(rows) {
-      checkedRows.value = rows;
-      emit('checked', checkedRows.value);
+      data.checkedRows = rows;
+      emit('checked', data.checkedRows);
     }
 
     function onPrevTable(num) {
-      page.value = page.value > 1 ? page.value + num : page.value;
+      data.page = data.page > 1 ? data.page + num : data.page;
     }
 
     function onNextTable(num) {
-      if (rows.value.length - page.value * rowsPerPage.value > 0) {
-        page.value += num;
+      if (data.rows.length - data.page * data.rowsPerPage > 0) {
+        data.page += num;
       }
     }
 
     function onSort(col) {
       if (col.sorted) {
         col.sorted = !col.sorted;
-        rows.value.reverse();
+        data.rows.reverse();
       } else {
-        cols.value.forEach(function (c) {
+        data.cols.forEach(function (c) {
           c.sorted = col.key === c.key;
         });
         sortColumn(col);
@@ -141,28 +134,23 @@ var VDataTable = (0, _vue.defineComponent)({
 
       if (!props.stateOut) {
         if (!Object.keys(filters).length) {
-          return rows.value = props.rows;
+          return data.rows = props.rows;
         }
 
-        rows.value = filterRows(props.rows);
+        data.rows = filterRows(props.rows);
       } else {
         emit('filter', filters);
       }
 
-      page.value = 1;
+      data.page = 1;
     }
 
     function onSelectRowsCount(count) {
-      rowsPerPage.value = count;
-    }
-
-    function colsSettings(val, col) {
-      col.show = val;
-      emit('cols-settings', cols.value);
+      data.rowsPerPage = count;
     }
 
     function sortColumn(col) {
-      rows.value.sort(function (a, b) {
+      data.rows.sort(function (a, b) {
         if (col.format) {
           if (col.format(a) > col.format(b)) return 1;
         } else {
@@ -178,10 +166,10 @@ var VDataTable = (0, _vue.defineComponent)({
       return rows.reduce(function (acc, row) {
         var rowResults = [];
         filterKeys.forEach(function (key) {
-          var _cols$value$find = cols.value.find(function (col) {
+          var _data$cols$find = data.cols.find(function (col) {
             return col.key === key;
           }),
-              format = _cols$value$find.format;
+              format = _data$cols$find.format;
 
           var value = format ? format(row) : row[key];
           var rowKeyValue = (0, _helpers.toComparableStringFormat)(value);
@@ -204,9 +192,7 @@ var VDataTable = (0, _vue.defineComponent)({
 
     function genTableTools() {
       return (0, _vue.h)('div', {
-        "class": {
-          'v-data-table__toolbar': true
-        }
+        "class": 'v-data-table__toolbar'
       }, {
         "default": function _default() {
           return slots.toolbar && slots.toolbar();
@@ -216,7 +202,7 @@ var VDataTable = (0, _vue.defineComponent)({
 
     function genTableHeader() {
       return (0, _vue.h)(_VDataTableHeader.VDataTableHeader, {
-        cols: cols.value,
+        cols: data.cols,
         color: props.headerColor || props.color,
         checkbox: props.checkbox,
         dark: props.dark,
@@ -230,12 +216,12 @@ var VDataTable = (0, _vue.defineComponent)({
 
     function genTableBody() {
       return (0, _vue.h)(_VDataTableBody.VDataTableBody, {
-        cols: cols.value,
-        rows: rows.value,
-        page: page.value,
-        rowsPerPage: rowsPerPage.value,
+        cols: data.cols,
+        rows: data.rows,
+        page: data.page,
+        rowsPerPage: data.rowsPerPage,
         checkbox: props.checkbox,
-        checkAllRows: isAllRowsChecked.value,
+        checkAllRows: data.isAllRowsChecked,
         align: props.align,
         dark: props.dark,
         color: props.color,
@@ -260,15 +246,15 @@ var VDataTable = (0, _vue.defineComponent)({
     }
 
     function genTableFooter() {
-      var _rows$value2;
+      var _data$rows2;
 
       return (0, _vue.h)(_VDataTableFooter.VDataTableFooter, {
         pages: pages.value,
-        page: page.value,
+        page: data.page,
         counts: props.rowsOnTable,
-        tableRowsCount: (_rows$value2 = rows.value) === null || _rows$value2 === void 0 ? void 0 : _rows$value2.length,
+        tableRowsCount: (_data$rows2 = data.rows) === null || _data$rows2 === void 0 ? void 0 : _data$rows2.length,
         allRowsCount: props.rows.length,
-        rowsPerPage: rowsPerPage.value,
+        rowsPerPage: data.rowsPerPage,
         dark: props.dark,
         color: props.color,
         toolbar: props.toolbar,
@@ -279,10 +265,7 @@ var VDataTable = (0, _vue.defineComponent)({
           return emit('last-page', val);
         },
         onResetPage: function onResetPage(val) {
-          return page.value += val;
-        },
-        onColsSettings: function onColsSettings() {
-          return settings.value.cols = true;
+          return data.page += val;
         }
       });
     }
@@ -295,58 +278,11 @@ var VDataTable = (0, _vue.defineComponent)({
       }, [genTableHeader(), genTableBody()]);
     }
 
-    function genColsSettingsCheckboxes() {
-      return cols.value.map(function (col) {
-        return (0, _vue.h)(_VCheckbox.VCheckbox, {
-          label: col.title,
-          modelValue: col.show,
-          dark: props.dark,
-          color: props.dark ? 'white' : '',
-          style: {
-            margin: '10px 0'
-          },
-          onChecked: function onChecked(val) {
-            return colsSettings(val, col);
-          }
-        });
-      });
-    }
-
-    function genColsSettingsActions() {
-      return (0, _vue.h)(_VButton.VButton, {
-        dark: props.dark,
-        color: props.dark ? 'white' : 'primary',
-        outlined: props.dark,
-        label: 'ok',
-        onClick: function onClick() {
-          return settings.value.cols = false;
-        }
-      });
-    }
-
-    function genColsSettingsModal() {
-      return (0, _vue.h)(_VDataTableModal.VDataTableModal, {
-        dark: props.dark,
-        color: props.color,
-        show: settings.value.cols
-      }, {
-        title: function title() {
-          return 'Cols Settings';
-        },
-        content: function content() {
-          return genColsSettingsCheckboxes();
-        },
-        actions: function actions() {
-          return genColsSettingsActions();
-        }
-      });
-    }
-
     return function () {
       var propsData = {
         "class": classes.value
       };
-      return (0, _vue.h)('div', setBackground(props.color, propsData), [slots.toolbar && genTableTools(), genTableInner(), genTableFooter(), genColsSettingsModal()]);
+      return (0, _vue.h)('div', setBackground(props.color, propsData), [slots.toolbar && genTableTools(), genTableInner(), genTableFooter()]);
     };
   }
 });

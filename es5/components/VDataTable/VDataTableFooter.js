@@ -78,35 +78,6 @@ var VDataTableFooter = (0, _vue.defineComponent)({
       }
     });
 
-    function genColsSettingsButton() {
-      return (0, _vue.h)(_VButton.VButton, {
-        "class": 'v-data-table__add',
-        color: props.dark ? 'white' : 'primary',
-        width: 42,
-        outlined: props.dark,
-        elevation: 3,
-        onClick: function onClick() {
-          return emit('cols-settings');
-        }
-      }, {
-        "default": function _default() {
-          return (0, _vue.h)(_VIcon.VIcon, {
-            icon: _icons.FaIcons.$sliders,
-            size: 20,
-            color: props.dark ? 'white' : ''
-          });
-        }
-      });
-    }
-
-    function genSettingsBlock() {
-      return (0, _vue.h)('div', {
-        "class": {
-          'v-data-table__settings': true
-        }
-      }, [genColsSettingsButton()]);
-    }
-
     function changeTableRowsPage(isNext) {
       if (props.page === props.pages && isNext) return;
       var event = isNext ? 'next' : 'prev';
@@ -117,7 +88,8 @@ var VDataTableFooter = (0, _vue.defineComponent)({
       return (0, _vue.h)(_VButton.VButton, {
         width: 42,
         color: props.dark ? 'white' : 'primary',
-        outlined: props.dark,
+        text: props.dark,
+        elevation: 3,
         onClick: function onClick() {
           return changeTableRowsPage(isNext);
         }
@@ -139,7 +111,8 @@ var VDataTableFooter = (0, _vue.defineComponent)({
           margin: '0 10px'
         },
         color: props.dark ? 'white' : 'blue lighten-1',
-        outlined: props.dark
+        text: props.dark,
+        elevation: 3
       }, {
         "default": function _default() {
           return props.page;
@@ -203,7 +176,7 @@ var VDataTableFooter = (0, _vue.defineComponent)({
     return function () {
       return (0, _vue.h)('div', {
         "class": 'v-data-table__footer'
-      }, [genSettingsBlock(), genPaginationBlock()]);
+      }, genPaginationBlock());
     };
   }
 });

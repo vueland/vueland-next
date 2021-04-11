@@ -36,10 +36,10 @@ export const VModal = defineComponent({
 
     onMounted(() => {
       if (props.overlay) {
-        const { createOverlay, removeOverlay } = useOverlay(
-          props,
-          modalRef.value!,
-        )
+        const {
+          createOverlay,
+          removeOverlay
+        } = useOverlay(props, modalRef.value!,)
 
         isActive.value && createOverlay()
 

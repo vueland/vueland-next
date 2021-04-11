@@ -74,6 +74,19 @@
         },
       ]
 
+      const rows = [
+        {
+          name: 'Ben',
+          email: 'ben@mail.ru',
+          body: 'some body text'
+        },
+        {
+          name: 'Alex',
+          email: 'alex@mail.ru',
+          body: 'some body text'
+        },
+      ]
+
       const addItem = () => {
         data.users.push({
           name: 'Anar',
@@ -86,6 +99,7 @@
       return {
         data,
         cols,
+        rows,
         addItem,
         testFunc,
         toggleAlways,
@@ -116,7 +130,7 @@
   <div class="table-wrap" style="height: 600px;">
     <v-data-table
       :cols="cols"
-      :rows="data.users"
+      :rows="rows"
       :rows-on-table="[25, 40, 50, 75]"
       class="elevation-5"
       numbered

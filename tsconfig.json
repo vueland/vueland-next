@@ -13,7 +13,7 @@
     "strictFunctionTypes": false,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noImplicitReturns": true,
+    "noImplicitReturns": false,
     "importHelpers": true,
     "moduleResolution": "node",
     "experimentalDecorators": true,

@@ -21,7 +21,7 @@ module.exports = {
     '\\.(sass|scss)$': 'jest-css-modules',
     '.*\\.(j|t)s$': 'ts-jest',
     '.*\\.ts$': 'babel-jest',
-    '.*\\.(vue)$': 'vue-jest',
+    '.*\\.(vue)$': '@vue/test-utils',
   },
   collectCoverageFrom: [
     'src/**/*.{js,ts,tsx}',

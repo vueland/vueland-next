@@ -16,32 +16,31 @@ describe('VCheckbox', () => {
   })
 
   it('should set disabled and match snapshot', () => {
-    const disabled = true
-    const cmp = mountFunction({ propsData: { disabled } })
+    const props = { disabled: true }
+    const cmp = mountFunction({ props })
 
     expect(cmp.attributes().class).toContain('v-checkbox--disabled')
     expect(cmp.html()).toMatchSnapshot()
   })
 
   it('should set label and match snapshot', () => {
-    const label = 'checkbox label'
-    const cmp = mountFunction({ propsData: { label } })
+    const props = { label: 'checkbox label' }
+    const cmp = mountFunction({ props })
 
-    expect(cmp.find('.v-label').text()).toContain(label)
+    expect(cmp.find('.v-label').text()).toContain(props.label)
     expect(cmp.html()).toMatchSnapshot()
   })
 
   it('should set validate and match snapshot', () => {
-    const validate = true
-    const cmp = mountFunction({ propsData: { validate } })
+    const props = { validate: true }
+    const cmp = mountFunction({ props })
 
     expect(cmp.attributes().class).toContain('v-validatable')
     expect(cmp.html()).toMatchSnapshot()
   })
 
   it('should emit events when clicked', async () => {
-    const modelValue = false
-    const props = { modelValue }
+    const props = { modelValue: false }
     const cmp = mountFunction({ props })
 
     await cmp.trigger('click')
@@ -54,8 +53,7 @@ describe('VCheckbox', () => {
 
   it('should return true when clicked', async () => {
     const stub = jest.fn()
-    const modelValue = false
-    const props = { modelValue, onChecked: stub }
+    const props = { modelValue: false, onChecked: stub }
     const cmp = mountFunction({ props })
 
     await cmp.trigger('click')
@@ -65,14 +63,12 @@ describe('VCheckbox', () => {
   })
 
   it('should add value to array when clicked', async () => {
-    const modelValue = []
-    const value = { name: 'John' }
-    const props = { modelValue, value }
+    const props = { modelValue: [], value: { name: 'John' } }
     const cmp = mountFunction({ props })
 
     await cmp.trigger('click')
 
-    expect(modelValue).toContain(value)
+    expect(props.modelValue).toContain(props.value)
   })
 
   it('should remove value from array when toggled off', async () => {
@@ -88,22 +84,19 @@ describe('VCheckbox', () => {
   })
 
   it('should set "on" and "off" icon and match snapshot', async () => {
-    const onIcon = 'foo'
-    const offIcon = 'bar'
-    const props = { onIcon, offIcon }
+    const props = { onIcon: 'foo', offIcon: 'bar' }
     const cmp = mountFunction({ props })
 
     await cmp.trigger('click')
-    expect(cmp.find('.foo').exists()).toBe(true)
+    expect(cmp.find(`.${ props.onIcon }`).exists()).toBe(true)
 
     await cmp.trigger('click')
-    expect(cmp.find('.bar').exists()).toBe(true)
+    expect(cmp.find(`.${ props.offIcon }`).exists()).toBe(true)
     expect(cmp.html()).toMatchSnapshot()
   })
 
   it('should set validate and match snapshot', async () => {
-    const validate = true
-    const props = { validate, modelValue: false }
+    const props = { validate: true, modelValue: false }
     const cmp = mountFunction({ props })
 
     await cmp.trigger('click')

@@ -127,6 +127,7 @@ export const VAutocomplete = defineComponent({
     }
 
     function validateValue() {
+      console.log(validate(state.search), state.search)
       return props.rules?.length && validate(state.search)
     }
 
@@ -148,11 +149,13 @@ export const VAutocomplete = defineComponent({
         state.search = ''
       }
       if (!state.search && computedValue.value) {
-        setTimeout(() => {
+        requestAnimationFrame(() => {
           state.search = inputValue.value
-          validateValue()
         })
       }
+
+      setTimeout(validateValue)
+
       state.focused = false
       emit('blur')
     }

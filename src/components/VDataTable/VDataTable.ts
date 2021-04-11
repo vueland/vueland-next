@@ -64,9 +64,7 @@ export const VDataTable = defineComponent({
       page: 1,
       isAllRowsChecked: false,
     })
-
     const filters = {}
-
     const { setBackground } = useColors()
 
     const classes = computed<Record<string, boolean>>(() => ({
@@ -112,28 +110,30 @@ export const VDataTable = defineComponent({
     function onSort(col: Column) {
       if (col.sorted) {
         col.sorted = !col.sorted
-        data.rows!.reverse()
-      } else {
-        data.cols.forEach(c => {
-          c.sorted = col.key === c.key
-        })
-
-        sortColumn(col)
+        return data.rows!.reverse()
       }
+
+      data.cols.forEach(c => {
+        c.sorted = col.key === c.key
+      })
+
+      sortColumn(col)
     }
 
     function onFilter({ value, col }: TableFilter) {
-      if (!value && filters[col.key]) delete filters[col.key]
+      if (!value && filters[col.key]) {
+        delete filters[col.key]
+      }
 
       if (value) filters[col.key] = value
+
+      if (props.stateOut) emit('filter', filters)
 
       if (!props.stateOut) {
         if (!Object.keys(filters).length) {
           return (data.rows = props.rows)
         }
         data.rows = filterRows(props.rows)
-      } else {
-        emit('filter', filters)
       }
 
       data.page = 1
@@ -146,11 +146,10 @@ export const VDataTable = defineComponent({
     function sortColumn(col: Column): void {
       data.rows!.sort((a, b) => {
         if (col.format) {
-          if (col.format(a) > col.format(b)) return 1
-        } else {
-          if (a[col.key] > b[col.key]) return 1
+          return col.format(a) > col.format(b) ? 1 : -1
         }
-        return -1
+
+        return (a[col.key] > b[col.key]) ? 1 : -1
       })
     }
 

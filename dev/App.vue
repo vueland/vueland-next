@@ -11,7 +11,7 @@
         login: '',
         email: '',
         password: '',
-        user: {  },
+        user: '',
         checked: false,
         user2: { name: 'igor' },
         date: null,
@@ -57,6 +57,7 @@
           resizeable: true,
           sortable: true,
           filterable: true,
+          format: row => row.id
         },
         {
           key: 'email',
@@ -99,7 +100,7 @@
       return {
         data,
         cols,
-        rows,
+        // rows,
         addItem,
         testFunc,
         toggleAlways,
@@ -130,7 +131,7 @@
   <div class="table-wrap" style="height: 600px;">
     <v-data-table
       :cols="cols"
-      :rows="rows"
+      :rows="data.users"
       :rows-on-table="[25, 40, 50, 75]"
       class="elevation-5"
       numbered

@@ -3,7 +3,6 @@
 .v-label {
   font-size: 16px;
   min-height: 8px;
-  transition: .3s $primary-transition;
   max-width: 90%;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -12,6 +11,7 @@
   height: 20px;
   line-height: 20px;
   transform-origin: top left;
+  transition: transform .3s $primary-transition;
   will-change: transform;
 
   &--on-field {

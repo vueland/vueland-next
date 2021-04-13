@@ -14,7 +14,7 @@ on:
       - develop
 
 jobs:
-  install:
+  node:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -23,10 +23,16 @@ jobs:
         with:
           node-version: "15"
 
+  install:
+    needs: [node]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: npm install
+
   build:
     needs: [install]
     runs-on: ubuntu-latest
-
     steps:
-      - run: npm install
+      - uses: actions/checkout@v2
       - run: npm run build:all --if-present

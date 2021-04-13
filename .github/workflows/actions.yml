@@ -29,6 +29,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: npm install
+      - name: Install ShellJS
+        run: npm install shelljs
 
   build:
     needs: [install]

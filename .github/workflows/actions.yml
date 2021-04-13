@@ -23,9 +23,16 @@ jobs:
         with:
           node-version: "15"
       - run: npm install
+      - run: sudo npm i -g shelljs
+
+  test:
+    needs: [install]
+    runs-on: ubuntu-latest
+    steps:
+      - run: npm run test:editor
 
   build:
-    needs: [install]
+    needs: [test]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1

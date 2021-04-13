@@ -4,6 +4,9 @@
 # Copyright (c) by Anar Allahverdiev
 # ----------------------------------
 name: CI
+env:
+  APPLICATION_NAME : "VueLand Components"
+  PACKAGE_NAME: "deploy-${{ github.sha }}"
 on:
   push:
     branches:
@@ -13,11 +16,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Testing start
-        run : echo "Hello first test"
+        run: echo "Hello first test"
+
+      - name: Execute commands
+        run: |
+          echo "hello msg 1"
+          echo "hello msg 2"
+          echo "application: ${{ env.APPLICATION_NAME }}
+
+      - name: System files
+        run: ls la
 
 
   deploying:
     runs-on: ubuntu-latest
     steps:
       - name: Testing start
-        run : echo "Hello first deploy"
+        run: echo "Hello first deploy"

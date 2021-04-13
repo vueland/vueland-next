@@ -134,10 +134,10 @@
       :rows="data.users"
       :rows-on-table="[25, 40, 50, 75]"
       class="elevation-5"
-      numbered
       color="cyan darken-4"
-      dark
       header-color="red"
+      numbered
+      dark
       checkbox
       @filter="testFunc"
       @checked="testFunc"

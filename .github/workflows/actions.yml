@@ -14,35 +14,20 @@ on:
       - develop
 
 jobs:
-  clear:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Cleaning
-      - run: rm -Rfv node_modules
-      - run: rm package-lock.json
-  node:
+  install:
     needs: [clear]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Install Node.js 15
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
           node-version: "15"
-
-  install:
-    needs: [node]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
       - run: npm install
-      - name: Install ShellJS
-        run: npm install shelljs
 
   build:
     needs: [install]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v1
       - run: npm run build:all --if-present

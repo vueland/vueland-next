@@ -3,39 +3,29 @@
 # -------------------
 # Copyright (c) by Anar Allahverdiev
 # ----------------------------------
-name: CI
-env:
-  APPLICATION_NAME : "VueLand Components"
-  PACKAGE_NAME: "deploy-${{ github.sha }}"
+name: Node.js CI
+
 on:
   push:
     branches:
       - master
+  pull_request:
+    branches:
+      - develop
+
 jobs:
-  testing:
+  build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x, 14.x, 15.x]
+
     steps:
-      - name: Testing start
-        run: echo "Hello first test"
-
-      - name: Execute commands
-        run: |
-          echo "hello msg 1"
-          echo "hello msg 2"
-          echo "application: ${{ env.APPLICATION_NAME }}"
-
-      - name: System files
-        run: ls -la
-
-      - name: Git clone my repo
-        uses: actions/checkout@v1
-
-      - name: System files
-        run: ls -la
-
-
-  deploying:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Testing start
-        run: echo "Hello first deploy"
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci
+      - run: npm run build --if-present
+      - run: npm test

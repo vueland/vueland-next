@@ -45,17 +45,21 @@ export const VSelectList = defineComponent({
       }
 
       return props.items!.map((it: any) => {
-        const item = h(VListItemTitle,
+        const item = h(
+          VListItemTitle,
           props.color ? setTextColor(props.color, propsData) : propsData,
           {
             default: () => (key ? it[key] : it),
           },
         )
 
-        return h(VListItem, {
+        return h(
+          VListItem,
+          {
             key: props.idKey,
             onClick: () => emit('select', it),
-          }, {
+          },
+          {
             default: () => item,
           },
         )
@@ -63,9 +67,12 @@ export const VSelectList = defineComponent({
     }
 
     function genSelectListItems(): VNode {
-      return h(VList, {
+      return h(
+        VList,
+        {
           class: 'v-select--items-list',
-        }, { default: () => genItems() },
+        },
+        { default: () => genItems() },
       )
     }
 
@@ -78,10 +85,16 @@ export const VSelectList = defineComponent({
         style: {},
       }
 
-      return withDirectives(h('div',
-        props.listColor ? setBackground(props.listColor, propsData) : propsData,
-        genSelectListItems(),
-      ), [[vShow, isActive.value]])
+      return withDirectives(
+        h(
+          'div',
+          props.listColor
+            ? setBackground(props.listColor, propsData)
+            : propsData,
+          genSelectListItems(),
+        ),
+        [[vShow, isActive.value]],
+      )
     }
 
     return () => useTransition(genList(), 'fade')

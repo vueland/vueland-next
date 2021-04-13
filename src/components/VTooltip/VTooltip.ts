@@ -86,16 +86,20 @@ export const VTooltip = defineComponent({
 
     const computeTopPosition = computed<number>(() => {
       return (
-        (props.top ? activator!.top! - tooltip.height!
-          : props.bottom ? activator.top! + activator.height!
-            : activator.top! + (activator.height! - tooltip.height!) / 2) +
+        (props.top
+          ? activator!.top! - tooltip.height!
+          : props.bottom
+          ? activator.top! + activator.height!
+          : activator.top! + (activator.height! - tooltip.height!) / 2) +
         +props.offsetY
       )
     })
 
     const computeLeftPosition = computed<number>(() => {
       return (
-        (props.left ? activator.left! - tooltip.width! : props.right
+        (props.left
+          ? activator.left! - tooltip.width!
+          : props.right
           ? activator.left! + activator.width!
           : activator.left! + (activator.width! - tooltip.width!) / 2) +
         +props.offsetX
@@ -103,17 +107,19 @@ export const VTooltip = defineComponent({
     })
 
     const styles = computed<Record<string, string>>(() => ({
-      top: tooltip.top ? convertToUnit(tooltip.top) as string : '',
-      left: tooltip.top ? convertToUnit(tooltip.left) as string : '',
+      top: tooltip.top ? (convertToUnit(tooltip.top) as string) : '',
+      left: tooltip.top ? (convertToUnit(tooltip.left) as string) : '',
       maxWidth: !!props.maxWidth ? `${props.maxWidth}px` : '',
       minWidth: !!props.minWidth ? `${props.minWidth}px` : '',
       zIndex: props.zIndex,
     }))
 
     function genActivator(): VNode | null {
-      const slotContent = slots.activator && slots.activator({
-        on: listeners,
-      })
+      const slotContent =
+        slots.activator &&
+        slots.activator({
+          on: listeners,
+        })
 
       return h(slotContent![0], { ref: activatorRef })
     }
@@ -126,7 +132,9 @@ export const VTooltip = defineComponent({
       }
 
       return withDirectives(
-        h('span', setBackground(props.color, propsData),
+        h(
+          'span',
+          setBackground(props.color, propsData),
           slots.default && slots.default(),
         ),
         [[vShow, isActive.value]],
@@ -170,11 +178,7 @@ export const VTooltip = defineComponent({
         isActive.value ? Transitions.SCALE_IN : Transitions.FADE,
       )
 
-      return [
-        h('div', { class: classes.value }),
-        content,
-        genActivator(),
-      ]
+      return [h('div', { class: classes.value }), content, genActivator()]
     }
   },
 })

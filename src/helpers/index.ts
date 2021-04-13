@@ -15,9 +15,7 @@ export function createSimpleFunctional(
         },
       }
 
-      return () => h(el, propsData,
-        slots.default && slots.default(),
-      )
+      return () => h(el, propsData, slots.default && slots.default())
     },
   })
 }
@@ -45,7 +43,7 @@ export function convertToUnit(
   } else if (isNaN(+str!)) {
     return String(str)
   } else {
-    return `${ Number(str) }${ unit }`
+    return `${Number(str)}${unit}`
   }
 }
 

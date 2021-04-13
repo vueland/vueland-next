@@ -32,8 +32,8 @@ export type DateParams = {
 }
 
 export type Column = {
-  key: string,
-  title: string,
+  key: string
+  title: string
   width?: string | number
   resizeable?: boolean
   filterable?: boolean
@@ -55,6 +55,6 @@ export type TableFilter = {
 export type TableCol<T> = T extends keyof Column ? T : any
 
 export type ListGroup = {
-  ref: ComponentPublicInstance<HTMLInputElement>,
+  ref: ComponentPublicInstance<HTMLInputElement>
   active: boolean
 }

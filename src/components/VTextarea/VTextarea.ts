@@ -11,9 +11,10 @@ export const VTextarea = defineComponent({
   name: 'v-textarea',
 
   setup() {
-    return () => h(VTextField, {
-      tag: 'textarea',
-      class: 'v-textarea'
-    })
+    return () =>
+      h(VTextField, {
+        tag: 'textarea',
+        class: 'v-textarea',
+      })
   },
 })

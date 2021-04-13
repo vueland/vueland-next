@@ -82,9 +82,9 @@ export const VSelect = defineComponent({
     const directive = computed(() => {
       return state.focused
         ? {
-          handler: onBlur,
-          closeConditional: true,
-        }
+            handler: onBlur,
+            closeConditional: true,
+          }
         : undefined
     })
 
@@ -98,8 +98,11 @@ export const VSelect = defineComponent({
     }))
 
     const computedInputValue = computed<string>(() => {
-      return state.selected ? props.valueKey ?
-        state.selected[props.valueKey] : state.selected : ''
+      return state.selected
+        ? props.valueKey
+          ? state.selected[props.valueKey]
+          : state.selected
+        : ''
     })
 
     const computedValue = computed<any>(() => {
@@ -111,10 +114,11 @@ export const VSelect = defineComponent({
       value => {
         state.selected = value
         !state.focused &&
-        errorState.isDirty &&
-        props.rules?.length &&
-        validateValue()
-      }, { immediate: true },
+          errorState.isDirty &&
+          props.rules?.length &&
+          validateValue()
+      },
+      { immediate: true },
     )
 
     if (fields?.value && props.rules?.length) {

@@ -36,10 +36,10 @@ export const VModal = defineComponent({
 
     onMounted(() => {
       if (props.overlay) {
-        const {
-          createOverlay,
-          removeOverlay
-        } = useOverlay(props, modalRef.value!,)
+        const { createOverlay, removeOverlay } = useOverlay(
+          props,
+          modalRef.value!,
+        )
 
         isActive.value && createOverlay()
 
@@ -67,10 +67,9 @@ export const VModal = defineComponent({
         ['onUpdate:modelValue']: val => emit('update:modelValue', val),
       }
 
-      return withDirectives(
-        h('div', propsData, genContent()),
-        [[vShow, isActive.value]],
-      )
+      return withDirectives(h('div', propsData, genContent()), [
+        [vShow, isActive.value],
+      ])
     }
 
     return () => useTransition(genModal(), props.transition)

@@ -60,7 +60,7 @@ export const VTextField = defineComponent({
   setup(props, { emit, attrs }): () => VNode {
     const state: TextFieldState = reactive({
       value: '',
-      focused: false
+      focused: false,
     })
 
     state.value = props.modelValue || props.value
@@ -79,7 +79,7 @@ export const VTextField = defineComponent({
     } = useValidate(props)
 
     watch(
-      () => (props.modelValue || props.value),
+      () => props.modelValue || props.value,
       value => {
         state.value = value as any
         !state.focused && validateValue()
@@ -87,14 +87,13 @@ export const VTextField = defineComponent({
     )
 
     const classes = computed<Record<string, boolean>>(() => ({
-        'v-text-field': true,
-        'v-text-field--disabled': props.disabled,
-        'v-text-field--dirty': errorState.isDirty,
-        'v-text-field--valid': errorState.isDirty && !errorState.innerError,
-        'v-text-field--not-valid': errorState.isDirty && !!errorState.innerError,
-        ...validateClasses.value,
-      }),
-    )
+      'v-text-field': true,
+      'v-text-field--disabled': props.disabled,
+      'v-text-field--dirty': errorState.isDirty,
+      'v-text-field--valid': errorState.isDirty && !errorState.innerError,
+      'v-text-field--not-valid': errorState.isDirty && !!errorState.innerError,
+      ...validateClasses.value,
+    }))
 
     function validateValue(): boolean | void {
       return props.rules?.length && validate(state.value)
@@ -159,20 +158,22 @@ export const VTextField = defineComponent({
       }
 
       if (props.tag === 'input') {
-        (propsData as any).type = props.type
+        ;(propsData as any).type = props.type
       }
 
-      return h(props.tag,
-        props.dark
-          ? setTextColor('white', propsData)
-          : propsData,
+      return h(
+        props.tag,
+        props.dark ? setTextColor('white', propsData) : propsData,
       )
     }
 
     function genTextField(): VNode {
-      return h('div', {
+      return h(
+        'div',
+        {
           class: classes.value,
-        }, genInput(),
+        },
+        genInput(),
       )
     }
 
@@ -191,9 +192,8 @@ export const VTextField = defineComponent({
       }
 
       return h(VInput, propsData, {
-          textField: () => genTextField(),
-        },
-      )
+        textField: () => genTextField(),
+      })
     }
   },
 })

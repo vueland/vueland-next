@@ -14,15 +14,7 @@ export const locale = {
       'Ноя',
       'Дек',
     ],
-    week: [
-      'Вс',
-      'Пн',
-      'Вт',
-      'Ср',
-      'Чт',
-      'Пт',
-      'Сб',
-    ],
+    week: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
   },
   en: {
     months: [
@@ -39,14 +31,6 @@ export const locale = {
       'Nov',
       'Dec',
     ],
-    week: [
-      'Su',
-      'Mo',
-      'Tu',
-      'We',
-      'Th',
-      'Fr',
-      'Sa',
-    ],
+    week: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
   },
 }

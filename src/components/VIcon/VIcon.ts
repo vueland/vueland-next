@@ -17,12 +17,9 @@ import { VNode } from 'vue'
 // Services
 import { Sizes } from '../../services/sizes'
 
-
 export const VIcon = defineComponent({
   name: 'v-icon',
-  emits: [
-    'click',
-  ],
+  emits: ['click'],
 
   props: {
     disabled: Boolean,

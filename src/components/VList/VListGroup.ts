@@ -95,7 +95,7 @@ export const VListGroup = defineComponent({
 
       groups?.value.length && listClick(refGroup)
       children.value.length &&
-      children.value.forEach((it: any) => (it.active = false))
+        children.value.forEach((it: any) => (it.active = false))
     }
 
     function genIcon(icon: string): VNode {
@@ -112,9 +112,8 @@ export const VListGroup = defineComponent({
       const slotIcon = slots.appendIcon && slots.appendIcon()
       const icon = !props.subGroup && !props.noAction ? props.appendIcon : false
 
-      if ((!icon && !slotIcon) ||
-        (!props.subGroup && props.noAction)
-      ) return null
+      if ((!icon && !slotIcon) || (!props.subGroup && props.noAction))
+        return null
 
       const propsData = {
         class: 'v-list-group__append-icon',
@@ -126,9 +125,10 @@ export const VListGroup = defineComponent({
     }
 
     function genPrependIcon(): VNode | null {
-      const icon = props.subGroup && !props.noAction
-        ? FaIcons.$subgroup
-        : props.prependIcon
+      const icon =
+        props.subGroup && !props.noAction
+          ? FaIcons.$subgroup
+          : props.prependIcon
 
       const slotIcon = slots.prependIcon && slots.prependIcon()
 

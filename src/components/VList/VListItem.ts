@@ -29,9 +29,8 @@ export const VListItem = defineComponent({
     }
 
     return () => {
-      const content = props.value ||
-        props.modelValue ||
-        (slots.default && slots.default())
+      const content =
+        props.value || props.modelValue || (slots.default && slots.default())
 
       const propsData = {
         class: classes.value,

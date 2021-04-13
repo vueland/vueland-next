@@ -9,9 +9,13 @@ export function genTableRows(
   let vNodesInRow: VNode[] = []
 
   const genTableRow = cellVNodes => {
-    return h('div', {
-      class: rowClassName,
-    }, cellVNodes)
+    return h(
+      'div',
+      {
+        class: rowClassName,
+      },
+      cellVNodes,
+    )
   }
 
   for (let i = 0; i <= vNodesArray.length; i += 1) {
@@ -42,4 +46,3 @@ export function parseDate(selectedDate: Date | string) {
     day,
   }
 }
-

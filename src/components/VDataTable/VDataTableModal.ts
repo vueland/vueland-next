@@ -10,53 +10,72 @@ export const VDataTableModal = defineComponent({
   props: {
     dark: Boolean,
     color: String,
-    show: Boolean
+    show: Boolean,
   } as any,
 
   setup(props, { slots }) {
-
     function genModalTitle() {
-      return h(VCardTitle, {
-        class: props.dark ? 'white--text' : '',
-      }, {
-        default: () => slots.title && slots.title(),
-      })
+      return h(
+        VCardTitle,
+        {
+          class: props.dark ? 'white--text' : '',
+        },
+        {
+          default: () => slots.title && slots.title(),
+        },
+      )
     }
 
     function genModalContent() {
-      return h(VCardContent, {}, {
-        default: () => slots.content && slots.content(),
-      })
+      return h(
+        VCardContent,
+        {},
+        {
+          default: () => slots.content && slots.content(),
+        },
+      )
     }
 
     function genModalActions() {
-      return h(VCardActions, {}, {
-        default: () => slots.actions && slots.actions()
-      })
+      return h(
+        VCardActions,
+        {},
+        {
+          default: () => slots.actions && slots.actions(),
+        },
+      )
     }
 
     function genModal() {
-      return h(VCard, {
-        width: 400,
-        elevation: 15,
-        color: props.color,
-      }, {
-        default: () => [
-          slots.title && genModalTitle(),
-          slots.content && genModalContent(),
-          slots.actions && genModalActions(),
-        ],
-      })
+      return h(
+        VCard,
+        {
+          width: 400,
+          elevation: 15,
+          color: props.color,
+        },
+        {
+          default: () => [
+            slots.title && genModalTitle(),
+            slots.content && genModalContent(),
+            slots.actions && genModalActions(),
+          ],
+        },
+      )
     }
 
     function genTableModal() {
-      return h(VModal, {
-        overlay: true,
-        transition: 'scale-in',
-        modelValue: props.show
-      }, {
-        default: () => genModal(),
-      })
+      return h(
+        VModal,
+        {
+          overlay: true,
+          transition: 'scale-in',
+          modelValue: props.show,
+        },
+        {
+          default: () => genModal(),
+        },
+      )
     }
 
     return () => genTableModal()

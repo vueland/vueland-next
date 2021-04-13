@@ -88,10 +88,10 @@ describe('VCheckbox', () => {
     const cmp = mountFunction({ props })
 
     await cmp.trigger('click')
-    expect(cmp.find(`.${ props.onIcon }`).exists()).toBe(true)
+    expect(cmp.find(`.${props.onIcon}`).exists()).toBe(true)
 
     await cmp.trigger('click')
-    expect(cmp.find(`.${ props.offIcon }`).exists()).toBe(true)
+    expect(cmp.find(`.${props.offIcon}`).exists()).toBe(true)
     expect(cmp.html()).toMatchSnapshot()
   })
 

@@ -84,9 +84,9 @@ export const VAutocomplete = defineComponent({
     const directive = computed(() => {
       return state.isMenuActive && !state.focused
         ? {
-          handler: clickOutsideHandler,
-          closeConditional: true,
-        }
+            handler: clickOutsideHandler,
+            closeConditional: true,
+          }
         : undefined
     })
 

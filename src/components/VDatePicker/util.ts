@@ -1,5 +1,5 @@
 type Separated = {
-  symbol: string,
+  symbol: string
   separated: (string | number)[]
 }
 

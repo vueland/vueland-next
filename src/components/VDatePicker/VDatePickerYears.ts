@@ -35,7 +35,8 @@ export const VDatePickerYears = defineComponent({
     const handlers = inject('handlers') as Ref<DatePickerBtnHandlers>
 
     watchEffect(
-      () => isListChanged.value &&
+      () =>
+        isListChanged.value &&
         setTimeout(() => {
           isListChanged.value = false
         }, ANIMATION_TIMEOUT),
@@ -74,7 +75,8 @@ export const VDatePickerYears = defineComponent({
       if (
         (onTableIndex.value === max && val > 0) ||
         (onTableIndex.value === 0 && val < 0)
-      ) return
+      )
+        return
 
       setCurrentTransition(isNext)
 
@@ -115,11 +117,7 @@ export const VDatePickerYears = defineComponent({
       const currentYears = years.value[onTableIndex.value]
       const yearsVNodes = currentYears.map(genYearCell)
 
-      return genTableRows(
-        yearsVNodes,
-        'v-date-picker-years__row',
-        CELLS_IN_ROW,
-      )
+      return genTableRows(yearsVNodes, 'v-date-picker-years__row', CELLS_IN_ROW)
     }
 
     function genYears(): VNode | null {
@@ -127,7 +125,7 @@ export const VDatePickerYears = defineComponent({
         class: 'v-date-picker-years__years',
       }
       return (
-        !isListChanged.value && h('div', propsData, genYearsRows()) || null
+        (!isListChanged.value && h('div', propsData, genYearsRows())) || null
       )
     }
 
@@ -135,10 +133,7 @@ export const VDatePickerYears = defineComponent({
     setTableIndex()
 
     return () => {
-      const content = useTransition(
-        genYears() as VNode,
-        transition.value,
-      )
+      const content = useTransition(genYears() as VNode, transition.value)
       const propsData = {
         class: {
           'v-date-picker-years': true,

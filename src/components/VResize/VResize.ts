@@ -137,11 +137,17 @@ export const VResize = defineComponent({
       let size
 
       if (isNeedReverse.value) {
-        size = currentSize.value - (e[direction.value] - offset.value) +
+        size =
+          currentSize.value -
+          (e[direction.value] - offset.value) +
           data.startOffset!
       } else {
-        size = currentSize.value + (e[direction.value] - currentSize.value -
-          offset.value - data.startOffset!)
+        size =
+          currentSize.value +
+          (e[direction.value] -
+            currentSize.value -
+            offset.value -
+            data.startOffset!)
       }
 
       size > props.minSize && setOrEmitSize(size)
@@ -244,14 +250,14 @@ export const VResize = defineComponent({
       document.removeEventListener('mousedown', onMousedown)
     })
 
-    return () => h('div', {
+    return () =>
+      h('div', {
         class: {
           ...classes.value,
         },
         key: 'resize',
         ref: resRef,
         onMousedown,
-      },
-    )
+      })
   },
 })

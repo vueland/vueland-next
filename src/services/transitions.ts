@@ -4,5 +4,5 @@ export enum Transitions {
   FADE_IN_UP = 'fade-in-up',
   SCALE_IN = 'scale-in',
   SCALE_IN_OUT = 'scale-in-out',
-  SLIDE_IN_LEFT = 'slide-in-left'
+  SLIDE_IN_LEFT = 'slide-in-left',
 }

@@ -13,5 +13,4 @@ describe('VList', () => {
 
     expect(cmp.html()).toMatchSnapshot()
   })
-
 })

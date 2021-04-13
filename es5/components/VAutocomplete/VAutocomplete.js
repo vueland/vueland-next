@@ -100,6 +100,7 @@ var VAutocomplete = (0, _vue.defineComponent)({
     function validateValue() {
       var _props$rules2;
 
+      console.log(validate(state.search), state.search);
       return ((_props$rules2 = props.rules) === null || _props$rules2 === void 0 ? void 0 : _props$rules2.length) && validate(state.search);
     }
 
@@ -122,12 +123,12 @@ var VAutocomplete = (0, _vue.defineComponent)({
       }
 
       if (!state.search && computedValue.value) {
-        setTimeout(function () {
+        requestAnimationFrame(function () {
           state.search = inputValue.value;
-          validateValue();
         });
       }
 
+      setTimeout(validateValue);
       state.focused = false;
       emit('blur');
     }

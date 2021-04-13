@@ -88,22 +88,34 @@ export const VInput = defineComponent({
     }
 
     function genPrependIcon() {
-      return h('div', {
-        class: 'v-input__prepend-icon',
-      }, genIcon(props.prependIcon))
+      return h(
+        'div',
+        {
+          class: 'v-input__prepend-icon',
+        },
+        genIcon(props.prependIcon),
+      )
     }
 
     function genAppendIcon() {
-      return h('div', {
-        class: 'v-input__append-icon',
-      }, genIcon(props.appendIcon))
+      return h(
+        'div',
+        {
+          class: 'v-input__append-icon',
+        },
+        genIcon(props.appendIcon),
+      )
     }
 
     function genClearIcon() {
-      return h('div', {
-        class: 'v-input__clear',
-        onClick: () => !props.disabled && emit('clear'),
-      }, genIcon(FaIcons.$close, true))
+      return h(
+        'div',
+        {
+          class: 'v-input__clear',
+          onClick: () => !props.disabled && emit('clear'),
+        },
+        genIcon(FaIcons.$close, true),
+      )
     }
 
     function genSlotContent(): VNode {
@@ -114,7 +126,8 @@ export const VInput = defineComponent({
         },
       }
 
-      return h('div',
+      return h(
+        'div',
         props.color ? setTextColor(props.color, propsData) : propsData,
         [
           props.prependIcon && genPrependIcon(),
@@ -160,9 +173,6 @@ export const VInput = defineComponent({
       }
     }
 
-    return () => h('div', genPropsData(), [
-      genSlotContent(),
-      genStatus(),
-    ])
+    return () => h('div', genPropsData(), [genSlotContent(), genStatus()])
   },
 })

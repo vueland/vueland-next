@@ -34,7 +34,8 @@ export const VDataTableFooter = defineComponent({
     const lastOnPage = computed<number>(() => {
       const { page, tableRowsCount, rowsPerPage } = props
       return page * rowsPerPage > tableRowsCount
-        ? tableRowsCount : page * rowsPerPage
+        ? tableRowsCount
+        : page * rowsPerPage
     })
 
     const firstOnPage = computed<number>(() => {
@@ -44,8 +45,8 @@ export const VDataTableFooter = defineComponent({
 
     const paginationDisplay = computed<string>(() => {
       return props.tableRowsCount
-        ? `${ firstOnPage.value } - 
-      ${ lastOnPage.value } from ${ props.tableRowsCount }` : '-'
+        ? `${firstOnPage.value} - ${lastOnPage.value} from ${props.tableRowsCount}`
+        : '-'
     })
 
     const isLastPage = computed(() => {
@@ -89,11 +90,12 @@ export const VDataTableFooter = defineComponent({
           onClick: () => changeTableRowsPage(isNext),
         },
         {
-          default: () => h(VIcon, {
-            icon: isNext ? FaIcons.$arrowRight : FaIcons.$arrowLeft,
-            color: props.dark ? 'white' : '',
-            size: 18,
-          }),
+          default: () =>
+            h(VIcon, {
+              icon: isNext ? FaIcons.$arrowRight : FaIcons.$arrowLeft,
+              color: props.dark ? 'white' : '',
+              size: 18,
+            }),
         },
       )
     }
@@ -184,9 +186,12 @@ export const VDataTableFooter = defineComponent({
     }
 
     function genPaginationBlock() {
-      return h('div', {
+      return h(
+        'div',
+        {
           class: 'v-data-table__pagination',
-        }, [
+        },
+        [
           genPageItemsSelect(),
           genPagesCountDisplay(),
           genPaginationButtonsBlock(),
@@ -194,9 +199,13 @@ export const VDataTableFooter = defineComponent({
       )
     }
 
-    return () => h('div', {
-        class: 'v-data-table__footer',
-      }, genPaginationBlock(),
-    )
+    return () =>
+      h(
+        'div',
+        {
+          class: 'v-data-table__footer',
+        },
+        genPaginationBlock(),
+      )
   },
 })

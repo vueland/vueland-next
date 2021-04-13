@@ -29,8 +29,8 @@ describe('VButton', () => {
   it('should set button width and match snapshot', () => {
     const cmp = mountFunction({
       props: {
-        width: 150
-      }
+        width: 150,
+      },
     })
 
     expect(cmp.attributes().style).toContain('min-width: 150px;')
@@ -38,12 +38,11 @@ describe('VButton', () => {
   })
 
   it('should set label and match snapshot', () => {
-    const cmp = mountFunction(
-      {
-        props: {
-          label: 'test',
-        },
-      })
+    const cmp = mountFunction({
+      props: {
+        label: 'test',
+      },
+    })
 
     expect(cmp.find('.v-button__label').text()).toContain('test')
     expect(cmp.html()).toMatchSnapshot()

@@ -117,20 +117,25 @@ var VDataTable = (0, _vue.defineComponent)({
     function onSort(col) {
       if (col.sorted) {
         col.sorted = !col.sorted;
-        data.rows.reverse();
-      } else {
-        data.cols.forEach(function (c) {
-          c.sorted = col.key === c.key;
-        });
-        sortColumn(col);
+        return data.rows.reverse();
       }
+
+      data.cols.forEach(function (c) {
+        c.sorted = col.key === c.key;
+      });
+      sortColumn(col);
     }
 
     function onFilter(_ref2) {
       var value = _ref2.value,
           col = _ref2.col;
-      if (!value && filters[col.key]) delete filters[col.key];
+
+      if (!value && filters[col.key]) {
+        delete filters[col.key];
+      }
+
       if (value) filters[col.key] = value;
+      if (props.stateOut) emit('filter', filters);
 
       if (!props.stateOut) {
         if (!Object.keys(filters).length) {
@@ -138,8 +143,6 @@ var VDataTable = (0, _vue.defineComponent)({
         }
 
         data.rows = filterRows(props.rows);
-      } else {
-        emit('filter', filters);
       }
 
       data.page = 1;
@@ -152,12 +155,10 @@ var VDataTable = (0, _vue.defineComponent)({
     function sortColumn(col) {
       data.rows.sort(function (a, b) {
         if (col.format) {
-          if (col.format(a) > col.format(b)) return 1;
-        } else {
-          if (a[col.key] > b[col.key]) return 1;
+          return col.format(a) > col.format(b) ? 1 : -1;
         }
 
-        return -1;
+        return a[col.key] > b[col.key] ? 1 : -1;
       });
     }
 

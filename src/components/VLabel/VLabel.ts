@@ -62,9 +62,11 @@ export const VLabel = defineComponent({
     return (): VNode => {
       const propsData = genPropsData()
 
-      return h('label',
+      return h(
+        'label',
         props.color ? setTextColor(props.color!, propsData) : propsData,
-        slots.default && slots.default())
+        slots.default && slots.default(),
+      )
     }
   },
 })

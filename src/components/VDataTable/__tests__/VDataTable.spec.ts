@@ -38,7 +38,9 @@ describe('VDataTable', () => {
 
     await cmp.find('.v-data-table-col__actions-sort').trigger('click')
 
-    expect(cmp.find('.v-data-table-col__actions-sort--active').exists()).toBe(true)
+    expect(cmp.find('.v-data-table-col__actions-sort--active').exists()).toBe(
+      true,
+    )
     expect(cmp.find('.v-data-table__row').text()).toContain('Alex')
 
     expect(cmp.html()).toMatchSnapshot()

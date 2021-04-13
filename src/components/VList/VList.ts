@@ -7,7 +7,6 @@ import { h, ref, provide, defineComponent } from 'vue'
 // Types
 import { ListGroup } from '../../types'
 
-
 export const VList = defineComponent({
   name: 'v-list',
 
@@ -26,13 +25,13 @@ export const VList = defineComponent({
 
     function listClick(ref) {
       groups.value.length &&
-      groups.value.forEach((group: ListGroup) => {
-        if (group.ref === ref.value) {
-          group.active = !group.active
-        }
+        groups.value.forEach((group: ListGroup) => {
+          if (group.ref === ref.value) {
+            group.active = !group.active
+          }
 
-        console.log((groups.value[0].ref as any))
-      })
+          console.log(groups.value[0].ref as any)
+        })
     }
 
     provide('groups', {

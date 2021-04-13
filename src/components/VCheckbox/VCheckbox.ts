@@ -62,18 +62,21 @@ export const VCheckbox = defineComponent({
       'v-validatable': props.validate,
     }))
 
-    watch(() => props.modelValue, () => {
-      if (isArray.value) {
-        if (isValueSet.value) {
-          isChecked.value = props.modelValue.includes(props.value)
+    watch(
+      () => props.modelValue,
+      () => {
+        if (isArray.value) {
+          if (isValueSet.value) {
+            isChecked.value = props.modelValue.includes(props.value)
+          } else {
+            warning('v-checkbox: set the "value" property')
+          }
         } else {
-          warning('v-checkbox: set the "value" property')
+          isChecked.value = !!props.modelValue
         }
-      } else {
-        isChecked.value = !!props.modelValue
-      }
-    }, { immediate: true })
-
+      },
+      { immediate: true },
+    )
 
     if (fields?.value) {
       fields!.value.push(validateValue)
@@ -152,10 +155,7 @@ export const VCheckbox = defineComponent({
         onClick,
       }
 
-      return h('div', dataProps, [
-        genCheckbox(),
-        props.label && genLabel(),
-      ])
+      return h('div', dataProps, [genCheckbox(), props.label && genLabel()])
     }
   },
 })

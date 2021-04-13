@@ -11,7 +11,9 @@ const WrapComponentFunction = props =>
   defineComponent({
     setup() {
       return () =>
-        h('div', {},
+        h(
+          'div',
+          {},
           h(VModal, props, {
             default: () => 'slot content',
           }),

@@ -42,14 +42,13 @@ export const VButton = defineComponent({
     })
 
     const classes = computed<Record<string, boolean>>(() => ({
-        'v-button': true,
-        'v-button--disabled': props.disabled,
-        'v-button--text': props.text || props.outlined,
-        'v-button--outlined': props.outlined,
-        ...elevationClasses.value,
-        ...positionClasses.value,
-      }),
-    )
+      'v-button': true,
+      'v-button--disabled': props.disabled,
+      'v-button--text': props.text || props.outlined,
+      'v-button--outlined': props.outlined,
+      ...elevationClasses.value,
+      ...positionClasses.value,
+    }))
 
     function genLabel() {
       const propsData = {
@@ -68,18 +67,20 @@ export const VButton = defineComponent({
       const propsData = {
         class: classes.value,
         style: {
-          minWidth: props.width && convertToUnit(props.width)
+          minWidth: props.width && convertToUnit(props.width),
         },
-        onClick: () => !props.disabled && emit('click')
+        onClick: () => !props.disabled && emit('click'),
       }
 
       props.label && content.push(genLabel())
 
       slots.default && content.push(slots.default())
 
-      return h('button',
+      return h(
+        'button',
         props.color && !props.disabled
-          ? setColor(props.color, propsData) : propsData,
+          ? setColor(props.color, propsData)
+          : propsData,
         content,
       )
     }

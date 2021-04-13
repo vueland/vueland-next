@@ -165,6 +165,7 @@ var VDataTableHeader = (0, _vue.defineComponent)({
           'v-data-table-col': true,
           'v-data-table-col--sorted': item.sorted
         },
+        color: props.color,
         width: item.width,
         resizeable: item.resizeable,
         align: props.align || item.align,

@@ -32,6 +32,7 @@
     "build:lib": "cross-env NODE_ENV=lib babel lib-temp/src --out-dir lib --source-maps",
     "build:all": "npm run test --u & node build/build-lib.js",
     "test": "jest -u",
+    "test:editor": "editorconfig-checker --exclude '.git|node_modules|dist|es5|lib|.idea'",
     "declarations": "ttsc --emitDeclarationOnly",
     "tslint-check": "tslint-config-prettier-check ./tslint.json",
     "prettier": "prettier --write --config ./.prettierrc.json './src/**/*.{ts,tsx}'"
@@ -64,6 +65,7 @@
     "css-loader": "^3.2.0",
     "css-mqpacker": "^7.0.0",
     "cssnano": "^4.1.10",
+    "editorconfig-checker": "^4.0.2",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.1.0",
     "jest": "^26.5.3",

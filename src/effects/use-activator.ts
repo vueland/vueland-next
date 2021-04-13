@@ -21,7 +21,6 @@ export function useActivator() {
   const activatorSizes: Partial<OffsetSizes> = {}
   const listeners: ActivatorListeners = {}
 
-
   const getActivatorSizes = () => {
     const el = (activatorRef.value! as any).$el || (activatorRef.value! as any)
     activatorSizes.left = el.offsetLeft

@@ -62,14 +62,13 @@ export const VDatepickerHeader = defineComponent({
       )
     }
 
-    return () => h('div', {
-        class: 'v-date-picker__header',
-      },
-      [
-        genHeaderButton(false),
-        genHeaderDisplay(),
-        genHeaderButton(true),
-      ],
-    )
+    return () =>
+      h(
+        'div',
+        {
+          class: 'v-date-picker__header',
+        },
+        [genHeaderButton(false), genHeaderDisplay(), genHeaderButton(true)],
+      )
   },
 })

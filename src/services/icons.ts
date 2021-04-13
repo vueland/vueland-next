@@ -18,5 +18,5 @@ export enum FaIcons {
   $filter = 'fas fa-align-justify',
   $marker = 'fas fa-map-marker-alt',
   $search = 'fas fa-search',
-  $close = 'fas fa-times'
+  $close = 'fas fa-times',
 }

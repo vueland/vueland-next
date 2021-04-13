@@ -34,7 +34,7 @@ export const VDataTableCell = defineComponent({
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-data-table__cell': true,
-      [`text-align--${ props.align }`]: !!props.align,
+      [`text-align--${props.align}`]: !!props.align,
     }))
 
     function genResize() {
@@ -42,17 +42,21 @@ export const VDataTableCell = defineComponent({
         right: true,
         emit: true,
         class: {
-          'white': props.dark,
-          'primary': !props.dark,
+          white: props.dark,
+          primary: !props.dark,
         },
         onResize: $size => emit('resize', $size),
       })
     }
 
     function genCellContent() {
-      return h('div', {
-        class: 'v-data-table__cell-content',
-      }, slots.default && slots.default())
+      return h(
+        'div',
+        {
+          class: 'v-data-table__cell-content',
+        },
+        slots.default && slots.default(),
+      )
     }
 
     return () => {
@@ -63,10 +67,10 @@ export const VDataTableCell = defineComponent({
         },
       })
 
-      return h('div',
-        setBackground(props.color, propsData),
-        [genCellContent(), props.resizeable && genResize()],
-      )
+      return h('div', setBackground(props.color, propsData), [
+        genCellContent(),
+        props.resizeable && genResize(),
+      ])
     }
   },
 })

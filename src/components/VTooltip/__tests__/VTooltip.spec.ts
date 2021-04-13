@@ -184,7 +184,9 @@ describe('VTooltip', () => {
     const cmp = mountFunction({ props, slots })
 
     expect(cmp.props().minWidth).toEqual(150)
-    expect(cmp.find('.v-tooltip__content').attributes().style).toContain('min-width: 150px;')
+    expect(cmp.find('.v-tooltip__content').attributes().style).toContain(
+      'min-width: 150px;',
+    )
     expect(cmp.html()).toMatchSnapshot()
   })
 
@@ -199,7 +201,9 @@ describe('VTooltip', () => {
     const cmp = mountFunction({ props, slots })
 
     expect(cmp.props().maxWidth).toEqual(270)
-    expect(cmp.find('.v-tooltip__content').attributes().style).toContain('max-width: 270px;')
+    expect(cmp.find('.v-tooltip__content').attributes().style).toContain(
+      'max-width: 270px;',
+    )
     expect(cmp.html()).toMatchSnapshot()
   })
 })

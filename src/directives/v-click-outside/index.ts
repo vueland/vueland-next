@@ -1,8 +1,10 @@
 function clickHandler(e, el) {
-  if (el.contains(e.target) &&
+  if (
+    el.contains(e.target) &&
     el._binds.value &&
     !el._binds.value.closeConditional
-  ) return
+  )
+    return
 
   if (typeof el._binds.value === 'function') el._binds.value()
 
@@ -16,7 +18,6 @@ function removeListener(el) {
 }
 
 export const clickOutside = {
-
   beforeMount(el, binding) {
     el._binds = binding
   },

@@ -149,7 +149,7 @@ export const VDataTable = defineComponent({
           return col.format(a) > col.format(b) ? 1 : -1
         }
 
-        return (a[col.key] > b[col.key]) ? 1 : -1
+        return a[col.key] > b[col.key] ? 1 : -1
       })
     }
 
@@ -183,9 +183,12 @@ export const VDataTable = defineComponent({
     }
 
     function genTableTools(): VNode {
-      return h('div', {
+      return h(
+        'div',
+        {
           class: 'v-data-table__toolbar',
-        }, {
+        },
+        {
           default: () => slots.toolbar && slots.toolbar(),
         },
       )
@@ -206,7 +209,9 @@ export const VDataTable = defineComponent({
     }
 
     function genTableBody(): VNode {
-      return h(VDataTableBody, {
+      return h(
+        VDataTableBody,
+        {
           cols: data.cols,
           rows: data.rows,
           page: data.page,
@@ -258,14 +263,14 @@ export const VDataTable = defineComponent({
     }
 
     function genTableInner(): VNode {
-      return h('div', {
+      return h(
+        'div',
+        {
           class: {
             'v-data-table__inner': true,
           },
-        }, [
-          genTableHeader(),
-          genTableBody(),
-        ],
+        },
+        [genTableHeader(), genTableBody()],
       )
     }
 

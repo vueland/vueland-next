@@ -46,7 +46,7 @@ export const VBadge = defineComponent({
 
     const calcPosition = (offsetVal: string | number = 0): string => {
       const value = -offset.value - Number(offsetVal)
-      return `${ value }px`
+      return `${value}px`
     }
 
     const computedLeft = computed<string | boolean>(() => {
@@ -102,8 +102,7 @@ export const VBadge = defineComponent({
         },
       }
 
-      return slots.badge ? h('div',
-        propsData, slots.badge()) : null
+      return slots.badge ? h('div', propsData, slots.badge()) : null
     }
 
     function genContent(): VNode {
@@ -117,12 +116,10 @@ export const VBadge = defineComponent({
     }
 
     function genBadge(): VNode {
-      const propsData = setBackground(
-        props.color, {
-          class: badgeClasses.value,
-          style: styles.value,
-        },
-      )
+      const propsData = setBackground(props.color, {
+        class: badgeClasses.value,
+        style: styles.value,
+      })
 
       return h('div', propsData, genContent())
     }

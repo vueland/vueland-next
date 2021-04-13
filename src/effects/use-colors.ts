@@ -38,8 +38,8 @@ export const useColors = (): Colorable => {
     if (isCssColor(color)) {
       data.style = {
         ...(data.style as object),
-        color: `${ color }`,
-        'caret-color': `${ color }`,
+        color: `${color}`,
+        'caret-color': `${color}`,
       }
     } else if (color) {
       const [colorName, colorModifier] = color.trim().split(' ', 2)
@@ -54,11 +54,10 @@ export const useColors = (): Colorable => {
         }
       }
 
-      data.class[`${ colorName }--text`] = true
-
+      data.class[`${colorName}--text`] = true
 
       if (colorModifier) {
-        data.class[`text--${ colorModifier }`] = true
+        data.class[`text--${colorModifier}`] = true
       }
     }
 

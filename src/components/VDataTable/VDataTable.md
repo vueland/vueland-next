@@ -12,20 +12,20 @@
   />
 ```
 ## Props
- - rows
- - cols
- - rowCounts
- - color
- - headerColor
- - dark
- - stateOut
- - numbered
- - checkbox
- - align
- 
+  - rows
+  - cols
+  - rowCounts
+  - color
+  - headerColor
+  - dark
+  - stateOut
+  - numbered
+  - checkbox
+  - align
+
 ## Events
- - filter
- - checked
- - lastPage
- 
+  - filter
+  - checked
+  - lastPage
+
 

@@ -25,7 +25,13 @@ jobs:
           echo "application: ${{ env.APPLICATION_NAME }}
 
       - name: System files
-        run: ls la
+        run: ls -la
+
+      - name: Git clone my repo
+        uses: actions/checkout@v1
+
+      - name: System files
+        run: ls -la
 
 
   deploying:

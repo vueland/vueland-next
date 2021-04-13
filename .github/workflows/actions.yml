@@ -4,7 +4,7 @@
 # Copyright (c) by Anar Allahverdiev
 # ----------------------------------
 name: CI
-on: [merge]
+on: [push]
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest

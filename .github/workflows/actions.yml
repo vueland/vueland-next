@@ -14,7 +14,15 @@ on:
       - develop
 
 jobs:
+  clear:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Cleaning
+      - run: rm -Rfv node_modules
+      - run: rm package-lock.json
   node:
+    needs: [clear]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

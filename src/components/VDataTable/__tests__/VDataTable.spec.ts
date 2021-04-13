@@ -63,9 +63,9 @@ describe('VDataTable', () => {
 
     expect(textField.exists()).toBe(true)
 
-    // await textField.trigger('input', 'Al')
-    //
-    // expect(cmp.emitted().filter).toHaveLength(1)
+    await textField.trigger('input', 'Al')
+
+    expect(cmp.emitted().filter).toHaveLength(1)
     expect(filter.exists()).toBe(true)
     expect(filter.isVisible()).toBe(true)
     // expect(cmp.find('.v-data-table__row').text()).toContain('Alex')

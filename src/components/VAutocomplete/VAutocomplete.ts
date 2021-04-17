@@ -35,7 +35,7 @@ type SelectState = {
 }
 
 export const VAutocomplete = defineComponent({
-  name: 'v-select',
+  name: 'v-autocomplete',
 
   emits: [
     'input',

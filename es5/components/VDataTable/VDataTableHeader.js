@@ -158,6 +158,39 @@ var VDataTableHeader = (0, _vue.defineComponent)({
       }, [item.title]);
     }
 
+    function genNumberCell() {
+      return (0, _vue.h)(_VDataTableCell.VDataTableCell, {
+        align: 'center',
+        "class": 'v-data-table-col__number',
+        dark: props.dark,
+        color: props.color,
+        width: 50
+      }, {
+        "default": function _default() {
+          return '№';
+        }
+      });
+    }
+
+    function genCheckboxCell() {
+      return (0, _vue.h)(_VDataTableCell.VDataTableCell, {
+        align: 'center',
+        "class": 'v-data-table-col__checkbox',
+        dark: props.dark,
+        color: props.color,
+        width: 50
+      }, {
+        "default": function _default() {
+          return (0, _vue.h)(_VCheckbox.VCheckbox, {
+            color: props.dark ? 'white' : '',
+            onChecked: function onChecked(e) {
+              return emit('check-all', e);
+            }
+          });
+        }
+      });
+    }
+
     function genHeaderCell(item) {
       return (0, _vue.h)(_VDataTableCell.VDataTableCell, {
         dark: props.dark,
@@ -181,33 +214,8 @@ var VDataTableHeader = (0, _vue.defineComponent)({
 
     function genHeaderCells() {
       var cells = [];
-      props.numbered && cells.push((0, _vue.h)(_VDataTableCell.VDataTableCell, {
-        align: 'center',
-        "class": 'v-data-table-col__number',
-        dark: props.dark,
-        color: props.color,
-        width: 50
-      }, {
-        "default": function _default() {
-          return '№';
-        }
-      }));
-      props.checkbox && cells.push((0, _vue.h)(_VDataTableCell.VDataTableCell, {
-        align: 'center',
-        "class": 'v-data-table-col__checkbox',
-        dark: props.dark,
-        color: props.color,
-        width: 50
-      }, {
-        "default": function _default() {
-          return (0, _vue.h)(_VCheckbox.VCheckbox, {
-            color: props.dark ? 'white' : '',
-            onChecked: function onChecked(e) {
-              return emit('check-all', e);
-            }
-          });
-        }
-      }));
+      props.numbered && cells.push(genNumberCell());
+      props.checkbox && cells.push(genCheckboxCell());
       cols.value.forEach(function (item) {
         item.width = item.width || props.colWidth;
 

@@ -28,7 +28,7 @@ module.exports = {
   externals: {
     path: PATH,
   },
-  target: process.env.NODE_ENV === 'development' ? 'web' : 'browserslist',
+  target: !isProd ? 'web' : 'browserslist',
   optimization: {
     mergeDuplicateChunks: true,
   },
@@ -114,7 +114,6 @@ module.exports = {
       '@': PATH.src,
       '@dev': PATH.dev,
       '/': PATH.public,
-      'vue': 'vue',
     },
     extensions: ['*', '.js', '.json', '.vue', '.ts'],
   },

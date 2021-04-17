@@ -215,7 +215,7 @@ exports[`VDataTable should test column filter and match snapshot 1`] = `
 <div class="v-data-table white">
   <div class="v-data-table__inner">
     <div class="v-data-table__header white">
-      <div class="v-data-table__cell text-align--start white v-data-table-col v-data-table-col--sorted"
+      <div class="v-data-table__cell text-align--start white v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content">
@@ -223,10 +223,6 @@ exports[`VDataTable should test column filter and match snapshot 1`] = `
             Name
           </div>
           <span class="v-data-table-col__actions">
-            <button class="v-icon v-icon--link v-icon--clickable fas fa-arrow-up v-data-table-col__actions-sort v-data-table-col__actions-sort--active"
-                    style="font-size: 14px;"
-            >
-            </button>
             <button class="v-icon v-icon--link v-icon--clickable fas fa-align-justify v-data-table-col__actions-filter"
                     style="font-size: 14px;"
             >
@@ -302,14 +298,14 @@ exports[`VDataTable should test column filter and match snapshot 1`] = `
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content">
-            Alex
+            Ben
           </div>
         </div>
         <div class="v-data-table__cell text-align--start undefined"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content">
-            alex@mail.ru
+            ben@mail.ru
           </div>
         </div>
         <div class="v-data-table__cell text-align--start undefined"
@@ -325,14 +321,14 @@ exports[`VDataTable should test column filter and match snapshot 1`] = `
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content">
-            Ben
+            Alex
           </div>
         </div>
         <div class="v-data-table__cell text-align--start undefined"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content">
-            ben@mail.ru
+            alex@mail.ru
           </div>
         </div>
         <div class="v-data-table__cell text-align--start undefined"

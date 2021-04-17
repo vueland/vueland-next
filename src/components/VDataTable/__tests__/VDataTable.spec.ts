@@ -45,10 +45,12 @@ describe('VDataTable', () => {
     expect(cmp.find('.v-data-table__row').text()).toContain('Alex')
 
     expect(cmp.html()).toMatchSnapshot()
+    await cmp.find('.v-data-table-col__actions-sort').trigger('click')
   })
 
   it('should test column filter and match snapshot', async () => {
     cols[0].filterable = true
+    cols[0].sortable = false
 
     const cmp = mountFunction({
       props: { cols, rows, stateOut: true },
@@ -64,12 +66,11 @@ describe('VDataTable', () => {
 
     expect(textField.exists()).toBe(true)
 
-    // await textField.trigger('input', 'Al')
-    //
-    // expect(cmp.emitted().filter).toHaveLength(1)
+    await textField.trigger('input')
+
+    expect(cmp.emitted().filter).toHaveLength(1)
     expect(filter.exists()).toBe(true)
     expect(filter.isVisible()).toBe(true)
-    // expect(cmp.find('.v-data-table__row').text()).toContain('Alex')
     expect(cmp.html()).toMatchSnapshot()
   })
 })

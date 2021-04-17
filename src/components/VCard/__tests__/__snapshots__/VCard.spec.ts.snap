@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VCard should mount component and match snapshot 1`] = `
+<div class="v-card"
+     style="width: 350px;"
+>
+</div>
+`;

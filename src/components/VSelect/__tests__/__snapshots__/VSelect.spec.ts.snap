@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VSelect should mount component and match snapshot 1`] = `
+<div class="v-input">
+  <div class="v-input__select-slot primary--text">
+    <label class="v-label v-label--on-field primary--text"
+           style="left: 0px; position: absolute;"
+    >
+    </label>
+    <div class="v-select v-validatable">
+      <input class="v-select__input">
+    </div>
+  </div>
+  <div class="v-input__status">
+    <transition-stub>
+    </transition-stub>
+  </div>
+</div>
+`;

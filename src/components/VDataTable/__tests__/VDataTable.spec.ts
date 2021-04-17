@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { VDataTable } from '../VDataTable'
+import { VDataTable } from '../index'
 // @ts-ignore
 import { cols, rows } from './mocks.ts'
 import 'regenerator-runtime/runtime'

@@ -1,11 +1,11 @@
 import { mount, VueWrapper } from '@vue/test-utils'
-import { VList } from '../index'
+import { VOverlay } from '../index'
 
-describe('VList', () => {
+describe('VOverlay', () => {
   let mountFunction: (options?: any) => VueWrapper<any>
 
   beforeEach(() => {
-    mountFunction = (options = {}) => mount(VList, { ...options })
+    mountFunction = (options = {}) => mount(VOverlay, { ...options })
   })
 
   it('should mount component and match snapshot', () => {

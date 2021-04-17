@@ -1,11 +1,11 @@
 import { mount, VueWrapper } from '@vue/test-utils'
-import { VList } from '../index'
+import { VTextarea } from '../index'
 
-describe('VList', () => {
+describe('VTextarea', () => {
   let mountFunction: (options?: any) => VueWrapper<any>
 
   beforeEach(() => {
-    mountFunction = (options = {}) => mount(VList, { ...options })
+    mountFunction = (options = {}) => mount(VTextarea, { ...options })
   })
 
   it('should mount component and match snapshot', () => {

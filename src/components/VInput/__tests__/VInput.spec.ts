@@ -1,5 +1,5 @@
 import { mount, VueWrapper } from '@vue/test-utils'
-import { VInput } from '../VInput'
+import { VInput } from '../index'
 import 'regenerator-runtime/runtime'
 
 describe('VInput', () => {

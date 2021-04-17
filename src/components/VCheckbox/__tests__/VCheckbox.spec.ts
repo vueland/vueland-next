@@ -1,5 +1,5 @@
 import { mount, VueWrapper } from '@vue/test-utils'
-import { VCheckbox } from '../VCheckbox'
+import { VCheckbox } from '../index'
 import 'regenerator-runtime/runtime'
 
 describe('VCheckbox', () => {

@@ -1,6 +1,6 @@
 import { h, defineComponent } from 'vue'
 import { mount, VueWrapper } from '@vue/test-utils'
-import { VModal } from '../VModal'
+import { VModal } from '../index'
 import 'regenerator-runtime/runtime'
 
 const OVERLAY_TIMEOUT = 100

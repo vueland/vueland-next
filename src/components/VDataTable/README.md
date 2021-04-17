@@ -108,12 +108,20 @@
     <thead>
         <tr>
             <th>Event name</th>
-            <th>value</th>
+            <th>Value type</th>
+            <th>Value</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td></td>
+            <td>filter</td>
+            <td>Object</td>
+            <td>Object with "value" and "col" props</td>
+        </tr>
+        <tr>
+            <td>checked</td>
+            <td>Array</td>
+            <td>Array of checked rows</td>
         </tr>
     </tbody>
 </table>

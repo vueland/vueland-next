@@ -141,7 +141,7 @@
       checkbox
       @filter="testFunc"
       @checked="testFunc"
-      @cols-settings="testFunc"
+      @last-page="testFunc"
     >
       <template v-slot:address="{ row, format }">
         <v-icon icon="fas fa-envelope" size="12" :color="format(row).includes('h') ? 'red':'blue'"/>

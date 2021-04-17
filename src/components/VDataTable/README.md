@@ -109,7 +109,7 @@
         <tr>
             <th>Event name</th>
             <th>Value type</th>
-            <th>Value</th>
+            <th>Description</th>
         </tr>
     </thead>
     <tbody>
@@ -123,10 +123,12 @@
             <td>Array</td>
             <td>Array of checked rows</td>
         </tr>
+        <tr>
+            <td>last-page</td>
+            <td>Number</td>
+            <td>The event will be triggered when the<br/> user reaches the last page, which makes <br/> it possible to load the necessary data asynchronously.<br/>As an argument, the handling function<br/> will get the index of the last<br/> current element</td>
+        </tr>
     </tbody>
 </table>
-  - filter
-  - checked
-  - lastPage
 
 

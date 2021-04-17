@@ -396,8 +396,7 @@ exports[`VDataTable should test column filter and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__pagination-pages">
-        1 - 
-      2 from 2
+        1 - 2 from 2
       </div>
       <div class="v-data-table__pagination-route">
         <button class="v-button elevation-3 primary"
@@ -569,8 +568,7 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__pagination-pages">
-        1 - 
-      2 from 2
+        1 - 2 from 2
       </div>
       <div class="v-data-table__pagination-route">
         <button class="v-button elevation-3 primary"

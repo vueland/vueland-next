@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { VDataTable } from '../VDataTable'
-import { cols, rows } from './mocks'
+// @ts-ignore
+import { cols, rows } from './mocks.ts'
 import 'regenerator-runtime/runtime'
 
 describe('VDataTable', () => {

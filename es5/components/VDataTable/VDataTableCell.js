@@ -54,8 +54,8 @@ var VDataTableCell = (0, _vue.defineComponent)({
         right: true,
         emit: true,
         "class": {
-          'white': props.dark,
-          'primary': !props.dark
+          white: props.dark,
+          primary: !props.dark
         },
         onResize: function onResize($size) {
           return emit('resize', $size);

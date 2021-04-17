@@ -54,7 +54,7 @@ var VDataTableFooter = (0, _vue.defineComponent)({
       return page === 1 ? 1 : (page - 1) * rowsPerPage + 1;
     });
     var paginationDisplay = (0, _vue.computed)(function () {
-      return props.tableRowsCount ? "".concat(firstOnPage.value, " - \n      ").concat(lastOnPage.value, " from ").concat(props.tableRowsCount) : '-';
+      return props.tableRowsCount ? "".concat(firstOnPage.value, " - ").concat(lastOnPage.value, " from ").concat(props.tableRowsCount) : '-';
     });
     var isLastPage = (0, _vue.computed)(function () {
       return props.page >= props.pages;

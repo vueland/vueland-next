@@ -146,6 +146,7 @@ var VTextField = (0, _vue.defineComponent)({
       };
 
       if (props.tag === 'input') {
+        ;
         propsData.type = props.type;
       }
 

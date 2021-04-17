@@ -1,1 +1,1 @@
-{"version":3,"sources":["../../../../src/components/VDataTable/index.ts"],"names":[],"mappings":";;;;;;AAAA;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA","sourcesContent":["export * from './VDataTable'"],"sourceRoot":"","file":"index.js"}
+{"version":3,"sources":["../../../../src/components/VDataTable/index.ts"],"names":[],"mappings":";;;;;;AAAA;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA","sourcesContent":["export * from './VDataTable'\n"],"sourceRoot":"","file":"index.js"}

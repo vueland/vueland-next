@@ -137,9 +137,9 @@ export const VDataTableHeader = defineComponent({
     function genFilterWrapper(item) {
       const directive = item.addFilter
         ? {
-            handler: () => setTimeout(() => (item.addFilter = false)),
-            closeConditional: false,
-          }
+          handler: () => setTimeout(() => (item.addFilter = false)),
+          closeConditional: false,
+        }
         : undefined
 
       const propsData = {
@@ -173,6 +173,42 @@ export const VDataTableHeader = defineComponent({
       )
     }
 
+    function genNumberCell() {
+      return h(
+        VDataTableCell,
+        {
+          align: 'center',
+          class: 'v-data-table-col__number',
+          dark: props.dark,
+          color: props.color,
+          width: 50,
+        },
+        {
+          default: () => '№',
+        },
+      )
+    }
+
+    function genCheckboxCell() {
+      return h(
+        VDataTableCell,
+        {
+          align: 'center',
+          class: 'v-data-table-col__checkbox',
+          dark: props.dark,
+          color: props.color,
+          width: 50,
+        },
+        {
+          default: () =>
+            h(VCheckbox, {
+              color: props.dark ? 'white' : '',
+              onChecked: e => emit('check-all', e),
+            }),
+        },
+      )
+    }
+
     function genHeaderCell(item) {
       return h(
         VDataTableCell,
@@ -201,43 +237,8 @@ export const VDataTableHeader = defineComponent({
     function genHeaderCells() {
       const cells: VNode[] = []
 
-      props.numbered &&
-        cells.push(
-          h(
-            VDataTableCell,
-            {
-              align: 'center',
-              class: 'v-data-table-col__number',
-              dark: props.dark,
-              color: props.color,
-              width: 50,
-            },
-            {
-              default: () => '№',
-            },
-          ),
-        )
-
-      props.checkbox &&
-        cells.push(
-          h(
-            VDataTableCell,
-            {
-              align: 'center',
-              class: 'v-data-table-col__checkbox',
-              dark: props.dark,
-              color: props.color,
-              width: 50,
-            },
-            {
-              default: () =>
-                h(VCheckbox, {
-                  color: props.dark ? 'white' : '',
-                  onChecked: e => emit('check-all', e),
-                }),
-            },
-          ),
-        )
+      props.numbered && cells.push(genNumberCell())
+      props.checkbox && cells.push(genCheckboxCell())
 
       cols.value!.forEach((item: Column) => {
         item.width = item.width || props.colWidth

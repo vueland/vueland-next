@@ -97,7 +97,7 @@
             <td colspan="3">checkbox</td>
             <td>Boolean</td>
             <td>false</td>
-            <td>if set true, the table rows will <br/> be supplemented with a checkbox</td>
+            <td>if set true, table rows will <br/> be supplemented with a checkbox</td>
         </tr>
     </tbody>
 </table>

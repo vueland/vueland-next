@@ -76,6 +76,52 @@ var VDataTableBody = (0, _vue.defineComponent)({
       }, cells);
     }
 
+    function genNumberCell(count) {
+      return (0, _vue.h)(_VDataTableCell.VDataTableCell, {
+        width: 50,
+        align: 'center',
+        dark: props.dark,
+        color: props.color,
+        "class": 'v-data-table__row-number'
+      }, {
+        "default": function _default() {
+          return count + 1;
+        }
+      });
+    }
+
+    function genCheckboxCell(row) {
+      return (0, _vue.h)(_VDataTableCell.VDataTableCell, {
+        width: 50,
+        align: 'center',
+        dark: props.dark,
+        color: props.color,
+        "class": 'v-data-table__row-checkbox'
+      }, {
+        "default": function _default() {
+          return (0, _vue.h)(_VCheckbox.VCheckbox, _defineProperty({
+            modelValue: checkedRows.value,
+            color: props.dark ? 'white' : '',
+            value: row
+          }, 'onUpdate:modelValue', onCheckRows));
+        }
+      });
+    }
+
+    function genRowCell(col, row) {
+      var format = col.format;
+      var slotContent = slots[col.key] && slots[col.key](row);
+      return (0, _vue.h)(_VDataTableCell.VDataTableCell, {
+        width: col.width,
+        align: props.align || col.align,
+        dark: props.dark
+      }, {
+        "default": function _default() {
+          return slotContent ? slotContent : format ? format(row) : String(row[col.key]);
+        }
+      });
+    }
+
     function genTableRows() {
       var _rowsOnTable$value;
 
@@ -85,58 +131,16 @@ var VDataTableBody = (0, _vue.defineComponent)({
       var rowCells = [];
       var count = (props.page - 1) * props.rowsPerPage;
 
-      var _loop = function _loop(i) {
-        props.numbered && rowCells.push((0, _vue.h)(_VDataTableCell.VDataTableCell, {
-          width: 50,
-          align: 'center',
-          dark: props.dark,
-          color: props.color,
-          "class": 'v-data-table__row-number'
-        }, {
-          "default": function _default() {
-            return count += 1;
-          }
-        }));
-        props.checkbox && rowCells.push((0, _vue.h)(_VDataTableCell.VDataTableCell, {
-          width: 50,
-          align: 'center',
-          dark: props.dark,
-          color: props.color,
-          "class": 'v-data-table__row-checkbox'
-        }, {
-          "default": function _default() {
-            return (0, _vue.h)(_VCheckbox.VCheckbox, _defineProperty({
-              modelValue: checkedRows.value,
-              color: props.dark ? 'white' : '',
-              value: props.rows[i]
-            }, 'onUpdate:modelValue', onCheckRows));
-          }
-        }));
-
-        var _loop2 = function _loop2(j) {
-          var format = props.cols[j].format;
-          var slotContent = slots[props.cols[j].key] && slots[props.cols[j].key](rowsOnTable.value[i]);
-          props.cols[j].show && rowCells.push((0, _vue.h)(_VDataTableCell.VDataTableCell, {
-            width: props.cols[j].width,
-            align: props.align || props.cols[j].align,
-            dark: props.dark
-          }, {
-            "default": function _default() {
-              return slotContent ? slotContent : format ? format(rowsOnTable.value[i]) : String(rowsOnTable.value[i][props.cols[j].key]);
-            }
-          }));
-        };
+      for (var i = 0; i < rowsLength; i += 1) {
+        props.numbered && rowCells.push(genNumberCell(count + i));
+        props.checkbox && rowCells.push(genCheckboxCell(props.rows[i]));
 
         for (var j = 0; j < colsLength; j += 1) {
-          _loop2(j);
+          props.cols[j].show && rowCells.push(genRowCell(props.cols[j], rowsOnTable.value[i]));
         }
 
         tableRows.push(genTableRow(rowCells));
         rowCells = [];
-      };
-
-      for (var i = 0; i < rowsLength; i += 1) {
-        _loop(i);
       }
 
       return tableRows;

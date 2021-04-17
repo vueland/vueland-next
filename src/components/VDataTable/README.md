@@ -16,7 +16,7 @@
 <table>
     <thead>
         <tr>
-            <th>Prop</th>
+            <th colspan="3">Prop</th>
             <th>Type</th>
             <th>Default value</th>
             <th>Description</th>
@@ -69,7 +69,7 @@
             <td>state-out</td>
             <td>Boolean</td>
             <td>false</td>
-            <td><div style="width: 75px;">if set true, the filter event appears in the table, which can be handled by custom methods, respectively, internal filtering in the table will be disabled</div></td>
+            <td>if set true, the filter event appears in the table, which can be handled by custom methods, respectively, internal filtering in the table will be disabled</td>
         </tr>
         <tr>
             <td>numbered</td>

@@ -131,4 +131,57 @@
     </tbody>
 </table>
 
+## Column object
+```js
+        const colObject = {
+          key: 'name',
+          title: 'Name',
+          resizeable: true,
+          sortable: true,
+          filterable: true,
+          format: row => row.some.children.value
+        }
+```
+<table>
+    <thead>
+        <tr>
+            <th>Prop name</th>
+            <th>Value</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>key</td>
+            <td>String</td>
+            <td>The property of the row object that<br/> will be displayed in this column</td>
+        </tr>
+        <tr>
+            <td>title</td>
+            <td>String</td>
+            <td>Column title which will be displayed</td>
+        </tr>
+        <tr>
+            <td>resizable</td>
+            <td>Boolean</td>
+            <td>If set true, will be able to change<br/> the size of the column </td>
+        </tr>
+         <tr>
+            <td>sortable</td>
+            <td>Boolean</td>
+            <td>If set true, will be able to sort by<br/> current column</td>
+        </tr>
+        <tr>
+            <td>filterable</td>
+            <td>Boolean</td>
+            <td>If set true, will be able to filter<br/> column by value</td>
+        </tr>
+        <tr>
+            <td>format</td>
+            <td>Function</td>
+            <td>You can handle the display of a row<br/> value in a column by using a function<br/> that takes a row object as an argument.<br/> If the function is set it will be used<br/> when sorting and filtering the row data.</td>
+        </tr>
+    </tbody>
+</table>
+
 

@@ -177,6 +177,11 @@
             <td>If set true, will be able to filter<br/> column by value</td>
         </tr>
         <tr>
+            <td>show</td>
+            <td>Boolean</td>
+            <td>If set false, the column will be hidden.<br/> By default the column always is in<br/> visible state</td>
+        </tr>
+        <tr>
             <td>format</td>
             <td>Function</td>
             <td>You can handle the display of a row<br/> value in a column by using a function<br/> that takes a row object as an argument.<br/> If the function is set it will be used<br/> when sorting and filtering the row data.</td>

@@ -36,15 +36,6 @@ type SelectState = {
 
 export const VAutocomplete = defineComponent({
   name: 'v-autocomplete',
-  emits: [
-    'input',
-    'blur',
-    'focus',
-    'select',
-    'update:modelValue',
-    'update:value',
-  ],
-
   props: {
     label: String,
     items: Array,
@@ -57,6 +48,14 @@ export const VAutocomplete = defineComponent({
     ...validateProps(),
     ...colorProps(),
   } as any,
+  emits: [
+    'input',
+    'blur',
+    'focus',
+    'select',
+    'update:modelValue',
+    'update:value',
+  ],
 
   setup(props, { emit }): () => VNode {
     const state: SelectState = reactive({
@@ -126,7 +125,6 @@ export const VAutocomplete = defineComponent({
     }
 
     function validateValue() {
-      console.log(validate(state.search), state.search)
       return props.rules?.length && validate(state.search)
     }
 

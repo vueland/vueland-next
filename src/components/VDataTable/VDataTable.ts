@@ -1,23 +1,23 @@
 // Styles
-import "./VDataTable.scss";
+import './VDataTable.scss'
 
 // Vue API
-import { h, watch, computed, defineComponent, reactive } from "vue";
+import { h, watch, computed, defineComponent, reactive } from 'vue'
 
 // Effects
-import { useColors } from "../../effects/use-colors";
+import { useColors } from '../../effects/use-colors'
 
 // Components
-import { VDataTableHeader } from "./VDataTableHeader";
-import { VDataTableBody } from "./VDataTableBody";
-import { VDataTableFooter } from "./VDataTableFooter";
+import { VDataTableHeader } from './VDataTableHeader'
+import { VDataTableBody } from './VDataTableBody'
+import { VDataTableFooter } from './VDataTableFooter'
 
 // Helpers
-import { toComparableStringFormat } from "./helpers";
+import { toComparableStringFormat } from './helpers'
 
 // Types
-import { VNode } from "vue";
-import { Column, TableFilter } from "../../types";
+import { VNode } from 'vue'
+import { Column, TableFilter } from '../../types'
 
 type TableState = {
   cols: Column[];
@@ -29,7 +29,7 @@ type TableState = {
 };
 
 export const VDataTable = defineComponent({
-  name: "v-data-table",
+  name: 'v-data-table',
   props: {
     cols: {
       type: Array,
@@ -51,9 +51,14 @@ export const VDataTable = defineComponent({
     align: String,
     color: {
       type: String,
-      default: "white",
+      default: 'white',
     },
   } as any,
+  emits: [
+    'checked',
+    'filter',
+    'last-page',
+  ],
 
   setup(props, { slots, emit }) {
     const data = reactive<TableState>({
@@ -63,135 +68,135 @@ export const VDataTable = defineComponent({
       rowsPerPage: 20,
       page: 1,
       isAllRowsChecked: false,
-    });
-    const filters = {};
-    const { setBackground } = useColors();
+    })
+    const filters = {}
+    const { setBackground } = useColors()
 
     const classes = computed<Record<string, boolean>>(() => ({
-      "v-data-table": true,
-    }));
+      'v-data-table': true,
+    }))
 
     const pages = computed<number>(() => {
-      return Math.ceil(data.rows?.length / data.rowsPerPage);
-    });
+      return Math.ceil(data.rows?.length / data.rowsPerPage)
+    })
 
     watch(
       () => props.cols,
       (to) => (data.cols = to),
-      { immediate: true }
-    );
+      { immediate: true },
+    )
 
     watch(
       () => props.rows,
       (to) => (data.rows = to),
-      { immediate: true }
-    );
+      { immediate: true },
+    )
 
     function onCheckAll(value: boolean) {
-      data.isAllRowsChecked = value;
-      data.rows.forEach((row) => (row.checked = value));
+      data.isAllRowsChecked = value
+      data.rows.forEach((row) => (row.checked = value))
     }
 
-    function onCheck<T extends TableState["rows"]>(rows: T) {
-      data.checkedRows = rows;
-      emit("checked", data.checkedRows);
+    function onCheck<T extends TableState['rows']>(rows: T) {
+      data.checkedRows = rows
+      emit('checked', data.checkedRows)
     }
 
     function onPrevTable(num: number) {
-      data.page = data.page > 1 ? data.page + num : data.page;
+      data.page = data.page > 1 ? data.page + num : data.page
     }
 
     function onNextTable(num: number) {
       if (data.rows.length - data.page * data.rowsPerPage > 0) {
-        data.page += num;
+        data.page += num
       }
     }
 
     function onSort(col: Column) {
       if (col.sorted) {
-        col.sorted = !col.sorted;
-        return data.rows!.reverse();
+        col.sorted = !col.sorted
+        return data.rows!.reverse()
       }
 
       data.cols.forEach((c) => {
-        c.sorted = col.key === c.key;
-      });
+        c.sorted = col.key === c.key
+      })
 
-      sortColumn(col);
+      sortColumn(col)
     }
 
     function onFilter({ value, col }: TableFilter) {
       if (!value && filters[col.key]) {
-        delete filters[col.key];
+        delete filters[col.key]
       }
 
-      if (value) filters[col.key] = value;
+      if (value) filters[col.key] = value
 
-      if (props.stateOut) emit("filter", filters);
+      if (props.stateOut) emit('filter', filters)
 
       if (!props.stateOut) {
         if (!Object.keys(filters).length) {
-          return (data.rows = props.rows);
+          return (data.rows = props.rows)
         }
-        data.rows = filterRows(props.rows);
+        data.rows = filterRows(props.rows)
       }
 
-      data.page = 1;
+      data.page = 1
     }
 
     function onSelectRowsCount(count: number) {
-      data.rowsPerPage = count;
+      data.rowsPerPage = count
     }
 
     function sortColumn(col: Column): void {
       data.rows!.sort((a, b) => {
         if (col.format) {
-          return col.format(a) > col.format(b) ? 1 : -1;
+          return col.format(a) > col.format(b) ? 1 : -1
         }
 
-        return a[col.key] > b[col.key] ? 1 : -1;
-      });
+        return a[col.key] > b[col.key] ? 1 : -1
+      })
     }
 
     function filterRows<T>(rows: T[]) {
-      const filterKeys = Object.keys(filters);
+      const filterKeys = Object.keys(filters)
 
       return rows.reduce((acc, row) => {
-        const rowResults: any[] = [];
+        const rowResults: any[] = []
 
         filterKeys.forEach((key) => {
-          const { format } = data.cols.find((col) => col.key === key) as Column;
-          const value = format ? format(row) : row[key];
+          const { format } = data.cols.find((col) => col.key === key) as Column
+          const value = format ? format(row) : row[key]
 
-          const rowKeyValue = toComparableStringFormat(value);
-          const filterValue = toComparableStringFormat(filters[key]);
+          const rowKeyValue = toComparableStringFormat(value)
+          const filterValue = toComparableStringFormat(filters[key])
 
           if (rowKeyValue.includes(filterValue)) {
-            rowResults.push(!!row[key]);
+            rowResults.push(!!row[key])
           }
-        });
+        })
 
         if (
           rowResults.length === filterKeys.length &&
           rowResults.every((value) => !!value)
         ) {
-          acc.push(row);
+          acc.push(row)
         }
 
-        return acc;
-      }, [] as T[]);
+        return acc
+      }, [] as T[])
     }
 
     function genTableTools(): VNode {
       return h(
-        "div",
+        'div',
         {
-          class: "v-data-table__toolbar",
+          class: 'v-data-table__toolbar',
         },
         {
           default: () => slots.toolbar && slots.toolbar(),
-        }
-      );
+        },
+      )
     }
 
     function genTableHeader(): VNode {
@@ -205,7 +210,8 @@ export const VDataTable = defineComponent({
         onFilter,
         onSort,
         onCheckAll,
-      });
+        ['onUpdate:cols']: cols => data.cols = cols,
+      })
     }
 
     function genTableBody(): VNode {
@@ -227,20 +233,20 @@ export const VDataTable = defineComponent({
 
         props.cols.reduce((acc, col) => {
           const slotContent = (row) => {
-            const scoped: any = { row };
+            const scoped: any = { row }
 
             if (col.format) {
-              scoped.format = col.format;
+              scoped.format = col.format
             }
 
-            return slots[col.key] && slots[col.key]!(scoped);
-          };
+            return slots[col.key] && slots[col.key]!(scoped)
+          }
 
-          if (slots[col.key]) acc[col.key] = slotContent;
+          if (slots[col.key]) acc[col.key] = slotContent
 
-          return acc;
-        }, {})
-      );
+          return acc
+        }, {}),
+      )
     }
 
     function genTableFooter(): VNode {
@@ -257,33 +263,33 @@ export const VDataTable = defineComponent({
         onPrev: onPrevTable,
         onNext: onNextTable,
         onSelect: onSelectRowsCount,
-        onLastPage: (val) => emit("last-page", val),
+        onLastPage: (val) => emit('last-page', val),
         onResetPage: (val) => (data.page += val),
-      });
+      })
     }
 
     function genTableInner(): VNode {
       return h(
-        "div",
+        'div',
         {
           class: {
-            "v-data-table__inner": true,
+            'v-data-table__inner': true,
           },
         },
-        [genTableHeader(), genTableBody()]
-      );
+        [genTableHeader(), genTableBody()],
+      )
     }
 
     return () => {
       const propsData = {
         class: classes.value,
-      };
+      }
 
-      return h("div", setBackground(props.color, propsData), [
+      return h('div', setBackground(props.color, propsData), [
         slots.toolbar && genTableTools(),
         genTableInner(),
         genTableFooter(),
-      ]);
-    };
+      ])
+    }
   },
-});
+})

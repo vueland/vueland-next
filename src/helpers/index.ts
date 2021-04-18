@@ -51,6 +51,6 @@ export function warning(warningText) {
   console.warn(warningText);
 }
 
-export function copyWithoutRef(obj) {
+export function copyWithoutLink(obj) {
   return JSON.parse(JSON.stringify(obj));
 }

@@ -1,5 +1,5 @@
 // Styles
-import "./VResize.scss";
+import './VResize.scss'
 
 // Vue API
 import {
@@ -10,30 +10,30 @@ import {
   defineComponent,
   onMounted,
   onBeforeUnmount,
-} from "vue";
+} from 'vue'
 
 // Effects
-import { positionProps } from "../../effects/use-position";
+import { positionProps } from '../../effects/use-position'
 
 // Types
-import { VNode } from "vue";
+import { VNode } from 'vue'
 
 type ResizeData = {
-  parentNode: HTMLElement | null;
-  startOffset: number | null;
-  offsetTop: number;
-  offsetLeft: number;
-  parentHeight: number;
-  parentWidth: number;
-  marginLeft: number;
-  marginTop: number;
-  left: number;
-  top: number;
-  isActive: boolean;
-};
+  parentNode: HTMLElement | null
+  startOffset: number | null
+  offsetTop: number
+  offsetLeft: number
+  parentHeight: number
+  parentWidth: number
+  marginLeft: number
+  marginTop: number
+  left: number
+  top: number
+  isActive: boolean
+}
 
 export const VResize = defineComponent({
-  name: "v-resize",
+  name: 'v-resize',
 
   props: {
     emit: {
@@ -52,6 +52,8 @@ export const VResize = defineComponent({
     ...positionProps(),
   } as any,
 
+  emits: ['resize'],
+
   setup(props, { emit }): () => VNode {
     const data: ResizeData = reactive({
       parentNode: null,
@@ -65,107 +67,107 @@ export const VResize = defineComponent({
       left: 0,
       top: 0,
       isActive: false,
-    });
+    })
 
-    const resRef = ref<HTMLElement | null>(null);
+    const resRef = ref<HTMLElement | null>(null)
 
     const classes = computed<Record<string, boolean>>(() => {
       return {
-        "v-resize": true,
-        "v-resize--active": data.isActive,
-        "v-resize--top": props.top,
-        "v-resize--bottom": props.bottom,
-        "v-resize--right": props.right,
-        "v-resize--left": props.left,
+        'v-resize': true,
+        'v-resize--active': data.isActive,
+        'v-resize--top': props.top,
+        'v-resize--bottom': props.bottom,
+        'v-resize--right': props.right,
+        'v-resize--left': props.left,
         [props.customClass]: !!props.customClass,
-      };
-    });
+      }
+    })
 
     const isDirectY = computed<boolean>(() => {
-      return props.top || props.bottom;
-    });
+      return props.top || props.bottom
+    })
 
     const isNeedReverse = computed<boolean>(() => {
-      return props.top || props.left;
-    });
+      return props.top || props.left
+    })
 
     const currentSize = computed<number>(() => {
-      return isDirectY.value ? data.parentHeight! : data.parentWidth!;
-    });
+      return isDirectY.value ? data.parentHeight! : data.parentWidth!
+    })
 
     const sizeProp = computed<string>(() => {
-      return isDirectY.value ? "height" : "width";
-    });
+      return isDirectY.value ? 'height' : 'width'
+    })
 
     const reverseDirection = computed<string>(() => {
-      return props.top ? "top" : "left";
-    });
+      return props.top ? 'top' : 'left'
+    })
 
     const reverseOffsetKey = computed<string>(() => {
-      const side = reverseDirection.value;
-      return "offset" + side[0].toUpperCase() + side.slice(1);
-    });
+      const side = reverseDirection.value
+      return 'offset' + side[0].toUpperCase() + side.slice(1)
+    })
 
     const offset = computed<number>(() => {
-      return isDirectY.value ? data.offsetTop! : data.offsetLeft!;
-    });
+      return isDirectY.value ? data.offsetTop! : data.offsetLeft!
+    })
 
     const direction = computed<string>(() => {
-      return isDirectY.value ? "clientY" : "clientX";
-    });
+      return isDirectY.value ? 'clientY' : 'clientX'
+    })
 
     function moveReverse(size) {
-      const { parentNode, left, top } = data;
-      const reverseTo = reverseDirection.value;
+      const { parentNode, left, top } = data
+      const reverseTo = reverseDirection.value
 
       const value = !isDirectY.value
         ? currentSize.value - size + left
-        : currentSize.value - size + top;
+        : currentSize.value - size + top
 
-      parentNode!.style[reverseTo] = `${value}px`;
+      parentNode!.style[reverseTo] = `${value}px`
     }
 
     function setOrEmitSize(size) {
-      if (props.emit) return emit("resize", size);
+      if (props.emit) return emit('resize', size)
 
-      data.parentNode!.style[sizeProp.value] = `${size}px`;
+      data.parentNode!.style[sizeProp.value] = `${size}px`
 
-      isNeedReverse.value && moveReverse(size);
+      isNeedReverse.value && moveReverse(size)
     }
 
     function resize(e) {
-      let size;
+      let size
 
       if (isNeedReverse.value) {
         size =
           currentSize.value -
           (e[direction.value] - offset.value) +
-          data.startOffset!;
+          data.startOffset!
       } else {
         size =
           currentSize.value +
           (e[direction.value] -
             currentSize.value -
             offset.value -
-            data.startOffset!);
+            data.startOffset!)
       }
 
-      size > props.minSize && setOrEmitSize(size);
+      size > props.minSize && setOrEmitSize(size)
     }
 
     function resetMinMaxStyles() {
       if (isDirectY.value) {
-        data.parentNode!.style.maxHeight = "";
-        data.parentNode!.style.minHeight = "";
+        data.parentNode!.style.maxHeight = ''
+        data.parentNode!.style.minHeight = ''
       } else {
-        data.parentNode!.style.maxWidth = "";
-        data.parentNode!.style.minWidth = "";
+        data.parentNode!.style.maxWidth = ''
+        data.parentNode!.style.minWidth = ''
       }
     }
 
     function setParent() {
-      const parent = resRef.value!.parentNode;
-      data.parentNode = parent as HTMLElement;
+      const parent = resRef.value!.parentNode
+      data.parentNode = parent as HTMLElement
     }
 
     function computeSizes() {
@@ -176,88 +178,88 @@ export const VResize = defineComponent({
         width,
         marginLeft,
         marginTop,
-      } = getComputedStyle(data.parentNode!);
+      } = getComputedStyle(data.parentNode!)
 
-      data.offsetTop = data.parentNode!.offsetTop;
-      data.offsetLeft = data.parentNode!.offsetLeft;
-      data.marginLeft = parseFloat(marginLeft);
-      data.marginTop = parseFloat(marginTop);
-      data.parentHeight = parseFloat(height);
-      data.parentWidth = parseFloat(width);
-      data.top = parseFloat(top);
-      data.left = parseFloat(left);
+      data.offsetTop = data.parentNode!.offsetTop
+      data.offsetLeft = data.parentNode!.offsetLeft
+      data.marginLeft = parseFloat(marginLeft)
+      data.marginTop = parseFloat(marginTop)
+      data.parentHeight = parseFloat(height)
+      data.parentWidth = parseFloat(width)
+      data.top = parseFloat(top)
+      data.left = parseFloat(left)
     }
 
     function setStartPositions() {
-      const side = reverseDirection.value;
-      const offset = reverseOffsetKey.value;
+      const side = reverseDirection.value
+      const offset = reverseOffsetKey.value
 
       if (data[side] === data[offset]) {
-        data.parentNode!.style[side] = `${data[offset]}px`;
+        data.parentNode!.style[side] = `${data[offset]}px`
       }
     }
 
     function disableSelection(e) {
-      e.preventDefault();
+      e.preventDefault()
     }
 
     function initResize(e) {
       if (!data.isActive) {
-        data.isActive = true;
-        computeSizes();
-        resetMinMaxStyles();
-        setStartPositions();
-        setStartOffset(e);
+        data.isActive = true
+        computeSizes()
+        resetMinMaxStyles()
+        setStartPositions()
+        setStartOffset(e)
       }
 
-      requestAnimationFrame(() => resize(e));
+      requestAnimationFrame(() => resize(e))
     }
 
     function setStartOffset(e) {
-      if (isNeedReverse.value) data.startOffset = e[direction.value];
-      else data.startOffset = e[direction.value] - currentSize.value;
+      if (isNeedReverse.value) data.startOffset = e[direction.value]
+      else data.startOffset = e[direction.value] - currentSize.value
 
-      data.startOffset! -= offset.value;
+      data.startOffset! -= offset.value
     }
 
     function reset() {
-      data.isActive = false;
-      resetMinMaxStyles();
+      data.isActive = false
+      resetMinMaxStyles()
     }
 
     function onMouseup() {
-      reset();
-      removeHandlers();
+      reset()
+      removeHandlers()
     }
 
     function onMousedown() {
-      document.addEventListener("mousemove", initResize);
-      document.addEventListener("mouseup", onMouseup);
-      document.addEventListener("selectstart", disableSelection);
+      document.addEventListener('mousemove', initResize)
+      document.addEventListener('mouseup', onMouseup)
+      document.addEventListener('selectstart', disableSelection)
     }
 
     function removeHandlers() {
-      document.removeEventListener("mousemove", initResize);
-      document.removeEventListener("mouseup", onMouseup);
-      document.removeEventListener("selectstart", disableSelection);
+      document.removeEventListener('mousemove', initResize)
+      document.removeEventListener('mouseup', onMouseup)
+      document.removeEventListener('selectstart', disableSelection)
     }
 
     onMounted(() => {
-      setParent();
-    });
+      setParent()
+    })
 
     onBeforeUnmount(() => {
-      document.removeEventListener("mousedown", onMousedown);
-    });
+      document.removeEventListener('mousedown', onMousedown)
+    })
 
     return () =>
-      h("div", {
+      h('div', {
         class: {
           ...classes.value,
         },
-        key: "resize",
+        key: 'resize',
         ref: resRef,
         onMousedown,
-      });
+      })
   },
-});
+})

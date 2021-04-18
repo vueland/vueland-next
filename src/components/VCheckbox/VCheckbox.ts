@@ -22,7 +22,6 @@ import { VNode, Ref } from "vue";
 
 export const VCheckbox = defineComponent({
   name: "v-checkbox",
-
   props: {
     onIcon: {
       type: String,
@@ -45,7 +44,10 @@ export const VCheckbox = defineComponent({
       default: "primary",
     },
   } as any,
-
+  emits: [
+    "checked",
+    "update:modelValue"
+  ],
   setup(props, { emit }): () => VNode {
     const isChecked = ref(false);
     const fields: Ref<any[]> | undefined = props.validate && inject("fields");

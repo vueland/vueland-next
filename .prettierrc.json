@@ -3,17 +3,9 @@
   "extends": [
     "tslint:recommended"
   ],
+  "max-line-length": 140,
   "jsRules": {},
-  "rules": {
-    "max-line-length": [
-      true,
-      140
-    ],
-    "no-console": false,
-    "quotemark": [
-      true,
-      "single"
-    ]
-  },
+  "singleQuote": true,
+  "semi": false,
   "rulesDirectory": []
 }

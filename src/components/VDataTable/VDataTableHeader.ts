@@ -1,31 +1,33 @@
 // Styles
-import "./VDataTableHeader.scss";
+import './VDataTableHeader.scss'
 
 // Vue API
-import { h, ref, computed, withDirectives, defineComponent } from "vue";
+import { h, ref, computed, withDirectives, defineComponent } from 'vue'
 
 // Effects
-import { colorProps, useColors } from "../../effects/use-colors";
+import { colorProps, useColors } from '../../effects/use-colors'
 
 // Components
-import { VIcon } from "../VIcon";
-import { VCheckbox } from "../VCheckbox";
-import { VDataTableCell } from "./VDataTableCell";
-import { VTextField } from "../VTextField";
+import { VIcon } from '../VIcon'
+import { VCheckbox } from '../VCheckbox'
+import { VDataTableCell } from './VDataTableCell'
+import { VTextField } from '../VTextField'
 
 // Directives
-import { vShow } from "vue";
-import { clickOutside } from "../../directives/v-click-outside";
+import { vShow } from 'vue'
+import { clickOutside } from '../../directives/v-click-outside'
 
 // Types
-import { VNode } from "vue";
-import { Column } from "../../types";
+import { VNode } from 'vue'
+import { Column } from '../../types'
 
 // Services
-import { FaIcons } from "../../services/icons";
+import { FaIcons } from '../../services/icons'
+
+import { copyWithoutLink } from '../../helpers'
 
 export const VDataTableHeader = defineComponent({
-  name: "v-data-table-header",
+  name: 'v-data-table-header',
 
   props: {
     dark: Boolean,
@@ -40,161 +42,166 @@ export const VDataTableHeader = defineComponent({
     ...colorProps(),
   } as any,
 
-  emits: ["sort", "filter", "check-all"],
+  emits: [
+    'sort',
+    'filter',
+    'check-all',
+    'update:cols',
+  ],
 
   setup(props, { emit }) {
-    const cols = ref<any[] | null>([]);
+    const cols = ref<any[] | null>([])
 
-    const { setBackground } = useColors();
+    const { setBackground } = useColors()
 
-    cols.value = props.cols;
+    cols.value = copyWithoutLink(props.cols)
 
     const classes = computed<Record<string, boolean>>(() => ({
-      "v-data-table__header": true,
-    }));
+      'v-data-table__header': true,
+    }))
 
     function onSort(item) {
-      emit("sort", item);
+      emit('sort', item)
     }
 
     function onInput($value, item) {
-      item.filtered = !!$value;
+      item.filtered = !!$value
 
-      emit("filter", { value: $value, col: item });
+      emit('filter', { value: $value, col: item })
     }
 
     function addFilter(item) {
-      if (item.addFilter) return;
-      item.addFilter = true;
+      if (item.addFilter) return
+      item.addFilter = true
     }
 
     function genSortButton(item) {
       return h(VIcon, {
         clickable: true,
         class: {
-          "v-data-table-col__actions-sort": true,
-          "v-data-table-col__actions-sort--active": item.sorted,
+          'v-data-table-col__actions-sort': true,
+          'v-data-table-col__actions-sort--active': item.sorted,
         },
         size: 14,
         icon: FaIcons.$arrowUp,
-        color: props.dark ? "white" : "",
+        color: props.dark ? 'white' : '',
         onClick: () => onSort(item),
-      });
+      })
     }
 
     function genFilterButton(item) {
       return h(VIcon, {
         clickable: true,
         class: {
-          "v-data-table-col__actions-filter": true,
-          "v-data-table-col__actions-filter--active": item.filtered,
+          'v-data-table-col__actions-filter': true,
+          'v-data-table-col__actions-filter--active': item.filtered,
         },
         size: 14,
         icon: FaIcons.$filter,
-        color: props.dark ? "white" : "",
+        color: props.dark ? 'white' : '',
         onClick: () => addFilter(item),
-      });
+      })
     }
 
     function genHeaderActions(item) {
       return h(
-        "span",
+        'span',
         {
           class: {
-            "v-data-table-col__actions": true,
+            'v-data-table-col__actions': true,
           },
         },
         [
           item.sortable && genSortButton(item),
           item.filterable && genFilterButton(item),
-        ]
-      );
+        ],
+      )
     }
 
     function genFilterInput(item) {
       return h(VTextField, {
-        label: "insert",
+        label: 'insert',
         dark: props.dark,
-        color: props.dark ? "white" : "",
+        color: props.dark ? 'white' : '',
         prependIcon: FaIcons.$search,
         clearable: true,
         onInput: ($value) => onInput($value, item),
-      });
+      })
     }
 
     function genFilterHeader(item) {
       return h(
-        "span",
+        'span',
         {
           class: {
-            "v-data-table-col__filter-header": true,
+            'v-data-table-col__filter-header': true,
           },
         },
-        item.title
-      );
+        item.title,
+      )
     }
 
     function genFilterWrapper(item) {
       const directive = item.addFilter
         ? {
-            handler: () => setTimeout(() => (item.addFilter = false)),
-            closeConditional: false,
-          }
-        : undefined;
+          handler: () => setTimeout(() => (item.addFilter = false)),
+          closeConditional: false,
+        }
+        : undefined
 
       const propsData = {
         class: {
-          "v-data-table-col__filter": true,
+          'v-data-table-col__filter': true,
         },
-      };
+      }
 
       return (
         item.filterable &&
         withDirectives(
-          h("div", setBackground(props.color, propsData), [
+          h('div', setBackground(props.color, propsData), [
             genFilterHeader(item),
             genFilterInput(item),
           ]),
           [
             [clickOutside, directive],
             [vShow, item.addFilter],
-          ]
+          ],
         )
-      );
+      )
     }
 
     function genHeaderTitle(item) {
       return h(
-        "div",
+        'div',
         {
-          class: "v-data-table-col__title",
+          class: 'v-data-table-col__title',
         },
-        [item.title]
-      );
+        [item.title],
+      )
     }
 
     function genNumberCell() {
       return h(
         VDataTableCell,
         {
-          align: "center",
-          class: "v-data-table-col__number",
+          align: 'center',
+          class: 'v-data-table-col__number',
           dark: props.dark,
           color: props.color,
           width: 50,
         },
         {
-          default: () => "№",
-        }
-      );
+          default: () => '№',
+        },
+      )
     }
 
     function genCheckboxCell() {
       return h(
         VDataTableCell,
         {
-          align: "center",
-          class: "v-data-table-col__checkbox",
+          align: 'center',
+          class: 'v-data-table-col__checkbox',
           dark: props.dark,
           color: props.color,
           width: 50,
@@ -202,11 +209,11 @@ export const VDataTableHeader = defineComponent({
         {
           default: () =>
             h(VCheckbox, {
-              color: props.dark ? "white" : "",
-              onChecked: (e) => emit("check-all", e),
+              color: props.dark ? 'white' : '',
+              onChecked: (e) => emit('check-all', e),
             }),
-        }
-      );
+        },
+      )
     }
 
     function genHeaderCell(item) {
@@ -215,8 +222,8 @@ export const VDataTableHeader = defineComponent({
         {
           dark: props.dark,
           class: {
-            "v-data-table-col": true,
-            "v-data-table-col--sorted": item.sorted,
+            'v-data-table-col': true,
+            'v-data-table-col--sorted': item.sorted,
           },
           color: props.color,
           width: item.width,
@@ -230,37 +237,41 @@ export const VDataTableHeader = defineComponent({
             genHeaderActions(item),
             genFilterWrapper(item),
           ],
-        }
-      );
+        },
+      )
     }
 
     function genHeaderCells() {
-      const cells: VNode[] = [];
+      const cells: VNode[] = []
 
-      props.numbered && cells.push(genNumberCell());
-      props.checkbox && cells.push(genCheckboxCell());
+      props.numbered && cells.push(genNumberCell())
+      props.checkbox && cells.push(genCheckboxCell())
 
       cols.value!.forEach((item: Column) => {
-        item.width = item.width || props.colWidth;
-        if (!item.hasOwnProperty("show")) {
-          item.show = !item.show;
-        }
-        item.show && cells.push(genHeaderCell(item));
-      });
+        item.width = item.width || props.colWidth
 
-      return cells;
+        if (!item.hasOwnProperty('show')) {
+          item.show = !item.show
+        }
+
+        item.show && cells.push(genHeaderCell(item))
+      })
+
+      emit('update:cols', cols.value)
+
+      return cells
     }
 
     return () => {
       const propsData = {
         class: classes.value,
-      };
+      }
 
       return h(
-        "div",
+        'div',
         props.color ? setBackground(props.color, propsData) : propsData,
-        genHeaderCells()
-      );
-    };
+        genHeaderCells(),
+      )
+    }
   },
-});
+})

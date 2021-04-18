@@ -1,23 +1,23 @@
 // Styles
-import './VSelectList.scss'
+import "./VSelectList.scss";
 
 // Vue API
-import { h, defineComponent, withDirectives, vShow } from 'vue'
+import { h, defineComponent, withDirectives, vShow } from "vue";
 
 // Components
-import { VList, VListItem, VListItemTitle } from '../VList'
+import { VList, VListItem, VListItemTitle } from "../VList";
 
 // Effects
-import { useToggle } from '../../effects/use-toggle'
-import { useTransition } from '../../effects/use-transition'
-import { useElevation } from '../../effects/use-elevation'
-import { colorProps, useColors } from '../../effects/use-colors'
+import { useToggle } from "../../effects/use-toggle";
+import { useTransition } from "../../effects/use-transition";
+import { useElevation } from "../../effects/use-elevation";
+import { colorProps, useColors } from "../../effects/use-colors";
 
 // Types
-import { VNode } from 'vue'
+import { VNode } from "vue";
 
 export const VSelectList = defineComponent({
-  name: 'v-select-list',
+  name: "v-select-list",
   props: {
     items: Array,
     valueKey: String,
@@ -32,17 +32,17 @@ export const VSelectList = defineComponent({
   } as any,
 
   setup(props, { emit }) {
-    const { isActive } = useToggle(props, 'active')
-    const { elevationClasses } = useElevation(props)
-    const { setTextColor, setBackground } = useColors()
+    const { isActive } = useToggle(props, "active");
+    const { elevationClasses } = useElevation(props);
+    const { setTextColor, setBackground } = useColors();
 
     function genItems(): VNode[] {
-      const key = props.valueKey
+      const key = props.valueKey;
 
       const propsData = {
         class: {},
         style: {},
-      }
+      };
 
       return props.items!.map((it: any) => {
         const item = h(
@@ -50,53 +50,53 @@ export const VSelectList = defineComponent({
           props.color ? setTextColor(props.color, propsData) : propsData,
           {
             default: () => (key ? it[key] : it),
-          },
-        )
+          }
+        );
 
         return h(
           VListItem,
           {
             key: props.idKey,
-            onClick: () => emit('select', it),
+            onClick: () => emit("select", it),
           },
           {
             default: () => item,
-          },
-        )
-      })
+          }
+        );
+      });
     }
 
     function genSelectListItems(): VNode {
       return h(
         VList,
         {
-          class: 'v-select--items-list',
+          class: "v-select--items-list",
         },
-        { default: () => genItems() },
-      )
+        { default: () => genItems() }
+      );
     }
 
     function genList(): VNode {
       const propsData = {
         class: {
-          'v-select-list': true,
+          "v-select-list": true,
           ...elevationClasses.value,
         },
         style: {},
-      }
+      };
 
       return withDirectives(
         h(
-          'div',
+          "div",
           props.listColor
             ? setBackground(props.listColor, propsData)
             : propsData,
-          genSelectListItems(),
+          genSelectListItems()
         ),
-        [[vShow, isActive.value]],
-      )
+        [[vShow, isActive.value]]
+      );
     }
 
-    return () => useTransition(genList(), 'fade')
+    return () => useTransition(genList(), "fade");
   },
-})
+});

@@ -1,23 +1,23 @@
 // Styles
-import './VAutocompleteList.scss'
+import "./VAutocompleteList.scss";
 
 // Vue API
-import { h, defineComponent, withDirectives, vShow } from 'vue'
+import { h, defineComponent, withDirectives, vShow } from "vue";
 
 // Components
-import { VList, VListItem, VListItemTitle } from '../VList'
+import { VList, VListItem, VListItemTitle } from "../VList";
 
 // Effects
-import { useToggle } from '../../effects/use-toggle'
-import { useTransition } from '../../effects/use-transition'
-import { useElevation } from '../../effects/use-elevation'
-import { colorProps, useColors } from '../../effects/use-colors'
+import { useToggle } from "../../effects/use-toggle";
+import { useTransition } from "../../effects/use-transition";
+import { useElevation } from "../../effects/use-elevation";
+import { colorProps, useColors } from "../../effects/use-colors";
 
 // Types
-import { VNode } from 'vue'
+import { VNode } from "vue";
 
 export const VAutocompleteList = defineComponent({
-  name: 'v-autocomplete-list',
+  name: "v-autocomplete-list",
   props: {
     items: Array,
     valueKey: String,
@@ -32,17 +32,17 @@ export const VAutocompleteList = defineComponent({
   } as any,
 
   setup(props, { emit }) {
-    const { isActive } = useToggle(props, 'active')
-    const { elevationClasses } = useElevation(props)
-    const { setTextColor, setBackground } = useColors()
+    const { isActive } = useToggle(props, "active");
+    const { elevationClasses } = useElevation(props);
+    const { setTextColor, setBackground } = useColors();
 
     function genItems(): VNode[] {
-      const key = props.valueKey
+      const key = props.valueKey;
 
       const propsData = {
         class: {},
         style: {},
-      }
+      };
 
       return props.items!.map((it: any) => {
         const item = h(
@@ -50,53 +50,53 @@ export const VAutocompleteList = defineComponent({
           props.color ? setTextColor(props.color, propsData) : propsData,
           {
             default: () => (key ? it[key] : it),
-          },
-        )
+          }
+        );
 
         return h(
           VListItem,
           {
             key: props.idKey,
-            onClick: () => emit('select', it),
+            onClick: () => emit("select", it),
           },
           {
             default: () => item,
-          },
-        )
-      })
+          }
+        );
+      });
     }
 
     function genAutocompleteListItems(): VNode {
       return h(
         VList,
         {
-          class: 'v-autocomplete--items-list',
+          class: "v-autocomplete--items-list",
         },
-        { default: () => genItems() },
-      )
+        { default: () => genItems() }
+      );
     }
 
     function genList(): VNode {
       const propsData = {
         class: {
-          'v-autocomplete-list': true,
+          "v-autocomplete-list": true,
           ...elevationClasses.value,
         },
         style: {},
-      }
+      };
 
       return withDirectives(
         h(
-          'div',
+          "div",
           props.listColor
             ? setBackground(props.listColor, propsData)
             : propsData,
-          genAutocompleteListItems(),
+          genAutocompleteListItems()
         ),
-        [[vShow, isActive.value]],
-      )
+        [[vShow, isActive.value]]
+      );
     }
 
-    return () => useTransition(genList(), 'fade')
+    return () => useTransition(genList(), "fade");
   },
-})
+});

@@ -1,14 +1,14 @@
 type Separated = {
-  symbol: string
-  separated: (string | number)[]
-}
+  symbol: string;
+  separated: (string | number)[];
+};
 
 export function dateStringSeparator(str: string): Separated | null {
-  const symbol: string | null = str.match(/\W/)![0]
+  const symbol: string | null = str.match(/\W/)![0];
 
-  if (!symbol) return null
+  if (!symbol) return null;
 
-  const separated = str.trim().split(symbol)
+  const separated = str.trim().split(symbol);
 
-  return { symbol, separated }
+  return { symbol, separated };
 }

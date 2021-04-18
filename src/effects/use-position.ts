@@ -1,13 +1,13 @@
 // Vue API
-import { computed } from 'vue'
+import { computed } from "vue";
 
 // Types
-import { Props } from '../types'
-import { ComputedRef } from 'vue'
+import { Props } from "../types";
+import { ComputedRef } from "vue";
 
 type Positionable = {
-  positionClasses: ComputedRef<Record<string, boolean>>
-}
+  positionClasses: ComputedRef<Record<string, boolean>>;
+};
 
 export const positionProps = (): Props => {
   return {
@@ -24,19 +24,19 @@ export const positionProps = (): Props => {
       type: [String, Number],
       default: 0,
     },
-  }
-}
+  };
+};
 
 export const usePosition = (props: Props): Positionable => {
   const positionClasses = computed(() => {
     return {
-      'position--absolute': props.absolute,
-      'to--left': props.left,
-      'to--right': props.right,
-      'to--top': props.top,
-      'to--bottom': props.bottom,
-    }
-  })
+      "position--absolute": props.absolute,
+      "to--left": props.left,
+      "to--right": props.right,
+      "to--top": props.top,
+      "to--bottom": props.bottom,
+    };
+  });
 
-  return { positionClasses }
-}
+  return { positionClasses };
+};

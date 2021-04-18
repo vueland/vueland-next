@@ -1,1 +1,1 @@
-export * from './VDataTable'
+export * from "./VDataTable";

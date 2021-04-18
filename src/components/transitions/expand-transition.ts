@@ -1,81 +1,81 @@
 interface InitialStyles {
-  transition: string | null
-  propSize: string
-  height?: number
-  width?: number
+  transition: string | null;
+  propSize: string;
+  height?: number;
+  width?: number;
 }
 
 const init: InitialStyles = {
   transition: null,
-  propSize: '',
+  propSize: "",
   height: 0,
   width: 0,
-}
+};
 
-const resetStyles = el => {
-  el.style[init.propSize] = ''
-  el.style.transition = ''
-}
+const resetStyles = (el) => {
+  el.style[init.propSize] = "";
+  el.style.transition = "";
+};
 
-const getChildrenSizes = el => {
+const getChildrenSizes = (el) => {
   return Array.prototype.reduce.call(
     el.children,
     (acc: number, it: HTMLElement) => {
-      const height = getComputedStyle(it)[init.propSize]
+      const height = getComputedStyle(it)[init.propSize];
 
-      return (acc += parseFloat(height))
+      return (acc += parseFloat(height));
     },
-    0,
-  ) as number
-}
+    0
+  ) as number;
+};
 
-const setInitStyles = el => {
-  init.transition = getComputedStyle(el).transition
-  init[init.propSize] = getChildrenSizes(el)
-}
+const setInitStyles = (el) => {
+  init.transition = getComputedStyle(el).transition;
+  init[init.propSize] = getChildrenSizes(el);
+};
 
 export const expandHooks = (
   expandedParentClass: string,
-  x: boolean = false,
+  x: boolean = false
 ) => {
   return {
     onBeforeEnter(el) {
-      init.propSize = x ? 'width' : 'height'
-      el.style.transition = ''
+      init.propSize = x ? "width" : "height";
+      el.style.transition = "";
     },
 
     onEnter(el) {
-      setInitStyles(el)
-      el.style[init.propSize] = '0'
-      el.style.transition = init.transition
+      setInitStyles(el);
+      el.style[init.propSize] = "0";
+      el.style.transition = init.transition;
 
       requestAnimationFrame(() => {
-        el.style[init.propSize] = `${init[init.propSize]}px`
-      })
+        el.style[init.propSize] = `${init[init.propSize]}px`;
+      });
 
       if (expandedParentClass) {
-        el.parentNode.classList.add(expandedParentClass)
+        el.parentNode.classList.add(expandedParentClass);
       }
     },
 
     onAfterEnter(el) {
-      el.parentNode.classList.remove(expandedParentClass)
-      resetStyles(el)
+      el.parentNode.classList.remove(expandedParentClass);
+      resetStyles(el);
     },
 
     onBeforeLeave(el) {
-      setInitStyles(el)
+      setInitStyles(el);
     },
 
     onLeave(el) {
-      el.style.transition = init.transition
-      el.style[init.propSize] = `${init[init.propSize]}px`
+      el.style.transition = init.transition;
+      el.style[init.propSize] = `${init[init.propSize]}px`;
 
-      requestAnimationFrame(() => (el.style[init.propSize] = '0'))
+      requestAnimationFrame(() => (el.style[init.propSize] = "0"));
     },
 
     onAfterLeave(el) {
-      requestAnimationFrame(() => resetStyles(el))
+      requestAnimationFrame(() => resetStyles(el));
     },
-  }
-}
+  };
+};

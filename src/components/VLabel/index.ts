@@ -1,1 +1,1 @@
-export * from './VLabel'
+export * from "./VLabel";

@@ -1,1 +1,1 @@
-export * from './VResize'
+export * from "./VResize";

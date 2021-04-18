@@ -1,42 +1,42 @@
-import { h, VNode } from 'vue'
+import { h, VNode } from "vue";
 
 export function genTableRows(
   vNodesArray: VNode[],
   rowClassName: string,
-  cellsInRow: number,
+  cellsInRow: number
 ) {
-  const tableRows: VNode[] = []
-  let vNodesInRow: VNode[] = []
+  const tableRows: VNode[] = [];
+  let vNodesInRow: VNode[] = [];
 
-  const genTableRow = cellVNodes => {
+  const genTableRow = (cellVNodes) => {
     return h(
-      'div',
+      "div",
       {
         class: rowClassName,
       },
-      cellVNodes,
-    )
-  }
+      cellVNodes
+    );
+  };
 
   for (let i = 0; i <= vNodesArray.length; i += 1) {
     if (i && !(i % cellsInRow)) {
-      tableRows.push(genTableRow(vNodesInRow))
-      vNodesInRow = []
+      tableRows.push(genTableRow(vNodesInRow));
+      vNodesInRow = [];
     }
 
-    vNodesInRow.push(vNodesArray[i])
+    vNodesInRow.push(vNodesArray[i]);
   }
 
   if (vNodesInRow.length) {
-    tableRows.push(genTableRow(vNodesInRow) as any)
+    tableRows.push(genTableRow(vNodesInRow) as any);
   }
 
-  return tableRows
+  return tableRows;
 }
 
 export function parseDate(selectedDate: Date | string) {
-  const date = new Date(selectedDate)
-  const day = date.getDay()
+  const date = new Date(selectedDate);
+  const day = date.getDay();
 
   return {
     year: date.getFullYear(),
@@ -44,5 +44,5 @@ export function parseDate(selectedDate: Date | string) {
     date: date.getDate(),
     isHoliday: day === 0 || day === 6,
     day,
-  }
+  };
 }

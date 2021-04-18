@@ -1,20 +1,20 @@
 // Styles
-import './VDatePickerHeader.scss'
+import "./VDatePickerHeader.scss";
 
 // Vue API
-import { h, defineComponent } from 'vue'
+import { h, defineComponent } from "vue";
 
 // Effects
-import { useColors } from '../../effects/use-colors'
+import { useColors } from "../../effects/use-colors";
 
 // Services
-import { FaIcons } from '../../services/icons'
+import { FaIcons } from "../../services/icons";
 
 // Components
-import { VIcon } from '../VIcon'
+import { VIcon } from "../VIcon";
 
 export const VDatepickerHeader = defineComponent({
-  name: 'v-date-picker-header',
+  name: "v-date-picker-header",
 
   props: {
     onNext: Function,
@@ -23,52 +23,52 @@ export const VDatepickerHeader = defineComponent({
   } as any,
 
   setup(props, { slots, emit }) {
-    const { setTextColor } = useColors()
+    const { setTextColor } = useColors();
 
-    const genHeaderButton = isRight => {
-      const icon = isRight ? FaIcons.$arrowRight : FaIcons.$arrowLeft
+    const genHeaderButton = (isRight) => {
+      const icon = isRight ? FaIcons.$arrowRight : FaIcons.$arrowLeft;
 
       const propsData = {
-        class: 'v-date-picker__header-button',
-      }
+        class: "v-date-picker__header-button",
+      };
 
       const iconPropsData = {
         icon,
         clickable: true,
         size: 18,
         onClick: () => (isRight ? props.onNext() : props.onPrev()),
-      }
+      };
 
       const arrowBtn = h(
         VIcon,
-        props.color ? setTextColor(props.color, iconPropsData) : iconPropsData,
-      )
+        props.color ? setTextColor(props.color, iconPropsData) : iconPropsData
+      );
 
-      return h('div', propsData, arrowBtn)
-    }
+      return h("div", propsData, arrowBtn);
+    };
 
     const genHeaderDisplay = () => {
       const propsData = {
         class: {
-          'v-date-picker__header-display': true,
+          "v-date-picker__header-display": true,
         },
-        onClick: () => emit('table'),
-      }
+        onClick: () => emit("table"),
+      };
 
       return h(
-        'div',
+        "div",
         props.color ? setTextColor(props.color, propsData) : propsData,
-        slots.default && slots.default(),
-      )
-    }
+        slots.default && slots.default()
+      );
+    };
 
     return () =>
       h(
-        'div',
+        "div",
         {
-          class: 'v-date-picker__header',
+          class: "v-date-picker__header",
         },
-        [genHeaderButton(false), genHeaderDisplay(), genHeaderButton(true)],
-      )
+        [genHeaderButton(false), genHeaderDisplay(), genHeaderButton(true)]
+      );
   },
-})
+});

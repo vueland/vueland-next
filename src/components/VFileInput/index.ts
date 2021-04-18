@@ -1,1 +1,1 @@
-export * from './VFileInput'
+export * from "./VFileInput";

@@ -1,22 +1,22 @@
 // Styles
-import './VDataTableFooter.scss'
+import "./VDataTableFooter.scss";
 
 // Vue API
-import { watch, computed, defineComponent, h } from 'vue'
+import { watch, computed, defineComponent, h } from "vue";
 
 // Components
-import { VIcon } from '../VIcon'
-import { VButton } from '../VButton'
-import { VSelect } from '../VSelect'
+import { VIcon } from "../VIcon";
+import { VButton } from "../VButton";
+import { VSelect } from "../VSelect";
 
 // Services
-import { FaIcons } from '@/services/icons'
+import { FaIcons } from "@/services/icons";
 
 // Effects
-import { colorProps, useColors } from '../../effects/use-colors'
+import { colorProps, useColors } from "../../effects/use-colors";
 
 export const VDataTableFooter = defineComponent({
-  name: 'v-data-table-footer',
+  name: "v-data-table-footer",
   props: {
     dark: Boolean,
     pages: Number,
@@ -29,54 +29,54 @@ export const VDataTableFooter = defineComponent({
   } as any,
 
   setup(props, { emit }) {
-    const { setTextColor } = useColors()
+    const { setTextColor } = useColors();
 
     const lastOnPage = computed<number>(() => {
-      const { page, tableRowsCount, rowsPerPage } = props
+      const { page, tableRowsCount, rowsPerPage } = props;
       return page * rowsPerPage > tableRowsCount
         ? tableRowsCount
-        : page * rowsPerPage
-    })
+        : page * rowsPerPage;
+    });
 
     const firstOnPage = computed<number>(() => {
-      const { page, rowsPerPage } = props
-      return page === 1 ? 1 : (page - 1) * rowsPerPage + 1
-    })
+      const { page, rowsPerPage } = props;
+      return page === 1 ? 1 : (page - 1) * rowsPerPage + 1;
+    });
 
     const paginationDisplay = computed<string>(() => {
       return props.tableRowsCount
         ? `${firstOnPage.value} - ${lastOnPage.value} from ${props.tableRowsCount}`
-        : '-'
-    })
+        : "-";
+    });
 
     const isLastPage = computed(() => {
-      return props.page >= props.pages
-    })
+      return props.page >= props.pages;
+    });
 
     const overPages = computed<number | null>(() => {
-      const { page, tableRowsCount, rowsPerPage } = props
+      const { page, tableRowsCount, rowsPerPage } = props;
 
       if ((page - 1) * rowsPerPage > tableRowsCount) {
-        return Math.ceil((page * rowsPerPage - tableRowsCount) / rowsPerPage)
+        return Math.ceil((page * rowsPerPage - tableRowsCount) / rowsPerPage);
       }
 
-      return null
-    })
+      return null;
+    });
 
     watch(
       () => isLastPage.value,
-      to => {
+      (to) => {
         if (to && props.tableRowsCount === props.allRowsCount) {
-          emit('last-page', props.allRowsCount)
+          emit("last-page", props.allRowsCount);
         }
-      },
-    )
+      }
+    );
 
     function changeTableRowsPage(isNext) {
-      if (props.page === props.pages && isNext) return
+      if (props.page === props.pages && isNext) return;
 
-      const event = isNext ? 'next' : 'prev'
-      emit(event, isNext ? 1 : -1)
+      const event = isNext ? "next" : "prev";
+      emit(event, isNext ? 1 : -1);
     }
 
     function genPaginationButton(isNext) {
@@ -84,7 +84,7 @@ export const VDataTableFooter = defineComponent({
         VButton,
         {
           width: 42,
-          color: props.dark ? 'white' : 'primary',
+          color: props.dark ? "white" : "primary",
           text: props.dark,
           elevation: 3,
           onClick: () => changeTableRowsPage(isNext),
@@ -93,11 +93,11 @@ export const VDataTableFooter = defineComponent({
           default: () =>
             h(VIcon, {
               icon: isNext ? FaIcons.$arrowRight : FaIcons.$arrowLeft,
-              color: props.dark ? 'white' : '',
+              color: props.dark ? "white" : "",
               size: 18,
             }),
-        },
-      )
+        }
+      );
     }
 
     function genPageDisplay() {
@@ -105,15 +105,15 @@ export const VDataTableFooter = defineComponent({
         VButton,
         {
           width: 42,
-          style: { margin: '0 10px' },
-          color: props.dark ? 'white' : 'blue lighten-1',
+          style: { margin: "0 10px" },
+          color: props.dark ? "white" : "blue lighten-1",
           text: props.dark,
           elevation: 3,
         },
         {
           default: () => props.page,
-        },
-      )
+        }
+      );
     }
 
     function genSelect() {
@@ -122,90 +122,73 @@ export const VDataTableFooter = defineComponent({
         modelValue: props.rowsPerPage,
         dark: props.dark,
         listColor: props.color,
-        onSelect: e => emit('select', e),
-      })
+        onSelect: (e) => emit("select", e),
+      });
     }
 
     function genSelectCaption() {
       const propsData = {
         class: {
-          'v-data-table__pagination-label': true,
+          "v-data-table__pagination-label": true,
         },
-      }
-      const color = props.dark ? 'white' : ''
+      };
+      const color = props.dark ? "white" : "";
 
       return h(
-        'span',
+        "span",
         color ? setTextColor(color, propsData) : propsData,
-        'Rows per page',
-      )
+        "Rows per page"
+      );
     }
 
     function genPageItemsSelect() {
-      return h(
-        'div',
-        {
-          class: 'v-data-table__pagination-select',
-        },
-        [genSelectCaption(), genSelect()],
-      )
+      return h("div", { class: "v-data-table__pagination-select" }, [
+        genSelectCaption(),
+        genSelect(),
+      ]);
     }
 
     function genPagesCountDisplay() {
       const propsData = {
         class: {
-          'v-data-table__pagination-pages': true,
+          "v-data-table__pagination-pages": true,
         },
-      }
+      };
 
-      const color = props.dark ? 'white' : ''
+      const color = props.dark ? "white" : "";
 
-      overPages.value && emit('resetPage', -overPages.value)
+      overPages.value && emit("resetPage", -overPages.value);
 
       return h(
-        'div',
+        "div",
         color ? setTextColor(color, propsData) : propsData,
-        paginationDisplay.value,
-      )
+        paginationDisplay.value
+      );
     }
 
     function genPaginationButtonsBlock() {
-      return h(
-        'div',
-        {
-          class: {
-            'v-data-table__pagination-route': true,
-          },
-        },
-        [
-          genPaginationButton(false),
-          genPageDisplay(),
-          genPaginationButton(true),
-        ],
-      )
+      return h("div", { class: { "v-data-table__pagination-route": true } }, [
+        genPaginationButton(false),
+        genPageDisplay(),
+        genPaginationButton(true),
+      ]);
     }
 
     function genPaginationBlock() {
-      return h(
-        'div',
-        {
-          class: 'v-data-table__pagination',
-        },
-        [
-          genPageItemsSelect(),
-          genPagesCountDisplay(),
-          genPaginationButtonsBlock(),
-        ],
-      )
+      return h("div", { class: "v-data-table__pagination" }, [
+        genPageItemsSelect(),
+        genPagesCountDisplay(),
+        genPaginationButtonsBlock(),
+      ]);
     }
 
     return () =>
       h(
-        'div',
+        "div",
         {
-          class: 'v-data-table__footer',
+          class: "v-data-table__footer",
         },
-        genPaginationBlock(),
-      )
+        genPaginationBlock()
+      );
   },
-})
+});

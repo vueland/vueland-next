@@ -1,23 +1,23 @@
 // Styles
-import './VDatePickerMonths.scss'
+import "./VDatePickerMonths.scss";
 
 // Vue API
-import { h, inject, computed, defineComponent } from 'vue'
+import { h, inject, computed, defineComponent } from "vue";
 
 // Helpers
-import { genTableRows } from './helpers'
+import { genTableRows } from "./helpers";
 
 // Types
-import { VNode } from 'vue'
-import { DatePickerBtnHandlers } from '../../types'
+import { VNode } from "vue";
+import { DatePickerBtnHandlers } from "../../types";
 
 export const VDatePickerMonths = defineComponent({
-  name: 'v-date-picker-months',
+  name: "v-date-picker-months",
 
   props: {
     lang: {
       type: String,
-      default: 'en',
+      default: "en",
     },
     month: [String, Number],
     year: [String, Number],
@@ -25,63 +25,63 @@ export const VDatePickerMonths = defineComponent({
   } as any,
 
   setup(props, { emit }) {
-    const CELLS_IN_ROW = 3
-    const MONTHS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
-    const CURRENT_MONTH = new Date().getMonth()
+    const CELLS_IN_ROW = 3;
+    const MONTHS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+    const CURRENT_MONTH = new Date().getMonth();
 
-    const handlers: any = inject('handlers') as DatePickerBtnHandlers
+    const handlers: any = inject("handlers") as DatePickerBtnHandlers;
 
     handlers.value = {
       onNext: () => updateYear(true),
       onPrev: () => updateYear(false),
-    }
+    };
 
     const computedMonth = computed<number>({
       get() {
-        return props.month !== undefined ? +props.month : CURRENT_MONTH
+        return props.month !== undefined ? +props.month : CURRENT_MONTH;
       },
       set(val) {
-        emit('update:month', val)
+        emit("update:month", val);
       },
-    })
+    });
 
     function updateYear(isNext: boolean) {
-      const year = +props.year + (isNext ? 1 : -1)
-      emit('update:year', year)
+      const year = +props.year + (isNext ? 1 : -1);
+      emit("update:year", year);
     }
 
     function genMonthCell(month): VNode {
-      const isSelected = month === computedMonth.value
+      const isSelected = month === computedMonth.value;
       const propsData = {
         class: {
-          'v-date-picker-months__cell': true,
-          'v-date-picker-months__cell--selected': isSelected,
-          'v-date-picker-months__cell--current-month': month === CURRENT_MONTH,
+          "v-date-picker-months__cell": true,
+          "v-date-picker-months__cell--selected": isSelected,
+          "v-date-picker-months__cell--current-month": month === CURRENT_MONTH,
         },
         onClick: () => (computedMonth.value = month),
-      }
+      };
 
-      return h('div', propsData, props.localMonths[month])
+      return h("div", propsData, props.localMonths[month]);
     }
 
     function genMonthRows(): VNode[] {
-      const monthsVNodes = MONTHS.map(genMonthCell)
+      const monthsVNodes = MONTHS.map(genMonthCell);
 
       return genTableRows(
         monthsVNodes,
-        'v-date-picker-months__row',
-        CELLS_IN_ROW,
-      )
+        "v-date-picker-months__row",
+        CELLS_IN_ROW
+      );
     }
 
     return () => {
       const propsData = {
         class: {
-          'v-date-picker-months': true,
+          "v-date-picker-months": true,
         },
-      }
+      };
 
-      return h('div', propsData, genMonthRows())
-    }
+      return h("div", propsData, genMonthRows());
+    };
   },
-})
+});

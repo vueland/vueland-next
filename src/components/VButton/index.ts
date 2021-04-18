@@ -1,1 +1,1 @@
-export * from './VButton'
+export * from "./VButton";

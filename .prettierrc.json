@@ -1,12 +1,19 @@
 {
-  "printWidth": 80,
-  "tabWidth": 2,
-  "semi": false,
-  "singleQuote": true,
-  "quoteProps": "as-needed",
-  "trailingComma": "all",
-  "bracketSpacing": true,
-  "arrowParens": "avoid",
-  "vueIndentScriptAndStyle": true,
-  "endOfLine": "lf"
+  "defaultSeverity": "error",
+  "extends": [
+    "tslint:recommended"
+  ],
+  "jsRules": {},
+  "rules": {
+    "max-line-length": [
+      true,
+      140
+    ],
+    "no-console": false,
+    "quotemark": [
+      true,
+      "single"
+    ]
+  },
+  "rulesDirectory": []
 }

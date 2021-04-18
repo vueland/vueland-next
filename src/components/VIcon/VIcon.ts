@@ -1,25 +1,25 @@
 // Styles
-import './VIcon.scss'
+import "./VIcon.scss";
 
 // Vue API
-import { defineComponent, h, computed } from 'vue'
+import { defineComponent, h, computed } from "vue";
 
 // Effects
-import { useColors, colorProps } from '../../effects/use-colors'
-import { sizeProps } from '../../effects/use-sizes'
+import { useColors, colorProps } from "../../effects/use-colors";
+import { sizeProps } from "../../effects/use-sizes";
 
 // Helpers
-import { convertToUnit } from '../../helpers'
+import { convertToUnit } from "../../helpers";
 
 // Types
-import { VNode } from 'vue'
+import { VNode } from "vue";
 
 // Services
-import { Sizes } from '../../services/sizes'
+import { Sizes } from "../../services/sizes";
 
 export const VIcon = defineComponent({
-  name: 'v-icon',
-  emits: ['click'],
+  name: "v-icon",
+  emits: ["click"],
 
   props: {
     disabled: Boolean,
@@ -31,29 +31,29 @@ export const VIcon = defineComponent({
     iconType: String,
     tag: {
       type: String,
-      default: 'i',
+      default: "i",
     },
     ...colorProps(),
     ...sizeProps(),
   } as any,
 
   setup(props, { slots, emit }): () => VNode {
-    const { setTextColor } = useColors()
-    const iconTag = props.clickable ? 'button' : props.tag
+    const { setTextColor } = useColors();
+    const iconTag = props.clickable ? "button" : props.tag;
 
     const icon = computed<string>(() => {
-      return props.icon || (slots.default && slots.default()[0].children)
-    })
+      return props.icon || (slots.default && slots.default()[0].children);
+    });
 
     const classes = computed<Record<string, boolean>>(() => ({
-      'v-icon': true,
-      'v-icon--disabled': props.disabled,
-      'v-icon--link': props.clickable,
-      'v-icon--dense': props.dense,
-      'v-icon--clickable': props.clickable,
+      "v-icon": true,
+      "v-icon--disabled": props.disabled,
+      "v-icon--link": props.clickable,
+      "v-icon--dense": props.dense,
+      "v-icon--clickable": props.clickable,
       [props.iconType]: !!props.iconType,
       [icon.value]: !!icon.value,
-    }))
+    }));
 
     const isMedium = computed<boolean>(() => {
       return (
@@ -62,8 +62,8 @@ export const VIcon = defineComponent({
         !props.xLarge &&
         !props.xSmall &&
         !props.size
-      )
-    })
+      );
+    });
 
     function getSizes(): string {
       const sizeProps = {
@@ -72,15 +72,15 @@ export const VIcon = defineComponent({
         xLarge: props.xLarge,
         xSmall: props.xSmall,
         medium: isMedium.value,
-      }
-      const explicitSize = Object.keys(sizeProps).find(key => sizeProps[key])
+      };
+      const explicitSize = Object.keys(sizeProps).find((key) => sizeProps[key]);
 
-      return (explicitSize && Sizes[explicitSize]) || convertToUnit(props.size)
+      return (explicitSize && Sizes[explicitSize]) || convertToUnit(props.size);
     }
 
     function onClick() {
       if (!props.disabled && props.clickable) {
-        emit('click')
+        emit("click");
       }
     }
 
@@ -91,9 +91,9 @@ export const VIcon = defineComponent({
           fontSize: getSizes(),
         },
         onClick,
-      }
+      };
     }
 
-    return () => h(iconTag, setTextColor(props.color, genDataProps()))
+    return () => h(iconTag, setTextColor(props.color, genDataProps()));
   },
-})
+});

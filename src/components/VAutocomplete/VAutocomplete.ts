@@ -29,14 +29,13 @@ import { VAutocompleteList } from './VAutocompleteList'
 import { clickOutside } from '../../directives'
 
 type SelectState = {
-  focused: boolean
-  isMenuActive: boolean
-  search: string
-}
+  focused: boolean;
+  isMenuActive: boolean;
+  search: string;
+};
 
 export const VAutocomplete = defineComponent({
   name: 'v-autocomplete',
-
   emits: [
     'input',
     'blur',
@@ -84,9 +83,9 @@ export const VAutocomplete = defineComponent({
     const directive = computed(() => {
       return state.isMenuActive && !state.focused
         ? {
-            handler: clickOutsideHandler,
-            closeConditional: true,
-          }
+          handler: clickOutsideHandler,
+          closeConditional: true,
+        }
         : undefined
     })
 
@@ -115,7 +114,7 @@ export const VAutocomplete = defineComponent({
 
     watch(
       () => isListItemsExists.value,
-      to => {
+      (to) => {
         if (to && !state.isMenuActive && state.focused) {
           state.isMenuActive = true
         }
@@ -226,7 +225,7 @@ export const VAutocomplete = defineComponent({
 
     onBeforeUnmount(() => {
       if (fields?.value) {
-        fields!.value = fields!.value.filter(v => v !== validateValue)
+        fields!.value = fields!.value.filter((v) => v !== validateValue)
       }
     })
 

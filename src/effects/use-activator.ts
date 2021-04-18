@@ -1,69 +1,69 @@
 // Vue API
-import { ref } from 'vue'
+import { ref } from "vue";
 
 // Types
-import { OffsetSizes } from '../types'
+import { OffsetSizes } from "../types";
 
 type ActivatorListeners = {
-  mouseenter?: (e: Event) => void
-  mouseleave?: (e: Event) => void
-  mouseover?: (e: Event) => void
-  mouseout?: (e: Event) => void
-  focus?: (e: Event) => void
-  blur?: (e: Event) => void
-  click?: (e: Event) => void
-  input?: (e: Event) => void
-  change?: (e: Event) => void
-}
+  mouseenter?: (e: Event) => void;
+  mouseleave?: (e: Event) => void;
+  mouseover?: (e: Event) => void;
+  mouseout?: (e: Event) => void;
+  focus?: (e: Event) => void;
+  blur?: (e: Event) => void;
+  click?: (e: Event) => void;
+  input?: (e: Event) => void;
+  change?: (e: Event) => void;
+};
 
 export function useActivator() {
-  const activatorRef = ref<HTMLElement | null>(null)
-  const activatorSizes: Partial<OffsetSizes> = {}
-  const listeners: ActivatorListeners = {}
+  const activatorRef = ref<HTMLElement | null>(null);
+  const activatorSizes: Partial<OffsetSizes> = {};
+  const listeners: ActivatorListeners = {};
 
   const getActivatorSizes = () => {
-    const el = (activatorRef.value! as any).$el || (activatorRef.value! as any)
-    activatorSizes.left = el.offsetLeft
-    activatorSizes.top = el.offsetTop
-    activatorSizes.height = el.offsetHeight
-    activatorSizes.width = el.offsetWidth
+    const el = (activatorRef.value! as any).$el || (activatorRef.value! as any);
+    activatorSizes.left = el.offsetLeft;
+    activatorSizes.top = el.offsetTop;
+    activatorSizes.height = el.offsetHeight;
+    activatorSizes.width = el.offsetWidth;
 
-    return activatorSizes
-  }
+    return activatorSizes;
+  };
 
   const genActivatorListeners = (props, isActive) => {
     if (props.openOnHover) {
       listeners.mouseenter = () => {
-        isActive.value = true
-      }
+        isActive.value = true;
+      };
 
       listeners.mouseleave = () => {
-        isActive.value = false
-      }
+        isActive.value = false;
+      };
     }
 
-    return listeners
-  }
+    return listeners;
+  };
 
   const addActivatorEvents = () => {
-    const events = Object.keys(listeners)
+    const events = Object.keys(listeners);
 
     if (activatorRef.value) {
-      events.forEach(key => {
-        activatorRef.value!.addEventListener(key, listeners[key])
-      })
+      events.forEach((key) => {
+        activatorRef.value!.addEventListener(key, listeners[key]);
+      });
     }
-  }
+  };
 
   const removeActivatorEvents = () => {
-    const events = Object.keys(listeners)
+    const events = Object.keys(listeners);
 
     if (activatorRef.value) {
-      events.forEach(key => {
-        activatorRef.value!.removeEventListener(key, listeners[key])
-      })
+      events.forEach((key) => {
+        activatorRef.value!.removeEventListener(key, listeners[key]);
+      });
     }
-  }
+  };
 
   return {
     activatorRef,
@@ -71,5 +71,5 @@ export function useActivator() {
     addActivatorEvents,
     removeActivatorEvents,
     genActivatorListeners,
-  }
+  };
 }

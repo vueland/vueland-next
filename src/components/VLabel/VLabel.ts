@@ -1,20 +1,20 @@
 // Styles
-import './VLabel.scss'
+import "./VLabel.scss";
 
 // Vue API
-import { h, computed, defineComponent } from 'vue'
+import { h, computed, defineComponent } from "vue";
 
 // Helpers
-import { convertToUnit } from '../../helpers'
+import { convertToUnit } from "../../helpers";
 
 // Effects
-import { colorProps, useColors } from '../../effects/use-colors'
+import { colorProps, useColors } from "../../effects/use-colors";
 
 // Types
-import { VNode } from 'vue'
+import { VNode } from "vue";
 
 export const VLabel = defineComponent({
-  name: 'v-label',
+  name: "v-label",
 
   props: {
     absolute: Boolean,
@@ -27,26 +27,26 @@ export const VLabel = defineComponent({
     },
     right: {
       type: [Number, String],
-      default: 'auto',
+      default: "auto",
     },
     hasState: Boolean,
     ...colorProps(),
   } as any,
 
   setup(props, { slots }): () => VNode {
-    const { setTextColor } = useColors()
+    const { setTextColor } = useColors();
 
     const isActive = computed<boolean>(() => {
-      return !!props.hasState || !!props.focused
-    })
+      return !!props.hasState || !!props.focused;
+    });
 
     const classes = computed<Record<string, boolean>>(() => ({
-      'v-label': true,
-      'v-label--active': isActive.value,
-      'v-label--on-field': props.onField,
-      'v-label--has-state': props.hasState,
-      'v-label--is-disabled': !!props.disabled,
-    }))
+      "v-label": true,
+      "v-label--active": isActive.value,
+      "v-label--on-field": props.onField,
+      "v-label--has-state": props.hasState,
+      "v-label--is-disabled": !!props.disabled,
+    }));
 
     function genPropsData(): Record<string, any> {
       return {
@@ -54,19 +54,19 @@ export const VLabel = defineComponent({
         style: {
           left: convertToUnit(props.left),
           right: convertToUnit(props.right),
-          position: props.absolute ? 'absolute' : 'relative',
+          position: props.absolute ? "absolute" : "relative",
         },
-      }
+      };
     }
 
     return (): VNode => {
-      const propsData = genPropsData()
+      const propsData = genPropsData();
 
       return h(
-        'label',
+        "label",
         props.color ? setTextColor(props.color!, propsData) : propsData,
-        slots.default && slots.default(),
-      )
-    }
+        slots.default && slots.default()
+      );
+    };
   },
-})
+});

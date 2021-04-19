@@ -12,12 +12,13 @@ env:
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [15.x]
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/cache@v2
+      - uses: actions/setup-node@v1
         with:
-          path: |
-            node_modules
-            **/node_modules
+          node-version: ${{ matrix.node-version }}
       - run: npm run test
 

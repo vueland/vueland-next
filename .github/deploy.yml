@@ -1,5 +1,11 @@
 name: CI
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    branches:
+      - master
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

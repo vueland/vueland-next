@@ -19,7 +19,5 @@ jobs:
           path: |
             node_modules
             **/node_modules
-
-        working-directory: ./src
       - run: npm run test
 

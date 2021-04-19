@@ -4,3 +4,6 @@ dist
 dev
 es5
 lib
+
+babel.config.js
+jest.config.js

@@ -7,5 +7,6 @@
   "jsRules": {},
   "singleQuote": true,
   "semi": false,
-  "rulesDirectory": []
+  "rulesDirectory": [],
+  "bracketSpacing": true
 }

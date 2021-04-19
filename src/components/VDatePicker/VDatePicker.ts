@@ -42,19 +42,19 @@ import { DatePickerBtnHandlers, DatePickerDate, DateParams } from '../../types'
 import { locale } from '../../services/locale'
 
 type DatePickerData = {
-  year: number | null;
-  month: number | null;
-  date: number | null;
-  day: number | null;
-  selected: DatePickerDate | null;
-  tableMonth: number | null;
-  tableYear: number | null;
-  convertedDateString: string | null;
-  isYears: boolean;
-  isMonths: boolean;
-  isDates: boolean;
-  isActive: boolean;
-};
+  year: number | null
+  month: number | null
+  date: number | null
+  day: number | null
+  selected: DatePickerDate | null
+  tableMonth: number | null
+  tableYear: number | null
+  convertedDateString: string | null
+  isYears: boolean
+  isMonths: boolean
+  isDates: boolean
+  isActive: boolean
+}
 
 export const VDatePicker = defineComponent({
   name: 'v-date-picker',
@@ -139,15 +139,15 @@ export const VDatePicker = defineComponent({
 
     const headerValue = computed<string>(() => {
       return data.isYears || data.isMonths
-        ? `${ data.tableYear }`
+        ? `${data.tableYear}`
         : data.isDates
-          ? `${ data.tableYear } ${ localMonths[data.tableMonth!] }`
-          : ''
+        ? `${data.tableYear} ${localMonths[data.tableMonth!]}`
+        : ''
     })
 
     const displayDate = computed<string>(() => {
       const { month, date, day } = data.selected as DatePickerDate
-      return `${ localMonths[month] } ${ date } ${ localWeek[day] }`
+      return `${localMonths[month]} ${date} ${localWeek[day]}`
     })
 
     const computedValue = computed<string | number | Date>(() => {
@@ -165,9 +165,9 @@ export const VDatePicker = defineComponent({
     const directive = computed<object | undefined>(() => {
       return data.isActive
         ? {
-          handler: () => (data.isActive = false),
-          closeConditional: false,
-        }
+            handler: () => (data.isActive = false),
+            closeConditional: false,
+          }
         : undefined
     })
 
@@ -197,11 +197,11 @@ export const VDatePicker = defineComponent({
     }
 
     function setDataDate<T extends DatePickerDate>({
-                                                     year,
-                                                     month,
-                                                     date,
-                                                     day,
-                                                   }: T) {
+      year,
+      month,
+      date,
+      day,
+    }: T) {
       data.tableMonth = month
       data.tableYear = year
 
@@ -310,7 +310,7 @@ export const VDatePicker = defineComponent({
       return useTransition(
         h('span', propsData, value),
         'scale-in-out',
-        'out-in',
+        'out-in'
       )
     }
 
@@ -335,7 +335,7 @@ export const VDatePicker = defineComponent({
       return h(
         'div',
         setTextColor(props.color, propsData),
-        genDatepickerDisplayInner(),
+        genDatepickerDisplayInner()
       )
     }
 
@@ -349,7 +349,7 @@ export const VDatePicker = defineComponent({
         },
         {
           default: () => headerValue.value,
-        },
+        }
       )
     }
 
@@ -392,14 +392,16 @@ export const VDatePicker = defineComponent({
         },
       }
 
-      return h('div', propsData,
+      return h(
+        'div',
+        propsData,
         useTransition(
           ((data.isYears && genDatepickerYearsTable()) ||
             (data.isMonths && genDatepickerMonthsTable()) ||
             (data.isDates && genDatepickerDatesTable())) as VNode,
           'slide-in-left',
-          'out-in',
-        ),
+          'out-in'
+        )
       )
     }
 
@@ -429,7 +431,7 @@ export const VDatePicker = defineComponent({
           genDatepickerHeader(),
           genDatepickerBody(),
         ]),
-        [[vShow, data.isActive]],
+        [[vShow, data.isActive]]
       )
     }
 
@@ -443,7 +445,7 @@ export const VDatePicker = defineComponent({
           genDatepickerInput(),
           useTransition(genDatepickerTable(), 'fade'),
         ]),
-        [[clickOutside, directive.value]],
+        [[clickOutside, directive.value]]
       )
     }
 

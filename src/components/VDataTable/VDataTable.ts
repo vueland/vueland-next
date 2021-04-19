@@ -20,13 +20,13 @@ import { VNode } from 'vue'
 import { Column, TableFilter } from '../../types'
 
 type TableState = {
-  cols: Column[];
-  rows: { [key: string]: any }[];
-  checkedRows: { [key: string]: any }[];
-  rowsPerPage: number;
-  page: number;
-  isAllRowsChecked: boolean;
-};
+  cols: Column[]
+  rows: { [key: string]: any }[]
+  checkedRows: { [key: string]: any }[]
+  rowsPerPage: number
+  page: number
+  isAllRowsChecked: boolean
+}
 
 export const VDataTable = defineComponent({
   name: 'v-data-table',
@@ -54,11 +54,7 @@ export const VDataTable = defineComponent({
       default: 'white',
     },
   } as any,
-  emits: [
-    'checked',
-    'filter',
-    'last-page',
-  ],
+  emits: ['checked', 'filter', 'last-page'],
 
   setup(props, { slots, emit }) {
     const data = reactive<TableState>({
@@ -83,13 +79,13 @@ export const VDataTable = defineComponent({
     watch(
       () => props.cols,
       (to) => (data.cols = to),
-      { immediate: true },
+      { immediate: true }
     )
 
     watch(
       () => props.rows,
       (to) => (data.rows = to),
-      { immediate: true },
+      { immediate: true }
     )
 
     function onCheckAll(value: boolean) {
@@ -195,7 +191,7 @@ export const VDataTable = defineComponent({
         },
         {
           default: () => slots.toolbar && slots.toolbar(),
-        },
+        }
       )
     }
 
@@ -210,7 +206,6 @@ export const VDataTable = defineComponent({
         onFilter,
         onSort,
         onCheckAll,
-        ['onUpdate:cols']: cols => data.cols = cols,
       })
     }
 
@@ -245,7 +240,7 @@ export const VDataTable = defineComponent({
           if (slots[col.key]) acc[col.key] = slotContent
 
           return acc
-        }, {}),
+        }, {})
       )
     }
 
@@ -276,7 +271,7 @@ export const VDataTable = defineComponent({
             'v-data-table__inner': true,
           },
         },
-        [genTableHeader(), genTableBody()],
+        [genTableHeader(), genTableBody()]
       )
     }
 

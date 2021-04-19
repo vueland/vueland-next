@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { reactive, computed, watch } from 'vue'
+  import { reactive, ref, computed, watch } from 'vue'
   import { FaIcons } from '../src/services/icons'
 
   export default {
@@ -50,14 +50,14 @@
         return data.always ? testFunc : undefined
       })
 
-      const cols = [
+      const cols = ref([
         {
           key: 'name',
           title: 'Name',
           resizeable: true,
           sortable: true,
           filterable: true,
-          format: row => row.id
+          format: row => row.id,
         },
         {
           key: 'email',
@@ -73,18 +73,18 @@
           sortable: true,
           filterable: true,
         },
-      ]
+      ])
 
       const rows = [
         {
           name: 'Ben',
           email: 'ben@mail.ru',
-          body: 'some body text'
+          body: 'some body text',
         },
         {
           name: 'Alex',
           email: 'alex@mail.ru',
-          body: 'some body text'
+          body: 'some body text',
         },
       ]
 
@@ -115,20 +115,31 @@
 <template>
   <v-list>
     <v-list-group>
-      <template v-slot:title>
+      <template #title>
         <v-list-item-title> salam</v-list-item-title>
       </template>
-      <template v-slot:prependIcon>
-        <v-icon icon="fas fa-book" size="18"/>
+      <template #prependIcon>
+        <v-icon
+          icon="fas fa-book"
+          size="18"
+        />
       </template>
-      <v-list-item @click.stop="testFunc">salam</v-list-item>
+      <v-list-item @click.stop="testFunc">
+        salam
+      </v-list-item>
       <v-text-field label="Подъезд"/>
       <v-text-field label="Этаж"/>
       <v-text-field label="Домофон"/>
     </v-list-group>
   </v-list>
-  <v-checkbox label="test" v-model="data.checked"/>
-  <div class="table-wrap" style="height: 600px;">
+  <v-checkbox
+    v-model="data.checked"
+    label="test"
+  />
+  <div
+    class="table-wrap"
+    style="height: 600px;"
+  >
     <v-data-table
       :cols="cols"
       :rows="data.users"
@@ -143,13 +154,26 @@
       @checked="testFunc"
       @last-page="testFunc"
     >
-      <template v-slot:address="{ row, format }">
-        <v-icon icon="fas fa-envelope" size="12" :color="format(row).includes('h') ? 'red':'blue'"/>
+      <template #address="{ row, format }">
+        <v-icon
+          icon="fas fa-envelope"
+          size="12"
+          :color="format(row).includes('h') ? 'red':'blue'"
+        />
         <span style="margin-left: 15px">{{ format(row) }}</span>
       </template>
-      <template v-slot:toolbar>
-        <v-button width="42" color="primary" elevation="5" @click="addItem">
-          <v-icon :icon="FaIcons.$add" color="white" size="16"/>
+      <template #toolbar>
+        <v-button
+          width="42"
+          color="primary"
+          elevation="5"
+          @click="addItem"
+        >
+          <v-icon
+            :icon="FaIcons.$add"
+            color="white"
+            size="16"
+          />
         </v-button>
       </template>
     </v-data-table>
@@ -176,16 +200,16 @@
       @selected="testFunc"
     />
     <v-text-field
+      v-model="data.password"
       label="teal"
       autocomplete="new-password"
       prepend-icon="fas fa-map-marked-alt"
-      v-model="data.password"
       clearable
       :rules="[v => !!v || 'required', v => v.length > 5 || 'more than 5']"
     />
     <v-select
-      label="select"
       v-model="data.user2"
+      label="select"
       :items="data.users"
       value-key="name"
       readonly
@@ -194,8 +218,8 @@
       :rules="[v => !!v || 'required']"
     />
     <v-autocomplete
-      label="autocomplete"
       v-model:value="data.user"
+      label="autocomplete"
       :items="data.users"
       value-key="name"
       clearable
@@ -207,12 +231,15 @@
       label="click"
       :disabled="false"
       color="blue darken-3"
-      @click="validate"
+      @click="() => cols[0].show = false"
     />
   </v-form>
 
   <v-form>
-    <v-card v-if="!data.show" elevation="5">
+    <v-card
+      v-if="!data.show"
+      elevation="5"
+    >
       <v-resize right/>
       <v-resize bottom/>
       <v-resize top/>
@@ -238,9 +265,10 @@
               "
               class="v-loading"
             ></span>
-            <span style="display: block; height: 25px" class="v-loading"
-            >some little text</span
-            >
+            <span
+              style="display: block; height: 25px"
+              class="v-loading"
+            >some little text</span>
           </div>
           <span
             style="display: block; width: 100%; margin: 15px 0; height: 25px"
@@ -266,7 +294,10 @@
       </v-card-content>
     </v-card>
 
-    <v-card v-if="data.show" elevation="5">
+    <v-card
+      v-if="data.show"
+      elevation="5"
+    >
       <v-card-title>
         <span style="">Testting header</span>
         <v-checkbox label="test"/>
@@ -281,23 +312,39 @@
     </v-card>
   </v-form>
   <teleport to="#modal">
-    <v-modal v-model="data.show" overlay transition="scale-in">
+    <v-modal
+      v-model="data.show"
+      overlay
+      transition="scale-in"
+    >
       <v-card color="blue darken-2">
         <v-card-title> test</v-card-title>
         <v-card-content> salam</v-card-content>
         <v-card-actions>
-          <v-button label="click" @click="data.show = !data.show"/>
+          <v-button
+            label="click"
+            @click="data.show = !data.show"
+          />
         </v-card-actions>
       </v-card>
     </v-modal>
   </teleport>
 
-  <v-badge color="blue darken-3" border right>
-    <template v-slot:badge>
+  <v-badge
+    color="blue darken-3"
+    border
+    right
+  >
+    <template #badge>
       <span>2</span>
     </template>
-    <v-tooltip color="blue darken-3" right offset-x="12" min-width="250">
-      <template v-slot:activator="{ on }">
+    <v-tooltip
+      color="blue darken-3"
+      right
+      offset-x="12"
+      min-width="250"
+    >
+      <template #activator="{ on }">
         <v-button
           elevation="3"
           style="margin-right: 10px;"

@@ -2,7 +2,7 @@
 import './VDataTableHeader.scss'
 
 // Vue API
-import { h, ref, computed, withDirectives, defineComponent } from 'vue'
+import { h, computed, withDirectives, defineComponent } from 'vue'
 
 // Effects
 import { colorProps, useColors } from '../../effects/use-colors'
@@ -24,8 +24,6 @@ import { Column } from '../../types'
 // Services
 import { FaIcons } from '../../services/icons'
 
-import { copyWithoutLink } from '../../helpers'
-
 export const VDataTableHeader = defineComponent({
   name: 'v-data-table-header',
 
@@ -42,23 +40,16 @@ export const VDataTableHeader = defineComponent({
     ...colorProps(),
   } as any,
 
-  emits: [
-    'sort',
-    'filter',
-    'check-all',
-    'update:cols',
-  ],
+  emits: ['sort', 'filter', 'check-all', 'update:cols'],
 
   setup(props, { emit }) {
-    const cols = ref<any[] | null>([])
-
     const { setBackground } = useColors()
-
-    cols.value = copyWithoutLink(props.cols)
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-data-table__header': true,
     }))
+
+    const cols = computed<Column[]>(() => [...props.cols])
 
     function onSort(item) {
       emit('sort', item)
@@ -114,7 +105,7 @@ export const VDataTableHeader = defineComponent({
         [
           item.sortable && genSortButton(item),
           item.filterable && genFilterButton(item),
-        ],
+        ]
       )
     }
 
@@ -137,16 +128,16 @@ export const VDataTableHeader = defineComponent({
             'v-data-table-col__filter-header': true,
           },
         },
-        item.title,
+        item.title
       )
     }
 
     function genFilterWrapper(item) {
       const directive = item.addFilter
         ? {
-          handler: () => setTimeout(() => (item.addFilter = false)),
-          closeConditional: false,
-        }
+            handler: () => setTimeout(() => (item.addFilter = false)),
+            closeConditional: false,
+          }
         : undefined
 
       const propsData = {
@@ -165,7 +156,7 @@ export const VDataTableHeader = defineComponent({
           [
             [clickOutside, directive],
             [vShow, item.addFilter],
-          ],
+          ]
         )
       )
     }
@@ -176,7 +167,7 @@ export const VDataTableHeader = defineComponent({
         {
           class: 'v-data-table-col__title',
         },
-        [item.title],
+        [item.title]
       )
     }
 
@@ -192,7 +183,7 @@ export const VDataTableHeader = defineComponent({
         },
         {
           default: () => '№',
-        },
+        }
       )
     }
 
@@ -212,7 +203,7 @@ export const VDataTableHeader = defineComponent({
               color: props.dark ? 'white' : '',
               onChecked: (e) => emit('check-all', e),
             }),
-        },
+        }
       )
     }
 
@@ -237,7 +228,7 @@ export const VDataTableHeader = defineComponent({
             genHeaderActions(item),
             genFilterWrapper(item),
           ],
-        },
+        }
       )
     }
 
@@ -257,8 +248,6 @@ export const VDataTableHeader = defineComponent({
         item.show && cells.push(genHeaderCell(item))
       })
 
-      emit('update:cols', cols.value)
-
       return cells
     }
 
@@ -270,7 +259,7 @@ export const VDataTableHeader = defineComponent({
       return h(
         'div',
         props.color ? setBackground(props.color, propsData) : propsData,
-        genHeaderCells(),
+        genHeaderCells()
       )
     }
   },

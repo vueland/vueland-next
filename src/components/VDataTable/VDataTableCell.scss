@@ -3,13 +3,14 @@
 .v-data-table__cell {
   display: flex;
   align-items: center;
-  padding: 5px;
   position: relative;
 
   &-content {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    width: 100%;
+    padding: 5px 10px;
 
     & > .v-icon {
       padding-bottom: .25rem;
@@ -17,7 +18,7 @@
   }
 }
 
-.text-align--start{
+.text-align--start {
   justify-content: flex-start;
 }
 

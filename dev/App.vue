@@ -52,6 +52,10 @@
 
       const cols = ref([
         {
+          key: 'actions',
+          title: 'Actions'
+        },
+        {
           key: 'name',
           title: 'Name',
           resizeable: true,
@@ -94,7 +98,6 @@
           email: 'adsadasdasd',
           body: 'sdfsddfsdfsdfsf',
         })
-        console.log(data.users)
       }
 
       return {
@@ -144,11 +147,9 @@
       :cols="cols"
       :rows="data.users"
       :rows-on-table="[25, 40, 50, 75]"
-      class="elevation-5"
-      color="cyan darken-4"
+      align="left"
       header-color="red"
       numbered
-      dark
       checkbox
       @filter="testFunc"
       @checked="testFunc"
@@ -162,11 +163,11 @@
         />
         <span style="margin-left: 15px">{{ format(row) }}</span>
       </template>
-      <template #toolbar>
+      <template #actions>
         <v-button
           width="42"
+          elevation="15"
           color="primary"
-          elevation="5"
           @click="addItem"
         >
           <v-icon

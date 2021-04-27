@@ -1,12 +1,8 @@
 {
-  "defaultSeverity": "error",
-  "extends": [
-    "tslint:recommended"
-  ],
   "max-line-length": 140,
   "jsRules": {},
   "singleQuote": true,
   "semi": false,
-  "rulesDirectory": [],
-  "bracketSpacing": true
+  "bracketSpacing": true,
+  "overrides": []
 }

@@ -35,9 +35,7 @@ export const VDataTableBody = defineComponent({
     ...colorProps(),
   } as any,
 
-  emits: [
-    'check',
-  ],
+  emits: ['check'],
 
   setup(props, { slots, emit }) {
     const checkedRows = ref([])
@@ -51,7 +49,7 @@ export const VDataTableBody = defineComponent({
     const rowsOnTable = computed(() => {
       return props.rows?.slice(
         (props.page - 1) * props.rowsPerPage,
-        props.page * props.rowsPerPage,
+        props.page * props.rowsPerPage
       )
     })
 
@@ -60,7 +58,7 @@ export const VDataTableBody = defineComponent({
       (to) => {
         if (to) onCheckRows(props.rows)
         else onCheckRows([])
-      },
+      }
     )
 
     function onCheckRows(rows) {
@@ -79,12 +77,11 @@ export const VDataTableBody = defineComponent({
           width: 50,
           align: 'center',
           dark: props.dark,
-          color: props.color,
           class: 'v-data-table__row-number',
         },
         {
           default: () => count + 1,
-        },
+        }
       )
     }
 
@@ -95,7 +92,6 @@ export const VDataTableBody = defineComponent({
           width: 50,
           align: 'center',
           dark: props.dark,
-          color: props.color,
           class: 'v-data-table__row-checkbox',
         },
         {
@@ -106,7 +102,7 @@ export const VDataTableBody = defineComponent({
               value: row,
               ['onUpdate:modelValue']: onCheckRows,
             }),
-        },
+        }
       )
     }
 
@@ -129,7 +125,7 @@ export const VDataTableBody = defineComponent({
               : format
               ? format(row)
               : String(row[col.key]),
-        },
+        }
       )
     }
 
@@ -148,7 +144,7 @@ export const VDataTableBody = defineComponent({
 
         for (let j = 0; j < colsLength; j += 1) {
           props.cols[j].show &&
-          rowCells.push(genRowCell(props.cols[j], rowsOnTable.value[i]))
+            rowCells.push(genRowCell(props.cols[j], rowsOnTable.value[i]))
         }
 
         tableRows.push(genTableRow(rowCells))
@@ -167,7 +163,7 @@ export const VDataTableBody = defineComponent({
       return h(
         'div',
         props.color ? setBackground(props.color, propsData) : propsData,
-        genTableRows(),
+        genTableRows()
       )
     }
   },

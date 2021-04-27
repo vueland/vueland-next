@@ -37,6 +37,7 @@ export const VDataTableHeader = defineComponent({
       default: 125,
     },
     align: String,
+    filterColor: String,
     ...colorProps(),
   } as any,
 
@@ -133,6 +134,7 @@ export const VDataTableHeader = defineComponent({
     }
 
     function genFilterWrapper(item) {
+      const color = props.filterColor || props.color
       const directive = item.addFilter
         ? {
             handler: () => setTimeout(() => (item.addFilter = false)),
@@ -149,7 +151,7 @@ export const VDataTableHeader = defineComponent({
       return (
         item.filterable &&
         withDirectives(
-          h('div', setBackground(props.color, propsData), [
+          h('div', setBackground(color, propsData), [
             genFilterHeader(item),
             genFilterInput(item),
           ]),
@@ -178,7 +180,6 @@ export const VDataTableHeader = defineComponent({
           align: 'center',
           class: 'v-data-table-col__number',
           dark: props.dark,
-          color: props.color,
           width: 50,
         },
         {

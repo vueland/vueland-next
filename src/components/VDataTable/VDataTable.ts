@@ -40,6 +40,7 @@ export const VDataTable = defineComponent({
       default: () => [],
     },
     headerColor: String,
+    filterColor: String,
     rowsOnTable: {
       type: Array,
       default: () => [10, 15, 20, 25],
@@ -198,7 +199,8 @@ export const VDataTable = defineComponent({
     function genTableHeader(): VNode {
       return h(VDataTableHeader, {
         cols: data.cols,
-        color: props.headerColor || props.color,
+        color: props.headerColor,
+        filterColor: props.filterColor,
         checkbox: props.checkbox,
         dark: props.dark,
         align: props.align,
@@ -221,7 +223,6 @@ export const VDataTable = defineComponent({
           checkAllRows: data.isAllRowsChecked,
           align: props.align,
           dark: props.dark,
-          color: props.color,
           numbered: props.numbered,
           onCheck,
         },

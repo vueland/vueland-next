@@ -32,11 +32,11 @@ export const VDataTableCell = defineComponent({
   emits: ['resize'],
 
   setup(props, { slots, emit }) {
-    const { setTextColor, setBackground } = useColors()
+    const { setTextColor } = useColors()
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-data-table__cell': true,
-      [`text-align--${ props.align }`]: !!props.align,
+      [`text-align--${props.align}`]: !!props.align,
     }))
 
     function genResize() {
@@ -57,7 +57,7 @@ export const VDataTableCell = defineComponent({
         {
           class: 'v-data-table__cell-content',
         },
-        slots.default && slots.default(),
+        slots.default && slots.default()
       )
     }
 
@@ -69,7 +69,7 @@ export const VDataTableCell = defineComponent({
         },
       })
 
-      return h('div', setBackground(props.color, propsData), [
+      return h('div', propsData, [
         genCellContent(),
         props.resizeable && genResize(),
       ])

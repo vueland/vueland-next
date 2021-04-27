@@ -149,6 +149,7 @@
       :rows-on-table="[25, 40, 50, 75]"
       align="left"
       header-color="red"
+      filter-color="green"
       numbered
       checkbox
       @filter="testFunc"

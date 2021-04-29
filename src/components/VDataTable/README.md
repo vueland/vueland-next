@@ -195,17 +195,17 @@
          <tr>
             <td>cellClass</td>
             <td>String</td>
-            <td>custom class name for header cell<br/> column by value</td>
+            <td>custom class name for header cell</td>
         </tr>         
         <tr>
             <td>filterClass</td>
             <td>String</td>
-            <td>custom class name for header filter element<br/> column by value</td>
+            <td>custom class name for header<br/> filter element</td>
         </tr>        
         <tr>
             <td>rowCellClass</td>
             <td>String</td>
-            <td>custom class name for table body column cells<br/> column by value</td>
+            <td>custom class name for table body<br/> column cells</td>
         </tr>
         <tr>
             <td>show</td>

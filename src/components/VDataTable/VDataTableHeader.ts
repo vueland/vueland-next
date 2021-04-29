@@ -105,7 +105,7 @@ export const VDataTableHeader = defineComponent({
       return h(VTextField, {
         label: 'insert',
         dark: props.dark,
-        color: props.dark ? 'white' : '',
+        color: props.dark ? 'white' : 'primary',
         prependIcon: FaIcons.$search,
         clearable: true,
         onInput: ($value) => onInput($value, item),

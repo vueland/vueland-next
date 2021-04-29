@@ -59,6 +59,7 @@
         {
           key: 'name',
           title: 'Name',
+          width: '250',
           resizeable: true,
           sortable: true,
           filterable: true,

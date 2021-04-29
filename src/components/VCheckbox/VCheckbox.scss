@@ -1,9 +1,8 @@
 @import "../../styles/scss/modules/global";
 
 .v-checkbox {
-  @include flex(flex, flex-start, center);
+  @include flex(inline-flex, flex-start, center);
   cursor: pointer;
-  width: 100%;
 
   &__input {
     position: absolute;

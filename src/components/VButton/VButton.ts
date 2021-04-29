@@ -5,7 +5,7 @@ import './VButton.scss'
 import { defineComponent, h, computed } from 'vue'
 
 // Compositions
-import { colorProps, useColors } from '../../effects/use-colors'
+import { useColors } from '../../effects/use-colors'
 import { elevationProps, useElevation } from '../../effects/use-elevation'
 import { positionProps, usePosition } from '../../effects/use-position'
 
@@ -24,7 +24,10 @@ export const VButton = defineComponent({
     text: Boolean,
     label: String,
     width: [String, Number],
-    ...colorProps(),
+    color: {
+      type: String,
+      default: 'grey lighten-2',
+    },
     ...elevationProps(),
     ...positionProps(),
   } as any,

@@ -39,8 +39,6 @@ export const VDataTable = defineComponent({
       type: Array,
       default: () => [],
     },
-    headerColor: String,
-    filterColor: String,
     rowsOnTable: {
       type: Array,
       default: () => [10, 15, 20, 25],
@@ -54,6 +52,8 @@ export const VDataTable = defineComponent({
       type: String,
       default: 'white',
     },
+    headerColor: String,
+    filterColor: String
   } as any,
   emits: ['checked', 'filter', 'last-page'],
 
@@ -146,7 +146,7 @@ export const VDataTable = defineComponent({
     }
 
     function sortColumn(col: Column): void {
-      data.rows!.sort((a, b) => {
+      data.rows.sort((a, b) => {
         if (col.format) {
           return col.format(a) > col.format(b) ? 1 : -1
         }
@@ -199,7 +199,7 @@ export const VDataTable = defineComponent({
     function genTableHeader(): VNode {
       return h(VDataTableHeader, {
         cols: data.cols,
-        color: props.headerColor,
+        color: props.headerColor || props.color,
         filterColor: props.filterColor,
         checkbox: props.checkbox,
         dark: props.dark,

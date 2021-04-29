@@ -14,6 +14,7 @@ import {
 
 // Effects
 import { positionProps } from '../../effects/use-position'
+import { useColors } from '../../effects/use-colors'
 
 // Types
 import { VNode } from 'vue'
@@ -49,6 +50,10 @@ export const VResize = defineComponent({
       type: [String, Number],
       default: 50,
     },
+    color: {
+      type: String,
+      default: 'grey lighten-2',
+    },
     ...positionProps(),
   } as any,
 
@@ -70,6 +75,8 @@ export const VResize = defineComponent({
     })
 
     const resRef = ref<HTMLElement | null>(null)
+
+    const { setBackground } = useColors()
 
     const classes = computed<Record<string, boolean>>(() => {
       return {
@@ -252,14 +259,16 @@ export const VResize = defineComponent({
       document.removeEventListener('mousedown', onMousedown)
     })
 
-    return () =>
-      h('div', {
+    return () => {
+      const propsData = {
         class: {
           ...classes.value,
         },
         key: 'resize',
         ref: resRef,
         onMousedown,
-      })
+      }
+      return h('div', setBackground(props.color, propsData))
+    }
   },
 })

@@ -92,9 +92,7 @@ export const VInput = defineComponent({
     function genPrependIcon() {
       return h(
         'div',
-        {
-          class: 'v-input__prepend-icon',
-        },
+        { class: 'v-input__prepend-icon' },
         genIcon(props.prependIcon)
       )
     }

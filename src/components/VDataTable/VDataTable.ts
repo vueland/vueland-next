@@ -189,9 +189,7 @@ export const VDataTable = defineComponent({
     function genTableTools(): VNode {
       return h(
         'div',
-        {
-          class: 'v-data-table__toolbar',
-        },
+        { class: 'v-data-table__toolbar' },
         {
           default: () => slots.toolbar && slots.toolbar(),
         }

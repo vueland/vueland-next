@@ -148,6 +148,7 @@
           key: string,
           title: string,
           align?: 'left'|'center'|'right',
+          width?: number,
           resizeable?: boolean,
           sortable?: boolean,
           filterable?: boolean,
@@ -211,6 +212,11 @@
             <td>show</td>
             <td>Boolean</td>
             <td>If set false, the column will be hidden.<br/> By default the column always is in<br/> visible state</td>
+        </tr>        
+        <tr>
+            <td>width</td>
+            <td>Number</td>
+            <td>column width in pixels.<br/> By default the column always is in<br/> visible state</td>
         </tr>
         <tr>
             <td>format</td>

@@ -95,16 +95,10 @@ export const VDataTableHeader = defineComponent({
     }
 
     function genHeaderActions(item) {
-      return h(
-        'span',
-        {
-          class: 'v-data-table-col__actions',
-        },
-        [
-          item.sortable && genSortButton(item),
-          item.filterable && genFilterButton(item),
-        ]
-      )
+      return h('span', { class: 'v-data-table-col__actions' }, [
+        item.sortable && genSortButton(item),
+        item.filterable && genFilterButton(item),
+      ])
     }
 
     function genFilterInput(item) {
@@ -119,13 +113,7 @@ export const VDataTableHeader = defineComponent({
     }
 
     function genFilterHeader(item) {
-      return h(
-        'span',
-        {
-          class: 'v-data-table-col__filter-header',
-        },
-        item.title
-      )
+      return h('span', { class: 'v-data-table-col__filter-header' }, item.title)
     }
 
     function genFilterWrapper(item) {
@@ -159,13 +147,7 @@ export const VDataTableHeader = defineComponent({
     }
 
     function genHeaderTitle(item) {
-      return h(
-        'div',
-        {
-          class: 'v-data-table-col__title',
-        },
-        [item.title]
-      )
+      return h('div', { class: 'v-data-table-col__title' }, item.title)
     }
 
     function genNumberCell() {

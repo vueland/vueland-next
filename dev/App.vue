@@ -1,118 +1,118 @@
 <script lang="ts">
-  import { reactive, ref, computed, watch } from 'vue'
-  import { FaIcons } from '../src/services/icons'
+import { reactive, ref, computed, watch } from 'vue'
+import { FaIcons } from '../src/services/icons'
 
-  export default {
-    setup() {
-      const data = reactive({
-        always: true,
-        show: false,
-        test: true,
-        login: '',
-        email: '',
-        password: '',
-        user: '',
-        checked: false,
-        user2: { name: 'igor' },
-        date: null,
-        users: [],
+export default {
+  setup() {
+    const data = reactive({
+      always: true,
+      show: false,
+      test: true,
+      login: '',
+      email: '',
+      password: '',
+      user: '',
+      checked: false,
+      user2: { name: 'igor' },
+      date: null,
+      users: [],
+    })
+
+
+    const fetchItems = () => {
+      fetch('https://jsonplaceholder.typicode.com/comments')
+        .then(response => response.json())
+        .then(json => data.users = [...data.users, ...json])
+    }
+
+    fetchItems()
+
+    setTimeout(() => {
+      data.always = false
+    }, 2000)
+
+    watch(
+      () => data.user,
+      to => {
+        console.log(to, 'watch')
+      }, { immediate: true },
+    )
+
+    const toggleAlways = () => {
+      data.always = !data.always
+    }
+
+    const testFunc = date => {
+      console.log(date)
+    }
+
+    const forOut = computed(() => {
+      return data.always ? testFunc : undefined
+    })
+
+    const cols = ref([
+      {
+        key: 'actions',
+        title: 'Actions',
+      },
+      {
+        key: 'name',
+        title: 'Name',
+        resizeable: true,
+        sortable: true,
+        filterable: true,
+        format: row => row.id,
+      },
+      {
+        key: 'email',
+        title: 'Email',
+        resizeable: true,
+        sortable: true,
+        filterable: true,
+      },
+      {
+        key: 'body',
+        title: 'Body',
+        resizeable: true,
+        sortable: true,
+        filterable: true,
+      },
+    ])
+
+    const rows = [
+      {
+        name: 'Ben',
+        email: 'ben@mail.ru',
+        body: 'some body text',
+      },
+      {
+        name: 'Alex',
+        email: 'alex@mail.ru',
+        body: 'some body text',
+      },
+    ]
+
+    const addItem = () => {
+      data.users.push({
+        name: 'Anar',
+        email: 'adsadasdasd',
+        body: 'sdfsddfsdfsdfsf',
       })
+    }
 
-
-      const fetchItems = () => {
-        fetch('https://jsonplaceholder.typicode.com/comments')
-          .then(response => response.json())
-          .then(json => data.users = [...data.users, ...json])
-      }
-
-      fetchItems()
-
-      setTimeout(() => {
-        data.always = false
-      }, 2000)
-
-      watch(
-        () => data.user,
-        to => {
-          console.log(to, 'watch')
-        }, { immediate: true },
-      )
-
-      const toggleAlways = () => {
-        data.always = !data.always
-      }
-
-      const testFunc = date => {
-        console.log(date)
-      }
-
-      const forOut = computed(() => {
-        return data.always ? testFunc : undefined
-      })
-
-      const cols = ref([
-        {
-          key: 'actions',
-          title: 'Actions'
-        },
-        {
-          key: 'name',
-          title: 'Name',
-          resizeable: true,
-          sortable: true,
-          filterable: true,
-          format: row => row.id,
-        },
-        {
-          key: 'email',
-          title: 'Email',
-          resizeable: true,
-          sortable: true,
-          filterable: true,
-        },
-        {
-          key: 'body',
-          title: 'Body',
-          resizeable: true,
-          sortable: true,
-          filterable: true,
-        },
-      ])
-
-      const rows = [
-        {
-          name: 'Ben',
-          email: 'ben@mail.ru',
-          body: 'some body text',
-        },
-        {
-          name: 'Alex',
-          email: 'alex@mail.ru',
-          body: 'some body text',
-        },
-      ]
-
-      const addItem = () => {
-        data.users.push({
-          name: 'Anar',
-          email: 'adsadasdasd',
-          body: 'sdfsddfsdfsdfsf',
-        })
-      }
-
-      return {
-        data,
-        cols,
-        // rows,
-        addItem,
-        testFunc,
-        toggleAlways,
-        fetchItems,
-        forOut,
-        FaIcons,
-      }
-    },
-  }
+    return {
+      data,
+      cols,
+      // rows,
+      addItem,
+      testFunc,
+      toggleAlways,
+      fetchItems,
+      forOut,
+      FaIcons,
+    }
+  },
+}
 </script>
 
 <template>
@@ -130,9 +130,9 @@
       <v-list-item @click.stop="testFunc">
         salam
       </v-list-item>
-      <v-text-field label="Подъезд"/>
-      <v-text-field label="Этаж"/>
-      <v-text-field label="Домофон"/>
+      <v-text-field label="Подъезд" />
+      <v-text-field label="Этаж" />
+      <v-text-field label="Домофон" />
     </v-list-group>
   </v-list>
   <v-checkbox
@@ -148,7 +148,10 @@
       :rows="data.users"
       :rows-on-table="[25, 40, 50, 75]"
       align="left"
-      header-color="red"
+      color="grey darken-4"
+      header-color="blue"
+      filter-color="red"
+      dark
       numbered
       checkbox
       @filter="testFunc"
@@ -241,10 +244,10 @@
       v-if="!data.show"
       elevation="5"
     >
-      <v-resize right/>
-      <v-resize bottom/>
-      <v-resize top/>
-      <v-resize left/>
+      <v-resize right />
+      <v-resize bottom />
+      <v-resize top />
+      <v-resize left />
       <v-card-title>
         <span
           style="display: block; width: 55px; height: 55px; border-radius: 50px"
@@ -301,7 +304,7 @@
     >
       <v-card-title>
         <span style="">Testting header</span>
-        <v-checkbox label="test"/>
+        <v-checkbox label="test" />
       </v-card-title>
       <v-card-content>
         <span style="display: block">some little text</span>
@@ -361,43 +364,52 @@
 </template>
 
 <style lang="scss">
-  .active-class {
-    background: #272727;
-    color: white !important;
-  }
+.active-class {
+  background: #272727;
+  color: white !important;
+}
 
-  .wrap {
-    position: absolute;
-    left: 60px;
-    top: 60px;
-    width: calc(100% - 60px);
-    height: calc(100vh - 60px);
-  }
+.wrap {
+  position: absolute;
+  left: 60px;
+  top: 60px;
+  width: calc(100% - 60px);
+  height: calc(100vh - 60px);
+}
 
-  .app {
-    &-header {
-      width: 100%;
-      height: 60px;
-      background: #272727;
-    }
-
-    &-sidebar {
-      position: absolute;
-      top: 60px;
-      left: 0;
-      width: 60px;
-      height: calc(100vh - 60px);
-      background: #272727;
-    }
-  }
-
-  .text {
-    display: inline-block;
-  }
-
-  .test {
-    display: flex;
-    justify-content: center;
+.app {
+  &-header {
     width: 100%;
+    height: 60px;
+    background: #272727;
   }
+
+  &-sidebar {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 60px;
+    height: calc(100vh - 60px);
+    background: #272727;
+  }
+}
+
+.text {
+  display: inline-block;
+}
+
+.test {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.v-data-table {
+  background-color: yellow;
+}
+
+.v-data-table > .v-data-table__inner > .v-data-table__header {
+  background-color: #0D47A1 !important;
+  border-color: red !important;
+}
 </style>

@@ -37,7 +37,6 @@ export const VDataTableHeader = defineComponent({
       default: 125,
     },
     align: String,
-    filterColor: String,
     ...colorProps(),
   } as any,
 
@@ -99,9 +98,7 @@ export const VDataTableHeader = defineComponent({
       return h(
         'span',
         {
-          class: {
-            'v-data-table-col__actions': true,
-          },
+          class: 'v-data-table-col__actions',
         },
         [
           item.sortable && genSortButton(item),
@@ -125,16 +122,16 @@ export const VDataTableHeader = defineComponent({
       return h(
         'span',
         {
-          class: {
-            'v-data-table-col__filter-header': true,
-          },
+          class: 'v-data-table-col__filter-header',
         },
         item.title
       )
     }
 
     function genFilterWrapper(item) {
-      const color = props.filterColor || props.color
+      const colorClass = props.dark ? 'grey darken-4' : 'white'
+      const filterClass = item.filterClass || colorClass
+
       const directive = item.addFilter
         ? {
             handler: () => setTimeout(() => (item.addFilter = false)),
@@ -145,16 +142,14 @@ export const VDataTableHeader = defineComponent({
       const propsData = {
         class: {
           'v-data-table-col__filter': true,
+          [filterClass]: true,
         },
       }
 
       return (
         item.filterable &&
         withDirectives(
-          h('div', setBackground(color, propsData), [
-            genFilterHeader(item),
-            genFilterInput(item),
-          ]),
+          h('div', propsData, [genFilterHeader(item), genFilterInput(item)]),
           [
             [clickOutside, directive],
             [vShow, item.addFilter],
@@ -178,7 +173,10 @@ export const VDataTableHeader = defineComponent({
         VDataTableCell,
         {
           align: 'center',
-          class: 'v-data-table-col__number',
+          class: {
+            'v-data-table-col__number': true,
+            [props.cellClass]: !!props.cellClass,
+          },
           dark: props.dark,
           width: 50,
         },
@@ -193,7 +191,10 @@ export const VDataTableHeader = defineComponent({
         VDataTableCell,
         {
           align: 'center',
-          class: 'v-data-table-col__checkbox',
+          class: {
+            'v-data-table-col__checkbox': true,
+            [props.cellClass]: !!props.cellClass,
+          },
           dark: props.dark,
           color: props.color,
           width: 50,
@@ -216,11 +217,12 @@ export const VDataTableHeader = defineComponent({
           class: {
             'v-data-table-col': true,
             'v-data-table-col--sorted': item.sorted,
+            [item.cellClass]: !!item.cellClass,
           },
           color: props.color,
           width: item.width,
           resizeable: item.resizeable,
-          align: props.align || item.align,
+          align: item.align || props.align,
           onResize: ($size) => (item.width = $size),
         },
         {

@@ -108,15 +108,15 @@ export const VDataTableBody = defineComponent({
 
     function genRowCell(col, row) {
       const { format } = col
-
       const slotContent = slots[col.key] && slots[col.key]!(row)
 
       return h(
         VDataTableCell,
         {
           width: col.width,
-          align: props.align || col.align,
+          align: col.align || props.align,
           dark: props.dark,
+          class: { [col.rowCellClass]: !!col.rowCellClass },
         },
         {
           default: () =>

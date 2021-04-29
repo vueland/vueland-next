@@ -35,6 +35,7 @@
             <th colspan="3">Prop</th>
             <th>Type</th>
             <th>Default value</th>
+            <th>Required</th>
             <th colspan="4">Description</th>
         </tr>
     </thead>
@@ -43,41 +44,48 @@
             <td colspan="3">rows</td>
             <td>Array</td>
             <td>null</td>
+            <td>true</td>
             <td>array of objects which is represent table rows</td>
         </tr>
         <tr>
             <td colspan="3">cols</td>
             <td>Array</td>
             <td>null</td>
+            <td>true</td>
             <td>array of objects which is represent table columns</td>
         </tr>
         <tr>
             <td colspan="3">rows-on-table</td>
             <td>Array</td>
             <td>[10, 15, 20, 25]</td>
+            <td>false</td>
             <td>array of numbers for displaying the <br/> number of rows to display panel</td>
         </tr>
         <tr>
             <td colspan="3">color</td>
             <td>String</td>
             <td>white</td>
+            <td>false</td>
             <td>table background color</td>
         </tr>
         <tr>
             <td colspan="3">header-color</td>
             <td>String</td>
             <td>white</td>
+            <td>false</td>
             <td>table header background color</td>
-        </tr>
+        </tr> 
         <tr>
             <td colspan="3">align</td>
             <td>String</td>
             <td>left</td>
+            <td>false</td>
             <td>aligns the display of table content.<br/> You can choose: left, center, right</td>
         </tr>
         <tr>
             <td colspan="3">dark</td>
             <td>Boolean</td>
+            <td>false</td>
             <td>false</td>
             <td>if set true, table content will be<br/> displayed in white</td>
         </tr>
@@ -85,17 +93,20 @@
             <td colspan="3">state-out</td>
             <td>Boolean</td>
             <td>false</td>
+            <td>false</td>
             <td>if set true, the filter event appears in the table,<br/> which can be handled by custom methods,<br/> respectively, internal filtering in the<br/> table will be disabled</td>
         </tr>
         <tr>
             <td colspan="3">numbered</td>
             <td>Boolean</td>
             <td>false</td>
+            <td>false</td>
             <td>if set true, table rows will be numbered</td>
         </tr>
         <tr>
             <td colspan="3">checkbox</td>
             <td>Boolean</td>
+            <td>false</td>
             <td>false</td>
             <td>if set true, table rows will <br/> be supplemented with a checkbox</td>
         </tr>
@@ -132,21 +143,26 @@
 </table>
 
 ## Column object
-```js
-        const colObject = {
-          key: 'name',
-          title: 'Name',
-          resizeable: true,
-          sortable: true,
-          filterable: true,
-          format: row => row.some.children.value
+```ts
+        const column = {
+          key: string,
+          title: string,
+          align?: 'left'|'center'|'right',
+          resizeable?: boolean,
+          sortable?: boolean,
+          filterable?: boolean,
+          cellClass?: string,
+          filterClass?: string,
+          rowCellClass?: string,
+          show?: boolean,
+          format?: (arg: any) => string
         }
 ```
 <table>
     <thead>
         <tr>
             <th>Prop name</th>
-            <th>Value</th>
+            <th>Type</th>
             <th>Description</th>
         </tr>
     </thead>
@@ -175,6 +191,21 @@
             <td>filterable</td>
             <td>Boolean</td>
             <td>If set true, will be able to filter<br/> column by value</td>
+        </tr>       
+         <tr>
+            <td>cellClass</td>
+            <td>String</td>
+            <td>custom class name for header cell<br/> column by value</td>
+        </tr>         
+        <tr>
+            <td>filterClass</td>
+            <td>String</td>
+            <td>custom class name for header filter element<br/> column by value</td>
+        </tr>        
+        <tr>
+            <td>rowCellClass</td>
+            <td>String</td>
+            <td>custom class name for table body column cells<br/> column by value</td>
         </tr>
         <tr>
             <td>show</td>

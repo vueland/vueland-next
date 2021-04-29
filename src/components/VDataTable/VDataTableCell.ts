@@ -36,7 +36,6 @@ export const VDataTableCell = defineComponent({
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-data-table__cell': true,
-      [`text-align--${props.align}`]: !!props.align,
     }))
 
     function genResize() {
@@ -55,7 +54,10 @@ export const VDataTableCell = defineComponent({
       return h(
         'div',
         {
-          class: 'v-data-table__cell-content',
+          class: {
+            'v-data-table__cell-content': true,
+            [`text-align--${props.align}`]: !!props.align,
+          },
         },
         slots.default && slots.default()
       )

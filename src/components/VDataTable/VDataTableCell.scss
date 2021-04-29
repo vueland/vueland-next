@@ -1,7 +1,7 @@
 @import "../../styles/scss/modules/global";
 
 .v-data-table__cell {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   position: relative;
 
@@ -11,21 +11,20 @@
     text-overflow: ellipsis;
     width: 100%;
     padding: 5px 10px;
-
-    & > .v-icon {
-      padding-bottom: .25rem;
-    }
   }
 }
 
-.text-align--start {
+.text-align--left {
   justify-content: flex-start;
+  text-align: left;
 }
 
 .text-align--center {
   justify-content: center;
+  text-align: center;
 }
 
-.text-align--end {
+.text-align--right {
   justify-content: flex-end;
+  text-align: right;
 }

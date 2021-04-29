@@ -47,13 +47,15 @@ export const VDataTable = defineComponent({
     numbered: Boolean,
     checkbox: Boolean,
     stateOut: Boolean,
-    align: String,
+    align: {
+      type: String,
+      validator: (val) => ['left', 'center', 'right'].includes(val),
+    },
     color: {
       type: String,
       default: 'white',
     },
     headerColor: String,
-    filterColor: String
   } as any,
   emits: ['checked', 'filter', 'last-page'],
 
@@ -200,7 +202,6 @@ export const VDataTable = defineComponent({
       return h(VDataTableHeader, {
         cols: data.cols,
         color: props.headerColor || props.color,
-        filterColor: props.filterColor,
         checkbox: props.checkbox,
         dark: props.dark,
         align: props.align,

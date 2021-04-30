@@ -37,6 +37,7 @@ export const VDataTableHeader = defineComponent({
       default: 125,
     },
     align: String,
+    contentColor: String,
     ...colorProps(),
   } as any,
 
@@ -48,6 +49,10 @@ export const VDataTableHeader = defineComponent({
     const classes = computed<Record<string, boolean>>(() => ({
       'v-data-table__header': true,
     }))
+
+    const computedColor = computed<string>(() => {
+      return props.contentColor || (props.dark ? 'white' : '')
+    })
 
     const cols = computed<Column[]>(() => [...props.cols])
 
@@ -67,31 +72,39 @@ export const VDataTableHeader = defineComponent({
     }
 
     function genSortButton(item) {
-      return h(VIcon, {
+      const classes = {
+        'v-data-table-col__actions-sort': true,
+        'v-data-table-col__actions-sort--active': item.sorted,
+      }
+
+      const propsData = {
         clickable: true,
-        class: {
-          'v-data-table-col__actions-sort': true,
-          'v-data-table-col__actions-sort--active': item.sorted,
-        },
+        class: classes,
         size: 14,
         icon: FaIcons.$arrowUp,
-        color: props.dark ? 'white' : '',
+        color: computedColor.value,
         onClick: () => onSort(item),
-      })
+      }
+
+      return h(VIcon, propsData)
     }
 
     function genFilterButton(item) {
-      return h(VIcon, {
+      const classes = {
+        'v-data-table-col__actions-filter': true,
+        'v-data-table-col__actions-filter--active': item.filtered,
+      }
+
+      const propsData = {
         clickable: true,
-        class: {
-          'v-data-table-col__actions-filter': true,
-          'v-data-table-col__actions-filter--active': item.filtered,
-        },
+        class: classes,
         size: 14,
         icon: FaIcons.$filter,
-        color: props.dark ? 'white' : '',
+        color: computedColor.value,
         onClick: () => addFilter(item),
-      })
+      }
+
+      return h(VIcon, propsData)
     }
 
     function genHeaderActions(item) {
@@ -102,14 +115,16 @@ export const VDataTableHeader = defineComponent({
     }
 
     function genFilterInput(item) {
-      return h(VTextField, {
+      const propsData = {
         label: 'insert',
         dark: props.dark,
-        color: props.dark ? 'white' : 'primary',
+        color: computedColor.value,
         prependIcon: FaIcons.$search,
         clearable: true,
         onInput: ($value) => onInput($value, item),
-      })
+      }
+
+      return h(VTextField, propsData)
     }
 
     function genFilterHeader(item) {
@@ -117,14 +132,13 @@ export const VDataTableHeader = defineComponent({
     }
 
     function genFilterWrapper(item) {
-      const colorClass = props.dark ? 'grey darken-4' : 'white'
+      const colorClass = props.dark ? 'grey darken-3' : 'grey lighten-2'
       const filterClass = item.filterClass || colorClass
-
       const directive = item.addFilter
         ? {
-            handler: () => setTimeout(() => (item.addFilter = false)),
-            closeConditional: false,
-          }
+          handler: () => setTimeout(() => (item.addFilter = false)),
+          closeConditional: false,
+        }
         : undefined
 
       const propsData = {
@@ -137,11 +151,14 @@ export const VDataTableHeader = defineComponent({
       return (
         item.filterable &&
         withDirectives(
-          h('div', propsData, [genFilterHeader(item), genFilterInput(item)]),
+          h('div', propsData, [
+            genFilterHeader(item),
+            genFilterInput(item),
+          ]),
           [
             [clickOutside, directive],
             [vShow, item.addFilter],
-          ]
+          ],
         )
       )
     }
@@ -151,70 +168,63 @@ export const VDataTableHeader = defineComponent({
     }
 
     function genNumberCell() {
-      return h(
-        VDataTableCell,
-        {
-          align: 'center',
-          class: {
-            'v-data-table-col__number': true,
-            [props.cellClass]: !!props.cellClass,
-          },
-          dark: props.dark,
-          width: 50,
+      const propsData = {
+        align: 'center',
+        class: {
+          'v-data-table-col__number': true,
+          [props.cellClass]: !!props.cellClass,
         },
-        {
-          default: () => '№',
-        }
-      )
+        color: computedColor.value,
+        width: 50,
+      }
+
+      return h(VDataTableCell, propsData, { default: () => '№' })
     }
 
     function genCheckboxCell() {
-      return h(
-        VDataTableCell,
-        {
-          align: 'center',
-          class: {
-            'v-data-table-col__checkbox': true,
-            [props.cellClass]: !!props.cellClass,
-          },
-          dark: props.dark,
-          color: props.color,
-          width: 50,
+      const propsData = {
+        align: 'center',
+        class: {
+          'v-data-table-col__checkbox': true,
+          [props.cellClass]: !!props.cellClass,
         },
-        {
-          default: () =>
-            h(VCheckbox, {
-              color: props.dark ? 'white' : '',
-              onChecked: (e) => emit('check-all', e),
-            }),
-        }
-      )
+        dark: props.dark,
+        color: props.color,
+        width: 50,
+      }
+
+      const content = {
+        default: () => h(VCheckbox, {
+          color: computedColor.value,
+          onChecked: (e) => emit('check-all', e),
+        }),
+      }
+
+      return h(VDataTableCell, propsData, content)
     }
 
     function genHeaderCell(item) {
-      return h(
-        VDataTableCell,
-        {
-          dark: props.dark,
-          class: {
-            'v-data-table-col': true,
-            'v-data-table-col--sorted': item.sorted,
-            [item.cellClass]: !!item.cellClass,
-          },
-          color: props.color,
-          width: item.width,
-          resizeable: item.resizeable,
-          align: item.align || props.align,
-          onResize: ($size) => (item.width = $size),
+      const propsData = {
+        dark: props.dark,
+        class: {
+          'v-data-table-col': true,
+          'v-data-table-col--sorted': item.sorted,
+          [item.cellClass]: !!item.cellClass,
         },
-        {
-          default: () => [
-            genHeaderTitle(item),
-            genHeaderActions(item),
-            genFilterWrapper(item),
-          ],
-        }
-      )
+        color: computedColor.value,
+        width: item.width,
+        resizeable: item.resizeable,
+        align: item.align || props.align,
+        onResize: ($size) => (item.width = $size),
+      }
+
+      return h(VDataTableCell, propsData, {
+        default: () => [
+          genHeaderTitle(item),
+          genHeaderActions(item),
+          genFilterWrapper(item),
+        ],
+      })
     }
 
     function genHeaderCells() {
@@ -244,7 +254,7 @@ export const VDataTableHeader = defineComponent({
       return h(
         'div',
         props.color ? setBackground(props.color, propsData) : propsData,
-        genHeaderCells()
+        genHeaderCells(),
       )
     }
   },

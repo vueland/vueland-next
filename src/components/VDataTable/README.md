@@ -69,11 +69,23 @@
             <td>table background color</td>
         </tr>
         <tr>
-            <td colspan="3">header-color</td>
-            <td>String</td>
-            <td>white</td>
+            <td colspan="3">header-props</td>
+            <td>Object</td>
+            <td>-</td>
             <td>false</td>
-            <td>table header background color</td>
+            <td>table header props object</td>
+        </tr>         
+        <tr>
+            <td></td>
+            <td colspan="7">
+                <pre>
+                   {
+                      contentColor: string,
+                      color: string,
+                      dark: boolean
+                   }
+                </pre>
+            </td>
         </tr> 
         <tr>
             <td colspan="3">align</td>

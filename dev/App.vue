@@ -54,7 +54,7 @@
         {
           key: 'actions',
           title: 'Actions',
-          align: 'center'
+          align: 'center',
         },
         {
           key: 'name',
@@ -64,7 +64,7 @@
           sortable: true,
           filterable: true,
           cellClass: 'red darken-3',
-          filterClass: 'green',
+          filterClass: 'grey darken-3',
           rowCellClass: 'red lighten-1',
           format: row => row.id,
         },
@@ -155,7 +155,7 @@
       :cols="cols"
       :rows="data.users"
       :rows-on-table="[25, 40, 50, 75]"
-      header-color="blue"
+      :header-props="{contentColor: 'white', color: 'grey lighten-1', dark: false}"
       align="left"
       numbered
       checkbox
@@ -184,6 +184,9 @@
             size="16"
           />
         </v-button>
+      </template>
+      <template #email="{row}">
+        <span :class="row.email.includes('z') ? 'red--text' : ''">{{ row.email }}</span>
       </template>
     </v-data-table>
   </div>

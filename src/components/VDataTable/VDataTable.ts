@@ -55,7 +55,8 @@ export const VDataTable = defineComponent({
       type: String,
       default: 'white',
     },
-    headerColor: String,
+    headerProps: Object,
+    footerProps: Object,
   } as any,
   emits: ['checked', 'filter', 'last-page'],
 
@@ -82,13 +83,13 @@ export const VDataTable = defineComponent({
     watch(
       () => props.cols,
       (to) => (data.cols = to),
-      { immediate: true }
+      { immediate: true },
     )
 
     watch(
       () => props.rows,
       (to) => (data.rows = to),
-      { immediate: true }
+      { immediate: true },
     )
 
     function onCheckAll(value: boolean) {
@@ -187,17 +188,16 @@ export const VDataTable = defineComponent({
     }
 
     function genTableTools(): VNode {
-      return h(
-        'div',
-        { class: 'v-data-table__toolbar' },
-        {
+      const propsData = { class: 'v-data-table__toolbar' }
+
+      return h('div', propsData, {
           default: () => slots.toolbar && slots.toolbar(),
-        }
+        },
       )
     }
 
     function genTableHeader(): VNode {
-      return h(VDataTableHeader, {
+      const propsData = {
         cols: data.cols,
         color: props.headerColor || props.color,
         checkbox: props.checkbox,
@@ -207,45 +207,46 @@ export const VDataTable = defineComponent({
         onFilter,
         onSort,
         onCheckAll,
-      })
+        ...props.headerProps,
+      }
+      return h(VDataTableHeader, propsData)
     }
 
     function genTableBody(): VNode {
-      return h(
-        VDataTableBody,
-        {
-          cols: data.cols,
-          rows: data.rows,
-          page: data.page,
-          rowsPerPage: data.rowsPerPage,
-          checkbox: props.checkbox,
-          checkAllRows: data.isAllRowsChecked,
-          align: props.align,
-          dark: props.dark,
-          numbered: props.numbered,
-          onCheck,
-        },
+      const propsData = {
+        cols: data.cols,
+        rows: data.rows,
+        page: data.page,
+        rowsPerPage: data.rowsPerPage,
+        checkbox: props.checkbox,
+        checkAllRows: data.isAllRowsChecked,
+        align: props.align,
+        dark: props.dark,
+        numbered: props.numbered,
+        onCheck,
+      }
 
-        props.cols.reduce((acc, col) => {
-          const slotContent = (row) => {
-            const scoped: any = { row }
+      const content = props.cols.reduce((acc, col) => {
+        const slotContent = (row) => {
+          const scoped: any = { row }
 
-            if (col.format) {
-              scoped.format = col.format
-            }
-
-            return slots[col.key] && slots[col.key]!(scoped)
+          if (col.format) {
+            scoped.format = col.format
           }
 
-          if (slots[col.key]) acc[col.key] = slotContent
+          return slots[col.key] && slots[col.key]!(scoped)
+        }
 
-          return acc
-        }, {})
-      )
+        if (slots[col.key]) acc[col.key] = slotContent
+
+        return acc
+      }, {})
+
+      return h(VDataTableBody, propsData, content)
     }
 
     function genTableFooter(): VNode {
-      return h(VDataTableFooter, {
+      const propsData = {
         pages: pages.value,
         page: data.page,
         counts: props.rowsOnTable,
@@ -260,19 +261,17 @@ export const VDataTable = defineComponent({
         onSelect: onSelectRowsCount,
         onLastPage: (val) => emit('last-page', val),
         onResetPage: (val) => (data.page += val),
-      })
+      }
+
+      return h(VDataTableFooter, propsData)
     }
 
     function genTableInner(): VNode {
-      return h(
-        'div',
-        {
-          class: {
-            'v-data-table__inner': true,
-          },
-        },
-        [genTableHeader(), genTableBody()]
-      )
+      const propsData = {
+        class: 'v-data-table__inner',
+      }
+
+      return h('div', propsData, [genTableHeader(), genTableBody()])
     }
 
     return () => {

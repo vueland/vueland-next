@@ -1,27 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`VResize should mount the component and match snapshot 1`] = `
-<div class="v-resize">
+<div class="v-resize grey lighten-2">
 </div>
 `;
 
 exports[`VResize should set bottom prop and match snapshot 1`] = `
-<div class="v-resize v-resize--bottom">
+<div class="v-resize v-resize--bottom grey lighten-2">
 </div>
 `;
 
 exports[`VResize should set left prop and match snapshot 1`] = `
-<div class="v-resize v-resize--left">
+<div class="v-resize v-resize--left grey lighten-2">
 </div>
 `;
 
 exports[`VResize should set right prop and match snapshot 1`] = `
-<div class="v-resize v-resize--right">
+<div class="v-resize v-resize--right grey lighten-2">
 </div>
 `;
 
 exports[`VResize should set top prop and match snapshot 1`] = `
-<div class="v-resize v-resize--top">
+<div class="v-resize v-resize--top grey lighten-2">
 </div>
 `;
 
@@ -29,7 +29,7 @@ exports[`VResize should set top prop and match snapshot 2`] = `
 <div class="v-card"
      style="width: 350px;"
 >
-  <div class="v-resize v-resize--top">
+  <div class="v-resize v-resize--top undefined">
   </div>
 </div>
 `;

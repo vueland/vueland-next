@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../src/index.ts"],"names":[],"mappings":";;;;;;;AAAA;;AACA;;AAEA,IAAM,OAAO,GAAY,IAAI,gBAAJ,EAAzB;;eAGe,O","sourcesContent":["import \"./styles/scss/main.scss\";\nimport { VueLand } from \"./library\";\n\nconst library: VueLand = new VueLand();\n\nexport { library as VueLand };\nexport default library;\n"],"sourceRoot":"","file":"index.js"}

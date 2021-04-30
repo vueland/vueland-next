@@ -71,14 +71,33 @@
         <tr>
             <td colspan="3">header-props</td>
             <td>Object</td>
-            <td>-</td>
+            <td>undefined</td>
             <td>false</td>
             <td>table header props object</td>
         </tr>         
         <tr>
             <td></td>
             <td colspan="7">
-                <pre>
+                <pre class="language-typescript">
+                   <span>{</span>
+                      <span style="color: #3c0166">contentColor:</span><span style="color: #ef5e11">string</span>,
+                      <span style="color: #3c0166">color:</span><span style="color: #ef5e11">string</span>,
+                      <span style="color: #3c0166">dark:</span><span style="color: #ef5e11">boolean</span>
+                   }
+                </pre>
+            </td>
+        </tr>         
+        <tr>
+            <td colspan="3">footer-props</td>
+            <td>Object</td>
+            <td>-</td>
+            <td>false</td>
+            <td>table footer props object</td>
+        </tr>         
+        <tr>
+            <td></td>
+            <td colspan="7">
+                <pre class="language-typescript">
                    {
                       contentColor: string,
                       color: string,

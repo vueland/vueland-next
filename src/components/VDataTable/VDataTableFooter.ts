@@ -10,7 +10,7 @@ import { VButton } from '../VButton'
 import { VSelect } from '../VSelect'
 
 // Services
-import { FaIcons } from '@/services/icons'
+import { FaIcons } from '../../services/icons'
 
 // Effects
 import { colorProps, useColors } from '../../effects/use-colors'

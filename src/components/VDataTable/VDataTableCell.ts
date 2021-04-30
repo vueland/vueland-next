@@ -26,6 +26,7 @@ export const VDataTableCell = defineComponent({
       type: [String, Number],
       default: 75,
     },
+    contentColor: String,
     ...colorProps(),
   } as any,
 
@@ -64,7 +65,9 @@ export const VDataTableCell = defineComponent({
     }
 
     return () => {
-      const propsData = setTextColor(props.dark ? 'white' : '', {
+      const color = props.color || (props.dark ? 'white' : '')
+
+      const propsData = setTextColor(color, {
         class: classes.value,
         style: {
           width: convertToUnit(+props.width),

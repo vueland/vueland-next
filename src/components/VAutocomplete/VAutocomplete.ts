@@ -29,10 +29,10 @@ import { VAutocompleteList } from './VAutocompleteList'
 import { clickOutside } from '../../directives'
 
 type SelectState = {
-  focused: boolean;
-  isMenuActive: boolean;
-  search: string;
-};
+  focused: boolean
+  isMenuActive: boolean
+  search: string
+}
 
 export const VAutocomplete = defineComponent({
   name: 'v-autocomplete',
@@ -82,9 +82,9 @@ export const VAutocomplete = defineComponent({
     const directive = computed(() => {
       return state.isMenuActive && !state.focused
         ? {
-          handler: clickOutsideHandler,
-          closeConditional: true,
-        }
+            handler: clickOutsideHandler,
+            closeConditional: true,
+          }
         : undefined
     })
 
@@ -95,21 +95,19 @@ export const VAutocomplete = defineComponent({
       ...validateClasses.value,
     }))
 
-    const computedValue = computed<any>(() => {
+    const propValue = computed<any>(() => {
       return props.modelValue || props.value
     })
 
-    const inputValue = computed(() => {
-      return props.valueKey
-        ? computedValue.value[props.valueKey]
-        : computedValue.value
+    const inputValue = computed<string>(() => {
+      return props.valueKey ? propValue.value[props.valueKey] : propValue.value
     })
 
     const isListItemsExists = computed<boolean>(() => {
       return !!props.items && !!props.items.length
     })
 
-    state.search = computedValue.value ? inputValue.value : ''
+    state.search = propValue.value ? inputValue.value : ''
 
     watch(
       () => isListItemsExists.value,
@@ -117,7 +115,7 @@ export const VAutocomplete = defineComponent({
         if (to && !state.isMenuActive && state.focused) {
           state.isMenuActive = true
         }
-      },
+      }
     )
 
     if (fields?.value && props.rules?.length) {
@@ -142,10 +140,10 @@ export const VAutocomplete = defineComponent({
     }
 
     function onBlur() {
-      if (!computedValue.value) {
+      if (!propValue.value) {
         state.search = ''
       }
-      if (!state.search && computedValue.value) {
+      if (!state.search && propValue.value) {
         requestAnimationFrame(() => {
           state.search = inputValue.value
         })
@@ -239,7 +237,7 @@ export const VAutocomplete = defineComponent({
         isDirty: !!errorState.isDirty,
         message: errorState.innerErrorMessage,
         onClear,
-      } as any
+      }
 
       return h(VInput, propsData, {
         select: () => genAutocomplete(),

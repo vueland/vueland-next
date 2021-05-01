@@ -45,16 +45,16 @@ export enum MaterialIcons {
 }
 
 export enum MaterialSizes {
-  's' = 14,
-  'xs' = 18,
-  'md' = 22,
+  'xs' = 14,
+  's' = 18,
+  'md' = 20,
   'l' = 28,
   'xl' = 36
 }
 
 export enum FaSizes {
-  's' = 12,
-  'xs' = 14,
+  'xs' = 12,
+  's' = 14,
   'md' = 18,
   'l' = 24,
   'xl' = 32

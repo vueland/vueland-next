@@ -1,1 +1,1 @@
-export * from "./VModal";
+export * from './VModal'

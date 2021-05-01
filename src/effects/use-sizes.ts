@@ -1,5 +1,5 @@
-import { computed } from "vue";
-import { Props } from "../types";
+import { computed } from 'vue'
+import { Props } from '../types'
 
 export function sizeProps(): Props {
   return {
@@ -7,7 +7,7 @@ export function sizeProps(): Props {
     small: Boolean,
     xLarge: Boolean,
     xSmall: Boolean,
-  };
+  }
 }
 
 export function useSizes(props) {
@@ -18,20 +18,20 @@ export function useSizes(props) {
       !props.xLarge &&
       !props.xSmall &&
       !props.size
-    );
-  });
+    )
+  })
 
   const sizeClasses = computed<Record<string, boolean>>(() => {
     return {
-      "v-size--x-small": props.xSmall,
-      "v-size--small": props.small,
-      "v-size--default": medium.value,
-      "v-size--large": props.large,
-      "v-size--x-large": props.xLarge,
-    };
-  });
+      'v-size--x-small': props.xSmall,
+      'v-size--small': props.small,
+      'v-size--default': medium.value,
+      'v-size--large': props.large,
+      'v-size--x-large': props.xLarge,
+    }
+  })
 
   return {
     sizeClasses,
-  };
+  }
 }

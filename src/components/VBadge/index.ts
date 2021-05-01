@@ -1,1 +1,1 @@
-export * from "./VBadge";
+export * from './VBadge'

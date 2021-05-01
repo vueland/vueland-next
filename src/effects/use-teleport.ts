@@ -1,11 +1,11 @@
-import { createBlock, Teleport, VNode, h } from "vue";
+import { createBlock, Teleport, VNode, h } from 'vue'
 
-import { Props } from "../types";
+import { Props } from '../types'
 
 export function teleportProps() {
   return {
     portTo: String,
-  };
+  }
 }
 
 export function useTeleport(props: Props, component: VNode): () => VNode {
@@ -14,6 +14,6 @@ export function useTeleport(props: Props, component: VNode): () => VNode {
     {
       to: props.portTo,
     },
-    [h(component)]
-  ) as any;
+    [h(component)],
+  ) as any
 }

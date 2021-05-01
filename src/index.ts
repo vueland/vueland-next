@@ -1,7 +1,7 @@
-import "./styles/scss/main.scss";
-import { VueLand } from "./library";
+import './styles/scss/main.scss'
+import { library } from './library'
 
-const library: VueLand = new VueLand();
+export * from './components/index'
+export { library as vueland }
 
-export { library as VueLand };
-export default library;
+export default library

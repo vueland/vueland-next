@@ -1,8 +1,12 @@
 <script lang="ts">
   import { reactive, ref, computed, watch } from 'vue'
   import { FaIcons } from '../src/services/icons'
+  import { VButton as AppButton } from '../src'
 
   export default {
+    components: {
+      AppButton
+    },
     setup() {
       const data = reactive({
         always: true,
@@ -172,6 +176,12 @@
         <span style="margin-left: 15px">{{ format(row) }}</span>
       </template>
       <template #actions>
+        <app-button
+          width="42"
+          elevation="15"
+          color="red"
+          @click="addItem"
+        />
         <v-button
           width="42"
           elevation="15"

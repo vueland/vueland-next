@@ -14,7 +14,7 @@ import { VNode } from 'vue'
 // Effects
 import { useTransition } from '../../effects/use-transition'
 import { useColors } from '../../effects/use-colors'
-import { FaIcons } from '@/services/icons'
+import { useIcons } from '../../effects/use-icons'
 
 export const VInput = defineComponent({
   name: 'v-input',
@@ -46,6 +46,7 @@ export const VInput = defineComponent({
 
   setup(props, { slots, emit }): () => VNode {
     const { setTextColor } = useColors()
+    const { icons, iconSize } = useIcons('md')
     const isValid = computed<boolean>(() => {
       return props.isDirty && props.hasState && !props.hasError
     })
@@ -83,7 +84,7 @@ export const VInput = defineComponent({
         color: props.color,
         dark: props.dark,
         icon: iconName,
-        size: 16,
+        size: iconSize,
         disabled: props.disabled,
         clickable,
       })
@@ -93,7 +94,7 @@ export const VInput = defineComponent({
       return h(
         'div',
         { class: 'v-input__prepend-icon' },
-        genIcon(props.prependIcon)
+        genIcon(props.prependIcon),
       )
     }
 
@@ -103,7 +104,7 @@ export const VInput = defineComponent({
         {
           class: 'v-input__append-icon',
         },
-        genIcon(props.appendIcon)
+        genIcon(props.appendIcon),
       )
     }
 
@@ -114,7 +115,7 @@ export const VInput = defineComponent({
           class: 'v-input__clear',
           onClick: () => !props.disabled && emit('clear'),
         },
-        genIcon(FaIcons.$close, true)
+        genIcon(icons.$close, true),
       )
     }
 
@@ -136,7 +137,7 @@ export const VInput = defineComponent({
           genLabel(),
           slots.select && slots.select(),
           slots.textField && slots.textField(),
-        ]
+        ],
       )
     }
 
@@ -153,7 +154,7 @@ export const VInput = defineComponent({
     function genStatus(): VNode {
       const transitionedMessage = useTransition(
         (props.message && genStatusMessage()) as VNode,
-        'fade'
+        'fade',
       )
 
       const propsData = {

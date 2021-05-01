@@ -18,7 +18,6 @@
         users: [],
       })
 
-
       const fetchItems = () => {
         fetch('https://jsonplaceholder.typicode.com/comments')
           .then(response => response.json())
@@ -77,6 +76,7 @@
           cellClass: 'green accent-3',
           filterClass: 'red',
           rowCellClass: 'green lighten-1',
+          format: row => row.email,
         },
         {
           key: 'body',
@@ -157,20 +157,13 @@
       :rows-on-table="[25, 40, 50, 75]"
       :header-props="{contentColor: 'white', color: 'grey lighten-1', dark: false}"
       align="left"
+      color="rgba(0,0,0,.4)"
       numbered
       checkbox
       @filter="testFunc"
       @checked="testFunc"
       @last-page="testFunc"
     >
-      <template #address="{ row, format }">
-        <v-icon
-          icon="fas fa-envelope"
-          size="12"
-          :color="format(row).includes('h') ? 'red':'blue'"
-        />
-        <span style="margin-left: 15px">{{ format(row) }}</span>
-      </template>
       <template #actions>
         <v-button
           width="42"
@@ -179,13 +172,19 @@
           @click="addItem"
         >
           <v-icon
-            :icon="FaIcons.$add"
+            icon="add"
             color="white"
             size="16"
           />
         </v-button>
       </template>
-      <template #email="{row}">
+      <template #email="{row, format}">
+        <v-icon
+          icon="account_circle"
+          size="18"
+          material
+          :color="format(row).includes('h') ? 'red':'blue'"
+        />
         <span :class="row.email.includes('z') ? 'red--text' : ''">{{ row.email }}</span>
       </template>
     </v-data-table>
@@ -207,7 +206,7 @@
       :rules="[val => !!val || 'Required']"
       use-mls
       clearable
-      prepend-icon="fas fa-calendar"
+      prepend-icon="event"
       monday-first
       @selected="testFunc"
     />
@@ -215,7 +214,7 @@
       v-model="data.password"
       label="teal"
       autocomplete="new-password"
-      prepend-icon="fas fa-map-marked-alt"
+      prepend-icon="map"
       clearable
       :rules="[v => !!v || 'required', v => v.length > 5 || 'more than 5']"
     />
@@ -226,7 +225,7 @@
       value-key="name"
       readonly
       clearable
-      prepend-icon="fas fa-search"
+      prepend-icon="search"
       :rules="[v => !!v || 'required']"
     />
     <v-autocomplete
@@ -235,7 +234,7 @@
       :items="data.users"
       value-key="name"
       clearable
-      prepend-icon="fas fa-search"
+      prepend-icon="search"
       :rules="[v => !!v || 'required']"
       @select="testFunc"
     />
@@ -419,5 +418,9 @@
   .v-data-table > .v-data-table__inner > .v-data-table__header {
     background-color: #0D47A1 !important;
     border-color: red !important;
+  }
+
+  body {
+    font-family: Bitstream Charter, sans-serif !important;
   }
 </style>

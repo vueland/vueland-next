@@ -52,15 +52,13 @@ export const VDataTableCell = defineComponent({
     }
 
     function genCellContent() {
-      return h(
-        'div',
-        {
-          class: {
-            'v-data-table__cell-content': true,
-            [`text-align--${props.align}`]: !!props.align,
-          },
+      const propsData = {
+        class: {
+          'v-data-table__cell-content': true,
+          [`text-align--${ props.align }`]: !!props.align,
         },
-        slots.default && slots.default()
+      }
+      return h('div', propsData, slots.default && slots.default(),
       )
     }
 

@@ -2,7 +2,7 @@
 import './VIcon.scss'
 
 // Vue API
-import { defineComponent, h, computed } from 'vue'
+import { defineComponent, h, inject, computed } from 'vue'
 
 // Effects
 import { useColors, colorProps } from '../../effects/use-colors'
@@ -25,9 +25,7 @@ export const VIcon = defineComponent({
     active: Boolean,
     clickable: Boolean,
     size: [String, Number],
-    dense: Boolean,
     icon: String,
-    iconType: String,
     tag: {
       type: String,
       default: 'i',
@@ -41,6 +39,7 @@ export const VIcon = defineComponent({
   setup(props, { slots, emit }): () => VNode {
     const { setTextColor } = useColors()
     const iconTag = props.clickable ? 'button' : props.tag
+    const options: any = inject('$options')
 
     const icon = computed<string>(() => {
       return props.icon || (slots.default && slots.default()[0].children)
@@ -50,10 +49,9 @@ export const VIcon = defineComponent({
       'v-icon': true,
       'v-icon--disabled': props.disabled,
       'v-icon--link': props.clickable,
-      'v-icon--dense': props.dense,
       'v-icon--clickable': props.clickable,
-      [props.iconType]: !!props.iconType,
-      [icon.value]: !!icon.value,
+      [options?.$icons]: !!options?.$icons,
+      [icon.value]: !options?.$icons && !!icon.value,
     }))
 
     const isMedium = computed<boolean>(() => {
@@ -85,16 +83,18 @@ export const VIcon = defineComponent({
       }
     }
 
-    function genDataProps(): Record<string, any> {
-      return {
+    return () => {
+      const propsData = {
         class: classes.value,
         style: {
           fontSize: getSizes(),
         },
         onClick,
       }
-    }
 
-    return () => h(iconTag, setTextColor(props.color, genDataProps()))
+      return h(iconTag, setTextColor(props.color, propsData),
+        options?.$icons ? icon.value : ''
+      )
+    }
   },
 })

@@ -32,7 +32,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var VTooltip = (0, _vue.defineComponent)({
-  name: "v-tooltip",
+  name: 'v-tooltip',
   props: _objectSpread(_objectSpread({
     openOnHover: {
       type: Boolean,
@@ -40,7 +40,7 @@ var VTooltip = (0, _vue.defineComponent)({
     },
     color: {
       type: String,
-      "default": "grey lighten-1"
+      "default": 'grey lighten-1'
     },
     zIndex: [Number, String],
     maxWidth: [Number, String],
@@ -69,17 +69,12 @@ var VTooltip = (0, _vue.defineComponent)({
 
     var listeners = genActivatorListeners(props, isActive);
     var classes = (0, _vue.computed)(function () {
-      return {
-        "v-tooltip": true,
-        "v-tooltip--top": props.top,
-        "v-tooltip--right": props.right,
-        "v-tooltip--left": props.left,
-        "v-tooltip--bottom": props.bottom
-      };
-    });
-    var contentClasses = (0, _vue.computed)(function () {
       return _objectSpread({
-        "v-tooltip__content": true
+        'v-tooltip': true,
+        'v-tooltip--top': props.top,
+        'v-tooltip--right': props.right,
+        'v-tooltip--left': props.left,
+        'v-tooltip--bottom': props.bottom
       }, elevationClasses.value);
     });
     var computeTopPosition = (0, _vue.computed)(function () {
@@ -90,10 +85,10 @@ var VTooltip = (0, _vue.defineComponent)({
     });
     var styles = (0, _vue.computed)(function () {
       return {
-        top: tooltip.top ? (0, _helpers.convertToUnit)(tooltip.top) : "",
-        left: tooltip.top ? (0, _helpers.convertToUnit)(tooltip.left) : "",
-        maxWidth: !!props.maxWidth ? "".concat(props.maxWidth, "px") : "",
-        minWidth: !!props.minWidth ? "".concat(props.minWidth, "px") : "",
+        top: tooltip.top ? (0, _helpers.convertToUnit)(tooltip.top) : '',
+        left: tooltip.top ? (0, _helpers.convertToUnit)(tooltip.left) : '',
+        maxWidth: !!props.maxWidth ? "".concat(props.maxWidth, "px") : '',
+        minWidth: !!props.minWidth ? "".concat(props.minWidth, "px") : '',
         zIndex: props.zIndex
       };
     });
@@ -109,11 +104,11 @@ var VTooltip = (0, _vue.defineComponent)({
 
     function genContent() {
       var propsData = {
-        "class": contentClasses.value,
+        "class": classes.value,
         style: styles.value,
         ref: tooltipRef
       };
-      return (0, _vue.withDirectives)((0, _vue.h)("span", setBackground(props.color, propsData), slots["default"] && slots["default"]()), [[_vue.vShow, isActive.value]]);
+      return (0, _vue.withDirectives)((0, _vue.h)('span', setBackground(props.color, propsData), slots["default"] && slots["default"]()), [[_vue.vShow, isActive.value]]);
     }
 
     function setTooltipPosition() {
@@ -150,9 +145,7 @@ var VTooltip = (0, _vue.defineComponent)({
     });
     return function () {
       var content = (0, _useTransition.useTransition)(genContent(), isActive.value ? _transitions.Transitions.SCALE_IN : _transitions.Transitions.FADE);
-      return [(0, _vue.h)("div", {
-        "class": classes.value
-      }), content, genActivator()];
+      return [content, genActivator()];
     };
   }
 });

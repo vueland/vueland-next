@@ -31,8 +31,8 @@ var _VListGroup = require("./VListGroup");
 
 var _VListItem = require("./VListItem");
 
-var VListItemTitle = (0, _helpers.createSimpleFunctional)("v-list-item__title", "span");
+var VListItemTitle = (0, _helpers.createSimpleFunctional)('v-list-item__title', 'span');
 exports.VListItemTitle = VListItemTitle;
-var VListItemIcon = (0, _helpers.createSimpleFunctional)("v-list-item__icon", "span");
+var VListItemIcon = (0, _helpers.createSimpleFunctional)('v-list-item__icon', 'span');
 exports.VListItemIcon = VListItemIcon;
 //# sourceMappingURL=index.js.map

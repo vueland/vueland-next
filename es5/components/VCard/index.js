@@ -15,12 +15,12 @@ var _helpers = require("../../helpers");
 
 var _VCard = require("./VCard");
 
-var VCardTitle = (0, _helpers.createSimpleFunctional)("v-card__title");
+var VCardTitle = (0, _helpers.createSimpleFunctional)('v-card__title');
 exports.VCardTitle = VCardTitle;
-var VCardSubtitle = (0, _helpers.createSimpleFunctional)("v-card__subtitle");
+var VCardSubtitle = (0, _helpers.createSimpleFunctional)('v-card__subtitle');
 exports.VCardSubtitle = VCardSubtitle;
-var VCardContent = (0, _helpers.createSimpleFunctional)("v-card__content");
+var VCardContent = (0, _helpers.createSimpleFunctional)('v-card__content');
 exports.VCardContent = VCardContent;
-var VCardActions = (0, _helpers.createSimpleFunctional)("v-card__actions");
+var VCardActions = (0, _helpers.createSimpleFunctional)('v-card__actions');
 exports.VCardActions = VCardActions;
 //# sourceMappingURL=index.js.map

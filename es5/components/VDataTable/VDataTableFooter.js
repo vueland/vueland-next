@@ -15,9 +15,9 @@ var _VButton = require("../VButton");
 
 var _VSelect = require("../VSelect");
 
-var _icons = require("../../services/icons");
-
 var _useColors2 = require("../../effects/use-colors");
+
+var _useIcons2 = require("../../effects/use-icons");
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -42,6 +42,10 @@ var VDataTableFooter = (0, _vue.defineComponent)({
 
     var _useColors = (0, _useColors2.useColors)(),
         setTextColor = _useColors.setTextColor;
+
+    var _useIcons = (0, _useIcons2.useIcons)('xs'),
+        icons = _useIcons.icons,
+        iconSize = _useIcons.iconSize;
 
     var lastOnPage = (0, _vue.computed)(function () {
       var page = props.page,
@@ -97,9 +101,9 @@ var VDataTableFooter = (0, _vue.defineComponent)({
       }, {
         "default": function _default() {
           return (0, _vue.h)(_VIcon.VIcon, {
-            icon: isNext ? _icons.FaIcons.$arrowRight : _icons.FaIcons.$arrowLeft,
+            icon: isNext ? icons.$arrowRight : icons.$arrowLeft,
             color: props.dark ? 'white' : '',
-            size: 18
+            size: iconSize
           });
         }
       });

@@ -1,1 +1,1 @@
-{"version":3,"sources":["../../../../src/components/VDatePicker/index.ts"],"names":[],"mappings":"AAAA,cAAc,eAAd","sourcesContent":["export * from \"./VDatePicker\";\n"],"sourceRoot":"","file":"index.js"}
+{"version":3,"sources":["../../../../src/components/VDatePicker/index.ts"],"names":[],"mappings":"AAAA,cAAc,eAAd","sourcesContent":["export * from './VDatePicker'\n"],"sourceRoot":"","file":"index.js"}

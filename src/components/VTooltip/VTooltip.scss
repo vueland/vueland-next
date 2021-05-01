@@ -1,7 +1,17 @@
 @import './_variables';
 
 .v-tooltip {
-  display: none;
+  position: absolute;
+  z-index: 100;
+  padding: $tooltip-padding;
+  border-radius: 5px;
+  background: $tooltip-background-color;
+  color: #ffffff;
+  pointer-events: none;
+  max-height: 32px;
+  text-align: center;
+  font-size: $tooltip-font-size;
+  line-height: round($tooltip-font-size * 1.6);
 
   &__activator {
     display: block;
@@ -9,22 +19,8 @@
     border: none;
   }
 
-  &__content {
-    position: absolute;
-    z-index: 100;
-    padding: $tooltip-padding;
-    border-radius: 5px;
-    background: $tooltip-background-color;
-    color: #ffffff;
-    pointer-events: none;
-    max-height: 32px;
-    text-align: center;
-    font-size: $tooltip-font-size;
-    line-height: round($tooltip-font-size * 1.6);
-
-    & > * {
-      display: block;
-      white-space: nowrap;
-    }
+  & > * {
+    display: block;
+    white-space: nowrap;
   }
 }

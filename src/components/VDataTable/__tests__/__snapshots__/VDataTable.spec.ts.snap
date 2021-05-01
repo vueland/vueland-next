@@ -66,7 +66,7 @@ exports[`VDataTable should mound component and match snapshot 1`] = `
                 style="min-width: 42px;"
         >
           <i class="v-icon fas fa-chevron-left"
-             style="font-size: 18px;"
+             style="font-size: 12px;"
           >
           </i>
         </button>
@@ -79,7 +79,7 @@ exports[`VDataTable should mound component and match snapshot 1`] = `
                 style="min-width: 42px;"
         >
           <i class="v-icon fas fa-chevron-right"
-             style="font-size: 18px;"
+             style="font-size: 12px;"
           >
           </i>
         </button>
@@ -188,7 +188,7 @@ exports[`VDataTable should set cols and match snapshot 1`] = `
                 style="min-width: 42px;"
         >
           <i class="v-icon fas fa-chevron-left"
-             style="font-size: 18px;"
+             style="font-size: 12px;"
           >
           </i>
         </button>
@@ -201,7 +201,7 @@ exports[`VDataTable should set cols and match snapshot 1`] = `
                 style="min-width: 42px;"
         >
           <i class="v-icon fas fa-chevron-right"
-             style="font-size: 18px;"
+             style="font-size: 12px;"
           >
           </i>
         </button>
@@ -238,14 +238,14 @@ exports[`VDataTable should test column filter and match snapshot 1`] = `
               <div class="v-input__field-slot primary--text">
                 <div class="v-input__prepend-icon">
                   <i class="v-icon fas fa-search primary--text"
-                     style="font-size: 16px;"
+                     style="font-size: 18px;"
                      dark="false"
                   >
                   </i>
                 </div>
                 <div class="v-input__clear">
                   <button class="v-icon v-icon--link v-icon--clickable fas fa-times primary--text"
-                          style="font-size: 16px;"
+                          style="font-size: 18px;"
                           dark="false"
                   >
                   </button>
@@ -253,7 +253,7 @@ exports[`VDataTable should test column filter and match snapshot 1`] = `
                 <label class="v-label v-label--on-field primary--text"
                        style="left: 0px; position: absolute;"
                 >
-                  insert
+                  input value
                 </label>
                 <div class="v-text-field v-validatable">
                   <input class="v-text-field__input"
@@ -399,7 +399,7 @@ exports[`VDataTable should test column filter and match snapshot 1`] = `
                 style="min-width: 42px;"
         >
           <i class="v-icon fas fa-chevron-left"
-             style="font-size: 18px;"
+             style="font-size: 12px;"
           >
           </i>
         </button>
@@ -412,7 +412,7 @@ exports[`VDataTable should test column filter and match snapshot 1`] = `
                 style="min-width: 42px;"
         >
           <i class="v-icon fas fa-chevron-right"
-             style="font-size: 18px;"
+             style="font-size: 12px;"
           >
           </i>
         </button>
@@ -571,7 +571,7 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
                 style="min-width: 42px;"
         >
           <i class="v-icon fas fa-chevron-left"
-             style="font-size: 18px;"
+             style="font-size: 12px;"
           >
           </i>
         </button>
@@ -584,7 +584,7 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
                 style="min-width: 42px;"
         >
           <i class="v-icon fas fa-chevron-right"
-             style="font-size: 18px;"
+             style="font-size: 12px;"
           >
           </i>
         </button>

@@ -11,7 +11,7 @@ var _vue = require("vue");
 
 var _useColors2 = require("../../effects/use-colors");
 
-var _icons = require("../../services/icons");
+var _useIcons2 = require("../../effects/use-icons");
 
 var _VIcon = require("../VIcon");
 
@@ -30,15 +30,19 @@ var VDatepickerHeader = (0, _vue.defineComponent)({
     var _useColors = (0, _useColors2.useColors)(),
         setTextColor = _useColors.setTextColor;
 
+    var _useIcons = (0, _useIcons2.useIcons)('md'),
+        icons = _useIcons.icons,
+        iconSize = _useIcons.iconSize;
+
     var genHeaderButton = function genHeaderButton(isRight) {
-      var icon = isRight ? _icons.FaIcons.$arrowRight : _icons.FaIcons.$arrowLeft;
+      var icon = isRight ? icons.$arrowRight : icons.$arrowLeft;
       var propsData = {
         "class": 'v-date-picker__header-button'
       };
       var iconPropsData = {
         icon: icon,
         clickable: true,
-        size: 18,
+        size: iconSize,
         onClick: function onClick() {
           return isRight ? props.onNext() : props.onPrev();
         }

@@ -9,13 +9,13 @@ require("../../../src/components/VCheckbox/VCheckbox.scss");
 
 var _vue = require("vue");
 
-var _useValidate2 = require("@/effects/use-validate");
+var _useValidate2 = require("../../effects/use-validate");
+
+var _useIcons2 = require("../../effects/use-icons");
 
 var _VIcon = require("../VIcon");
 
 var _VLabel = require("../VLabel");
-
-var _icons = require("../../services/icons");
 
 var _helpers = require("../../helpers");
 
@@ -23,12 +23,10 @@ var VCheckbox = (0, _vue.defineComponent)({
   name: 'v-checkbox',
   props: {
     onIcon: {
-      type: String,
-      "default": _icons.FaIcons.$checkOn
+      type: String
     },
     offIcon: {
-      type: String,
-      "default": _icons.FaIcons.$checkOff
+      type: String
     },
     dark: Boolean,
     label: String,
@@ -52,6 +50,10 @@ var VCheckbox = (0, _vue.defineComponent)({
     var _useValidate = (0, _useValidate2.useValidate)(props),
         validate = _useValidate.validate,
         validationState = _useValidate.validationState;
+
+    var _useIcons = (0, _useIcons2.useIcons)('md'),
+        icons = _useIcons.icons,
+        iconSize = _useIcons.iconSize;
 
     var isArray = (0, _vue.computed)(function () {
       return Array.isArray(props.modelValue);
@@ -106,10 +108,12 @@ var VCheckbox = (0, _vue.defineComponent)({
     }
 
     function genIcon() {
-      var icon = isChecked.value ? props.onIcon : props.offIcon;
+      var onIcon = props.onIcon || icons.$checkOn;
+      var offIcon = props.offIcon || icons.$checkOff;
+      var icon = isChecked.value ? onIcon : offIcon;
       var propsData = {
         icon: icon,
-        size: 20,
+        size: iconSize,
         color: validationState.value,
         disabled: props.disabled
       };
@@ -118,9 +122,7 @@ var VCheckbox = (0, _vue.defineComponent)({
 
     function genCheckbox() {
       var propsData = {
-        "class": {
-          'v-checkbox__square': true
-        }
+        "class": 'v-checkbox__square'
       };
       return (0, _vue.h)('div', propsData, genIcon());
     }

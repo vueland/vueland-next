@@ -16,7 +16,7 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _iterableToArrayLimit(arr, i) { var _i = arr && (typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]); if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (_i = _i.call(arr), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
@@ -38,8 +38,8 @@ var useColors = function useColors() {
       data["class"][color] = true;
     } else {
       data.style = _objectSpread(_objectSpread({}, data.style), {}, {
-        "background-color": color,
-        "border-color": color
+        'background-color': color,
+        'border-color': color
       });
     }
 
@@ -52,15 +52,15 @@ var useColors = function useColors() {
     if ((0, _colorParser.isCssColor)(color)) {
       data.style = _objectSpread(_objectSpread({}, data.style), {}, {
         color: "".concat(color),
-        "caret-color": "".concat(color)
+        'caret-color': "".concat(color)
       });
     } else if (color) {
-      var _color$trim$split = color.trim().split(" ", 2),
+      var _color$trim$split = color.trim().split(' ', 2),
           _color$trim$split2 = _slicedToArray(_color$trim$split, 2),
           colorName = _color$trim$split2[0],
           colorModifier = _color$trim$split2[1];
 
-      if (typeof data["class"] === "string") {
+      if (typeof data["class"] === 'string') {
         data["class"] = _defineProperty({}, data["class"], true);
       } else {
         data["class"] = _objectSpread({}, data["class"]);

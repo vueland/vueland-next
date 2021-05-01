@@ -30,9 +30,7 @@ var VIcon = (0, _vue.defineComponent)({
     active: Boolean,
     clickable: Boolean,
     size: [String, Number],
-    dense: Boolean,
     icon: String,
-    iconType: String,
     tag: {
       type: String,
       "default": 'i'
@@ -47,6 +45,7 @@ var VIcon = (0, _vue.defineComponent)({
         setTextColor = _useColors.setTextColor;
 
     var iconTag = props.clickable ? 'button' : props.tag;
+    var options = (0, _vue.inject)('$options');
     var icon = (0, _vue.computed)(function () {
       return props.icon || slots["default"] && slots["default"]()[0].children;
     });
@@ -57,9 +56,8 @@ var VIcon = (0, _vue.defineComponent)({
         'v-icon': true,
         'v-icon--disabled': props.disabled,
         'v-icon--link': props.clickable,
-        'v-icon--dense': props.dense,
         'v-icon--clickable': props.clickable
-      }, _defineProperty(_ref2, props.iconType, !!props.iconType), _defineProperty(_ref2, icon.value, !!icon.value), _ref2;
+      }, _defineProperty(_ref2, options === null || options === void 0 ? void 0 : options.icons, !!(options !== null && options !== void 0 && options.icons)), _defineProperty(_ref2, icon.value, !(options !== null && options !== void 0 && options.icons) && !!icon.value), _ref2;
     });
     var isMedium = (0, _vue.computed)(function () {
       return !props.large && !props.small && !props.xLarge && !props.xSmall && !props.size;
@@ -85,18 +83,15 @@ var VIcon = (0, _vue.defineComponent)({
       }
     }
 
-    function genDataProps() {
-      return {
+    return function () {
+      var propsData = {
         "class": classes.value,
         style: {
           fontSize: getSizes()
         },
         onClick: onClick
       };
-    }
-
-    return function () {
-      return (0, _vue.h)(iconTag, setTextColor(props.color, genDataProps()));
+      return (0, _vue.h)(iconTag, setTextColor(props.color, propsData), options !== null && options !== void 0 && options.icons ? icon.value : '');
     };
   }
 });

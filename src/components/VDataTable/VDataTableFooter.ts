@@ -9,11 +9,9 @@ import { VIcon } from '../VIcon'
 import { VButton } from '../VButton'
 import { VSelect } from '../VSelect'
 
-// Services
-import { FaIcons } from '../../services/icons'
-
 // Effects
 import { colorProps, useColors } from '../../effects/use-colors'
+import { useIcons } from '../../effects/use-icons'
 
 export const VDataTableFooter = defineComponent({
   name: 'v-data-table-footer',
@@ -38,6 +36,7 @@ export const VDataTableFooter = defineComponent({
 
   setup(props, { emit }) {
     const { setTextColor } = useColors()
+    const { icons, iconSize } = useIcons('xs')
 
     const lastOnPage = computed<number>(() => {
       const { page, tableRowsCount, rowsPerPage } = props
@@ -100,9 +99,9 @@ export const VDataTableFooter = defineComponent({
         {
           default: () =>
             h(VIcon, {
-              icon: isNext ? FaIcons.$arrowRight : FaIcons.$arrowLeft,
+              icon: isNext ? icons.$arrowRight : icons.$arrowLeft,
               color: props.dark ? 'white' : '',
-              size: 18,
+              size: iconSize,
             }),
         },
       )

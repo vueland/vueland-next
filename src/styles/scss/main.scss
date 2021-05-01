@@ -8,3 +8,6 @@
 @import "modules/sizes";
 @import "modules/loading-skeleton";
 
+* {
+  font-family: $text-font-family;
+}

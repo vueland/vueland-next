@@ -1,7 +1,7 @@
 import './styles/scss/main.scss'
-import { library } from './library'
+import { Vueland } from './library'
 
 export * from './components/index'
-export { library as vueland }
+export { Vueland }
 
-export default library
+export default Vueland

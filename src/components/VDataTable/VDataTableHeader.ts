@@ -6,7 +6,7 @@ import { h, computed, withDirectives, defineComponent } from 'vue'
 
 // Effects
 import { colorProps, useColors } from '../../effects/use-colors'
-
+import { useIcons } from '../../effects/use-icons'
 // Components
 import { VIcon } from '../VIcon'
 import { VCheckbox } from '../VCheckbox'
@@ -20,9 +20,6 @@ import { clickOutside } from '../../directives/v-click-outside'
 // Types
 import { VNode } from 'vue'
 import { Column } from '../../types'
-
-// Services
-import { FaIcons } from '../../services/icons'
 
 export const VDataTableHeader = defineComponent({
   name: 'v-data-table-header',
@@ -45,6 +42,7 @@ export const VDataTableHeader = defineComponent({
 
   setup(props, { emit }) {
     const { setBackground } = useColors()
+    const { icons, iconSize } = useIcons('xs')
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-data-table__header': true,
@@ -80,8 +78,8 @@ export const VDataTableHeader = defineComponent({
       const propsData = {
         clickable: true,
         class: classes,
-        size: 14,
-        icon: FaIcons.$arrowUp,
+        size: iconSize,
+        icon: icons.$arrowUp,
         color: computedColor.value,
         onClick: () => onSort(item),
       }
@@ -98,8 +96,8 @@ export const VDataTableHeader = defineComponent({
       const propsData = {
         clickable: true,
         class: classes,
-        size: 14,
-        icon: FaIcons.$filter,
+        size: iconSize,
+        icon: icons.$filter,
         color: computedColor.value,
         onClick: () => addFilter(item),
       }
@@ -116,10 +114,10 @@ export const VDataTableHeader = defineComponent({
 
     function genFilterInput(item) {
       const propsData = {
-        label: 'insert',
+        label: 'input value',
         dark: props.dark,
         color: computedColor.value,
-        prependIcon: FaIcons.$search,
+        prependIcon: icons.$search,
         clearable: true,
         onInput: ($value) => onInput($value, item),
       }

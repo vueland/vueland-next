@@ -5,14 +5,15 @@ import './VCheckbox.scss'
 import { h, ref, watch, computed, defineComponent, inject } from 'vue'
 
 // Effects
-import { useValidate } from '@/effects/use-validate'
+import { useValidate } from '../../effects/use-validate'
+import { useIcons } from '../../effects/use-icons'
 
 // Components
 import { VIcon } from '../VIcon'
 import { VLabel } from '../VLabel'
 
 // Services
-import { FaIcons } from '../../services/icons'
+// import { FaIcons } from '../../services/icons'
 
 // Helpers
 import { warning } from '../../helpers'
@@ -25,11 +26,9 @@ export const VCheckbox = defineComponent({
   props: {
     onIcon: {
       type: String,
-      default: FaIcons.$checkOn,
     },
     offIcon: {
       type: String,
-      default: FaIcons.$checkOff,
     },
     dark: Boolean,
     label: String,
@@ -50,6 +49,7 @@ export const VCheckbox = defineComponent({
     const fields: Ref<any[]> | undefined = props.validate && inject('fields')
 
     const { validate, validationState } = useValidate(props)
+    const { icons, iconSize } = useIcons('md')
 
     const isArray = computed<boolean>(() => Array.isArray(props.modelValue))
     const isValueSet = computed<boolean>(() => props.value !== null)
@@ -74,7 +74,7 @@ export const VCheckbox = defineComponent({
           isChecked.value = !!props.modelValue
         }
       },
-      { immediate: true }
+      { immediate: true },
     )
 
     if (fields?.value) {
@@ -99,11 +99,13 @@ export const VCheckbox = defineComponent({
     }
 
     function genIcon(): VNode {
-      const icon = isChecked.value ? props.onIcon : props.offIcon
+      const onIcon = props.onIcon || icons.$checkOn
+      const offIcon = props.offIcon || icons.$checkOff
+      const icon = isChecked.value ? onIcon : offIcon
 
       const propsData = {
         icon,
-        size: 20,
+        size: iconSize,
         color: validationState.value,
         disabled: props.disabled,
       }
@@ -113,9 +115,7 @@ export const VCheckbox = defineComponent({
 
     function genCheckbox(): VNode {
       const propsData = {
-        class: {
-          'v-checkbox__square': true,
-        },
+        class: 'v-checkbox__square',
       }
 
       return h('div', propsData, genIcon())

@@ -6,9 +6,7 @@ import { h, defineComponent } from 'vue'
 
 // Effects
 import { useColors } from '../../effects/use-colors'
-
-// Services
-import { FaIcons } from '../../services/icons'
+import { useIcons } from '../../effects/use-icons'
 
 // Components
 import { VIcon } from '../VIcon'
@@ -26,9 +24,10 @@ export const VDatepickerHeader = defineComponent({
 
   setup(props, { slots, emit }) {
     const { setTextColor } = useColors()
+    const { icons, iconSize } = useIcons('md')
 
     const genHeaderButton = (isRight) => {
-      const icon = isRight ? FaIcons.$arrowRight : FaIcons.$arrowLeft
+      const icon = isRight ? icons.$arrowRight : icons.$arrowLeft
 
       const propsData = {
         class: 'v-date-picker__header-button',
@@ -37,13 +36,13 @@ export const VDatepickerHeader = defineComponent({
       const iconPropsData = {
         icon,
         clickable: true,
-        size: 18,
+        size: iconSize,
         onClick: () => (isRight ? props.onNext() : props.onPrev()),
       }
 
       const arrowBtn = h(
         VIcon,
-        props.color ? setTextColor(props.color, iconPropsData) : iconPropsData
+        props.color ? setTextColor(props.color, iconPropsData) : iconPropsData,
       )
 
       return h('div', propsData, arrowBtn)
@@ -60,7 +59,7 @@ export const VDatepickerHeader = defineComponent({
       return h(
         'div',
         props.color ? setTextColor(props.color, propsData) : propsData,
-        slots.default && slots.default()
+        slots.default && slots.default(),
       )
     }
 
@@ -70,7 +69,7 @@ export const VDatepickerHeader = defineComponent({
         {
           class: 'v-date-picker__header',
         },
-        [genHeaderButton(false), genHeaderDisplay(), genHeaderButton(true)]
+        [genHeaderButton(false), genHeaderDisplay(), genHeaderButton(true)],
       )
   },
 })

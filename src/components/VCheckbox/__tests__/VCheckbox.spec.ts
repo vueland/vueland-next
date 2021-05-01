@@ -6,7 +6,15 @@ describe("VCheckbox", () => {
   let mountFunction: (options?: any) => VueWrapper<any>;
 
   beforeEach(() => {
-    mountFunction = (options = {}) => mount(VCheckbox, options);
+    mountFunction = (options = {}) => mount(VCheckbox, {
+      ...options,
+      global: {
+        provide: {
+          $options: null,
+          fields: []
+        },
+      },
+    });
   });
 
   it("should mount component and match snapshot", () => {

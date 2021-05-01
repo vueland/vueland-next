@@ -15,7 +15,7 @@ function transitionProps() {
 }
 
 function useTransition(vNode, transition) {
-  var mode = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "";
+  var mode = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
   var props = {
     name: transition,
     mode: mode

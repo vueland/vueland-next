@@ -4,12 +4,12 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var _exportNames = {
-  vueland: true
+  Vueland: true
 };
-Object.defineProperty(exports, "vueland", {
+Object.defineProperty(exports, "Vueland", {
   enumerable: true,
   get: function get() {
-    return _library.library;
+    return _library.Vueland;
   }
 });
 exports["default"] = void 0;
@@ -31,6 +31,6 @@ Object.keys(_index).forEach(function (key) {
     }
   });
 });
-var _default = _library.library;
+var _default = _library.Vueland;
 exports["default"] = _default;
 //# sourceMappingURL=index.js.map

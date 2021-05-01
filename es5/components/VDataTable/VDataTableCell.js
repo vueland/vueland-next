@@ -65,11 +65,12 @@ var VDataTableCell = (0, _vue.defineComponent)({
     }
 
     function genCellContent() {
-      return (0, _vue.h)('div', {
+      var propsData = {
         "class": _defineProperty({
           'v-data-table__cell-content': true
         }, "text-align--".concat(props.align), !!props.align)
-      }, slots["default"] && slots["default"]());
+      };
+      return (0, _vue.h)('div', propsData, slots["default"] && slots["default"]());
     }
 
     return function () {

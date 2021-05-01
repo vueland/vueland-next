@@ -23,11 +23,11 @@ function useSizes(props) {
   });
   var sizeClasses = (0, _vue.computed)(function () {
     return {
-      "v-size--x-small": props.xSmall,
-      "v-size--small": props.small,
-      "v-size--default": medium.value,
-      "v-size--large": props.large,
-      "v-size--x-large": props.xLarge
+      'v-size--x-small': props.xSmall,
+      'v-size--small': props.small,
+      'v-size--default': medium.value,
+      'v-size--large': props.large,
+      'v-size--x-large': props.xLarge
     };
   });
   return {

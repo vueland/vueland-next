@@ -19,13 +19,13 @@ function overlayProps() {
     overlay: Boolean,
     overlayColor: {
       type: String,
-      "default": "#000000"
+      "default": '#000000'
     }
   };
 }
 
 function useOverlay(props, overlayOn) {
-  var container = document.createElement("div");
+  var container = document.createElement('div');
   var overlayPropsObject = {
     active: false,
     hide: true,
@@ -64,7 +64,7 @@ function useOverlay(props, overlayOn) {
       overlayOn === null || overlayOn === void 0 ? void 0 : (_overlayOn$parentNode2 = overlayOn.parentNode) === null || _overlayOn$parentNode2 === void 0 ? void 0 : _overlayOn$parentNode2.removeChild(overlayElement);
     };
 
-    (0, _helpers.addOnceListener)(overlayElement, "transitionend", remove);
+    (0, _helpers.addOnceListener)(overlayElement, 'transitionend', remove);
   };
 
   return {

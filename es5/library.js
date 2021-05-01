@@ -5,7 +5,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.library = void 0;
+exports.Vueland = void 0;
 
 var components = _interopRequireWildcard(require("./components/index"));
 
@@ -23,32 +23,37 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 var Vueland = /*#__PURE__*/function () {
   function Vueland() {
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+
     _classCallCheck(this, Vueland);
+
+    this.userOptions = {};
+    this.userOptions = options;
   }
 
   _createClass(Vueland, [{
     key: "install",
-    value: function install(Vue) {
+    value: function install(app) {
       if (Vueland.installed) return;
       Vueland.installed = true;
       Object.keys(components).forEach(function (key) {
         if (key && components[key]) {
           var component = components[key];
-          Vue.component(key, component);
+          app.component(key, component);
         }
       });
       Object.keys(directives).forEach(function (key) {
         if (key && directives[key]) {
-          Vue.directive(key, directives[key]);
+          app.directive(key, directives[key]);
         }
       });
+      app.provide('$options', this.userOptions);
     }
   }]);
 
   return Vueland;
 }();
 
+exports.Vueland = Vueland;
 Vueland.installed = false;
-var library = new Vueland();
-exports.library = library;
 //# sourceMappingURL=library.js.map

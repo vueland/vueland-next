@@ -351,8 +351,8 @@
     </template>
     <v-tooltip
       color="blue darken-3"
-      right
-      offset-x="12"
+      top
+      offset-y="-12"
       min-width="250"
     >
       <template #activator="{ on }">

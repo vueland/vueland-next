@@ -30,11 +30,11 @@ exports.positionProps = positionProps;
 var usePosition = function usePosition(props) {
   var positionClasses = (0, _vue.computed)(function () {
     return {
-      "position--absolute": props.absolute,
-      "to--left": props.left,
-      "to--right": props.right,
-      "to--top": props.top,
-      "to--bottom": props.bottom
+      'position--absolute': props.absolute,
+      'to--left': props.left,
+      'to--right': props.right,
+      'to--top': props.top,
+      'to--bottom': props.bottom
     };
   });
   return {

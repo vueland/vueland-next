@@ -11,6 +11,8 @@ var _vue = require("vue");
 
 var _useColors2 = require("../../effects/use-colors");
 
+var _useIcons2 = require("../../effects/use-icons");
+
 var _VIcon = require("../VIcon");
 
 var _VCheckbox = require("../VCheckbox");
@@ -20,8 +22,6 @@ var _VDataTableCell = require("./VDataTableCell");
 var _VTextField = require("../VTextField");
 
 var _vClickOutside = require("../../directives/v-click-outside");
-
-var _icons = require("../../services/icons");
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
@@ -62,6 +62,10 @@ var VDataTableHeader = (0, _vue.defineComponent)({
     var _useColors = (0, _useColors2.useColors)(),
         setBackground = _useColors.setBackground;
 
+    var _useIcons = (0, _useIcons2.useIcons)('s'),
+        icons = _useIcons.icons,
+        iconSize = _useIcons.iconSize;
+
     var classes = (0, _vue.computed)(function () {
       return {
         'v-data-table__header': true
@@ -99,8 +103,8 @@ var VDataTableHeader = (0, _vue.defineComponent)({
       var propsData = {
         clickable: true,
         "class": classes,
-        size: 14,
-        icon: _icons.FaIcons.$arrowUp,
+        size: iconSize,
+        icon: icons.$arrowUp,
         color: computedColor.value,
         onClick: function onClick() {
           return onSort(item);
@@ -117,8 +121,8 @@ var VDataTableHeader = (0, _vue.defineComponent)({
       var propsData = {
         clickable: true,
         "class": classes,
-        size: 14,
-        icon: _icons.FaIcons.$filter,
+        size: iconSize,
+        icon: icons.$filter,
         color: computedColor.value,
         onClick: function onClick() {
           return addFilter(item);
@@ -135,10 +139,10 @@ var VDataTableHeader = (0, _vue.defineComponent)({
 
     function genFilterInput(item) {
       var propsData = {
-        label: 'insert',
+        label: 'input value',
         dark: props.dark,
         color: computedColor.value,
-        prependIcon: _icons.FaIcons.$search,
+        prependIcon: icons.$search,
         clearable: true,
         onInput: function onInput($value) {
           return _onInput($value, item);

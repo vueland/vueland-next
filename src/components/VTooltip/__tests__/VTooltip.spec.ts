@@ -26,7 +26,7 @@ describe("VTooltip", () => {
     };
     const cmp = mountFunction({ slots });
 
-    expect(cmp.find(".v-tooltip__content").attributes().style).toBe(
+    expect(cmp.find(".v-tooltip").attributes().style).toBe(
       "display: none;"
     );
     expect(cmp.html()).toMatchSnapshot();
@@ -51,7 +51,7 @@ describe("VTooltip", () => {
 
     await cmp.find(".activator").trigger("mouseenter");
 
-    expect(cmp.find(".v-tooltip__content").attributes().style).toBe(undefined);
+    expect(cmp.find(".v-tooltip").attributes().style).toBe(undefined);
     expect(cmp.html()).toMatchSnapshot();
   });
 
@@ -65,7 +65,7 @@ describe("VTooltip", () => {
     await cmp.find(".activator").trigger("mouseenter");
     await cmp.find(".activator").trigger("mouseleave");
 
-    expect(cmp.find(".v-tooltip__content").attributes().style).toContain(
+    expect(cmp.find(".v-tooltip").attributes().style).toContain(
       "display: none;"
     );
     expect(cmp.html()).toMatchSnapshot();
@@ -142,7 +142,7 @@ describe("VTooltip", () => {
     const cmp = mountFunction({ props, slots });
 
     expect(cmp.props().zIndex).toEqual(100);
-    expect(cmp.find(".v-tooltip__content").attributes().style).toContain(
+    expect(cmp.find(".v-tooltip").attributes().style).toContain(
       "z-index: 100;"
     );
   });
@@ -184,7 +184,7 @@ describe("VTooltip", () => {
     const cmp = mountFunction({ props, slots });
 
     expect(cmp.props().minWidth).toEqual(150);
-    expect(cmp.find(".v-tooltip__content").attributes().style).toContain(
+    expect(cmp.find(".v-tooltip").attributes().style).toContain(
       "min-width: 150px;"
     );
     expect(cmp.html()).toMatchSnapshot();
@@ -201,7 +201,7 @@ describe("VTooltip", () => {
     const cmp = mountFunction({ props, slots });
 
     expect(cmp.props().maxWidth).toEqual(270);
-    expect(cmp.find(".v-tooltip__content").attributes().style).toContain(
+    expect(cmp.find(".v-tooltip").attributes().style).toContain(
       "max-width: 270px;"
     );
     expect(cmp.html()).toMatchSnapshot();

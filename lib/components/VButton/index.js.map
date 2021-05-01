@@ -1,1 +1,1 @@
-{"version":3,"sources":["../../../../src/components/VButton/index.ts"],"names":[],"mappings":"AAAA,cAAc,WAAd","sourcesContent":["export * from \"./VButton\";\n"],"sourceRoot":"","file":"index.js"}
+{"version":3,"sources":["../../../../src/components/VButton/index.ts"],"names":[],"mappings":"AAAA,cAAc,WAAd","sourcesContent":["export * from './VButton'\n"],"sourceRoot":"","file":"index.js"}

@@ -28,18 +28,18 @@ function useValidate(props) {
   });
   var validateClasses = (0, _vue.computed)(function () {
     return {
-      "v-validatable": true
+      'v-validatable': true
     };
   });
   var computedColor = (0, _vue.computed)(function () {
     if (props.disabled) return undefined;
     if (props.color) return props.color;
-    if (props.dark) return "white";
+    if (props.dark) return 'white';
   });
   var validationState = (0, _vue.computed)(function () {
-    if (errorState.innerError) return "danger";
+    if (errorState.innerError) return 'danger';
     if (!errorState.innerError && errorState.innerError !== null) return computedColor.value;
-    return computedColor.value || "primary";
+    return computedColor.value || 'primary';
   });
   var hasRules = (0, _vue.computed)(function () {
     return props.rules !== void 0 && props.rules !== null && props.rules.length > 0;
@@ -77,11 +77,11 @@ function useValidate(props) {
       var rule = props.rules[i];
       var result = void 0;
 
-      if (typeof rule === "function") {
+      if (typeof rule === 'function') {
         result = rule(val);
       }
 
-      if (result === false || typeof result === "string") {
+      if (result === false || typeof result === 'string') {
         update(true, result);
         return false;
       }

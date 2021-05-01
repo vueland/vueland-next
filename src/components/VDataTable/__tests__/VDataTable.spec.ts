@@ -8,7 +8,14 @@ describe('VDataTable', () => {
   let mountFunction: (options?: any) => any
 
   beforeEach(() => {
-    mountFunction = (options = {}) => mount(VDataTable, { ...options })
+    mountFunction = (options = {}) => mount(VDataTable, {
+      ...options,
+      global: {
+        provide: {
+          $options: null,
+        },
+      },
+    })
   })
 
   it('should mound component and match snapshot', () => {
@@ -40,7 +47,7 @@ describe('VDataTable', () => {
     await cmp.find('.v-data-table-col__actions-sort').trigger('click')
 
     expect(cmp.find('.v-data-table-col__actions-sort--active').exists()).toBe(
-      true
+      true,
     )
     expect(cmp.find('.v-data-table__row').text()).toContain('Alex')
 

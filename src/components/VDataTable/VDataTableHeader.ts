@@ -42,7 +42,7 @@ export const VDataTableHeader = defineComponent({
 
   setup(props, { emit }) {
     const { setBackground } = useColors()
-    const { icons, iconSize } = useIcons('xs')
+    const { icons, iconSize } = useIcons('s')
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-data-table__header': true,

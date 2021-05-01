@@ -1,1 +1,1 @@
-export * from "./VIcon";
+export * from './VIcon'

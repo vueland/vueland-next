@@ -1,1 +1,1 @@
-export * from "./VAutocomplete";
+export * from './VAutocomplete'

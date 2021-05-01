@@ -1,9 +1,9 @@
 // Vue API
-import { ref, watch } from "vue";
+import { ref, watch } from 'vue'
 
 // Types
-import { Props } from "../types";
-import { Ref } from "vue";
+import { Props } from '../types'
+import { Ref } from 'vue'
 
 type Toggleable = {
   isActive: Ref<boolean>;
@@ -16,16 +16,16 @@ type Toggleable = {
  */
 
 export function useToggle(props: Props, propName?: string): Toggleable {
-  const isActive = ref(false);
-  const prop = propName ? propName : "modelValue";
+  const isActive = ref(false)
+  const prop = propName ? propName : 'modelValue'
 
   watch(
     () => props[prop],
     (to) => (isActive.value = !!to),
-    { immediate: true }
-  );
+    { immediate: true },
+  )
 
   return {
     isActive,
-  };
+  }
 }

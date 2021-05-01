@@ -30,5 +30,3 @@ export class Vueland {
     app.provide('$options', this.userOptions)
   }
 }
-
-// export const library: Vueland = new Vueland()

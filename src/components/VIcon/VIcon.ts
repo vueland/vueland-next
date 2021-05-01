@@ -50,8 +50,8 @@ export const VIcon = defineComponent({
       'v-icon--disabled': props.disabled,
       'v-icon--link': props.clickable,
       'v-icon--clickable': props.clickable,
-      [options?.$icons]: !!options?.$icons,
-      [icon.value]: !options?.$icons && !!icon.value,
+      [options?.icons]: !!options?.icons,
+      [icon.value]: !options?.icons && !!icon.value,
     }))
 
     const isMedium = computed<boolean>(() => {
@@ -93,7 +93,7 @@ export const VIcon = defineComponent({
       }
 
       return h(iconTag, setTextColor(props.color, propsData),
-        options?.$icons ? icon.value : ''
+        options?.icons ? icon.value : ''
       )
     }
   },

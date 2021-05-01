@@ -1,1 +1,1 @@
-export * from "./VTextarea";
+export * from './VTextarea'

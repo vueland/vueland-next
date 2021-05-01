@@ -3,7 +3,7 @@ import App from './App'
 import Vueland from '../src'
 
 const vueland = new Vueland({
-  $icons: 'material-icons'
+  icons: 'material-icons'
 })
 
 const app = createApp(App)

@@ -63,7 +63,7 @@
           sortable: true,
           filterable: true,
           cellClass: 'red darken-3',
-          filterClass: 'grey darken-3',
+          filterClass: 'green darken-3',
           rowCellClass: 'red lighten-1',
           format: row => row.name,
           filter: ({ value, col }) => data.users.filter(user => user[col.key].includes(value)),
@@ -155,7 +155,7 @@
       :cols="cols"
       :rows="data.users"
       :rows-on-table="[25, 40, 50, 75]"
-      :header-props="{contentColor: 'white', color: 'grey lighten-1', dark: true}"
+      :header-props="{contentColor: 'grey darken-3', color: 'grey lighten-1', dark: true}"
       align="left"
       numbered
       checkbox

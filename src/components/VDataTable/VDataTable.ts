@@ -147,9 +147,7 @@ export const VDataTable = defineComponent({
 
     function sortColumn(col: Column): void {
       data.rows.sort((a, b) => {
-        if (col.format) {
-          return col.format(a) > col.format(b) ? 1 : -1
-        }
+        if (col.format) return col.format(a) > col.format(b) ? 1 : -1
 
         return a[col.key] > b[col.key] ? 1 : -1
       })
@@ -202,10 +200,10 @@ export const VDataTable = defineComponent({
         dark: props.dark,
         align: props.align,
         numbered: props.numbered,
+        options: props.headerProps,
         onFilter,
         onSort,
         onCheckAll,
-        ...props.headerProps,
       }
       return h(VDataTableHeader, propsData)
     }
@@ -229,9 +227,7 @@ export const VDataTable = defineComponent({
         const slotContent = (row) => {
           const scoped: any = { row }
 
-          if (col.format) {
-            scoped.format = col.format
-          }
+          if (col.format) scoped.format = col.format
 
           return slots[col.key] && slots[col.key]!(scoped)
         }
@@ -255,6 +251,7 @@ export const VDataTable = defineComponent({
         dark: props.dark,
         color: props.color,
         toolbar: props.toolbar,
+        options: props.footerProps,
         onPrev: onPrevTable,
         onNext: onNextTable,
         onSelect: onSelectRowsCount,

@@ -21,14 +21,6 @@
   <component name="ChangeListManager">
     <list default="true" id="736b461f-04c9-4f8c-a6b6-a27e187a8ce0" name="Default Changelist" comment="correct v-autocomplete">
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.npmignore" beforeDir="false" afterPath="$PROJECT_DIR$/.npmignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dev/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/dev/app.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/VList/VListGroup.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/VList/VListGroup.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/VTooltip/VTooltip.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/VTooltip/VTooltip.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/library.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/library.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -318,7 +310,7 @@
       <workItem from="1619718795373" duration="627000" />
       <workItem from="1619899923344" duration="1769000" />
       <workItem from="1619910006328" duration="2515000" />
-      <workItem from="1619935622484" duration="2505000" />
+      <workItem from="1619935622484" duration="2537000" />
     </task>
     <task id="LOCAL-00001" summary="correct v-autocomplete">
       <created>1610572625693</created>

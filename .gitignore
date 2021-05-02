@@ -1,12 +1,10 @@
 .DS_Store
 node_modules
+
+# builds
 dist
 es5
 lib
-# builds
-
-
-# local env files
 
 # Log files
 npm-debug.log*
@@ -22,4 +20,5 @@ yarn-error.log*
 *.sln
 *.sw?
 
+# others
 package-lock.json

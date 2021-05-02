@@ -77,6 +77,7 @@ export const VDataTableBody = defineComponent({
           width: 50,
           align: 'center',
           dark: props.dark,
+          color: props.color,
           class: 'v-data-table__row-number',
         },
         {
@@ -92,6 +93,7 @@ export const VDataTableBody = defineComponent({
           width: 50,
           align: 'center',
           dark: props.dark,
+          color: props.color,
           class: 'v-data-table__row-checkbox',
         },
         {

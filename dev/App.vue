@@ -156,11 +156,10 @@
       :rows="data.users"
       :rows-on-table="[25, 40, 50, 75]"
       :header-props="{contentColor: 'white', color: 'grey lighten-1', dark: false}"
+      :custom-filter="testFunc"
       align="left"
-      color="rgba(0,0,0,.4)"
       numbered
       checkbox
-      @filter="testFunc"
       @checked="testFunc"
       @last-page="testFunc"
     >

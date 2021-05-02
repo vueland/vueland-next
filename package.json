@@ -14,11 +14,13 @@
     "*.css"
   ],
   "files": [
-    "src/",
-    "dist/",
-    "lib/",
-    "es5/",
-    "types/"
+    "src/*",
+    "dist/*",
+    "lib/*",
+    "es5/*",
+    "types/*",
+    "*.js",
+    "*.ts"
   ],
   "scripts": {
     "dev": "webpack-dev-server --config build/webpack.dev.conf.js",

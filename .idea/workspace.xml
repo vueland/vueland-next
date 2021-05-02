@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="736b461f-04c9-4f8c-a6b6-a27e187a8ce0" name="Default Changelist" comment="correct v-autocomplete">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.npmignore" beforeDir="false" afterPath="$PROJECT_DIR$/.npmignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dev/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/dev/app.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/VList/VListGroup.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/VList/VListGroup.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/VTooltip/VTooltip.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/VTooltip/VTooltip.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/library.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/library.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1igSUhWOhwf4gGX8BrFHPmLsNsu" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="NewWatcherDialog.advanced.open" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.standard" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.standard" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.standard" value="" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/node_modules/jest" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="prettierjs.PrettierConfiguration.Package" value="$PROJECT_DIR$/node_modules/prettier" />
+    <property name="settings.editor.selected.configurable" value="settings.javascript.prettier" />
+    <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/package" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Jest.VTooltip">
+    <configuration name="VDataTable" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/src/components/VDataTable/__tests__/VDataTable.spec.ts" />
+      <test-names>
+        <test-name value="VDataTable" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="VDataTable.should test column filter and match snapshot" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/src/components/VDataTable/__tests__/VDataTable.spec.ts" />
+      <test-names>
+        <test-name value="VDataTable" />
+        <test-name value="should test column filter and match snapshot" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="VDataTable.should test column sort and match snapshot" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/src/components/VDataTable/__tests__/VDataTable.spec.ts" />
+      <test-names>
+        <test-name value="VDataTable" />
+        <test-name value="should test column sort and match snapshot" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="VTooltip" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/src/components/VTooltip/__tests__/VTooltip.spec.ts" />
+      <test-names>
+        <test-name value="VTooltip" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="VTooltip.should trigger mouseenter event, show tooltip and match snapshot" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/jest" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/src/components/VTooltip/__tests__/VTooltip.spec.ts" />
+      <test-names>
+        <test-name value="VTooltip" />
+        <test-name value="should trigger mouseenter event, show tooltip and match snapshot" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Jest.VTooltip" />
+        <item itemvalue="Jest.VTooltip.should trigger mouseenter event, show tooltip and match snapshot" />
+        <item itemvalue="Jest.VDataTable" />
+        <item itemvalue="Jest.VDataTable.should test column filter and match snapshot" />
+        <item itemvalue="Jest.VDataTable.should test column sort and match snapshot" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="736b461f-04c9-4f8c-a6b6-a27e187a8ce0" name="Default Changelist" comment="" />
+      <created>1602327759080</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1602327759080</updated>
+      <workItem from="1602327760157" duration="2917000" />
+      <workItem from="1602358849549" duration="528000" />
+      <workItem from="1602364393423" duration="2211000" />
+      <workItem from="1602431188243" duration="1307000" />
+      <workItem from="1602526838651" duration="879000" />
+      <workItem from="1602534442835" duration="2785000" />
+      <workItem from="1603127357978" duration="745000" />
+      <workItem from="1604003291857" duration="3881000" />
+      <workItem from="1604161616399" duration="1679000" />
+      <workItem from="1604175489342" duration="3980000" />
+      <workItem from="1604240802349" duration="636000" />
+      <workItem from="1604242816754" duration="1703000" />
+      <workItem from="1604245103610" duration="221000" />
+      <workItem from="1604249279896" duration="1720000" />
+      <workItem from="1604338385592" duration="3779000" />
+      <workItem from="1604417623287" duration="5969000" />
+      <workItem from="1604431454128" duration="9302000" />
+      <workItem from="1604474733690" duration="152000" />
+      <workItem from="1604512603126" duration="1766000" />
+      <workItem from="1604518292198" duration="1040000" />
+      <workItem from="1604596802535" duration="8973000" />
+      <workItem from="1604673989980" duration="7303000" />
+      <workItem from="1604686241971" duration="742000" />
+      <workItem from="1604746982573" duration="1549000" />
+      <workItem from="1604767144014" duration="2764000" />
+      <workItem from="1604813502030" duration="6766000" />
+      <workItem from="1604834838527" duration="6819000" />
+      <workItem from="1604939709103" duration="13442000" />
+      <workItem from="1605121909719" duration="4162000" />
+      <workItem from="1605207023524" duration="1223000" />
+      <workItem from="1605370344430" duration="2115000" />
+      <workItem from="1605457391510" duration="613000" />
+      <workItem from="1605551893794" duration="1831000" />
+      <workItem from="1605712378708" duration="4559000" />
+      <workItem from="1605729976117" duration="617000" />
+      <workItem from="1605801557470" duration="5654000" />
+      <workItem from="1606159352046" duration="697000" />
+      <workItem from="1606162780974" duration="1113000" />
+      <workItem from="1606207710640" duration="1000" />
+      <workItem from="1606333267378" duration="1560000" />
+      <workItem from="1606573537068" duration="2193000" />
+      <workItem from="1606600880276" duration="750000" />
+      <workItem from="1606652341488" duration="2185000" />
+      <workItem from="1606656604130" duration="5392000" />
+      <workItem from="1606674214239" duration="3213000" />
+      <workItem from="1606746519967" duration="5005000" />
+      <workItem from="1606753241673" duration="393000" />
+      <workItem from="1606842191252" duration="6262000" />
+      <workItem from="1606941574149" duration="2336000" />
+      <workItem from="1607024758495" duration="356000" />
+      <workItem from="1607082754489" duration="1143000" />
+      <workItem from="1607100525357" duration="718000" />
+      <workItem from="1607112119633" duration="12920000" />
+      <workItem from="1607159571817" duration="3933000" />
+      <workItem from="1607164361091" duration="14596000" />
+      <workItem from="1607190284861" duration="259000" />
+      <workItem from="1607249606210" duration="3513000" />
+      <workItem from="1607258598744" duration="1188000" />
+      <workItem from="1607280385514" duration="8278000" />
+      <workItem from="1607366462177" duration="5409000" />
+      <workItem from="1607442673272" duration="1693000" />
+      <workItem from="1607518338656" duration="1370000" />
+      <workItem from="1607767829993" duration="2611000" />
+      <workItem from="1607779221515" duration="5877000" />
+      <workItem from="1607793728567" duration="6400000" />
+      <workItem from="1607864399462" duration="6538000" />
+      <workItem from="1607879449977" duration="5171000" />
+      <workItem from="1607950856317" duration="2011000" />
+      <workItem from="1607966988743" duration="303000" />
+      <workItem from="1608064625322" duration="4317000" />
+      <workItem from="1608133127449" duration="3186000" />
+      <workItem from="1608146600968" duration="4686000" />
+      <workItem from="1608313695833" duration="19903000" />
+      <workItem from="1608384673965" duration="7858000" />
+      <workItem from="1608399665126" duration="961000" />
+      <workItem from="1608449896443" duration="5974000" />
+      <workItem from="1608465061137" duration="2517000" />
+      <workItem from="1608497951577" duration="3006000" />
+      <workItem from="1608577758236" duration="12000" />
+      <workItem from="1608653354885" duration="628000" />
+      <workItem from="1608655793184" duration="498000" />
+      <workItem from="1608735714904" duration="12000" />
+      <workItem from="1608739884746" duration="942000" />
+      <workItem from="1608741059327" duration="106000" />
+      <workItem from="1608741658621" duration="3916000" />
+      <workItem from="1608745762204" duration="921000" />
+      <workItem from="1608748125712" duration="555000" />
+      <workItem from="1609023333896" duration="2626000" />
+      <workItem from="1609028629917" duration="368000" />
+      <workItem from="1609059817659" duration="163000" />
+      <workItem from="1609089407220" duration="10324000" />
+      <workItem from="1609261755902" duration="616000" />
+      <workItem from="1609273705566" duration="5566000" />
+      <workItem from="1609370120592" duration="16000" />
+      <workItem from="1609372941856" duration="206000" />
+      <workItem from="1609441060944" duration="875000" />
+      <workItem from="1609530899975" duration="3451000" />
+      <workItem from="1609591042823" duration="5902000" />
+      <workItem from="1609602971327" duration="613000" />
+      <workItem from="1609692642663" duration="621000" />
+      <workItem from="1609701009344" duration="702000" />
+      <workItem from="1609766211995" duration="571000" />
+      <workItem from="1609777021168" duration="1941000" />
+      <workItem from="1609953761422" duration="1012000" />
+      <workItem from="1609967350279" duration="5371000" />
+      <workItem from="1610026174348" duration="570000" />
+      <workItem from="1610040264210" duration="8195000" />
+      <workItem from="1610054671265" duration="3900000" />
+      <workItem from="1610113404393" duration="6928000" />
+      <workItem from="1610120552855" duration="27000" />
+      <workItem from="1610128052988" duration="4599000" />
+      <workItem from="1610196053522" duration="3225000" />
+      <workItem from="1610209839257" duration="20000" />
+      <workItem from="1610213608729" duration="139000" />
+      <workItem from="1610304856179" duration="161000" />
+      <workItem from="1610317085099" duration="1697000" />
+      <workItem from="1610567417682" duration="76000" />
+      <workItem from="1610567965184" duration="3144000" />
+      <workItem from="1610834929039" duration="4809000" />
+      <workItem from="1616099860351" duration="8608000" />
+      <workItem from="1616132836843" duration="12050000" />
+      <workItem from="1616185499090" duration="2989000" />
+      <workItem from="1616353180093" duration="649000" />
+      <workItem from="1616360077662" duration="3315000" />
+      <workItem from="1616517327897" duration="617000" />
+      <workItem from="1616525672995" duration="2360000" />
+      <workItem from="1616690563686" duration="1555000" />
+      <workItem from="1617563986528" duration="3165000" />
+      <workItem from="1617609735078" duration="18000" />
+      <workItem from="1617652952843" duration="1507000" />
+      <workItem from="1617697937975" duration="1805000" />
+      <workItem from="1617717867555" duration="74000" />
+      <workItem from="1617965394801" duration="1758000" />
+      <workItem from="1618079022273" duration="2414000" />
+      <workItem from="1618089088390" duration="1017000" />
+      <workItem from="1618090454988" duration="452000" />
+      <workItem from="1618256687490" duration="5284000" />
+      <workItem from="1618292497229" duration="16615000" />
+      <workItem from="1618420587331" duration="8000" />
+      <workItem from="1618486677817" duration="1134000" />
+      <workItem from="1618591649576" duration="636000" />
+      <workItem from="1618685559890" duration="5747000" />
+      <workItem from="1618727163342" duration="1988000" />
+      <workItem from="1618732058477" duration="1565000" />
+      <workItem from="1618861147196" duration="1485000" />
+      <workItem from="1618900636156" duration="990000" />
+      <workItem from="1618901637753" duration="1028000" />
+      <workItem from="1618939064122" duration="625000" />
+      <workItem from="1618943410445" duration="2039000" />
+      <workItem from="1618945833288" duration="1522000" />
+      <workItem from="1619012582978" duration="968000" />
+      <workItem from="1619292069967" duration="988000" />
+      <workItem from="1619296378973" duration="4000" />
+      <workItem from="1619438605413" duration="599000" />
+      <workItem from="1619470826278" duration="3075000" />
+      <workItem from="1619544640243" duration="10000" />
+      <workItem from="1619682778641" duration="2638000" />
+      <workItem from="1619686067330" duration="215000" />
+      <workItem from="1619718795373" duration="627000" />
+      <workItem from="1619899923344" duration="1769000" />
+      <workItem from="1619910006328" duration="2515000" />
+      <workItem from="1619935622484" duration="2505000" />
+    </task>
+    <task id="LOCAL-00001" summary="correct v-autocomplete">
+      <created>1610572625693</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1610572625693</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="correct v-autocomplete" />
+    <option name="LAST_COMMIT_MESSAGE" value="correct v-autocomplete" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="729" y="302" width="524" height="509" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1619937936150">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="729" y="302" width="524" height="509" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/72.27.1848.1053@72.27.1848.1053" timestamp="1619937936150" />
+    <state x="779" y="311" width="424" height="491" key="FileChooserDialogImpl" timestamp="1619685420861">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="779" y="311" width="424" height="491" key="FileChooserDialogImpl/72.27.1848.1053@72.27.1848.1053" timestamp="1619685420861" />
+    <state width="1825" height="340" key="GridCell.Tab.0.bottom" timestamp="1619912521295">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state width="1825" height="340" key="GridCell.Tab.0.bottom/72.27.1848.1053@72.27.1848.1053" timestamp="1619912521295" />
+    <state width="1825" height="340" key="GridCell.Tab.0.center" timestamp="1619912521295">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state width="1825" height="340" key="GridCell.Tab.0.center/72.27.1848.1053@72.27.1848.1053" timestamp="1619912521295" />
+    <state width="1825" height="340" key="GridCell.Tab.0.left" timestamp="1619912521295">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state width="1825" height="340" key="GridCell.Tab.0.left/72.27.1848.1053@72.27.1848.1053" timestamp="1619912521295" />
+    <state width="1825" height="340" key="GridCell.Tab.0.right" timestamp="1619912521295">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state width="1825" height="340" key="GridCell.Tab.0.right/72.27.1848.1053@72.27.1848.1053" timestamp="1619912521295" />
+    <state width="1825" height="340" key="GridCell.Tab.1.bottom" timestamp="1619912521296">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state width="1825" height="340" key="GridCell.Tab.1.bottom/72.27.1848.1053@72.27.1848.1053" timestamp="1619912521296" />
+    <state width="1825" height="340" key="GridCell.Tab.1.center" timestamp="1619912521295">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state width="1825" height="340" key="GridCell.Tab.1.center/72.27.1848.1053@72.27.1848.1053" timestamp="1619912521295" />
+    <state width="1825" height="340" key="GridCell.Tab.1.left" timestamp="1619912521295">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state width="1825" height="340" key="GridCell.Tab.1.left/72.27.1848.1053@72.27.1848.1053" timestamp="1619912521295" />
+    <state width="1825" height="340" key="GridCell.Tab.1.right" timestamp="1619912521296">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state width="1825" height="340" key="GridCell.Tab.1.right/72.27.1848.1053@72.27.1848.1053" timestamp="1619912521296" />
+    <state width="1825" height="340" key="GridCell.Tab.2.bottom" timestamp="1619912521297">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state width="1825" height="340" key="GridCell.Tab.2.bottom/72.27.1848.1053@72.27.1848.1053" timestamp="1619912521297" />
+    <state width="1825" height="340" key="GridCell.Tab.2.center" timestamp="1619912521296">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state width="1825" height="340" key="GridCell.Tab.2.center/72.27.1848.1053@72.27.1848.1053" timestamp="1619912521296" />
+    <state width="1825" height="340" key="GridCell.Tab.2.left" timestamp="1619912521296">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state width="1825" height="340" key="GridCell.Tab.2.left/72.27.1848.1053@72.27.1848.1053" timestamp="1619912521296" />
+    <state width="1825" height="340" key="GridCell.Tab.2.right" timestamp="1619912521296">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state width="1825" height="340" key="GridCell.Tab.2.right/72.27.1848.1053@72.27.1848.1053" timestamp="1619912521296" />
+    <state width="1825" height="340" key="GridCell.Tab.3.bottom" timestamp="1619912521298">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state width="1825" height="340" key="GridCell.Tab.3.bottom/72.27.1848.1053@72.27.1848.1053" timestamp="1619912521298" />
+    <state width="1825" height="340" key="GridCell.Tab.3.center" timestamp="1619912521297">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state width="1825" height="340" key="GridCell.Tab.3.center/72.27.1848.1053@72.27.1848.1053" timestamp="1619912521297" />
+    <state width="1825" height="340" key="GridCell.Tab.3.left" timestamp="1619912521297">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state width="1825" height="340" key="GridCell.Tab.3.left/72.27.1848.1053@72.27.1848.1053" timestamp="1619912521297" />
+    <state width="1825" height="340" key="GridCell.Tab.3.right" timestamp="1619912521297">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state width="1825" height="340" key="GridCell.Tab.3.right/72.27.1848.1053@72.27.1848.1053" timestamp="1619912521297" />
+    <state x="485" y="188" width="1022" height="737" key="SettingsEditor" timestamp="1618946236640">
+      <screen x="72" y="27" width="1848" height="1053" />
+    </state>
+    <state x="485" y="188" width="1022" height="737" key="SettingsEditor/72.27.1848.1053@72.27.1848.1053" timestamp="1618946236640" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/components/VTooltip/__tests__/VTooltip.spec.ts</url>
+          <line>35</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

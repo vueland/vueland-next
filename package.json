@@ -30,11 +30,9 @@
     "test": "jest -u",
     "test:editor": "editorconfig-checker --exclude '.git|node_modules|dist|es5|lib|.idea'",
     "declarations": "ttsc --emitDeclarationOnly",
-    "tslint-check": "tslint-config-prettier-check ./tslint.json",
-    "prettier": "prettier --write --config ./.prettierrc.json './src/**/*.{ts,tsx}'",
-    "lint": "eslint --ext .ts,.vue src",
-    "preinstall": "npm install && npm run build:all",
-    "install": "echo 'PACKAGE INSTALLED'"
+    "tslint-check": "tslint-config-prettier-check tslint.json",
+    "prettier": "prettier --write --config .prettierrc.json './src/**/*.{ts,tsx}'",
+    "lint": "eslint --ext .ts,.vue src"
   },
   "repository": {
     "type": "git",

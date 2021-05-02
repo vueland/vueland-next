@@ -20,7 +20,7 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
-    "baseUrl": ".",
+    "baseUrl": "./",
     //    "declarationDir": "dist/types",
     "outDir": "./dist",
     "composite": true,

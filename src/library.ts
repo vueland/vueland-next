@@ -1,5 +1,5 @@
-import * as components from './components/index'
-import * as directives from './directives/index'
+import * as components from './components'
+import * as directives from './directives'
 
 export class Vueland {
   static installed: boolean = false

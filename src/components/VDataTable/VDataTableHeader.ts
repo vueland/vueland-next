@@ -49,16 +49,16 @@ export const VDataTableHeader = defineComponent({
     }))
 
     const isDarkMode = computed<boolean>(() => {
-      if (props.options.dark !== undefined) return props.options.dark
+      if (props.options?.dark !== undefined) return props.options.dark
       return props.dark
     })
 
     const computedContentColor = computed<string>(() => {
-      return  (isDarkMode.value ? 'white' : '') || props.options.contentColor
+      return  (isDarkMode.value ? 'white' : '') || props.options?.contentColor
     })
 
     const computedColor = computed<string>(() => {
-      return props.options.color || props.color
+      return props.options?.color || props.color
     })
 
     const cols = computed<Column[]>(() => [...props.cols])
@@ -180,7 +180,7 @@ export const VDataTableHeader = defineComponent({
           [props.cellClass]: !!props.cellClass,
         },
         contentColor: computedContentColor.value,
-        color: props.options.color || props.color,
+        color: computedColor.value,
         width: 50,
       }
 

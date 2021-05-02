@@ -41,7 +41,9 @@ export type Column = {
   filterClass?: string
   rowCellClass?: string
   show?: boolean
-  format?: (...arg: any) => any
+  format?: (row: any) => any
+  filter?: (arg: TableFilter) => any,
+  sort?: (a: any, b: any) => number
 }
 
 export type TableFilter = {

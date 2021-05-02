@@ -85,7 +85,7 @@ export const VTextField = defineComponent({
       (value) => {
         state.value = value as any
         !state.focused && validateValue()
-      }
+      },
     )
 
     const classes = computed<Record<string, boolean>>(() => ({
@@ -150,33 +150,25 @@ export const VTextField = defineComponent({
         readonly: props.readonly,
         value: state.value,
         autocomplete: attrs.autocomplete,
-        class: {
-          'v-text-field__input': true,
-        },
+        class: 'v-text-field__input',
         onFocus,
         onBlur,
         onInput,
         onChange,
-      }
+      } as any
 
       if (props.tag === 'input') {
-        ;(propsData as any).type = props.type
+        propsData.type = props.type
       }
 
       return h(
         props.tag,
-        props.dark ? setTextColor('white', propsData) : propsData
+        props.dark ? setTextColor('white', propsData) : propsData,
       )
     }
 
     function genTextField(): VNode {
-      return h(
-        'div',
-        {
-          class: classes.value,
-        },
-        genInput()
-      )
+      return h('div', { class: classes.value }, genInput())
     }
 
     return () => {

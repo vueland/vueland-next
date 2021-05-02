@@ -50,8 +50,8 @@ describe('VDataTable', () => {
       true,
     )
     expect(cmp.find('.v-data-table__row').text()).toContain('Alex')
-
     expect(cmp.html()).toMatchSnapshot()
+
     await cmp.find('.v-data-table-col__actions-sort').trigger('click')
   })
 

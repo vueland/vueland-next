@@ -45,6 +45,7 @@ export const VDataTable = defineComponent({
     },
     dark: Boolean,
     numbered: Boolean,
+    checkbox: Boolean,
     align: {
       type: String,
       validator: (val) => ['left', 'center', 'right'].includes(val),
@@ -125,11 +126,11 @@ export const VDataTable = defineComponent({
     }
 
     function onFilter({ value, col }: TableFilter) {
-      if (!value && filters[col.key]) {
-        delete filters[col.key]
-      }
+      if (!value && filters[col.key]) delete filters[col.key]
 
       if (value) filters[col.key] = value
+
+      if (col.filter) return data.rows = col.filter({ value, col })
 
       if (props.customFilter) return props.customFilter(filters as any)
 
@@ -146,9 +147,7 @@ export const VDataTable = defineComponent({
 
     function sortColumn(col: Column): void {
       data.rows.sort((a, b) => {
-        if (col.format) {
-          return col.format(a) > col.format(b) ? 1 : -1
-        }
+        if (col.format) return col.format(a) > col.format(b) ? 1 : -1
 
         return a[col.key] > b[col.key] ? 1 : -1
       })
@@ -162,18 +161,19 @@ export const VDataTable = defineComponent({
 
         filterKeys.forEach((key) => {
           const { format } = data.cols.find((col) => col.key === key) as Column
+
           const value = format ? format(row) : row[key]
 
           const rowKeyValue = toComparableStringFormat(value)
           const filterValue = toComparableStringFormat(filters[key])
 
           if (rowKeyValue.includes(filterValue)) {
-            rowResults.push(!!row[key])
+            rowResults.push(row[key])
           }
         })
 
         if (
-          rowResults.length === filterKeys.length &&
+          (rowResults.length === filterKeys.length) &&
           rowResults.every((value) => !!value)
         ) {
           acc.push(row)
@@ -196,14 +196,14 @@ export const VDataTable = defineComponent({
       const propsData = {
         cols: data.cols,
         color: props.color,
-        checkbox: props.checkbox,
+        checkbox: !!props.checkbox,
         dark: props.dark,
         align: props.align,
         numbered: props.numbered,
+        options: props.headerProps,
         onFilter,
         onSort,
         onCheckAll,
-        ...props.headerProps,
       }
       return h(VDataTableHeader, propsData)
     }
@@ -227,9 +227,7 @@ export const VDataTable = defineComponent({
         const slotContent = (row) => {
           const scoped: any = { row }
 
-          if (col.format) {
-            scoped.format = col.format
-          }
+          if (col.format) scoped.format = col.format
 
           return slots[col.key] && slots[col.key]!(scoped)
         }
@@ -253,6 +251,7 @@ export const VDataTable = defineComponent({
         dark: props.dark,
         color: props.color,
         toolbar: props.toolbar,
+        options: props.footerProps,
         onPrev: onPrevTable,
         onNext: onNextTable,
         onSelect: onSelectRowsCount,

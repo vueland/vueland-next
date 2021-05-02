@@ -188,6 +188,7 @@ export const VDataTableHeader = defineComponent({
           [props.cellClass]: !!props.cellClass,
         },
         dark: props.dark,
+        contentColor: computedColor.value,
         color: props.color,
         width: 50,
       }
@@ -211,7 +212,7 @@ export const VDataTableHeader = defineComponent({
           [item.cellClass]: !!item.cellClass,
         },
         contentColor: computedColor.value,
-        color: !item.cellClass && props.color,
+        color: !item.cellClass ? props.color : '',
         width: item.width,
         resizeable: item.resizeable,
         align: item.align || props.align,

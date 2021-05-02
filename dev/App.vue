@@ -111,7 +111,6 @@
       return {
         data,
         cols,
-        // rows,
         addItem,
         testFunc,
         toggleAlways,
@@ -157,10 +156,8 @@
       :rows-on-table="[25, 40, 50, 75]"
       :header-props="{contentColor: 'white', color: 'grey lighten-1', dark: false}"
       align="left"
-      color="rgba(0,0,0,.4)"
       numbered
       checkbox
-      @filter="testFunc"
       @checked="testFunc"
       @last-page="testFunc"
     >

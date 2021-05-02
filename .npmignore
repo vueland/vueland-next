@@ -10,10 +10,6 @@ node_modules
 .editorconfig
 .eslintrc
 
-!dist
-!es5
-!lib
-
 babel.config.js
 jest.config.js
 postcss.config.js

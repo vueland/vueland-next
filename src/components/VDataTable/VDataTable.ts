@@ -45,8 +45,6 @@ export const VDataTable = defineComponent({
     },
     dark: Boolean,
     numbered: Boolean,
-    checkbox: Boolean,
-    stateOut: Boolean,
     align: {
       type: String,
       validator: (val) => ['left', 'center', 'right'].includes(val),
@@ -57,6 +55,7 @@ export const VDataTable = defineComponent({
     },
     headerProps: Object,
     footerProps: Object,
+    customFilter: Function,
   } as any,
   emits: ['checked', 'filter', 'last-page'],
 
@@ -132,14 +131,11 @@ export const VDataTable = defineComponent({
 
       if (value) filters[col.key] = value
 
-      if (props.stateOut) emit('filter', filters)
+      if (props.customFilter) return props.customFilter(filters as any)
 
-      if (!props.stateOut) {
-        if (!Object.keys(filters).length) {
-          return (data.rows = props.rows)
-        }
-        data.rows = filterRows(props.rows)
-      }
+      if (!Object.keys(filters).length) return (data.rows = props.rows)
+
+      data.rows = filterRows(props.rows)
 
       data.page = 1
     }
@@ -199,7 +195,7 @@ export const VDataTable = defineComponent({
     function genTableHeader(): VNode {
       const propsData = {
         cols: data.cols,
-        color: props.headerColor || props.color,
+        color: props.color,
         checkbox: props.checkbox,
         dark: props.dark,
         align: props.align,
@@ -223,6 +219,7 @@ export const VDataTable = defineComponent({
         align: props.align,
         dark: props.dark,
         numbered: props.numbered,
+        color: props.color,
         onCheck,
       }
 

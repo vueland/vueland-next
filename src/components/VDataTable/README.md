@@ -119,11 +119,11 @@
             <td>if set true, table content will be<br/> displayed in white</td>
         </tr>
          <tr>
-            <td colspan="3">state-out</td>
-            <td>Boolean</td>
+            <td colspan="3">custom-filter</td>
+            <td>Function</td>
+            <td>undefined</td>
             <td>false</td>
-            <td>false</td>
-            <td>if set true, the filter event appears in the table,<br/> which can be handled by custom methods,<br/> respectively, internal filtering in the<br/> table will be disabled</td>
+            <td>if set, the rows will be filtered by the custom filter function<br/> which can be handled by custom methods,<br/> respectively, internal filtering in the<br/> table will be disabled</td>
         </tr>
         <tr>
             <td colspan="3">numbered</td>

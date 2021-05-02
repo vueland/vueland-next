@@ -58,26 +58,59 @@ describe('VDataTable', () => {
   it('should test column filter and match snapshot', async () => {
     cols[0].filterable = true
     cols[0].sortable = false
+    const value = 'Alex'
 
     const cmp = mountFunction({
-      props: { cols, rows, stateOut: true },
+      props: { cols, rows },
     })
 
-    const filterBtn = cmp.find('.v-data-table-col__actions-filter')
+    const nameColFilterBtn = cmp.find('.v-data-table-col__actions-filter')
 
-    expect(filterBtn.exists()).toBe(true)
+    expect(nameColFilterBtn.exists()).toBe(true)
 
-    await filterBtn.trigger('click')
-    const filter = cmp.find('.v-data-table-col__filter')
-    const textField = cmp.find('.v-text-field__input')
+    await nameColFilterBtn.trigger('click')
 
-    expect(textField.exists()).toBe(true)
+    const nameColFilter = cmp.find('.v-data-table-col__filter')
+    const nameColFilterTextField = cmp.find('.v-text-field__input')
 
-    await textField.trigger('input')
+    expect(nameColFilterTextField.exists()).toBe(true)
 
-    expect(cmp.emitted().filter).toHaveLength(1)
-    expect(filter.exists()).toBe(true)
-    expect(filter.isVisible()).toBe(true)
+    nameColFilterTextField.element.value = value
+
+    await nameColFilterBtn.trigger('input')
+
+    // expect(cmp.find('.v-data-table__row').text()).toContain('Alex')
+    expect(nameColFilter.exists()).toBe(true)
+    expect(nameColFilter.isVisible()).toBe(true)
+  })
+
+  it('should test column custom filter and match snapshot', async () => {
+    cols[0].filterable = true
+    cols[0].sortable = false
+    const stub = jest.fn()
+    const value = 'John'
+
+    const cmp = mountFunction({
+      props: { cols, rows, customFilter: stub },
+    })
+
+    const nameColFilterBtn = cmp.find('.v-data-table-col__actions-filter')
+
+    expect(nameColFilterBtn.exists()).toBe(true)
+
+    await nameColFilterBtn.trigger('click')
+    const nameColFilter = cmp.find('.v-data-table-col__filter')
+    const nameColFilterTextField = cmp.find('.v-text-field__input')
+
+    expect(nameColFilterTextField.exists()).toBe(true)
+
+    nameColFilterTextField.element.value = value
+
+    await nameColFilterTextField.trigger('input')
+
+    expect(stub).toHaveBeenCalledWith({ name: value })
+    expect(nameColFilter.exists()).toBe(true)
+    expect(nameColFilter.isVisible()).toBe(true)
     expect(cmp.html()).toMatchSnapshot()
   })
 })

@@ -1,20 +1,17 @@
 // Vue API
 import { computed, ComputedRef } from 'vue'
 
-// Types
-import { Props } from '../types'
-
 type Elevetable = {
   elevationClasses: ComputedRef<Record<string, boolean>>
 };
 
-export function elevationProps(): Props {
+export function elevationProps() {
   return {
     elevation: [String, Number],
   }
 }
 
-export function useElevation(props: Props): Elevetable {
+export function useElevation(props: any): Elevetable {
   const elevationClasses = computed(() => {
     return {
       [`elevation-${props.elevation}`]: !!props.elevation,

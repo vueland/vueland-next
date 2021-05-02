@@ -2,14 +2,13 @@
 import { computed } from 'vue'
 
 // Types
-import { Props } from '../types'
 import { ComputedRef } from 'vue'
 
 type Positionable = {
   positionClasses: ComputedRef<Record<string, boolean>>
 };
 
-export const positionProps = (): Props => {
+export const positionProps = () => {
   return {
     absolute: Boolean,
     left: Boolean,
@@ -27,7 +26,7 @@ export const positionProps = (): Props => {
   }
 }
 
-export const usePosition = (props: Props): Positionable => {
+export const usePosition = (props: any): Positionable => {
   const positionClasses = computed(() => {
     return {
       'position--absolute': props.absolute,

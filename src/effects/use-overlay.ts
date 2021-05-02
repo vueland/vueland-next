@@ -4,7 +4,6 @@ import { render } from 'vue'
 import { VOverlay } from '../components'
 
 // Types
-import { Props } from '../types'
 import { SetupContext, VNode } from 'vue'
 
 // Helpers
@@ -17,7 +16,7 @@ interface Overlayable {
 
 const TIMEOUT = 40
 
-export function overlayProps(): Props {
+export function overlayProps() {
   return {
     overlay: Boolean,
     overlayColor: {
@@ -27,10 +26,10 @@ export function overlayProps(): Props {
   }
 }
 
-export function useOverlay(props: Props, overlayOn?: Element): Overlayable {
+export function useOverlay(props: any, overlayOn?: Element): Overlayable {
   const container = document.createElement('div')
 
-  const overlayPropsObject: Props = {
+  const overlayPropsObject = {
     active: false,
     hide: true,
     color: props.overlayColor,

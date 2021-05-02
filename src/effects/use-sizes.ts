@@ -1,7 +1,6 @@
 import { computed } from 'vue'
-import { Props } from '../types'
 
-export function sizeProps(): Props {
+export function sizeProps() {
   return {
     large: Boolean,
     small: Boolean,

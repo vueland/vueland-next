@@ -33,30 +33,30 @@ export const VDataTable = defineComponent({
   props: {
     cols: {
       type: Array,
-      default: () => [],
+      default: () => []
     },
     rows: {
       type: Array,
-      default: () => [],
+      default: () => []
     },
     rowsOnTable: {
       type: Array,
-      default: () => [10, 15, 20, 25],
+      default: () => [10, 15, 20, 25]
     },
     dark: Boolean,
     numbered: Boolean,
     checkbox: Boolean,
     align: {
       type: String,
-      validator: (val) => ['left', 'center', 'right'].includes(val),
+      validator: (val) => ['left', 'center', 'right'].includes(val)
     },
     color: {
       type: String,
-      default: 'white',
+      default: 'white'
     },
     headerProps: Object,
     footerProps: Object,
-    customFilter: Function,
+    customFilter: Function
   } as any,
   emits: ['checked', 'filter', 'last-page'],
 
@@ -67,29 +67,49 @@ export const VDataTable = defineComponent({
       checkedRows: [],
       rowsPerPage: 20,
       page: 1,
-      isAllRowsChecked: false,
+      isAllRowsChecked: false
     })
     const filters = {}
     const { setBackground } = useColors()
 
     const classes = computed<Record<string, boolean>>(() => ({
-      'v-data-table': true,
+      'v-data-table': true
     }))
 
     const pages = computed<number>(() => {
       return Math.ceil(data.rows?.length / data.rowsPerPage)
     })
 
+    const lastOnPage = computed<number>(() => {
+      return data.page * data.rowsPerPage > data.rows?.length
+        ? data.rows?.length
+        : data.page * data.rowsPerPage
+    })
+
+    const firstOnPage = computed<number>(() => {
+      return data.page === 1 ? 1 : (data.page - 1) * data.rowsPerPage + 1
+    })
+
+    const overPages = computed<number | null>(() => {
+      if ((data.page - 1) * data.rowsPerPage > data.rows?.length) {
+        return Math.ceil(
+          (data.page * data.rowsPerPage - data.rows?.length) / data.rowsPerPage
+        )
+      }
+
+      return null
+    })
+
     watch(
       () => props.cols,
       (to) => (data.cols = to),
-      { immediate: true },
+      { immediate: true }
     )
 
     watch(
       () => props.rows,
       (to) => (data.rows = to),
-      { immediate: true },
+      { immediate: true }
     )
 
     function onCheckAll(value: boolean) {
@@ -187,8 +207,8 @@ export const VDataTable = defineComponent({
       const propsData = { class: 'v-data-table__toolbar' }
 
       return h('div', propsData, {
-          default: () => slots.toolbar && slots.toolbar(),
-        },
+          default: () => slots.toolbar && slots.toolbar()
+        }
       )
     }
 
@@ -203,7 +223,7 @@ export const VDataTable = defineComponent({
         options: props.headerProps,
         onFilter,
         onSort,
-        onCheckAll,
+        onCheckAll
       }
       return h(VDataTableHeader, propsData)
     }
@@ -220,10 +240,11 @@ export const VDataTable = defineComponent({
         dark: props.dark,
         numbered: props.numbered,
         color: props.color,
-        onCheck,
+        onCheck
       }
 
       const content = props.cols.reduce((acc, col) => {
+
         const slotContent = (row) => {
           const scoped: any = { row }
 
@@ -244,27 +265,34 @@ export const VDataTable = defineComponent({
       const propsData = {
         pages: pages.value,
         page: data.page,
+        firstOnPage: firstOnPage.value,
+        lastOnPage: lastOnPage.value,
+        overPages: overPages.value,
         counts: props.rowsOnTable,
         tableRowsCount: data.rows?.length,
-        allRowsCount: props.rows.length,
         rowsPerPage: data.rowsPerPage,
         dark: props.dark,
         color: props.color,
-        toolbar: props.toolbar,
         options: props.footerProps,
         onPrev: onPrevTable,
         onNext: onNextTable,
         onSelect: onSelectRowsCount,
-        onLastPage: (val) => emit('last-page', val),
-        onResetPage: (val) => (data.page += val),
+        onLastPage: () => emit('last-page', props.rows.length),
+        onResetPage: (val) => (data.page += val)
       }
 
-      return h(VDataTableFooter, propsData)
+      return h(VDataTableFooter, propsData, slots.paginationDisplay ? {
+        paginationDisplay: () => slots.paginationDisplay && slots.paginationDisplay({
+          start: firstOnPage.value,
+          last: lastOnPage.value,
+          length: data.rows?.length
+        })
+      } : '')
     }
 
     function genTableInner(): VNode {
       const propsData = {
-        class: 'v-data-table__inner',
+        class: 'v-data-table__inner'
       }
 
       return h('div', propsData, [genTableHeader(), genTableBody()])
@@ -272,14 +300,14 @@ export const VDataTable = defineComponent({
 
     return () => {
       const propsData = {
-        class: classes.value,
+        class: classes.value
       }
 
       return h('div', setBackground(props.color, propsData), [
         slots.toolbar && genTableTools(),
         genTableInner(),
-        genTableFooter(),
+        genTableFooter()
       ])
     }
-  },
+  }
 })

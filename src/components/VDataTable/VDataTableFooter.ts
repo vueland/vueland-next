@@ -19,11 +19,14 @@ export const VDataTableFooter = defineComponent({
     dark: Boolean,
     pages: Number,
     page: Number,
+    firstOnPage: Number,
+    lastOnPage: Number,
+    overPages: Number,
     rowsPerPage: Number,
     tableRowsCount: Number,
-    allRowsCount: Number,
     counts: Array,
-    ...colorProps(),
+    options: Object,
+    ...colorProps()
   } as any,
 
   emits: [
@@ -31,52 +34,25 @@ export const VDataTableFooter = defineComponent({
     'reset-page',
     'select',
     'next',
-    'prev',
+    'prev'
   ],
 
-  setup(props, { emit }) {
+  setup(props, { emit, slots }) {
     const { setTextColor } = useColors()
     const { icons, iconSize } = useIcons('xs')
 
-    const lastOnPage = computed<number>(() => {
-      const { page, tableRowsCount, rowsPerPage } = props
-      return page * rowsPerPage > tableRowsCount
-        ? tableRowsCount
-        : page * rowsPerPage
+    const paginationDisplayText = computed<string>(() => {
+      return `${ props.firstOnPage } - ${ props.lastOnPage }
+        of ${ props.tableRowsCount }`
     })
 
-    const firstOnPage = computed<number>(() => {
-      const { page, rowsPerPage } = props
-      return page === 1 ? 1 : (page - 1) * rowsPerPage + 1
-    })
-
-    const paginationDisplay = computed<string>(() => {
-      return props.tableRowsCount
-        ? `${ firstOnPage.value } - ${ lastOnPage.value } from ${ props.tableRowsCount }`
-        : '-'
-    })
-
-    const isLastPage = computed(() => {
+    const isLastPage = computed<boolean>(() => {
       return props.page >= props.pages
-    })
-
-    const overPages = computed<number | null>(() => {
-      const { page, tableRowsCount, rowsPerPage } = props
-
-      if ((page - 1) * rowsPerPage > tableRowsCount) {
-        return Math.ceil((page * rowsPerPage - tableRowsCount) / rowsPerPage)
-      }
-
-      return null
     })
 
     watch(
       () => isLastPage.value,
-      (to) => {
-        if (to && props.tableRowsCount === props.allRowsCount) {
-          emit('last-page', props.allRowsCount)
-        }
-      },
+      to => to && emit('last-page')
     )
 
     function changeTableRowsPage(isNext) {
@@ -87,23 +63,26 @@ export const VDataTableFooter = defineComponent({
     }
 
     function genPaginationButton(isNext) {
+      const btnColor = (props.options?.paginationButtonsColor)
+        || (props.dark ? 'white' : 'primary')
+
       return h(
         VButton,
         {
           width: 42,
-          color: props.dark ? 'white' : 'primary',
+          color: btnColor,
           text: props.dark,
           elevation: 3,
-          onClick: () => changeTableRowsPage(isNext),
+          onClick: () => changeTableRowsPage(isNext)
         },
         {
           default: () =>
             h(VIcon, {
               icon: isNext ? icons.$arrowRight : icons.$arrowLeft,
               color: props.dark ? 'white' : '',
-              size: iconSize,
-            }),
-        },
+              size: iconSize
+            })
+        }
       )
     }
 
@@ -115,11 +94,11 @@ export const VDataTableFooter = defineComponent({
           style: { margin: '0 10px' },
           color: props.dark ? 'white' : 'blue lighten-1',
           text: props.dark,
-          elevation: 3,
+          elevation: 3
         },
         {
-          default: () => props.page,
-        },
+          default: () => props.page
+        }
       )
     }
 
@@ -129,47 +108,49 @@ export const VDataTableFooter = defineComponent({
         modelValue: props.rowsPerPage,
         dark: props.dark,
         listColor: props.color,
-        onSelect: (e) => emit('select', e),
+        onSelect: (e) => emit('select', e)
       })
     }
 
     function genSelectCaption() {
       const propsData = {
         class: {
-          'v-data-table__pagination-label': true,
-        },
+          'v-data-table__pagination-label': true
+        }
       }
       const color = props.dark ? 'white' : ''
 
       return h(
         'span',
         color ? setTextColor(color, propsData) : propsData,
-        'Rows per page',
+        props.options?.paginationText || 'Rows per page'
       )
     }
 
     function genPageItemsSelect() {
       return h('div', { class: 'v-data-table__pagination-select' }, [
         genSelectCaption(),
-        genSelect(),
+        genSelect()
       ])
     }
 
     function genPagesCountDisplay() {
       const propsData = {
         class: {
-          'v-data-table__pagination-pages': true,
-        },
+          'v-data-table__pagination-pages': true
+        }
       }
 
       const color = props.dark ? 'white' : ''
 
-      overPages.value && emit('reset-page', -overPages.value)
+      props.overPages && emit('reset-page', -props.overPages)
 
       return h(
         'div',
         color ? setTextColor(color, propsData) : propsData,
-        paginationDisplay.value,
+
+        (props.tableRowsCount && slots.paginationDisplay && slots.paginationDisplay()) ||
+        (props.tableRowsCount && paginationDisplayText.value) || '-'
       )
     }
 
@@ -177,7 +158,7 @@ export const VDataTableFooter = defineComponent({
       return h('div', { class: { 'v-data-table__pagination-route': true } }, [
         genPaginationButton(false),
         genPageDisplay(),
-        genPaginationButton(true),
+        genPaginationButton(true)
       ])
     }
 
@@ -185,17 +166,11 @@ export const VDataTableFooter = defineComponent({
       return h('div', { class: 'v-data-table__pagination' }, [
         genPageItemsSelect(),
         genPagesCountDisplay(),
-        genPaginationButtonsBlock(),
+        genPaginationButtonsBlock()
       ])
     }
 
     return () =>
-      h(
-        'div',
-        {
-          class: 'v-data-table__footer',
-        },
-        genPaginationBlock(),
-      )
-  },
+      h('div', { class: 'v-data-table__footer' }, genPaginationBlock())
+  }
 })

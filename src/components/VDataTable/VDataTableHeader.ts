@@ -7,6 +7,7 @@ import { h, computed, withDirectives, defineComponent } from 'vue'
 // Effects
 import { colorProps, useColors } from '../../effects/use-colors'
 import { useIcons } from '../../effects/use-icons'
+
 // Components
 import { VIcon } from '../VIcon'
 import { VCheckbox } from '../VCheckbox'
@@ -54,7 +55,7 @@ export const VDataTableHeader = defineComponent({
     })
 
     const computedContentColor = computed<string>(() => {
-      return  (isDarkMode.value ? 'white' : '') || props.options?.contentColor
+      return (isDarkMode.value ? 'white' : '') || props.options?.contentColor
     })
 
     const computedColor = computed<string>(() => {
@@ -69,13 +70,12 @@ export const VDataTableHeader = defineComponent({
 
     function onInput($value, item) {
       item.filtered = !!$value
-
       emit('filter', { value: $value, col: item })
     }
 
-    function addFilter(item) {
-      if (item.addFilter) return
-      item.addFilter = true
+    function showFilter(item) {
+      if (item.showFilter) return
+      item.showFilter = true
     }
 
     function genSortButton(item) {
@@ -108,7 +108,7 @@ export const VDataTableHeader = defineComponent({
         size: iconSize,
         icon: icons.$filter,
         color: computedContentColor.value,
-        onClick: () => addFilter(item),
+        onClick: () => showFilter(item),
       }
 
       return h(VIcon, propsData)
@@ -142,9 +142,9 @@ export const VDataTableHeader = defineComponent({
       const colorClass = isDarkMode.value ? 'grey darken-3' : 'grey lighten-2'
 
       const filterClass = item.filterClass || colorClass
-      const directive = item.addFilter
+      const directive = item.showFilter
         ? {
-            handler: () => setTimeout(() => (item.addFilter = false)),
+            handler: () => setTimeout(() => (item.showFilter = false)),
             closeConditional: false,
           }
         : undefined
@@ -162,7 +162,7 @@ export const VDataTableHeader = defineComponent({
           h('div', propsData, [genFilterHeader(item), genFilterInput(item)]),
           [
             [clickOutside, directive],
-            [vShow, item.addFilter],
+            [vShow, item.showFilter],
           ]
         )
       )

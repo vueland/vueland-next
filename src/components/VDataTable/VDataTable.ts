@@ -195,7 +195,7 @@ export const VDataTable = defineComponent({
     function genTableHeader(): VNode {
       const propsData = {
         cols: data.cols,
-        color: props.headerColor || props.color,
+        color: props.color,
         checkbox: props.checkbox,
         dark: props.dark,
         align: props.align,

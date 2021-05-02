@@ -2,7 +2,6 @@
 import { ref, watch } from 'vue'
 
 // Types
-import { Props } from '../types'
 import { Ref } from 'vue'
 
 type Toggleable = {
@@ -15,7 +14,7 @@ type Toggleable = {
  * @param propName {string} - the prop name which is tracked for changes
  */
 
-export function useToggle(props: Props, propName?: string): Toggleable {
+export function useToggle(props: any, propName?: string): Toggleable {
   const isActive = ref(false)
   const prop = propName ? propName : 'modelValue'
 

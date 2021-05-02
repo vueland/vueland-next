@@ -111,7 +111,6 @@
       return {
         data,
         cols,
-        // rows,
         addItem,
         testFunc,
         toggleAlways,
@@ -156,7 +155,6 @@
       :rows="data.users"
       :rows-on-table="[25, 40, 50, 75]"
       :header-props="{contentColor: 'white', color: 'grey lighten-1', dark: false}"
-      :custom-filter="testFunc"
       align="left"
       numbered
       checkbox

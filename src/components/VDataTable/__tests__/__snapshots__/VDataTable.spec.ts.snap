@@ -5,7 +5,7 @@ exports[`VDataTable should mound component and match snapshot 1`] = `
   <div class="v-data-table__inner">
     <div class="v-data-table__header white">
     </div>
-    <div class="v-data-table__body">
+    <div class="v-data-table__body white">
     </div>
   </div>
   <div class="v-data-table__footer">
@@ -93,7 +93,7 @@ exports[`VDataTable should set cols and match snapshot 1`] = `
 <div class="v-data-table white">
   <div class="v-data-table__inner">
     <div class="v-data-table__header white">
-      <div class="v-data-table__cell v-data-table-col"
+      <div class="v-data-table__cell white v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--start">
@@ -104,7 +104,7 @@ exports[`VDataTable should set cols and match snapshot 1`] = `
           </span>
         </div>
       </div>
-      <div class="v-data-table__cell v-data-table-col"
+      <div class="v-data-table__cell white v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--start">
@@ -115,7 +115,7 @@ exports[`VDataTable should set cols and match snapshot 1`] = `
           </span>
         </div>
       </div>
-      <div class="v-data-table__cell v-data-table-col"
+      <div class="v-data-table__cell white v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--start">
@@ -127,7 +127,7 @@ exports[`VDataTable should set cols and match snapshot 1`] = `
         </div>
       </div>
     </div>
-    <div class="v-data-table__body">
+    <div class="v-data-table__body white">
     </div>
   </div>
   <div class="v-data-table__footer">
@@ -211,11 +211,11 @@ exports[`VDataTable should set cols and match snapshot 1`] = `
 </div>
 `;
 
-exports[`VDataTable should test column filter and match snapshot 1`] = `
+exports[`VDataTable should test column custom filter and match snapshot 1`] = `
 <div class="v-data-table white">
   <div class="v-data-table__inner">
     <div class="v-data-table__header white">
-      <div class="v-data-table__cell v-data-table-col"
+      <div class="v-data-table__cell white v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--start">
@@ -223,14 +223,12 @@ exports[`VDataTable should test column filter and match snapshot 1`] = `
             Name
           </div>
           <span class="v-data-table-col__actions">
-            <button class="v-icon v-icon--link v-icon--clickable fas fa-align-justify v-data-table-col__actions-filter"
+            <button class="v-icon v-icon--link v-icon--clickable fas fa-align-justify v-data-table-col__actions-filter v-data-table-col__actions-filter--active"
                     style="font-size: 14px;"
             >
             </button>
           </span>
-          <div class="v-data-table-col__filter grey lighten-2"
-               style
-          >
+          <div class="v-data-table-col__filter grey lighten-2">
             <span class="v-data-table-col__filter-header">
               Name
             </span>
@@ -250,7 +248,7 @@ exports[`VDataTable should test column filter and match snapshot 1`] = `
                   >
                   </button>
                 </div>
-                <label class="v-label v-label--on-field primary--text"
+                <label class="v-label v-label--active v-label--on-field v-label--has-state primary--text"
                        style="left: 0px; position: absolute;"
                 >
                   input value
@@ -269,7 +267,7 @@ exports[`VDataTable should test column filter and match snapshot 1`] = `
           </div>
         </div>
       </div>
-      <div class="v-data-table__cell v-data-table-col"
+      <div class="v-data-table__cell white v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--start">
@@ -280,7 +278,7 @@ exports[`VDataTable should test column filter and match snapshot 1`] = `
           </span>
         </div>
       </div>
-      <div class="v-data-table__cell v-data-table-col"
+      <div class="v-data-table__cell white v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--start">
@@ -292,7 +290,7 @@ exports[`VDataTable should test column filter and match snapshot 1`] = `
         </div>
       </div>
     </div>
-    <div class="v-data-table__body">
+    <div class="v-data-table__body white">
       <div class="v-data-table__row">
         <div class="v-data-table__cell"
              style="width: 125px;"
@@ -426,7 +424,7 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
 <div class="v-data-table white">
   <div class="v-data-table__inner">
     <div class="v-data-table__header white">
-      <div class="v-data-table__cell v-data-table-col v-data-table-col--sorted"
+      <div class="v-data-table__cell white v-data-table-col v-data-table-col--sorted"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--start">
@@ -441,7 +439,7 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
           </span>
         </div>
       </div>
-      <div class="v-data-table__cell v-data-table-col"
+      <div class="v-data-table__cell white v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--start">
@@ -452,7 +450,7 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
           </span>
         </div>
       </div>
-      <div class="v-data-table__cell v-data-table-col"
+      <div class="v-data-table__cell white v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--start">
@@ -464,7 +462,7 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
         </div>
       </div>
     </div>
-    <div class="v-data-table__body">
+    <div class="v-data-table__body white">
       <div class="v-data-table__row">
         <div class="v-data-table__cell"
              style="width: 125px;"

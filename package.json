@@ -18,11 +18,7 @@
     "dist/",
     "lib/",
     "es5/",
-    "types/",
-    "*.json",
-    "*.vue",
-    "*.ts",
-    "*.js"
+    "types/"
   ],
   "scripts": {
     "dev": "webpack-dev-server --config build/webpack.dev.conf.js",
@@ -34,14 +30,14 @@
     "test": "jest -u",
     "test:editor": "editorconfig-checker --exclude '.git|node_modules|dist|es5|lib|.idea'",
     "declarations": "ttsc --emitDeclarationOnly",
-    "tslint-check": "tslint-config-prettier-check ./tslint.json",
-    "prettier": "prettier --write --config ./.prettierrc.json './src/**/*.{ts,tsx}'",
+    "tslint-check": "tslint-config-prettier-check tslint.json",
+    "prettier": "prettier --write --config .prettierrc.json './src/**/*.{ts,tsx}'",
     "lint": "eslint --ext .ts,.vue src"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/vueland/vueland-next.git",
-    "directory": "packages/vueland"
+    "directory": "/"
   },
   "browserslist": [
     ">1%",

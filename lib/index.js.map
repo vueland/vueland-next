@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../src/index.ts"],"names":[],"mappings":"AAAA,OAAO,8BAAP;AACA,SAAS,OAAT,QAAwB,WAAxB;AAEA,cAAc,oBAAd;AACA,SAAS,OAAT;AAEA,eAAe,OAAf","sourcesContent":["import './styles/scss/main.scss'\nimport { Vueland } from './library'\n\nexport * from './components/index'\nexport { Vueland }\n\nexport default Vueland\n"],"sourceRoot":"","file":"index.js"}

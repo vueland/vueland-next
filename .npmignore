@@ -3,9 +3,16 @@ dev
 node_modules
 
 .git
+.github
 .gitignore
 .prettierignore
 .prettierrc.json
+.editorconfig
+.eslintrc
+
+!dist
+!es5
+!lib
 
 babel.config.js
 jest.config.js

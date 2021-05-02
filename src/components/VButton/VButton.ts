@@ -7,7 +7,7 @@ import { defineComponent, h, computed } from 'vue'
 // Compositions
 import { useColors } from '../../effects/use-colors'
 import { elevationProps, useElevation } from '../../effects/use-elevation'
-import { positionProps, usePosition } from '../../effects/use-position'
+import { usePosition } from '../../effects/use-position'
 
 // Types
 import { VNode } from 'vue'
@@ -29,7 +29,6 @@ export const VButton = defineComponent({
       default: 'grey lighten-2',
     },
     ...elevationProps(),
-    ...positionProps(),
   } as any,
   emits: ['click'],
 

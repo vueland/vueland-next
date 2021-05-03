@@ -1,7 +1,7 @@
 
 <h1 align="center">VueLand</h1>
 <p  align="center">
-  <a href="https://github.com/wiseadme/vueland">
+  <a href="https://github.com/vueland/vueland-next">
     <img src="https://i.ibb.co/9yppwCj/vueland.png" alt="vueland" border="0">
   </a>
 </p>

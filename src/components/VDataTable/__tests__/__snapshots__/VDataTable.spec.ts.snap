@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`VDataTable should mound component and match snapshot 1`] = `
+exports[`VDataTable should mount component and match snapshot 1`] = `
 <div class="v-data-table white">
   <div class="v-data-table__inner">
     <div class="v-data-table__header white">
@@ -89,7 +89,729 @@ exports[`VDataTable should mound component and match snapshot 1`] = `
 </div>
 `;
 
-exports[`VDataTable should set cols and match snapshot 1`] = `
+exports[`VDataTable should test align center and match snapshot 1`] = `
+<div class="v-data-table white">
+  <div class="v-data-table__inner">
+    <div class="v-data-table__header white">
+      <div class="v-data-table__cell white v-data-table-col"
+           style="width: 125px;"
+      >
+        <div class="v-data-table__cell-content text-align--center">
+          <div class="v-data-table-col__title">
+            Name
+          </div>
+          <span class="v-data-table-col__actions">
+            <button class="v-icon v-icon--link v-icon--clickable fas fa-align-justify v-data-table-col__actions-filter"
+                    style="font-size: 14px;"
+            >
+            </button>
+          </span>
+          <div class="v-data-table-col__filter grey lighten-2"
+               style="display: none;"
+          >
+            <span class="v-data-table-col__filter-header">
+              Name
+            </span>
+            <div class="v-input">
+              <div class="v-input__field-slot primary--text">
+                <div class="v-input__prepend-icon">
+                  <i class="v-icon fas fa-search primary--text"
+                     style="font-size: 18px;"
+                     dark="false"
+                  >
+                  </i>
+                </div>
+                <div class="v-input__clear">
+                  <button class="v-icon v-icon--link v-icon--clickable fas fa-times primary--text"
+                          style="font-size: 18px;"
+                          dark="false"
+                  >
+                  </button>
+                </div>
+                <label class="v-label v-label--on-field primary--text"
+                       style="left: 0px; position: absolute;"
+                >
+                  input value
+                </label>
+                <div class="v-text-field v-validatable">
+                  <input class="v-text-field__input"
+                         type="text"
+                  >
+                </div>
+              </div>
+              <div class="v-input__status">
+                <transition-stub>
+                </transition-stub>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__cell white v-data-table-col"
+           style="width: 125px;"
+      >
+        <div class="v-data-table__cell-content text-align--center">
+          <div class="v-data-table-col__title">
+            Email
+          </div>
+          <span class="v-data-table-col__actions">
+          </span>
+        </div>
+      </div>
+      <div class="v-data-table__cell white v-data-table-col"
+           style="width: 125px;"
+      >
+        <div class="v-data-table__cell-content text-align--center">
+          <div class="v-data-table-col__title">
+            Body
+          </div>
+          <span class="v-data-table-col__actions">
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="v-data-table__body white">
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            Ben
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            ben@mail.ru
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            some body text
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            Alex
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            alex@mail.ru
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            some body text
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="v-data-table__footer">
+    <div class="v-data-table__pagination">
+      <div class="v-data-table__pagination-select">
+        <span class="v-data-table__pagination-label">
+          Rows per page
+        </span>
+        <div class="v-input">
+          <div class="v-input__select-slot primary--text">
+            <label class="v-label v-label--active v-label--on-field v-label--has-state primary--text"
+                   style="left: 0px; position: absolute;"
+            >
+            </label>
+            <div class="v-select v-validatable">
+              <input class="v-select__input">
+              <transition-stub>
+                <div class="v-select-list elevation-4 white"
+                     style="display: none;"
+                >
+                  <div class="v-list v-select--items-list">
+                    <div class="v-list-item">
+                      <span class="v-list-item__title">
+                        5
+                      </span>
+                    </div>
+                    <div class="v-list-item">
+                      <span class="v-list-item__title">
+                        10
+                      </span>
+                    </div>
+                    <div class="v-list-item">
+                      <span class="v-list-item__title">
+                        15
+                      </span>
+                    </div>
+                    <div class="v-list-item">
+                      <span class="v-list-item__title">
+                        20
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </transition-stub>
+            </div>
+          </div>
+          <div class="v-input__status">
+            <transition-stub>
+            </transition-stub>
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__pagination-pages">
+        -
+      </div>
+      <div class="v-data-table__pagination-route">
+        <button class="v-button v-button--disabled"
+                style="min-width: 42px;"
+        >
+          <i class="v-icon fas fa-chevron-left"
+             style="font-size: 12px;"
+          >
+          </i>
+        </button>
+        <button class="v-button elevation-3 blue lighten-1"
+                style="min-width: 42px; margin: 0px 10px;"
+        >
+          1
+        </button>
+        <button class="v-button v-button--disabled"
+                style="min-width: 42px;"
+        >
+          <i class="v-icon fas fa-chevron-right"
+             style="font-size: 12px;"
+          >
+          </i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`VDataTable should test align left and match snapshot 1`] = `
+<div class="v-data-table white">
+  <div class="v-data-table__inner">
+    <div class="v-data-table__header white">
+      <div class="v-data-table__cell white v-data-table-col"
+           style="width: 125px;"
+      >
+        <div class="v-data-table__cell-content text-align--left">
+          <div class="v-data-table-col__title">
+            Name
+          </div>
+          <span class="v-data-table-col__actions">
+            <button class="v-icon v-icon--link v-icon--clickable fas fa-align-justify v-data-table-col__actions-filter"
+                    style="font-size: 14px;"
+            >
+            </button>
+          </span>
+          <div class="v-data-table-col__filter grey lighten-2"
+               style="display: none;"
+          >
+            <span class="v-data-table-col__filter-header">
+              Name
+            </span>
+            <div class="v-input">
+              <div class="v-input__field-slot primary--text">
+                <div class="v-input__prepend-icon">
+                  <i class="v-icon fas fa-search primary--text"
+                     style="font-size: 18px;"
+                     dark="false"
+                  >
+                  </i>
+                </div>
+                <div class="v-input__clear">
+                  <button class="v-icon v-icon--link v-icon--clickable fas fa-times primary--text"
+                          style="font-size: 18px;"
+                          dark="false"
+                  >
+                  </button>
+                </div>
+                <label class="v-label v-label--on-field primary--text"
+                       style="left: 0px; position: absolute;"
+                >
+                  input value
+                </label>
+                <div class="v-text-field v-validatable">
+                  <input class="v-text-field__input"
+                         type="text"
+                  >
+                </div>
+              </div>
+              <div class="v-input__status">
+                <transition-stub>
+                </transition-stub>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__cell white v-data-table-col"
+           style="width: 125px;"
+      >
+        <div class="v-data-table__cell-content text-align--left">
+          <div class="v-data-table-col__title">
+            Email
+          </div>
+          <span class="v-data-table-col__actions">
+          </span>
+        </div>
+      </div>
+      <div class="v-data-table__cell white v-data-table-col"
+           style="width: 125px;"
+      >
+        <div class="v-data-table__cell-content text-align--left">
+          <div class="v-data-table-col__title">
+            Body
+          </div>
+          <span class="v-data-table-col__actions">
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="v-data-table__body white">
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            Ben
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            ben@mail.ru
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            some body text
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            Alex
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            alex@mail.ru
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            some body text
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="v-data-table__footer">
+    <div class="v-data-table__pagination">
+      <div class="v-data-table__pagination-select">
+        <span class="v-data-table__pagination-label">
+          Rows per page
+        </span>
+        <div class="v-input">
+          <div class="v-input__select-slot primary--text">
+            <label class="v-label v-label--active v-label--on-field v-label--has-state primary--text"
+                   style="left: 0px; position: absolute;"
+            >
+            </label>
+            <div class="v-select v-validatable">
+              <input class="v-select__input">
+              <transition-stub>
+                <div class="v-select-list elevation-4 white"
+                     style="display: none;"
+                >
+                  <div class="v-list v-select--items-list">
+                    <div class="v-list-item">
+                      <span class="v-list-item__title">
+                        5
+                      </span>
+                    </div>
+                    <div class="v-list-item">
+                      <span class="v-list-item__title">
+                        10
+                      </span>
+                    </div>
+                    <div class="v-list-item">
+                      <span class="v-list-item__title">
+                        15
+                      </span>
+                    </div>
+                    <div class="v-list-item">
+                      <span class="v-list-item__title">
+                        20
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </transition-stub>
+            </div>
+          </div>
+          <div class="v-input__status">
+            <transition-stub>
+            </transition-stub>
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__pagination-pages">
+        -
+      </div>
+      <div class="v-data-table__pagination-route">
+        <button class="v-button v-button--disabled"
+                style="min-width: 42px;"
+        >
+          <i class="v-icon fas fa-chevron-left"
+             style="font-size: 12px;"
+          >
+          </i>
+        </button>
+        <button class="v-button elevation-3 blue lighten-1"
+                style="min-width: 42px; margin: 0px 10px;"
+        >
+          1
+        </button>
+        <button class="v-button v-button--disabled"
+                style="min-width: 42px;"
+        >
+          <i class="v-icon fas fa-chevron-right"
+             style="font-size: 12px;"
+          >
+          </i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`VDataTable should test align left and match snapshot 2`] = `
+<div class="v-data-table white">
+  <div class="v-data-table__inner">
+    <div class="v-data-table__header white">
+      <div class="v-data-table__cell white v-data-table-col"
+           style="width: 125px;"
+      >
+        <div class="v-data-table__cell-content text-align--right">
+          <div class="v-data-table-col__title">
+            Name
+          </div>
+          <span class="v-data-table-col__actions">
+            <button class="v-icon v-icon--link v-icon--clickable fas fa-align-justify v-data-table-col__actions-filter"
+                    style="font-size: 14px;"
+            >
+            </button>
+          </span>
+          <div class="v-data-table-col__filter grey lighten-2"
+               style="display: none;"
+          >
+            <span class="v-data-table-col__filter-header">
+              Name
+            </span>
+            <div class="v-input">
+              <div class="v-input__field-slot primary--text">
+                <div class="v-input__prepend-icon">
+                  <i class="v-icon fas fa-search primary--text"
+                     style="font-size: 18px;"
+                     dark="false"
+                  >
+                  </i>
+                </div>
+                <div class="v-input__clear">
+                  <button class="v-icon v-icon--link v-icon--clickable fas fa-times primary--text"
+                          style="font-size: 18px;"
+                          dark="false"
+                  >
+                  </button>
+                </div>
+                <label class="v-label v-label--on-field primary--text"
+                       style="left: 0px; position: absolute;"
+                >
+                  input value
+                </label>
+                <div class="v-text-field v-validatable">
+                  <input class="v-text-field__input"
+                         type="text"
+                  >
+                </div>
+              </div>
+              <div class="v-input__status">
+                <transition-stub>
+                </transition-stub>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__cell white v-data-table-col"
+           style="width: 125px;"
+      >
+        <div class="v-data-table__cell-content text-align--right">
+          <div class="v-data-table-col__title">
+            Email
+          </div>
+          <span class="v-data-table-col__actions">
+          </span>
+        </div>
+      </div>
+      <div class="v-data-table__cell white v-data-table-col"
+           style="width: 125px;"
+      >
+        <div class="v-data-table__cell-content text-align--right">
+          <div class="v-data-table-col__title">
+            Body
+          </div>
+          <span class="v-data-table-col__actions">
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="v-data-table__body white">
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            Ben
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            ben@mail.ru
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            some body text
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            Alex
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            alex@mail.ru
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            some body text
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="v-data-table__footer">
+    <div class="v-data-table__pagination">
+      <div class="v-data-table__pagination-select">
+        <span class="v-data-table__pagination-label">
+          Rows per page
+        </span>
+        <div class="v-input">
+          <div class="v-input__select-slot primary--text">
+            <label class="v-label v-label--active v-label--on-field v-label--has-state primary--text"
+                   style="left: 0px; position: absolute;"
+            >
+            </label>
+            <div class="v-select v-validatable">
+              <input class="v-select__input">
+              <transition-stub>
+                <div class="v-select-list elevation-4 white"
+                     style="display: none;"
+                >
+                  <div class="v-list v-select--items-list">
+                    <div class="v-list-item">
+                      <span class="v-list-item__title">
+                        5
+                      </span>
+                    </div>
+                    <div class="v-list-item">
+                      <span class="v-list-item__title">
+                        10
+                      </span>
+                    </div>
+                    <div class="v-list-item">
+                      <span class="v-list-item__title">
+                        15
+                      </span>
+                    </div>
+                    <div class="v-list-item">
+                      <span class="v-list-item__title">
+                        20
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </transition-stub>
+            </div>
+          </div>
+          <div class="v-input__status">
+            <transition-stub>
+            </transition-stub>
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__pagination-pages">
+        -
+      </div>
+      <div class="v-data-table__pagination-route">
+        <button class="v-button v-button--disabled"
+                style="min-width: 42px;"
+        >
+          <i class="v-icon fas fa-chevron-left"
+             style="font-size: 12px;"
+          >
+          </i>
+        </button>
+        <button class="v-button elevation-3 blue lighten-1"
+                style="min-width: 42px; margin: 0px 10px;"
+        >
+          1
+        </button>
+        <button class="v-button v-button--disabled"
+                style="min-width: 42px;"
+        >
+          <i class="v-icon fas fa-chevron-right"
+             style="font-size: 12px;"
+          >
+          </i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`VDataTable should test color prop and match snapshot 1`] = `
+<div class="v-data-table grey darken-3">
+  <div class="v-data-table__inner">
+    <div class="v-data-table__header grey darken-3">
+    </div>
+    <div class="v-data-table__body grey darken-3">
+    </div>
+  </div>
+  <div class="v-data-table__footer">
+    <div class="v-data-table__pagination">
+      <div class="v-data-table__pagination-select">
+        <span class="v-data-table__pagination-label">
+          Rows per page
+        </span>
+        <div class="v-input">
+          <div class="v-input__select-slot primary--text">
+            <label class="v-label v-label--active v-label--on-field v-label--has-state primary--text"
+                   style="left: 0px; position: absolute;"
+            >
+            </label>
+            <div class="v-select v-validatable">
+              <input class="v-select__input">
+              <transition-stub>
+                <div class="v-select-list elevation-4 grey darken-3"
+                     style="display: none;"
+                >
+                  <div class="v-list v-select--items-list">
+                    <div class="v-list-item">
+                      <span class="v-list-item__title">
+                        5
+                      </span>
+                    </div>
+                    <div class="v-list-item">
+                      <span class="v-list-item__title">
+                        10
+                      </span>
+                    </div>
+                    <div class="v-list-item">
+                      <span class="v-list-item__title">
+                        15
+                      </span>
+                    </div>
+                    <div class="v-list-item">
+                      <span class="v-list-item__title">
+                        20
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </transition-stub>
+            </div>
+          </div>
+          <div class="v-input__status">
+            <transition-stub>
+            </transition-stub>
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__pagination-pages">
+        -
+      </div>
+      <div class="v-data-table__pagination-route">
+        <button class="v-button v-button--disabled"
+                style="min-width: 42px;"
+        >
+          <i class="v-icon fas fa-chevron-left"
+             style="font-size: 12px;"
+          >
+          </i>
+        </button>
+        <button class="v-button elevation-3 blue lighten-1"
+                style="min-width: 42px; margin: 0px 10px;"
+        >
+          1
+        </button>
+        <button class="v-button v-button--disabled"
+                style="min-width: 42px;"
+        >
+          <i class="v-icon fas fa-chevron-right"
+             style="font-size: 12px;"
+          >
+          </i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`VDataTable should test cols prop and match snapshot 1`] = `
 <div class="v-data-table white">
   <div class="v-data-table__inner">
     <div class="v-data-table__header white">
@@ -101,7 +823,50 @@ exports[`VDataTable should set cols and match snapshot 1`] = `
             Name
           </div>
           <span class="v-data-table-col__actions">
+            <button class="v-icon v-icon--link v-icon--clickable fas fa-align-justify v-data-table-col__actions-filter"
+                    style="font-size: 14px;"
+            >
+            </button>
           </span>
+          <div class="v-data-table-col__filter grey lighten-2"
+               style="display: none;"
+          >
+            <span class="v-data-table-col__filter-header">
+              Name
+            </span>
+            <div class="v-input">
+              <div class="v-input__field-slot primary--text">
+                <div class="v-input__prepend-icon">
+                  <i class="v-icon fas fa-search primary--text"
+                     style="font-size: 18px;"
+                     dark="false"
+                  >
+                  </i>
+                </div>
+                <div class="v-input__clear">
+                  <button class="v-icon v-icon--link v-icon--clickable fas fa-times primary--text"
+                          style="font-size: 18px;"
+                          dark="false"
+                  >
+                  </button>
+                </div>
+                <label class="v-label v-label--on-field primary--text"
+                       style="left: 0px; position: absolute;"
+                >
+                  input value
+                </label>
+                <div class="v-text-field v-validatable">
+                  <input class="v-text-field__input"
+                         type="text"
+                  >
+                </div>
+              </div>
+              <div class="v-input__status">
+                <transition-stub>
+                </transition-stub>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="v-data-table__cell white v-data-table-col"
@@ -211,7 +976,7 @@ exports[`VDataTable should set cols and match snapshot 1`] = `
 </div>
 `;
 
-exports[`VDataTable should test column custom filter and match snapshot 1`] = `
+exports[`VDataTable should test column sort and match snapshot 1`] = `
 <div class="v-data-table white">
   <div class="v-data-table__inner">
     <div class="v-data-table__header white">
@@ -223,12 +988,18 @@ exports[`VDataTable should test column custom filter and match snapshot 1`] = `
             Name
           </div>
           <span class="v-data-table-col__actions">
-            <button class="v-icon v-icon--link v-icon--clickable fas fa-align-justify v-data-table-col__actions-filter v-data-table-col__actions-filter--active"
+            <button class="v-icon v-icon--link v-icon--clickable fas fa-arrow-up v-data-table-col__actions-sort"
+                    style="font-size: 14px;"
+            >
+            </button>
+            <button class="v-icon v-icon--link v-icon--clickable fas fa-align-justify v-data-table-col__actions-filter"
                     style="font-size: 14px;"
             >
             </button>
           </span>
-          <div class="v-data-table-col__filter grey lighten-2">
+          <div class="v-data-table-col__filter grey lighten-2"
+               style="display: none;"
+          >
             <span class="v-data-table-col__filter-header">
               Name
             </span>
@@ -248,7 +1019,7 @@ exports[`VDataTable should test column custom filter and match snapshot 1`] = `
                   >
                   </button>
                 </div>
-                <label class="v-label v-label--active v-label--on-field v-label--has-state primary--text"
+                <label class="v-label v-label--on-field primary--text"
                        style="left: 0px; position: absolute;"
                 >
                   input value
@@ -420,7 +1191,218 @@ exports[`VDataTable should test column custom filter and match snapshot 1`] = `
 </div>
 `;
 
-exports[`VDataTable should test column sort and match snapshot 1`] = `
+exports[`VDataTable should test dark prop and match snapshot 1`] = `
+<div class="v-data-table white">
+  <div class="v-data-table__inner">
+    <div class="v-data-table__header white">
+      <div class="v-data-table__cell white--text white v-data-table-col"
+           style="width: 125px;"
+      >
+        <div class="v-data-table__cell-content text-align--start">
+          <div class="v-data-table-col__title">
+            Name
+          </div>
+          <span class="v-data-table-col__actions">
+            <button class="v-icon v-icon--link v-icon--clickable fas fa-align-justify white--text v-data-table-col__actions-filter"
+                    style="font-size: 14px;"
+            >
+            </button>
+          </span>
+          <div class="v-data-table-col__filter grey darken-3"
+               style="display: none;"
+          >
+            <span class="v-data-table-col__filter-header">
+              Name
+            </span>
+            <div class="v-input">
+              <div class="v-input__field-slot white--text">
+                <div class="v-input__prepend-icon">
+                  <i class="v-icon fas fa-search white--text"
+                     style="font-size: 18px;"
+                     dark="true"
+                  >
+                  </i>
+                </div>
+                <div class="v-input__clear">
+                  <button class="v-icon v-icon--link v-icon--clickable fas fa-times white--text"
+                          style="font-size: 18px;"
+                          dark="true"
+                  >
+                  </button>
+                </div>
+                <label class="v-label v-label--on-field white--text"
+                       style="left: 0px; position: absolute;"
+                >
+                  input value
+                </label>
+                <div class="v-text-field v-validatable">
+                  <input class="v-text-field__input white--text"
+                         type="text"
+                  >
+                </div>
+              </div>
+              <div class="v-input__status">
+                <transition-stub>
+                </transition-stub>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__cell white--text white v-data-table-col"
+           style="width: 125px;"
+      >
+        <div class="v-data-table__cell-content text-align--start">
+          <div class="v-data-table-col__title">
+            Email
+          </div>
+          <span class="v-data-table-col__actions">
+          </span>
+        </div>
+      </div>
+      <div class="v-data-table__cell white--text white v-data-table-col"
+           style="width: 125px;"
+      >
+        <div class="v-data-table__cell-content text-align--start">
+          <div class="v-data-table-col__title">
+            Body
+          </div>
+          <span class="v-data-table-col__actions">
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="v-data-table__body white">
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Ben
+          </div>
+        </div>
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            ben@mail.ru
+          </div>
+        </div>
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            some body text
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Alex
+          </div>
+        </div>
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            alex@mail.ru
+          </div>
+        </div>
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            some body text
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="v-data-table__footer">
+    <div class="v-data-table__pagination">
+      <div class="v-data-table__pagination-select">
+        <span class="v-data-table__pagination-label white--text">
+          Rows per page
+        </span>
+        <div class="v-input">
+          <div class="v-input__select-slot white--text">
+            <label class="v-label v-label--active v-label--on-field v-label--has-state white--text"
+                   style="left: 0px; position: absolute;"
+            >
+            </label>
+            <div class="v-select v-validatable">
+              <input class="v-select__input white--text">
+              <transition-stub>
+                <div class="v-select-list elevation-4 white"
+                     style="display: none;"
+                >
+                  <div class="v-list v-select--items-list">
+                    <div class="v-list-item">
+                      <span class="v-list-item__title white--text">
+                        5
+                      </span>
+                    </div>
+                    <div class="v-list-item">
+                      <span class="v-list-item__title white--text">
+                        10
+                      </span>
+                    </div>
+                    <div class="v-list-item">
+                      <span class="v-list-item__title white--text">
+                        15
+                      </span>
+                    </div>
+                    <div class="v-list-item">
+                      <span class="v-list-item__title white--text">
+                        20
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </transition-stub>
+            </div>
+          </div>
+          <div class="v-input__status">
+            <transition-stub>
+            </transition-stub>
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__pagination-pages white--text">
+        -
+      </div>
+      <div class="v-data-table__pagination-route">
+        <button class="v-button v-button--disabled v-button--text"
+                style="min-width: 42px;"
+        >
+          <i class="v-icon fas fa-chevron-left white--text"
+             style="font-size: 12px;"
+          >
+          </i>
+        </button>
+        <button class="v-button v-button--text elevation-3 white--text"
+                style="min-width: 42px; margin: 0px 10px;"
+        >
+          1
+        </button>
+        <button class="v-button v-button--disabled v-button--text"
+                style="min-width: 42px;"
+        >
+          <i class="v-icon fas fa-chevron-right white--text"
+             style="font-size: 12px;"
+          >
+          </i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`VDataTable should test table custom filter and match snapshot 1`] = `
 <div class="v-data-table white">
   <div class="v-data-table__inner">
     <div class="v-data-table__header white">
@@ -432,11 +1414,48 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
             Name
           </div>
           <span class="v-data-table-col__actions">
-            <button class="v-icon v-icon--link v-icon--clickable fas fa-arrow-up v-data-table-col__actions-sort v-data-table-col__actions-sort--active"
+            <button class="v-icon v-icon--link v-icon--clickable fas fa-align-justify v-data-table-col__actions-filter v-data-table-col__actions-filter--active"
                     style="font-size: 14px;"
             >
             </button>
           </span>
+          <div class="v-data-table-col__filter grey lighten-2">
+            <span class="v-data-table-col__filter-header">
+              Name
+            </span>
+            <div class="v-input">
+              <div class="v-input__field-slot primary--text">
+                <div class="v-input__prepend-icon">
+                  <i class="v-icon fas fa-search primary--text"
+                     style="font-size: 18px;"
+                     dark="false"
+                  >
+                  </i>
+                </div>
+                <div class="v-input__clear">
+                  <button class="v-icon v-icon--link v-icon--clickable fas fa-times primary--text"
+                          style="font-size: 18px;"
+                          dark="false"
+                  >
+                  </button>
+                </div>
+                <label class="v-label v-label--active v-label--on-field v-label--has-state primary--text"
+                       style="left: 0px; position: absolute;"
+                >
+                  input value
+                </label>
+                <div class="v-text-field v-validatable">
+                  <input class="v-text-field__input"
+                         type="text"
+                  >
+                </div>
+              </div>
+              <div class="v-input__status">
+                <transition-stub>
+                </transition-stub>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="v-data-table__cell white v-data-table-col"
@@ -486,6 +1505,194 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
           </div>
         </div>
       </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Ben
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            ben@mail.ru
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            some body text
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="v-data-table__footer">
+    <div class="v-data-table__pagination">
+      <div class="v-data-table__pagination-select">
+        <span class="v-data-table__pagination-label">
+          Rows per page
+        </span>
+        <div class="v-input">
+          <div class="v-input__select-slot primary--text">
+            <label class="v-label v-label--active v-label--on-field v-label--has-state primary--text"
+                   style="left: 0px; position: absolute;"
+            >
+            </label>
+            <div class="v-select v-validatable">
+              <input class="v-select__input">
+              <transition-stub>
+                <div class="v-select-list elevation-4 white"
+                     style="display: none;"
+                >
+                  <div class="v-list v-select--items-list">
+                    <div class="v-list-item">
+                      <span class="v-list-item__title">
+                        5
+                      </span>
+                    </div>
+                    <div class="v-list-item">
+                      <span class="v-list-item__title">
+                        10
+                      </span>
+                    </div>
+                    <div class="v-list-item">
+                      <span class="v-list-item__title">
+                        15
+                      </span>
+                    </div>
+                    <div class="v-list-item">
+                      <span class="v-list-item__title">
+                        20
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </transition-stub>
+            </div>
+          </div>
+          <div class="v-input__status">
+            <transition-stub>
+            </transition-stub>
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__pagination-pages">
+        -
+      </div>
+      <div class="v-data-table__pagination-route">
+        <button class="v-button v-button--disabled"
+                style="min-width: 42px;"
+        >
+          <i class="v-icon fas fa-chevron-left"
+             style="font-size: 12px;"
+          >
+          </i>
+        </button>
+        <button class="v-button elevation-3 blue lighten-1"
+                style="min-width: 42px; margin: 0px 10px;"
+        >
+          1
+        </button>
+        <button class="v-button v-button--disabled"
+                style="min-width: 42px;"
+        >
+          <i class="v-icon fas fa-chevron-right"
+             style="font-size: 12px;"
+          >
+          </i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`VDataTable should test table filter and match snapshot 1`] = `
+<div class="v-data-table white">
+  <div class="v-data-table__inner">
+    <div class="v-data-table__header white">
+      <div class="v-data-table__cell white v-data-table-col v-data-table-col--sorted"
+           style="width: 125px;"
+      >
+        <div class="v-data-table__cell-content text-align--start">
+          <div class="v-data-table-col__title">
+            Name
+          </div>
+          <span class="v-data-table-col__actions">
+            <button class="v-icon v-icon--link v-icon--clickable fas fa-align-justify v-data-table-col__actions-filter v-data-table-col__actions-filter--active"
+                    style="font-size: 14px;"
+            >
+            </button>
+          </span>
+          <div class="v-data-table-col__filter grey lighten-2"
+               style
+          >
+            <span class="v-data-table-col__filter-header">
+              Name
+            </span>
+            <div class="v-input">
+              <div class="v-input__field-slot primary--text">
+                <div class="v-input__prepend-icon">
+                  <i class="v-icon fas fa-search primary--text"
+                     style="font-size: 18px;"
+                     dark="false"
+                  >
+                  </i>
+                </div>
+                <div class="v-input__clear">
+                  <button class="v-icon v-icon--link v-icon--clickable fas fa-times primary--text"
+                          style="font-size: 18px;"
+                          dark="false"
+                  >
+                  </button>
+                </div>
+                <label class="v-label v-label--active v-label--on-field v-label--has-state primary--text"
+                       style="left: 0px; position: absolute;"
+                >
+                  input value
+                </label>
+                <div class="v-text-field v-validatable">
+                  <input class="v-text-field__input"
+                         type="text"
+                  >
+                </div>
+              </div>
+              <div class="v-input__status">
+                <transition-stub>
+                </transition-stub>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__cell white v-data-table-col"
+           style="width: 125px;"
+      >
+        <div class="v-data-table__cell-content text-align--start">
+          <div class="v-data-table-col__title">
+            Email
+          </div>
+          <span class="v-data-table-col__actions">
+          </span>
+        </div>
+      </div>
+      <div class="v-data-table__cell white v-data-table-col"
+           style="width: 125px;"
+      >
+        <div class="v-data-table__cell-content text-align--start">
+          <div class="v-data-table-col__title">
+            Body
+          </div>
+          <span class="v-data-table-col__actions">
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="v-data-table__body white">
       <div class="v-data-table__row">
         <div class="v-data-table__cell"
              style="width: 125px;"

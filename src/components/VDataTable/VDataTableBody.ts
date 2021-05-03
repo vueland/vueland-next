@@ -18,26 +18,25 @@ export const VDataTableBody = defineComponent({
   name: 'v-data-table-body',
 
   props: {
+    cols: Array,
+    rows: Array,
     dark: Boolean,
     numbered: Boolean,
     checkbox: Boolean,
     checkAllRows: Boolean,
-    cols: Array,
-    rows: Array,
     align: String,
     colWidth: {
       type: [String, Number],
       default: 125,
     },
-    bodyHeight: {},
     page: Number,
-    rowsPerPage: Number,
+    rowsOnPage: Number,
     ...colorProps(),
   } as any,
 
   emits: ['check'],
 
-  setup(props, { slots, emit }) {
+  setup(props, { slots, emit }): () => VNode {
     const checkedRows = ref([])
 
     const { setBackground } = useColors()
@@ -46,10 +45,10 @@ export const VDataTableBody = defineComponent({
       'v-data-table__body': true,
     }))
 
-    const rowsOnTable = computed(() => {
+    const rowsOnTable = computed<any[]>(() => {
       return props.rows?.slice(
-        (props.page - 1) * props.rowsPerPage,
-        props.page * props.rowsPerPage
+        (props.page - 1) * props.rowsOnPage,
+        props.page * props.rowsOnPage
       )
     })
 
@@ -66,11 +65,11 @@ export const VDataTableBody = defineComponent({
       emit('check', checkedRows.value)
     }
 
-    function genTableRow(cells) {
+    function genTableRow(cells): VNode {
       return h('div', { class: { 'v-data-table__row': true } }, cells)
     }
 
-    function genNumberCell(count) {
+    function genNumberCell(count): VNode {
       return h(
         VDataTableCell,
         {
@@ -86,7 +85,7 @@ export const VDataTableBody = defineComponent({
       )
     }
 
-    function genCheckboxCell(row) {
+    function genCheckboxCell(row): VNode {
       return h(
         VDataTableCell,
         {
@@ -108,7 +107,7 @@ export const VDataTableBody = defineComponent({
       )
     }
 
-    function genRowCell(col, row) {
+    function genRowCell(col, row): VNode {
       const { format } = col
       const slotContent = slots[col.key] && slots[col.key]!(row)
 
@@ -131,14 +130,13 @@ export const VDataTableBody = defineComponent({
       )
     }
 
-    function genTableRows() {
+    function genTableRows(): VNode[] {
       const tableRows: VNode[] = []
-
       const rowsLength = rowsOnTable.value?.length
       const colsLength = props.cols.length
+      const count = (props.page - 1) * props.rowsOnPage
 
       let rowCells: VNode[] = []
-      const count = (props.page - 1) * props.rowsPerPage
 
       for (let i = 0; i < rowsLength; i += 1) {
         props.numbered && rowCells.push(genNumberCell(count + i))

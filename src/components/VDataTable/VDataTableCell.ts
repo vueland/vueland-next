@@ -13,6 +13,9 @@ import { convertToUnit } from '../../helpers'
 // Components
 import { VResize } from '../VResize'
 
+// Types
+import { VNode } from 'vue'
+
 export const VDataTableCell = defineComponent({
   name: 'v-data-table-cell',
   props: {
@@ -32,15 +35,15 @@ export const VDataTableCell = defineComponent({
 
   emits: ['resize'],
 
-  setup(props, { slots, emit }) {
+  setup(props, { slots, emit }): () => VNode {
     const { setTextColor, setBackground } = useColors()
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-data-table__cell': true,
     }))
 
-    function genResize() {
-      return h(VResize, {
+    function genResize(): VNode {
+      const propsData = {
         right: true,
         emit: true,
         class: {
@@ -48,18 +51,20 @@ export const VDataTableCell = defineComponent({
           primary: !props.dark,
         },
         onResize: ($size) => emit('resize', $size),
-      })
+      }
+
+      return h(VResize, propsData)
     }
 
-    function genCellContent() {
+    function genCellContent(): VNode {
       const propsData = {
         class: {
           'v-data-table__cell-content': true,
-          [`text-align--${props.align}`]: !!props.align,
+          [`text-align--${ props.align }`]: !!props.align,
         },
       }
-      return h('div', propsData, slots.default && slots.default(),
-      )
+
+      return h('div', propsData, slots.default && slots.default())
     }
 
     return () => {

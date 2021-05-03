@@ -49,7 +49,7 @@ export const VCheckbox = defineComponent({
     const fields: Ref<any[]> | undefined = props.validate && inject('fields')
 
     const { validate, validationState } = useValidate(props)
-    const { icons, iconSize } = useIcons('md')
+    const { icons, iconSize } = useIcons('l')
 
     const isArray = computed<boolean>(() => Array.isArray(props.modelValue))
     const isValueSet = computed<boolean>(() => props.value !== null)

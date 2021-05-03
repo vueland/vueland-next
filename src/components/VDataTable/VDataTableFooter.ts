@@ -13,6 +13,9 @@ import { VSelect } from '../VSelect'
 import { colorProps, useColors } from '../../effects/use-colors'
 import { useIcons } from '../../effects/use-icons'
 
+// Types
+import { VNode } from 'vue'
+
 export const VDataTableFooter = defineComponent({
   name: 'v-data-table-footer',
   props: {
@@ -21,23 +24,22 @@ export const VDataTableFooter = defineComponent({
     page: Number,
     firstOnPage: Number,
     lastOnPage: Number,
-    overPages: Number,
-    rowsPerPage: Number,
-    tableRowsCount: Number,
-    counts: Array,
+    pageCorrection: Number,
+    rowsLength: Number,
+    rowsOnPage: Number,
     options: Object,
-    ...colorProps()
+    ...colorProps(),
   } as any,
 
   emits: [
     'last-page',
-    'reset-page',
-    'select',
-    'next',
-    'prev'
+    'correct-page',
+    'select-rows-count',
+    'next-table-page',
+    'prev-table-page',
   ],
 
-  setup(props, { emit, slots }) {
+  setup(props, { emit, slots }): () => VNode {
     const { setTextColor } = useColors()
     const { icons, iconSize } = useIcons('xs')
 
@@ -52,125 +54,129 @@ export const VDataTableFooter = defineComponent({
 
     watch(
       () => isLastPage.value,
-      to => to && emit('last-page')
+      (to) => to && emit('last-page'),
     )
 
     function changeTableRowsPage(isNext) {
       if (props.page === props.pages && isNext) return
 
-      const event = isNext ? 'next' : 'prev'
+      const event = isNext ? 'next-table-page' : 'prev-table-page'
       emit(event, isNext ? 1 : -1)
     }
 
-    function genPaginationButton(isNext) {
-      const btnColor = (props.options?.paginationButtonsColor)
-        || (props.dark ? 'white' : 'primary')
+    function genPaginationButton(isNext = false): VNode {
+      const btnColor =
+        props.options?.pagination?.buttonsColor ||
+        (props.dark ? 'white' : 'primary')
 
-      return h(
-        VButton,
-        {
-          width: 42,
-          color: btnColor,
-          text: props.dark,
-          elevation: 3,
-          onClick: () => changeTableRowsPage(isNext)
-        },
-        {
-          default: () =>
-            h(VIcon, {
-              icon: isNext ? icons.$arrowRight : icons.$arrowLeft,
-              color: props.dark ? 'white' : '',
-              size: iconSize
-            })
-        }
-      )
-    }
+      const disableIf = (isNext && props.lastOnPage >= props.rowsLength) ||
+        (!isNext && props.firstOnPage === 1)
 
-    function genPageDisplay() {
-      return h(
-        VButton,
-        {
-          width: 42,
-          style: { margin: '0 10px' },
-          color: props.dark ? 'white' : 'blue lighten-1',
-          text: props.dark,
-          elevation: 3
-        },
-        {
-          default: () => props.page
-        }
-      )
-    }
+      const propsData = {
+        width: 42,
+        color: btnColor,
+        text: props.dark,
+        elevation: 3,
+        disabled: disableIf,
+        onClick: () => changeTableRowsPage(isNext),
+      }
 
-    function genSelect() {
-      return h(VSelect, {
-        items: props.counts,
-        modelValue: props.rowsPerPage,
-        dark: props.dark,
-        listColor: props.color,
-        onSelect: (e) => emit('select', e)
+      return h(VButton, propsData, {
+        default: () =>
+          h(VIcon, {
+            icon: isNext ? icons.$arrowRight : icons.$arrowLeft,
+            color: props.dark ? 'white' : '',
+            size: iconSize,
+          }),
       })
     }
 
-    function genSelectCaption() {
+    function genPaginationPageDisplay(): VNode {
+      const displayColor = props.options?.pagination?.displayColor ||
+        (props.dark ? 'white' : 'blue lighten-1')
+
       const propsData = {
-        class: {
-          'v-data-table__pagination-label': true
-        }
+        width: 42,
+        style: { margin: '0 10px' },
+        color: displayColor,
+        text: props.dark,
+        elevation: 3,
       }
+
+      return h(VButton, propsData, { default: () => props.page })
+    }
+
+    function genRowsCountSelect(): VNode {
+      const propsData = {
+        items: props.options?.rowsPerPageOptions,
+        dark: props.dark,
+        listColor: props.color,
+        value: props.rowsOnPage,
+        onSelect: (e) => emit('select-rows-count', e),
+      }
+
+      return h(VSelect, propsData)
+    }
+
+    function genRowsCountSelectCaption(): VNode {
+      const propsData = {
+        class: 'v-data-table__pagination-label',
+      }
+
       const color = props.dark ? 'white' : ''
 
       return h(
         'span',
         color ? setTextColor(color, propsData) : propsData,
-        props.options?.paginationText || 'Rows per page'
+        props.options?.rowsCountText || 'Rows per page',
       )
     }
 
-    function genPageItemsSelect() {
+    function genRowsCountSelectBlock(): VNode {
       return h('div', { class: 'v-data-table__pagination-select' }, [
-        genSelectCaption(),
-        genSelect()
+        genRowsCountSelectCaption(),
+        genRowsCountSelect(),
       ])
     }
 
-    function genPagesCountDisplay() {
+    function genPagesCountDisplay(): VNode {
       const propsData = {
-        class: {
-          'v-data-table__pagination-pages': true
-        }
+        class: 'v-data-table__pagination-pages',
       }
 
       const color = props.dark ? 'white' : ''
 
-      props.overPages && emit('reset-page', -props.overPages)
+      props.pageCorrection && emit('correct-page', -props.pageCorrection)
 
       return h(
         'div',
         color ? setTextColor(color, propsData) : propsData,
 
-        (props.tableRowsCount && slots.paginationDisplay && slots.paginationDisplay()) ||
-        (props.tableRowsCount && paginationDisplayText.value) || '-'
+        (props.rowsLength &&
+          slots.paginationText &&
+          slots.paginationText()) ||
+        (props.tableRowsCount && paginationDisplayText.value) ||
+        '-',
       )
     }
 
-    function genPaginationButtonsBlock() {
+    function genPaginationButtonsBlock(): VNode {
       return h('div', { class: { 'v-data-table__pagination-route': true } }, [
-        genPaginationButton(false),
-        genPageDisplay(),
-        genPaginationButton(true)
+        genPaginationButton(),
+        genPaginationPageDisplay(),
+        genPaginationButton(true),
       ])
     }
 
-    function genPaginationBlock() {
+    function genPaginationBlock(): VNode {
       return h('div', { class: 'v-data-table__pagination' }, [
-        genPageItemsSelect(),
+        genRowsCountSelectBlock(),
         genPagesCountDisplay(),
-        genPaginationButtonsBlock()
+        genPaginationButtonsBlock(),
       ])
     }
 
     return () =>
       h('div', { class: 'v-data-table__footer' }, genPaginationBlock())
-  }
+  },
 })

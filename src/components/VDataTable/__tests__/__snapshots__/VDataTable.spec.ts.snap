@@ -29,6 +29,11 @@ exports[`VDataTable should mound component and match snapshot 1`] = `
                   <div class="v-list v-select--items-list">
                     <div class="v-list-item">
                       <span class="v-list-item__title">
+                        5
+                      </span>
+                    </div>
+                    <div class="v-list-item">
+                      <span class="v-list-item__title">
                         10
                       </span>
                     </div>
@@ -40,11 +45,6 @@ exports[`VDataTable should mound component and match snapshot 1`] = `
                     <div class="v-list-item">
                       <span class="v-list-item__title">
                         20
-                      </span>
-                    </div>
-                    <div class="v-list-item">
-                      <span class="v-list-item__title">
-                        25
                       </span>
                     </div>
                   </div>
@@ -62,7 +62,7 @@ exports[`VDataTable should mound component and match snapshot 1`] = `
         -
       </div>
       <div class="v-data-table__pagination-route">
-        <button class="v-button elevation-3 primary"
+        <button class="v-button v-button--disabled"
                 style="min-width: 42px;"
         >
           <i class="v-icon fas fa-chevron-left"
@@ -75,7 +75,7 @@ exports[`VDataTable should mound component and match snapshot 1`] = `
         >
           1
         </button>
-        <button class="v-button elevation-3 primary"
+        <button class="v-button v-button--disabled"
                 style="min-width: 42px;"
         >
           <i class="v-icon fas fa-chevron-right"
@@ -151,6 +151,11 @@ exports[`VDataTable should set cols and match snapshot 1`] = `
                   <div class="v-list v-select--items-list">
                     <div class="v-list-item">
                       <span class="v-list-item__title">
+                        5
+                      </span>
+                    </div>
+                    <div class="v-list-item">
+                      <span class="v-list-item__title">
                         10
                       </span>
                     </div>
@@ -162,11 +167,6 @@ exports[`VDataTable should set cols and match snapshot 1`] = `
                     <div class="v-list-item">
                       <span class="v-list-item__title">
                         20
-                      </span>
-                    </div>
-                    <div class="v-list-item">
-                      <span class="v-list-item__title">
-                        25
                       </span>
                     </div>
                   </div>
@@ -184,7 +184,7 @@ exports[`VDataTable should set cols and match snapshot 1`] = `
         -
       </div>
       <div class="v-data-table__pagination-route">
-        <button class="v-button elevation-3 primary"
+        <button class="v-button v-button--disabled"
                 style="min-width: 42px;"
         >
           <i class="v-icon fas fa-chevron-left"
@@ -197,7 +197,7 @@ exports[`VDataTable should set cols and match snapshot 1`] = `
         >
           1
         </button>
-        <button class="v-button elevation-3 primary"
+        <button class="v-button v-button--disabled"
                 style="min-width: 42px;"
         >
           <i class="v-icon fas fa-chevron-right"
@@ -360,6 +360,11 @@ exports[`VDataTable should test column custom filter and match snapshot 1`] = `
                   <div class="v-list v-select--items-list">
                     <div class="v-list-item">
                       <span class="v-list-item__title">
+                        5
+                      </span>
+                    </div>
+                    <div class="v-list-item">
+                      <span class="v-list-item__title">
                         10
                       </span>
                     </div>
@@ -371,11 +376,6 @@ exports[`VDataTable should test column custom filter and match snapshot 1`] = `
                     <div class="v-list-item">
                       <span class="v-list-item__title">
                         20
-                      </span>
-                    </div>
-                    <div class="v-list-item">
-                      <span class="v-list-item__title">
-                        25
                       </span>
                     </div>
                   </div>
@@ -390,10 +390,10 @@ exports[`VDataTable should test column custom filter and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__pagination-pages">
-        1 - 2 from 2
+        -
       </div>
       <div class="v-data-table__pagination-route">
-        <button class="v-button elevation-3 primary"
+        <button class="v-button v-button--disabled"
                 style="min-width: 42px;"
         >
           <i class="v-icon fas fa-chevron-left"
@@ -406,7 +406,7 @@ exports[`VDataTable should test column custom filter and match snapshot 1`] = `
         >
           1
         </button>
-        <button class="v-button elevation-3 primary"
+        <button class="v-button v-button--disabled"
                 style="min-width: 42px;"
         >
           <i class="v-icon fas fa-chevron-right"
@@ -532,6 +532,11 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
                   <div class="v-list v-select--items-list">
                     <div class="v-list-item">
                       <span class="v-list-item__title">
+                        5
+                      </span>
+                    </div>
+                    <div class="v-list-item">
+                      <span class="v-list-item__title">
                         10
                       </span>
                     </div>
@@ -543,11 +548,6 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
                     <div class="v-list-item">
                       <span class="v-list-item__title">
                         20
-                      </span>
-                    </div>
-                    <div class="v-list-item">
-                      <span class="v-list-item__title">
-                        25
                       </span>
                     </div>
                   </div>
@@ -562,10 +562,10 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__pagination-pages">
-        1 - 2 from 2
+        -
       </div>
       <div class="v-data-table__pagination-route">
-        <button class="v-button elevation-3 primary"
+        <button class="v-button v-button--disabled"
                 style="min-width: 42px;"
         >
           <i class="v-icon fas fa-chevron-left"
@@ -578,7 +578,7 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
         >
           1
         </button>
-        <button class="v-button elevation-3 primary"
+        <button class="v-button v-button--disabled"
                 style="min-width: 42px;"
         >
           <i class="v-icon fas fa-chevron-right"

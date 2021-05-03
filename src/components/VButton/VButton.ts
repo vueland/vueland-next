@@ -43,14 +43,18 @@ export const VButton = defineComponent({
       return props.text || props.outlined
     })
 
-    const classes = computed<Record<string, boolean>>(() => ({
-      'v-button': true,
-      'v-button--disabled': props.disabled,
-      'v-button--text': props.text || props.outlined,
-      'v-button--outlined': props.outlined,
-      ...elevationClasses.value,
-      ...positionClasses.value,
-    }))
+    const classes = computed<Record<string, boolean>>(() => {
+      const elevations = props.disabled ? {} : elevationClasses.value
+
+      return {
+        'v-button': true,
+        'v-button--disabled': props.disabled,
+        'v-button--text': props.text || props.outlined,
+        'v-button--outlined': props.outlined,
+        ...elevations,
+        ...positionClasses.value,
+      }
+    })
 
     function genLabel() {
       const propsData = {

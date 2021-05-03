@@ -82,9 +82,9 @@ export const VSelect = defineComponent({
     const directive = computed(() => {
       return state.focused
         ? {
-            handler: onBlur,
-            closeConditional: true,
-          }
+          handler: onBlur,
+          closeConditional: true,
+        }
         : undefined
     })
 
@@ -114,11 +114,11 @@ export const VSelect = defineComponent({
       (value) => {
         state.selected = value
         !state.focused &&
-          errorState.isDirty &&
-          props.rules?.length &&
-          validateValue()
+        errorState.isDirty &&
+        props.rules?.length &&
+        validateValue()
       },
-      { immediate: true }
+      { immediate: true },
     )
 
     if (fields?.value && props.rules?.length) {
@@ -193,7 +193,7 @@ export const VSelect = defineComponent({
         {
           class: classes.value,
         },
-        [genInput(), props.items && genSelectList()]
+        [genInput(), props.items && genSelectList()],
       )
 
       return withDirectives(selectVNode, [[clickOutside, directive.value]])

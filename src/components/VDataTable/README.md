@@ -97,9 +97,12 @@
             <td colspan="7">
                 <pre class="language-typescript">
                    {
-                      contentColor: string,
-                      color: string,
-                      dark: boolean
+                      pagination: {
+                        buttonsColor: string,
+                        displayColor: string
+                      },
+                      rowsPerPageOptions: Array,
+                      rowsCountText: string
                    }
                 </pre>
             </td>

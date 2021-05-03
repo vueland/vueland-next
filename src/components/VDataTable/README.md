@@ -95,13 +95,13 @@
         </tr>         
         <tr>
             <td colspan="7">
-                <pre class="language-typescript">
+                <pre>
                    {
                       pagination: {
                         buttonsColor: string,
                         displayColor: string
                       },
-                      rowsPerPageOptions: Array,
+                      rowsPerPageOptions: number[],
                       rowsCountText: string
                    }
                 </pre>
@@ -176,19 +176,23 @@
 
 ## Column object
 ```ts
-        const column = {
-          key: string,
-          title: string,
-          align?: 'left'|'center'|'right',
-          width?: number,
-          resizeable?: boolean,
-          sortable?: boolean,
-          filterable?: boolean,
-          cellClass?: string,
-          filterClass?: string,
-          rowCellClass?: string,
-          show?: boolean,
-          format?: (arg: any) => string
+        {
+            key: string
+            title: string
+            width?: string | number
+            resizeable?: boolean
+            filterable?: boolean
+            sortable?: boolean
+            sorted?: boolean
+            filtered?: boolean
+            align?: 'left' | 'center' | 'right'
+            cellClass?: string
+            filterClass?: string
+            rowCellClass?: string
+            show?: boolean
+            format?: (row: any) => any
+            filter?: (arg: TableFilter) => any,
+            sort?: (a: any, b: any) => number
         }
 ```
 <table>

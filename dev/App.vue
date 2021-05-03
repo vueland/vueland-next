@@ -147,6 +147,7 @@
     <v-data-table
       :cols="cols"
       :rows="data.users"
+      dark
       :header-props="{
         contentColor: 'grey darken-3',
         color: 'grey lighten-1',

@@ -4,7 +4,7 @@ exports[`VCheckbox should emit events when clicked 1`] = `
 <div class="v-checkbox v-checkbox--checked">
   <div class="v-checkbox__square">
     <i class="v-icon fas fa-check-square primary--text"
-       style="font-size: 18px;"
+       style="font-size: 24px;"
     >
     </i>
   </div>
@@ -15,7 +15,7 @@ exports[`VCheckbox should mount component and match snapshot 1`] = `
 <div class="v-checkbox">
   <div class="v-checkbox__square">
     <i class="v-icon far fa-square primary--text"
-       style="font-size: 18px;"
+       style="font-size: 24px;"
     >
     </i>
   </div>
@@ -26,7 +26,7 @@ exports[`VCheckbox should set "on" and "off" icon and match snapshot 1`] = `
 <div class="v-checkbox">
   <div class="v-checkbox__square">
     <i class="v-icon bar primary--text"
-       style="font-size: 18px;"
+       style="font-size: 24px;"
     >
     </i>
   </div>
@@ -37,7 +37,7 @@ exports[`VCheckbox should set disabled and match snapshot 1`] = `
 <div class="v-checkbox v-checkbox--disabled">
   <div class="v-checkbox__square">
     <i class="v-icon v-icon--disabled far fa-square primary--text"
-       style="font-size: 18px;"
+       style="font-size: 24px;"
     >
     </i>
   </div>
@@ -48,7 +48,7 @@ exports[`VCheckbox should set label and match snapshot 1`] = `
 <div class="v-checkbox">
   <div class="v-checkbox__square">
     <i class="v-icon far fa-square primary--text"
-       style="font-size: 18px;"
+       style="font-size: 24px;"
     >
     </i>
   </div>
@@ -64,7 +64,7 @@ exports[`VCheckbox should set validate and match snapshot 1`] = `
 <div class="v-checkbox v-validatable">
   <div class="v-checkbox__square">
     <i class="v-icon far fa-square primary--text"
-       style="font-size: 18px;"
+       style="font-size: 24px;"
     >
     </i>
   </div>
@@ -75,7 +75,7 @@ exports[`VCheckbox should set validate and match snapshot 2`] = `
 <div class="v-checkbox v-validatable">
   <div class="v-checkbox__square">
     <i class="v-icon far fa-square danger--text"
-       style="font-size: 18px;"
+       style="font-size: 24px;"
     >
     </i>
   </div>

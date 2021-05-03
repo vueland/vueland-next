@@ -50,14 +50,8 @@ export const VDataTable = defineComponent({
       type: String,
       default: 'white',
     },
-    headerProps: {
-      type: Object,
-      default: () => ({}),
-    },
-    footerProps: {
-      type: Object,
-      default: () => ({}),
-    },
+    headerProps: Object,
+    footerProps: Object,
     customFilter: Function,
   } as any,
   emits: ['checked', 'filter', 'last-page'],
@@ -104,8 +98,6 @@ export const VDataTable = defineComponent({
 
       return null
     })
-
-    watch(() => data.rowsOnPage, to => console.log(to), { immediate: true })
 
     watch(
       () => props.cols,
@@ -167,25 +159,19 @@ export const VDataTable = defineComponent({
       if (!value && filters[col.key]) {
         delete filters[col.key]
       }
-
       if (value) {
         filters[col.key] = value
       }
-
       if (col.filter) {
         return (data.rows = col.filter({ value, col }))
       }
-
       if (props.customFilter) {
         return props.customFilter(filters as any)
       }
-
       if (!Object.keys(filters).length) {
         return (data.rows = props.rows)
       }
-
       data.rows = filterRows(props.rows, props.cols)
-
       data.page = 1
     }
 

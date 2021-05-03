@@ -18,13 +18,63 @@ describe('VDataTable', () => {
     })
   })
 
-  it('should mound component and match snapshot', () => {
+  it('should mount component and match snapshot', () => {
     const cmp = mountFunction()
 
     expect(cmp.html()).toMatchSnapshot()
   })
 
-  it('should set cols and match snapshot', () => {
+  it('should test color prop and match snapshot', () => {
+    const cmp = mountFunction({
+      props: { color: 'grey darken-3' },
+    })
+
+    expect(cmp.attributes().class).toContain('grey darken-3')
+    expect(cmp.html()).toMatchSnapshot()
+  })
+
+  it('should test dark prop and match snapshot', () => {
+    cols[0].filterable = true
+    const cmp = mountFunction({
+      props: { cols, rows, dark: true },
+    })
+
+    const filter = cmp.find('.v-data-table-col__filter')
+
+    expect(cmp.find('.v-data-table__cell').classes()).toContain('white--text')
+    expect(filter.find('.v-input__field-slot').classes()).toContain('white--text')
+    expect(filter.find('.v-icon').classes()).toContain('white--text')
+    expect(cmp.html()).toMatchSnapshot()
+  })
+
+  it('should test align center and match snapshot', () => {
+    const cmp = mountFunction({
+      props: { cols, rows, align: 'center' },
+    })
+
+    expect(cmp.find('.v-data-table__cell-content').classes()).toContain('text-align--center')
+    expect(cmp.html()).toMatchSnapshot()
+  })
+
+  it('should test align left and match snapshot', () => {
+    const cmp = mountFunction({
+      props: { cols, rows, align: 'left' },
+    })
+
+    expect(cmp.find('.v-data-table__cell-content').classes()).toContain('text-align--left')
+    expect(cmp.html()).toMatchSnapshot()
+  })
+
+  it('should test align left and match snapshot', () => {
+    const cmp = mountFunction({
+      props: { cols, rows, align: 'right' },
+    })
+
+    expect(cmp.find('.v-data-table__cell-content').classes()).toContain('text-align--right')
+    expect(cmp.html()).toMatchSnapshot()
+  })
+
+  it('should test cols prop and match snapshot', () => {
     const cmp = mountFunction({
       props: { cols },
     })
@@ -44,21 +94,27 @@ describe('VDataTable', () => {
     expect(cmp.find('.v-data-table-col__actions-sort').exists()).toBe(true)
     expect(cmp.find('.v-data-table__row').text()).toContain('Ben')
 
-    await cmp.find('.v-data-table-col__actions-sort').trigger('click')
+    const sortBtn = cmp.find('.v-data-table-col__actions-sort')
+
+    await sortBtn.trigger('click')
 
     expect(cmp.find('.v-data-table-col__actions-sort--active').exists()).toBe(
       true,
     )
     expect(cmp.find('.v-data-table__row').text()).toContain('Alex')
+
+    // reverse sort
+    await sortBtn.trigger('click')
+    expect(cmp.find('.v-data-table__row').text()).toContain('Ben')
+
     expect(cmp.html()).toMatchSnapshot()
 
-    await cmp.find('.v-data-table-col__actions-sort').trigger('click')
+    await sortBtn.trigger('click')
   })
 
-  it('should test column filter and match snapshot', async () => {
+  it('should test table filter and match snapshot', async () => {
     cols[0].filterable = true
     cols[0].sortable = false
-    const value = 'Alex'
 
     const cmp = mountFunction({
       props: { cols, rows },
@@ -70,21 +126,22 @@ describe('VDataTable', () => {
 
     await nameColFilterBtn.trigger('click')
 
-    const nameColFilter = cmp.find('.v-data-table-col__filter')
     const nameColFilterTextField = cmp.find('.v-text-field__input')
 
     expect(nameColFilterTextField.exists()).toBe(true)
 
-    nameColFilterTextField.element.value = value
+    nameColFilterTextField.element.value = 'Ben'
 
-    await nameColFilterBtn.trigger('input')
+    await nameColFilterTextField.trigger('input')
 
-    // expect(cmp.find('.v-data-table__row').text()).toContain('Alex')
-    expect(nameColFilter.exists()).toBe(true)
-    expect(nameColFilter.isVisible()).toBe(true)
+    const tableRows = cmp.findAll('.v-data-table__row')
+
+    expect(tableRows.length).toBe(1)
+    expect(tableRows[0].text()).toContain('Ben')
+    expect(cmp.html()).toMatchSnapshot()
   })
 
-  it('should test column custom filter and match snapshot', async () => {
+  it('should test table custom filter and match snapshot', async () => {
     cols[0].filterable = true
     cols[0].sortable = false
     const stub = jest.fn()
@@ -99,6 +156,7 @@ describe('VDataTable', () => {
     expect(nameColFilterBtn.exists()).toBe(true)
 
     await nameColFilterBtn.trigger('click')
+
     const nameColFilter = cmp.find('.v-data-table-col__filter')
     const nameColFilterTextField = cmp.find('.v-text-field__input')
 
@@ -109,8 +167,56 @@ describe('VDataTable', () => {
     await nameColFilterTextField.trigger('input')
 
     expect(stub).toHaveBeenCalledWith({ name: value })
-    expect(nameColFilter.exists()).toBe(true)
     expect(nameColFilter.isVisible()).toBe(true)
     expect(cmp.html()).toMatchSnapshot()
+  })
+
+  it('should test column custom filter', async () => {
+    cols[0].filterable = true
+    cols[0].filter = jest.fn()
+
+    const cmp = mountFunction({
+      props: { cols, rows },
+    })
+
+    const nameColFilterBtn = cmp.find('.v-data-table-col__actions-filter')
+    expect(nameColFilterBtn.exists()).toBe(true)
+
+    await nameColFilterBtn.trigger('click')
+
+    const nameColFilter = cmp.find('.v-data-table-col__filter')
+    const nameColFilterTextField = cmp.find('.v-text-field__input')
+
+    expect(nameColFilterTextField.exists()).toBe(true)
+    expect(nameColFilter.isVisible()).toBe(true)
+
+    nameColFilterTextField.element.value = 'Alex'
+    await nameColFilterTextField.trigger('input')
+
+    expect(cols[0].filter).toHaveBeenCalledWith({ value: 'Alex', col: cols[0] })
+  })
+
+  it('should test numbered prop', () => {
+    const cmp = mountFunction({
+      props: { cols, rows, numbered: true },
+    })
+
+    expect(cmp.find('.v-data-table-col__number').exists()).toBe(true)
+    expect(cmp.findAll('.v-data-table__row-number')[0].text()).toContain('1')
+    expect(cmp.findAll('.v-data-table__row-number')[1].text()).toContain('2')
+  })
+
+  it('should test checkbox prop', async () => {
+    const cmp = mountFunction({
+      props: { cols, rows, checkbox: true },
+    })
+
+    expect(cmp.find('.v-data-table-col__checkbox').exists()).toBe(true)
+    expect(cmp.find('.v-data-table__row-checkbox').exists()).toBe(true)
+
+    const row = cmp.find('.v-data-table__row')
+    await row.find('.v-checkbox').trigger('click')
+
+    expect(row.find('.v-checkbox').classes()).toContain('v-checkbox--checked')
   })
 })

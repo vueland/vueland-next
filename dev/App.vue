@@ -64,6 +64,7 @@
         {
           key: 'email',
           title: 'Email',
+          width: '250',
           resizeable: true,
           sortable: true,
           filterable: true,
@@ -75,6 +76,7 @@
         {
           key: 'body',
           title: 'Body',
+          width: '250',
           resizeable: true,
           sortable: true,
           filterable: true,
@@ -147,7 +149,6 @@
     <v-data-table
       :cols="cols"
       :rows="data.users"
-      dark
       :header-props="{
         contentColor: 'grey darken-3',
         color: 'grey lighten-1',

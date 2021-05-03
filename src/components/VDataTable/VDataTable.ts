@@ -16,8 +16,8 @@ import { VDataTableFooter } from './VDataTableFooter'
 import { toComparableStringFormat } from './helpers'
 
 // Types
-import { VNode } from 'vue'
-import { Column, TableFilter } from '../../types'
+import { VNode, PropType } from 'vue'
+import { Column, FooterOptions, HeaderOptions, TableFilter } from '../../types'
 
 type TableState = {
   cols: Column[]
@@ -33,26 +33,26 @@ export const VDataTable = defineComponent({
   props: {
     cols: {
       type: Array,
-      default: () => [],
+      default: () => []
     },
     rows: {
       type: Array,
-      default: () => [],
+      default: () => []
     },
     dark: Boolean,
     numbered: Boolean,
     checkbox: Boolean,
     align: {
       type: String,
-      validator: (val) => ['left', 'center', 'right'].includes(val),
+      validator: (val) => ['left', 'center', 'right'].includes(val)
     },
     color: {
       type: String,
-      default: 'white',
+      default: 'white'
     },
-    headerProps: Object,
-    footerProps: Object,
-    customFilter: Function,
+    headerProps: Object as PropType<HeaderOptions>,
+    footerProps: Object as PropType<FooterOptions>,
+    customFilter: Function
   } as any,
   emits: ['checked', 'filter', 'last-page'],
 
@@ -63,7 +63,7 @@ export const VDataTable = defineComponent({
       checkedRows: [],
       rowsOnPage: 20,
       page: 1,
-      isAllRowsChecked: false,
+      isAllRowsChecked: false
     })
 
     const { setBackground } = useColors()
@@ -78,7 +78,7 @@ export const VDataTable = defineComponent({
     }
 
     const classes = computed<Record<string, boolean>>(() => ({
-      'v-data-table': true,
+      'v-data-table': true
     }))
 
     const pages = computed<number>(() => {
@@ -98,7 +98,7 @@ export const VDataTable = defineComponent({
     const pageCorrection = computed<number | null>(() => {
       if ((data.page - 1) * data.rowsOnPage > data.rows?.length) {
         return Math.ceil(
-          (data.page * data.rowsOnPage - data.rows?.length) / data.rowsOnPage,
+          (data.page * data.rowsOnPage - data.rows?.length) / data.rowsOnPage
         )
       }
 
@@ -108,13 +108,13 @@ export const VDataTable = defineComponent({
     watch(
       () => props.cols,
       (to) => (data.cols = to),
-      { immediate: true },
+      { immediate: true }
     )
 
     watch(
       () => props.rows,
       (to) => (data.rows = to),
-      { immediate: true },
+      { immediate: true }
     )
 
     function onCheckAll(value: boolean) {
@@ -158,7 +158,10 @@ export const VDataTable = defineComponent({
         filters[col.key] = value
       }
       if (col.filter) {
-        return (data.rows = col.filter({ value, col }))
+        return (data.rows = col.filter({
+          value,
+          col
+        }))
       }
       if (props.customFilter) {
         return props.customFilter(filters as any)
@@ -216,7 +219,7 @@ export const VDataTable = defineComponent({
       const propsData = { class: 'v-data-table__toolbar' }
 
       return h('div', propsData, {
-        default: () => slots.toolbar && slots.toolbar(),
+        default: () => slots.toolbar && slots.toolbar()
       })
     }
 
@@ -231,7 +234,7 @@ export const VDataTable = defineComponent({
         options: props.headerProps,
         onFilter,
         onSort,
-        onCheckAll,
+        onCheckAll
       }
       return h(VDataTableHeader, propsData)
     }
@@ -248,7 +251,7 @@ export const VDataTable = defineComponent({
         dark: props.dark,
         numbered: props.numbered,
         color: props.color,
-        onCheck,
+        onCheck
       }
 
       const content = props.cols.reduce((acc, col) => {
@@ -279,13 +282,13 @@ export const VDataTable = defineComponent({
         color: props.color,
         options: {
           rowsPerPageOptions: rowsPerPageDefaultOptions,
-          ...props.footerProps,
+          ...props.footerProps
         },
         onPrevTablePage,
         onNextTablePage,
         onSelectRowsCount,
         onLastPage: () => emit('last-page', props.rows.length),
-        onCorrectPage: (val) => (data.page += val),
+        onCorrectPage: (val) => (data.page += val)
       }
 
       const content = slots.paginationText
@@ -295,8 +298,8 @@ export const VDataTable = defineComponent({
             slots.paginationText({
               start: firstOnPage.value,
               last: lastOnPage.value,
-              length: data.rows?.length,
-            }),
+              length: data.rows?.length
+            })
         }
         : ''
 
@@ -305,7 +308,7 @@ export const VDataTable = defineComponent({
 
     function genTableInner(): VNode {
       const propsData = {
-        class: 'v-data-table__inner',
+        class: 'v-data-table__inner'
       }
 
       return h('div', propsData, [genTableHeader(), genTableBody()])
@@ -313,14 +316,14 @@ export const VDataTable = defineComponent({
 
     return () => {
       const propsData = {
-        class: classes.value,
+        class: classes.value
       }
 
       return h('div', setBackground(props.color, propsData), [
         slots.toolbar && genTableTools(),
         genTableInner(),
-        genTableFooter(),
+        genTableFooter()
       ])
     }
-  },
+  }
 })

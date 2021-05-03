@@ -51,6 +51,23 @@ export type TableFilter = {
   col: Column
 }
 
+type PaginationOptions = {
+  buttonsColor: string
+  displayColor: string
+}
+
+export type FooterOptions = {
+  pagination: PaginationOptions,
+  rowsPerPageOptions: number[]
+  rowsCountText: string
+}
+
+export type HeaderOptions = {
+  contentColor: string
+  color: string
+  dark: boolean
+}
+
 export type TableCol<T> = T extends keyof Column ? T : any
 
 export type ListGroup = {

@@ -5,7 +5,7 @@ exports[`VDataTable should mount component and match snapshot 1`] = `
   <div class="v-data-table__inner">
     <div class="v-data-table__header white">
     </div>
-    <div class="v-data-table__body white">
+    <div class="v-data-table__body">
     </div>
   </div>
   <div class="v-data-table__footer">
@@ -23,7 +23,7 @@ exports[`VDataTable should mount component and match snapshot 1`] = `
             <div class="v-select v-validatable">
               <input class="v-select__input">
               <transition-stub>
-                <div class="v-select-list elevation-4 white"
+                <div class="v-select-list elevation-4"
                      style="display: none;"
                 >
                   <div class="v-list v-select--items-list">
@@ -170,7 +170,7 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
         </div>
       </div>
     </div>
-    <div class="v-data-table__body white">
+    <div class="v-data-table__body">
       <div class="v-data-table__row">
         <div class="v-data-table__cell"
              style="width: 125px;"
@@ -217,6 +217,84 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
           </div>
         </div>
       </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            cccccc
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            Eliseo@gardner.biz
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            laudantium enim quasi est quidem magnam voluptate ipsam eos
+            tempora quo necessitatibus
+            dolor quam autem quasi
+            reiciendis et nam sapiente accusantium
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            dddddd
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            Jayne_Kuhic@sydney.com
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            est natus enim nihil est dolore omnis voluptatem numquam
+            et omnis occaecati quod ullam at
+            voluptatem error expedita pariatur
+            nihil sint nostrum voluptatem reiciendis et
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            eeeeee
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            Nikita@garfield.biz
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            quia molestiae reprehenderit quasi aspernatur
+            aut expedita occaecati aliquam eveniet laudantium
+            omnis quibusdam delectus saepe quia accusamus maiores nam est
+            cum et ducimus et vero voluptates excepturi deleniti ratione
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="v-data-table__footer">
@@ -234,7 +312,7 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
             <div class="v-select v-validatable">
               <input class="v-select__input">
               <transition-stub>
-                <div class="v-select-list elevation-4 white"
+                <div class="v-select-list elevation-4"
                      style="display: none;"
                 >
                   <div class="v-list v-select--items-list">
@@ -286,7 +364,7 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
         >
           1
         </button>
-        <button class="v-button v-button--disabled"
+        <button class="v-button elevation-3 primary"
                 style="min-width: 42px;"
         >
           <i class="v-icon fas fa-chevron-right"
@@ -381,7 +459,7 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
         </div>
       </div>
     </div>
-    <div class="v-data-table__body white">
+    <div class="v-data-table__body">
       <div class="v-data-table__row">
         <div class="v-data-table__cell"
              style="width: 125px;"
@@ -428,6 +506,84 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
           </div>
         </div>
       </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            cccccc
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            Eliseo@gardner.biz
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            laudantium enim quasi est quidem magnam voluptate ipsam eos
+            tempora quo necessitatibus
+            dolor quam autem quasi
+            reiciendis et nam sapiente accusantium
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            dddddd
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            Jayne_Kuhic@sydney.com
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            est natus enim nihil est dolore omnis voluptatem numquam
+            et omnis occaecati quod ullam at
+            voluptatem error expedita pariatur
+            nihil sint nostrum voluptatem reiciendis et
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            eeeeee
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            Nikita@garfield.biz
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            quia molestiae reprehenderit quasi aspernatur
+            aut expedita occaecati aliquam eveniet laudantium
+            omnis quibusdam delectus saepe quia accusamus maiores nam est
+            cum et ducimus et vero voluptates excepturi deleniti ratione
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="v-data-table__footer">
@@ -445,7 +601,7 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
             <div class="v-select v-validatable">
               <input class="v-select__input">
               <transition-stub>
-                <div class="v-select-list elevation-4 white"
+                <div class="v-select-list elevation-4"
                      style="display: none;"
                 >
                   <div class="v-list v-select--items-list">
@@ -497,7 +653,7 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
         >
           1
         </button>
-        <button class="v-button v-button--disabled"
+        <button class="v-button elevation-3 primary"
                 style="min-width: 42px;"
         >
           <i class="v-icon fas fa-chevron-right"
@@ -592,7 +748,7 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
         </div>
       </div>
     </div>
-    <div class="v-data-table__body white">
+    <div class="v-data-table__body">
       <div class="v-data-table__row">
         <div class="v-data-table__cell"
              style="width: 125px;"
@@ -639,6 +795,84 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
           </div>
         </div>
       </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            cccccc
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            Eliseo@gardner.biz
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            laudantium enim quasi est quidem magnam voluptate ipsam eos
+            tempora quo necessitatibus
+            dolor quam autem quasi
+            reiciendis et nam sapiente accusantium
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            dddddd
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            Jayne_Kuhic@sydney.com
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            est natus enim nihil est dolore omnis voluptatem numquam
+            et omnis occaecati quod ullam at
+            voluptatem error expedita pariatur
+            nihil sint nostrum voluptatem reiciendis et
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            eeeeee
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            Nikita@garfield.biz
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            quia molestiae reprehenderit quasi aspernatur
+            aut expedita occaecati aliquam eveniet laudantium
+            omnis quibusdam delectus saepe quia accusamus maiores nam est
+            cum et ducimus et vero voluptates excepturi deleniti ratione
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="v-data-table__footer">
@@ -656,7 +890,7 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
             <div class="v-select v-validatable">
               <input class="v-select__input">
               <transition-stub>
-                <div class="v-select-list elevation-4 white"
+                <div class="v-select-list elevation-4"
                      style="display: none;"
                 >
                   <div class="v-list v-select--items-list">
@@ -708,7 +942,7 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
         >
           1
         </button>
-        <button class="v-button v-button--disabled"
+        <button class="v-button elevation-3 primary"
                 style="min-width: 42px;"
         >
           <i class="v-icon fas fa-chevron-right"
@@ -727,7 +961,7 @@ exports[`VDataTable should test color prop and match snapshot 1`] = `
   <div class="v-data-table__inner">
     <div class="v-data-table__header grey darken-3">
     </div>
-    <div class="v-data-table__body grey darken-3">
+    <div class="v-data-table__body">
     </div>
   </div>
   <div class="v-data-table__footer">
@@ -745,7 +979,7 @@ exports[`VDataTable should test color prop and match snapshot 1`] = `
             <div class="v-select v-validatable">
               <input class="v-select__input">
               <transition-stub>
-                <div class="v-select-list elevation-4 grey darken-3"
+                <div class="v-select-list elevation-4"
                      style="display: none;"
                 >
                   <div class="v-list v-select--items-list">
@@ -892,7 +1126,7 @@ exports[`VDataTable should test cols prop and match snapshot 1`] = `
         </div>
       </div>
     </div>
-    <div class="v-data-table__body white">
+    <div class="v-data-table__body">
     </div>
   </div>
   <div class="v-data-table__footer">
@@ -910,7 +1144,7 @@ exports[`VDataTable should test cols prop and match snapshot 1`] = `
             <div class="v-select v-validatable">
               <input class="v-select__input">
               <transition-stub>
-                <div class="v-select-list elevation-4 white"
+                <div class="v-select-list elevation-4"
                      style="display: none;"
                 >
                   <div class="v-list v-select--items-list">
@@ -1061,27 +1295,30 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
         </div>
       </div>
     </div>
-    <div class="v-data-table__body white">
+    <div class="v-data-table__body">
       <div class="v-data-table__row">
         <div class="v-data-table__cell"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
-            Ben
+            tttttt
           </div>
         </div>
         <div class="v-data-table__cell"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
-            ben@mail.ru
+            Vincenza_Klocko@albertha.name
           </div>
         </div>
         <div class="v-data-table__cell"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
-            some body text
+            veritatis voluptates necessitatibus maiores corrupti
+            neque et exercitationem amet sit et
+            ullam velit sit magnam laborum
+            magni ut molestias
           </div>
         </div>
       </div>
@@ -1090,21 +1327,102 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
-            Alex
+            ssssss
           </div>
         </div>
         <div class="v-data-table__cell"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
-            alex@mail.ru
+            Preston_Hudson@blaise.tv
           </div>
         </div>
         <div class="v-data-table__cell"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
-            some body text
+            consequatur necessitatibus totam sed sit dolorum
+            recusandae quae odio excepturi voluptatum harum voluptas
+            quisquam sit ad eveniet delectus
+            doloribus odio qui non labore
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            rrrrrr
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Christine@ayana.info
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            iste ut laborum aliquid velit facere itaque
+            quo ut soluta dicta voluptate
+            error tempore aut et
+            sequi reiciendis dignissimos expedita consequuntur libero sed fugiat facilis
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            qqqqqq
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Maynard.Hodkiewicz@roberta.com
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            nihil ut voluptates blanditiis autem odio dicta rerum
+            quisquam saepe et est
+            sunt quasi nemo laudantium deserunt
+            molestias tempora quo quia
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            pppppp
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Nathan@solon.io
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            vel quae voluptas qui exercitationem
+            voluptatibus unde sed
+            minima et qui ipsam aspernatur
+            expedita magnam laudantium et et quaerat ut qui dolorum
           </div>
         </div>
       </div>
@@ -1125,7 +1443,7 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
             <div class="v-select v-validatable">
               <input class="v-select__input">
               <transition-stub>
-                <div class="v-select-list elevation-4 white"
+                <div class="v-select-list elevation-4"
                      style="display: none;"
                 >
                   <div class="v-list v-select--items-list">
@@ -1177,7 +1495,7 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
         >
           1
         </button>
-        <button class="v-button v-button--disabled"
+        <button class="v-button elevation-3 primary"
                 style="min-width: 42px;"
         >
           <i class="v-icon fas fa-chevron-right"
@@ -1272,7 +1590,7 @@ exports[`VDataTable should test dark prop and match snapshot 1`] = `
         </div>
       </div>
     </div>
-    <div class="v-data-table__body white">
+    <div class="v-data-table__body">
       <div class="v-data-table__row">
         <div class="v-data-table__cell white--text"
              style="width: 125px;"
@@ -1319,6 +1637,84 @@ exports[`VDataTable should test dark prop and match snapshot 1`] = `
           </div>
         </div>
       </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            cccccc
+          </div>
+        </div>
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Eliseo@gardner.biz
+          </div>
+        </div>
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            laudantium enim quasi est quidem magnam voluptate ipsam eos
+            tempora quo necessitatibus
+            dolor quam autem quasi
+            reiciendis et nam sapiente accusantium
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            dddddd
+          </div>
+        </div>
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Jayne_Kuhic@sydney.com
+          </div>
+        </div>
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            est natus enim nihil est dolore omnis voluptatem numquam
+            et omnis occaecati quod ullam at
+            voluptatem error expedita pariatur
+            nihil sint nostrum voluptatem reiciendis et
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            eeeeee
+          </div>
+        </div>
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Nikita@garfield.biz
+          </div>
+        </div>
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            quia molestiae reprehenderit quasi aspernatur
+            aut expedita occaecati aliquam eveniet laudantium
+            omnis quibusdam delectus saepe quia accusamus maiores nam est
+            cum et ducimus et vero voluptates excepturi deleniti ratione
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="v-data-table__footer">
@@ -1336,7 +1732,7 @@ exports[`VDataTable should test dark prop and match snapshot 1`] = `
             <div class="v-select v-validatable">
               <input class="v-select__input white--text">
               <transition-stub>
-                <div class="v-select-list elevation-4 white"
+                <div class="v-select-list elevation-4"
                      style="display: none;"
                 >
                   <div class="v-list v-select--items-list">
@@ -1388,7 +1784,7 @@ exports[`VDataTable should test dark prop and match snapshot 1`] = `
         >
           1
         </button>
-        <button class="v-button v-button--disabled v-button--text"
+        <button class="v-button v-button--text elevation-3 white--text"
                 style="min-width: 42px;"
         >
           <i class="v-icon fas fa-chevron-right white--text"
@@ -1481,27 +1877,30 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
         </div>
       </div>
     </div>
-    <div class="v-data-table__body white">
+    <div class="v-data-table__body">
       <div class="v-data-table__row">
         <div class="v-data-table__cell"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
-            Alex
+            tttttt
           </div>
         </div>
         <div class="v-data-table__cell"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
-            alex@mail.ru
+            Vincenza_Klocko@albertha.name
           </div>
         </div>
         <div class="v-data-table__cell"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
-            some body text
+            veritatis voluptates necessitatibus maiores corrupti
+            neque et exercitationem amet sit et
+            ullam velit sit magnam laborum
+            magni ut molestias
           </div>
         </div>
       </div>
@@ -1510,21 +1909,102 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
-            Ben
+            ssssss
           </div>
         </div>
         <div class="v-data-table__cell"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
-            ben@mail.ru
+            Preston_Hudson@blaise.tv
           </div>
         </div>
         <div class="v-data-table__cell"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
-            some body text
+            consequatur necessitatibus totam sed sit dolorum
+            recusandae quae odio excepturi voluptatum harum voluptas
+            quisquam sit ad eveniet delectus
+            doloribus odio qui non labore
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            rrrrrr
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Christine@ayana.info
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            iste ut laborum aliquid velit facere itaque
+            quo ut soluta dicta voluptate
+            error tempore aut et
+            sequi reiciendis dignissimos expedita consequuntur libero sed fugiat facilis
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            qqqqqq
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Maynard.Hodkiewicz@roberta.com
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            nihil ut voluptates blanditiis autem odio dicta rerum
+            quisquam saepe et est
+            sunt quasi nemo laudantium deserunt
+            molestias tempora quo quia
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            pppppp
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Nathan@solon.io
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            vel quae voluptas qui exercitationem
+            voluptatibus unde sed
+            minima et qui ipsam aspernatur
+            expedita magnam laudantium et et quaerat ut qui dolorum
           </div>
         </div>
       </div>
@@ -1545,7 +2025,7 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
             <div class="v-select v-validatable">
               <input class="v-select__input">
               <transition-stub>
-                <div class="v-select-list elevation-4 white"
+                <div class="v-select-list elevation-4"
                      style="display: none;"
                 >
                   <div class="v-list v-select--items-list">
@@ -1597,7 +2077,7 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
         >
           1
         </button>
-        <button class="v-button v-button--disabled"
+        <button class="v-button elevation-3 primary"
                 style="min-width: 42px;"
         >
           <i class="v-icon fas fa-chevron-right"
@@ -1692,7 +2172,7 @@ exports[`VDataTable should test table filter and match snapshot 1`] = `
         </div>
       </div>
     </div>
-    <div class="v-data-table__body white">
+    <div class="v-data-table__body">
       <div class="v-data-table__row">
         <div class="v-data-table__cell"
              style="width: 125px;"
@@ -1733,7 +2213,7 @@ exports[`VDataTable should test table filter and match snapshot 1`] = `
             <div class="v-select v-validatable">
               <input class="v-select__input">
               <transition-stub>
-                <div class="v-select-list elevation-4 white"
+                <div class="v-select-list elevation-4"
                      style="display: none;"
                 >
                   <div class="v-list v-select--items-list">

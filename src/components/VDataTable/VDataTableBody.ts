@@ -21,8 +21,8 @@ export const VDataTableBody = defineComponent({
     cols: Array,
     rows: Array,
     dark: Boolean,
-    numbered: Boolean,
-    checkbox: Boolean,
+    showSequence: Boolean,
+    showCheckbox: Boolean,
     checkAllRows: Boolean,
     align: String,
     colWidth: {
@@ -139,8 +139,8 @@ export const VDataTableBody = defineComponent({
       let rowCells: VNode[] = []
 
       for (let i = 0; i < rowsLength; i += 1) {
-        props.numbered && rowCells.push(genNumberCell(count + i))
-        props.checkbox && rowCells.push(genCheckboxCell(props.rows[i]))
+        props.showSequence && rowCells.push(genNumberCell(count + i))
+        props.showCheckbox && rowCells.push(genCheckboxCell(props.rows[i]))
 
         for (let j = 0; j < colsLength; j += 1) {
           props.cols[j].show &&
@@ -162,7 +162,9 @@ export const VDataTableBody = defineComponent({
 
       return h(
         'div',
-        props.color ? setBackground(props.color, propsData) : propsData,
+        props.options?.color
+          ? setBackground(props.options.color, propsData)
+          : propsData,
         genTableRows()
       )
     }

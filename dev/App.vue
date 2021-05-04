@@ -55,11 +55,12 @@
           resizeable: true,
           sortable: true,
           filterable: true,
-          cellClass: 'red darken-3',
-          filterClass: 'green darken-3',
-          rowCellClass: 'red lighten-1',
+          cellClass: 'red darken-3 white--text',
+          filterClass: 'grey',
+          rowCellClass: 'red lighten-1 white--text',
           format: row => row.name,
           filter: ({ value, col }) => data.users.filter(user => user[col.key].includes(value)),
+          // sort: (a, b) => console.log(a, b),
         },
         {
           key: 'email',
@@ -68,9 +69,9 @@
           resizeable: true,
           sortable: true,
           filterable: true,
-          cellClass: 'green accent-3',
+          cellClass: 'green accent-3 white--text',
           filterClass: 'red',
-          rowCellClass: 'green lighten-1',
+          rowCellClass: 'green lighten-1 white--text',
           format: row => row.email,
         },
         {
@@ -150,21 +151,22 @@
       :cols="cols"
       :rows="data.users"
       :header-props="{
-        contentColor: 'grey darken-3',
-        color: 'grey lighten-1',
-        dark: true
+        contentColor: 'blue lighten-4',
+        color: 'blue darken-4',
+        dark: false
       }"
       :footer-props="{
         pagination: {
           buttonsColor: 'red darken-3',
-          displayColor: 'cyan'
+          displayColor: ''
         },
         rowsPerPageOptions: [25, 40, 50, 75],
-        rowsCountText: 'Кол-во строк'
+        rowsCountText: 'Кол-во строк',
+        color: 'blue darken-4'
       }"
       align="left"
-      numbered
-      checkbox
+      show-sequence
+      show-checkbox
       @checked="testFunc"
       @last-page="testFunc"
     >

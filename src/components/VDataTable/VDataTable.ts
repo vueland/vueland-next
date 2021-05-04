@@ -40,8 +40,8 @@ export const VDataTable = defineComponent({
       default: () => []
     },
     dark: Boolean,
-    numbered: Boolean,
-    checkbox: Boolean,
+    showSequence: Boolean,
+    showCheckbox: Boolean,
     align: {
       type: String,
       validator: (val) => ['left', 'center', 'right'].includes(val)
@@ -140,7 +140,7 @@ export const VDataTable = defineComponent({
     function onSort(col: Column) {
       if (col.sorted) {
         col.sorted = !col.sorted
-        return data.rows!.reverse()
+        return sortColumn(col)
       }
 
       data.cols.forEach((c) => {
@@ -148,6 +148,22 @@ export const VDataTable = defineComponent({
       })
 
       sortColumn(col)
+    }
+
+    function sortColumn(col: Column) {
+      if(!col.sorted) return data.rows!.reverse()
+
+      const executor = col.sort || ((a, b) => {
+        if (col.format) {
+          return col.format(a) > col.format(b) ? 1 : -1
+        }
+
+        if (col.sorted) {
+          return a[col.key] > b[col.key] ? 1 : -1
+        }
+      })
+
+      data.rows.sort(executor as any)
     }
 
     function onFilter({ value, col }: TableFilter) {
@@ -158,10 +174,7 @@ export const VDataTable = defineComponent({
         filters[col.key] = value
       }
       if (col.filter) {
-        return (data.rows = col.filter({
-          value,
-          col
-        }))
+        return (data.rows = col.filter({ value, col }))
       }
       if (props.customFilter) {
         return props.customFilter(filters as any)
@@ -175,14 +188,6 @@ export const VDataTable = defineComponent({
 
     function onSelectRowsCount(count: number) {
       data.rowsOnPage = count
-    }
-
-    function sortColumn(col: Column): void {
-      data.rows.sort((a, b) => {
-        if (col.format) return col.format(a) > col.format(b) ? 1 : -1
-
-        return a[col.key] > b[col.key] ? 1 : -1
-      })
     }
 
     function filterRows<T, C extends Column>(rows: T[], cols: C[]) {
@@ -227,10 +232,10 @@ export const VDataTable = defineComponent({
       const propsData = {
         cols: data.cols,
         color: props.color,
-        checkbox: !!props.checkbox,
+        showCheckbox: !!props.showCheckbox,
         dark: props.dark,
         align: props.align,
-        numbered: props.numbered,
+        showSequence: props.showSequence,
         options: props.headerProps,
         onFilter,
         onSort,
@@ -245,11 +250,11 @@ export const VDataTable = defineComponent({
         rows: data.rows,
         page: data.page,
         rowsOnPage: data.rowsOnPage,
-        checkbox: props.checkbox,
+        showCheckbox: props.showCheckbox,
         checkAllRows: data.isAllRowsChecked,
         align: props.align,
         dark: props.dark,
-        numbered: props.numbered,
+        showSequence: props.showSequence,
         color: props.color,
         onCheck
       }
@@ -279,7 +284,6 @@ export const VDataTable = defineComponent({
         rowsOnPage: data.rowsOnPage,
         rowsLength: data.rows?.length,
         dark: props.dark,
-        color: props.color,
         options: {
           rowsPerPageOptions: rowsPerPageDefaultOptions,
           ...props.footerProps

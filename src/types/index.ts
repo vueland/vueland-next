@@ -60,6 +60,7 @@ export type FooterOptions = {
   pagination: PaginationOptions,
   rowsPerPageOptions: number[]
   rowsCountText: string
+  color: string
 }
 
 export type HeaderOptions = {

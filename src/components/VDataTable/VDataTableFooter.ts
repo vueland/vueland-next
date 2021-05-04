@@ -40,12 +40,12 @@ export const VDataTableFooter = defineComponent({
   ],
 
   setup(props, { emit, slots }): () => VNode {
-    const { setTextColor } = useColors()
+    const { setTextColor, setBackground } = useColors()
     const { icons, iconSize } = useIcons('xs')
 
     const paginationDisplayText = computed<string>(() => {
-      return `${ props.firstOnPage } - ${ props.lastOnPage }
-        of ${ props.tableRowsCount }`
+      return `${props.firstOnPage} - ${props.lastOnPage}
+        of ${props.tableRowsCount}`
     })
 
     const isLastPage = computed<boolean>(() => {
@@ -54,7 +54,7 @@ export const VDataTableFooter = defineComponent({
 
     watch(
       () => isLastPage.value,
-      (to) => to && emit('last-page'),
+      (to) => to && emit('last-page')
     )
 
     function changeTableRowsPage(isNext) {
@@ -69,7 +69,8 @@ export const VDataTableFooter = defineComponent({
         props.options?.pagination?.buttonsColor ||
         (props.dark ? 'white' : 'primary')
 
-      const disableIf = (isNext && props.lastOnPage >= props.rowsLength) ||
+      const disableIf =
+        (isNext && props.lastOnPage >= props.rowsLength) ||
         (!isNext && props.firstOnPage === 1)
 
       const propsData = {
@@ -92,7 +93,8 @@ export const VDataTableFooter = defineComponent({
     }
 
     function genPaginationPageDisplay(): VNode {
-      const displayColor = props.options?.pagination?.displayColor ||
+      const displayColor =
+        props.options?.pagination?.displayColor ||
         (props.dark ? 'white' : 'blue lighten-1')
 
       const propsData = {
@@ -110,7 +112,7 @@ export const VDataTableFooter = defineComponent({
       const propsData = {
         items: props.options?.rowsPerPageOptions,
         dark: props.dark,
-        listColor: props.color,
+        listColor: props.options?.color || props.color,
         value: props.rowsOnPage,
         onSelect: (e) => emit('select-rows-count', e),
       }
@@ -128,7 +130,7 @@ export const VDataTableFooter = defineComponent({
       return h(
         'span',
         color ? setTextColor(color, propsData) : propsData,
-        props.options?.rowsCountText || 'Rows per page',
+        props.options?.rowsCountText || 'Rows per page'
       )
     }
 
@@ -152,11 +154,9 @@ export const VDataTableFooter = defineComponent({
         'div',
         color ? setTextColor(color, propsData) : propsData,
 
-        (props.rowsLength &&
-          slots.paginationText &&
-          slots.paginationText()) ||
-        (props.tableRowsCount && paginationDisplayText.value) ||
-        '-',
+        (props.rowsLength && slots.paginationText && slots.paginationText()) ||
+          (props.tableRowsCount && paginationDisplayText.value) ||
+          '-'
       )
     }
 
@@ -176,7 +176,20 @@ export const VDataTableFooter = defineComponent({
       ])
     }
 
-    return () =>
-      h('div', { class: 'v-data-table__footer' }, genPaginationBlock())
+    return () => {
+      const propsData = {
+        class: {
+          'v-data-table__footer': true,
+        },
+      }
+
+      return h(
+        'div',
+        props.options?.color
+          ? setBackground(props.options.color, propsData)
+          : propsData,
+        genPaginationBlock()
+      )
+    }
   },
 })

@@ -109,7 +109,7 @@ export const VDataTableBody = defineComponent({
 
     function genRowCell(col, row): VNode {
       const { format } = col
-      const slotContent = slots[col.key] && slots[col.key]!(row)
+      const slotContent = slots[col.key] && slots[col.key]!({ row })
 
       return h(
         VDataTableCell,

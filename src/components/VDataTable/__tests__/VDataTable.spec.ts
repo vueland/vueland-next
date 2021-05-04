@@ -8,14 +8,15 @@ describe('VDataTable', () => {
   let mountFunction: (options?: any) => any
 
   beforeEach(() => {
-    mountFunction = (options = {}) => mount(VDataTable, {
-      ...options,
-      global: {
-        provide: {
-          $options: null,
+    mountFunction = (options = {}) =>
+      mount(VDataTable, {
+        ...options,
+        global: {
+          provide: {
+            $options: null,
+          },
         },
-      },
-    })
+      })
   })
 
   it('should mount component and match snapshot', () => {
@@ -42,7 +43,9 @@ describe('VDataTable', () => {
     const filter = cmp.find('.v-data-table-col__filter')
 
     expect(cmp.find('.v-data-table__cell').classes()).toContain('white--text')
-    expect(filter.find('.v-input__field-slot').classes()).toContain('white--text')
+    expect(filter.find('.v-input__field-slot').classes()).toContain(
+      'white--text'
+    )
     expect(filter.find('.v-icon').classes()).toContain('white--text')
     expect(cmp.html()).toMatchSnapshot()
   })
@@ -52,7 +55,9 @@ describe('VDataTable', () => {
       props: { cols, rows, align: 'center' },
     })
 
-    expect(cmp.find('.v-data-table__cell-content').classes()).toContain('text-align--center')
+    expect(cmp.find('.v-data-table__cell-content').classes()).toContain(
+      'text-align--center'
+    )
     expect(cmp.html()).toMatchSnapshot()
   })
 
@@ -61,7 +66,9 @@ describe('VDataTable', () => {
       props: { cols, rows, align: 'left' },
     })
 
-    expect(cmp.find('.v-data-table__cell-content').classes()).toContain('text-align--left')
+    expect(cmp.find('.v-data-table__cell-content').classes()).toContain(
+      'text-align--left'
+    )
     expect(cmp.html()).toMatchSnapshot()
   })
 
@@ -70,7 +77,9 @@ describe('VDataTable', () => {
       props: { cols, rows, align: 'right' },
     })
 
-    expect(cmp.find('.v-data-table__cell-content').classes()).toContain('text-align--right')
+    expect(cmp.find('.v-data-table__cell-content').classes()).toContain(
+      'text-align--right'
+    )
     expect(cmp.html()).toMatchSnapshot()
   })
 
@@ -91,25 +100,42 @@ describe('VDataTable', () => {
       props: { cols, rows },
     })
 
-    expect(cmp.find('.v-data-table-col__actions-sort').exists()).toBe(true)
-    expect(cmp.find('.v-data-table__row').text()).toContain('Ben')
+    const sortBtn = cmp.find('.v-data-table-col__actions-sort')
 
+    expect(sortBtn.exists()).toBe(true)
+
+    await sortBtn.trigger('click')
+
+    const firstRow = rows[0]
+    const lastRow = rows[rows.length - 1]
+
+    expect(cmp.find('.v-data-table-col__actions-sort--active').exists()).toBe(
+      true
+    )
+    expect(cmp.find('.v-data-table__row').text()).toContain(firstRow.name)
+
+    // reverse sort
+    await sortBtn.trigger('click')
+
+    expect(cmp.find('.v-data-table__row').text()).toContain(lastRow.name)
+    expect(cmp.html()).toMatchSnapshot()
+  })
+
+  it('should test custom column sort', async () => {
+    cols[0].sortable = true
+    cols[0].sort = jest.fn()
+
+    const cmp = mountFunction({
+      props: { cols, rows },
+    })
+
+    expect(cmp.get('.v-data-table-col__actions-sort').exists()).toBe(true)
     const sortBtn = cmp.find('.v-data-table-col__actions-sort')
 
     await sortBtn.trigger('click')
 
-    expect(cmp.find('.v-data-table-col__actions-sort--active').exists()).toBe(
-      true,
-    )
-    expect(cmp.find('.v-data-table__row').text()).toContain('Alex')
-
-    // reverse sort
-    await sortBtn.trigger('click')
-    expect(cmp.find('.v-data-table__row').text()).toContain('Ben')
-
-    expect(cmp.html()).toMatchSnapshot()
-
-    await sortBtn.trigger('click')
+    expect(cols[0].sort).toBeCalled()
+    expect(cols[0].sort).toBeCalledWith(rows[1], rows[0])
   })
 
   it('should test table filter and match snapshot', async () => {
@@ -196,9 +222,9 @@ describe('VDataTable', () => {
     expect(cols[0].filter).toHaveBeenCalledWith({ value: 'Alex', col: cols[0] })
   })
 
-  it('should test numbered prop', () => {
+  it('should test show-sequence prop', () => {
     const cmp = mountFunction({
-      props: { cols, rows, numbered: true },
+      props: { cols, rows, showSequence: true },
     })
 
     expect(cmp.find('.v-data-table-col__number').exists()).toBe(true)
@@ -206,9 +232,9 @@ describe('VDataTable', () => {
     expect(cmp.findAll('.v-data-table__row-number')[1].text()).toContain('2')
   })
 
-  it('should test checkbox prop', async () => {
+  it('should test show-checkbox prop', async () => {
     const cmp = mountFunction({
-      props: { cols, rows, checkbox: true },
+      props: { cols, rows, showCheckbox: true },
     })
 
     expect(cmp.find('.v-data-table-col__checkbox').exists()).toBe(true)
@@ -218,5 +244,72 @@ describe('VDataTable', () => {
     await row.find('.v-checkbox').trigger('click')
 
     expect(row.find('.v-checkbox').classes()).toContain('v-checkbox--checked')
+  })
+
+  it('should test header props to set color', () => {
+    const headerProps = {
+      contentColor: 'grey',
+      color: 'red',
+    }
+
+    const cmp = mountFunction({
+      props: {
+        cols,
+        rows,
+        headerProps,
+      },
+    })
+
+    const header = cmp.find('.v-data-table__header')
+
+    expect(cmp.props().headerProps).toEqual(headerProps)
+    expect(header.classes()).toContain(headerProps.color)
+    expect(header.find('.v-data-table__cell').classes()).toContain(
+      `${headerProps.contentColor}--text`
+    )
+  })
+
+  it('should test header props to set dark mode', () => {
+    const headerProps = {
+      dark: true,
+    }
+
+    const cmp = mountFunction({
+      props: {
+        cols,
+        rows,
+        headerProps,
+      },
+    })
+
+    const header = cmp.find('.v-data-table__header')
+
+    expect(header.find('.v-data-table__cell').classes()).toContain(
+      'white--text'
+    )
+  })
+
+  it('should test header props priority over table dark mode and color', () => {
+    const headerProps = {
+      contentColor: 'grey',
+      color: 'red',
+    }
+    const cmp = mountFunction({
+      props: {
+        cols,
+        rows,
+        headerProps,
+        dark: true,
+        color: 'green',
+      },
+    })
+
+    const header = cmp.find('.v-data-table__header')
+
+    expect(cmp.props().headerProps).toEqual(headerProps)
+    expect(header.classes()).toContain(headerProps.color)
+    expect(header.find('.v-data-table__cell').classes()).toContain(
+      `${headerProps.contentColor}--text`
+    )
   })
 })

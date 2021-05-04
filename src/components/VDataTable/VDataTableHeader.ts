@@ -27,8 +27,8 @@ export const VDataTableHeader = defineComponent({
 
   props: {
     dark: Boolean,
-    numbered: Boolean,
-    checkbox: Boolean,
+    showSequence: Boolean,
+    showCheckbox: Boolean,
     cols: Array,
     colWidth: {
       type: [String, Number],
@@ -51,11 +51,12 @@ export const VDataTableHeader = defineComponent({
 
     const isDarkMode = computed<boolean>(() => {
       if (props.options?.dark !== undefined) return props.options.dark
-      return props.dark
+      if (!props.options?.contentColor) return props.dark
+      return false
     })
 
     const computedContentColor = computed<string>(() => {
-      return (isDarkMode.value ? 'white' : '') || props.options?.contentColor
+      return isDarkMode.value ? 'white' : props.options?.contentColor
     })
 
     const computedColor = computed<string>(() => {
@@ -89,7 +90,7 @@ export const VDataTableHeader = defineComponent({
         class: classes,
         size: iconSize,
         icon: icons.$arrowUp,
-        color: computedContentColor.value,
+        color: !item.cellClass ? computedContentColor.value : '',
         onClick: () => onSort(item),
       }
 
@@ -107,7 +108,7 @@ export const VDataTableHeader = defineComponent({
         class: classes,
         size: iconSize,
         icon: icons.$filter,
-        color: computedContentColor.value,
+        color: !item.cellClass ? computedContentColor.value : '',
         onClick: () => showFilter(item),
       }
 
@@ -219,7 +220,7 @@ export const VDataTableHeader = defineComponent({
           'v-data-table-col--sorted': item.sorted,
           [item.cellClass]: !!item.cellClass,
         },
-        contentColor: computedContentColor.value,
+        contentColor: !item.cellClass ? computedContentColor.value : '',
         color: !item.cellClass ? computedColor.value : '',
         width: item.width,
         resizeable: item.resizeable,
@@ -239,8 +240,8 @@ export const VDataTableHeader = defineComponent({
     function genHeaderCells() {
       const cells: VNode[] = []
 
-      props.numbered && cells.push(genNumberCell())
-      props.checkbox && cells.push(genCheckboxCell())
+      props.showSequence && cells.push(genNumberCell())
+      props.showCheckbox && cells.push(genCheckboxCell())
 
       cols.value!.forEach((item: Column) => {
         item.width = item.width || props.colWidth

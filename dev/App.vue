@@ -55,9 +55,9 @@
           resizeable: true,
           sortable: true,
           filterable: true,
-          cellClass: 'red darken-3 white--text',
-          filterClass: 'grey',
-          rowCellClass: 'red lighten-1 white--text',
+          cellClass: '',
+          filterClass: '',
+          rowCellClass: '',
           format: row => row.name,
           filter: ({ value, col }) => data.users.filter(user => user[col.key].includes(value)),
           // sort: (a, b) => console.log(a, b),
@@ -69,8 +69,8 @@
           resizeable: true,
           sortable: true,
           filterable: true,
-          cellClass: 'green accent-3 white--text',
-          filterClass: 'red',
+          cellClass: 'green darken-3 white--text',
+          filterClass: 'green darken-3',
           rowCellClass: 'green lighten-1 white--text',
           format: row => row.email,
         },
@@ -145,14 +145,14 @@
   />
   <div
     class="table-wrap"
-    style="height: 850px;"
+    style="height: 850px; padding: 10px;"
   >
     <v-data-table
       :cols="cols"
       :rows="data.users"
       :header-props="{
-        contentColor: 'blue lighten-4',
-        color: 'blue darken-4',
+        contentColor: '',
+        color: '',
         dark: false
       }"
       :footer-props="{
@@ -162,9 +162,10 @@
         },
         rowsPerPageOptions: [25, 40, 50, 75],
         rowsCountText: 'Кол-во строк',
-        color: 'blue darken-4'
+        color: ''
       }"
       align="left"
+      class="elevation-10"
       show-sequence
       show-checkbox
       @checked="testFunc"
@@ -173,6 +174,19 @@
       <template #paginationText="{start, last, length}">
         <span>{{ start + ' - ' + last + ' из ' + length + ' строк' }}</span>
       </template>
+
+      <template #name-filter="{filter}">
+        <div
+          class="filter-wrap blue darken-4"
+          style="padding: 10px"
+        >
+          <v-text-field
+            dark
+            @input="filter"
+          />
+        </div>
+      </template>
+
       <template #actions>
         <v-button
           width="42"

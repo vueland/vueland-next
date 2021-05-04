@@ -126,7 +126,7 @@ export const VDataTableHeader = defineComponent({
       const propsData = {
         label: 'input value',
         dark: isDarkMode.value,
-        color: computedContentColor.value,
+        // color: computedContentColor.value,
         prependIcon: icons.$search,
         clearable: true,
         onInput: ($value) => onInput($value, item),

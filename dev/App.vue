@@ -70,7 +70,7 @@
           sortable: true,
           filterable: true,
           cellClass: 'green accent-3 white--text',
-          filterClass: 'red',
+          filterClass: 'red white--text',
           rowCellClass: 'green lighten-1 white--text',
           format: row => row.email,
         },
@@ -145,15 +145,15 @@
   />
   <div
     class="table-wrap"
-    style="height: 850px;"
+    style="height: 850px; padding: 10px;"
   >
     <v-data-table
       :cols="cols"
       :rows="data.users"
       :header-props="{
-        contentColor: 'blue lighten-4',
+        contentColor: 'red',
         color: 'blue darken-4',
-        dark: false
+        dark: true
       }"
       :footer-props="{
         pagination: {
@@ -165,6 +165,7 @@
         color: 'blue darken-4'
       }"
       align="left"
+      class="elevation-10"
       show-sequence
       show-checkbox
       @checked="testFunc"

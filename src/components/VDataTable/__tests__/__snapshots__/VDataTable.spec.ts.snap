@@ -106,12 +106,9 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
             >
             </button>
           </span>
-          <div class="v-data-table-col__filter grey lighten-2"
+          <div class="v-data-table-col__filter elevation-5 white"
                style="display: none;"
           >
-            <span class="v-data-table-col__filter-header">
-              Name
-            </span>
             <div class="v-input">
               <div class="v-input__field-slot primary--text">
                 <div class="v-input__prepend-icon">
@@ -395,12 +392,9 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
             >
             </button>
           </span>
-          <div class="v-data-table-col__filter grey lighten-2"
+          <div class="v-data-table-col__filter elevation-5 white"
                style="display: none;"
           >
-            <span class="v-data-table-col__filter-header">
-              Name
-            </span>
             <div class="v-input">
               <div class="v-input__field-slot primary--text">
                 <div class="v-input__prepend-icon">
@@ -684,12 +678,9 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
             >
             </button>
           </span>
-          <div class="v-data-table-col__filter grey lighten-2"
+          <div class="v-data-table-col__filter elevation-5 white"
                style="display: none;"
           >
-            <span class="v-data-table-col__filter-header">
-              Name
-            </span>
             <div class="v-input">
               <div class="v-input__field-slot primary--text">
                 <div class="v-input__prepend-icon">
@@ -1062,12 +1053,9 @@ exports[`VDataTable should test cols prop and match snapshot 1`] = `
             >
             </button>
           </span>
-          <div class="v-data-table-col__filter grey lighten-2"
+          <div class="v-data-table-col__filter elevation-5 white"
                style="display: none;"
           >
-            <span class="v-data-table-col__filter-header">
-              Name
-            </span>
             <div class="v-input">
               <div class="v-input__field-slot primary--text">
                 <div class="v-input__prepend-icon">
@@ -1231,12 +1219,9 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
             >
             </button>
           </span>
-          <div class="v-data-table-col__filter grey lighten-2"
+          <div class="v-data-table-col__filter elevation-5 white"
                style="display: none;"
           >
-            <span class="v-data-table-col__filter-header">
-              Name
-            </span>
             <div class="v-input">
               <div class="v-input__field-slot primary--text">
                 <div class="v-input__prepend-icon">
@@ -1526,12 +1511,9 @@ exports[`VDataTable should test dark prop and match snapshot 1`] = `
             >
             </button>
           </span>
-          <div class="v-data-table-col__filter grey darken-3"
+          <div class="v-data-table-col__filter elevation-5 grey darken-3"
                style="display: none;"
           >
-            <span class="v-data-table-col__filter-header">
-              Name
-            </span>
             <div class="v-input">
               <div class="v-input__field-slot white--text">
                 <div class="v-input__prepend-icon">
@@ -1815,10 +1797,7 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
             >
             </button>
           </span>
-          <div class="v-data-table-col__filter grey lighten-2">
-            <span class="v-data-table-col__filter-header">
-              Name
-            </span>
+          <div class="v-data-table-col__filter elevation-5 white">
             <div class="v-input">
               <div class="v-input__field-slot primary--text">
                 <div class="v-input__prepend-icon">
@@ -2108,12 +2087,9 @@ exports[`VDataTable should test table filter and match snapshot 1`] = `
             >
             </button>
           </span>
-          <div class="v-data-table-col__filter grey lighten-2"
+          <div class="v-data-table-col__filter elevation-5 white"
                style
           >
-            <span class="v-data-table-col__filter-header">
-              Name
-            </span>
             <div class="v-input">
               <div class="v-input__field-slot primary--text">
                 <div class="v-input__prepend-icon">

@@ -13,7 +13,7 @@ import { VDataTableBody } from './VDataTableBody'
 import { VDataTableFooter } from './VDataTableFooter'
 
 // Helpers
-import { toComparableStringFormat } from './helpers'
+import { toComparableStringFormat, addScopedSlot } from './helpers'
 
 // Types
 import { VNode, PropType } from 'vue'
@@ -176,7 +176,10 @@ export const VDataTable = defineComponent({
         filters[col.key] = value
       }
       if (col.filter) {
-        return (data.rows = col.filter({ value, col }))
+        return (data.rows = col.filter({
+          value,
+          col,
+        }))
       }
       if (props.customFilter) {
         return props.customFilter(filters as any)
@@ -247,11 +250,9 @@ export const VDataTable = defineComponent({
       const content = data.cols.reduce((acc, col) => {
         const slotName = `${col.key}-filter`
 
-        const slotContent = (filter) => {
-          return col && slots[slotName] && slots[slotName]!({ filter })
+        if (col && slots[slotName]) {
+          acc[slotName] = addScopedSlot(slotName, slots)
         }
-
-        if (slots[slotName]) acc[slotName] = slotContent
 
         return acc
       }, {})
@@ -275,14 +276,9 @@ export const VDataTable = defineComponent({
       }
 
       const content = props.cols.reduce((acc, col) => {
-        const slotContent = (row) => {
-          const scoped: any = { row }
-          if (col.format) scoped.format = col.format
-
-          return slots[col.key] && slots[col.key]!(scoped)
+        if (col && slots[col.key]) {
+          acc[col.key] = addScopedSlot(col.key, slots)
         }
-
-        if (slots[col.key]) acc[col.key] = slotContent
         return acc
       }, {})
 

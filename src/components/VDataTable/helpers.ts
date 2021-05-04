@@ -1,12 +1,11 @@
-import { Column } from '@/types'
+import { Slots } from 'vue'
 
 export const toComparableStringFormat = (val) =>
-  String(Number(val) || val.toLowerCase());
+  String(Number(val) || val.toLowerCase())
 
-export function addScopedSlot(col: Column, slotName: string, slots) {
+export const addScopedSlot = (slotName: string, slots: Slots) => {
   return (scoped) => {
     const arg: any = { ...scoped }
-    if (col.format) arg.format = col.format
 
     return slots[slotName] && slots[slotName]!(arg)
   }

@@ -251,7 +251,7 @@ export const VDataTable = defineComponent({
         const slotName = `${col.key}-filter`
 
         if (col && slots[slotName]) {
-          acc[slotName] = addScopedSlot(col, slotName, slots)
+          acc[slotName] = addScopedSlot(slotName, slots)
         }
 
         return acc
@@ -277,7 +277,7 @@ export const VDataTable = defineComponent({
 
       const content = props.cols.reduce((acc, col) => {
         if (col && slots[col.key]) {
-          acc[col.key] = addScopedSlot(col, col.key, slots)
+          acc[col.key] = addScopedSlot(col.key, slots)
         }
         return acc
       }, {})

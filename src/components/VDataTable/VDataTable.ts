@@ -156,37 +156,20 @@ export const VDataTable = defineComponent({
       const executor =
         col.sort ||
         ((a, b) => {
-          if (col.format) {
-            return col.format(a) > col.format(b) ? 1 : -1
-          }
-
-          if (col.sorted) {
-            return a[col.key] > b[col.key] ? 1 : -1
-          }
+          if (col.format) return col.format(a) > col.format(b) ? 1 : -1
+          if (col.sorted) return a[col.key] > b[col.key] ? 1 : -1
         })
 
       data.rows.sort(executor as any)
     }
 
     function onFilter({ value, col }: TableFilter) {
-      if (!value && filters[col.key]) {
-        delete filters[col.key]
-      }
-      if (value) {
-        filters[col.key] = value
-      }
-      if (col.filter) {
-        return (data.rows = col.filter({
-          value,
-          col,
-        }))
-      }
-      if (props.customFilter) {
-        return props.customFilter(filters as any)
-      }
-      if (!Object.keys(filters).length) {
-        return (data.rows = props.rows)
-      }
+      if (!value && filters[col.key]) delete filters[col.key]
+      if (value) filters[col.key] = value
+      if (col.filter) return (data.rows = col.filter({ value, col }))
+      if (props.customFilter) return props.customFilter(filters as any)
+      if (!Object.keys(filters).length) return (data.rows = props.rows)
+
       data.rows = filterRows(props.rows, props.cols)
       data.page = 1
     }
@@ -199,7 +182,7 @@ export const VDataTable = defineComponent({
       const filterKeys = Object.keys(filters)
 
       return rows.reduce((acc, row) => {
-        const rowResults: any[] = []
+        const rowResults: T[] = []
 
         filterKeys.forEach((key) => {
           const { format } = cols.find((col) => col.key === key) as Column

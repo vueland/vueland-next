@@ -13,7 +13,7 @@ import { VDataTableBody } from './VDataTableBody'
 import { VDataTableFooter } from './VDataTableFooter'
 
 // Helpers
-import { toComparableStringFormat, addScopedSlot } from './helpers'
+import { addScopedSlot } from './helpers'
 
 // Types
 import { VNode, PropType } from 'vue'
@@ -71,12 +71,6 @@ export const VDataTable = defineComponent({
     const filters = {}
     const rowsPerPageDefaultOptions = [5, 10, 15, 20]
 
-    if (props.footerProps?.rowsPerPageOptions) {
-      data.rowsOnPage = props.footerProps.rowsPerPageOptions[0]
-    } else {
-      data.rowsOnPage = rowsPerPageDefaultOptions[0]
-    }
-
     const classes = computed<Record<string, boolean>>(() => ({
       'v-data-table': true,
     }))
@@ -114,6 +108,16 @@ export const VDataTable = defineComponent({
     watch(
       () => props.rows,
       (to) => (data.rows = to),
+      { immediate: true }
+    )
+
+    watch(
+      () => props.footerProps,
+      (to) => {
+        if (to?.rowsPerPageOptions)
+          data.rowsOnPage = to.footerProps.rowsPerPageOptions[0]
+        else data.rowsOnPage = rowsPerPageDefaultOptions[0]
+      },
       { immediate: true }
     )
 
@@ -165,8 +169,14 @@ export const VDataTable = defineComponent({
 
     function onFilter({ value, col }: TableFilter) {
       if (!value && filters[col.key]) delete filters[col.key]
+
       if (value) filters[col.key] = value
-      if (col.filter) return (data.rows = col.filter({ value, col }))
+
+      if (col.filter)
+        return (data.rows = col.filter({
+          value,
+          col,
+        }))
       if (props.customFilter) return props.customFilter(filters as any)
       if (!Object.keys(filters).length) return (data.rows = props.rows)
 
@@ -189,8 +199,8 @@ export const VDataTable = defineComponent({
 
           const value = format ? format(row) : row[key]
 
-          const rowKeyValue = toComparableStringFormat(value)
-          const filterValue = toComparableStringFormat(filters[key])
+          const rowKeyValue = `${value}`.toLowerCase()
+          const filterValue = `${filters[key]}`.toLowerCase()
 
           if (rowKeyValue.includes(filterValue)) {
             rowResults.push(row[key])

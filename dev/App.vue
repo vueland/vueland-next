@@ -161,7 +161,7 @@
           displayColor: ''
         },
         rowsPerPageOptions: [25, 40, 50, 75],
-        rowsCountText: 'Кол-во строк',
+        rowsPerPageText: 'Кол-во строк',
         color: ''
       }"
       align="left"

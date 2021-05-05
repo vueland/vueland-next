@@ -3,8 +3,7 @@ import * as directives from './directives'
 
 export class Vueland {
   static installed: boolean = false
-
-  public userOptions: any = {}
+  public userOptions: any
 
   constructor(options: any = null) {
     this.userOptions = options

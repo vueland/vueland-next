@@ -130,7 +130,7 @@ export const VDataTableFooter = defineComponent({
       return h(
         'span',
         color ? setTextColor(color, propsData) : propsData,
-        props.options?.rowsCountText || 'Rows per page'
+        props.options?.rowsPerPageText || 'Rows per page'
       )
     }
 

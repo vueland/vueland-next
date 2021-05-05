@@ -45,7 +45,7 @@ export const VDataTableFooter = defineComponent({
 
     const paginationDisplayText = computed<string>(() => {
       return `${props.firstOnPage} - ${props.lastOnPage}
-        of ${props.tableRowsCount}`
+        of ${props.rowsLength}`
     })
 
     const isLastPage = computed<boolean>(() => {
@@ -155,7 +155,7 @@ export const VDataTableFooter = defineComponent({
         color ? setTextColor(color, propsData) : propsData,
 
         (props.rowsLength && slots.paginationText && slots.paginationText()) ||
-          (props.tableRowsCount && paginationDisplayText.value) ||
+          (props.rowsLength && paginationDisplayText.value) ||
           '-'
       )
     }

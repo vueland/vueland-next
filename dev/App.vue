@@ -15,16 +15,19 @@
         checked: false,
         user2: { name: 'igor' },
         date: null,
-        users: [],
+        users: [
+          {name: 'AAA', email: 'aaa@mail.ru', body: 'fsdf adfasda dasdasd'},
+          {name: 'AAA', email: 'aaa@mail.ru', body: 'fsdf adfasda dasdasd'},
+        ],
       })
 
-      const fetchItems = () => {
-        fetch('https://jsonplaceholder.typicode.com/comments')
-          .then(response => response.json())
-          .then(json => data.users = [...data.users, ...json])
-      }
+      // const fetchItems = () => {
+      //   fetch('https://jsonplaceholder.typicode.com/comments')
+      //     .then(response => response.json())
+      //     .then(json => data.users = [...data.users, ...json])
+      // }
 
-      fetchItems()
+      // fetchItems()
 
       setTimeout(() => {
         data.always = false
@@ -111,7 +114,6 @@
         addItem,
         testFunc,
         toggleAlways,
-        fetchItems,
         forOut,
         FaIcons,
       }

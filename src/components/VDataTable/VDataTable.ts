@@ -71,6 +71,12 @@ export const VDataTable = defineComponent({
     const filters = {}
     const rowsPerPageDefaultOptions = [5, 10, 15, 20]
 
+    if (props.footerProps?.rowsPerPageOptions) {
+      data.rowsOnPage = props.footerProps.rowsPerPageOptions[0]
+    } else {
+      data.rowsOnPage = rowsPerPageDefaultOptions[0]
+    }
+
     const classes = computed<Record<string, boolean>>(() => ({
       'v-data-table': true,
     }))
@@ -108,16 +114,6 @@ export const VDataTable = defineComponent({
     watch(
       () => props.rows,
       (to) => (data.rows = to),
-      { immediate: true }
-    )
-
-    watch(
-      () => props.footerProps,
-      (to) => {
-        if (to?.rowsPerPageOptions)
-          data.rowsOnPage = to.footerProps.rowsPerPageOptions[0]
-        else data.rowsOnPage = rowsPerPageDefaultOptions[0]
-      },
       { immediate: true }
     )
 

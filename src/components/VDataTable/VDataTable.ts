@@ -13,7 +13,7 @@ import { VDataTableBody } from './VDataTableBody'
 import { VDataTableFooter } from './VDataTableFooter'
 
 // Helpers
-import { toComparableStringFormat, addScopedSlot } from './helpers'
+import { addScopedSlot } from './helpers'
 
 // Types
 import { VNode, PropType } from 'vue'
@@ -165,7 +165,9 @@ export const VDataTable = defineComponent({
 
     function onFilter({ value, col }: TableFilter) {
       if (!value && filters[col.key]) delete filters[col.key]
+
       if (value) filters[col.key] = value
+
       if (col.filter) return (data.rows = col.filter({ value, col }))
       if (props.customFilter) return props.customFilter(filters as any)
       if (!Object.keys(filters).length) return (data.rows = props.rows)
@@ -189,8 +191,8 @@ export const VDataTable = defineComponent({
 
           const value = format ? format(row) : row[key]
 
-          const rowKeyValue = toComparableStringFormat(value)
-          const filterValue = toComparableStringFormat(filters[key])
+          const rowKeyValue = `${value}`.toLowerCase()
+          const filterValue = `${filters[key]}`.toLowerCase()
 
           if (rowKeyValue.includes(filterValue)) {
             rowResults.push(row[key])

@@ -323,13 +323,14 @@ export default {
     <v-button
       :disabled="false"
       :loading="data.loading"
-      elevation="3"
-      label="test"
-      width="100"
-      outlined
+      label="test for btn"
       color="blue darken-3"
+      elevation="5"
       @click="onClickLoading"
     >
+      <template #loader>
+        <span>loading...</span>
+      </template>
       <v-icon
         size="25"
         icon="settings"

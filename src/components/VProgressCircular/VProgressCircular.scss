@@ -37,7 +37,8 @@
   }
 
   &__underlay {
-    stroke: #bdbdbd;
+    stroke: currentColor;
+    opacity: .3;
   }
 
   &__info {

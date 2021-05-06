@@ -122,7 +122,7 @@ export const VProgressCircular = defineComponent({
       return h(
         'div',
         propsData,
-        props.value || (slots.default && slots.default())
+        slots.default && slots.default()
       )
     }
 

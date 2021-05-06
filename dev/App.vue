@@ -1,146 +1,183 @@
 <script lang="ts">
-  import { reactive, ref, computed, watch } from 'vue'
-  import { FaIcons } from '../src/services/icons'
+import { reactive, ref, computed, watch } from 'vue'
+import { FaIcons } from '../src/services/icons'
 
-  export default {
-    setup() {
-      const data = reactive({
-        always: true,
-        show: false,
-        test: true,
-        login: '',
-        email: '',
-        password: '',
-        user: '',
-        checked: false,
-        user2: { name: 'igor' },
-        date: null,
-        users: [
-          // {name: 'AAA', email: 'aaa@mail.ru', body: 'fsdf adfasda dasdasd'},
-          // {name: 'AAA', email: 'aaa@mail.ru', body: 'fsdf adfasda dasdasd'},
-        ],
-      })
-
-      const fetchItems = () => {
-        fetch('https://jsonplaceholder.typicode.com/comments')
-          .then(response => response.json())
-          .then(json => data.users = [...data.users, ...json])
-      }
-
-      fetchItems()
-
-      setTimeout(() => {
-        data.always = false
-      }, 2000)
-
-      const toggleAlways = () => {
-        data.always = !data.always
-      }
-
-      const testFunc = date => {
-        console.log(date)
-      }
-
-      const forOut = computed(() => {
-        return data.always ? testFunc : undefined
-      })
-
-      const cols = ref([
-        {
-          key: 'actions',
-          title: 'Actions',
-          align: 'center',
-        },
-        {
-          key: 'name',
-          title: 'Name',
-          width: '250',
-          resizeable: true,
-          sortable: true,
-          filterable: true,
-          cellClass: '',
-          filterClass: '',
-          rowCellClass: '',
-          format: row => row.name,
-          filter: ({ value, col }) => data.users.filter(user => user[col.key].includes(value)),
-          // sort: (a, b) => console.log(a, b),
-        },
-        {
-          key: 'email',
-          title: 'Email',
-          width: '250',
-          resizeable: true,
-          sortable: true,
-          filterable: true,
-          cellClass: 'green darken-3 white--text',
-          filterClass: 'grey lighten-2',
-          rowCellClass: 'green lighten-1 white--text',
-          format: row => row.email,
-        },
-        {
-          key: 'body',
-          title: 'Body',
-          width: '250',
-          resizeable: true,
-          sortable: true,
-          filterable: true,
-        },
-      ])
-
-      const rows = [
-        {
-          name: 'Ben',
-          email: 'ben@mail.ru',
-          body: 'some body text',
-        },
-        {
-          name: 'Alex',
-          email: 'alex@mail.ru',
-          body: 'some body text',
-        },
+export default {
+  setup() {
+    const data = reactive({
+      always: true,
+      show: false,
+      test: true,
+      login: '',
+      email: '',
+      password: '',
+      user: '',
+      checked: false,
+      user2: { name: 'igor' },
+      date: null,
+      loading: false,
+      users: [
+        // {name: 'AAA', email: 'aaa@mail.ru', body: 'fsdf adfasda dasdasd'},
+        // {name: 'AAA', email: 'aaa@mail.ru', body: 'fsdf adfasda dasdasd'},
       ]
+    })
 
-      const addItem = () => {
-        data.users.push({
-          name: 'Anar',
-          email: 'adsadasdasd',
-          body: 'sdfsddfsdfsdfsf',
-        })
-      }
+    const onClickLoading = () => {
+      data.loading = true
+      setTimeout(() => data.loading = false, 2000)
+    }
 
-      return {
-        data,
-        cols,
-        addItem,
-        testFunc,
-        toggleAlways,
-        forOut,
-        FaIcons,
+    const fetchItems = () => {
+      fetch('https://jsonplaceholder.typicode.com/comments')
+        .then(response => response.json())
+        .then(json => data.users = [...data.users, ...json])
+    }
+
+    fetchItems()
+
+    setTimeout(() => {
+      data.always = false
+    }, 2000)
+
+    const toggleAlways = () => {
+      data.always = !data.always
+    }
+
+    const testFunc = date => {
+      console.log(date)
+    }
+
+    const forOut = computed(() => {
+      return data.always ? testFunc : undefined
+    })
+
+    const cols = ref([
+      {
+        key: 'actions',
+        title: 'Actions',
+        align: 'center'
+      },
+      {
+        key: 'name',
+        title: 'Name',
+        width: '250',
+        resizeable: true,
+        sortable: true,
+        filterable: true,
+        cellClass: '',
+        filterClass: '',
+        rowCellClass: '',
+        format: row => row.name,
+        filter: ({
+                   value,
+                   col
+                 }) => data.users.filter(user => user[col.key].includes(value))
+        // sort: (a, b) => console.log(a, b),
+      },
+      {
+        key: 'email',
+        title: 'Email',
+        width: '250',
+        resizeable: true,
+        sortable: true,
+        filterable: true,
+        cellClass: 'green darken-3 white--text',
+        filterClass: 'grey lighten-2',
+        rowCellClass: 'green lighten-1 white--text',
+        format: row => row.email
+      },
+      {
+        key: 'body',
+        title: 'Body',
+        width: '250',
+        resizeable: true,
+        sortable: true,
+        filterable: true
       }
-    },
+    ])
+
+    const rows = [
+      {
+        name: 'Ben',
+        email: 'ben@mail.ru',
+        body: 'some body text'
+      },
+      {
+        name: 'Alex',
+        email: 'alex@mail.ru',
+        body: 'some body text'
+      }
+    ]
+
+    const addItem = () => {
+      data.users.push({
+        name: 'Anar',
+        email: 'adsadasdasd',
+        body: 'sdfsddfsdfsdfsf'
+      })
+    }
+
+    return {
+      data,
+      cols,
+      addItem,
+      testFunc,
+      toggleAlways,
+      onClickLoading,
+      forOut,
+      FaIcons
+    }
   }
+}
 </script>
 
 <template>
-  <v-progress-circular
-    color="cyan darken-3"
-    :value="75"
-    size="100"
-    width="15"
-  />
-  <v-progress-circular
-    color="orange darken-3"
-    :value="75"
-    size="100"
-    rotate="-90"
-    width="15"
-  />
-  <v-progress-circular
-    color="red darken-3"
-    :value="90"
-    size="100"
-    width="15"
-  />
+  <div>
+    <v-progress-circular
+      color="cyan darken-3"
+      :value="37"
+      size="100"
+      width="15"
+      rotate="270"
+    >{{ 37 }}%
+    </v-progress-circular>
+    <v-progress-circular
+      color="orange darken-3"
+      :value="75"
+      size="100"
+      rotate="-90"
+      width="15"
+    >{{ 75 }}%
+    </v-progress-circular>
+    <v-progress-circular
+      color="red darken-3"
+      :value="90"
+      size="100"
+      rotate="-90"
+      width="15"
+    >{{ 90 }}%
+    </v-progress-circular>
+  </div>
+  <div>
+    <v-progress-circular
+      color="cyan darken-3"
+      size="25"
+      width="3"
+      indeterminate
+    />
+    <v-progress-circular
+      color="red darken-2"
+      size="35"
+      width="4"
+      indeterminate
+    />
+    <v-progress-circular
+      color="green accent-4"
+      size="45"
+      width="6"
+      indeterminate
+    />
+  </div>
   <v-list>
     <v-list-group>
       <template #title>
@@ -155,9 +192,9 @@
       <v-list-item @click.stop="testFunc">
         salam
       </v-list-item>
-      <v-text-field label="Подъезд"/>
-      <v-text-field label="Этаж"/>
-      <v-text-field label="Домофон"/>
+      <v-text-field label="Подъезд" />
+      <v-text-field label="Этаж" />
+      <v-text-field label="Домофон" />
     </v-list-group>
   </v-list>
   <v-checkbox
@@ -284,10 +321,14 @@
       @select="testFunc"
     />
     <v-button
-      label="click"
       :disabled="false"
+      label="text"
+      :loading="data.loading"
+      elevation="3"
+      text
+      width="100"
       color="blue darken-3"
-      @click="() => cols[0].show = false"
+      @click="onClickLoading"
     />
   </v-form>
 
@@ -296,10 +337,10 @@
       v-if="!data.show"
       elevation="5"
     >
-      <v-resize right/>
-      <v-resize bottom/>
-      <v-resize top/>
-      <v-resize left/>
+      <v-resize right />
+      <v-resize bottom />
+      <v-resize top />
+      <v-resize left />
       <v-card-title>
         <span
           style="display: block; width: 55px; height: 55px; border-radius: 50px"
@@ -356,7 +397,7 @@
     >
       <v-card-title>
         <span style="">Testting header</span>
-        <v-checkbox label="test"/>
+        <v-checkbox label="test" />
       </v-card-title>
       <v-card-content>
         <span style="display: block">some little text</span>
@@ -416,56 +457,56 @@
 </template>
 
 <style lang="scss">
-  .active-class {
-    background: #272727;
-    color: white !important;
-  }
+.active-class {
+  background: #272727;
+  color: white !important;
+}
 
-  .wrap {
-    position: absolute;
-    left: 60px;
-    top: 60px;
-    width: calc(100% - 60px);
-    height: calc(100vh - 60px);
-  }
+.wrap {
+  position: absolute;
+  left: 60px;
+  top: 60px;
+  width: calc(100% - 60px);
+  height: calc(100vh - 60px);
+}
 
-  .app {
-    &-header {
-      width: 100%;
-      height: 60px;
-      background: #272727;
-    }
-
-    &-sidebar {
-      position: absolute;
-      top: 60px;
-      left: 0;
-      width: 60px;
-      height: calc(100vh - 60px);
-      background: #272727;
-    }
-  }
-
-  .text {
-    display: inline-block;
-  }
-
-  .test {
-    display: flex;
-    justify-content: center;
+.app {
+  &-header {
     width: 100%;
+    height: 60px;
+    background: #272727;
   }
 
-  .v-data-table {
-    background-color: yellow;
+  &-sidebar {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 60px;
+    height: calc(100vh - 60px);
+    background: #272727;
   }
+}
 
-  .v-data-table > .v-data-table__inner > .v-data-table__header {
-    background-color: #0D47A1 !important;
-    border-color: red !important;
-  }
+.text {
+  display: inline-block;
+}
 
-  body {
-    font-family: Bitstream Charter, sans-serif !important;
-  }
+.test {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.v-data-table {
+  background-color: yellow;
+}
+
+.v-data-table > .v-data-table__inner > .v-data-table__header {
+  background-color: #0D47A1 !important;
+  border-color: red !important;
+}
+
+body {
+  font-family: Bitstream Charter, sans-serif !important;
+}
 </style>

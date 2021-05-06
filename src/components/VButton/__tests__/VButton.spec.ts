@@ -33,7 +33,7 @@ describe("VButton", () => {
       },
     });
 
-    expect(cmp.attributes().style).toContain("min-width: 150px;");
+    expect(cmp.attributes().style).toContain("width: 150px;");
     expect(cmp.html()).toMatchSnapshot();
   });
 

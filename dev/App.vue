@@ -16,18 +16,18 @@
         user2: { name: 'igor' },
         date: null,
         users: [
-          {name: 'AAA', email: 'aaa@mail.ru', body: 'fsdf adfasda dasdasd'},
-          {name: 'AAA', email: 'aaa@mail.ru', body: 'fsdf adfasda dasdasd'},
+          // {name: 'AAA', email: 'aaa@mail.ru', body: 'fsdf adfasda dasdasd'},
+          // {name: 'AAA', email: 'aaa@mail.ru', body: 'fsdf adfasda dasdasd'},
         ],
       })
 
-      // const fetchItems = () => {
-      //   fetch('https://jsonplaceholder.typicode.com/comments')
-      //     .then(response => response.json())
-      //     .then(json => data.users = [...data.users, ...json])
-      // }
+      const fetchItems = () => {
+        fetch('https://jsonplaceholder.typicode.com/comments')
+          .then(response => response.json())
+          .then(json => data.users = [...data.users, ...json])
+      }
 
-      // fetchItems()
+      fetchItems()
 
       setTimeout(() => {
         data.always = false
@@ -73,7 +73,7 @@
           sortable: true,
           filterable: true,
           cellClass: 'green darken-3 white--text',
-          filterClass: 'green darken-3',
+          filterClass: 'grey lighten-2',
           rowCellClass: 'green lighten-1 white--text',
           format: row => row.email,
         },
@@ -122,6 +122,25 @@
 </script>
 
 <template>
+  <v-progress-circular
+    color="cyan darken-3"
+    :value="75"
+    size="100"
+    width="15"
+  />
+  <v-progress-circular
+    color="orange darken-3"
+    :value="75"
+    size="100"
+    rotate="-90"
+    width="15"
+  />
+  <v-progress-circular
+    color="red darken-3"
+    :value="90"
+    size="100"
+    width="15"
+  />
   <v-list>
     <v-list-group>
       <template #title>

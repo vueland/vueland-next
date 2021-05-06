@@ -322,14 +322,20 @@ export default {
     />
     <v-button
       :disabled="false"
-      label="text"
       :loading="data.loading"
       elevation="3"
-      text
+      label="test"
       width="100"
+      outlined
       color="blue darken-3"
       @click="onClickLoading"
-    />
+    >
+      <v-icon
+        size="25"
+        icon="settings"
+        color="blue"
+      />
+    </v-button>
   </v-form>
 
   <v-form>

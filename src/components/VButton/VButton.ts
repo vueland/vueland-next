@@ -31,7 +31,7 @@ export const VButton = defineComponent({
     width: [String, Number],
     color: {
       type: String,
-      default: 'grey lighten-2'
+      default: 'grey lighten-1'
     },
     ...elevationProps()
   } as any,
@@ -54,15 +54,20 @@ export const VButton = defineComponent({
       return props.text || props.outlined
     })
 
+    const isDisabled = computed<boolean>(() => {
+      return props.disabled || props.loading
+    })
+
     const classes = computed<Record<string, boolean>>(() => {
-      const elevations = props.disabled ? {} : elevationClasses.value
+      const elevations = isDisabled.value ? {} : elevationClasses.value
 
       return {
         'v-button': true,
-        'v-button--disabled': props.disabled,
-        'v-button--text': props.text || props.outlined,
+        'v-button--text': !isDisabled.value && (props.text || props.outlined),
         'v-button--outlined': props.outlined,
         'v-button--rounded': props.rounded,
+        'v-button--disabled': isDisabled.value,
+        'v-button--loading': props.loading,
         ...elevations,
         ...positionClasses.value
       }
@@ -73,11 +78,8 @@ export const VButton = defineComponent({
         class: 'v-button__loader'
       }, h(VProgressCircular, {
         indeterminate: true,
-        size: 20,
-        width: 2,
-        style: {
-          marginLeft: '5px'
-        }
+        size: 23,
+        width: 2
       }))
     }
 
@@ -89,30 +91,37 @@ export const VButton = defineComponent({
       return h('span', propsData, props.label)
     }
 
+    function genContent() {
+      return h('div', {
+        class: 'v-button__content'
+      }, [
+        props.label && genLabel(),
+        slots.default && slots.default()
+      ])
+    }
+
     return () => {
       const setColor = isFlat.value ? setTextColor : setBackground
-      const content: any[] = []
 
       const propsData = {
         class: classes.value,
         style: {
-          minWidth: !props.width ? '80px' : '',
+          minWidth: !props.width && !props.rounded ? '80px' : '',
           width: props.width && convertToUnit(props.width),
           height: props.rounded ? convertToUnit(props.width) : ''
         },
         onClick: () => !props.disabled && emit('click')
       }
 
-      props.label && content.push(genLabel())
-      slots.default && content.push(slots.default())
-      props.loading && content.push(genLoader())
-
       return h(
         'button',
-        props.color && !props.disabled
+        props.color && !isDisabled.value
           ? setColor(props.color, propsData)
           : propsData,
-        content
+        [
+          genContent(),
+          props.loading && genLoader()
+        ]
       )
     }
   }

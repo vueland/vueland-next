@@ -65,23 +65,29 @@ exports[`VDataTable should mount component and match snapshot 1`] = `
         <button class="v-button v-button--disabled"
                 style="width: 42px;"
         >
-          <i class="v-icon fas fa-chevron-left"
-             style="font-size: 12px;"
-          >
-          </i>
+          <div class="v-button__content">
+            <i class="v-icon fas fa-chevron-left"
+               style="font-size: 12px;"
+            >
+            </i>
+          </div>
         </button>
         <button class="v-button elevation-3 blue lighten-1"
                 style="width: 42px; margin: 0px 10px;"
         >
-          1
+          <div class="v-button__content">
+            1
+          </div>
         </button>
         <button class="v-button v-button--disabled"
                 style="width: 42px;"
         >
-          <i class="v-icon fas fa-chevron-right"
-             style="font-size: 12px;"
-          >
-          </i>
+          <div class="v-button__content">
+            <i class="v-icon fas fa-chevron-right"
+               style="font-size: 12px;"
+            >
+            </i>
+          </div>
         </button>
       </div>
     </div>
@@ -352,23 +358,29 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
         <button class="v-button v-button--disabled"
                 style="width: 42px;"
         >
-          <i class="v-icon fas fa-chevron-left"
-             style="font-size: 12px;"
-          >
-          </i>
+          <div class="v-button__content">
+            <i class="v-icon fas fa-chevron-left"
+               style="font-size: 12px;"
+            >
+            </i>
+          </div>
         </button>
         <button class="v-button elevation-3 blue lighten-1"
                 style="width: 42px; margin: 0px 10px;"
         >
-          1
+          <div class="v-button__content">
+            1
+          </div>
         </button>
         <button class="v-button elevation-3 primary"
                 style="width: 42px;"
         >
-          <i class="v-icon fas fa-chevron-right"
-             style="font-size: 12px;"
-          >
-          </i>
+          <div class="v-button__content">
+            <i class="v-icon fas fa-chevron-right"
+               style="font-size: 12px;"
+            >
+            </i>
+          </div>
         </button>
       </div>
     </div>
@@ -639,23 +651,29 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
         <button class="v-button v-button--disabled"
                 style="width: 42px;"
         >
-          <i class="v-icon fas fa-chevron-left"
-             style="font-size: 12px;"
-          >
-          </i>
+          <div class="v-button__content">
+            <i class="v-icon fas fa-chevron-left"
+               style="font-size: 12px;"
+            >
+            </i>
+          </div>
         </button>
         <button class="v-button elevation-3 blue lighten-1"
                 style="width: 42px; margin: 0px 10px;"
         >
-          1
+          <div class="v-button__content">
+            1
+          </div>
         </button>
         <button class="v-button elevation-3 primary"
                 style="width: 42px;"
         >
-          <i class="v-icon fas fa-chevron-right"
-             style="font-size: 12px;"
-          >
-          </i>
+          <div class="v-button__content">
+            <i class="v-icon fas fa-chevron-right"
+               style="font-size: 12px;"
+            >
+            </i>
+          </div>
         </button>
       </div>
     </div>
@@ -926,23 +944,29 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
         <button class="v-button v-button--disabled"
                 style="width: 42px;"
         >
-          <i class="v-icon fas fa-chevron-left"
-             style="font-size: 12px;"
-          >
-          </i>
+          <div class="v-button__content">
+            <i class="v-icon fas fa-chevron-left"
+               style="font-size: 12px;"
+            >
+            </i>
+          </div>
         </button>
         <button class="v-button elevation-3 blue lighten-1"
                 style="width: 42px; margin: 0px 10px;"
         >
-          1
+          <div class="v-button__content">
+            1
+          </div>
         </button>
         <button class="v-button elevation-3 primary"
                 style="width: 42px;"
         >
-          <i class="v-icon fas fa-chevron-right"
-             style="font-size: 12px;"
-          >
-          </i>
+          <div class="v-button__content">
+            <i class="v-icon fas fa-chevron-right"
+               style="font-size: 12px;"
+            >
+            </i>
+          </div>
         </button>
       </div>
     </div>
@@ -1015,23 +1039,29 @@ exports[`VDataTable should test color prop and match snapshot 1`] = `
         <button class="v-button v-button--disabled"
                 style="width: 42px;"
         >
-          <i class="v-icon fas fa-chevron-left"
-             style="font-size: 12px;"
-          >
-          </i>
+          <div class="v-button__content">
+            <i class="v-icon fas fa-chevron-left"
+               style="font-size: 12px;"
+            >
+            </i>
+          </div>
         </button>
         <button class="v-button elevation-3 blue lighten-1"
                 style="width: 42px; margin: 0px 10px;"
         >
-          1
+          <div class="v-button__content">
+            1
+          </div>
         </button>
         <button class="v-button v-button--disabled"
                 style="width: 42px;"
         >
-          <i class="v-icon fas fa-chevron-right"
-             style="font-size: 12px;"
-          >
-          </i>
+          <div class="v-button__content">
+            <i class="v-icon fas fa-chevron-right"
+               style="font-size: 12px;"
+            >
+            </i>
+          </div>
         </button>
       </div>
     </div>
@@ -1177,23 +1207,29 @@ exports[`VDataTable should test cols prop and match snapshot 1`] = `
         <button class="v-button v-button--disabled"
                 style="width: 42px;"
         >
-          <i class="v-icon fas fa-chevron-left"
-             style="font-size: 12px;"
-          >
-          </i>
+          <div class="v-button__content">
+            <i class="v-icon fas fa-chevron-left"
+               style="font-size: 12px;"
+            >
+            </i>
+          </div>
         </button>
         <button class="v-button elevation-3 blue lighten-1"
                 style="width: 42px; margin: 0px 10px;"
         >
-          1
+          <div class="v-button__content">
+            1
+          </div>
         </button>
         <button class="v-button v-button--disabled"
                 style="width: 42px;"
         >
-          <i class="v-icon fas fa-chevron-right"
-             style="font-size: 12px;"
-          >
-          </i>
+          <div class="v-button__content">
+            <i class="v-icon fas fa-chevron-right"
+               style="font-size: 12px;"
+            >
+            </i>
+          </div>
         </button>
       </div>
     </div>
@@ -1474,23 +1510,29 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
         <button class="v-button v-button--disabled"
                 style="width: 42px;"
         >
-          <i class="v-icon fas fa-chevron-left"
-             style="font-size: 12px;"
-          >
-          </i>
+          <div class="v-button__content">
+            <i class="v-icon fas fa-chevron-left"
+               style="font-size: 12px;"
+            >
+            </i>
+          </div>
         </button>
         <button class="v-button elevation-3 blue lighten-1"
                 style="width: 42px; margin: 0px 10px;"
         >
-          1
+          <div class="v-button__content">
+            1
+          </div>
         </button>
         <button class="v-button elevation-3 primary"
                 style="width: 42px;"
         >
-          <i class="v-icon fas fa-chevron-right"
-             style="font-size: 12px;"
-          >
-          </i>
+          <div class="v-button__content">
+            <i class="v-icon fas fa-chevron-right"
+               style="font-size: 12px;"
+            >
+            </i>
+          </div>
         </button>
       </div>
     </div>
@@ -1758,26 +1800,32 @@ exports[`VDataTable should test dark prop and match snapshot 1`] = `
         of 20
       </div>
       <div class="v-data-table__pagination-route">
-        <button class="v-button v-button--disabled v-button--text"
+        <button class="v-button v-button--disabled"
                 style="width: 42px;"
         >
-          <i class="v-icon fas fa-chevron-left white--text"
-             style="font-size: 12px;"
-          >
-          </i>
+          <div class="v-button__content">
+            <i class="v-icon fas fa-chevron-left white--text"
+               style="font-size: 12px;"
+            >
+            </i>
+          </div>
         </button>
         <button class="v-button v-button--text elevation-3 white--text"
                 style="width: 42px; margin: 0px 10px;"
         >
-          1
+          <div class="v-button__content">
+            1
+          </div>
         </button>
         <button class="v-button v-button--text elevation-3 white--text"
                 style="width: 42px;"
         >
-          <i class="v-icon fas fa-chevron-right white--text"
-             style="font-size: 12px;"
-          >
-          </i>
+          <div class="v-button__content">
+            <i class="v-icon fas fa-chevron-right white--text"
+               style="font-size: 12px;"
+            >
+            </i>
+          </div>
         </button>
       </div>
     </div>
@@ -2052,23 +2100,29 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
         <button class="v-button v-button--disabled"
                 style="width: 42px;"
         >
-          <i class="v-icon fas fa-chevron-left"
-             style="font-size: 12px;"
-          >
-          </i>
+          <div class="v-button__content">
+            <i class="v-icon fas fa-chevron-left"
+               style="font-size: 12px;"
+            >
+            </i>
+          </div>
         </button>
         <button class="v-button elevation-3 blue lighten-1"
                 style="width: 42px; margin: 0px 10px;"
         >
-          1
+          <div class="v-button__content">
+            1
+          </div>
         </button>
         <button class="v-button elevation-3 primary"
                 style="width: 42px;"
         >
-          <i class="v-icon fas fa-chevron-right"
-             style="font-size: 12px;"
-          >
-          </i>
+          <div class="v-button__content">
+            <i class="v-icon fas fa-chevron-right"
+               style="font-size: 12px;"
+            >
+            </i>
+          </div>
         </button>
       </div>
     </div>
@@ -2238,23 +2292,29 @@ exports[`VDataTable should test table filter and match snapshot 1`] = `
         <button class="v-button v-button--disabled"
                 style="width: 42px;"
         >
-          <i class="v-icon fas fa-chevron-left"
-             style="font-size: 12px;"
-          >
-          </i>
+          <div class="v-button__content">
+            <i class="v-icon fas fa-chevron-left"
+               style="font-size: 12px;"
+            >
+            </i>
+          </div>
         </button>
         <button class="v-button elevation-3 blue lighten-1"
                 style="width: 42px; margin: 0px 10px;"
         >
-          1
+          <div class="v-button__content">
+            1
+          </div>
         </button>
         <button class="v-button v-button--disabled"
                 style="width: 42px;"
         >
-          <i class="v-icon fas fa-chevron-right"
-             style="font-size: 12px;"
-          >
-          </i>
+          <div class="v-button__content">
+            <i class="v-icon fas fa-chevron-right"
+               style="font-size: 12px;"
+            >
+            </i>
+          </div>
         </button>
       </div>
     </div>

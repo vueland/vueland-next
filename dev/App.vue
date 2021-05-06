@@ -16,6 +16,7 @@ export default {
       user2: { name: 'igor' },
       date: null,
       loading: false,
+      circular: 10,
       users: [
         // {name: 'AAA', email: 'aaa@mail.ru', body: 'fsdf adfasda dasdasd'},
         // {name: 'AAA', email: 'aaa@mail.ru', body: 'fsdf adfasda dasdasd'},
@@ -25,6 +26,13 @@ export default {
     const onClickLoading = () => {
       data.loading = true
       setTimeout(() => data.loading = false, 2000)
+    }
+
+    const addCircular = () => {
+      if (data.circular < 100) {
+        return data.circular += Math.ceil(Math.random() * 100) / 2
+      }
+      data.circular -= Math.ceil(Math.random() * 100)
     }
 
     const fetchItems = () => {
@@ -124,6 +132,7 @@ export default {
       testFunc,
       toggleAlways,
       onClickLoading,
+      addCircular,
       forOut,
       FaIcons
     }
@@ -133,29 +142,31 @@ export default {
 
 <template>
   <div>
+    <v-progress-linear height="7"/>
     <v-progress-circular
       color="cyan darken-3"
-      :value="37"
+      :value="data.circular"
       size="100"
       width="15"
       rotate="270"
-    >{{ 37 }}%
+      @click="addCircular"
+    >{{ Number(data.circular).toFixed(1) }}%
     </v-progress-circular>
     <v-progress-circular
       color="orange darken-3"
-      :value="75"
+      :value="data.circular / 2"
       size="100"
       rotate="-90"
       width="15"
-    >{{ 75 }}%
+    >{{ Number(data.circular / 2).toFixed(1) }}%
     </v-progress-circular>
     <v-progress-circular
       color="red darken-3"
-      :value="90"
+      :value="data.circular / 4"
       size="100"
       rotate="-90"
       width="15"
-    >{{ 90 }}%
+    >{{ Number(data.circular / 4).toFixed(1) }}%
     </v-progress-circular>
   </div>
   <div>
@@ -328,9 +339,9 @@ export default {
       elevation="5"
       @click="onClickLoading"
     >
-      <template #loader>
-        <span>loading...</span>
-      </template>
+<!--      <template #loader>-->
+<!--        <span>loading...</span>-->
+<!--      </template>-->
       <v-icon
         size="25"
         icon="settings"

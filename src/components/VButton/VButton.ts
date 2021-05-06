@@ -63,7 +63,7 @@ export const VButton = defineComponent({
 
       return {
         'v-button': true,
-        'v-button--text': !isDisabled.value && (props.text || props.outlined),
+        'v-button--text': props.text || props.outlined,
         'v-button--outlined': props.outlined,
         'v-button--rounded': props.rounded,
         'v-button--disabled': isDisabled.value,
@@ -76,7 +76,7 @@ export const VButton = defineComponent({
     function genLoader() {
       return h('span', {
         class: 'v-button__loader'
-      }, h(VProgressCircular, {
+      }, slots.loader && slots.loader() || h(VProgressCircular, {
         indeterminate: true,
         size: 23,
         width: 2

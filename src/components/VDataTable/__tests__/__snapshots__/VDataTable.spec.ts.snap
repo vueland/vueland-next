@@ -1800,7 +1800,7 @@ exports[`VDataTable should test dark prop and match snapshot 1`] = `
         of 20
       </div>
       <div class="v-data-table__pagination-route">
-        <button class="v-button v-button--disabled"
+        <button class="v-button v-button--text v-button--disabled"
                 style="width: 42px;"
         >
           <div class="v-button__content">

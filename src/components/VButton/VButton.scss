@@ -19,19 +19,6 @@
   text-indent: .09em;
   transition: all .3s ease;
 
-  //&:after {
-  //  content: "";
-  //  display: block;
-  //  position: absolute;
-  //  z-index: 1;
-  //  bottom: 0;
-  //  left: 0;
-  //  width: 100%;
-  //  height: 0;
-  //  background: rgba(255, 255, 255, 0.3);
-  //  transition: all 0.3s ease;
-  //}
-
   &:before {
     content: "";
     display: block;
@@ -53,6 +40,21 @@
 
   &--disabled {
     background: $disabled;
+    border-color: $disabled;
+    color: darken(#9a9a9a, 2);
+
+    &.v-button--text {
+      .v-button--loading {
+        background: none !important;
+      }
+    }
+
+    &.v-button--outlined {
+      .v-button--loading {
+        background: none !important;
+        border-color: $disabled;
+      }
+    }
   }
 
   &--text {
@@ -101,10 +103,6 @@
     margin: 0 5px;
   }
 
-  &__label {
-    font-weight: 500;
-  }
-
   &__loader {
     @include flex(flex, center, center);
     position: absolute;
@@ -112,5 +110,12 @@
     top: 0;
     width: 100%;
     height: 100%;
+  }
+
+  &__label,
+  &__loader {
+    & > * {
+      font-weight: 500;
+    }
   }
 }

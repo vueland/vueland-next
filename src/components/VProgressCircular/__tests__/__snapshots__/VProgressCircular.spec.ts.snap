@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VProgressCircular should mount component and match snapshot 1`] = `
+<div class="v-progress-circular"
+     style="width: 32px; height: 32px;"
+>
+  <svg xmlns="http://www.w3.org/2000/svg"
+       viewbox="22.857142857142858 22.857142857142858 45.714285714285715 45.714285714285715"
+       style="transform: rotate(0deg);"
+  >
+    <circle class="v-progress-circular__underlay"
+            fill="transparent"
+            cx="45.714285714285715"
+            cy="45.714285714285715"
+            r="20"
+            stroke-width="5.714285714285714"
+            stroke-dasharray="125.664"
+            stroke-dashoffset="0"
+    >
+    </circle>
+    <circle class="v-progress-circular__overlay"
+            fill="transparent"
+            cx="45.714285714285715"
+            cy="45.714285714285715"
+            r="20"
+            stroke-width="5.714285714285714"
+            stroke-dasharray="125.664"
+            stroke-dashoffset="125.66370614359172px"
+    >
+    </circle>
+  </svg>
+  <div class="v-progress-circular__info">
+  </div>
+</div>
+`;

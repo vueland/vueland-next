@@ -143,9 +143,7 @@ export const VDataTable = defineComponent({
         return sortColumn(col)
       }
 
-      data.cols.forEach((c) => {
-        c.sorted = col.key === c.key
-      })
+      data.cols.forEach((c) => (c.sorted = col.key === c.key))
 
       sortColumn(col)
     }
@@ -168,13 +166,15 @@ export const VDataTable = defineComponent({
 
       if (value) filters[col.key] = value
 
-      if (col.filter)
-        return (data.rows = col.filter({
-          value,
-          col,
-        }))
-      if (props.customFilter) return props.customFilter(filters as any)
-      if (!Object.keys(filters).length) return (data.rows = props.rows)
+      if (col.filter) {
+        return (data.rows = col.filter({ value, col }))
+      }
+      if (props.customFilter) {
+        return props.customFilter(filters as any)
+      }
+      if (!Object.keys(filters).length) {
+        return (data.rows = props.rows)
+      }
 
       data.rows = filterRows(props.rows, props.cols)
       data.page = 1

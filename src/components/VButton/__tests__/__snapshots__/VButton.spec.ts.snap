@@ -1,16 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`VButton should mount component and match snapshot 1`] = `
-<button class="v-button grey lighten-2"
+<button class="v-button grey lighten-1"
         style="min-width: 80px;"
 >
+  <div class="v-button__content">
+  </div>
 </button>
 `;
 
 exports[`VButton should set button width and match snapshot 1`] = `
-<button class="v-button grey lighten-2"
+<button class="v-button grey lighten-1"
         style="width: 150px;"
 >
+  <div class="v-button__content">
+  </div>
 </button>
 `;
 
@@ -18,6 +22,8 @@ exports[`VButton should set color and match snapshot 1`] = `
 <button class="v-button red darken-3"
         style="min-width: 80px;"
 >
+  <div class="v-button__content">
+  </div>
 </button>
 `;
 
@@ -25,15 +31,19 @@ exports[`VButton should set disabled and match snapshot 1`] = `
 <button class="v-button v-button--disabled"
         style="min-width: 80px;"
 >
+  <div class="v-button__content">
+  </div>
 </button>
 `;
 
 exports[`VButton should set label and match snapshot 1`] = `
-<button class="v-button grey lighten-2"
+<button class="v-button grey lighten-1"
         style="min-width: 80px;"
 >
-  <span class="v-button__label">
-    test
-  </span>
+  <div class="v-button__content">
+    <span class="v-button__label">
+      test
+    </span>
+  </div>
 </button>
 `;

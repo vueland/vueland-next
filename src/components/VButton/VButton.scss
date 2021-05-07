@@ -13,7 +13,7 @@
   user-select: none;
   vertical-align: middle;
   white-space: nowrap;
-  color: $mainWhite;
+  color: map-get($white, 'base');
   font-size: .85rem;
   letter-spacing: .09em;
   text-indent: .09em;
@@ -39,9 +39,9 @@
   }
 
   &--disabled {
-    background: $disabled;
-    border-color: $disabled;
-    color: darken(#9a9a9a, 2);
+    background: map-get($disabled, 'base');
+    border-color: map-get($disabled, 'base');
+    color: map-get($grey, 'darken-1');
 
     &.v-button--text {
       .v-button--loading {
@@ -52,7 +52,7 @@
     &.v-button--outlined {
       .v-button--loading {
         background: none !important;
-        border-color: $disabled;
+        border-color: map-get($disabled, 'base');
       }
     }
   }

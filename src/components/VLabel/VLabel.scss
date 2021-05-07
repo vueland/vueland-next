@@ -23,6 +23,6 @@
   }
 
   &--is-disabled {
-    color: $disabled !important;
+    color: map-get($disabled, 'base') !important;
   }
 }

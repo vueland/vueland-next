@@ -21,7 +21,7 @@
   }
 
   &--disabled {
-    color: $disabled !important;
+    color: map-get($disabled, 'base') !important;
     pointer-events: none;
   }
 

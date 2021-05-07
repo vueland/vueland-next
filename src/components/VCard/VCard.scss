@@ -3,7 +3,7 @@
 .v-card {
   @include flex(center, center, column);
   width: auto;
-  background: $mainWhite;
+  background: map-get($white, 'base');
   border-radius: 5px;
   position: relative;
 

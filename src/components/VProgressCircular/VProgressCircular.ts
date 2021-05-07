@@ -3,11 +3,11 @@ import './VProgressCircular.scss'
 import { h, computed, defineComponent } from 'vue'
 
 // Effects
-import { colorProps, useColors } from '@/effects/use-colors'
+import { colorProps, useColors } from '../../effects/use-colors'
 
 // Types
 import { VNode } from 'vue'
-import { convertToUnit } from '@/helpers'
+import { convertToUnit } from '../../helpers'
 
 export const VProgressCircular = defineComponent({
   name: 'v-progress-circular',
@@ -119,11 +119,7 @@ export const VProgressCircular = defineComponent({
       const propsData = {
         class: 'v-progress-circular__info',
       }
-      return h(
-        'div',
-        propsData,
-        slots.default && slots.default()
-      )
+      return h('div', propsData, slots.default && slots.default())
     }
 
     return () => {

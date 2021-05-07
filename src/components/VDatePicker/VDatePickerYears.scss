@@ -1,5 +1,6 @@
 @import "../../styles/scss/modules/global";
 @import "variables";
+@use "sass:map";
 
 .v-date-picker-years {
   width: 100%;
@@ -29,8 +30,7 @@
     }
 
     &--current-year {
-      border-color: $primary;
+      border-color: map-get($primary, 'base');
     }
   }
-
 }

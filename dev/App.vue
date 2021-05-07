@@ -150,7 +150,8 @@ export default {
       width="15"
       rotate="270"
       @click="addCircular"
-    >{{ Number(data.circular).toFixed(1) }}%
+    >
+      {{ Number(data.circular).toFixed(1) }}%
     </v-progress-circular>
     <v-progress-circular
       color="orange darken-3"
@@ -158,7 +159,8 @@ export default {
       size="100"
       rotate="-90"
       width="15"
-    >{{ Number(data.circular / 2).toFixed(1) }}%
+    >
+      {{ Number(data.circular / 2).toFixed(1) }}%
     </v-progress-circular>
     <v-progress-circular
       color="red darken-3"
@@ -166,7 +168,8 @@ export default {
       size="100"
       rotate="-90"
       width="15"
-    >{{ Number(data.circular / 4).toFixed(1) }}%
+    >
+      {{ Number(data.circular / 4).toFixed(1) }}%
     </v-progress-circular>
   </div>
   <div>
@@ -314,6 +317,7 @@ export default {
       v-model="data.user2"
       label="select"
       :items="data.users"
+      color="green"
       value-key="name"
       readonly
       clearable
@@ -339,9 +343,9 @@ export default {
       elevation="5"
       @click="onClickLoading"
     >
-<!--      <template #loader>-->
-<!--        <span>loading...</span>-->
-<!--      </template>-->
+      <template #loader>
+        <span>loading...</span>
+      </template>
       <v-icon
         size="25"
         icon="settings"

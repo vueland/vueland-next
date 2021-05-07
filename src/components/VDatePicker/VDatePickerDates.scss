@@ -30,7 +30,7 @@
     }
 
     &--current-date {
-      border-color: $primary;
+      border-color: map-get($primary, 'base');
     }
 
     &--holiday {

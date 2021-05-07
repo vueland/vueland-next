@@ -7,21 +7,16 @@
   position: relative;
   background: transparent !important;
 
-  &__select-slot {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    border-bottom: 1px solid $borderColor;
-  }
-
+  &__select-slot,
   &__field-slot {
     position: relative;
     width: 100%;
     height: 100%;
     color: inherit;
-    caret-color: inherit;
-    border-bottom: 1px solid $borderColor;
+    border-bottom: 1px solid map-get($grey, 'lighten-2');
+  }
 
+  &__field-slot {
     & > .v-input__append-icon + .v-label +
     .v-text-field > .v-text-field__input {
       padding-right: 20px;
@@ -167,15 +162,15 @@
 
   &--not-valid > .v-input__field-slot:after,
   &--not-valid > .v-input__select-slot:after {
-    background: $danger;
+    background: map-get($danger, 'base');
   }
 
   &--not-valid > .v-input__status > .v-input__status-message {
-    color: $danger;
+    color: map-get($danger, 'base');
   }
 
   &--not-valid > .v-input__field-slot,
   &--not-valid > .v-input__select-slot {
-    border-color: $danger !important;
+    border-color: map-get($danger, 'base') !important;
   }
 }

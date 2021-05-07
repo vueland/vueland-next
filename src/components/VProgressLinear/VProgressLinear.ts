@@ -11,40 +11,48 @@ export const VProgressLinear = defineComponent({
   props: {
     height: {
       type: [Number, String],
-      default: 4
+      default: 4,
     },
     color: {
       type: String,
-      default: 'primary'
+      default: 'primary',
     },
     backgroundColor: {
       type: String,
-      default: null
+      default: null,
     },
     backgroundOpacity: {
       type: String,
-      default: null
+      default: null,
     },
     indeterminate: Boolean,
+    reverse: Boolean,
+    rounded: Boolean,
+    stream: Boolean,
+    striped: Boolean,
   },
   setup(props) {
     const {} = useColors()
 
     function genProgressBuffer() {
       return h('div', {
-        class: 'v-progress-linear__buffer'
+        class: 'v-progress-linear__buffer',
       })
     }
 
     function genProgressLinear() {
-      return h('div', {
-        class: 'v-progress-linear',
-        style: {
-          height: `${ props.height }px`
-        }
-      }, genProgressBuffer())
+      return h(
+        'div',
+        {
+          class: 'v-progress-linear',
+          style: {
+            height: `${props.height}px`,
+          },
+        },
+        genProgressBuffer()
+      )
     }
 
     return () => genProgressLinear()
-  }
+  },
 })

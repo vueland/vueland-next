@@ -1,3 +1,6 @@
+@import "../../styles/scss/modules/global";
+@import "variables";
+
 .v-progress-circular {
   position: relative;
   display: inline-flex;
@@ -19,13 +22,13 @@
 
   &--indeterminate {
     > svg {
-      animation: progress-circular-rotate 1.4s linear infinite;
+      animation: $progress-circular-rotate-animation;
+      transition: $progress-circular-indeterminate-transition;
       transform-origin: center center;
-      transition: all .6s ease-in-out;
     }
 
     .v-progress-circular__overlay {
-      animation: progress-circular-dash 1.4s ease-in-out infinite;
+      animation: $progress-circular-dash-animation;
       stroke-linecap: round;
       stroke-dasharray: 80, 200;
       stroke-dashoffset: 0;
@@ -34,11 +37,11 @@
 
   &__overlay {
     stroke: currentColor;
-    transition: all .3s ease-in-out;
+    transition: $progress-circular-overlay-transition
   }
 
   &__underlay {
-    stroke: currentColor;
+    stroke: map-get($grey, 'lighten-1');
     opacity: .3;
   }
 

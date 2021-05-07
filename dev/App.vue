@@ -338,9 +338,11 @@ export default {
     <v-button
       :disabled="false"
       :loading="data.loading"
-      label="test for btn"
+      label="test button"
       color="blue darken-3"
-      elevation="5"
+      rounded
+      width="250"
+      elevation="4"
       @click="onClickLoading"
     >
       <template #loader>
@@ -349,7 +351,7 @@ export default {
       <v-icon
         size="25"
         icon="settings"
-        color="blue"
+        style="margin-left: 5px"
       />
     </v-button>
   </v-form>

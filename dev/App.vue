@@ -222,9 +222,10 @@ export default {
     <v-data-table
       :cols="cols"
       :rows="data.users"
+      color="grey darken-2"
       :header-props="{
-        contentColor: '',
-        color: '',
+        contentColor: 'amber accent-3',
+        color: 'grey darken-4',
         dark: false
       }"
       :footer-props="{
@@ -338,10 +339,10 @@ export default {
     <v-button
       :disabled="false"
       :loading="data.loading"
-      label="test button"
-      color="blue darken-3"
+      label="hello"
+      color="blue darken-4"
       rounded
-      width="250"
+      width="150"
       elevation="4"
       @click="onClickLoading"
     >
@@ -351,7 +352,6 @@ export default {
       <v-icon
         size="25"
         icon="settings"
-        style="margin-left: 5px"
       />
     </v-button>
   </v-form>

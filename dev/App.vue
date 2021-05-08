@@ -346,7 +346,7 @@ export default {
       elevation="4"
       @click="onClickLoading"
     >
-      <template #loader>
+      <template #loading>
         <span>loading...</span>
       </template>
       <v-icon

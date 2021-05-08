@@ -1,3 +1,4 @@
+@import "../../styles/scss/modules/global";
 @import 'variables';
 
 .v-tooltip {
@@ -5,7 +6,7 @@
   z-index: 100;
   padding: $tooltip-padding;
   border-radius: 5px;
-  color: #ffffff;
+  color: map-get($white, 'base');
   pointer-events: none;
   max-height: 32px;
   text-align: center;

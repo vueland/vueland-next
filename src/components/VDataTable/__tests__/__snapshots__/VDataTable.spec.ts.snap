@@ -134,7 +134,7 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
                 <label class="v-label v-label--on-field primary--text"
                        style="left: 0px; position: absolute;"
                 >
-                  input value
+                  search
                 </label>
                 <div class="v-text-field v-validatable">
                   <input class="v-text-field__input"
@@ -427,7 +427,7 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
                 <label class="v-label v-label--on-field primary--text"
                        style="left: 0px; position: absolute;"
                 >
-                  input value
+                  search
                 </label>
                 <div class="v-text-field v-validatable">
                   <input class="v-text-field__input"
@@ -720,7 +720,7 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
                 <label class="v-label v-label--on-field primary--text"
                        style="left: 0px; position: absolute;"
                 >
-                  input value
+                  search
                 </label>
                 <div class="v-text-field v-validatable">
                   <input class="v-text-field__input"
@@ -1108,7 +1108,7 @@ exports[`VDataTable should test cols prop and match snapshot 1`] = `
                 <label class="v-label v-label--on-field primary--text"
                        style="left: 0px; position: absolute;"
                 >
-                  input value
+                  search
                 </label>
                 <div class="v-text-field v-validatable">
                   <input class="v-text-field__input"
@@ -1280,7 +1280,7 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
                 <label class="v-label v-label--on-field primary--text"
                        style="left: 0px; position: absolute;"
                 >
-                  input value
+                  search
                 </label>
                 <div class="v-text-field v-validatable">
                   <input class="v-text-field__input"
@@ -1579,7 +1579,7 @@ exports[`VDataTable should test dark prop and match snapshot 1`] = `
                 <label class="v-label v-label--on-field white--text"
                        style="left: 0px; position: absolute;"
                 >
-                  input value
+                  search
                 </label>
                 <div class="v-text-field v-validatable">
                   <input class="v-text-field__input white--text"
@@ -1870,7 +1870,7 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
                 <label class="v-label v-label--active v-label--on-field v-label--has-state primary--text"
                        style="left: 0px; position: absolute;"
                 >
-                  input value
+                  search
                 </label>
                 <div class="v-text-field v-validatable">
                   <input class="v-text-field__input"
@@ -2169,7 +2169,7 @@ exports[`VDataTable should test table filter and match snapshot 1`] = `
                 <label class="v-label v-label--active v-label--on-field v-label--has-state primary--text"
                        style="left: 0px; position: absolute;"
                 >
-                  input value
+                  search
                 </label>
                 <div class="v-text-field v-validatable">
                   <input class="v-text-field__input"

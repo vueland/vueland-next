@@ -37,11 +37,12 @@
 }
 
 .v-data-table-col__title {
-  @include flex(flex, center, center)
+  font-weight: 500;
 }
 
 .v-data-table-col > .v-data-table__cell-content {
   display: flex;
+  align-items: center;
 }
 
 .v-data-table__header > .v-data-table-col > .v-data-table__cell-content >

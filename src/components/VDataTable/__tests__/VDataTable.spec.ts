@@ -264,9 +264,7 @@ describe('VDataTable', () => {
 
     expect(cmp.props().headerProps).toEqual(headerProps)
     expect(header.classes()).toContain(headerProps.color)
-    expect(header.find('.v-data-table__cell').classes()).toContain(
-      `${headerProps.contentColor}--text`
-    )
+    expect(header.find('.v-data-table__cell').classes()).toContain(`grey--text`)
   })
 
   it('should test header props to set dark mode', () => {

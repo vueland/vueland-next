@@ -80,7 +80,7 @@ export const VButton = defineComponent({
         {
           class: 'v-button__loader',
         },
-        (slots.loader && slots.loader()) ||
+        (slots.loading && slots.loading()) ||
           h(VProgressCircular, {
             indeterminate: true,
             size: 23,

@@ -147,7 +147,7 @@ export default {
       color="cyan darken-3"
       :value="data.circular"
       size="100"
-      width="15"
+      width="5"
       rotate="270"
       @click="addCircular"
     >
@@ -226,7 +226,7 @@ export default {
       :header-props="{
         contentColor: 'amber accent-3',
         color: 'grey darken-4',
-        dark: false
+        dark: true
       }"
       :footer-props="{
         pagination: {
@@ -237,6 +237,7 @@ export default {
         rowsPerPageText: 'Кол-во строк',
         color: ''
       }"
+      dark
       align="left"
       class="elevation-10"
       show-sequence

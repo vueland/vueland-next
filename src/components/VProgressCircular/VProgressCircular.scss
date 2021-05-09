@@ -41,8 +41,7 @@
   }
 
   &__underlay {
-    stroke: map-get($grey, 'lighten-1');
-    opacity: .3;
+    stroke: map-get($grey, 'lighten-3');
   }
 
   &__info {

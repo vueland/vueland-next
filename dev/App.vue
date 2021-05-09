@@ -142,12 +142,12 @@ export default {
 
 <template>
   <div>
-    <v-progress-linear height="7"/>
+    <v-progress-linear height="7" />
     <v-progress-circular
       color="cyan darken-3"
       :value="data.circular"
       size="100"
-      width="15"
+      width="5"
       rotate="270"
       @click="addCircular"
     >
@@ -226,7 +226,7 @@ export default {
       :header-props="{
         contentColor: 'amber accent-3',
         color: 'grey darken-4',
-        dark: false
+        dark: true
       }"
       :footer-props="{
         pagination: {
@@ -237,13 +237,25 @@ export default {
         rowsPerPageText: 'Кол-во строк',
         color: ''
       }"
+      dark
       align="left"
       class="elevation-10"
       show-sequence
       show-checkbox
-      @checked="testFunc"
+      @select:row="testFunc"
+      @click:row="testFunc"
+      @dblclick:row="testFunc"
+      @contextmenu:row="testFunc"
       @last-page="testFunc"
     >
+<!--      <template #header="props">-->
+<!--        <span-->
+<!--          v-for="col in props.cols"-->
+<!--          :style="{width: `${col.width}px`}"-->
+<!--        >-->
+<!--          {{ col.title }}-->
+<!--        </span>-->
+<!--      </template>-->
       <template #paginationText="{start, last, length}">
         <span>{{ start + ' - ' + last + ' из ' + length + ' строк' }}</span>
       </template>
@@ -325,6 +337,7 @@ export default {
       prepend-icon="search"
       :rules="[v => !!v || 'required']"
       @select="testFunc"
+      @blur="validate"
     />
     <v-autocomplete
       v-model:value="data.user"

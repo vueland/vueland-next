@@ -33,37 +33,46 @@ export const VDataTable = defineComponent({
   props: {
     cols: {
       type: Array,
-      default: () => [],
+      default: () => []
     },
     rows: {
       type: Array,
-      default: () => [],
+      default: () => []
     },
     dark: Boolean,
     showSequence: Boolean,
     showCheckbox: Boolean,
     align: {
       type: String,
-      validator: (val) => ['left', 'center', 'right'].includes(val),
+      validator: (val) => ['left', 'center', 'right'].includes(val)
     },
     color: {
       type: String,
-      default: 'white',
+      default: 'white'
     },
     headerProps: Object as PropType<HeaderOptions>,
     footerProps: Object as PropType<FooterOptions>,
-    customFilter: Function,
+    customFilter: Function
   } as any,
-  emits: ['checked', 'filter', 'last-page'],
+  emits: [
+    'last-page',
+    'select:row',
+    'click:row',
+    'dblclick:row',
+    'contextmenu:row'
+  ],
 
-  setup(props, { slots, emit }) {
+  setup(props, {
+    slots,
+    emit
+  }) {
     const data = reactive<TableState>({
       cols: [],
       rows: [],
       checkedRows: [],
       rowsOnPage: 20,
       page: 1,
-      isAllRowsChecked: false,
+      isAllRowsChecked: false
     })
 
     const { setBackground } = useColors()
@@ -78,7 +87,7 @@ export const VDataTable = defineComponent({
     }
 
     const classes = computed<Record<string, boolean>>(() => ({
-      'v-data-table': true,
+      'v-data-table': true
     }))
 
     const pages = computed<number>(() => {
@@ -117,14 +126,14 @@ export const VDataTable = defineComponent({
       { immediate: true }
     )
 
-    function onCheckAll(value: boolean) {
+    function onSelectAll(value: boolean) {
       data.isAllRowsChecked = value
       data.rows.forEach((row) => (row.checked = value))
     }
 
-    function onCheck<T extends TableState['rows']>(rows: T) {
+    function onSelect<T extends TableState['rows']>(rows: T) {
       data.checkedRows = rows
-      emit('checked', data.checkedRows)
+      emit('select:row', data.checkedRows)
     }
 
     function onPrevTablePage(num: number) {
@@ -161,13 +170,19 @@ export const VDataTable = defineComponent({
       data.rows.sort(executor as any)
     }
 
-    function onFilter({ value, col }: TableFilter) {
+    function onFilter({
+                        value,
+                        col
+                      }: TableFilter) {
       if (!value && filters[col.key]) delete filters[col.key]
 
       if (value) filters[col.key] = value
 
       if (col.filter) {
-        return (data.rows = col.filter({ value, col }))
+        return (data.rows = col.filter({
+          value,
+          col
+        }))
       }
       if (props.customFilter) {
         return props.customFilter(filters as any)
@@ -195,8 +210,8 @@ export const VDataTable = defineComponent({
 
           const value = format ? format(row) : row[key]
 
-          const rowKeyValue = `${value}`.toLowerCase()
-          const filterValue = `${filters[key]}`.toLowerCase()
+          const rowKeyValue = `${ value }`.toLowerCase()
+          const filterValue = `${ filters[key] }`.toLowerCase()
 
           if (rowKeyValue.includes(filterValue)) {
             rowResults.push(row[key])
@@ -218,7 +233,7 @@ export const VDataTable = defineComponent({
       const propsData = { class: 'v-data-table__toolbar' }
 
       return h('div', propsData, {
-        default: () => slots.toolbar && slots.toolbar(),
+        default: () => slots.toolbar && slots.toolbar()
       })
     }
 
@@ -233,18 +248,20 @@ export const VDataTable = defineComponent({
         options: props.headerProps,
         onFilter,
         onSort,
-        onCheckAll,
+        onSelectAll
       }
 
       const content = data.cols.reduce((acc, col) => {
-        const slotName = `${col.key}-filter`
+        const slotName = `${ col.key }-filter`
 
         if (col && slots[slotName]) {
           acc[slotName] = addScopedSlot(slotName, slots)
         }
 
         return acc
-      }, {})
+      }, {} as any)
+
+      content.header = addScopedSlot('header', slots)
 
       return h(VDataTableHeader, propsData, content)
     }
@@ -261,7 +278,10 @@ export const VDataTable = defineComponent({
         dark: props.dark,
         showSequence: props.showSequence,
         color: props.color,
-        onCheck,
+        onSelect,
+        ['onClick:row']: e => emit('click:row', e),
+        ['onDblclick:row']: e => emit('dblclick:row', e),
+        ['onContextmenu:row']: e => emit('contextmenu:row', e),
       }
 
       const content = props.cols.reduce((acc, col) => {
@@ -286,25 +306,25 @@ export const VDataTable = defineComponent({
         dark: props.dark,
         options: {
           rowsPerPageOptions: rowsPerPageDefaultOptions,
-          ...props.footerProps,
+          ...props.footerProps
         },
         onPrevTablePage,
         onNextTablePage,
         onSelectRowsCount,
         onLastPage: () => emit('last-page', props.rows.length),
-        onCorrectPage: (val) => (data.page += val),
+        onCorrectPage: (val) => (data.page += val)
       }
 
       const content = slots.paginationText
         ? {
-            paginationText: () =>
-              slots.paginationText &&
-              slots.paginationText({
-                start: firstOnPage.value,
-                last: lastOnPage.value,
-                length: data.rows?.length,
-              }),
-          }
+          paginationText: () =>
+            slots.paginationText &&
+            slots.paginationText({
+              start: firstOnPage.value,
+              last: lastOnPage.value,
+              length: data.rows?.length
+            })
+        }
         : ''
 
       return h(VDataTableFooter, propsData, content)
@@ -312,7 +332,7 @@ export const VDataTable = defineComponent({
 
     function genTableInner(): VNode {
       const propsData = {
-        class: 'v-data-table__inner',
+        class: 'v-data-table__inner'
       }
 
       return h('div', propsData, [genTableHeader(), genTableBody()])
@@ -320,14 +340,14 @@ export const VDataTable = defineComponent({
 
     return () => {
       const propsData = {
-        class: classes.value,
+        class: classes.value
       }
 
       return h('div', setBackground(props.color, propsData), [
         slots.toolbar && genTableTools(),
         genTableInner(),
-        genTableFooter(),
+        genTableFooter()
       ])
     }
-  },
+  }
 })

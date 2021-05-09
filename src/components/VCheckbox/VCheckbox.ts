@@ -12,9 +12,6 @@ import { useIcons } from '../../effects/use-icons'
 import { VIcon } from '../VIcon'
 import { VLabel } from '../VLabel'
 
-// Services
-// import { FaIcons } from '../../services/icons'
-
 // Helpers
 import { warning } from '../../helpers'
 
@@ -68,7 +65,7 @@ export const VCheckbox = defineComponent({
           if (isValueSet.value) {
             isChecked.value = props.modelValue.includes(props.value)
           } else {
-            warning('v-checkbox: set the "value" property')
+            warning('v-checkbox: set the "value" prop')
           }
         } else {
           isChecked.value = !!props.modelValue

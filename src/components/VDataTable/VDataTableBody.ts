@@ -27,22 +27,30 @@ export const VDataTableBody = defineComponent({
     align: String,
     colWidth: {
       type: [String, Number],
-      default: 125,
+      default: 125
     },
     page: Number,
     rowsOnPage: Number,
-    ...colorProps(),
+    ...colorProps()
   } as any,
 
-  emits: ['check'],
+  emits: [
+    'select',
+    'click:row',
+    'dblclick:row',
+    'contextmenu:row'
+  ],
 
-  setup(props, { slots, emit }): () => VNode {
+  setup(props, {
+    slots,
+    emit
+  }): () => VNode {
     const checkedRows = ref([])
 
     const { setBackground } = useColors()
 
     const classes = computed<Record<string, boolean>>(() => ({
-      'v-data-table__body': true,
+      'v-data-table__body': true
     }))
 
     const rowsOnTable = computed<any[]>(() => {
@@ -55,18 +63,14 @@ export const VDataTableBody = defineComponent({
     watch(
       () => props.checkAllRows,
       (to) => {
-        if (to) onCheckRows(props.rows)
-        else onCheckRows([])
+        if (to) onSelectRows(props.rows)
+        else onSelectRows([])
       }
     )
 
-    function onCheckRows(rows) {
+    function onSelectRows(rows) {
       checkedRows.value = rows
-      emit('check', checkedRows.value)
-    }
-
-    function genTableRow(cells): VNode {
-      return h('div', { class: { 'v-data-table__row': true } }, cells)
+      emit('select', checkedRows.value)
     }
 
     function genNumberCell(count): VNode {
@@ -77,10 +81,10 @@ export const VDataTableBody = defineComponent({
           align: 'center',
           dark: props.dark,
           color: props.color,
-          class: 'v-data-table__row-number',
+          class: 'v-data-table__row-number'
         },
         {
-          default: () => count + 1,
+          default: () => count + 1
         }
       )
     }
@@ -93,7 +97,7 @@ export const VDataTableBody = defineComponent({
           align: 'center',
           dark: props.dark,
           color: props.color,
-          class: 'v-data-table__row-checkbox',
+          class: 'v-data-table__row-checkbox'
         },
         {
           default: () =>
@@ -101,15 +105,18 @@ export const VDataTableBody = defineComponent({
               modelValue: checkedRows.value,
               color: props.dark ? 'white' : '',
               value: row,
-              ['onUpdate:modelValue']: onCheckRows,
-            }),
+              onChecked: onSelectRows
+            })
         }
       )
     }
 
     function genRowCell(col, row): VNode {
       const { format } = col
-      const slotContent = slots[col.key] && slots[col.key]!({ row, format })
+      const slotContent = slots[col.key] && slots[col.key]!({
+        row,
+        format
+      })
 
       return h(
         VDataTableCell,
@@ -117,7 +124,7 @@ export const VDataTableBody = defineComponent({
           width: col.width,
           align: col.align || props.align,
           dark: props.dark,
-          class: { [col.rowCellClass]: !!col.rowCellClass },
+          class: { [col.rowCellClass]: !!col.rowCellClass }
         },
         {
           default: () =>
@@ -125,31 +132,39 @@ export const VDataTableBody = defineComponent({
               ? slotContent
               : format
               ? format(row)
-              : String(row[col.key]),
+              : String(row[col.key])
         }
       )
+    }
+
+    function genTableRow(row, rowCount: number): VNode {
+      const rowCells: VNode[] = []
+
+      props.showSequence && rowCells.push(genNumberCell(rowCount))
+      props.showCheckbox && rowCells.push(genCheckboxCell(row))
+
+      props.cols.forEach(col => {
+        col.show && rowCells.push(genRowCell(col, row))
+      })
+
+      return h('div', {
+        class: { 'v-data-table__row': true },
+        onClick: () => emit('click:row', row),
+        onDblclick: () => emit('dblclick:row', row),
+        onContextmenu: (e) => {
+          e.preventDefault()
+          emit('contextmenu:row', row)
+        }
+      }, rowCells)
     }
 
     function genTableRows(): VNode[] {
       const tableRows: VNode[] = []
       const rowsLength = rowsOnTable.value?.length
-      const colsLength = props.cols.length
       const count = (props.page - 1) * props.rowsOnPage
 
-      let rowCells: VNode[] = []
-
       for (let i = 0; i < rowsLength; i += 1) {
-        props.showSequence && rowCells.push(genNumberCell(count + i))
-        props.showCheckbox && rowCells.push(genCheckboxCell(props.rows[i]))
-
-        for (let j = 0; j < colsLength; j += 1) {
-          props.cols[j].show &&
-            rowCells.push(genRowCell(props.cols[j], rowsOnTable.value[i]))
-        }
-
-        tableRows.push(genTableRow(rowCells))
-
-        rowCells = []
+        tableRows.push(genTableRow(rowsOnTable.value[i], count + i))
       }
 
       return tableRows
@@ -157,7 +172,7 @@ export const VDataTableBody = defineComponent({
 
     return () => {
       const propsData = {
-        class: classes.value,
+        class: classes.value
       }
 
       return h(
@@ -168,5 +183,5 @@ export const VDataTableBody = defineComponent({
         genTableRows()
       )
     }
-  },
+  }
 })

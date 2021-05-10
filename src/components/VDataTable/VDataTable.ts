@@ -6,7 +6,7 @@ import { h, watch, computed, defineComponent, reactive } from 'vue'
 
 // Effects
 import { useColors } from '../../effects/use-colors'
-import { useTheme } from '../../effects/use-theme'
+// import { useTheme } from '../../effects/use-theme'
 
 // Components
 import { VDataTableHeader } from './VDataTableHeader'
@@ -51,10 +51,19 @@ export const VDataTable = defineComponent({
       type: String,
       default: 'white'
     },
-    headerProps: Object as PropType<HeaderOptions>,
-    footerProps: Object as PropType<FooterOptions>,
+    headerOptions: {
+      type: Object as PropType<HeaderOptions>,
+      default: () => ({})
+    },
+    footerOptions: {
+      type: Object as PropType<FooterOptions>,
+      default: () => ({
+        rowsPerPageOptions: [5, 10, 15, 20]
+      })
+    },
     customFilter: Function
   } as any,
+
   emits: [
     'last-page',
     'select:row',
@@ -73,21 +82,24 @@ export const VDataTable = defineComponent({
       isAllRowsChecked: false
     })
 
-    console.log(useTheme())
-
     const { setBackground } = useColors()
 
     const filters = {}
-    const rowsPerPageDefaultOptions = [5, 10, 15, 20]
-
-    if (props.footerProps?.rowsPerPageOptions) {
-      data.rowsOnPage = props.footerProps.rowsPerPageOptions[0]
-    } else {
-      data.rowsOnPage = rowsPerPageDefaultOptions[0]
-    }
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-data-table': true
+    }))
+
+    const headerOptions = computed<HeaderOptions>(() => ({
+      color: props.color,
+      dark: props.dark,
+      ...props.headerOptions
+    }))
+
+    const footerOptions = computed<FooterOptions>(() => ({
+      color: props.color,
+      dark: props.dark,
+      ...props.footerOptions
     }))
 
     const pages = computed<number>(() => {
@@ -116,13 +128,13 @@ export const VDataTable = defineComponent({
 
     watch(
       () => props.cols,
-      (to) => (data.cols = to),
+      (to) => (data.cols = Object.assign([], to)),
       { immediate: true }
     )
 
     watch(
       () => props.rows,
-      (to) => (data.rows = to),
+      (to) => (data.rows = Object.assign([], to)),
       { immediate: true }
     )
 
@@ -136,29 +148,31 @@ export const VDataTable = defineComponent({
       emit('select:row', data.checkedRows)
     }
 
-    function onPrevTablePage(num: number) {
+    function onPrevPage(num: number) {
       data.page = data.page > 1 ? data.page + num : data.page
     }
 
-    function onNextTablePage(num: number) {
+    function onNextPage(num: number) {
       if (data.rows.length - data.page * data.rowsOnPage > 0) {
         data.page += num
       }
     }
 
-    function onSort(col: Column) {
+    function onSort<T extends Column, S extends { sorted: boolean }>(col: T & S) {
       if (col.sorted) {
         col.sorted = !col.sorted
         return sortColumn(col)
       }
 
-      data.cols.forEach((c) => (c.sorted = col.key === c.key))
+      data.cols.forEach((c: T & S) => (c.sorted = col.key === c.key))
 
       sortColumn(col)
     }
 
-    function sortColumn(col: Column) {
-      if (!col.sorted) return data.rows!.reverse()
+    function sortColumn<T extends Column, S extends { sorted: boolean }>(col: T & S) {
+      if (!col.sorted) {
+        return data.rows!.reverse()
+      }
 
       const executor =
         col.sort ||
@@ -239,7 +253,7 @@ export const VDataTable = defineComponent({
         dark: props.dark,
         align: props.align,
         showSequence: props.showSequence,
-        options: props.headerProps,
+        options: headerOptions.value,
         onFilter,
         onSort,
         onSelectAll
@@ -298,12 +312,9 @@ export const VDataTable = defineComponent({
         rowsOnPage: data.rowsOnPage,
         rowsLength: data.rows?.length,
         dark: props.dark,
-        options: {
-          rowsPerPageOptions: rowsPerPageDefaultOptions,
-          ...props.footerProps
-        },
-        onPrevTablePage,
-        onNextTablePage,
+        options: footerOptions.value,
+        onPrevPage,
+        onNextPage,
         onSelectRowsCount,
         onLastPage: () => emit('last-page', props.rows.length),
         onCorrectPage: (val) => (data.page += val)

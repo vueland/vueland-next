@@ -223,19 +223,17 @@ export default {
       :cols="cols"
       :rows="data.users"
       color="grey darken-2"
-      :header-props="{
+      :header-options="{
         contentColor: 'amber accent-3',
-        color: 'grey darken-4',
-        dark: true
+        color: 'grey darken-4'
       }"
-      :footer-props="{
+      :footer-options="{
         pagination: {
-          buttonsColor: 'red darken-3',
+          buttonsColor: '',
           displayColor: ''
         },
         rowsPerPageOptions: [25, 40, 50, 75],
         rowsPerPageText: 'Кол-во строк',
-        color: ''
       }"
       dark
       align="left"

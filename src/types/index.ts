@@ -45,11 +45,8 @@ export type Column = {
   resizeable?: boolean
   filterable?: boolean
   sortable?: boolean
-  sorted?: boolean
-  filtered?: boolean
   align?: 'left' | 'center' | 'right'
   cellClass?: string
-  filterClass?: string
   rowCellClass?: string
   show?: boolean
   format?: (row: any) => any
@@ -63,21 +60,22 @@ export type TableFilter = {
 }
 
 type PaginationOptions = {
-  buttonsColor: string
-  displayColor: string
+  buttonsColor?: string
+  displayColor?: string
 }
 
 export type FooterOptions = {
-  pagination: PaginationOptions,
-  rowsPerPageOptions: number[]
-  rowsCountText: string
-  color: string
+  pagination?: PaginationOptions,
+  rowsPerPageOptions?: number[]
+  rowsCountText?: string
+  color?: string
+  dark?: boolean
 }
 
 export type HeaderOptions = {
-  contentColor: string
-  color: string
-  dark: boolean
+  contentColor?: string
+  color?: string
+  dark?: boolean
 }
 
 export type TableCol<T> = T extends keyof Column ? T : any

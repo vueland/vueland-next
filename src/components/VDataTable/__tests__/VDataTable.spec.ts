@@ -106,13 +106,12 @@ describe('VDataTable', () => {
 
     await sortBtn.trigger('click')
 
-    const firstRow = rows[0]
     const lastRow = rows[rows.length - 1]
 
     expect(cmp.find('.v-data-table-col__actions-sort--active').exists()).toBe(
       true
     )
-    expect(cmp.find('.v-data-table__row').text()).toContain(firstRow.name)
+    expect(cmp.find('.v-data-table__row').text()).toContain('Alex')
 
     // reverse sort
     await sortBtn.trigger('click')
@@ -246,8 +245,8 @@ describe('VDataTable', () => {
     expect(row.find('.v-checkbox').classes()).toContain('v-checkbox--checked')
   })
 
-  it('should test header props to set color', () => {
-    const headerProps = {
+  it('should test header options to set color', () => {
+    const headerOptions = {
       contentColor: 'grey',
       color: 'red',
     }
@@ -256,19 +255,19 @@ describe('VDataTable', () => {
       props: {
         cols,
         rows,
-        headerProps,
+        headerOptions,
       },
     })
 
     const header = cmp.find('.v-data-table__header')
 
-    expect(cmp.props().headerProps).toEqual(headerProps)
-    expect(header.classes()).toContain(headerProps.color)
+    expect(cmp.props().headerOptions).toEqual(headerOptions)
+    expect(header.classes()).toContain(headerOptions.color)
     expect(header.find('.v-data-table__cell').classes()).toContain(`grey--text`)
   })
 
   it('should test header props to set dark mode', () => {
-    const headerProps = {
+    const headerOptions = {
       dark: true,
     }
 
@@ -276,7 +275,7 @@ describe('VDataTable', () => {
       props: {
         cols,
         rows,
-        headerProps,
+        headerOptions,
       },
     })
 
@@ -287,8 +286,8 @@ describe('VDataTable', () => {
     )
   })
 
-  it('should test header props priority over table dark mode and color', () => {
-    const headerProps = {
+  it('should test header options priority over table dark mode and color', () => {
+    const headerOptions = {
       contentColor: 'grey',
       color: 'red',
     }
@@ -296,7 +295,7 @@ describe('VDataTable', () => {
       props: {
         cols,
         rows,
-        headerProps,
+        headerOptions,
         dark: true,
         color: 'green',
       },
@@ -304,10 +303,10 @@ describe('VDataTable', () => {
 
     const header = cmp.find('.v-data-table__header')
 
-    expect(cmp.props().headerProps).toEqual(headerProps)
-    expect(header.classes()).toContain(headerProps.color)
+    expect(cmp.props().headerOptions).toEqual(headerOptions)
+    expect(header.classes()).toContain(headerOptions.color)
     expect(header.find('.v-data-table__cell').classes()).toContain(
-      `${headerProps.contentColor}--text`
+      `${headerOptions.contentColor}--text`
     )
   })
 })

@@ -3,12 +3,17 @@
 exports[`VDataTable should mount component and match snapshot 1`] = `
 <div class="v-data-table white">
   <div class="v-data-table__inner">
-    <div class="v-data-table__header white">
+    <div class="v-data-table__header white"
+         color="white"
+         dark="false"
+    >
     </div>
     <div class="v-data-table__body">
     </div>
   </div>
-  <div class="v-data-table__footer">
+  <div class="v-data-table__footer white"
+       dark="false"
+  >
     <div class="v-data-table__pagination">
       <div class="v-data-table__pagination-select">
         <span class="v-data-table__pagination-label">
@@ -23,7 +28,7 @@ exports[`VDataTable should mount component and match snapshot 1`] = `
             <div class="v-select v-validatable">
               <input class="v-select__input">
               <transition-stub>
-                <div class="v-select-list elevation-4"
+                <div class="v-select-list elevation-4 white"
                      style="display: none;"
                 >
                   <div class="v-list v-select--items-list">
@@ -98,7 +103,10 @@ exports[`VDataTable should mount component and match snapshot 1`] = `
 exports[`VDataTable should test align center and match snapshot 1`] = `
 <div class="v-data-table white">
   <div class="v-data-table__inner">
-    <div class="v-data-table__header white">
+    <div class="v-data-table__header white"
+         color="white"
+         dark="false"
+    >
       <div class="v-data-table__cell white v-data-table-col"
            style="width: 125px;"
       >
@@ -298,9 +306,401 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
           </div>
         </div>
       </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            ffffff
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            Lew@alysha.tv
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            non et atque
+            occaecati deserunt quas accusantium unde odit nobis qui voluptatem
+            quia voluptas consequuntur itaque dolor
+            et qui rerum deleniti ut occaecati
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            gggggg
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            Hayden@althea.biz
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            harum non quasi et ratione
+            tempore iure ex voluptates in ratione
+            harum architecto fugit inventore cupiditate
+            voluptates magni quo et
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            hhhhhh
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            Presley.Mueller@myrl.com
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            doloribus at sed quis culpa deserunt consectetur qui praesentium
+            accusamus fugiat dicta
+            voluptatem rerum ut voluptate autem
+            voluptatem repellendus aspernatur dolorem in
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            iiiiii
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            Dallas@ole.me
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            maiores sed dolores similique labore et inventore et
+            quasi temporibus esse sunt id et
+            eos voluptatem aliquam
+            aliquid ratione corporis molestiae mollitia quia et magnam dolor
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            jjjjjj
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            Mallory_Kunze@marie.org
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            ut voluptatem corrupti velit
+            ad voluptatem maiores
+            et nisi velit vero accusamus maiores
+            voluptates quia aliquid ullam eaque
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            kkkkkk
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            Meghan_Littel@rene.us
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            sapiente assumenda molestiae atque
+            adipisci laborum distinctio aperiam et ab ut omnis
+            et occaecati aspernatur odit sit rem expedita
+            quas enim ipsam minus
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            llllll
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            Carmen_Keeling@caroline.name
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            voluptate iusto quis nobis reprehenderit ipsum amet nulla
+            quia quas dolores velit et non
+            aut quia necessitatibus
+            nostrum quaerat nulla et accusamus nisi facilis
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            mmmmmm
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            Veronica_Goodwin@timmothy.net
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            ut dolorum nostrum id quia aut est
+            fuga est inventore vel eligendi explicabo quis consectetur
+            aut occaecati repellat id natus quo est
+            ut blanditiis quia ut vel ut maiores ea
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            nnnnnn
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            Oswald.Vandervort@leanne.org
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            expedita maiores dignissimos facilis
+            ipsum est rem est fugit velit sequi
+            eum odio dolores dolor totam
+            occaecati ratione eius rem velit
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            oooooo
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            Kariane@jadyn.tv
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            fuga eos qui dolor rerum
+            inventore corporis exercitationem
+            corporis cupiditate et deserunt recusandae est sed quis culpa
+            eum maiores corporis et
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            pppppp
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            Nathan@solon.io
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            vel quae voluptas qui exercitationem
+            voluptatibus unde sed
+            minima et qui ipsam aspernatur
+            expedita magnam laudantium et et quaerat ut qui dolorum
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            qqqqqq
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            Maynard.Hodkiewicz@roberta.com
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            nihil ut voluptates blanditiis autem odio dicta rerum
+            quisquam saepe et est
+            sunt quasi nemo laudantium deserunt
+            molestias tempora quo quia
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            rrrrrr
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            Christine@ayana.info
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            iste ut laborum aliquid velit facere itaque
+            quo ut soluta dicta voluptate
+            error tempore aut et
+            sequi reiciendis dignissimos expedita consequuntur libero sed fugiat facilis
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            ssssss
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            Preston_Hudson@blaise.tv
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            consequatur necessitatibus totam sed sit dolorum
+            recusandae quae odio excepturi voluptatum harum voluptas
+            quisquam sit ad eveniet delectus
+            doloribus odio qui non labore
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            tttttt
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            Vincenza_Klocko@albertha.name
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--center">
+            veritatis voluptates necessitatibus maiores corrupti
+            neque et exercitationem amet sit et
+            ullam velit sit magnam laborum
+            magni ut molestias
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="v-data-table__footer">
+  <div class="v-data-table__footer white"
+       dark="false"
+  >
     <div class="v-data-table__pagination">
       <div class="v-data-table__pagination-select">
         <span class="v-data-table__pagination-label">
@@ -315,7 +715,7 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
             <div class="v-select v-validatable">
               <input class="v-select__input">
               <transition-stub>
-                <div class="v-select-list elevation-4"
+                <div class="v-select-list elevation-4 white"
                      style="display: none;"
                 >
                   <div class="v-list v-select--items-list">
@@ -351,7 +751,7 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__pagination-pages">
-        1 - 5
+        1 - 20
         of 20
       </div>
       <div class="v-data-table__pagination-route">
@@ -372,7 +772,7 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
             1
           </div>
         </button>
-        <button class="v-button elevation-3 primary"
+        <button class="v-button v-button--disabled"
                 style="width: 42px;"
         >
           <div class="v-button__content">
@@ -391,7 +791,10 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
 exports[`VDataTable should test align left and match snapshot 1`] = `
 <div class="v-data-table white">
   <div class="v-data-table__inner">
-    <div class="v-data-table__header white">
+    <div class="v-data-table__header white"
+         color="white"
+         dark="false"
+    >
       <div class="v-data-table__cell white v-data-table-col"
            style="width: 125px;"
       >
@@ -591,9 +994,401 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
           </div>
         </div>
       </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            ffffff
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            Lew@alysha.tv
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            non et atque
+            occaecati deserunt quas accusantium unde odit nobis qui voluptatem
+            quia voluptas consequuntur itaque dolor
+            et qui rerum deleniti ut occaecati
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            gggggg
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            Hayden@althea.biz
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            harum non quasi et ratione
+            tempore iure ex voluptates in ratione
+            harum architecto fugit inventore cupiditate
+            voluptates magni quo et
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            hhhhhh
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            Presley.Mueller@myrl.com
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            doloribus at sed quis culpa deserunt consectetur qui praesentium
+            accusamus fugiat dicta
+            voluptatem rerum ut voluptate autem
+            voluptatem repellendus aspernatur dolorem in
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            iiiiii
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            Dallas@ole.me
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            maiores sed dolores similique labore et inventore et
+            quasi temporibus esse sunt id et
+            eos voluptatem aliquam
+            aliquid ratione corporis molestiae mollitia quia et magnam dolor
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            jjjjjj
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            Mallory_Kunze@marie.org
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            ut voluptatem corrupti velit
+            ad voluptatem maiores
+            et nisi velit vero accusamus maiores
+            voluptates quia aliquid ullam eaque
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            kkkkkk
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            Meghan_Littel@rene.us
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            sapiente assumenda molestiae atque
+            adipisci laborum distinctio aperiam et ab ut omnis
+            et occaecati aspernatur odit sit rem expedita
+            quas enim ipsam minus
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            llllll
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            Carmen_Keeling@caroline.name
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            voluptate iusto quis nobis reprehenderit ipsum amet nulla
+            quia quas dolores velit et non
+            aut quia necessitatibus
+            nostrum quaerat nulla et accusamus nisi facilis
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            mmmmmm
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            Veronica_Goodwin@timmothy.net
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            ut dolorum nostrum id quia aut est
+            fuga est inventore vel eligendi explicabo quis consectetur
+            aut occaecati repellat id natus quo est
+            ut blanditiis quia ut vel ut maiores ea
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            nnnnnn
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            Oswald.Vandervort@leanne.org
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            expedita maiores dignissimos facilis
+            ipsum est rem est fugit velit sequi
+            eum odio dolores dolor totam
+            occaecati ratione eius rem velit
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            oooooo
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            Kariane@jadyn.tv
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            fuga eos qui dolor rerum
+            inventore corporis exercitationem
+            corporis cupiditate et deserunt recusandae est sed quis culpa
+            eum maiores corporis et
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            pppppp
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            Nathan@solon.io
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            vel quae voluptas qui exercitationem
+            voluptatibus unde sed
+            minima et qui ipsam aspernatur
+            expedita magnam laudantium et et quaerat ut qui dolorum
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            qqqqqq
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            Maynard.Hodkiewicz@roberta.com
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            nihil ut voluptates blanditiis autem odio dicta rerum
+            quisquam saepe et est
+            sunt quasi nemo laudantium deserunt
+            molestias tempora quo quia
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            rrrrrr
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            Christine@ayana.info
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            iste ut laborum aliquid velit facere itaque
+            quo ut soluta dicta voluptate
+            error tempore aut et
+            sequi reiciendis dignissimos expedita consequuntur libero sed fugiat facilis
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            ssssss
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            Preston_Hudson@blaise.tv
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            consequatur necessitatibus totam sed sit dolorum
+            recusandae quae odio excepturi voluptatum harum voluptas
+            quisquam sit ad eveniet delectus
+            doloribus odio qui non labore
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            tttttt
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            Vincenza_Klocko@albertha.name
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--left">
+            veritatis voluptates necessitatibus maiores corrupti
+            neque et exercitationem amet sit et
+            ullam velit sit magnam laborum
+            magni ut molestias
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="v-data-table__footer">
+  <div class="v-data-table__footer white"
+       dark="false"
+  >
     <div class="v-data-table__pagination">
       <div class="v-data-table__pagination-select">
         <span class="v-data-table__pagination-label">
@@ -608,7 +1403,7 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
             <div class="v-select v-validatable">
               <input class="v-select__input">
               <transition-stub>
-                <div class="v-select-list elevation-4"
+                <div class="v-select-list elevation-4 white"
                      style="display: none;"
                 >
                   <div class="v-list v-select--items-list">
@@ -644,7 +1439,7 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__pagination-pages">
-        1 - 5
+        1 - 20
         of 20
       </div>
       <div class="v-data-table__pagination-route">
@@ -665,7 +1460,7 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
             1
           </div>
         </button>
-        <button class="v-button elevation-3 primary"
+        <button class="v-button v-button--disabled"
                 style="width: 42px;"
         >
           <div class="v-button__content">
@@ -684,7 +1479,10 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
 exports[`VDataTable should test align left and match snapshot 2`] = `
 <div class="v-data-table white">
   <div class="v-data-table__inner">
-    <div class="v-data-table__header white">
+    <div class="v-data-table__header white"
+         color="white"
+         dark="false"
+    >
       <div class="v-data-table__cell white v-data-table-col"
            style="width: 125px;"
       >
@@ -884,9 +1682,401 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
           </div>
         </div>
       </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            ffffff
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            Lew@alysha.tv
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            non et atque
+            occaecati deserunt quas accusantium unde odit nobis qui voluptatem
+            quia voluptas consequuntur itaque dolor
+            et qui rerum deleniti ut occaecati
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            gggggg
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            Hayden@althea.biz
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            harum non quasi et ratione
+            tempore iure ex voluptates in ratione
+            harum architecto fugit inventore cupiditate
+            voluptates magni quo et
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            hhhhhh
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            Presley.Mueller@myrl.com
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            doloribus at sed quis culpa deserunt consectetur qui praesentium
+            accusamus fugiat dicta
+            voluptatem rerum ut voluptate autem
+            voluptatem repellendus aspernatur dolorem in
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            iiiiii
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            Dallas@ole.me
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            maiores sed dolores similique labore et inventore et
+            quasi temporibus esse sunt id et
+            eos voluptatem aliquam
+            aliquid ratione corporis molestiae mollitia quia et magnam dolor
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            jjjjjj
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            Mallory_Kunze@marie.org
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            ut voluptatem corrupti velit
+            ad voluptatem maiores
+            et nisi velit vero accusamus maiores
+            voluptates quia aliquid ullam eaque
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            kkkkkk
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            Meghan_Littel@rene.us
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            sapiente assumenda molestiae atque
+            adipisci laborum distinctio aperiam et ab ut omnis
+            et occaecati aspernatur odit sit rem expedita
+            quas enim ipsam minus
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            llllll
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            Carmen_Keeling@caroline.name
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            voluptate iusto quis nobis reprehenderit ipsum amet nulla
+            quia quas dolores velit et non
+            aut quia necessitatibus
+            nostrum quaerat nulla et accusamus nisi facilis
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            mmmmmm
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            Veronica_Goodwin@timmothy.net
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            ut dolorum nostrum id quia aut est
+            fuga est inventore vel eligendi explicabo quis consectetur
+            aut occaecati repellat id natus quo est
+            ut blanditiis quia ut vel ut maiores ea
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            nnnnnn
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            Oswald.Vandervort@leanne.org
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            expedita maiores dignissimos facilis
+            ipsum est rem est fugit velit sequi
+            eum odio dolores dolor totam
+            occaecati ratione eius rem velit
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            oooooo
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            Kariane@jadyn.tv
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            fuga eos qui dolor rerum
+            inventore corporis exercitationem
+            corporis cupiditate et deserunt recusandae est sed quis culpa
+            eum maiores corporis et
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            pppppp
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            Nathan@solon.io
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            vel quae voluptas qui exercitationem
+            voluptatibus unde sed
+            minima et qui ipsam aspernatur
+            expedita magnam laudantium et et quaerat ut qui dolorum
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            qqqqqq
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            Maynard.Hodkiewicz@roberta.com
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            nihil ut voluptates blanditiis autem odio dicta rerum
+            quisquam saepe et est
+            sunt quasi nemo laudantium deserunt
+            molestias tempora quo quia
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            rrrrrr
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            Christine@ayana.info
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            iste ut laborum aliquid velit facere itaque
+            quo ut soluta dicta voluptate
+            error tempore aut et
+            sequi reiciendis dignissimos expedita consequuntur libero sed fugiat facilis
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            ssssss
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            Preston_Hudson@blaise.tv
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            consequatur necessitatibus totam sed sit dolorum
+            recusandae quae odio excepturi voluptatum harum voluptas
+            quisquam sit ad eveniet delectus
+            doloribus odio qui non labore
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            tttttt
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            Vincenza_Klocko@albertha.name
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--right">
+            veritatis voluptates necessitatibus maiores corrupti
+            neque et exercitationem amet sit et
+            ullam velit sit magnam laborum
+            magni ut molestias
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="v-data-table__footer">
+  <div class="v-data-table__footer white"
+       dark="false"
+  >
     <div class="v-data-table__pagination">
       <div class="v-data-table__pagination-select">
         <span class="v-data-table__pagination-label">
@@ -901,7 +2091,7 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
             <div class="v-select v-validatable">
               <input class="v-select__input">
               <transition-stub>
-                <div class="v-select-list elevation-4"
+                <div class="v-select-list elevation-4 white"
                      style="display: none;"
                 >
                   <div class="v-list v-select--items-list">
@@ -937,7 +2127,7 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
         </div>
       </div>
       <div class="v-data-table__pagination-pages">
-        1 - 5
+        1 - 20
         of 20
       </div>
       <div class="v-data-table__pagination-route">
@@ -958,7 +2148,7 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
             1
           </div>
         </button>
-        <button class="v-button elevation-3 primary"
+        <button class="v-button v-button--disabled"
                 style="width: 42px;"
         >
           <div class="v-button__content">
@@ -977,12 +2167,17 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
 exports[`VDataTable should test color prop and match snapshot 1`] = `
 <div class="v-data-table grey darken-3">
   <div class="v-data-table__inner">
-    <div class="v-data-table__header grey darken-3">
+    <div class="v-data-table__header grey darken-3"
+         color="grey darken-3"
+         dark="false"
+    >
     </div>
     <div class="v-data-table__body">
     </div>
   </div>
-  <div class="v-data-table__footer">
+  <div class="v-data-table__footer grey darken-3"
+       dark="false"
+  >
     <div class="v-data-table__pagination">
       <div class="v-data-table__pagination-select">
         <span class="v-data-table__pagination-label">
@@ -997,7 +2192,7 @@ exports[`VDataTable should test color prop and match snapshot 1`] = `
             <div class="v-select v-validatable">
               <input class="v-select__input">
               <transition-stub>
-                <div class="v-select-list elevation-4"
+                <div class="v-select-list elevation-4 grey darken-3"
                      style="display: none;"
                 >
                   <div class="v-list v-select--items-list">
@@ -1072,7 +2267,10 @@ exports[`VDataTable should test color prop and match snapshot 1`] = `
 exports[`VDataTable should test cols prop and match snapshot 1`] = `
 <div class="v-data-table white">
   <div class="v-data-table__inner">
-    <div class="v-data-table__header white">
+    <div class="v-data-table__header white"
+         color="white"
+         dark="false"
+    >
       <div class="v-data-table__cell white v-data-table-col"
            style="width: 125px;"
       >
@@ -1150,7 +2348,9 @@ exports[`VDataTable should test cols prop and match snapshot 1`] = `
     <div class="v-data-table__body">
     </div>
   </div>
-  <div class="v-data-table__footer">
+  <div class="v-data-table__footer white"
+       dark="false"
+  >
     <div class="v-data-table__pagination">
       <div class="v-data-table__pagination-select">
         <span class="v-data-table__pagination-label">
@@ -1165,7 +2365,7 @@ exports[`VDataTable should test cols prop and match snapshot 1`] = `
             <div class="v-select v-validatable">
               <input class="v-select__input">
               <transition-stub>
-                <div class="v-select-list elevation-4"
+                <div class="v-select-list elevation-4 white"
                      style="display: none;"
                 >
                   <div class="v-list v-select--items-list">
@@ -1240,7 +2440,10 @@ exports[`VDataTable should test cols prop and match snapshot 1`] = `
 exports[`VDataTable should test column sort and match snapshot 1`] = `
 <div class="v-data-table white">
   <div class="v-data-table__inner">
-    <div class="v-data-table__header white">
+    <div class="v-data-table__header white"
+         color="white"
+         dark="false"
+    >
       <div class="v-data-table__cell white v-data-table-col"
            style="width: 125px;"
       >
@@ -1450,9 +2653,395 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
           </div>
         </div>
       </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            oooooo
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Kariane@jadyn.tv
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            fuga eos qui dolor rerum
+            inventore corporis exercitationem
+            corporis cupiditate et deserunt recusandae est sed quis culpa
+            eum maiores corporis et
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            nnnnnn
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Oswald.Vandervort@leanne.org
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            expedita maiores dignissimos facilis
+            ipsum est rem est fugit velit sequi
+            eum odio dolores dolor totam
+            occaecati ratione eius rem velit
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            mmmmmm
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Veronica_Goodwin@timmothy.net
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            ut dolorum nostrum id quia aut est
+            fuga est inventore vel eligendi explicabo quis consectetur
+            aut occaecati repellat id natus quo est
+            ut blanditiis quia ut vel ut maiores ea
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            llllll
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Carmen_Keeling@caroline.name
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            voluptate iusto quis nobis reprehenderit ipsum amet nulla
+            quia quas dolores velit et non
+            aut quia necessitatibus
+            nostrum quaerat nulla et accusamus nisi facilis
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            kkkkkk
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Meghan_Littel@rene.us
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            sapiente assumenda molestiae atque
+            adipisci laborum distinctio aperiam et ab ut omnis
+            et occaecati aspernatur odit sit rem expedita
+            quas enim ipsam minus
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            jjjjjj
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Mallory_Kunze@marie.org
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            ut voluptatem corrupti velit
+            ad voluptatem maiores
+            et nisi velit vero accusamus maiores
+            voluptates quia aliquid ullam eaque
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            iiiiii
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Dallas@ole.me
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            maiores sed dolores similique labore et inventore et
+            quasi temporibus esse sunt id et
+            eos voluptatem aliquam
+            aliquid ratione corporis molestiae mollitia quia et magnam dolor
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            hhhhhh
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Presley.Mueller@myrl.com
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            doloribus at sed quis culpa deserunt consectetur qui praesentium
+            accusamus fugiat dicta
+            voluptatem rerum ut voluptate autem
+            voluptatem repellendus aspernatur dolorem in
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            gggggg
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Hayden@althea.biz
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            harum non quasi et ratione
+            tempore iure ex voluptates in ratione
+            harum architecto fugit inventore cupiditate
+            voluptates magni quo et
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            ffffff
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Lew@alysha.tv
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            non et atque
+            occaecati deserunt quas accusantium unde odit nobis qui voluptatem
+            quia voluptas consequuntur itaque dolor
+            et qui rerum deleniti ut occaecati
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            eeeeee
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Nikita@garfield.biz
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            quia molestiae reprehenderit quasi aspernatur
+            aut expedita occaecati aliquam eveniet laudantium
+            omnis quibusdam delectus saepe quia accusamus maiores nam est
+            cum et ducimus et vero voluptates excepturi deleniti ratione
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            dddddd
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Jayne_Kuhic@sydney.com
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            est natus enim nihil est dolore omnis voluptatem numquam
+            et omnis occaecati quod ullam at
+            voluptatem error expedita pariatur
+            nihil sint nostrum voluptatem reiciendis et
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            cccccc
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Eliseo@gardner.biz
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            laudantium enim quasi est quidem magnam voluptate ipsam eos
+            tempora quo necessitatibus
+            dolor quam autem quasi
+            reiciendis et nam sapiente accusantium
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Ben
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            ben@mail.ru
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            some body text
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Alex
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            alex@mail.ru
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            some body text
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="v-data-table__footer">
+  <div class="v-data-table__footer white"
+       dark="false"
+  >
     <div class="v-data-table__pagination">
       <div class="v-data-table__pagination-select">
         <span class="v-data-table__pagination-label">
@@ -1467,7 +3056,7 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
             <div class="v-select v-validatable">
               <input class="v-select__input">
               <transition-stub>
-                <div class="v-select-list elevation-4"
+                <div class="v-select-list elevation-4 white"
                      style="display: none;"
                 >
                   <div class="v-list v-select--items-list">
@@ -1503,7 +3092,7 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__pagination-pages">
-        1 - 5
+        1 - 20
         of 20
       </div>
       <div class="v-data-table__pagination-route">
@@ -1524,7 +3113,7 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
             1
           </div>
         </button>
-        <button class="v-button elevation-3 primary"
+        <button class="v-button v-button--disabled"
                 style="width: 42px;"
         >
           <div class="v-button__content">
@@ -1543,7 +3132,10 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
 exports[`VDataTable should test dark prop and match snapshot 1`] = `
 <div class="v-data-table white">
   <div class="v-data-table__inner">
-    <div class="v-data-table__header white">
+    <div class="v-data-table__header white"
+         color="white"
+         dark="true"
+    >
       <div class="v-data-table__cell white--text white v-data-table-col"
            style="width: 125px;"
       >
@@ -1557,7 +3149,7 @@ exports[`VDataTable should test dark prop and match snapshot 1`] = `
             >
             </button>
           </span>
-          <div class="v-data-table-col__filter elevation-5 grey darken-3"
+          <div class="v-data-table-col__filter elevation-5 white"
                style="display: none;"
           >
             <div class="v-input">
@@ -1743,9 +3335,401 @@ exports[`VDataTable should test dark prop and match snapshot 1`] = `
           </div>
         </div>
       </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            ffffff
+          </div>
+        </div>
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Lew@alysha.tv
+          </div>
+        </div>
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            non et atque
+            occaecati deserunt quas accusantium unde odit nobis qui voluptatem
+            quia voluptas consequuntur itaque dolor
+            et qui rerum deleniti ut occaecati
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            gggggg
+          </div>
+        </div>
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Hayden@althea.biz
+          </div>
+        </div>
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            harum non quasi et ratione
+            tempore iure ex voluptates in ratione
+            harum architecto fugit inventore cupiditate
+            voluptates magni quo et
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            hhhhhh
+          </div>
+        </div>
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Presley.Mueller@myrl.com
+          </div>
+        </div>
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            doloribus at sed quis culpa deserunt consectetur qui praesentium
+            accusamus fugiat dicta
+            voluptatem rerum ut voluptate autem
+            voluptatem repellendus aspernatur dolorem in
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            iiiiii
+          </div>
+        </div>
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Dallas@ole.me
+          </div>
+        </div>
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            maiores sed dolores similique labore et inventore et
+            quasi temporibus esse sunt id et
+            eos voluptatem aliquam
+            aliquid ratione corporis molestiae mollitia quia et magnam dolor
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            jjjjjj
+          </div>
+        </div>
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Mallory_Kunze@marie.org
+          </div>
+        </div>
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            ut voluptatem corrupti velit
+            ad voluptatem maiores
+            et nisi velit vero accusamus maiores
+            voluptates quia aliquid ullam eaque
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            kkkkkk
+          </div>
+        </div>
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Meghan_Littel@rene.us
+          </div>
+        </div>
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            sapiente assumenda molestiae atque
+            adipisci laborum distinctio aperiam et ab ut omnis
+            et occaecati aspernatur odit sit rem expedita
+            quas enim ipsam minus
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            llllll
+          </div>
+        </div>
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Carmen_Keeling@caroline.name
+          </div>
+        </div>
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            voluptate iusto quis nobis reprehenderit ipsum amet nulla
+            quia quas dolores velit et non
+            aut quia necessitatibus
+            nostrum quaerat nulla et accusamus nisi facilis
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            mmmmmm
+          </div>
+        </div>
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Veronica_Goodwin@timmothy.net
+          </div>
+        </div>
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            ut dolorum nostrum id quia aut est
+            fuga est inventore vel eligendi explicabo quis consectetur
+            aut occaecati repellat id natus quo est
+            ut blanditiis quia ut vel ut maiores ea
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            nnnnnn
+          </div>
+        </div>
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Oswald.Vandervort@leanne.org
+          </div>
+        </div>
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            expedita maiores dignissimos facilis
+            ipsum est rem est fugit velit sequi
+            eum odio dolores dolor totam
+            occaecati ratione eius rem velit
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            oooooo
+          </div>
+        </div>
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Kariane@jadyn.tv
+          </div>
+        </div>
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            fuga eos qui dolor rerum
+            inventore corporis exercitationem
+            corporis cupiditate et deserunt recusandae est sed quis culpa
+            eum maiores corporis et
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            pppppp
+          </div>
+        </div>
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Nathan@solon.io
+          </div>
+        </div>
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            vel quae voluptas qui exercitationem
+            voluptatibus unde sed
+            minima et qui ipsam aspernatur
+            expedita magnam laudantium et et quaerat ut qui dolorum
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            qqqqqq
+          </div>
+        </div>
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Maynard.Hodkiewicz@roberta.com
+          </div>
+        </div>
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            nihil ut voluptates blanditiis autem odio dicta rerum
+            quisquam saepe et est
+            sunt quasi nemo laudantium deserunt
+            molestias tempora quo quia
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            rrrrrr
+          </div>
+        </div>
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Christine@ayana.info
+          </div>
+        </div>
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            iste ut laborum aliquid velit facere itaque
+            quo ut soluta dicta voluptate
+            error tempore aut et
+            sequi reiciendis dignissimos expedita consequuntur libero sed fugiat facilis
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            ssssss
+          </div>
+        </div>
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Preston_Hudson@blaise.tv
+          </div>
+        </div>
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            consequatur necessitatibus totam sed sit dolorum
+            recusandae quae odio excepturi voluptatum harum voluptas
+            quisquam sit ad eveniet delectus
+            doloribus odio qui non labore
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            tttttt
+          </div>
+        </div>
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Vincenza_Klocko@albertha.name
+          </div>
+        </div>
+        <div class="v-data-table__cell white--text"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            veritatis voluptates necessitatibus maiores corrupti
+            neque et exercitationem amet sit et
+            ullam velit sit magnam laborum
+            magni ut molestias
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="v-data-table__footer">
+  <div class="v-data-table__footer white"
+       dark="true"
+  >
     <div class="v-data-table__pagination">
       <div class="v-data-table__pagination-select">
         <span class="v-data-table__pagination-label white--text">
@@ -1760,7 +3744,7 @@ exports[`VDataTable should test dark prop and match snapshot 1`] = `
             <div class="v-select v-validatable">
               <input class="v-select__input white--text">
               <transition-stub>
-                <div class="v-select-list elevation-4"
+                <div class="v-select-list elevation-4 white"
                      style="display: none;"
                 >
                   <div class="v-list v-select--items-list">
@@ -1796,7 +3780,7 @@ exports[`VDataTable should test dark prop and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__pagination-pages white--text">
-        1 - 5
+        1 - 20
         of 20
       </div>
       <div class="v-data-table__pagination-route">
@@ -1817,7 +3801,7 @@ exports[`VDataTable should test dark prop and match snapshot 1`] = `
             1
           </div>
         </button>
-        <button class="v-button v-button--text elevation-3 white--text"
+        <button class="v-button v-button--text v-button--disabled"
                 style="width: 42px;"
         >
           <div class="v-button__content">
@@ -1836,7 +3820,10 @@ exports[`VDataTable should test dark prop and match snapshot 1`] = `
 exports[`VDataTable should test table custom filter and match snapshot 1`] = `
 <div class="v-data-table white">
   <div class="v-data-table__inner">
-    <div class="v-data-table__header white">
+    <div class="v-data-table__header white"
+         color="white"
+         dark="false"
+    >
       <div class="v-data-table__cell white v-data-table-col v-data-table-col--sorted"
            style="width: 125px;"
       >
@@ -1915,24 +3902,21 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
-            tttttt
+            Ben
           </div>
         </div>
         <div class="v-data-table__cell"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
-            Vincenza_Klocko@albertha.name
+            ben@mail.ru
           </div>
         </div>
         <div class="v-data-table__cell"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
-            veritatis voluptates necessitatibus maiores corrupti
-            neque et exercitationem amet sit et
-            ullam velit sit magnam laborum
-            magni ut molestias
+            some body text
           </div>
         </div>
       </div>
@@ -1941,24 +3925,21 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
-            ssssss
+            Alex
           </div>
         </div>
         <div class="v-data-table__cell"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
-            Preston_Hudson@blaise.tv
+            alex@mail.ru
           </div>
         </div>
         <div class="v-data-table__cell"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
-            consequatur necessitatibus totam sed sit dolorum
-            recusandae quae odio excepturi voluptatum harum voluptas
-            quisquam sit ad eveniet delectus
-            doloribus odio qui non labore
+            some body text
           </div>
         </div>
       </div>
@@ -1967,24 +3948,362 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
-            rrrrrr
+            cccccc
           </div>
         </div>
         <div class="v-data-table__cell"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
-            Christine@ayana.info
+            Eliseo@gardner.biz
           </div>
         </div>
         <div class="v-data-table__cell"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
-            iste ut laborum aliquid velit facere itaque
-            quo ut soluta dicta voluptate
-            error tempore aut et
-            sequi reiciendis dignissimos expedita consequuntur libero sed fugiat facilis
+            laudantium enim quasi est quidem magnam voluptate ipsam eos
+            tempora quo necessitatibus
+            dolor quam autem quasi
+            reiciendis et nam sapiente accusantium
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            dddddd
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Jayne_Kuhic@sydney.com
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            est natus enim nihil est dolore omnis voluptatem numquam
+            et omnis occaecati quod ullam at
+            voluptatem error expedita pariatur
+            nihil sint nostrum voluptatem reiciendis et
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            eeeeee
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Nikita@garfield.biz
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            quia molestiae reprehenderit quasi aspernatur
+            aut expedita occaecati aliquam eveniet laudantium
+            omnis quibusdam delectus saepe quia accusamus maiores nam est
+            cum et ducimus et vero voluptates excepturi deleniti ratione
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            ffffff
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Lew@alysha.tv
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            non et atque
+            occaecati deserunt quas accusantium unde odit nobis qui voluptatem
+            quia voluptas consequuntur itaque dolor
+            et qui rerum deleniti ut occaecati
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            gggggg
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Hayden@althea.biz
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            harum non quasi et ratione
+            tempore iure ex voluptates in ratione
+            harum architecto fugit inventore cupiditate
+            voluptates magni quo et
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            hhhhhh
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Presley.Mueller@myrl.com
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            doloribus at sed quis culpa deserunt consectetur qui praesentium
+            accusamus fugiat dicta
+            voluptatem rerum ut voluptate autem
+            voluptatem repellendus aspernatur dolorem in
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            iiiiii
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Dallas@ole.me
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            maiores sed dolores similique labore et inventore et
+            quasi temporibus esse sunt id et
+            eos voluptatem aliquam
+            aliquid ratione corporis molestiae mollitia quia et magnam dolor
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            jjjjjj
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Mallory_Kunze@marie.org
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            ut voluptatem corrupti velit
+            ad voluptatem maiores
+            et nisi velit vero accusamus maiores
+            voluptates quia aliquid ullam eaque
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            kkkkkk
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Meghan_Littel@rene.us
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            sapiente assumenda molestiae atque
+            adipisci laborum distinctio aperiam et ab ut omnis
+            et occaecati aspernatur odit sit rem expedita
+            quas enim ipsam minus
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            llllll
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Carmen_Keeling@caroline.name
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            voluptate iusto quis nobis reprehenderit ipsum amet nulla
+            quia quas dolores velit et non
+            aut quia necessitatibus
+            nostrum quaerat nulla et accusamus nisi facilis
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            mmmmmm
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Veronica_Goodwin@timmothy.net
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            ut dolorum nostrum id quia aut est
+            fuga est inventore vel eligendi explicabo quis consectetur
+            aut occaecati repellat id natus quo est
+            ut blanditiis quia ut vel ut maiores ea
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            nnnnnn
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Oswald.Vandervort@leanne.org
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            expedita maiores dignissimos facilis
+            ipsum est rem est fugit velit sequi
+            eum odio dolores dolor totam
+            occaecati ratione eius rem velit
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            oooooo
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Kariane@jadyn.tv
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            fuga eos qui dolor rerum
+            inventore corporis exercitationem
+            corporis cupiditate et deserunt recusandae est sed quis culpa
+            eum maiores corporis et
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            pppppp
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Nathan@solon.io
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            vel quae voluptas qui exercitationem
+            voluptatibus unde sed
+            minima et qui ipsam aspernatur
+            expedita magnam laudantium et et quaerat ut qui dolorum
           </div>
         </div>
       </div>
@@ -2019,30 +4338,84 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
-            pppppp
+            rrrrrr
           </div>
         </div>
         <div class="v-data-table__cell"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
-            Nathan@solon.io
+            Christine@ayana.info
           </div>
         </div>
         <div class="v-data-table__cell"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
-            vel quae voluptas qui exercitationem
-            voluptatibus unde sed
-            minima et qui ipsam aspernatur
-            expedita magnam laudantium et et quaerat ut qui dolorum
+            iste ut laborum aliquid velit facere itaque
+            quo ut soluta dicta voluptate
+            error tempore aut et
+            sequi reiciendis dignissimos expedita consequuntur libero sed fugiat facilis
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            ssssss
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Preston_Hudson@blaise.tv
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            consequatur necessitatibus totam sed sit dolorum
+            recusandae quae odio excepturi voluptatum harum voluptas
+            quisquam sit ad eveniet delectus
+            doloribus odio qui non labore
+          </div>
+        </div>
+      </div>
+      <div class="v-data-table__row">
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            tttttt
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            Vincenza_Klocko@albertha.name
+          </div>
+        </div>
+        <div class="v-data-table__cell"
+             style="width: 125px;"
+        >
+          <div class="v-data-table__cell-content text-align--start">
+            veritatis voluptates necessitatibus maiores corrupti
+            neque et exercitationem amet sit et
+            ullam velit sit magnam laborum
+            magni ut molestias
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="v-data-table__footer">
+  <div class="v-data-table__footer white"
+       dark="false"
+  >
     <div class="v-data-table__pagination">
       <div class="v-data-table__pagination-select">
         <span class="v-data-table__pagination-label">
@@ -2057,7 +4430,7 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
             <div class="v-select v-validatable">
               <input class="v-select__input">
               <transition-stub>
-                <div class="v-select-list elevation-4"
+                <div class="v-select-list elevation-4 white"
                      style="display: none;"
                 >
                   <div class="v-list v-select--items-list">
@@ -2093,7 +4466,7 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__pagination-pages">
-        1 - 5
+        1 - 20
         of 20
       </div>
       <div class="v-data-table__pagination-route">
@@ -2114,7 +4487,7 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
             1
           </div>
         </button>
-        <button class="v-button elevation-3 primary"
+        <button class="v-button v-button--disabled"
                 style="width: 42px;"
         >
           <div class="v-button__content">
@@ -2133,7 +4506,10 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
 exports[`VDataTable should test table filter and match snapshot 1`] = `
 <div class="v-data-table white">
   <div class="v-data-table__inner">
-    <div class="v-data-table__header white">
+    <div class="v-data-table__header white"
+         color="white"
+         dark="false"
+    >
       <div class="v-data-table__cell white v-data-table-col v-data-table-col--sorted"
            style="width: 125px;"
       >
@@ -2234,7 +4610,9 @@ exports[`VDataTable should test table filter and match snapshot 1`] = `
       </div>
     </div>
   </div>
-  <div class="v-data-table__footer">
+  <div class="v-data-table__footer white"
+       dark="false"
+  >
     <div class="v-data-table__pagination">
       <div class="v-data-table__pagination-select">
         <span class="v-data-table__pagination-label">
@@ -2249,7 +4627,7 @@ exports[`VDataTable should test table filter and match snapshot 1`] = `
             <div class="v-select v-validatable">
               <input class="v-select__input">
               <transition-stub>
-                <div class="v-select-list elevation-4"
+                <div class="v-select-list elevation-4 white"
                      style="display: none;"
                 >
                   <div class="v-list v-select--items-list">

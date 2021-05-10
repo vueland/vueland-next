@@ -5,7 +5,7 @@ import './VDataTableHeader.scss'
 import { h, computed, withDirectives, defineComponent } from 'vue'
 
 // Effects
-import { colorProps, useColors } from '../../effects/use-colors'
+import { useColors } from '../../effects/use-colors'
 import { useIcons } from '../../effects/use-icons'
 
 // Components
@@ -26,7 +26,6 @@ export const VDataTableHeader = defineComponent({
   name: 'v-data-table-header',
 
   props: {
-    dark: Boolean,
     showSequence: Boolean,
     showCheckbox: Boolean,
     cols: Array,
@@ -36,10 +35,14 @@ export const VDataTableHeader = defineComponent({
     },
     align: String,
     options: Object,
-    ...colorProps()
   } as any,
 
-  emits: ['sort', 'filter', 'select-all', 'update:cols'],
+  emits: [
+    'sort',
+    'filter',
+    'select-all',
+    'update:cols'
+  ],
 
   setup(props, {
     emit,
@@ -55,19 +58,10 @@ export const VDataTableHeader = defineComponent({
       'v-data-table__header': true
     }))
 
-    const isDarkMode = computed<boolean>(() => {
-      if (props.options?.dark !== undefined) return props.options.dark
-      return props.dark
-    })
-
     const computedContentColor = computed<string>(() => {
-      return isDarkMode.value
+      return props.options.dark
         ? props.options?.contentColor || 'white'
         : props.options?.contentColor
-    })
-
-    const computedColor = computed<string>(() => {
-      return props.options?.color || props.color
     })
 
     const cols = computed<Column[]>(() => [...props.cols])
@@ -78,10 +72,7 @@ export const VDataTableHeader = defineComponent({
 
     function onInput($value, item) {
       item.filtered = !!$value
-      emit('filter', {
-        value: $value,
-        col: item
-      })
+      emit('filter', { value: $value, col: item })
     }
 
     function showFilter(item) {
@@ -135,7 +126,7 @@ export const VDataTableHeader = defineComponent({
     function genFilterInput(item) {
       const propsData = {
         label: 'search',
-        dark: isDarkMode.value,
+        dark: props.options.dark,
         color: !item.cellClass ? computedContentColor.value : '',
         prependIcon: icons.$search,
         clearable: true,
@@ -146,7 +137,7 @@ export const VDataTableHeader = defineComponent({
     }
 
     function genFilterWrapper(col) {
-      const color = isDarkMode.value
+      const color = props.options.dark
         ? props.options?.color || 'grey darken-3'
         : props.options?.color || 'white'
 
@@ -202,7 +193,7 @@ export const VDataTableHeader = defineComponent({
           [props.cellClass]: !!props.cellClass
         },
         contentColor: computedContentColor.value,
-        color: computedColor.value,
+        color: props.options.color,
         width: 50
       }
 
@@ -216,9 +207,9 @@ export const VDataTableHeader = defineComponent({
           'v-data-table-col__checkbox': true,
           [props.cellClass]: !!props.cellClass
         },
-        dark: isDarkMode.value,
+        dark: props.options.dark,
         contentColor: computedContentColor.value,
-        color: computedColor.value,
+        color: props.options.color,
         width: 50
       }
 
@@ -235,14 +226,14 @@ export const VDataTableHeader = defineComponent({
 
     function genHeaderCell(col) {
       const propsData = {
-        dark: isDarkMode.value,
+        dark: props.options.dark,
         class: {
           'v-data-table-col': true,
           'v-data-table-col--sorted': col.sorted,
           [col.cellClass]: !!col.cellClass
         },
         contentColor: !col.cellClass ? computedContentColor.value : '',
-        color: !col.cellClass ? computedColor.value : '',
+        color: !col.cellClass ? props.options.color : '',
         width: col.width,
         resizeable: col.resizeable,
         align: col.align || props.align,
@@ -287,8 +278,8 @@ export const VDataTableHeader = defineComponent({
 
       return h(
         'div',
-        computedColor.value
-          ? setBackground(computedColor.value, propsData)
+        props.options.color
+          ? setBackground(props.options.color, propsData)
           : propsData,
         genHeaderChildren()
       )

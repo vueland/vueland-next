@@ -1,11 +1,12 @@
 import * as components from './components'
 import * as directives from './directives'
+import { UserOptions } from './types'
 
 export class Vueland {
   static installed: boolean = false
   public userOptions: any
 
-  constructor(options: any = null) {
+  constructor(options: UserOptions | null = null) {
     this.userOptions = options
   }
 

@@ -6,6 +6,7 @@ import { h, watch, computed, defineComponent, reactive } from 'vue'
 
 // Effects
 import { useColors } from '../../effects/use-colors'
+import { useTheme } from '../../effects/use-theme'
 
 // Components
 import { VDataTableHeader } from './VDataTableHeader'
@@ -62,10 +63,7 @@ export const VDataTable = defineComponent({
     'contextmenu:row'
   ],
 
-  setup(props, {
-    slots,
-    emit
-  }) {
+  setup(props, { slots, emit }) {
     const data = reactive<TableState>({
       cols: [],
       rows: [],
@@ -74,6 +72,8 @@ export const VDataTable = defineComponent({
       page: 1,
       isAllRowsChecked: false
     })
+
+    console.log(useTheme())
 
     const { setBackground } = useColors()
 
@@ -170,19 +170,13 @@ export const VDataTable = defineComponent({
       data.rows.sort(executor as any)
     }
 
-    function onFilter({
-                        value,
-                        col
-                      }: TableFilter) {
+    function onFilter({ value, col }: TableFilter) {
       if (!value && filters[col.key]) delete filters[col.key]
 
       if (value) filters[col.key] = value
 
       if (col.filter) {
-        return (data.rows = col.filter({
-          value,
-          col
-        }))
+        return (data.rows = col.filter({ value, col }))
       }
       if (props.customFilter) {
         return props.customFilter(filters as any)
@@ -279,9 +273,9 @@ export const VDataTable = defineComponent({
         showSequence: props.showSequence,
         color: props.color,
         onSelect,
-        ['onClick:row']: e => emit('click:row', e),
-        ['onDblclick:row']: e => emit('dblclick:row', e),
-        ['onContextmenu:row']: e => emit('contextmenu:row', e),
+        ['onClick:row']: (e) => emit('click:row', e),
+        ['onDblclick:row']: (e) => emit('dblclick:row', e),
+        ['onContextmenu:row']: (e) => emit('contextmenu:row', e)
       }
 
       const content = props.cols.reduce((acc, col) => {

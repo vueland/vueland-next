@@ -15,12 +15,12 @@ import { VNode } from 'vue'
 import { useTransition } from '../../effects/use-transition'
 import { useColors } from '../../effects/use-colors'
 import { useIcons } from '../../effects/use-icons'
+import { themeProps } from '../../effects/use-theme'
 
 export const VInput = defineComponent({
   name: 'v-input',
 
   props: {
-    dark: Boolean,
     focused: Boolean,
     hasState: Boolean,
     hasError: Boolean,
@@ -33,13 +33,14 @@ export const VInput = defineComponent({
     message: String,
     type: {
       type: String,
-      default: 'text',
+      default: 'text'
     },
     color: {
       type: String,
-      default: 'primary',
+      default: 'primary'
     },
     modelValue: [String, Number],
+    ...themeProps()
   } as any,
 
   emits: ['clear'],
@@ -47,6 +48,7 @@ export const VInput = defineComponent({
   setup(props, { slots, emit }): () => VNode {
     const { setTextColor } = useColors()
     const { icons, iconSize } = useIcons('md')
+
     const isValid = computed<boolean>(() => {
       return props.isDirty && props.hasState && !props.hasError
     })
@@ -61,7 +63,7 @@ export const VInput = defineComponent({
       'v-input--dirty': props.isDirty,
       'v-input--valid': isValid.value,
       'v-input--not-valid': isNotValid.value,
-      'v-input--focused': props.focused,
+      'v-input--focused': props.focused
     }))
 
     function genLabel(): VNode {
@@ -71,11 +73,11 @@ export const VInput = defineComponent({
         hasState: props.hasState,
         disabled: props.disabled,
         focused: props.focused,
-        color: props.color,
+        color: props.color
       }
 
       return h(VLabel, propsData, {
-        default: () => props.label,
+        default: () => props.label
       })
     }
 
@@ -86,7 +88,7 @@ export const VInput = defineComponent({
         icon: iconName,
         size: iconSize,
         disabled: props.disabled,
-        clickable,
+        clickable
       })
     }
 
@@ -94,7 +96,7 @@ export const VInput = defineComponent({
       return h(
         'div',
         { class: 'v-input__prepend-icon' },
-        genIcon(props.prependIcon),
+        genIcon(props.prependIcon)
       )
     }
 
@@ -102,9 +104,9 @@ export const VInput = defineComponent({
       return h(
         'div',
         {
-          class: 'v-input__append-icon',
+          class: 'v-input__append-icon'
         },
-        genIcon(props.appendIcon),
+        genIcon(props.appendIcon)
       )
     }
 
@@ -113,9 +115,9 @@ export const VInput = defineComponent({
         'div',
         {
           class: 'v-input__clear',
-          onClick: () => !props.disabled && emit('clear'),
+          onClick: () => !props.disabled && emit('clear')
         },
-        genIcon(icons.$close, true),
+        genIcon(icons.$close, true)
       )
     }
 
@@ -123,8 +125,8 @@ export const VInput = defineComponent({
       const propsData = {
         class: {
           'v-input__select-slot': !!slots.select,
-          'v-input__field-slot': !!slots.textField,
-        },
+          'v-input__field-slot': !!slots.textField
+        }
       }
 
       return h(
@@ -136,16 +138,16 @@ export const VInput = defineComponent({
           props.clearable && genClearIcon(),
           genLabel(),
           slots.select && slots.select(),
-          slots.textField && slots.textField(),
-        ],
+          slots.textField && slots.textField()
+        ]
       )
     }
 
     function genStatusMessage(): VNode {
       const propsData = {
         class: {
-          'v-input__status-message': true,
-        },
+          'v-input__status-message': true
+        }
       }
 
       return h('span', propsData, props.message)
@@ -154,13 +156,13 @@ export const VInput = defineComponent({
     function genStatus(): VNode {
       const transitionedMessage = useTransition(
         (props.message && genStatusMessage()) as VNode,
-        'fade',
+        'fade'
       )
 
       const propsData = {
         class: {
-          'v-input__status': true,
-        },
+          'v-input__status': true
+        }
       }
 
       return h('div', propsData, transitionedMessage)
@@ -169,11 +171,11 @@ export const VInput = defineComponent({
     function genPropsData() {
       return {
         class: {
-          ...classes.value,
-        },
+          ...classes.value
+        }
       }
     }
 
     return () => h('div', genPropsData(), [genSlotContent(), genStatus()])
-  },
+  }
 })

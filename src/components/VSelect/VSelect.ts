@@ -168,7 +168,7 @@ export const VSelect = defineComponent({
         },
         onClick
       }
-      return h('input', setTextColor(base, propsData))
+      return h('input', setTextColor(props.dark ? 'white' : base, propsData))
     }
 
     function genSelectList(): VNode {
@@ -177,7 +177,7 @@ export const VSelect = defineComponent({
         valueKey: props.valueKey,
         idKey: props.idKey,
         active: state.isMenuActive,
-        color: base,
+        color: props.dark ? 'white' : base,
         listColor: props.listColor || 'white',
         onSelect: (it) => selectItem(it)
       }

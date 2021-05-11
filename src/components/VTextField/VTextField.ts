@@ -165,7 +165,7 @@ export const VTextField = defineComponent({
 
       return h(
         props.tag,
-        setTextColor(base, propsData)
+        setTextColor(props.dark ? 'white' : base, propsData)
       )
     }
 

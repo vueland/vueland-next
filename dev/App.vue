@@ -330,7 +330,7 @@ export default {
       v-model="data.user2"
       label="select"
       :items="data.users"
-      color="green"
+      color="cyan"
       value-key="name"
       readonly
       clearable

@@ -193,7 +193,7 @@ export const VAutocomplete = defineComponent({
         onBlur
       }
 
-      return h('input', setTextColor(base, propsData))
+      return h('input', setTextColor(props.dark ? 'white' : base, propsData))
     }
 
     function genAutocompleteList(): VNode {
@@ -202,7 +202,7 @@ export const VAutocomplete = defineComponent({
         valueKey: props.valueKey,
         idKey: props.idKey,
         active: state.isMenuActive,
-        color: base,
+        color: props.dark ? 'white' : base,
         listColor: props.listColor,
         onSelect
       }

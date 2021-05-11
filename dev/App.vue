@@ -225,7 +225,6 @@ export default {
       :rows="data.users"
       color="grey darken-2"
       :header-options="{
-
         color: 'grey darken-4'
       }"
       :footer-options="{

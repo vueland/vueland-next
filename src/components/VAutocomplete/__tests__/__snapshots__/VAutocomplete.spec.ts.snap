@@ -12,7 +12,7 @@ exports[`VAutocomplete should mount component and match snapshot 1`] = `
       </label>
       <div class="v-autocomplete v-validatable">
         <input class="v-autocomplete__input"
-               style="color: rgb(66, 66, 66); caret-color: #424242;"
+               style="color: rgb(33, 33, 33); caret-color: #212121;"
         >
       </div>
     </div>

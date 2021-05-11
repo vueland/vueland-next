@@ -12,14 +12,14 @@ export type UserOptions = {
 }
 
 export declare type ThemeOptions = {
-  base: string
+  base?: string
   primary: string
-  secondary: string
-  accent: string
-  error: string
-  info: string
-  success: string
-  warning: string
+  secondary?: string
+  accent?: string
+  error?: string
+  info?: string
+  success?: string
+  warning?: string
 }
 
 export type OffsetSizes = {

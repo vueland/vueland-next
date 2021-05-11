@@ -11,7 +11,9 @@ exports[`VSelect should mount component and match snapshot 1`] = `
       >
       </label>
       <div class="v-select">
-        <input class="v-select__input">
+        <input class="v-select__input"
+               style="color: rgb(66, 66, 66); caret-color: #424242;"
+        >
       </div>
     </div>
     <div class="v-input__status">

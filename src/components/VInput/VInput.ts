@@ -121,6 +121,15 @@ export const VInput = defineComponent({
       )
     }
 
+    function genInputSlot() {
+      const propsData = {
+        class: 'v-input__slot'
+      }
+      return h('div',
+        props.color ? setTextColor(props.color, propsData) : propsData,
+        [genSlotContent(), genStatus()])
+    }
+
     function genSlotContent(): VNode {
       const propsData = {
         class: {
@@ -131,7 +140,7 @@ export const VInput = defineComponent({
 
       return h(
         'div',
-        props.color ? setTextColor(props.color, propsData) : propsData,
+        propsData,
         [
           props.prependIcon && genPrependIcon(),
           !props.clearable && props.appendIcon && genAppendIcon(),
@@ -176,6 +185,6 @@ export const VInput = defineComponent({
       }
     }
 
-    return () => h('div', genPropsData(), [genSlotContent(), genStatus()])
+    return () => h('div', genPropsData(), genInputSlot())
   }
 })

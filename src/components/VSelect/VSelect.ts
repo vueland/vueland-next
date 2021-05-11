@@ -10,7 +10,7 @@ import {
   withDirectives,
   watch,
   inject,
-  onBeforeUnmount,
+  onBeforeUnmount
 } from 'vue'
 
 // Effects
@@ -47,7 +47,7 @@ export const VSelect = defineComponent({
     readonly: Boolean,
     modelValue: [Array, String, Object, Number],
     ...validateProps(),
-    ...colorProps(),
+    ...colorProps()
   } as any,
 
   emits: [
@@ -56,14 +56,14 @@ export const VSelect = defineComponent({
     'focus',
     'select',
     'update:modelValue',
-    'update:value',
+    'update:value'
   ],
 
   setup(props, { emit }): () => VNode {
     const state: SelectState = reactive({
       selected: null,
       focused: false,
-      isMenuActive: false,
+      isMenuActive: false
     })
 
     const { setTextColor } = useColors()
@@ -73,8 +73,7 @@ export const VSelect = defineComponent({
       dirty,
       update,
       errorState,
-      validateClasses,
-      validationState,
+      validationState
     } = useValidate(props)
 
     const fields: Ref<any[]> | undefined = props.rules && inject('fields')
@@ -83,7 +82,7 @@ export const VSelect = defineComponent({
       return state.focused
         ? {
           handler: onBlur,
-          closeConditional: true,
+          closeConditional: true
         }
         : undefined
     })
@@ -94,7 +93,6 @@ export const VSelect = defineComponent({
       'v-select--readonly': props.readonly && !props.typeable,
       'v-select--focused': state.focused,
       'v-select--typeable': props.typeable,
-      ...validateClasses.value,
     }))
 
     const computedInputValue = computed<string>(() => {
@@ -118,7 +116,7 @@ export const VSelect = defineComponent({
         props.rules?.length &&
         validateValue()
       },
-      { immediate: true },
+      { immediate: true }
     )
 
     if (fields?.value && props.rules?.length) {
@@ -167,9 +165,9 @@ export const VSelect = defineComponent({
         disabled: props.disabled,
         readonly: props.readonly && !props.typeable,
         class: {
-          'v-select__input': true,
+          'v-select__input': true
         },
-        onClick,
+        onClick
       }
       return h('input', setTextColor(color, propsData))
     }
@@ -182,7 +180,7 @@ export const VSelect = defineComponent({
         active: state.isMenuActive,
         color: props.dark ? 'white' : '',
         listColor: props.listColor || 'white',
-        onSelect: (it) => selectItem(it),
+        onSelect: (it) => selectItem(it)
       }
       return h(VSelectList, propsData)
     }
@@ -191,9 +189,9 @@ export const VSelect = defineComponent({
       const selectVNode = h(
         'div',
         {
-          class: classes.value,
+          class: classes.value
         },
-        [genInput(), props.items && genSelectList()],
+        [genInput(), props.items && genSelectList()]
       )
 
       return withDirectives(selectVNode, [[clickOutside, directive.value]])
@@ -216,12 +214,12 @@ export const VSelect = defineComponent({
         disabled: props.disabled,
         isDirty: !!errorState.isDirty,
         message: errorState.innerErrorMessage,
-        onClear,
+        onClear
       } as any
 
       return h(VInput, propsData, {
-        select: () => genSelect(),
+        select: () => genSelect()
       })
     }
-  },
+  }
 })

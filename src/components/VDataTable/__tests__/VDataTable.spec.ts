@@ -43,7 +43,7 @@ describe('VDataTable', () => {
     const filter = cmp.find('.v-data-table-col__filter')
 
     expect(cmp.find('.v-data-table__cell').classes()).toContain('white--text')
-    expect(filter.find('.v-input__field-slot').classes()).toContain(
+    expect(filter.find('.v-input__slot').classes()).toContain(
       'white--text'
     )
     expect(filter.find('.v-icon').classes()).toContain('white--text')

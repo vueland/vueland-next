@@ -7,10 +7,15 @@ const vueland = new Vueland({
   theme: {
     dark: true,
     themes: {
-      light: 'color',
       dark: {
-        base: 'red darken-1',
-        primary: 'blue darken-3'
+        base: 'white',
+        primary: 'purple accent-3',
+        secondary: 'rgba(#fa5a5a, .3)',
+        accent: '',
+        error: 'pink accent-1',
+        info: '#2196F3',
+        success: '#4CAF50',
+        warning: '#FFC107'
       }
     }
   }

@@ -110,7 +110,6 @@ describe("VCheckbox", () => {
     await cmp.trigger("click");
     await cmp.trigger("click");
 
-    expect(cmp.find(".v-icon").attributes().class).toContain("danger--text");
     expect(cmp.html()).toMatchSnapshot();
   });
 });

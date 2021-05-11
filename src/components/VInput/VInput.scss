@@ -7,170 +7,179 @@
   position: relative;
   background: transparent !important;
 
-  &__select-slot,
-  &__field-slot {
-    position: relative;
+  &__slot {
     width: 100%;
     height: 100%;
-    color: inherit;
-    border-bottom: 1px solid map-get($grey, 'lighten-2');
-  }
 
-  &__field-slot {
-    & > .v-input__append-icon + .v-label +
-    .v-text-field > .v-text-field__input {
-      padding-right: 20px;
+    .v-input__select-slot {
+      & > .v-input__prepend-icon + .v-label +
+      .v-select > .v-select__input {
+        padding-left: 24px;
+      }
+
+      & > .v-input__prepend-icon + .v-input__clear + .v-label +
+      .v-select > .v-select__input {
+        padding-left: 24px;
+      }
+
+      & > .v-input__append-icon + .v-label +
+      .v-select > .v-select__input {
+        padding-right: 24px;
+      }
+
+      & > .v-input__clear + .v-label +
+      .v-select > .v-select__input {
+        padding-right: 24px;
+      }
+
+      & > .v-input__prepend-icon + .v-label +
+      .v-autocomplete > .v-autocomplete__input {
+        padding-left: 24px;
+      }
+
+      & > .v-input__prepend-icon + .v-input__clear + .v-label +
+      .v-autocomplete > .v-autocomplete__input {
+        padding-left: 24px;
+      }
+
+      & > .v-input__prepend-icon + .v-input__append-icon+ .v-label +
+      .v-autocomplete > .v-autocomplete__input {
+        padding-left: 24px;
+      }
+
+      & > .v-input__append-icon + .v-label +
+      .v-autocomplete > .v-autocomplete__input {
+        padding-right: 24px;
+      }
+
+      & > .v-input__clear + .v-label +
+      .v-autocomplete > .v-autocomplete__input {
+        padding-right: 24px;
+      }
+
+      & > .v-input__prepend-icon + .v-input__append-icon +
+      .v-label + .v-select > .v-select__input {
+        padding-left: 20px;
+      }
     }
 
-    & > .v-input__clear + .v-label +
-    .v-text-field > .v-text-field__input {
-      padding-right: 20px;
-    }
-
-    & > .v-input__prepend-icon + .v-label +
-    .v-text-field > .v-text-field__input {
-      padding-left: 23px;
-    }
-
-    & > .v-input__prepend-icon + .v-input__append-icon +
-    .v-label + .v-text-field > .v-text-field__input {
-      padding-left: 23px;
-    }
-
-    & > .v-input__prepend-icon + .v-input__clear +
-    .v-label + .v-text-field > .v-text-field__input {
-      padding-left: 23px;
-    }
-  }
-
-  &__select-slot {
-    & > .v-input__prepend-icon + .v-label +
-    .v-select > .v-select__input {
-      padding-left: 23px;
-    }
-
-    & > .v-input__prepend-icon + .v-input__clear + .v-label +
-    .v-select > .v-select__input {
-      padding-left: 23px;
-    }
-
-    & > .v-input__append-icon + .v-label +
-    .v-select > .v-select__input {
-      padding-right: 20px;
-    }
-
-    & > .v-input__clear + .v-label +
-    .v-select > .v-select__input {
-      padding-right: 20px;
-    }
-
-    & > .v-input__prepend-icon + .v-label +
-    .v-autocomplete > .v-autocomplete__input {
-      padding-left: 23px;
-    }
-
-    & > .v-input__prepend-icon + .v-input__clear + .v-label +
-    .v-autocomplete > .v-autocomplete__input {
-      padding-left: 23px;
-    }
-
-    & > .v-input__append-icon + .v-label +
-    .v-autocomplete > .v-autocomplete__input {
-      padding-right: 20px;
-    }
-
-    & > .v-input__clear + .v-label +
-    .v-autocomplete > .v-autocomplete__input {
-      padding-right: 20px;
-    }
-
-    & > .v-input__prepend-icon + .v-input__append-icon +
-    .v-label + .v-select > .v-select__input {
-      padding-left: 20px;
-    }
-  }
-
-  &__field-slot,
-  &__select-slot {
-    &:after {
-      content: "";
-      display: block;
-      position: absolute;
-      bottom: -1px;
+    .v-input__select-slot,
+    .v-input__field-slot {
+      position: relative;
       width: 100%;
-      height: 2px;
-      transform-origin: center;
-      transform: scaleX(0);
-      background-color: currentColor;
-      transition: all .3s $primary-transition;
-      will-change: transform;
+      height: 100%;
+      color: inherit;
+      border-bottom: 1px solid map-get($grey, 'lighten-2');
     }
 
-    & > .v-input__prepend-icon {
-      position: absolute;
-      top: 16px;
+    .v-input__field-slot {
+      & > .v-input__append-icon + .v-label +
+      .v-text-field > .v-text-field__input {
+        padding-right: 24px;
+      }
+
+      & > .v-input__clear + .v-label +
+      .v-text-field > .v-text-field__input {
+        padding-right: 24px;
+      }
+
+      & > .v-input__prepend-icon + .v-label +
+      .v-text-field > .v-text-field__input {
+        padding-left: 24px;
+      }
+
+      & > .v-input__prepend-icon + .v-input__append-icon +
+      .v-label + .v-text-field > .v-text-field__input {
+        padding-left: 24px;
+      }
+
+      & > .v-input__prepend-icon + .v-input__clear +
+      .v-label + .v-text-field > .v-text-field__input {
+        padding-left: 24px;
+      }
     }
 
-    & > .v-input__clear {
-      @include flex(flex, center, center);
-      width: 24px;
-      height: 24px;
-      position: absolute;
-      top: 16px;
-      left: calc(100% - 24px);
-      z-index: 1;
+    .v-input__field-slot,
+    .v-input__select-slot {
+      &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        bottom: -1px;
+        width: 100%;
+        height: 2px;
+        transform-origin: center;
+        transform: scaleX(0);
+        background-color: currentColor;
+        transition: all .3s $primary-transition;
+        will-change: transform;
+      }
+
+      & > .v-input__prepend-icon {
+        position: absolute;
+        top: 4px;
+      }
+
+      & > .v-input__clear {
+        @include flex(flex, center, center);
+        width: 24px;
+        height: 24px;
+        position: absolute;
+        top: 4px;
+        left: calc(100% - 24px);
+        z-index: 1;
+      }
+
+      & > .v-input__prepend-icon + .v-label {
+        left: 24px !important;
+        color: currentColor;
+      }
+
+      & > .v-input__prepend-icon + .v-input__append-icon + .v-label {
+        left: 24px !important;
+      }
+
+      & > .v-input__prepend-icon + .v-input__clear + .v-label {
+        left: 24px !important;
+      }
+
+      & > .v-input__append-icon {
+        position: absolute;
+        top: 4px;
+        left: calc(100% - 22px)
+      }
     }
 
-    & > .v-input__prepend-icon + .v-label {
-      left: 23px !important;
-      color: currentColor;
-    }
+    .v-input__status {
+      width: 100%;
+      height: 25px;
+      position: relative;
 
-    & > .v-input__prepend-icon + .v-input__append-icon + .v-label {
-      left: 23px !important;
-    }
-
-    & > .v-input__prepend-icon + .v-input__clear + .v-label {
-      left: 23px !important;
-    }
-
-    & > .v-input__append-icon {
-      position: absolute;
-      top: 16px;
-      left: calc(100% - 16px)
+      &-message {
+        font-size: .8rem;
+        position: absolute;
+        color: currentColor;
+        bottom: 3px;
+      }
     }
   }
 
-
-  &__status {
-    width: 100%;
-    height: 25px;
-    position: relative;
-
-    &-message {
-      font-size: .8rem;
-      position: absolute;
-      color: currentColor;
-      bottom: 3px;
-    }
-  }
-
-  &--focused > .v-input__field-slot:after,
-  &--focused > .v-input__select-slot:after, {
+  &--focused > .v-input__slot .v-input__field-slot:after,
+  &--focused > .v-input__slot .v-input__select-slot:after, {
     transform: scaleX(1);
   }
 
-  &--not-valid > .v-input__field-slot:after,
-  &--not-valid > .v-input__select-slot:after {
-    background: map-get($danger, 'base');
+  &--not-valid > .v-input__slot .v-input__field-slot:after,
+  &--not-valid > .v-input__slot .v-input__select-slot:after {
+    background: currentColor;
   }
 
-  &--not-valid > .v-input__status > .v-input__status-message {
-    color: map-get($danger, 'base');
+  &--not-valid > .v-input__slot .v-input__status > .v-input__status-message {
+    color: currentColor;
   }
 
-  &--not-valid > .v-input__field-slot,
-  &--not-valid > .v-input__select-slot {
-    border-color: map-get($danger, 'base') !important;
+  &--not-valid > .v-input__slot .v-input__field-slot,
+  &--not-valid > .v-input__slot .v-input__select-slot {
+    border-color: currentColor !important;
   }
 }

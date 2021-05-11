@@ -232,6 +232,7 @@ export default {
           buttonsColor: '',
           displayColor: ''
         },
+        color: 'blue darken-3',
         rowsPerPageOptions: [25, 40, 50, 75],
         rowsPerPageText: 'Кол-во строк',
       }"

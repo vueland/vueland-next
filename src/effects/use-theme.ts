@@ -9,7 +9,7 @@ type ThemeColors = {
 
 const defaultThemeColors: ThemeColors = {
   light: {
-    base: colors.grey.darken3,
+    base: colors.grey.darken4,
     primary: colors.blue.base,
     secondary: colors.blue.darken2,
     accent: colors.blue.accent3,

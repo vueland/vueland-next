@@ -7,6 +7,7 @@ import { h, computed, withDirectives, defineComponent } from 'vue'
 // Effects
 import { useColors } from '../../effects/use-colors'
 import { useIcons } from '../../effects/use-icons'
+import { useTheme } from '../../effects/use-theme'
 
 // Components
 import { VIcon } from '../VIcon'
@@ -34,7 +35,7 @@ export const VDataTableHeader = defineComponent({
       default: 125
     },
     align: String,
-    options: Object,
+    options: Object
   } as any,
 
   emits: [
@@ -54,13 +55,15 @@ export const VDataTableHeader = defineComponent({
       iconSize
     } = useIcons('s')
 
+    const { base } = useTheme()
+
     const classes = computed<Record<string, boolean>>(() => ({
       'v-data-table__header': true
     }))
 
     const computedContentColor = computed<string>(() => {
       return props.options.dark
-        ? props.options?.contentColor || 'white'
+        ? props.options?.contentColor || base
         : props.options?.contentColor
     })
 

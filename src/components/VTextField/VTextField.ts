@@ -9,12 +9,13 @@ import {
   computed,
   reactive,
   defineComponent,
-  onBeforeUnmount,
+  onBeforeUnmount
 } from 'vue'
 
 // Effects
 import { useValidate, validateProps } from '../../effects/use-validate'
 import { useColors, colorProps } from '../../effects/use-colors'
+import { useTheme } from '../../effects/use-theme'
 
 // Components
 import { VInput } from '../VInput'
@@ -38,15 +39,15 @@ export const VTextField = defineComponent({
     isDirty: Boolean,
     type: {
       type: String,
-      default: 'text',
+      default: 'text'
     },
     modelValue: [String, Number, Date],
     tag: {
       type: String,
-      default: 'input',
+      default: 'input'
     },
     ...validateProps(),
-    ...colorProps(),
+    ...colorProps()
   } as any,
 
   emits: [
@@ -56,13 +57,13 @@ export const VTextField = defineComponent({
     'change',
     'clear',
     'update:value',
-    'update:modelValue',
+    'update:modelValue'
   ],
 
   setup(props, { emit, attrs }): () => VNode {
     const state: TextFieldState = reactive({
       value: '',
-      focused: false,
+      focused: false
     })
 
     state.value = props.modelValue || props.value
@@ -70,6 +71,7 @@ export const VTextField = defineComponent({
     const fields: Ref<any[]> | undefined = props.rules && inject('fields')
 
     const { setTextColor } = useColors()
+    const { base } = useTheme()
 
     const {
       validate,
@@ -77,7 +79,7 @@ export const VTextField = defineComponent({
       update,
       errorState,
       validateClasses,
-      validationState,
+      validationState
     } = useValidate(props)
 
     watch(
@@ -85,7 +87,7 @@ export const VTextField = defineComponent({
       (value) => {
         state.value = value as any
         !state.focused && validateValue()
-      },
+      }
     )
 
     const classes = computed<Record<string, boolean>>(() => ({
@@ -94,7 +96,7 @@ export const VTextField = defineComponent({
       'v-text-field--dirty': errorState.isDirty,
       'v-text-field--valid': errorState.isDirty && !errorState.innerError,
       'v-text-field--not-valid': errorState.isDirty && !!errorState.innerError,
-      ...validateClasses.value,
+      ...validateClasses.value
     }))
 
     function validateValue(): boolean | void {
@@ -154,7 +156,7 @@ export const VTextField = defineComponent({
         onFocus,
         onBlur,
         onInput,
-        onChange,
+        onChange
       } as any
 
       if (props.tag === 'input') {
@@ -163,7 +165,7 @@ export const VTextField = defineComponent({
 
       return h(
         props.tag,
-        props.dark ? setTextColor('white', propsData) : propsData,
+        setTextColor(props.dark ? 'white' : base, propsData)
       )
     }
 
@@ -182,12 +184,12 @@ export const VTextField = defineComponent({
         isDirty: errorState.isDirty,
         disabled: props.disabled,
         message: errorState.innerErrorMessage,
-        onClear,
+        onClear
       }
 
       return h(VInput, propsData, {
-        textField: () => genTextField(),
+        textField: () => genTextField()
       })
     }
-  },
+  }
 })

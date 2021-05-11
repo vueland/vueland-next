@@ -16,6 +16,7 @@ import {
 // Effects
 import { validateProps, useValidate } from '../../effects/use-validate'
 import { colorProps, useColors } from '../../effects/use-colors'
+import { useTheme } from '../../effects/use-theme'
 
 // Types
 import { VNode, Ref } from 'vue'
@@ -67,7 +68,7 @@ export const VSelect = defineComponent({
     })
 
     const { setTextColor } = useColors()
-
+    const { base } = useTheme()
     const {
       validate,
       dirty,
@@ -92,7 +93,7 @@ export const VSelect = defineComponent({
       'v-select--disabled': props.disabled,
       'v-select--readonly': props.readonly && !props.typeable,
       'v-select--focused': state.focused,
-      'v-select--typeable': props.typeable,
+      'v-select--typeable': props.typeable
     }))
 
     const computedInputValue = computed<string>(() => {
@@ -158,8 +159,6 @@ export const VSelect = defineComponent({
     }
 
     function genInput(): VNode {
-      const color = props.dark ? 'white' : ''
-
       const propsData = {
         value: computedInputValue.value,
         disabled: props.disabled,
@@ -169,7 +168,7 @@ export const VSelect = defineComponent({
         },
         onClick
       }
-      return h('input', setTextColor(color, propsData))
+      return h('input', setTextColor(props.dark ? 'white' : base, propsData))
     }
 
     function genSelectList(): VNode {
@@ -178,7 +177,7 @@ export const VSelect = defineComponent({
         valueKey: props.valueKey,
         idKey: props.idKey,
         active: state.isMenuActive,
-        color: props.dark ? 'white' : '',
+        color: props.dark ? 'white' : base,
         listColor: props.listColor || 'white',
         onSelect: (it) => selectItem(it)
       }

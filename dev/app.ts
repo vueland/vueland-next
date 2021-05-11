@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import Vueland from '../src'
+import colors from '../src/utils/colors'
 
 const vueland = new Vueland({
   icons: 'material-icons',
@@ -8,8 +9,8 @@ const vueland = new Vueland({
     dark: true,
     themes: {
       dark: {
-        base: 'white',
-        primary: 'purple accent-3',
+        base: colors.indigo.base,
+        primary: colors.blue.base,
         secondary: 'rgba(#fa5a5a, .3)',
         accent: '',
         error: 'pink accent-1',

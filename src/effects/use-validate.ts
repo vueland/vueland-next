@@ -22,7 +22,7 @@ export function useValidate(props) {
   })
   const {
     primary,
-    error,
+    error
   } = useTheme()
 
   const validateClasses = computed<Record<string, boolean>>(() => {
@@ -34,7 +34,7 @@ export function useValidate(props) {
   const computedColor = computed<string | undefined>(() => {
     if (props.disabled) return undefined
     if (props.color) return props.color
-    return primary
+    return props.dark ? 'white' : primary
   })
 
   const validationState = computed<string | undefined>(() => {

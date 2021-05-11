@@ -181,7 +181,7 @@ export const VSelect = defineComponent({
         idKey: props.idKey,
         active: state.isMenuActive,
         color: props.dark ? 'white' : '',
-        listColor: props.listColor,
+        listColor: props.listColor || 'white',
         onSelect: (it) => selectItem(it),
       }
       return h(VSelectList, propsData)
@@ -211,9 +211,9 @@ export const VSelect = defineComponent({
         focused: state.focused,
         hasState: !!computedInputValue.value,
         hasError: errorState.innerError,
-        dark: !!props.dark,
+        dark: props.dark,
         color: validationState.value,
-        disabled: !!props.disabled,
+        disabled: props.disabled,
         isDirty: !!errorState.isDirty,
         message: errorState.innerErrorMessage,
         onClear,

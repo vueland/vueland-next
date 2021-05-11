@@ -13,7 +13,7 @@ exports[`VtextField should mount component and match snapshot 1`] = `
       <div class="v-text-field v-validatable">
         <input class="v-text-field__input"
                type="text"
-               style="color: rgb(66, 66, 66); caret-color: #424242;"
+               style="color: rgb(33, 33, 33); caret-color: #212121;"
         >
       </div>
     </div>

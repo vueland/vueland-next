@@ -6,7 +6,7 @@ import colors from '../src/utils/colors'
 const vueland = new Vueland({
   icons: 'material-icons',
   theme: {
-    dark: true,
+    dark: false,
     themes: {
       dark: {
         base: colors.indigo.base,

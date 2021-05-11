@@ -34,7 +34,7 @@ export const VDataTableHeader = defineComponent({
       default: 125
     },
     align: String,
-    options: Object,
+    options: Object
   } as any,
 
   emits: [

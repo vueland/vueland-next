@@ -1,13 +1,16 @@
 // Vue API
 import { reactive, computed } from 'vue'
 
+// Effects
+import { useTheme } from './use-theme'
+
 export const validateProps = () => {
   return {
     rules: {
       type: Array,
-      default: null,
+      default: null
     },
-    value: [String, Number, Date, Object],
+    value: [String, Number, Date, Object]
   }
 }
 
@@ -15,26 +18,30 @@ export function useValidate(props) {
   const errorState = reactive({
     innerError: null,
     innerErrorMessage: null,
-    isDirty: false,
+    isDirty: false
   })
+  const {
+    primary,
+    error,
+  } = useTheme()
 
   const validateClasses = computed<Record<string, boolean>>(() => {
     return {
-      'v-validatable': true,
+      'v-validatable': true
     }
   })
 
   const computedColor = computed<string | undefined>(() => {
     if (props.disabled) return undefined
     if (props.color) return props.color
-    if (props.dark) return 'white'
+    return primary
   })
 
   const validationState = computed<string | undefined>(() => {
-    if (errorState.innerError) return 'danger'
+    if (errorState.innerError) return error
     if (!errorState.innerError && errorState.innerError !== null)
       return computedColor.value
-    return computedColor.value || 'primary'
+    return computedColor.value || primary
   })
 
   const hasRules = computed<boolean>(() => {
@@ -100,6 +107,6 @@ export function useValidate(props) {
     validateClasses,
     computedColor,
     validationState,
-    errorState,
+    errorState
   }
 }

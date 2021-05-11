@@ -40,17 +40,17 @@
       min-width: 150px;
     }
 
-    &-select > .v-input > .v-input__select-slot >
+    &-select > .v-input > .v-input__slot .v-input__select-slot >
     .v-select > .v-select-list {
       transform: translateY(-90%);
     }
 
-    &-select > .v-input > .v-input__select-slot >
+    &-select > .v-input > .v-input__slot .v-input__select-slot >
     .v-select > .v-select__input {
       text-align: center !important;
     }
 
-    &-select > .v-input > .v-input__select-slot > .v-select >
+    &-select > .v-input > .v-input__slot .v-input__select-slot > .v-select >
     .v-select-list > .v-list > .v-list-item > .v-list-item__title {
       text-align: center !important;
     }

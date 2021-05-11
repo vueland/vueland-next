@@ -5,10 +5,21 @@ export type UserOptions = {
   theme?: {
     dark?: boolean,
     themes?: {
-      light?: any,
-      dark?: any
+      light?: ThemeOptions,
+      dark?: ThemeOptions
     }
   }
+}
+
+export declare type ThemeOptions = {
+  base: string
+  primary: string
+  secondary: string
+  accent: string
+  error: string
+  info: string
+  success: string
+  warning: string
 }
 
 export type OffsetSizes = {
@@ -77,8 +88,6 @@ export type HeaderOptions = {
   color?: string
   dark?: boolean
 }
-
-export type TableCol<T> = T extends keyof Column ? T : any
 
 export type ListGroup = {
   ref: ComponentPublicInstance<HTMLInputElement>

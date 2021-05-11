@@ -214,6 +214,7 @@ export default {
   <v-checkbox
     v-model="data.checked"
     label="test"
+    validate
   />
   <div
     class="table-wrap"
@@ -304,10 +305,10 @@ export default {
   >
     <v-date-picker
       v-model:value="data.date"
-      lang="en"
+      lang="ru"
       label="set date"
-      color="#ffffff"
-      content-color="#171717"
+      color="red accent-3"
+      content-color="grey darken-4"
       format="dd.mm.yyyy"
       elevation="15"
       :rules="[val => !!val || 'Required']"

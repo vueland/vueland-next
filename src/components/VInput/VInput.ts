@@ -19,7 +19,7 @@ import { themeProps } from '../../effects/use-theme'
 
 export const VInput = defineComponent({
   name: 'v-input',
-
+  inheritAttrs: false,
   props: {
     focused: Boolean,
     hasState: Boolean,

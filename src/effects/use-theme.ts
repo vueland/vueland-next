@@ -42,7 +42,7 @@ export function useTheme() {
   const light = options?.theme?.themes?.light || {}
   const dark = options?.theme?.themes?.dark || {}
 
-  if (!options?.theme.dark) {
+  if (!options?.theme?.dark) {
     return {
       ...defaultThemeColors.light,
       ...light

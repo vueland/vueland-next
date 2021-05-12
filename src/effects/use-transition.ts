@@ -1,18 +1,18 @@
-import { Transition, withCtx, createBlock, VNode, h } from 'vue'
+import { Transition, VNode, h } from 'vue'
 
 export function transitionProps() {
   return {
-    transition: String,
+    transition: String
   }
 }
 
 export function useTransition(
   vNode: VNode,
   transition: string,
-  mode: string = '',
+  mode: string = ''
 ): VNode {
   const props = { name: transition, mode }
-  return createBlock(Transition, props, {
-    default: withCtx(() => vNode && [h(vNode)]),
+  return h(Transition, props, {
+    default: () => vNode
   })
 }

@@ -2,9 +2,9 @@
 node_modules
 
 # builds
-dist
-es5
-lib
+#dist
+#es5
+#lib
 
 # Log files
 npm-debug.log*

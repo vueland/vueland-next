@@ -9,7 +9,7 @@ module.exports = {
   templateDev: 'docs/.vuepress/public/index.dev.html',
   templateSSR: 'docs/.vuepress/public/index.ssr.html',
   themeConfig: {
-    logo: 'https://vuejs.org/images/logo.png',
+    logo: 'https://avatars.githubusercontent.com/u/69472704?s=200&v=4',
     docsDir: 'docs',
     navbar: [
       {

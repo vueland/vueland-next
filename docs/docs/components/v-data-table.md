@@ -29,7 +29,6 @@
 </v-data-table>
 ```
 ## Props
-<style src="../../../styles/js.css"></style>
 
 <table>
     <thead>

@@ -1,7 +1,8 @@
 import { defineClientAppEnhance } from '@vuepress/client'
 import { Vueland } from 'vueland'
-import 'vueland/dist/vueland.css'
 import * as components from './components'
+import 'vueland/dist/vueland.css'
+import './styles/js.css'
 
 const vueland = new Vueland({
   icons: 'material-icons',

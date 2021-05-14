@@ -226,17 +226,17 @@ export default {
         :rows="data.users"
         color="grey darken-2"
         :header-options="{
-        color: 'grey darken-4'
-      }"
+          color: 'grey darken-4'
+        }"
         :footer-options="{
-        pagination: {
-          buttonsColor: '',
-          displayColor: ''
-        },
-        color: 'blue darken-3',
-        rowsPerPageOptions: [25, 40, 50, 75],
-        rowsPerPageText: 'Кол-во строк',
-      }"
+          pagination: {
+            buttonsColor: '',
+            displayColor: ''
+          },
+          color: 'blue darken-3',
+          rowsPerPageOptions: [25, 40, 50, 75],
+          rowsPerPageText: 'Кол-во строк',
+        }"
         dark
         align="left"
         class="elevation-10"
@@ -371,7 +371,6 @@ export default {
 
     <v-form>
       <v-card
-        v-if="!data.show"
         elevation="5"
       >
         <v-resize right />
@@ -379,10 +378,10 @@ export default {
         <v-resize top />
         <v-resize left />
         <v-card-title>
-        <span
-          style="display: block; width: 55px; height: 55px; border-radius: 50px"
-          class="v-loading v-loading--dynamic"
-        ></span>
+          <span
+            style="display: block; width: 55px; height: 55px; border-radius: 50px"
+            class="v-loading v-loading--dynamic"
+          ></span>
         </v-card-title>
         <v-card-content>
           <div style="width: 100%">
@@ -390,15 +389,15 @@ export default {
               style="display: flex; align-items: center"
               class="v-loading--dynamic"
             >
-            <span
-              style="
+              <span
+                style="
                 width: 40px;
                 height: 40px;
                 border-radius: 50px;
                 margin-right: 10px;
               "
-              class="v-loading"
-            ></span>
+                class="v-loading"
+              ></span>
               <span
                 style="display: block; height: 25px"
                 class="v-loading"
@@ -425,23 +424,6 @@ export default {
               class="v-loading v-loading--dynamic"
             ></span>
           </div>
-        </v-card-content>
-      </v-card>
-
-      <v-card
-        v-if="data.show"
-        elevation="5"
-      >
-        <v-card-title>
-          <span style="">Testting header</span>
-          <v-checkbox label="test" />
-        </v-card-title>
-        <v-card-content>
-          <span style="display: block">some little text</span>
-          <span style="display: block">some little text</span>
-          <span style="display: block">some little text</span>
-          <span style="display: block">some little text</span>
-          <span style="display: block">some little text</span>
         </v-card-content>
       </v-card>
     </v-form>
@@ -483,7 +465,7 @@ export default {
             elevation="3"
             style="margin-right: 10px;"
             label="toggle"
-            color="blue"
+            color="red"
             v-on="on"
             @click="data.show = !data.show"
           />

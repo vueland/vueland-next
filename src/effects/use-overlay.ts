@@ -35,19 +35,18 @@ export function useOverlay(props: any, overlayOn?: Element): Overlayable {
     color: props.overlayColor,
   }
 
+  let overlayElement: ChildNode | null = null
+
   const overlayVNode = () => {
     return VOverlay.setup!(
       overlayPropsObject as typeof VOverlay.props,
-      {} as SetupContext,
+      {} as SetupContext
     )
   }
 
   const renderOverlay = () => {
     render(overlayVNode() as VNode, container!)
   }
-
-  renderOverlay()
-  const overlayElement = container.firstChild
 
   const createOverlay = () => {
     overlayOn?.parentNode?.insertBefore(overlayElement!, overlayOn)
@@ -70,6 +69,9 @@ export function useOverlay(props: any, overlayOn?: Element): Overlayable {
 
     addOnceListener(overlayElement!, 'transitionend', remove)
   }
+
+  renderOverlay()
+  overlayElement = container.firstChild
 
   return {
     createOverlay,

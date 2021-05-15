@@ -2,16 +2,20 @@
 
 <div>
       <v-date-picker
-        :value="new Date()"
         lang="ru"
         label="set date"
         color="grey darken-3"
         content-color="amber accent-3"
-        format="dd-mm-yyyy"
+        format="dd MMMM yyyy D"
         elevation="15"
         use-mls
+        today
         clearable
+        typeable
         prepend-icon="event"
         monday-first
+        :disabled-dates="{
+            days: [0, 6],
+        }"
       />
 </div>

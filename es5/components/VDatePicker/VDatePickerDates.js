@@ -16,20 +16,21 @@ var _useTransition = require("../../effects/use-transition");
 var VDatePickerDates = (0, _vue.defineComponent)({
   name: 'v-date-picker-dates',
   props: {
-    localWeek: Array,
+    locale: Array,
     year: [String, Number],
     month: [String, Number],
     date: [String, Number],
     value: Object,
-    mondayFirst: Boolean
+    mondayFirst: Boolean,
+    disabledDates: Object
   },
   emits: ['update:month', 'update:value'],
   setup: function setup(props, _ref) {
     var emit = _ref.emit;
     var FIRST_MONTH = 0;
     var LAST_MONTH = 11;
-    var WEEK = [0, 1, 2, 3, 4, 5, 6];
-    var ANIMATION_TIMEOUT = 100;
+    var DAYS = [0, 1, 2, 3, 4, 5, 6];
+    var ANIMATION_TIMEOUT = 0;
     var dates = (0, _vue.ref)([]);
     var isDatesChanged = (0, _vue.ref)(false);
     var today = (0, _helpers.parseDate)(new Date());
@@ -44,7 +45,7 @@ var VDatePickerDates = (0, _vue.defineComponent)({
     };
 
     if (props.mondayFirst) {
-      WEEK.push(WEEK.splice(0, 1)[0]);
+      DAYS.push(DAYS.splice(0, 1)[0]);
     }
 
     var daysInMonth = (0, _vue.computed)(function () {
@@ -80,8 +81,8 @@ var VDatePickerDates = (0, _vue.defineComponent)({
       var propsData = {
         "class": 'v-date-picker-dates__day'
       };
-      return WEEK.map(function (day) {
-        return (0, _vue.h)('span', propsData, props.localWeek[day]);
+      return DAYS.map(function (day) {
+        return (0, _vue.h)('span', propsData, props.locale[day]);
       });
     }
 
@@ -92,9 +93,9 @@ var VDatePickerDates = (0, _vue.defineComponent)({
     }
 
     function setEmptiesBeforeFirstDate(dateObject) {
-      var firstDay = WEEK[0];
+      var firstDay = DAYS[0];
       var startDay = firstDay && !dateObject.day ? dateObject.day : firstDay;
-      var tillDay = firstDay && !dateObject.day ? WEEK.length - 1 : dateObject.day;
+      var tillDay = firstDay && !dateObject.day ? DAYS.length - 1 : dateObject.day;
 
       for (var i = startDay; i <= tillDay; i += 1) {
         dates.value[i] = {
@@ -123,20 +124,64 @@ var VDatePickerDates = (0, _vue.defineComponent)({
       return date1.date === date2.date && date1.month === date2.month && date1.year === date2.year;
     }
 
-    function genDateCell(dateObject) {
+    function setDisabled(date) {
+      if (!date.date) return false;
+      if (!props.disabledDates) return !!date.isHoliday;
+      var disabledDates = props.disabledDates;
+      return disabledDates.daysOfMonth && disableDaysOfMonth(date) || disabledDates.from && disableFromTo(date, disabledDates) || disabledDates.dates && disableDates(date) || disabledDates.days && disableDays(date) || disabledDates.ranges && disableRanges(date) || disabledDates.custom && disabledDates.custom(date);
+    }
+
+    function disableFromTo(date, _ref2) {
+      var from = _ref2.from,
+          to = _ref2.to;
+      var dateFrom = (0, _helpers.parseDate)(from);
+      var dateTo = (0, _helpers.parseDate)(to);
+      return date.mls >= dateFrom.mls && date.mls <= dateTo.mls;
+    }
+
+    function disableDaysOfMonth(date) {
+      return !!props.disabledDates.daysOfMonth.find(function (it) {
+        return it === date.date;
+      });
+    }
+
+    function disableDates(date) {
+      return props.disabledDates.dates.find(function (d) {
+        return String(d) === String((0, _helpers.toDateString)(date));
+      });
+    }
+
+    function disableDays(date) {
+      return props.disabledDates.days.find(function (d) {
+        return d === date.day;
+      }) >= 0;
+    }
+
+    function disableRanges(date) {
+      var ranges = props.disabledDates.ranges;
+
+      for (var i = 0; i < ranges.length; i += 1) {
+        if (disableFromTo(date, ranges[i])) return true;
+      }
+    }
+
+    function genDateCell(date) {
+      var isSelected = compareDates(date, props.value);
+      var isToday = compareDates(date, today);
+      date.isHoliday = setDisabled(date);
       var propsData = {
         "class": {
-          'v-date-picker-dates__cell': !!dateObject.date,
-          'v-date-picker-dates__cell--empty': !dateObject.date,
-          'v-date-picker-dates__cell--selected': compareDates(dateObject, props.value),
-          'v-date-picker-dates__cell--current-date': compareDates(dateObject, today),
-          'v-date-picker-dates__cell--holiday': dateObject.isHoliday
+          'v-date-picker-dates__cell': !!date.date,
+          'v-date-picker-dates__cell--empty': !date.date,
+          'v-date-picker-dates__cell--selected': isSelected,
+          'v-date-picker-dates__cell--current-date': isToday,
+          'v-date-picker-dates__cell--holiday': date.date && date.isHoliday
         },
         onClick: function onClick() {
-          return dateObject.date && emit('update:value', dateObject);
+          return date.date && emit('update:value', date);
         }
       };
-      return (0, _vue.h)('div', propsData, dateObject.date);
+      return (0, _vue.h)('div', propsData, date.date);
     }
 
     function genDateCells() {
@@ -148,7 +193,7 @@ var VDatePickerDates = (0, _vue.defineComponent)({
 
     function genDateRows() {
       var datesVNodes = genDateCells();
-      return (0, _helpers.genTableRows)(datesVNodes, 'v-date-picker-dates__row', WEEK.length);
+      return (0, _helpers.genTableRows)(datesVNodes, 'v-date-picker-dates__row', DAYS.length);
     }
 
     function genDates() {

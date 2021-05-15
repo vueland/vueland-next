@@ -137,9 +137,9 @@ export const VDatePickerDates = defineComponent({
       )
     }
 
-    function setDisabled(date) {
-      if (!date.date) return
-      if (!props.disabledDates) return date.isHoliday
+    function setDisabled(date: DatePickerDate): boolean {
+      if (!date.date) return false
+      if (!props.disabledDates) return !!date.isHoliday
       const { disabledDates } = props
 
       return (
@@ -180,15 +180,14 @@ export const VDatePickerDates = defineComponent({
       const { ranges } = props.disabledDates
 
       for (let i = 0; i < ranges.length; i += 1) {
-        if (disableFromTo(date, ranges[i])) {
-          return true
-        }
+        if (disableFromTo(date, ranges[i])) return true
       }
     }
 
     function genDateCell(date: DatePickerDate): VNode {
-      const isSelected = compareDates(date, props.value)
-      const isToday = compareDates(date, today)
+      const isSelected: boolean = compareDates(date, props.value)
+      const isToday: boolean = compareDates(date, today)
+
       date.isHoliday = setDisabled(date)
 
       const propsData = {
@@ -202,12 +201,12 @@ export const VDatePickerDates = defineComponent({
         onClick: () => date.date && emit('update:value', date)
       }
 
-      return h('div', propsData, date.date)
+      return h('div', propsData, date.date as number)
     }
 
     function genDateCells(): VNode[] {
       return dates.value.reduce((acc, dateObject) => {
-        acc.push(genDateCell(dateObject as DatePickerDate))
+        acc.push(genDateCell(dateObject!))
         return acc
       }, [] as VNode[])
     }

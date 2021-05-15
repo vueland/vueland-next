@@ -4,16 +4,19 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.genTableRows = genTableRows;
+exports.toDateString = toDateString;
 exports.parseDate = parseDate;
 
 var _vue = require("vue");
+
+var _utils = require("./utils");
 
 function genTableRows(vNodesArray, rowClassName, cellsInRow) {
   var tableRows = [];
   var vNodesInRow = [];
 
   var genTableRow = function genTableRow(cellVNodes) {
-    return (0, _vue.h)("div", {
+    return (0, _vue.h)('div', {
       "class": rowClassName
     }, cellVNodes);
   };
@@ -34,14 +37,18 @@ function genTableRows(vNodesArray, rowClassName, cellsInRow) {
   return tableRows;
 }
 
+function toDateString(date) {
+  return new Date(date.year, date.month, date.date);
+}
+
 function parseDate(selectedDate) {
   var date = new Date(selectedDate);
-  var day = date.getDay();
+  var day = (0, _utils.getDay)(date);
   return {
-    year: date.getFullYear(),
-    month: date.getMonth(),
-    date: date.getDate(),
-    isHoliday: day === 0 || day === 6,
+    year: (0, _utils.getFullYear)(date),
+    month: (0, _utils.getMonth)(date),
+    date: (0, _utils.getDate)(date),
+    mls: date.getTime(),
     day: day
   };
 }

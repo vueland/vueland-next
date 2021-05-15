@@ -21,6 +21,7 @@
     border-radius: $date-picker-border-radius;
     border: 2px solid transparent;
     transition: background .2s $primary-transition;
+    font-size: .85rem;
 
     &--selected {
       border-color: $date-picker-cell-selected-color;

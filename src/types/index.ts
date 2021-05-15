@@ -3,9 +3,9 @@ import { ComponentPublicInstance } from 'vue'
 export type UserOptions = {
   icons?: 'material-icons'
   theme?: {
-    dark?: boolean,
+    dark?: boolean
     themes?: {
-      light?: ThemeOptions,
+      light?: ThemeOptions
       dark?: ThemeOptions
     }
   }
@@ -61,7 +61,7 @@ export type Column = {
   rowCellClass?: string
   show?: boolean
   format?: (row: any) => any
-  filter?: (arg: TableFilter) => any,
+  filter?: (arg: TableFilter) => any
   sort?: (a: any, b: any) => number
 }
 
@@ -76,7 +76,7 @@ type PaginationOptions = {
 }
 
 export type FooterOptions = {
-  pagination?: PaginationOptions,
+  pagination?: PaginationOptions
   rowsPerPageOptions?: number[]
   rowsCountText?: string
   color?: string

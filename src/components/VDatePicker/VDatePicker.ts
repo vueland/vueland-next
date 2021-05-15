@@ -1,43 +1,35 @@
 // Styles
 import './VDatePicker.scss'
-
 // Vue API
-import {
-  h,
-  ref,
-  reactive,
-  provide,
-  computed,
-  withDirectives,
-  defineComponent,
-} from 'vue'
-
 // Directives
-import { vShow } from 'vue'
+// Types
+import {
+  computed,
+  defineComponent,
+  h,
+  provide,
+  reactive,
+  ref,
+  VNode,
+  vShow,
+  withDirectives,
+} from 'vue'
 import { clickOutside } from '../../directives'
-
 // Effects
 import { useColors } from '../../effects/use-colors'
 import { elevationProps, useElevation } from '../../effects/use-elevation'
 import { useTransition } from '../../effects/use-transition'
-
 // Components
 import { VTextField } from '../VTextField'
 import { VDatepickerHeader } from './VDatepickerHeader'
 import { VDatePickerDates } from './VDatePickerDates'
 import { VDatePickerYears } from './VDatePickerYears'
 import { VDatePickerMonths } from './VDatePickerMonths'
-
 // Helpers
 import { parseDate } from './helpers'
-
 // Utils
-import { dateStringSeparator } from './util'
-
-// Types
-import { VNode } from 'vue'
-import { DatePickerBtnHandlers, DatePickerDate, DateParams } from '../../types'
-
+import { formatDate } from './utils'
+import { DatePickerBtnHandlers, DatePickerDate } from '../../types'
 // Services
 import { locale } from '../../services/locale'
 
@@ -70,8 +62,6 @@ export const VDatePicker = defineComponent({
     today: Boolean,
     useMls: Boolean,
     useUtc: Boolean,
-    useIso: Boolean,
-    useJson: Boolean,
     lang: {
       type: String,
       default: 'en',
@@ -152,14 +142,7 @@ export const VDatePicker = defineComponent({
 
     const computedValue = computed<string | number | Date>(() => {
       const { year, month, date } = data.selected as DatePickerDate
-      const selectedDate = new Date(year, month, date as number)
-
-      if (props.useMls) return selectedDate.getTime()
-      if (props.useUtc) return selectedDate.toUTCString()
-      if (props.useIso) return selectedDate.toISOString()
-      if (props.useJson) return selectedDate.toJSON()
-
-      return selectedDate
+      return new Date(year, month, date as number)
     })
 
     const directive = computed<object | undefined>(() => {
@@ -233,17 +216,15 @@ export const VDatePicker = defineComponent({
 
     function onDateUpdate(date: DatePickerDate) {
       if (!date) return
-
       data.selected = date
+      data.tableMonth = date.month
+      data.tableYear = date.year
 
-      const converted = convertToFormat() as string
-      const dateValue = computedValue.value || converted
+      data.convertedDateString = convertToFormat() as string
 
-      data.convertedDateString = converted
-
-      emit('update:value', dateValue)
-      emit('update:modelValue', dateValue)
-      emit('selected', dateValue)
+      emit('update:value', computedValue.value)
+      emit('update:modelValue', computedValue.value)
+      emit('selected', computedValue.value)
 
       data.isActive = false
     }
@@ -255,51 +236,33 @@ export const VDatePicker = defineComponent({
 
     function onDateInput(date: string): any {
       data.isActive = false
-
-      data.convertedDateString = null
-
-      if (date.length !== props.format.length) return
-
       onDateUpdate(stringToDate(date)!)
     }
 
-    function stringToDate(stringDate: string): DatePickerDate | null {
-      const date = {} as DateParams
-      const { separated: dateArray } = dateStringSeparator(stringDate)!
-      const { separated } = dateStringSeparator(props.format)!
+    function stringToDate(date: string): DatePickerDate | null {
+      if (date.length === 10) {
+        const dateArray = date.trim().split(/\W/)
 
-      if (!separated) return null
+        if (dateArray[0].length < 4) {
+          date = dateArray.reverse().join('.')
+        }
 
-      separated.forEach((it, i) => (date[it] = +dateArray[i]))
-
-      return parseDate(new Date(date.yyyy, date.mm - 1, date.dd))
+        return parseDate(new Date(Date.parse(date)))
+      }
+      return null
     }
 
     function convertToFormat(): string {
       if (!data.selected) return ''
-
-      const { separated, symbol } = dateStringSeparator(props.format) as any
-      const isLocal = separated.includes('MM')
-
-      const dateParams = {
-        yyyy: data.selected!.year,
-        mm: data.selected!.month + 1,
-        dd: data.selected!.date,
-        MM: localMonths[data.selected!.month],
-      } as DateParams
-
-      let dateString = ''
-
-      for (const val of separated) {
-        if (val.length === 2 && dateParams[val] < 10) {
-          dateString += '0' + dateParams[val]
-        } else {
-          dateString += dateParams[val]
-        }
-        dateString += dateString.length < 10 ? (!isLocal ? symbol : ' ') : ''
-      }
-
-      return dateString
+      return formatDate(
+        new Date(
+          data.selected!.year,
+          data.selected!.month,
+          data.selected!.date as number
+        ),
+        props.format,
+        locale[props.lang]
+      )
     }
 
     function genDisplayValue(value: string | number): VNode {
@@ -367,7 +330,7 @@ export const VDatePicker = defineComponent({
         lang: props.lang,
         month: data.tableMonth,
         year: data.tableYear,
-        localMonths,
+        locale: localMonths,
         ['onUpdate:month']: onMonthUpdate,
         ['onUpdate:year']: onYearUpdate,
       })
@@ -375,11 +338,12 @@ export const VDatePicker = defineComponent({
 
     function genDatepickerDatesTable(): VNode {
       return h(VDatePickerDates, {
-        localWeek,
+        locale: localWeek,
         mondayFirst: props.mondayFirst,
         month: data.tableMonth,
         year: data.tableYear,
         value: data.selected,
+        disabledDates: props.disabledDates,
         ['onUpdate:value']: onDateUpdate,
         ['onUpdate:month']: onDateMonthUpdate,
       })
@@ -417,6 +381,13 @@ export const VDatePicker = defineComponent({
         clearable: props.clearable,
         onFocus: () => (data.isActive = true),
         onInput: onDateInput,
+
+        onClear: () => {
+          data.convertedDateString = ''
+          emit('update:value', null)
+          emit('update:modelValue', null)
+          emit('selected', null)
+        },
       })
     }
 

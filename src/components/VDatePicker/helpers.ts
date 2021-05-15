@@ -1,5 +1,6 @@
 import { h, VNode } from 'vue'
 import { getFullYear, getMonth, getDate, getDay } from './utils'
+import { DatePickerDate } from '@/types'
 
 export function genTableRows(
   vNodesArray: VNode[],
@@ -33,7 +34,7 @@ export function toDateString(date) {
   return new Date(date.year, date.month, date.date)
 }
 
-export function parseDate(selectedDate: Date | string) {
+export function parseDate(selectedDate: Date | string): DatePickerDate {
   const date = new Date(selectedDate)
   const day = getDay(date)
 

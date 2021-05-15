@@ -31,6 +31,7 @@ function useOverlay(props, overlayOn) {
     hide: true,
     color: props.overlayColor
   };
+  var overlayElement = null;
 
   var overlayVNode = function overlayVNode() {
     return _components.VOverlay.setup(overlayPropsObject, {});
@@ -39,9 +40,6 @@ function useOverlay(props, overlayOn) {
   var renderOverlay = function renderOverlay() {
     (0, _vue.render)(overlayVNode(), container);
   };
-
-  renderOverlay();
-  var overlayElement = container.firstChild;
 
   var createOverlay = function createOverlay() {
     var _overlayOn$parentNode;
@@ -67,6 +65,8 @@ function useOverlay(props, overlayOn) {
     (0, _helpers.addOnceListener)(overlayElement, 'transitionend', remove);
   };
 
+  renderOverlay();
+  overlayElement = container.firstChild;
   return {
     createOverlay: createOverlay,
     removeOverlay: removeOverlay

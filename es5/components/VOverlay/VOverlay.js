@@ -12,11 +12,12 @@ var _vue = require("vue");
 var _useColors2 = require("@/effects/use-colors");
 
 var VOverlay = (0, _vue.defineComponent)({
-  name: "v-overlay",
+  name: 'v-overlay',
   props: {
     hide: Boolean,
     active: Boolean,
-    color: String
+    color: String,
+    fixed: Boolean
   },
   setup: function setup(props) {
     var _useColors = (0, _useColors2.useColors)(),
@@ -24,9 +25,9 @@ var VOverlay = (0, _vue.defineComponent)({
 
     var classes = (0, _vue.computed)(function () {
       return {
-        "v-overlay": true,
-        "v-overlay--hidden": props.hide,
-        "v-overlay--active": props.active
+        'v-overlay': true,
+        'v-overlay--hidden': props.hide,
+        'v-overlay--active': props.active
       };
     });
 
@@ -34,11 +35,11 @@ var VOverlay = (0, _vue.defineComponent)({
       return {
         "class": classes.value,
         style: [],
-        ref: "overlay"
+        ref: 'overlay'
       };
     }
 
-    return (0, _vue.h)("div", setBackground(props.color, genDataProps()));
+    return (0, _vue.h)('div', setBackground(props.color, genDataProps()));
   }
 });
 exports.VOverlay = VOverlay;

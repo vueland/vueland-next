@@ -9,12 +9,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
 function clickHandler(e, el) {
   if (el.contains(e.target) && el._binds.value && !el._binds.value.closeConditional) return;
-  if (typeof el._binds.value === "function") el._binds.value();
-  if (_typeof(el._binds.value) === "object") el._binds.value.handler();
+  if (typeof el._binds.value === 'function') el._binds.value();
+  if (_typeof(el._binds.value) === 'object') el._binds.value.handler();
 }
 
 function removeListener(el) {
-  document.body.removeEventListener("click", el._onClick, true);
+  document.body.removeEventListener('click', el._onClick, true);
   delete el._onClick;
   delete el._binds;
 }
@@ -28,7 +28,7 @@ var clickOutside = {
       return clickHandler(e, el);
     };
 
-    document.body.addEventListener("click", el._onClick, true);
+    document.body.addEventListener('click', el._onClick, true);
   },
   beforeUpdate: function beforeUpdate(el, binding) {
     el._binds = binding;

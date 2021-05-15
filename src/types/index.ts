@@ -39,6 +39,7 @@ export type DatePickerDate = {
   month: number
   date: number | null
   day: number
+  mls: number
   isHoliday?: boolean
 }
 

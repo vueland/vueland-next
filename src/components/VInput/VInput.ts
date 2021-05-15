@@ -33,14 +33,14 @@ export const VInput = defineComponent({
     message: String,
     type: {
       type: String,
-      default: 'text'
+      default: 'text',
     },
     color: {
       type: String,
-      default: 'primary'
+      default: 'primary',
     },
     modelValue: [String, Number],
-    ...themeProps()
+    ...themeProps(),
   } as any,
 
   emits: ['clear'],
@@ -63,7 +63,7 @@ export const VInput = defineComponent({
       'v-input--dirty': props.isDirty,
       'v-input--valid': isValid.value,
       'v-input--not-valid': isNotValid.value,
-      'v-input--focused': props.focused
+      'v-input--focused': props.focused,
     }))
 
     function genLabel(): VNode {
@@ -73,11 +73,11 @@ export const VInput = defineComponent({
         hasState: props.hasState,
         disabled: props.disabled,
         focused: props.focused,
-        color: props.color
+        color: props.color,
       }
 
       return h(VLabel, propsData, {
-        default: () => props.label
+        default: () => props.label,
       })
     }
 
@@ -88,7 +88,7 @@ export const VInput = defineComponent({
         icon: iconName,
         size: iconSize,
         disabled: props.disabled,
-        clickable
+        clickable,
       })
     }
 
@@ -101,62 +101,50 @@ export const VInput = defineComponent({
     }
 
     function genAppendIcon() {
-      return h(
-        'div',
-        {
-          class: 'v-input__append-icon'
-        },
-        genIcon(props.appendIcon)
-      )
+      const propsData = { class: 'v-input__append-icon' }
+      return h('div', propsData, genIcon(props.appendIcon))
     }
 
     function genClearIcon() {
-      return h(
-        'div',
-        {
-          class: 'v-input__clear',
-          onClick: () => !props.disabled && emit('clear')
-        },
-        genIcon(icons.$close, true)
-      )
+      const propsData = {
+        class: 'v-input__clear',
+        onClick: () => !props.disabled && emit('clear'),
+      }
+      return h('div', propsData, genIcon(icons.$close, true))
     }
 
     function genInputSlot() {
       const propsData = {
-        class: 'v-input__slot'
+        class: 'v-input__slot',
       }
-      return h('div',
+      return h(
+        'div',
         props.color ? setTextColor(props.color, propsData) : propsData,
-        [genSlotContent(), genStatus()])
+        [genSlotContent(), genStatus()]
+      )
     }
 
     function genSlotContent(): VNode {
       const propsData = {
         class: {
           'v-input__select-slot': !!slots.select,
-          'v-input__field-slot': !!slots.textField
-        }
+          'v-input__field-slot': !!slots.textField,
+        },
       }
 
-      return h(
-        'div',
-        propsData,
-        [
-          props.prependIcon && genPrependIcon(),
-          !props.clearable && props.appendIcon && genAppendIcon(),
-          props.clearable && genClearIcon(),
-          genLabel(),
-          slots.select && slots.select(),
-          slots.textField && slots.textField()
-        ]
-      )
+      return h('div', propsData, [
+        props.prependIcon && genPrependIcon(),
+        !props.clearable && props.appendIcon && genAppendIcon(),
+        props.clearable && genClearIcon(),
+        genLabel(),
+        slots.select && slots.select(),
+        slots.textField && slots.textField(),
+      ])
     }
 
     function genStatusMessage(): VNode {
       const propsData = {
-        class: {
-          'v-input__status-message': true
-        }
+        class: { 'v-input__status-message': true },
       }
 
       return h('span', propsData, props.message)
@@ -168,23 +156,15 @@ export const VInput = defineComponent({
         'fade'
       )
 
-      const propsData = {
-        class: {
-          'v-input__status': true
-        }
-      }
+      const propsData = { class: 'v-input__status' }
 
       return h('div', propsData, transitionedMessage)
     }
 
     function genPropsData() {
-      return {
-        class: {
-          ...classes.value
-        }
-      }
+      return { class: classes.value }
     }
 
     return () => h('div', genPropsData(), genInputSlot())
-  }
+  },
 })

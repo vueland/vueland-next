@@ -126,22 +126,22 @@
       }
 
       const disabledDates = {
-        from: new Date(2021, 4, 2),
-        to: new Date(2021, 4, 10),
-        // days: [0, 6, 1],
+        // from: new Date(2021, 4, 2),
+        // to: new Date(2021, 4, 10),
+        days: [0, 6],
         // daysOfMonth: [29, 30, 31],
         // dates: [
         //   new Date(2021, 6, 14),
         //   new Date(2021, 6, 15),
         //   new Date(2021, 6, 16),
         // ],
-        ranges: [{ // Disable dates in given ranges (exclusive).
-          from: new Date(2021, 4, 25),
-          to: new Date(2021, 5, 10),
-        }, {
-          from: new Date(2021, 6, 12),
-          to: new Date(2021, 7, 25),
-        }],
+        // ranges: [{ // Disable dates in given ranges (exclusive).
+        //   from: new Date(2021, 4, 25),
+        //   to: new Date(2021, 5, 10),
+        // }, {
+        //   from: new Date(2021, 6, 12),
+        //   to: new Date(2021, 7, 25),
+        // }],
         // custom: (date) => !(date.date % 2)
       }
 

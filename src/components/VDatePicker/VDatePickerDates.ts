@@ -29,7 +29,7 @@ export const VDatePickerDates = defineComponent({
     date: [String, Number],
     value: Object,
     mondayFirst: Boolean,
-    disabledDates: Object,
+    disabledDates: Object
   } as any,
 
   emits: ['update:month', 'update:value'],
@@ -40,7 +40,7 @@ export const VDatePickerDates = defineComponent({
     const DAYS = [0, 1, 2, 3, 4, 5, 6]
     const ANIMATION_TIMEOUT = 0
 
-    const dates = ref<(Date | null)[]>([])
+    const dates = ref<(DatePickerDate | null)[]>([])
     const isDatesChanged = ref<boolean>(false)
     const today = parseDate(new Date())
 
@@ -48,7 +48,7 @@ export const VDatePickerDates = defineComponent({
 
     handlers.value = {
       onNext: () => updateMonth(true),
-      onPrev: () => updateMonth(false),
+      onPrev: () => updateMonth(false)
     }
 
     if (props.mondayFirst) {
@@ -89,7 +89,7 @@ export const VDatePickerDates = defineComponent({
 
     function genWeekDays(): VNode[] {
       const propsData = {
-        class: 'v-date-picker-dates__day',
+        class: 'v-date-picker-dates__day'
       }
 
       return DAYS.map((day) =>
@@ -121,7 +121,6 @@ export const VDatePickerDates = defineComponent({
       dates.value = []
       for (let i = 1; i <= daysInMonth.value; i += 1) {
         const dateObject = genDateObject(i)
-
         if (i === 1) {
           setEmptiesBeforeFirstDate(dateObject)
         } else {
@@ -139,60 +138,55 @@ export const VDatePickerDates = defineComponent({
     }
 
     function setDisabled(date) {
+      if (!date.date) return
       if (!props.disabledDates) return date.isHoliday
+      const { disabledDates } = props
 
       return (
-        (props.disabledDates.daysOfMonth && disableDaysOfMonth(date)) ||
-        (props.disabledDates.from &&
-          disableFromTo(date, props.disabledDates)) ||
-        (props.disabledDates.dates && disableDates(date)) ||
-        (props.disabledDates.days && disableDays(date)) ||
-        // (props.disabledDates.ranges && disableRanges(date)) ||
-        (props.disabledDates.custom && props.disabledDates.custom(date))
+        (disabledDates.daysOfMonth && disableDaysOfMonth(date)) ||
+        (disabledDates.from && disableFromTo(date, disabledDates)) ||
+        (disabledDates.dates && disableDates(date)) ||
+        (disabledDates.days && disableDays(date)) ||
+        (disabledDates.ranges && disableRanges(date)) ||
+        (disabledDates.custom && disabledDates.custom(date))
       )
     }
 
     function disableFromTo(date: DatePickerDate, { from, to }): boolean {
-      const dateFrom = parseDate(from)
-      const dateTo = parseDate(to)
-
-      console.log(dateFrom)
+      const dateFrom: DatePickerDate = parseDate(from)
+      const dateTo: DatePickerDate = parseDate(to)
 
       return (
-        date.year >= dateFrom.year! &&
-        date.year <= dateTo.year! &&
-        date.month >= dateFrom.month! &&
-        date.month <= dateTo.month! &&
-        date.date! >= dateFrom.date! &&
-        date.date! <= dateTo.date!
+        date.mls >= dateFrom.mls &&
+        date.mls <= dateTo.mls
       )
     }
 
-    function disableDaysOfMonth(date) {
+    function disableDaysOfMonth(date: DatePickerDate) {
       return !!props.disabledDates.daysOfMonth.find((it) => it === date.date)
     }
 
-    function disableDates(date) {
+    function disableDates(date: DatePickerDate): boolean {
       return props.disabledDates.dates.find((d) => {
         return String(d) === String(toDateString(date))
       })
     }
 
-    function disableDays(date) {
+    function disableDays(date: DatePickerDate): boolean {
       return props.disabledDates.days.find((d) => d === date.day) >= 0
     }
 
-    // function disableRanges(date) {
-    //   const ranges = props.disabledDates.ranges
-    //
-    //   for (let i = 0; i < ranges.length; i += 1) {
-    //     if (disableFromTo(date, ranges[i])) {
-    //       console.log('suuuuka')
-    //     }
-    //   }
-    // }
+    function disableRanges(date: DatePickerDate) {
+      const { ranges } = props.disabledDates
 
-    function genDateCell(date): VNode {
+      for (let i = 0; i < ranges.length; i += 1) {
+        if (disableFromTo(date, ranges[i])) {
+          return true
+        }
+      }
+    }
+
+    function genDateCell(date: DatePickerDate): VNode {
       const isSelected = compareDates(date, props.value)
       const isToday = compareDates(date, today)
       date.isHoliday = setDisabled(date)
@@ -203,9 +197,9 @@ export const VDatePickerDates = defineComponent({
           'v-date-picker-dates__cell--empty': !date.date,
           'v-date-picker-dates__cell--selected': isSelected,
           'v-date-picker-dates__cell--current-date': isToday,
-          'v-date-picker-dates__cell--holiday': date.date && date.isHoliday,
+          'v-date-picker-dates__cell--holiday': date.date && date.isHoliday
         },
-        onClick: () => date.date && emit('update:value', date),
+        onClick: () => date.date && emit('update:value', date)
       }
 
       return h('div', propsData, date.date)
@@ -213,9 +207,9 @@ export const VDatePickerDates = defineComponent({
 
     function genDateCells(): VNode[] {
       return dates.value.reduce((acc, dateObject) => {
-        acc.push(genDateCell(dateObject))
+        acc.push(genDateCell(dateObject as DatePickerDate))
         return acc
-      }, [] as any)
+      }, [] as VNode[])
     }
 
     function genDateRows(): VNode[] {
@@ -239,7 +233,7 @@ export const VDatePickerDates = defineComponent({
     return () =>
       h('div', { class: 'v-date-picker-dates' }, [
         genWeek(),
-        useTransition(genDates() as any, 'fade'),
+        useTransition(genDates() as any, 'fade')
       ])
-  },
+  }
 })

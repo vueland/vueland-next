@@ -59,14 +59,6 @@ export const VDatePickerDates = defineComponent({
       return new Date(props.year, props.month + 1, 0).getDate()
     })
 
-    const disabledFrom = computed(() => {
-      return props.disabledDates ? parseDate(props.disabledDates.from) : null
-    })
-
-    const disabledTo = computed(() => {
-      return props.disabledDates ? parseDate(props.disabledDates.to) : null
-    })
-
     watch(
       () => props.month,
       () => genTableDates(),
@@ -150,22 +142,29 @@ export const VDatePickerDates = defineComponent({
       if (!props.disabledDates) return date.isHoliday
 
       return (
-        date.isHoliday ||
         (props.disabledDates.daysOfMonth && disableDaysOfMonth(date)) ||
-        (props.disabledDates.from && disableFromTo(date)) ||
+        (props.disabledDates.from &&
+          disableFromTo(date, props.disabledDates)) ||
         (props.disabledDates.dates && disableDates(date)) ||
-        (props.disabledDates.days && disableDays(date))
+        (props.disabledDates.days && disableDays(date)) ||
+        // (props.disabledDates.ranges && disableRanges(date)) ||
+        (props.disabledDates.custom && props.disabledDates.custom(date))
       )
     }
 
-    function disableFromTo(date: DatePickerDate): boolean {
+    function disableFromTo(date: DatePickerDate, { from, to }): boolean {
+      const dateFrom = parseDate(from)
+      const dateTo = parseDate(to)
+
+      console.log(dateFrom)
+
       return (
-        date.year >= disabledFrom.value?.year! &&
-        date.year <= disabledTo.value?.year! &&
-        date.month >= disabledFrom.value?.month! &&
-        date.month <= disabledTo.value?.month! &&
-        date.date! >= disabledFrom.value?.date! &&
-        date.date! <= disabledTo.value?.date!
+        date.year >= dateFrom.year! &&
+        date.year <= dateTo.year! &&
+        date.month >= dateFrom.month! &&
+        date.month <= dateTo.month! &&
+        date.date! >= dateFrom.date! &&
+        date.date! <= dateTo.date!
       )
     }
 
@@ -180,10 +179,18 @@ export const VDatePickerDates = defineComponent({
     }
 
     function disableDays(date) {
-      return !!props.disabledDates.days.find((d) => d === date.day)
+      return props.disabledDates.days.find((d) => d === date.day) >= 0
     }
 
-    // function disableRanges(date) {}
+    // function disableRanges(date) {
+    //   const ranges = props.disabledDates.ranges
+    //
+    //   for (let i = 0; i < ranges.length; i += 1) {
+    //     if (disableFromTo(date, ranges[i])) {
+    //       console.log('suuuuka')
+    //     }
+    //   }
+    // }
 
     function genDateCell(date): VNode {
       const isSelected = compareDates(date, props.value)
@@ -196,7 +203,7 @@ export const VDatePickerDates = defineComponent({
           'v-date-picker-dates__cell--empty': !date.date,
           'v-date-picker-dates__cell--selected': isSelected,
           'v-date-picker-dates__cell--current-date': isToday,
-          'v-date-picker-dates__cell--holiday': date.isHoliday,
+          'v-date-picker-dates__cell--holiday': date.date && date.isHoliday,
         },
         onClick: () => date.date && emit('update:value', date),
       }

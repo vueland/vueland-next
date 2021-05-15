@@ -125,16 +125,37 @@
         })
       }
 
+      const disabledDates = {
+        from: new Date(2021, 4, 2),
+        to: new Date(2021, 4, 10),
+        // days: [0, 6, 1],
+        // daysOfMonth: [29, 30, 31],
+        // dates: [
+        //   new Date(2021, 6, 14),
+        //   new Date(2021, 6, 15),
+        //   new Date(2021, 6, 16),
+        // ],
+        ranges: [{ // Disable dates in given ranges (exclusive).
+          from: new Date(2021, 4, 25),
+          to: new Date(2021, 5, 10),
+        }, {
+          from: new Date(2021, 6, 12),
+          to: new Date(2021, 7, 25),
+        }],
+        // custom: (date) => !(date.date % 2)
+      }
+
       return {
         data,
         cols,
+        disabledDates,
+        forOut,
+        FaIcons,
         addItem,
         testFunc,
         toggleAlways,
         onClickLoading,
         addCircular,
-        forOut,
-        FaIcons,
       }
     },
   }
@@ -310,31 +331,13 @@
         color="white"
         content-color="blue"
         format="dd MMMM yyyy D"
-        :readonly="false"
         elevation="15"
         :rules="[val => !!val || 'Required']"
         clearable
+        typeable
         prepend-icon="event"
         monday-first
-        :disabled-dates="{
-          from: new Date(2021,4,2),
-          to: new Date(2021,4,11),
-          days: [0, 6, 1],
-          daysOfMonth: [29, 30, 31],
-          dates: [
-            new Date(2021, 6, 14),
-            new Date(2021, 6, 15),
-            new Date(2021, 6, 16)
-          ],
-          ranges: [{ // Disable dates in given ranges (exclusive).
-            from: new Date(2021, 4, 25),
-            to: new Date(2021, 5, 10)
-          }, {
-            from: new Date(2021, 6, 12),
-            to: new Date(2021, 7, 25)
-          }],
-
-        }"
+        :disabled-dates="disabledDates"
         @selected="testFunc"
       />
       <v-text-field

@@ -54,10 +54,8 @@ export const VDatePicker = defineComponent({
     dark: Boolean,
     disabled: Boolean,
     clearable: Boolean,
-    readonly: {
-      type: Boolean,
-      default: true,
-    },
+    readonly: Boolean,
+    typeable: Boolean,
     mondayFirst: Boolean,
     today: Boolean,
     useMls: Boolean,
@@ -103,7 +101,7 @@ export const VDatePicker = defineComponent({
       isActive: false,
     })
 
-    const localMonths: string[] = locale[props.lang].months
+    const localeMonths: string[] = locale[props.lang].monthsAbbr
     const localWeek: string[] = locale[props.lang].week
     const contentColor: string = props.dark ? 'white' : props.contentColor
 
@@ -118,8 +116,8 @@ export const VDatePicker = defineComponent({
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-date-picker': true,
-      'v-date-picker--typeable': !props.readonly,
-      'v-date-picker--readonly': props.readonly,
+      'v-date-picker--typeable': props.typeable,
+      'v-date-picker--readonly': !props.typeable || props.readonly,
     }))
 
     const tableClasses = computed<Record<string, boolean>>(() => ({
@@ -131,13 +129,13 @@ export const VDatePicker = defineComponent({
       return data.isYears || data.isMonths
         ? `${data.tableYear}`
         : data.isDates
-        ? `${data.tableYear} ${localMonths[data.tableMonth!]}`
+        ? `${data.tableYear} ${localeMonths[data.tableMonth!]}`
         : ''
     })
 
     const displayDate = computed<string>(() => {
       const { month, date, day } = data.selected as DatePickerDate
-      return `${localMonths[month]} ${date} ${localWeek[day]}`
+      return `${localeMonths[month]} ${date} ${localWeek[day]}`
     })
 
     const computedValue = computed<string | number | Date>(() => {
@@ -330,7 +328,7 @@ export const VDatePicker = defineComponent({
         lang: props.lang,
         month: data.tableMonth,
         year: data.tableYear,
-        locale: localMonths,
+        locale: localeMonths,
         ['onUpdate:month']: onMonthUpdate,
         ['onUpdate:year']: onYearUpdate,
       })
@@ -374,7 +372,7 @@ export const VDatePicker = defineComponent({
         value: data.convertedDateString,
         dark: props.dark,
         label: props.label,
-        readonly: props.readonly,
+        readonly: !props.typeable,
         disabled: props.disabled,
         prependIcon: props.prependIcon,
         rules: props.rules,

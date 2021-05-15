@@ -1,12 +1,5 @@
 import { h, VNode } from 'vue'
-import {
-  getFullYear,
-  getMonth,
-  getDate,
-  getDay,
-  getHours,
-  getMinutes,
-} from './utils'
+import { getFullYear, getMonth, getDate, getDay } from './utils'
 
 export function genTableRows(
   vNodesArray: VNode[],
@@ -48,10 +41,7 @@ export function parseDate(selectedDate: Date | string) {
     year: getFullYear(date),
     month: getMonth(date),
     date: getDate(date),
-    hours: getHours(date),
-    minutes: getMinutes(date),
     mls: date.getTime(),
-    isHoliday: day === 0 || day === 6,
     day,
   }
 }

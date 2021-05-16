@@ -42,6 +42,13 @@ export function useActivator() {
       }
     }
 
+    if (props.openOnClick) {
+      listeners.click = () => {
+        console.log('activator click')
+        isActive.value = !isActive.value
+      }
+    }
+
     return listeners
   }
 
@@ -70,6 +77,6 @@ export function useActivator() {
     getActivatorSizes,
     addActivatorEvents,
     removeActivatorEvents,
-    genActivatorListeners,
+    genActivatorListeners
   }
 }

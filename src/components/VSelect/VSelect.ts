@@ -7,7 +7,6 @@ import {
   reactive,
   computed,
   defineComponent,
-  withDirectives,
   watch,
   inject,
   onBeforeUnmount,
@@ -26,13 +25,9 @@ import { VInput } from '../VInput'
 import { VSelectList } from './VSelectList'
 import { VMenu } from '../VMenu'
 
-// Directives
-import { clickOutside } from '../../directives'
-
 type SelectState = {
   selected: any | null
   focused: boolean
-  isMenuActive: boolean
 }
 
 export const VSelect = defineComponent({
@@ -50,7 +45,7 @@ export const VSelect = defineComponent({
     clearable: Boolean,
     modelValue: [Array, String, Object, Number],
     ...validateProps(),
-    ...colorProps(),
+    ...colorProps()
   } as any,
 
   emits: [
@@ -59,14 +54,13 @@ export const VSelect = defineComponent({
     'focus',
     'select',
     'update:modelValue',
-    'update:value',
+    'update:value'
   ],
 
   setup(props, { emit, attrs }): () => VNode {
     const state: SelectState = reactive({
       selected: null,
-      focused: false,
-      isMenuActive: false,
+      focused: false
     })
 
     const { setTextColor } = useColors()
@@ -76,7 +70,7 @@ export const VSelect = defineComponent({
       dirty,
       update,
       errorState,
-      validationState,
+      validationState
     } = useValidate(props)
 
     const fields: Ref<any[]> | undefined = props.rules && inject('fields')
@@ -86,7 +80,7 @@ export const VSelect = defineComponent({
       'v-select--disabled': props.disabled,
       'v-select--readonly': props.readonly && !props.typeable,
       'v-select--focused': state.focused,
-      'v-select--typeable': props.typeable,
+      'v-select--typeable': props.typeable
     }))
 
     const computedInputValue = computed<string>(() => {
@@ -106,9 +100,9 @@ export const VSelect = defineComponent({
       (value) => {
         state.selected = value
         !state.focused &&
-          errorState.isDirty &&
-          props.rules?.length &&
-          validateValue()
+        errorState.isDirty &&
+        props.rules?.length &&
+        validateValue()
       },
       { immediate: true }
     )
@@ -123,13 +117,14 @@ export const VSelect = defineComponent({
 
     function toggleState() {
       state.focused = !state.focused
-      state.isMenuActive = !state.isMenuActive
     }
 
     function onBlur() {
-      toggleState()
-      requestAnimationFrame(validateValue)
-      emit('blur')
+      setTimeout(() => {
+        toggleState()
+        requestAnimationFrame(validateValue)
+        emit('blur')
+      }, 50)
     }
 
     function onClick() {
@@ -144,11 +139,11 @@ export const VSelect = defineComponent({
       requestAnimationFrame(validateValue)
     }
 
-    function selectItem(it) {
-      state.selected = it
-      emit('select', it)
-      emit('update:value', it)
-      emit('update:modelValue', it)
+    function selectItem(item) {
+      state.selected = item
+      emit('select', item)
+      emit('update:value', item)
+      emit('update:modelValue', item)
     }
 
     function genInput(): VNode {
@@ -158,7 +153,7 @@ export const VSelect = defineComponent({
         readonly: props.readonly && !props.typeable,
         class: 'v-select__input',
         onClick,
-        onBlur,
+        onBlur
       }
       return h('input', setTextColor(props.dark ? 'white' : base, propsData))
     }
@@ -168,23 +163,23 @@ export const VSelect = defineComponent({
         items: props.items,
         valueKey: props.valueKey,
         idKey: props.idKey,
-        active: state.isMenuActive,
+        active: state.focused,
         color: props.dark ? 'white' : base,
         listColor: props.listColor || 'white',
-        onSelect: (it) => selectItem(it),
+        onSelect: (item) => selectItem(item)
       }
       return h(VSelectList, propsData)
     }
 
-    function genSelect(activatorRef): VNode {
-      return h(
-        'div',
-        {
-          class: classes.value,
-          ref: activatorRef,
-        },
-        [genInput()]
-      )
+    function genSelect(on): VNode {
+      const propsData = {
+        class: classes.value,
+      }
+      Object.keys(on).forEach(key => {
+        propsData[`on${key[0].toUpperCase() + key.slice(1)}`] = on[key]
+      })
+
+      return h('div', propsData, genInput())
     }
 
     onBeforeUnmount(() => {
@@ -206,20 +201,20 @@ export const VSelect = defineComponent({
         message: errorState.innerErrorMessage,
         clearable: props.clearable,
         onClear,
-        ...attrs,
+        ...attrs
       } as any
 
       return h(VInput, propsData, {
         select: () =>
-          h(
-            VMenu,
-            {},
+          h(VMenu, {
+              openOnClick: true
+            },
             {
-              activator: (activatorRef) => genSelect(activatorRef),
-              content: () => props.items && genSelectList(),
+              activator: ({ on }) => genSelect(on),
+              content: () => props.items && genSelectList()
             }
-          ),
+          )
       })
     }
-  },
+  }
 })

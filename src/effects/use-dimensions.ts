@@ -1,8 +1,6 @@
-import { ref, onMounted, reactive } from 'vue'
-import { useActivator } from './use-activator'
+import { ref, reactive } from 'vue'
 
 export function useDimensions() {
-  const { activatorRef } = useActivator()
 
   const dimensions = reactive({
     activator: {
@@ -31,7 +29,7 @@ export function useDimensions() {
 
   const contentRef = ref<HTMLElement | any | null>(null)
 
-  function setDimensions() {
+  function setDimensions(activatorRef) {
     const el = activatorRef.value!
     const bcr = el.getBoundingClientRect()
     setActivatorDimensions(bcr)
@@ -55,24 +53,10 @@ export function useDimensions() {
     console.log('calc')
   }
 
-  function calculatePositionTop() {
-    setDimensions()
-  }
-
-  onMounted(() => {
-    if (activatorRef.value) {
-      setDimensions()
-      console.log(dimensions)
-      console.log(contentRef.value.getBoundingClientRect())
-    }
-
-  })
-
   return {
     dimensions,
     contentRef,
-    activatorRef,
+    setDimensions,
     calculatePositionLeft,
-    calculatePositionTop
   }
 }

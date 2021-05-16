@@ -17,7 +17,6 @@ import {
 import { validateProps, useValidate } from '../../effects/use-validate'
 import { colorProps, useColors } from '../../effects/use-colors'
 import { useTheme } from '../../effects/use-theme'
-import { useDimensions } from '../../effects/use-dimensions'
 
 // Types
 import { VNode, Ref } from 'vue'
@@ -25,6 +24,7 @@ import { VNode, Ref } from 'vue'
 // Components
 import { VInput } from '../VInput'
 import { VSelectList } from './VSelectList'
+import { VMenu } from '../VMenu'
 
 // Directives
 import { clickOutside } from '../../directives'
@@ -62,7 +62,7 @@ export const VSelect = defineComponent({
     'update:value',
   ],
 
-  setup(props, { emit }): () => VNode[] {
+  setup(props, { emit, attrs }): () => VNode {
     const state: SelectState = reactive({
       selected: null,
       focused: false,
@@ -78,24 +78,8 @@ export const VSelect = defineComponent({
       errorState,
       validationState,
     } = useValidate(props)
-    const {
-      dimensions,
-      activatorRef,
-      contentRef,
-      calculatePositionTop,
-      calculatePositionLeft,
-    } = useDimensions()
 
     const fields: Ref<any[]> | undefined = props.rules && inject('fields')
-
-    const directive = computed(() => {
-      return state.focused
-        ? {
-            handler: onBlur,
-            closeConditional: true,
-          }
-        : undefined
-    })
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-select': true,
@@ -152,8 +136,6 @@ export const VSelect = defineComponent({
       dirty()
       update(errorState.innerError)
       toggleState()
-      calculatePositionTop()
-      calculatePositionLeft()
       emit('focus')
     }
 
@@ -176,6 +158,7 @@ export const VSelect = defineComponent({
         readonly: props.readonly && !props.typeable,
         class: 'v-select__input',
         onClick,
+        onBlur,
       }
       return h('input', setTextColor(props.dark ? 'white' : base, propsData))
     }
@@ -188,25 +171,20 @@ export const VSelect = defineComponent({
         active: state.isMenuActive,
         color: props.dark ? 'white' : base,
         listColor: props.listColor || 'white',
-        width: dimensions.content.width,
-        top: dimensions.content.top,
-        left: dimensions.content.left,
-        ref: contentRef,
         onSelect: (it) => selectItem(it),
       }
       return h(VSelectList, propsData)
     }
 
-    function genSelect(): VNode {
-      const selectVNode = h(
+    function genSelect(activatorRef): VNode {
+      return h(
         'div',
         {
           class: classes.value,
+          ref: activatorRef,
         },
         [genInput()]
       )
-
-      return withDirectives(selectVNode, [[clickOutside, directive.value]])
     }
 
     onBeforeUnmount(() => {
@@ -227,14 +205,21 @@ export const VSelect = defineComponent({
         isDirty: !!errorState.isDirty,
         message: errorState.innerErrorMessage,
         clearable: props.clearable,
-        ref: activatorRef,
         onClear,
+        ...attrs,
       } as any
 
-      return [
-        h(VInput, propsData, { select: () => genSelect() }),
-        props.items && genSelectList(),
-      ]
+      return h(VInput, propsData, {
+        select: () =>
+          h(
+            VMenu,
+            {},
+            {
+              activator: (activatorRef) => genSelect(activatorRef),
+              content: () => props.items && genSelectList(),
+            }
+          ),
+      })
     }
   },
 })

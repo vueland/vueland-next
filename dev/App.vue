@@ -333,7 +333,7 @@ export default {
 
     <v-form
       v-slot="{ validate }"
-      style="display: block; margin: 20px; width: 400px"
+      style="display: block; margin: 20px; width: 25%"
     >
       <v-date-picker
         v-model="data.date"

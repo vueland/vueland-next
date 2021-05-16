@@ -253,7 +253,7 @@ export const VDataTable = defineComponent({
       const propsData = {
         cols: data.cols,
         color: props.color,
-        showCheckbox: !!props.showCheckbox,
+        showCheckbox: props.showCheckbox,
         dark: props.dark,
         align: props.align,
         showSequence: props.showSequence,

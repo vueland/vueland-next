@@ -1,6 +1,9 @@
 import { ref, onMounted, reactive } from 'vue'
+import { useActivator } from './use-activator'
 
 export function useDimensions() {
+  const { activatorRef } = useActivator()
+
   const dimensions = reactive({
     activator: {
       top: 0,
@@ -11,7 +14,7 @@ export function useDimensions() {
       height: 0,
       offsetTop: 0,
       scrollHeight: 0,
-      offsetLeft: 0,
+      offsetLeft: 0
     },
     content: {
       top: 0,
@@ -22,16 +25,15 @@ export function useDimensions() {
       height: 0,
       offsetTop: 0,
       scrollHeight: 0,
-      offsetLeft: 0,
-    },
+      offsetLeft: 0
+    }
   })
 
-  const activatorRef = ref<HTMLElement | any | null>(null)
   const contentRef = ref<HTMLElement | any | null>(null)
 
   function setDimensions() {
-    const bcr = activatorRef.value?.$el.getBoundingClientRect()
-
+    const el = activatorRef.value!
+    const bcr = el.getBoundingClientRect()
     setActivatorDimensions(bcr)
     setContentDimensions(bcr)
   }
@@ -43,28 +45,34 @@ export function useDimensions() {
   }
 
   function setContentDimensions(bcr) {
-    const content = contentRef.value.$el
-    // console.log(content.style.height)
     dimensions.content.top = bcr.top + pageYOffset
     dimensions.content.left = bcr.left
     dimensions.content.width = bcr.width
+    // dimensions.content.height = contentRef.value.getBoundingClientRect()
   }
 
-  function calculatePositionLeft() {}
+  function calculatePositionLeft() {
+    console.log('calc')
+  }
 
   function calculatePositionTop() {
     setDimensions()
   }
 
   onMounted(() => {
-    setDimensions()
+    if (activatorRef.value) {
+      setDimensions()
+      console.log(dimensions)
+      console.log(contentRef.value.getBoundingClientRect())
+    }
+
   })
 
   return {
     dimensions,
-    activatorRef,
     contentRef,
+    activatorRef,
     calculatePositionLeft,
-    calculatePositionTop,
+    calculatePositionTop
   }
 }

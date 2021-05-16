@@ -27,6 +27,7 @@ import { VDatePickerYears } from './VDatePickerYears'
 import { VDatePickerMonths } from './VDatePickerMonths'
 // Helpers
 import { parseDate } from './helpers'
+import { addScopedSlot } from '../../helpers'
 // Utils
 import { formatDate } from './utils'
 import { DatePickerBtnHandlers, DatePickerDate } from '../../types'
@@ -68,7 +69,7 @@ export const VDatePicker = defineComponent({
     prependIcon: String,
     format: {
       type: String,
-      default: 'yyyy-mm-dd',
+      default: 'yyyy MM dd D',
     },
     rules: Array,
     value: [String, Date, Number],
@@ -85,7 +86,7 @@ export const VDatePicker = defineComponent({
 
   emits: ['update:value', 'update:modelValue', 'selected'],
 
-  setup(props, { emit }) {
+  setup(props, { emit, slots }) {
     const data: DatePickerData = reactive({
       year: null,
       month: null,
@@ -335,16 +336,22 @@ export const VDatePicker = defineComponent({
     }
 
     function genDatepickerDatesTable(): VNode {
-      return h(VDatePickerDates, {
-        locale: localWeek,
-        mondayFirst: props.mondayFirst,
-        month: data.tableMonth,
-        year: data.tableYear,
-        value: data.selected,
-        disabledDates: props.disabledDates,
-        ['onUpdate:value']: onDateUpdate,
-        ['onUpdate:month']: onDateMonthUpdate,
-      })
+      return h(
+        VDatePickerDates,
+        {
+          locale: localWeek,
+          mondayFirst: props.mondayFirst,
+          month: data.tableMonth,
+          year: data.tableYear,
+          value: data.selected,
+          disabledDates: props.disabledDates,
+          ['onUpdate:value']: onDateUpdate,
+          ['onUpdate:month']: onDateMonthUpdate,
+        },
+        {
+          date: slots.date && addScopedSlot('date', slots),
+        }
+      )
     }
 
     function genDatepickerBody(): VNode {

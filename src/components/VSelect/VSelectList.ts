@@ -28,6 +28,9 @@ export const VSelectList = defineComponent({
       type: [String, Number],
       default: 4,
     },
+    width: Number,
+    top: Number,
+    left: Number,
     ...colorProps(),
   } as any,
 
@@ -82,7 +85,11 @@ export const VSelectList = defineComponent({
           'v-select-list': true,
           ...elevationClasses.value,
         },
-        style: {},
+        style: {
+          width: `${props.width}px`,
+          top: `${props.top}px`,
+          left: `${props.left}px`,
+        },
       }
 
       return withDirectives(

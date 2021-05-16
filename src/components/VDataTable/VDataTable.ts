@@ -14,7 +14,7 @@ import { VDataTableBody } from './VDataTableBody'
 import { VDataTableFooter } from './VDataTableFooter'
 
 // Helpers
-import { addScopedSlot } from './helpers'
+import { addScopedSlot } from '../../helpers'
 
 // Types
 import { VNode, PropType } from 'vue'
@@ -34,34 +34,34 @@ export const VDataTable = defineComponent({
   props: {
     cols: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     rows: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     dark: Boolean,
     showSequence: Boolean,
     showCheckbox: Boolean,
     align: {
       type: String,
-      validator: (val) => ['left', 'center', 'right'].includes(val)
+      validator: (val) => ['left', 'center', 'right'].includes(val),
     },
     color: {
       type: String,
-      default: 'white'
+      default: 'white',
     },
     headerOptions: {
       type: Object as PropType<HeaderOptions>,
-      default: () => ({})
+      default: () => ({}),
     },
     footerOptions: {
       type: Object as PropType<FooterOptions>,
       default: () => ({
-        rowsPerPageOptions: [5, 10, 15, 20]
-      })
+        rowsPerPageOptions: [5, 10, 15, 20],
+      }),
     },
-    customFilter: Function
+    customFilter: Function,
   } as any,
 
   emits: [
@@ -69,7 +69,7 @@ export const VDataTable = defineComponent({
     'select:row',
     'click:row',
     'dblclick:row',
-    'contextmenu:row'
+    'contextmenu:row',
   ],
 
   setup(props, { slots, emit }) {
@@ -79,7 +79,7 @@ export const VDataTable = defineComponent({
       checkedRows: [],
       rowsOnPage: 20,
       page: 1,
-      isAllRowsChecked: false
+      isAllRowsChecked: false,
     })
 
     const { setBackground } = useColors()
@@ -87,19 +87,19 @@ export const VDataTable = defineComponent({
     const filters = {}
 
     const classes = computed<Record<string, boolean>>(() => ({
-      'v-data-table': true
+      'v-data-table': true,
     }))
 
     const headerOptions = computed<HeaderOptions>(() => ({
       color: props.color,
       dark: props.dark,
-      ...props.headerOptions
+      ...props.headerOptions,
     }))
 
     const footerOptions = computed<FooterOptions>(() => ({
       color: props.color,
       dark: props.dark,
-      ...props.footerOptions
+      ...props.footerOptions,
     }))
 
     const pages = computed<number>(() => {
@@ -158,7 +158,9 @@ export const VDataTable = defineComponent({
       }
     }
 
-    function onSort<T extends Column, S extends { sorted: boolean }>(col: T & S) {
+    function onSort<T extends Column, S extends { sorted: boolean }>(
+      col: T & S
+    ) {
       if (col.sorted) {
         col.sorted = !col.sorted
         return sortColumn(col)
@@ -169,7 +171,9 @@ export const VDataTable = defineComponent({
       sortColumn(col)
     }
 
-    function sortColumn<T extends Column, S extends { sorted: boolean }>(col: T & S) {
+    function sortColumn<T extends Column, S extends { sorted: boolean }>(
+      col: T & S
+    ) {
       if (!col.sorted) {
         return data.rows!.reverse()
       }
@@ -218,8 +222,8 @@ export const VDataTable = defineComponent({
 
           const value = format ? format(row) : row[key]
 
-          const rowKeyValue = `${ value }`.toLowerCase()
-          const filterValue = `${ filters[key] }`.toLowerCase()
+          const rowKeyValue = `${value}`.toLowerCase()
+          const filterValue = `${filters[key]}`.toLowerCase()
 
           if (rowKeyValue.includes(filterValue)) {
             rowResults.push(row[key])
@@ -241,7 +245,7 @@ export const VDataTable = defineComponent({
       const propsData = { class: 'v-data-table__toolbar' }
 
       return h('div', propsData, {
-        default: () => slots.toolbar && slots.toolbar()
+        default: () => slots.toolbar && slots.toolbar(),
       })
     }
 
@@ -256,11 +260,11 @@ export const VDataTable = defineComponent({
         options: headerOptions.value,
         onFilter,
         onSort,
-        onSelectAll
+        onSelectAll,
       }
 
       const content = data.cols.reduce((acc, col) => {
-        const slotName = `${ col.key }-filter`
+        const slotName = `${col.key}-filter`
 
         if (col && slots[slotName]) {
           acc[slotName] = addScopedSlot(slotName, slots)
@@ -289,7 +293,7 @@ export const VDataTable = defineComponent({
         onSelect,
         ['onClick:row']: (e) => emit('click:row', e),
         ['onDblclick:row']: (e) => emit('dblclick:row', e),
-        ['onContextmenu:row']: (e) => emit('contextmenu:row', e)
+        ['onContextmenu:row']: (e) => emit('contextmenu:row', e),
       }
 
       const content = props.cols.reduce((acc, col) => {
@@ -317,19 +321,19 @@ export const VDataTable = defineComponent({
         onNextPage,
         onSelectRowsCount,
         onLastPage: () => emit('last-page', props.rows.length),
-        onCorrectPage: (val) => (data.page += val)
+        onCorrectPage: (val) => (data.page += val),
       }
 
       const content = slots.paginationText
         ? {
-          paginationText: () =>
-            slots.paginationText &&
-            slots.paginationText({
-              start: firstOnPage.value,
-              last: lastOnPage.value,
-              length: data.rows?.length
-            })
-        }
+            paginationText: () =>
+              slots.paginationText &&
+              slots.paginationText({
+                start: firstOnPage.value,
+                last: lastOnPage.value,
+                length: data.rows?.length,
+              }),
+          }
         : ''
 
       return h(VDataTableFooter, propsData, content)
@@ -337,7 +341,7 @@ export const VDataTable = defineComponent({
 
     function genTableInner(): VNode {
       const propsData = {
-        class: 'v-data-table__inner'
+        class: 'v-data-table__inner',
       }
 
       return h('div', propsData, [genTableHeader(), genTableBody()])
@@ -345,14 +349,14 @@ export const VDataTable = defineComponent({
 
     return () => {
       const propsData = {
-        class: classes.value
+        class: classes.value,
       }
 
       return h('div', setBackground(props.color, propsData), [
         slots.toolbar && genTableTools(),
         genTableInner(),
-        genTableFooter()
+        genTableFooter(),
       ])
     }
-  }
+  },
 })

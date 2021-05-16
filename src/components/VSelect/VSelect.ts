@@ -17,6 +17,7 @@ import {
 import { validateProps, useValidate } from '../../effects/use-validate'
 import { colorProps, useColors } from '../../effects/use-colors'
 import { useTheme } from '../../effects/use-theme'
+import { useDimensions } from '../../effects/use-dimensions'
 
 // Types
 import { VNode, Ref } from 'vue'
@@ -46,6 +47,7 @@ export const VSelect = defineComponent({
     listColor: String,
     disabled: Boolean,
     readonly: Boolean,
+    clearable: Boolean,
     modelValue: [Array, String, Object, Number],
     ...validateProps(),
     ...colorProps(),
@@ -60,7 +62,7 @@ export const VSelect = defineComponent({
     'update:value',
   ],
 
-  setup(props, { emit }): () => VNode {
+  setup(props, { emit }): () => VNode[] {
     const state: SelectState = reactive({
       selected: null,
       focused: false,
@@ -76,6 +78,13 @@ export const VSelect = defineComponent({
       errorState,
       validationState,
     } = useValidate(props)
+    const {
+      dimensions,
+      activatorRef,
+      contentRef,
+      calculatePositionTop,
+      calculatePositionLeft,
+    } = useDimensions()
 
     const fields: Ref<any[]> | undefined = props.rules && inject('fields')
 
@@ -143,6 +152,8 @@ export const VSelect = defineComponent({
       dirty()
       update(errorState.innerError)
       toggleState()
+      calculatePositionTop()
+      calculatePositionLeft()
       emit('focus')
     }
 
@@ -177,6 +188,10 @@ export const VSelect = defineComponent({
         active: state.isMenuActive,
         color: props.dark ? 'white' : base,
         listColor: props.listColor || 'white',
+        width: dimensions.content.width,
+        top: dimensions.content.top,
+        left: dimensions.content.left,
+        ref: contentRef,
         onSelect: (it) => selectItem(it),
       }
       return h(VSelectList, propsData)
@@ -188,7 +203,7 @@ export const VSelect = defineComponent({
         {
           class: classes.value,
         },
-        [genInput(), props.items && genSelectList()]
+        [genInput()]
       )
 
       return withDirectives(selectVNode, [[clickOutside, directive.value]])
@@ -211,12 +226,15 @@ export const VSelect = defineComponent({
         disabled: props.disabled,
         isDirty: !!errorState.isDirty,
         message: errorState.innerErrorMessage,
+        clearable: props.clearable,
+        ref: activatorRef,
         onClear,
       } as any
 
-      return h(VInput, propsData, {
-        select: () => genSelect(),
-      })
+      return [
+        h(VInput, propsData, { select: () => genSelect() }),
+        props.items && genSelectList(),
+      ]
     }
   },
 })

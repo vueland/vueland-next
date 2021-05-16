@@ -1,164 +1,175 @@
 <script lang="ts">
-  import { reactive, ref, computed, watch } from 'vue'
-  import { FaIcons } from '../src/services/icons'
+import { h, reactive, ref, computed, watch } from 'vue'
+import { FaIcons } from '../src/services/icons'
+import { VIcon } from '../src'
 
-  export default {
-    setup() {
-      const data = reactive({
-        always: true,
-        show: false,
-        test: true,
-        login: '',
-        email: '',
-        password: '',
-        user: '',
-        checked: false,
-        user2: { name: 'igor' },
-        date: null,
-        loading: false,
-        circular: 10,
-        users: [
-          // {name: 'AAA', email: 'aaa@mail.ru', body: 'fsdf adfasda dasdasd'},
-          // {name: 'AAA', email: 'aaa@mail.ru', body: 'fsdf adfasda dasdasd'},
-        ],
-      })
+export default {
+  setup() {
+    const data = reactive({
+      always: true,
+      show: false,
+      test: true,
+      login: '',
+      email: '',
+      password: '',
+      user: '',
+      checked: false,
+      user2: { name: 'igor' },
+      date: null,
+      loading: false,
+      circular: 10,
+      users: [
+        // {name: 'AAA', email: 'aaa@mail.ru', body: 'fsdf adfasda dasdasd'},
+        // {name: 'AAA', email: 'aaa@mail.ru', body: 'fsdf adfasda dasdasd'},
+      ],
+    })
 
-      const onClickLoading = () => {
-        data.loading = true
-        setTimeout(() => data.loading = false, 2000)
+    const onClickLoading = () => {
+      data.loading = true
+      setTimeout(() => data.loading = false, 2000)
+    }
+
+    const addCircular = () => {
+      if (data.circular < 100) {
+        return data.circular += Math.ceil(Math.random() * 100) / 2
       }
+      data.circular -= Math.ceil(Math.random() * 100)
+    }
 
-      const addCircular = () => {
-        if (data.circular < 100) {
-          return data.circular += Math.ceil(Math.random() * 100) / 2
-        }
-        data.circular -= Math.ceil(Math.random() * 100)
-      }
-
-      const fetchItems = () => {
-        fetch('https://jsonplaceholder.typicode.com/comments')
+    const fetchItems = () => {
+      fetch('https://jsonplaceholder.typicode.com/comments')
           .then(response => response.json())
           .then(json => data.users = [...data.users, ...json])
-      }
+    }
 
-      fetchItems()
+    fetchItems()
 
-      setTimeout(() => {
-        data.always = false
-      }, 2000)
+    setTimeout(() => {
+      data.always = false
+    }, 2000)
 
-      const toggleAlways = () => {
-        data.always = !data.always
-      }
+    const toggleAlways = () => {
+      data.always = !data.always
+    }
 
-      const testFunc = date => {
-        console.log(date)
-      }
+    const testFunc = date => {
+      console.log(date)
+    }
 
-      const forOut = computed(() => {
-        return data.always ? testFunc : undefined
+    const forOut = computed(() => {
+      return data.always ? testFunc : undefined
+    })
+
+    const cols = ref([
+      {
+        key: 'actions',
+        title: 'Actions',
+        align: 'center',
+      },
+      {
+        key: 'name',
+        title: 'Name',
+        width: '250',
+        resizeable: true,
+        sortable: true,
+        filterable: true,
+        cellClass: '',
+        filterClass: '',
+        rowCellClass: '',
+        format: row => row.name,
+        filter: ({ value, col }) => data.users.filter(user => user[col.key].includes(value)),
+        // sort: (a, b) => console.log(a, b),
+      },
+      {
+        key: 'email',
+        title: 'Email',
+        width: '250',
+        resizeable: true,
+        sortable: true,
+        filterable: true,
+        cellClass: 'green darken-3 white--text',
+        filterClass: 'grey lighten-2',
+        rowCellClass: 'green lighten-1 white--text',
+        format: row => row.email,
+      },
+      {
+        key: 'body',
+        title: 'Body',
+        width: '250',
+        resizeable: true,
+        sortable: true,
+        filterable: true,
+      },
+    ])
+
+    const rows = [
+      {
+        name: 'Ben',
+        email: 'ben@mail.ru',
+        body: 'some body text',
+      },
+      {
+        name: 'Alex',
+        email: 'alex@mail.ru',
+        body: 'some body text',
+      },
+    ]
+
+    const addItem = () => {
+      data.users.push({
+        name: 'Anar',
+        email: 'adsadasdasd',
+        body: 'sdfsddfsdfsdfsf',
       })
+    }
 
-      const cols = ref([
-        {
-          key: 'actions',
-          title: 'Actions',
-          align: 'center',
-        },
-        {
-          key: 'name',
-          title: 'Name',
-          width: '250',
-          resizeable: true,
-          sortable: true,
-          filterable: true,
-          cellClass: '',
-          filterClass: '',
-          rowCellClass: '',
-          format: row => row.name,
-          filter: ({
-                     value,
-                     col,
-                   }) => data.users.filter(user => user[col.key].includes(value)),
-          // sort: (a, b) => console.log(a, b),
-        },
-        {
-          key: 'email',
-          title: 'Email',
-          width: '250',
-          resizeable: true,
-          sortable: true,
-          filterable: true,
-          cellClass: 'green darken-3 white--text',
-          filterClass: 'grey lighten-2',
-          rowCellClass: 'green lighten-1 white--text',
-          format: row => row.email,
-        },
-        {
-          key: 'body',
-          title: 'Body',
-          width: '250',
-          resizeable: true,
-          sortable: true,
-          filterable: true,
-        },
+    const disabledDates = {
+      from: new Date(2021, 4, 2),
+      to: new Date(2021, 4, 10),
+      days: [0, 6],
+      // daysOfMonth: [29, 30, 31],
+      // dates: [
+      //   new Date(2021, 6, 14),
+      //   new Date(2021, 6, 15),
+      //   new Date(2021, 6, 16),
+      // ],
+      // ranges: [{
+      //   from: new Date(2021, 4, 25),
+      //   to: new Date(2021, 5, 10),
+      // }, {
+      //   from: new Date(2021, 6, 12),
+      //   to: new Date(2021, 7, 25),
+      // }],
+      // custom: (date) => !(date.date % 2)
+    }
+
+    const dayCellContent = ({ date, month, isHoliday }) => {
+      return date && h('span', {
+        style: { fontSize: '.8rem', display: 'flex', alignItems: 'center' },
+      }, [
+        date, h(VIcon, {
+          icon: isHoliday ? 'home' : 'done',
+          size: 12,
+          color: isHoliday ? 'cyan' : 'green',
+        }),
       ])
+    }
 
-      const rows = [
-        {
-          name: 'Ben',
-          email: 'ben@mail.ru',
-          body: 'some body text',
-        },
-        {
-          name: 'Alex',
-          email: 'alex@mail.ru',
-          body: 'some body text',
-        },
-      ]
-
-      const addItem = () => {
-        data.users.push({
-          name: 'Anar',
-          email: 'adsadasdasd',
-          body: 'sdfsddfsdfsdfsf',
-        })
-      }
-
-      const disabledDates = {
-        // from: new Date(2021, 4, 2),
-        // to: new Date(2021, 4, 10),
-        days: [0, 6],
-        // daysOfMonth: [29, 30, 31],
-        // dates: [
-        //   new Date(2021, 6, 14),
-        //   new Date(2021, 6, 15),
-        //   new Date(2021, 6, 16),
-        // ],
-        // ranges: [{ // Disable dates in given ranges (exclusive).
-        //   from: new Date(2021, 4, 25),
-        //   to: new Date(2021, 5, 10),
-        // }, {
-        //   from: new Date(2021, 6, 12),
-        //   to: new Date(2021, 7, 25),
-        // }],
-        // custom: (date) => !(date.date % 2)
-      }
-
-      return {
-        data,
-        cols,
-        disabledDates,
-        forOut,
-        FaIcons,
-        addItem,
-        testFunc,
-        toggleAlways,
-        onClickLoading,
-        addCircular,
-      }
-    },
-  }
+    return {
+      data,
+      cols,
+      disabledDates,
+      forOut,
+      FaIcons,
+      addItem,
+      testFunc,
+      toggleAlways,
+      onClickLoading,
+      addCircular,
+      dayCellContent,
+    }
+  },
+}
 </script>
 
 <template>
@@ -332,14 +343,27 @@
         content-color="blue"
         format="dd MMMM yyyy D"
         elevation="15"
+        prepend-icon="event"
         :rules="[val => !!val || 'Required']"
         clearable
         typeable
-        prepend-icon="event"
         monday-first
         :disabled-dates="disabledDates"
         @selected="testFunc"
-      />
+      >
+        <template #date="{date, isHoliday}">
+          <!--          <div-->
+          <!--            :class="[!(date % 2) ? 'green white&#45;&#45;text' : '']"-->
+          <!--            style="width: 100%; height: 100%; position: relative; display: flex; align-items: center; justify-content: center;"-->
+          <!--          >-->
+          <span style="font-size: .7rem; position: absolute; top: 0; left: 0">{{ date }}</span>
+          <v-icon
+            :icon="isHoliday ? 'home' : 'done'"
+            size="12"
+          />
+          <!--          </div>-->
+        </template>
+      </v-date-picker>
       <v-text-field
         v-model="data.password"
         label="teal"
@@ -499,56 +523,56 @@
 </template>
 
 <style lang="scss">
-  .active-class {
-    background: #272727;
-    color: white !important;
-  }
+.active-class {
+  background: #272727;
+  color: white !important;
+}
 
-  .wrap {
-    position: absolute;
-    left: 60px;
-    top: 60px;
-    width: calc(100% - 60px);
-    height: calc(100vh - 60px);
-  }
+.wrap {
+  position: absolute;
+  left: 60px;
+  top: 60px;
+  width: calc(100% - 60px);
+  height: calc(100vh - 60px);
+}
 
-  .app {
-    &-header {
-      width: 100%;
-      height: 60px;
-      background: #272727;
-    }
-
-    &-sidebar {
-      position: absolute;
-      top: 60px;
-      left: 0;
-      width: 60px;
-      height: calc(100vh - 60px);
-      background: #272727;
-    }
-  }
-
-  .text {
-    display: inline-block;
-  }
-
-  .test {
-    display: flex;
-    justify-content: center;
+.app {
+  &-header {
     width: 100%;
+    height: 60px;
+    background: #272727;
   }
 
-  .v-data-table {
-    background-color: yellow;
+  &-sidebar {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 60px;
+    height: calc(100vh - 60px);
+    background: #272727;
   }
+}
 
-  .v-data-table > .v-data-table__inner > .v-data-table__header {
-    background-color: #0D47A1 !important;
-    border-color: red !important;
-  }
+.text {
+  display: inline-block;
+}
 
-  body {
-    font-family: Bitstream Charter, sans-serif !important;
-  }
+.test {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.v-data-table {
+  background-color: yellow;
+}
+
+.v-data-table > .v-data-table__inner > .v-data-table__header {
+  background-color: #0D47A1 !important;
+  border-color: red !important;
+}
+
+body {
+  font-family: Bitstream Charter, sans-serif !important;
+}
 </style>

@@ -12,7 +12,7 @@
 
   & > .v-list > .v-list-item {
     cursor: pointer;
-    color: #272727;
+    color: currentColor;
 
     &:hover:after {
       opacity: 1;

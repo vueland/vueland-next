@@ -2,7 +2,7 @@
 import './VSelectList.scss'
 
 // Vue API
-import { h, defineComponent } from 'vue'
+import { h, ref, defineComponent } from 'vue'
 
 // Components
 import { VList, VListItem, VListItemTitle } from '../VList'
@@ -22,13 +22,13 @@ export const VSelectList = defineComponent({
     active: Boolean,
     listColor: {
       type: String,
-      default: 'white',
+      default: 'white'
     },
     elevation: {
       type: [String, Number],
-      default: 4,
+      default: 4
     },
-    ...colorProps(),
+    ...colorProps()
   } as any,
 
   emits: ['select'],
@@ -36,12 +36,13 @@ export const VSelectList = defineComponent({
   setup(props, { emit }) {
     const { setTextColor, setBackground } = useColors()
 
+    const selected = ref<any>(null)
+
     function genItems(): VNode[] {
       const key = props.valueKey
-
       const propsData = {
         class: {},
-        style: {},
+        style: {}
       }
 
       return props.items!.map((it: any) => {
@@ -49,7 +50,7 @@ export const VSelectList = defineComponent({
           VListItemTitle,
           props.color ? setTextColor(props.color, propsData) : propsData,
           {
-            default: () => (key ? it[key] : it),
+            default: () => (key ? it[key] : it)
           }
         )
 
@@ -57,27 +58,29 @@ export const VSelectList = defineComponent({
           VListItem,
           {
             key: props.idKey,
-            onClick: () => emit('select', it),
+            class: {
+              'v-select-item--selected': it === selected.value
+            },
+            onClick: () => {
+              selected.value = it
+              emit('select', it)
+            }
           },
           {
-            default: () => item,
+            default: () => item
           }
         )
       })
     }
 
     function genSelectListItems(): VNode {
-      return h(
-        VList,
-        { class: 'v-select--items-list' },
-        { default: () => genItems() }
-      )
+      return h(VList, {}, { default: () => genItems() })
     }
 
     function genList(): VNode {
       const propsData = {
         class: { 'v-select-list': true },
-        style: {},
+        style: {}
       }
 
       return h(
@@ -88,5 +91,5 @@ export const VSelectList = defineComponent({
     }
 
     return () => genList()
-  },
+  }
 })

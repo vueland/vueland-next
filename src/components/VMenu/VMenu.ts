@@ -42,6 +42,14 @@ export const VMenu = defineComponent({
     },
     openOnHover: Boolean,
     openOnClick: Boolean,
+    closeOnContentClick: {
+      type: Boolean,
+      default: true
+    },
+    closeOnClick: {
+      type: Boolean,
+      default: true
+    },
     elevation: {
       type: [Number, String],
       default: 10,
@@ -77,7 +85,7 @@ export const VMenu = defineComponent({
             handler: () => {
               isActive.value = false
             },
-            closeConditional: true,
+            closeConditional: props.closeOnContentClick,
           }
         : undefined
     })
@@ -100,14 +108,17 @@ export const VMenu = defineComponent({
           left: convertToUnit(dimensions.content.left),
           width: convertToUnit(props.width || dimensions.content.width),
         },
+        onClick: () => {
+          isActive.value = !props.closeOnContentClick
+        }
       }
 
       const content = h('div', propsData, slots.content && slots.content())
+      const directives: any = [[vShow, isActive.value]]
 
-      return withDirectives(content, [
-        [vShow, isActive.value],
-        [clickOutside, directive.value],
-      ])
+      if (props.closeOnClick) directives.push([clickOutside, directive.value])
+
+      return withDirectives(content, directives)
     }
 
     onMounted(() => {

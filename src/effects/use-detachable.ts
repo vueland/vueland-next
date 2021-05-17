@@ -2,8 +2,9 @@ export function useDetachable() {
   let target
   const setDetached = (el: HTMLElement, selector: string = '') => {
     if (selector) target = document.querySelector(selector)
-    else if (!selector) target = document.querySelector('.v-app')
-    if (!target) target = document.querySelector('[data-v-app]')
+    if (!selector) target = document.querySelector('.v-app')
+    if (!target) target = document.querySelector('#app')
+    if (!target) target = document.querySelector('body')
 
     target.appendChild(el)
   }
@@ -14,6 +15,6 @@ export function useDetachable() {
 
   return {
     setDetached,
-    removeDetached,
+    removeDetached
   }
 }

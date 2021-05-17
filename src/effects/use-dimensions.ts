@@ -20,9 +20,6 @@ export function useDimensions() {
       right: 0,
       width: 0,
       height: 0,
-      offsetTop: 0,
-      scrollHeight: 0,
-      offsetLeft: 0,
     },
   })
 
@@ -30,9 +27,37 @@ export function useDimensions() {
   let activator
   let activatorRects
 
+  function getBoundedClientRect(el) {
+    const rect = el.getBoundingClientRect()
+
+    return {
+      top: rect.top,
+      left: rect.left,
+      bottom: rect.bottom,
+      right: rect.right,
+      width: rect.width,
+      height: rect.height,
+    }
+  }
+
+  function snapShot(cb) {
+    requestAnimationFrame(() => {
+      const el = contentRef.value
+
+      if (!el || el.style.display !== 'none') {
+        cb()
+        return
+      }
+
+      el.style.display = 'inline-block'
+      cb()
+      el.style.display = 'none'
+    })
+  }
+
   function setDimensions(activatorRef) {
     activator = activatorRef.value!
-    activatorRects = activator.getBoundingClientRect()
+    activatorRects = getBoundedClientRect(activator)
 
     setActivatorDimensions()
     setContentDimensions()
@@ -42,31 +67,20 @@ export function useDimensions() {
     dimensions.activator.width = activatorRects.width
     dimensions.activator.top = activatorRects.top + pageYOffset
     dimensions.activator.left = activatorRects.left
+
+    dimensions.activator.offsetLeft = activator.offsetLeft
+    dimensions.activator.offsetTop = activator.offsetTop
   }
 
   function setContentDimensions() {
-    activator.style.display = ''
-    requestAnimationFrame(() => {
-      console.log(
-        'content offsetTop: ' + contentRef.value!.offsetTop + '\n',
-        'pageYOffset: ' + pageYOffset + '\n',
-        'activator offsetTop: ' + getComputedStyle(activator).top + '\n'
-      )
-    })
-
-    dimensions.content.top = activatorRects.top + pageYOffset - 10
+    dimensions.content.top = activatorRects.top + pageYOffset
     dimensions.content.left = activatorRects.left
     dimensions.content.width = activatorRects.width
-  }
-
-  function calculatePositionLeft() {
-    console.log('calc')
   }
 
   return {
     dimensions,
     contentRef,
     setDimensions,
-    calculatePositionLeft,
   }
 }

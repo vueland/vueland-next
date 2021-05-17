@@ -36,6 +36,10 @@ export const VMenu = defineComponent({
       type: [Number, String],
       default: 0,
     },
+    offsetY: {
+      type: [Number, String],
+      default: 10,
+    },
     openOnHover: Boolean,
     openOnClick: Boolean,
     elevation: {
@@ -92,7 +96,7 @@ export const VMenu = defineComponent({
         },
         style: {
           maxHeight: convertToUnit(props.maxHeight),
-          top: convertToUnit(dimensions.content.top),
+          top: convertToUnit(dimensions.content.top - +props.offsetY),
           left: convertToUnit(dimensions.content.left),
           width: convertToUnit(props.width || dimensions.content.width),
         },

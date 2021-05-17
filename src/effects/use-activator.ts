@@ -14,7 +14,7 @@ type ActivatorListeners = {
   click?: (e: Event) => void
   input?: (e: Event) => void
   change?: (e: Event) => void
-};
+}
 
 export function useActivator() {
   const activatorRef = ref<HTMLElement | null>(null)
@@ -31,22 +31,19 @@ export function useActivator() {
     return activatorSizes
   }
 
-  const genActivatorListeners = (props, isActive) => {
+  const genActivatorListeners = (props, handlers) => {
     if (props.openOnHover) {
       listeners.mouseenter = () => {
-        isActive.value = true
+        handlers.mouseenter()
       }
 
       listeners.mouseleave = () => {
-        isActive.value = false
+        handlers.mouseleave()
       }
     }
 
     if (props.openOnClick) {
-      listeners.click = () => {
-        console.log('activator click')
-        isActive.value = !isActive.value
-      }
+      listeners.click = () => handlers.click()
     }
 
     return listeners
@@ -77,6 +74,6 @@ export function useActivator() {
     getActivatorSizes,
     addActivatorEvents,
     removeActivatorEvents,
-    genActivatorListeners
+    genActivatorListeners,
   }
 }

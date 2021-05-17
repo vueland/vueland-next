@@ -382,8 +382,6 @@ export default {
         clearable
         prepend-icon="search"
         :rules="[v => !!v || 'required']"
-        @select="testFunc"
-        @blur="validate"
       />
       <v-autocomplete
         v-model:value="data.user"
@@ -437,11 +435,11 @@ export default {
             >
               <span
                 style="
-                width: 40px;
-                height: 40px;
-                border-radius: 50px;
-                margin-right: 10px;
-              "
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50px;
+                    margin-right: 10px;
+                  "
                 class="v-loading"
               ></span>
               <span

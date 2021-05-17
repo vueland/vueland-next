@@ -8,7 +8,6 @@ import { h, defineComponent } from 'vue'
 import { VList, VListItem, VListItemTitle } from '../VList'
 
 // Effects
-import { useElevation } from '../../effects/use-elevation'
 import { colorProps, useColors } from '../../effects/use-colors'
 
 // Types
@@ -21,18 +20,20 @@ export const VSelectList = defineComponent({
     valueKey: String,
     idKey: String,
     active: Boolean,
-    listColor: String,
+    listColor: {
+      type: String,
+      default: 'white',
+    },
     elevation: {
       type: [String, Number],
-      default: 4
+      default: 4,
     },
-    ...colorProps()
+    ...colorProps(),
   } as any,
 
   emits: ['select'],
 
   setup(props, { emit }) {
-    const { elevationClasses } = useElevation(props)
     const { setTextColor, setBackground } = useColors()
 
     function genItems(): VNode[] {
@@ -40,7 +41,7 @@ export const VSelectList = defineComponent({
 
       const propsData = {
         class: {},
-        style: {}
+        style: {},
       }
 
       return props.items!.map((it: any) => {
@@ -48,7 +49,7 @@ export const VSelectList = defineComponent({
           VListItemTitle,
           props.color ? setTextColor(props.color, propsData) : propsData,
           {
-            default: () => (key ? it[key] : it)
+            default: () => (key ? it[key] : it),
           }
         )
 
@@ -56,10 +57,10 @@ export const VSelectList = defineComponent({
           VListItem,
           {
             key: props.idKey,
-            onClick: () => emit('select', it)
+            onClick: () => emit('select', it),
           },
           {
-            default: () => item
+            default: () => item,
           }
         )
       })
@@ -75,22 +76,17 @@ export const VSelectList = defineComponent({
 
     function genList(): VNode {
       const propsData = {
-        class: {
-          'v-select-list': true,
-          ...elevationClasses.value
-        },
-        style: {}
+        class: { 'v-select-list': true },
+        style: {},
       }
 
       return h(
         'div',
-        props.listColor
-          ? setBackground(props.listColor, propsData)
-          : propsData,
+        props.listColor ? setBackground(props.listColor, propsData) : propsData,
         genSelectListItems()
       )
     }
 
     return () => genList()
-  }
+  },
 })

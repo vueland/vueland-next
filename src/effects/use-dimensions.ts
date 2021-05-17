@@ -1,7 +1,6 @@
 import { ref, reactive } from 'vue'
 
 export function useDimensions() {
-
   const dimensions = reactive({
     activator: {
       top: 0,
@@ -12,7 +11,7 @@ export function useDimensions() {
       height: 0,
       offsetTop: 0,
       scrollHeight: 0,
-      offsetLeft: 0
+      offsetLeft: 0,
     },
     content: {
       top: 0,
@@ -23,30 +22,41 @@ export function useDimensions() {
       height: 0,
       offsetTop: 0,
       scrollHeight: 0,
-      offsetLeft: 0
-    }
+      offsetLeft: 0,
+    },
   })
 
   const contentRef = ref<HTMLElement | any | null>(null)
+  let activator
+  let activatorRects
 
   function setDimensions(activatorRef) {
-    const el = activatorRef.value!
-    const bcr = el.getBoundingClientRect()
-    setActivatorDimensions(bcr)
-    setContentDimensions(bcr)
+    activator = activatorRef.value!
+    activatorRects = activator.getBoundingClientRect()
+
+    setActivatorDimensions()
+    setContentDimensions()
   }
 
-  function setActivatorDimensions(bcr) {
-    dimensions.activator.width = bcr.width
-    dimensions.activator.top = bcr.top + pageYOffset
-    dimensions.activator.left = bcr.left
+  function setActivatorDimensions() {
+    dimensions.activator.width = activatorRects.width
+    dimensions.activator.top = activatorRects.top + pageYOffset
+    dimensions.activator.left = activatorRects.left
   }
 
-  function setContentDimensions(bcr) {
-    dimensions.content.top = bcr.top + pageYOffset
-    dimensions.content.left = bcr.left
-    dimensions.content.width = bcr.width
-    // dimensions.content.height = contentRef.value.getBoundingClientRect()
+  function setContentDimensions() {
+    activator.style.display = ''
+    requestAnimationFrame(() => {
+      console.log(
+        'content offsetTop: ' + contentRef.value!.offsetTop + '\n',
+        'pageYOffset: ' + pageYOffset + '\n',
+        'activator offsetTop: ' + getComputedStyle(activator).top + '\n'
+      )
+    })
+
+    dimensions.content.top = activatorRects.top + pageYOffset - 10
+    dimensions.content.left = activatorRects.left
+    dimensions.content.width = activatorRects.width
   }
 
   function calculatePositionLeft() {

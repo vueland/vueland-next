@@ -45,7 +45,7 @@ export const VSelect = defineComponent({
     clearable: Boolean,
     modelValue: [Array, String, Object, Number],
     ...validateProps(),
-    ...colorProps()
+    ...colorProps(),
   } as any,
 
   emits: [
@@ -54,13 +54,13 @@ export const VSelect = defineComponent({
     'focus',
     'select',
     'update:modelValue',
-    'update:value'
+    'update:value',
   ],
 
   setup(props, { emit, attrs }): () => VNode {
     const state: SelectState = reactive({
       selected: null,
-      focused: false
+      focused: false,
     })
 
     const { setTextColor } = useColors()
@@ -70,7 +70,7 @@ export const VSelect = defineComponent({
       dirty,
       update,
       errorState,
-      validationState
+      validationState,
     } = useValidate(props)
 
     const fields: Ref<any[]> | undefined = props.rules && inject('fields')
@@ -78,9 +78,8 @@ export const VSelect = defineComponent({
     const classes = computed<Record<string, boolean>>(() => ({
       'v-select': true,
       'v-select--disabled': props.disabled,
-      'v-select--readonly': props.readonly && !props.typeable,
+      'v-select--readonly': props.readonly,
       'v-select--focused': state.focused,
-      'v-select--typeable': props.typeable
     }))
 
     const computedInputValue = computed<string>(() => {
@@ -100,9 +99,9 @@ export const VSelect = defineComponent({
       (value) => {
         state.selected = value
         !state.focused &&
-        errorState.isDirty &&
-        props.rules?.length &&
-        validateValue()
+          errorState.isDirty &&
+          props.rules?.length &&
+          validateValue()
       },
       { immediate: true }
     )
@@ -121,13 +120,14 @@ export const VSelect = defineComponent({
 
     function onBlur() {
       setTimeout(() => {
-        toggleState()
         requestAnimationFrame(validateValue)
+        toggleState()
         emit('blur')
-      }, 50)
+      }, 150)
     }
 
     function onClick() {
+      if (state.focused) return onBlur()
       dirty()
       update(errorState.innerError)
       toggleState()
@@ -153,7 +153,7 @@ export const VSelect = defineComponent({
         readonly: props.readonly && !props.typeable,
         class: 'v-select__input',
         onClick,
-        onBlur
+        onBlur,
       }
       return h('input', setTextColor(props.dark ? 'white' : base, propsData))
     }
@@ -166,18 +166,15 @@ export const VSelect = defineComponent({
         active: state.focused,
         color: props.dark ? 'white' : base,
         listColor: props.listColor || 'white',
-        onSelect: (item) => selectItem(item)
+        onSelect: (item) => selectItem(item),
       }
       return h(VSelectList, propsData)
     }
 
-    function genSelect(on): VNode {
+    function genSelect(): VNode {
       const propsData = {
         class: classes.value,
       }
-      Object.keys(on).forEach(key => {
-        propsData[`on${key[0].toUpperCase() + key.slice(1)}`] = on[key]
-      })
 
       return h('div', propsData, genInput())
     }
@@ -201,20 +198,18 @@ export const VSelect = defineComponent({
         message: errorState.innerErrorMessage,
         clearable: props.clearable,
         onClear,
-        ...attrs
+        ...attrs,
       } as any
+
+      const menuContent = {
+        activator: () => genSelect(),
+        content: () => props.items && genSelectList(),
+      }
 
       return h(VInput, propsData, {
         select: () =>
-          h(VMenu, {
-              openOnClick: true
-            },
-            {
-              activator: ({ on }) => genSelect(on),
-              content: () => props.items && genSelectList()
-            }
-          )
+          h(VMenu, { openOnClick: true, maxHeight: 400 }, menuContent),
       })
     }
-  }
+  },
 })

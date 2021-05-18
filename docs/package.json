@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "vueland": "git+https://github.com/vueland/vueland-next.git",
+    "vueland": "github:vueland/vueland-next",
     "vuepress": "^2.0.0-beta.14"
   },
   "devDependencies": {

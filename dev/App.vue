@@ -346,7 +346,7 @@ export default {
         prepend-icon="event"
         :rules="[val => !!val || 'Required']"
         clearable
-        typeable
+
         monday-first
         :disabled-dates="disabledDates"
         @selected="testFunc"
@@ -378,7 +378,6 @@ export default {
         :items="data.users"
         color="cyan"
         value-key="name"
-        readonly
         clearable
         prepend-icon="search"
         :rules="[v => !!v || 'required']"

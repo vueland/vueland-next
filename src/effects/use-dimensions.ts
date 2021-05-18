@@ -1,4 +1,4 @@
-import { ref, reactive, computed } from 'vue'
+import { ref, reactive } from 'vue'
 
 export function useDimensions() {
   const dimensions = reactive({
@@ -42,11 +42,11 @@ export function useDimensions() {
     }
   }
 
-  function getInnerHeight(): number {
-    if (!window) return 0
-
-    return window.innerHeight || document.documentElement.clientHeight
-  }
+  // function getInnerHeight(): number {
+  //   if (!window) return 0
+  //
+  //   return window.innerHeight || document.documentElement.clientHeight
+  // }
 
   function getOffsetTop(): number {
     if (!window) return 0

@@ -92,10 +92,6 @@ var VDatePicker = (0, _vue.defineComponent)({
       isDates: true,
       isActive: false
     });
-    var localeMonths = _locale.locale[props.lang].monthsAbbr;
-    var localWeek = _locale.locale[props.lang].week;
-    var contentColor = props.dark ? 'white' : props.contentColor;
-    var handlers = (0, _vue.ref)({});
 
     var _useColors = (0, _useColors2.useColors)(),
         setTextColor = _useColors.setTextColor,
@@ -104,6 +100,11 @@ var VDatePicker = (0, _vue.defineComponent)({
     var _useElevation = (0, _useElevation2.useElevation)(props),
         elevationClasses = _useElevation.elevationClasses;
 
+    var localeMonths = _locale.locale[props.lang].monthsAbbr;
+    var localeWeek = _locale.locale[props.lang].week;
+    var contentColor = props.dark ? 'white' : props.contentColor;
+    var handlers = (0, _vue.ref)({});
+    var closeConditional = (0, _vue.ref)(true);
     (0, _vue.provide)('handlers', handlers);
     setInitDate();
     var classes = (0, _vue.computed)(function () {
@@ -126,7 +127,7 @@ var VDatePicker = (0, _vue.defineComponent)({
           month = _data$selected.month,
           date = _data$selected.date,
           day = _data$selected.day;
-      return "".concat(localeMonths[month], " ").concat(date, " ").concat(localWeek[day]);
+      return "".concat(localeMonths[month], " ").concat(date, " ").concat(localeWeek[day]);
     });
     var computedValue = (0, _vue.computed)(function () {
       var _data$selected2 = data.selected,
@@ -264,7 +265,13 @@ var VDatePicker = (0, _vue.defineComponent)({
         onPrev: function onPrev() {
           return handlers.value.onPrev();
         },
-        onTable: onTableChange
+        onTable: onTableChange,
+        onMouseenter: function onMouseenter() {
+          return closeConditional.value = false;
+        },
+        onMouseleave: function onMouseleave() {
+          return closeConditional.value = !data.isYears && !data.isMonths;
+        }
       }, {
         "default": function _default() {
           return headerValue.value;
@@ -295,13 +302,15 @@ var VDatePicker = (0, _vue.defineComponent)({
       var _h2;
 
       return (0, _vue.h)(_VDatePickerDates.VDatePickerDates, (_h2 = {
-        locale: localWeek,
+        locale: localeWeek,
         mondayFirst: props.mondayFirst,
         month: data.tableMonth,
         year: data.tableYear,
         value: data.selected,
         disabledDates: props.disabledDates
-      }, _defineProperty(_h2, 'onUpdate:value', onDateUpdate), _defineProperty(_h2, 'onUpdate:month', onDateMonthUpdate), _h2), {
+      }, _defineProperty(_h2, 'onUpdate:value', onDateUpdate), _defineProperty(_h2, 'onUpdate:month', onDateMonthUpdate), _defineProperty(_h2, "onMouseenter", function onMouseenter() {
+        return closeConditional.value = true;
+      }), _h2), {
         date: slots.date && (0, _helpers2.addScopedSlot)('date', slots)
       });
     }
@@ -359,7 +368,7 @@ var VDatePicker = (0, _vue.defineComponent)({
         maxHeight: 'auto',
         offsetY: props.typeable ? -70 : 0,
         openOnClick: true,
-        closeOnContentClick: false
+        closeOnContentClick: closeConditional.value
       }, content);
       return (0, _vue.h)('div', propsData, menu);
     }

@@ -31,6 +31,7 @@ function useDimensions() {
   var contentRef = (0, _vue.ref)(null);
   var activator;
   var activatorRects;
+  var offset = 10;
   dimensions.pageYOffset = getOffsetTop();
 
   function getBoundedClientRect(el) {
@@ -45,9 +46,31 @@ function useDimensions() {
     };
   }
 
+  function getInnerHeight() {
+    if (!window) return 0;
+    return window.innerHeight || document.documentElement.clientHeight;
+  }
+
   function getOffsetTop() {
     if (!window) return 0;
     return window.pageYOffset || document.documentElement.scrollTop;
+  }
+
+  function snapShot(cb) {
+    requestAnimationFrame(function () {
+      var el = contentRef.value;
+
+      if (!el || el.style.display !== 'none') {
+        el._trans = getComputedStyle(el).transition;
+        el.style.transition = '';
+        cb();
+        return;
+      }
+
+      el.style.display = 'inline-block';
+      cb();
+      el.style.display = 'none';
+    });
   }
 
   function setDimensions(activatorRef) {
@@ -55,6 +78,18 @@ function useDimensions() {
     activatorRects = getBoundedClientRect(activator);
     setActivatorDimensions();
     setContentDimensions();
+    updateDimensions();
+  }
+
+  function updateDimensions() {
+    snapShot(function () {
+      dimensions.content.height = contentRef.value.offsetHeight;
+      dimensions.pageYOffset = getOffsetTop();
+      var scrollHeight = dimensions.pageYOffset + getInnerHeight();
+      var contentFull = dimensions.content.height + dimensions.content.top;
+      var diff = scrollHeight - contentFull;
+      if (diff < 0) dimensions.content.top += diff - offset;
+    });
   }
 
   function setActivatorDimensions() {
@@ -72,7 +107,8 @@ function useDimensions() {
   return {
     dimensions: dimensions,
     contentRef: contentRef,
-    setDimensions: setDimensions
+    setDimensions: setDimensions,
+    updateDimensions: updateDimensions
   };
 }
 //# sourceMappingURL=use-dimensions.js.map

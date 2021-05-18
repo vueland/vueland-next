@@ -15,7 +15,7 @@
         prepend-icon="event"
         monday-first
         :disabled-dates="{
-            days: [0, 6],
+            days: [0, 6, 2],
         }"
       />
 </div>

@@ -25,6 +25,7 @@ export function useDimensions() {
   const contentRef = ref<HTMLElement | any | null>(null)
   let activator
   let activatorRects
+  const offset = 10
 
   // const calcYOffset = computed(() => {})
   dimensions.pageYOffset = getOffsetTop()
@@ -42,11 +43,11 @@ export function useDimensions() {
     }
   }
 
-  // function getInnerHeight(): number {
-  //   if (!window) return 0
-  //
-  //   return window.innerHeight || document.documentElement.clientHeight
-  // }
+  function getInnerHeight(): number {
+    if (!window) return 0
+
+    return window.innerHeight || document.documentElement.clientHeight
+  }
 
   function getOffsetTop(): number {
     if (!window) return 0
@@ -54,20 +55,23 @@ export function useDimensions() {
     return window.pageYOffset || document.documentElement.scrollTop
   }
 
-  // function snapShot(cb) {
-  //   requestAnimationFrame(() => {
-  //     const el = contentRef.value
-  //
-  //     if (!el || el.style.display !== 'none') {
-  //       cb()
-  //       return
-  //     }
-  //
-  //     el.style.display = 'inline-block'
-  //     cb()
-  //     el.style.display = 'none'
-  //   })
-  // }
+  function snapShot(cb) {
+    requestAnimationFrame(() => {
+      const el = contentRef.value
+
+      if (!el || el.style.display !== 'none') {
+        el._trans = getComputedStyle(el).transition
+        el.style.transition = ''
+        cb()
+        // el.style.transition = el._trans
+        return
+      }
+
+      el.style.display = 'inline-block'
+      cb()
+      el.style.display = 'none'
+    })
+  }
 
   function setDimensions(activatorRef) {
     activator = activatorRef.value!
@@ -75,6 +79,21 @@ export function useDimensions() {
 
     setActivatorDimensions()
     setContentDimensions()
+    updateDimensions()
+  }
+
+  function updateDimensions() {
+    snapShot(() => {
+      dimensions.content.height = contentRef.value.offsetHeight
+      dimensions.pageYOffset = getOffsetTop()
+
+      const scrollHeight = dimensions.pageYOffset + getInnerHeight()
+      const contentFull = dimensions.content.height + dimensions.content.top
+
+      const diff = scrollHeight - contentFull
+
+      if (diff < 0) dimensions.content.top += diff - offset
+    })
   }
 
   function setActivatorDimensions() {
@@ -93,5 +112,6 @@ export function useDimensions() {
     dimensions,
     contentRef,
     setDimensions,
+    updateDimensions,
   }
 }

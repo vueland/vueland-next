@@ -101,14 +101,15 @@ export const VDatePicker = defineComponent({
       isActive: false,
     })
 
+    const { setTextColor, setBackground } = useColors()
+    const { elevationClasses } = useElevation(props)
+
     const localeMonths: string[] = locale[props.lang].monthsAbbr
-    const localWeek: string[] = locale[props.lang].week
+    const localeWeek: string[] = locale[props.lang].week
     const contentColor: string = props.dark ? 'white' : props.contentColor
 
     const handlers = ref<DatePickerBtnHandlers>({})
-
-    const { setTextColor, setBackground } = useColors()
-    const { elevationClasses } = useElevation(props)
+    const closeConditional = ref<boolean>(true)
 
     provide('handlers', handlers)
 
@@ -135,7 +136,7 @@ export const VDatePicker = defineComponent({
 
     const displayDate = computed<string>(() => {
       const { month, date, day } = data.selected as DatePickerDate
-      return `${localeMonths[month]} ${date} ${localWeek[day]}`
+      return `${localeMonths[month]} ${date} ${localeWeek[day]}`
     })
 
     const computedValue = computed<string | number | Date>(() => {
@@ -295,6 +296,9 @@ export const VDatePicker = defineComponent({
           onNext: () => handlers.value.onNext!(),
           onPrev: () => handlers.value.onPrev!(),
           onTable: onTableChange,
+          onMouseenter: () => (closeConditional.value = false),
+          onMouseleave: () =>
+            (closeConditional.value = !data.isYears && !data.isMonths),
         },
         {
           default: () => headerValue.value,
@@ -326,7 +330,7 @@ export const VDatePicker = defineComponent({
       return h(
         VDatePickerDates,
         {
-          locale: localWeek,
+          locale: localeWeek,
           mondayFirst: props.mondayFirst,
           month: data.tableMonth,
           year: data.tableYear,
@@ -334,6 +338,7 @@ export const VDatePicker = defineComponent({
           disabledDates: props.disabledDates,
           ['onUpdate:value']: onDateUpdate,
           ['onUpdate:month']: onDateMonthUpdate,
+          onMouseenter: () => (closeConditional.value = true),
         },
         {
           date: slots.date && addScopedSlot('date', slots),
@@ -410,7 +415,7 @@ export const VDatePicker = defineComponent({
           maxHeight: 'auto',
           offsetY: props.typeable ? -70 : 0,
           openOnClick: true,
-          closeOnContentClick: false,
+          closeOnContentClick: closeConditional.value,
         },
         content
       )

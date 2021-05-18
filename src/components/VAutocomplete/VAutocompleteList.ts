@@ -2,15 +2,12 @@
 import './VAutocompleteList.scss'
 
 // Vue API
-import { h, defineComponent, withDirectives, vShow } from 'vue'
+import { h, defineComponent } from 'vue'
 
 // Components
 import { VList, VListItem, VListItemTitle } from '../VList'
 
 // Effects
-import { useToggle } from '../../effects/use-toggle'
-import { useTransition } from '../../effects/use-transition'
-import { useElevation } from '../../effects/use-elevation'
 import { colorProps, useColors } from '../../effects/use-colors'
 
 // Types
@@ -33,8 +30,6 @@ export const VAutocompleteList = defineComponent({
   emits: ['select'],
 
   setup(props, { emit }) {
-    const { isActive } = useToggle(props, 'active')
-    const { elevationClasses } = useElevation(props)
     const { setTextColor, setBackground } = useColors()
 
     function genItems(): VNode[] {
@@ -51,7 +46,7 @@ export const VAutocompleteList = defineComponent({
           props.color ? setTextColor(props.color, propsData) : propsData,
           {
             default: () => (key ? it[key] : it),
-          },
+          }
         )
 
         return h(
@@ -62,7 +57,7 @@ export const VAutocompleteList = defineComponent({
           },
           {
             default: () => item,
-          },
+          }
         )
       })
     }
@@ -73,7 +68,7 @@ export const VAutocompleteList = defineComponent({
         {
           class: 'v-autocomplete--items-list',
         },
-        { default: () => genItems() },
+        { default: () => genItems() }
       )
     }
 
@@ -81,23 +76,17 @@ export const VAutocompleteList = defineComponent({
       const propsData = {
         class: {
           'v-autocomplete-list': true,
-          ...elevationClasses.value,
         },
         style: {},
       }
 
-      return withDirectives(
-        h(
-          'div',
-          props.listColor
-            ? setBackground(props.listColor, propsData)
-            : propsData,
-          genAutocompleteListItems(),
-        ),
-        [[vShow, isActive.value]],
+      return h(
+        'div',
+        props.listColor ? setBackground(props.listColor, propsData) : propsData,
+        genAutocompleteListItems()
       )
     }
 
-    return () => useTransition(genList(), 'fade')
+    return () => genList()
   },
 })

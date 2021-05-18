@@ -200,7 +200,7 @@ export const VSelect = defineComponent({
       } as any
 
       const menuContent = {
-        activator: () => genSelect(),
+        activator: genSelect,
         content: () => props.items && genSelectList(),
       }
 
@@ -210,9 +210,8 @@ export const VSelect = defineComponent({
             VMenu,
             {
               openOnClick: true,
-              maxHeight: 400,
-              offsetY: props.typeable ? 1 : 0,
-              onClose: () => onBlur(),
+              maxHeight: 240,
+              onClose: onBlur,
             },
             menuContent
           ),

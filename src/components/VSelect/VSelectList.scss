@@ -12,12 +12,12 @@
     color: currentColor;
 
     &:hover:after {
-      opacity: 1;
+      opacity: .1;
     }
   }
   & > .v-list > .v-select-item--selected {
     &:after {
-      opacity: 1;
+      opacity: .1;
     }
   }
 }

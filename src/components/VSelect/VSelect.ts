@@ -123,11 +123,10 @@ export const VSelect = defineComponent({
         requestAnimationFrame(validateValue)
         toggleState()
         emit('blur')
-      }, 150)
+      })
     }
 
     function onClick() {
-      if (state.focused) return onBlur()
       dirty()
       update(errorState.innerError)
       toggleState()
@@ -153,7 +152,6 @@ export const VSelect = defineComponent({
         readonly: props.readonly && !props.typeable,
         class: 'v-select__input',
         onClick,
-        onBlur,
       }
       return h('input', setTextColor(props.dark ? 'white' : base, propsData))
     }
@@ -208,7 +206,16 @@ export const VSelect = defineComponent({
 
       return h(VInput, propsData, {
         select: () =>
-          h(VMenu, { openOnClick: true, maxHeight: 400 }, menuContent),
+          h(
+            VMenu,
+            {
+              openOnClick: true,
+              maxHeight: 400,
+              offsetY: props.typeable ? 1 : 0,
+              onClose: () => onBlur(),
+            },
+            menuContent
+          ),
       })
     }
   },

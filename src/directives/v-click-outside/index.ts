@@ -6,9 +6,9 @@ function clickHandler(e, el) {
   )
     return
 
-  if (typeof el._binds.value === 'function') el._binds.value()
+  if (typeof el._binds.value === 'function') el._binds.value(e)
 
-  if (typeof el._binds.value === 'object') el._binds.value.handler()
+  if (typeof el._binds.value === 'object') el._binds.value.handler(e)
 }
 
 function removeListener(el) {

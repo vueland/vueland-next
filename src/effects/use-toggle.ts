@@ -5,8 +5,8 @@ import { ref, watch } from 'vue'
 import { Ref } from 'vue'
 
 type Toggleable = {
-  isActive: Ref<boolean>;
-};
+  isActive: Ref<boolean>
+}
 
 /***
  *
@@ -15,13 +15,13 @@ type Toggleable = {
  */
 
 export function useToggle(props: any, propName?: string): Toggleable {
-  const isActive = ref(false)
+  const isActive = ref<boolean>(false)
   const prop = propName ? propName : 'modelValue'
 
   watch(
     () => props[prop],
     (to) => (isActive.value = !!to),
-    { immediate: true },
+    { immediate: true }
   )
 
   return {

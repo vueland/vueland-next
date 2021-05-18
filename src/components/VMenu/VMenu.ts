@@ -3,10 +3,10 @@ import './VMenu.scss'
 
 import {
   h,
-  ref,
   defineComponent,
   withDirectives,
   computed,
+  watch,
   onMounted,
   onBeforeUnmount,
 } from 'vue'
@@ -17,12 +17,13 @@ import { useActivator } from '../../effects/use-activator'
 import { useDetachable } from '../../effects/use-detachable'
 import { useTransition } from '../../effects/use-transition'
 import { useElevation } from '../../effects/use-elevation'
+import { useToggle } from '../../effects/use-toggle'
 
 // Helpers
 import { convertToUnit } from '../../helpers'
 
 // Directives
-import { clickOutside } from '../../directives'
+import { clickOutside, resize } from '../../directives'
 import { vShow } from 'vue'
 
 export const VMenu = defineComponent({
@@ -38,25 +39,29 @@ export const VMenu = defineComponent({
     },
     offsetY: {
       type: [Number, String],
-      default: 10,
+      default: 0,
     },
     openOnHover: Boolean,
     openOnClick: Boolean,
     closeOnContentClick: {
       type: Boolean,
-      default: true
+      default: true,
     },
     closeOnClick: {
       type: Boolean,
-      default: true
+      default: true,
     },
     elevation: {
       type: [Number, String],
       default: 10,
     },
   },
-  setup(props, { slots }) {
+
+  emits: ['open', 'close'],
+
+  setup(props, { emit, slots }) {
     const { elevationClasses } = useElevation(props)
+    const { isActive } = useToggle(props)
     const { contentRef, setDimensions, dimensions } = useDimensions()
     const { setDetached, removeDetached } = useDetachable()
     const {
@@ -65,8 +70,6 @@ export const VMenu = defineComponent({
       addActivatorEvents,
       removeActivatorEvents,
     } = useActivator()
-
-    const isActive = ref<boolean>(false)
 
     const handlers = {
       click: () => {
@@ -82,7 +85,8 @@ export const VMenu = defineComponent({
     const directive = computed(() => {
       return isActive.value
         ? {
-            handler: () => {
+            handler: (e) => {
+              if (activatorRef.value!.contains(e.target)) return
               isActive.value = false
             },
             closeConditional: props.closeOnContentClick,
@@ -90,8 +94,33 @@ export const VMenu = defineComponent({
         : undefined
     })
 
+    const calcMaxHeight = computed<string>(() => {
+      return isNaN(+props.maxHeight)
+        ? (props.maxHeight as string)
+        : (convertToUnit(props.maxHeight) as string)
+    })
+
+    const calcWidth = computed<string>(() => {
+      return isNaN(+props.width)
+        ? (props.width as string)
+        : (convertToUnit(props.width || dimensions.content.width) as string)
+    })
+
+    watch(
+      () => isActive.value,
+      (to) => {
+        to && emit('open')
+        !to && emit('close')
+      }
+    )
+
     function genMenuActivator() {
       const slotContent = slots.activator && slots.activator({ on: listeners })
+
+      if (typeof slotContent![0].type === 'object') {
+        return h('div', { ref: activatorRef }, h(slotContent![0]))
+      }
+
       return h(slotContent![0], { ref: activatorRef })
     }
 
@@ -103,18 +132,22 @@ export const VMenu = defineComponent({
           ...elevationClasses.value,
         },
         style: {
-          maxHeight: convertToUnit(props.maxHeight),
+          width: calcWidth.value,
+          maxHeight: calcMaxHeight.value,
           top: convertToUnit(dimensions.content.top - +props.offsetY),
           left: convertToUnit(dimensions.content.left),
-          width: convertToUnit(props.width || dimensions.content.width),
         },
         onClick: () => {
           isActive.value = !props.closeOnContentClick
-        }
+        },
       }
 
       const content = h('div', propsData, slots.content && slots.content())
-      const directives: any = [[vShow, isActive.value]]
+
+      const directives: any = [
+        [vShow, isActive.value],
+        [resize, onResize],
+      ]
 
       if (props.closeOnClick) directives.push([clickOutside, directive.value])
 
@@ -125,17 +158,16 @@ export const VMenu = defineComponent({
       setDimensions(activatorRef)
       addActivatorEvents()
       setDetached(contentRef.value)
-      window.addEventListener('resize', onResize)
     })
 
     onBeforeUnmount(() => {
       removeActivatorEvents()
       removeDetached(contentRef.value)
-      window.removeEventListener('resize', onResize)
     })
 
     function onResize() {
-      setDimensions(activatorRef)
+      if (!isActive.value) return
+      requestAnimationFrame(() => setDimensions(activatorRef))
     }
 
     return () => [

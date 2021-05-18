@@ -1,4 +1,4 @@
-import { ref, reactive } from 'vue'
+import { ref, reactive, computed } from 'vue'
 
 export function useDimensions() {
   const dimensions = reactive({
@@ -9,9 +9,6 @@ export function useDimensions() {
       right: 0,
       width: 0,
       height: 0,
-      offsetTop: 0,
-      scrollHeight: 0,
-      offsetLeft: 0,
     },
     content: {
       top: 0,
@@ -21,11 +18,16 @@ export function useDimensions() {
       width: 0,
       height: 0,
     },
+    pageYOffset: 0,
+    pageWidth: 0,
   })
 
   const contentRef = ref<HTMLElement | any | null>(null)
   let activator
   let activatorRects
+
+  // const calcYOffset = computed(() => {})
+  dimensions.pageYOffset = getOffsetTop()
 
   function getBoundedClientRect(el) {
     const rect = el.getBoundingClientRect()
@@ -40,20 +42,32 @@ export function useDimensions() {
     }
   }
 
-  function snapShot(cb) {
-    requestAnimationFrame(() => {
-      const el = contentRef.value
+  function getInnerHeight(): number {
+    if (!window) return 0
 
-      if (!el || el.style.display !== 'none') {
-        cb()
-        return
-      }
-
-      el.style.display = 'inline-block'
-      cb()
-      el.style.display = 'none'
-    })
+    return window.innerHeight || document.documentElement.clientHeight
   }
+
+  function getOffsetTop(): number {
+    if (!window) return 0
+
+    return window.pageYOffset || document.documentElement.scrollTop
+  }
+
+  // function snapShot(cb) {
+  //   requestAnimationFrame(() => {
+  //     const el = contentRef.value
+  //
+  //     if (!el || el.style.display !== 'none') {
+  //       cb()
+  //       return
+  //     }
+  //
+  //     el.style.display = 'inline-block'
+  //     cb()
+  //     el.style.display = 'none'
+  //   })
+  // }
 
   function setDimensions(activatorRef) {
     activator = activatorRef.value!
@@ -67,9 +81,6 @@ export function useDimensions() {
     dimensions.activator.width = activatorRects.width
     dimensions.activator.top = activatorRects.top + pageYOffset
     dimensions.activator.left = activatorRects.left
-
-    dimensions.activator.offsetLeft = activator.offsetLeft
-    dimensions.activator.offsetTop = activator.offsetTop
   }
 
   function setContentDimensions() {

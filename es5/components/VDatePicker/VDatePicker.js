@@ -9,8 +9,6 @@ require("../../../src/components/VDatePicker/VDatePicker.scss");
 
 var _vue = require("vue");
 
-var _directives = require("../../directives");
-
 var _useColors2 = require("../../effects/use-colors");
 
 var _useElevation2 = require("../../effects/use-elevation");
@@ -27,13 +25,17 @@ var _VDatePickerYears = require("./VDatePickerYears");
 
 var _VDatePickerMonths = require("./VDatePickerMonths");
 
+var _VMenu = require("../VMenu");
+
 var _helpers = require("./helpers");
+
+var _helpers2 = require("../../helpers");
 
 var _utils = require("./utils");
 
 var _locale = require("../../services/locale");
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
@@ -59,7 +61,7 @@ var VDatePicker = (0, _vue.defineComponent)({
     prependIcon: String,
     format: {
       type: String,
-      "default": 'yyyy-mm-dd'
+      "default": 'yyyy MM dd D'
     },
     rules: Array,
     value: [String, Date, Number],
@@ -74,7 +76,8 @@ var VDatePicker = (0, _vue.defineComponent)({
   }, (0, _useElevation2.elevationProps)()),
   emits: ['update:value', 'update:modelValue', 'selected'],
   setup: function setup(props, _ref) {
-    var emit = _ref.emit;
+    var emit = _ref.emit,
+        slots = _ref.slots;
     var data = (0, _vue.reactive)({
       year: null,
       month: null,
@@ -131,14 +134,6 @@ var VDatePicker = (0, _vue.defineComponent)({
           month = _data$selected2.month,
           date = _data$selected2.date;
       return new Date(year, month, date);
-    });
-    var directive = (0, _vue.computed)(function () {
-      return data.isActive ? {
-        handler: function handler() {
-          return data.isActive = false;
-        },
-        closeConditional: false
-      } : undefined;
     });
 
     function setInitDate() {
@@ -208,7 +203,6 @@ var VDatePicker = (0, _vue.defineComponent)({
       emit('update:value', computedValue.value);
       emit('update:modelValue', computedValue.value);
       emit('selected', computedValue.value);
-      data.isActive = false;
     }
 
     function onDateMonthUpdate(dateObject) {
@@ -217,7 +211,6 @@ var VDatePicker = (0, _vue.defineComponent)({
     }
 
     function onDateInput(date) {
-      data.isActive = false;
       onDateUpdate(stringToDate(date));
     }
 
@@ -308,7 +301,9 @@ var VDatePicker = (0, _vue.defineComponent)({
         year: data.tableYear,
         value: data.selected,
         disabledDates: props.disabledDates
-      }, _defineProperty(_h2, 'onUpdate:value', onDateUpdate), _defineProperty(_h2, 'onUpdate:month', onDateMonthUpdate), _h2));
+      }, _defineProperty(_h2, 'onUpdate:value', onDateUpdate), _defineProperty(_h2, 'onUpdate:month', onDateMonthUpdate), _h2), {
+        date: slots.date && (0, _helpers2.addScopedSlot)('date', slots)
+      });
     }
 
     function genDatepickerBody() {
@@ -330,9 +325,6 @@ var VDatePicker = (0, _vue.defineComponent)({
         prependIcon: props.prependIcon,
         rules: props.rules,
         clearable: props.clearable,
-        onFocus: function onFocus() {
-          return data.isActive = true;
-        },
         onInput: onDateInput,
         onClear: function onClear() {
           data.convertedDateString = '';
@@ -347,14 +339,29 @@ var VDatePicker = (0, _vue.defineComponent)({
       var propsData = setBackground(props.color, {
         "class": tableClasses.value
       });
-      return (0, _vue.withDirectives)((0, _vue.h)('div', setTextColor(contentColor, propsData), [genDatepickerDisplay(), genDatepickerHeader(), genDatepickerBody()]), [[_vue.vShow, data.isActive]]);
+      return (0, _vue.h)('div', setTextColor(contentColor, propsData), [genDatepickerDisplay(), genDatepickerHeader(), genDatepickerBody()]);
     }
 
     function genDatepicker() {
       var propsData = {
         "class": classes.value
       };
-      return (0, _vue.withDirectives)((0, _vue.h)('div', propsData, [genDatepickerInput(), (0, _useTransition.useTransition)(genDatepickerTable(), 'fade')]), [[_directives.clickOutside, directive.value]]);
+      var content = {
+        activator: function activator() {
+          return genDatepickerInput();
+        },
+        content: function content() {
+          return genDatepickerTable();
+        }
+      };
+      var menu = (0, _vue.h)(_VMenu.VMenu, {
+        width: 'auto',
+        maxHeight: 'auto',
+        offsetY: props.typeable ? -70 : 0,
+        openOnClick: true,
+        closeOnContentClick: false
+      }, content);
+      return (0, _vue.h)('div', propsData, menu);
     }
 
     return function () {

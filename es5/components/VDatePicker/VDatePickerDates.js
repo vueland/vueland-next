@@ -26,7 +26,8 @@ var VDatePickerDates = (0, _vue.defineComponent)({
   },
   emits: ['update:month', 'update:value'],
   setup: function setup(props, _ref) {
-    var emit = _ref.emit;
+    var emit = _ref.emit,
+        slots = _ref.slots;
     var FIRST_MONTH = 0;
     var LAST_MONTH = 11;
     var DAYS = [0, 1, 2, 3, 4, 5, 6];
@@ -62,7 +63,7 @@ var VDatePickerDates = (0, _vue.defineComponent)({
       return isDatesChanged.value;
     }, function () {
       return setTimeout(function () {
-        isDatesChanged.value = false;
+        return isDatesChanged.value = false;
       }, ANIMATION_TIMEOUT);
     });
 
@@ -181,7 +182,7 @@ var VDatePickerDates = (0, _vue.defineComponent)({
           return date.date && emit('update:value', date);
         }
       };
-      return (0, _vue.h)('div', propsData, date.date);
+      return (0, _vue.h)('div', propsData, [date.date && slots.date && slots.date(date) || date.date]);
     }
 
     function genDateCells() {

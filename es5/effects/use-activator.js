@@ -21,14 +21,20 @@ function useActivator() {
     return activatorSizes;
   };
 
-  var genActivatorListeners = function genActivatorListeners(props, isActive) {
+  var genActivatorListeners = function genActivatorListeners(props, handlers) {
     if (props.openOnHover) {
       listeners.mouseenter = function () {
-        isActive.value = true;
+        handlers.mouseenter();
       };
 
       listeners.mouseleave = function () {
-        isActive.value = false;
+        handlers.mouseleave();
+      };
+    }
+
+    if (props.openOnClick) {
+      listeners.click = function () {
+        return handlers.click();
       };
     }
 

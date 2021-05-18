@@ -69,6 +69,19 @@ Object.keys(_VModal).forEach(function (key) {
   });
 });
 
+var _VMenu = require("./VMenu");
+
+Object.keys(_VMenu).forEach(function (key) {
+  if (key === "default" || key === "__esModule") return;
+  if (key in exports && exports[key] === _VMenu[key]) return;
+  Object.defineProperty(exports, key, {
+    enumerable: true,
+    get: function get() {
+      return _VMenu[key];
+    }
+  });
+});
+
 var _VTextField = require("./VTextField");
 
 Object.keys(_VTextField).forEach(function (key) {

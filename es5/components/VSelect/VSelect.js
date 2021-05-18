@@ -19,9 +19,9 @@ var _VInput = require("../VInput");
 
 var _VSelectList = require("./VSelectList");
 
-var _directives = require("../../directives");
+var _VMenu = require("../VMenu");
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
@@ -38,17 +38,18 @@ var VSelect = (0, _vue.defineComponent)({
     listColor: String,
     disabled: Boolean,
     readonly: Boolean,
+    clearable: Boolean,
     modelValue: [Array, String, Object, Number]
   }, (0, _useValidate2.validateProps)()), (0, _useColors2.colorProps)()),
   emits: ['input', 'blur', 'focus', 'select', 'update:modelValue', 'update:value'],
   setup: function setup(props, _ref) {
     var _props$rules2;
 
-    var emit = _ref.emit;
+    var emit = _ref.emit,
+        attrs = _ref.attrs;
     var state = (0, _vue.reactive)({
       selected: null,
-      focused: false,
-      isMenuActive: false
+      focused: false
     });
 
     var _useColors = (0, _useColors2.useColors)(),
@@ -65,19 +66,12 @@ var VSelect = (0, _vue.defineComponent)({
         validationState = _useValidate.validationState;
 
     var fields = props.rules && (0, _vue.inject)('fields');
-    var directive = (0, _vue.computed)(function () {
-      return state.focused ? {
-        handler: onBlur,
-        closeConditional: true
-      } : undefined;
-    });
     var classes = (0, _vue.computed)(function () {
       return {
         'v-select': true,
         'v-select--disabled': props.disabled,
-        'v-select--readonly': props.readonly && !props.typeable,
-        'v-select--focused': state.focused,
-        'v-select--typeable': props.typeable
+        'v-select--readonly': props.readonly,
+        'v-select--focused': state.focused
       };
     });
     var computedInputValue = (0, _vue.computed)(function () {
@@ -109,13 +103,14 @@ var VSelect = (0, _vue.defineComponent)({
 
     function toggleState() {
       state.focused = !state.focused;
-      state.isMenuActive = !state.isMenuActive;
     }
 
     function onBlur() {
-      toggleState();
-      requestAnimationFrame(validateValue);
-      emit('blur');
+      setTimeout(function () {
+        requestAnimationFrame(validateValue);
+        toggleState();
+        emit('blur');
+      });
     }
 
     function onClick() {
@@ -130,11 +125,11 @@ var VSelect = (0, _vue.defineComponent)({
       requestAnimationFrame(validateValue);
     }
 
-    function selectItem(it) {
-      state.selected = it;
-      emit('select', it);
-      emit('update:value', it);
-      emit('update:modelValue', it);
+    function selectItem(item) {
+      state.selected = item;
+      emit('select', item);
+      emit('update:value', item);
+      emit('update:modelValue', item);
     }
 
     function genInput() {
@@ -153,21 +148,21 @@ var VSelect = (0, _vue.defineComponent)({
         items: props.items,
         valueKey: props.valueKey,
         idKey: props.idKey,
-        active: state.isMenuActive,
+        active: state.focused,
         color: props.dark ? 'white' : base,
         listColor: props.listColor || 'white',
-        onSelect: function onSelect(it) {
-          return selectItem(it);
+        onSelect: function onSelect(item) {
+          return selectItem(item);
         }
       };
       return (0, _vue.h)(_VSelectList.VSelectList, propsData);
     }
 
     function genSelect() {
-      var selectVNode = (0, _vue.h)('div', {
+      var propsData = {
         "class": classes.value
-      }, [genInput(), props.items && genSelectList()]);
-      return (0, _vue.withDirectives)(selectVNode, [[_directives.clickOutside, directive.value]]);
+      };
+      return (0, _vue.h)('div', propsData, genInput());
     }
 
     (0, _vue.onBeforeUnmount)(function () {
@@ -178,7 +173,7 @@ var VSelect = (0, _vue.defineComponent)({
       }
     });
     return function () {
-      var propsData = {
+      var propsData = _objectSpread({
         label: props.label,
         focused: state.focused,
         hasState: !!computedInputValue.value,
@@ -188,11 +183,28 @@ var VSelect = (0, _vue.defineComponent)({
         disabled: props.disabled,
         isDirty: !!errorState.isDirty,
         message: errorState.innerErrorMessage,
+        clearable: props.clearable,
         onClear: onClear
+      }, attrs);
+
+      var menuContent = {
+        activator: function activator() {
+          return genSelect();
+        },
+        content: function content() {
+          return props.items && genSelectList();
+        }
       };
       return (0, _vue.h)(_VInput.VInput, propsData, {
         select: function select() {
-          return genSelect();
+          return (0, _vue.h)(_VMenu.VMenu, {
+            openOnClick: true,
+            maxHeight: 400,
+            offsetY: props.typeable ? 1 : 0,
+            onClose: function onClose() {
+              return onBlur();
+            }
+          }, menuContent);
         }
       });
     };

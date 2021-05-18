@@ -9,8 +9,8 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
 function clickHandler(e, el) {
   if (el.contains(e.target) && el._binds.value && !el._binds.value.closeConditional) return;
-  if (typeof el._binds.value === 'function') el._binds.value();
-  if (_typeof(el._binds.value) === 'object') el._binds.value.handler();
+  if (typeof el._binds.value === 'function') el._binds.value(e);
+  if (_typeof(el._binds.value) === 'object') el._binds.value.handler(e);
 }
 
 function removeListener(el) {

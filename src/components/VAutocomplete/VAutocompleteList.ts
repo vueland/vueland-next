@@ -40,7 +40,7 @@ export const VAutocompleteList = defineComponent({
         style: {},
       }
 
-      return props.items!.map((it: any) => {
+      return props.items?.map((it: any) => {
         const item = h(
           VListItemTitle,
           props.color ? setTextColor(props.color, propsData) : propsData,

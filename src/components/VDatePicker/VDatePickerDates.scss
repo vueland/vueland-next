@@ -32,12 +32,11 @@
     }
 
     &--current-date {
-      border-color: map-get($primary, 'base');
+      border-color: map-get($cyan, 'accent-3');
     }
 
     &--holiday {
-      color: #b3b4bb;
-      box-shadow: 0 0 12px -2px rgba(0, 0, 0, .3);
+      color: map-get($grey, 'lighten-1') !important;
     }
 
     &--selected {

@@ -7,7 +7,6 @@ import {
   reactive,
   computed,
   defineComponent,
-  withDirectives,
   watch,
   inject,
   onBeforeUnmount,
@@ -24,14 +23,11 @@ import { VNode, Ref } from 'vue'
 // Components
 import { VInput } from '../VInput'
 import { VSelectList } from './VSelectList'
-
-// Directives
-import { clickOutside } from '../../directives'
+import { VMenu } from '../VMenu'
 
 type SelectState = {
   selected: any | null
   focused: boolean
-  isMenuActive: boolean
 }
 
 export const VSelect = defineComponent({
@@ -46,6 +42,7 @@ export const VSelect = defineComponent({
     listColor: String,
     disabled: Boolean,
     readonly: Boolean,
+    clearable: Boolean,
     modelValue: [Array, String, Object, Number],
     ...validateProps(),
     ...colorProps(),
@@ -60,11 +57,10 @@ export const VSelect = defineComponent({
     'update:value',
   ],
 
-  setup(props, { emit }): () => VNode {
+  setup(props, { emit, attrs }): () => VNode {
     const state: SelectState = reactive({
       selected: null,
       focused: false,
-      isMenuActive: false,
     })
 
     const { setTextColor } = useColors()
@@ -79,21 +75,11 @@ export const VSelect = defineComponent({
 
     const fields: Ref<any[]> | undefined = props.rules && inject('fields')
 
-    const directive = computed(() => {
-      return state.focused
-        ? {
-            handler: onBlur,
-            closeConditional: true,
-          }
-        : undefined
-    })
-
     const classes = computed<Record<string, boolean>>(() => ({
       'v-select': true,
       'v-select--disabled': props.disabled,
-      'v-select--readonly': props.readonly && !props.typeable,
+      'v-select--readonly': props.readonly,
       'v-select--focused': state.focused,
-      'v-select--typeable': props.typeable,
     }))
 
     const computedInputValue = computed<string>(() => {
@@ -130,13 +116,14 @@ export const VSelect = defineComponent({
 
     function toggleState() {
       state.focused = !state.focused
-      state.isMenuActive = !state.isMenuActive
     }
 
     function onBlur() {
-      toggleState()
-      requestAnimationFrame(validateValue)
-      emit('blur')
+      setTimeout(() => {
+        requestAnimationFrame(validateValue)
+        toggleState()
+        emit('blur')
+      })
     }
 
     function onClick() {
@@ -151,11 +138,11 @@ export const VSelect = defineComponent({
       requestAnimationFrame(validateValue)
     }
 
-    function selectItem(it) {
-      state.selected = it
-      emit('select', it)
-      emit('update:value', it)
-      emit('update:modelValue', it)
+    function selectItem(item) {
+      state.selected = item
+      emit('select', item)
+      emit('update:value', item)
+      emit('update:modelValue', item)
     }
 
     function genInput(): VNode {
@@ -174,24 +161,20 @@ export const VSelect = defineComponent({
         items: props.items,
         valueKey: props.valueKey,
         idKey: props.idKey,
-        active: state.isMenuActive,
+        active: state.focused,
         color: props.dark ? 'white' : base,
         listColor: props.listColor || 'white',
-        onSelect: (it) => selectItem(it),
+        onSelect: (item) => selectItem(item),
       }
       return h(VSelectList, propsData)
     }
 
     function genSelect(): VNode {
-      const selectVNode = h(
-        'div',
-        {
-          class: classes.value,
-        },
-        [genInput(), props.items && genSelectList()]
-      )
+      const propsData = {
+        class: classes.value,
+      }
 
-      return withDirectives(selectVNode, [[clickOutside, directive.value]])
+      return h('div', propsData, genInput())
     }
 
     onBeforeUnmount(() => {
@@ -211,11 +194,28 @@ export const VSelect = defineComponent({
         disabled: props.disabled,
         isDirty: !!errorState.isDirty,
         message: errorState.innerErrorMessage,
+        clearable: props.clearable,
         onClear,
+        ...attrs,
       } as any
 
+      const menuContent = {
+        activator: () => genSelect(),
+        content: () => props.items && genSelectList(),
+      }
+
       return h(VInput, propsData, {
-        select: () => genSelect(),
+        select: () =>
+          h(
+            VMenu,
+            {
+              openOnClick: true,
+              maxHeight: 400,
+              offsetY: props.typeable ? 1 : 0,
+              onClose: () => onBlur(),
+            },
+            menuContent
+          ),
       })
     }
   },

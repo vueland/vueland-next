@@ -1,0 +1,12 @@
+.v-menu {
+  position: absolute;
+  width: 100%;
+  min-width: 140px;
+
+  &__content {
+    position: absolute;
+    z-index: 100;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+}

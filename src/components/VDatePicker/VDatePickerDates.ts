@@ -29,12 +29,12 @@ export const VDatePickerDates = defineComponent({
     date: [String, Number],
     value: Object,
     mondayFirst: Boolean,
-    disabledDates: Object
+    disabledDates: Object,
   } as any,
 
   emits: ['update:month', 'update:value'],
 
-  setup(props, { emit }): () => VNode {
+  setup(props, { emit, slots }): () => VNode {
     const FIRST_MONTH = 0
     const LAST_MONTH = 11
     const DAYS = [0, 1, 2, 3, 4, 5, 6]
@@ -48,7 +48,7 @@ export const VDatePickerDates = defineComponent({
 
     handlers.value = {
       onNext: () => updateMonth(true),
-      onPrev: () => updateMonth(false)
+      onPrev: () => updateMonth(false),
     }
 
     if (props.mondayFirst) {
@@ -67,10 +67,7 @@ export const VDatePickerDates = defineComponent({
 
     watch(
       () => isDatesChanged.value,
-      () =>
-        setTimeout(() => {
-          isDatesChanged.value = false
-        }, ANIMATION_TIMEOUT)
+      () => setTimeout(() => (isDatesChanged.value = false), ANIMATION_TIMEOUT)
     )
 
     function updateMonth(isNext: boolean) {
@@ -89,7 +86,7 @@ export const VDatePickerDates = defineComponent({
 
     function genWeekDays(): VNode[] {
       const propsData = {
-        class: 'v-date-picker-dates__day'
+        class: 'v-date-picker-dates__day',
       }
 
       return DAYS.map((day) =>
@@ -121,6 +118,7 @@ export const VDatePickerDates = defineComponent({
       dates.value = []
       for (let i = 1; i <= daysInMonth.value; i += 1) {
         const dateObject = genDateObject(i)
+
         if (i === 1) {
           setEmptiesBeforeFirstDate(dateObject)
         } else {
@@ -156,10 +154,7 @@ export const VDatePickerDates = defineComponent({
       const dateFrom: DatePickerDate = parseDate(from)
       const dateTo: DatePickerDate = parseDate(to)
 
-      return (
-        date.mls >= dateFrom.mls &&
-        date.mls <= dateTo.mls
-      )
+      return date.mls >= dateFrom.mls && date.mls <= dateTo.mls
     }
 
     function disableDaysOfMonth(date: DatePickerDate) {
@@ -196,12 +191,14 @@ export const VDatePickerDates = defineComponent({
           'v-date-picker-dates__cell--empty': !date.date,
           'v-date-picker-dates__cell--selected': isSelected,
           'v-date-picker-dates__cell--current-date': isToday,
-          'v-date-picker-dates__cell--holiday': date.date && date.isHoliday
+          'v-date-picker-dates__cell--holiday': date.date && date.isHoliday,
         },
-        onClick: () => date.date && emit('update:value', date)
+        onClick: () => date.date && emit('update:value', date),
       }
 
-      return h('div', propsData, date.date as number)
+      return h('div', propsData, [
+        (date.date && slots.date && slots.date(date)) || date.date,
+      ])
     }
 
     function genDateCells(): VNode[] {
@@ -232,7 +229,7 @@ export const VDatePickerDates = defineComponent({
     return () =>
       h('div', { class: 'v-date-picker-dates' }, [
         genWeek(),
-        useTransition(genDates() as any, 'fade')
+        useTransition(genDates() as any, 'fade'),
       ])
-  }
+  },
 })

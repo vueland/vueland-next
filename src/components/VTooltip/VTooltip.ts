@@ -69,7 +69,12 @@ export const VTooltip = defineComponent({
       genActivatorListeners,
     } = useActivator()
 
-    const listeners = genActivatorListeners(props, isActive)
+    const handlers = {
+      mouseenter: () => (isActive.value = true),
+      mouseleave: () => (isActive.value = false),
+    }
+
+    const listeners = genActivatorListeners(props, handlers)
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-tooltip': true,
@@ -85,8 +90,8 @@ export const VTooltip = defineComponent({
         (props.top
           ? activator!.top! - tooltip.height!
           : props.bottom
-            ? activator.top! + activator.height!
-            : activator.top! + (activator.height! - tooltip.height!) / 2) +
+          ? activator.top! + activator.height!
+          : activator.top! + (activator.height! - tooltip.height!) / 2) +
         +props.offsetY
       )
     })
@@ -96,8 +101,8 @@ export const VTooltip = defineComponent({
         (props.left
           ? activator.left! - tooltip.width!
           : props.right
-            ? activator.left! + activator.width!
-            : activator.left! + (activator.width! - tooltip.width!) / 2) +
+          ? activator.left! + activator.width!
+          : activator.left! + (activator.width! - tooltip.width!) / 2) +
         +props.offsetX
       )
     })
@@ -131,9 +136,9 @@ export const VTooltip = defineComponent({
         h(
           'span',
           setBackground(props.color, propsData),
-          slots.default && slots.default(),
+          slots.default && slots.default()
         ),
-        [[vShow, isActive.value]],
+        [[vShow, isActive.value]]
       )
     }
 
@@ -164,14 +169,14 @@ export const VTooltip = defineComponent({
             requestAnimationFrame(setTooltipPosition)
           }
         },
-        { immediate: true },
+        { immediate: true }
       )
     })
 
     return () => {
       const content = useTransition(
         genContent() as VNode,
-        isActive.value ? Transitions.SCALE_IN : Transitions.FADE,
+        isActive.value ? Transitions.SCALE_IN : Transitions.FADE
       )
 
       return [content, genActivator()]

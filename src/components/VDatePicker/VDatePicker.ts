@@ -11,10 +11,8 @@ import {
   reactive,
   ref,
   VNode,
-  vShow,
-  withDirectives,
 } from 'vue'
-import { clickOutside } from '../../directives'
+
 // Effects
 import { useColors } from '../../effects/use-colors'
 import { elevationProps, useElevation } from '../../effects/use-elevation'
@@ -25,8 +23,10 @@ import { VDatepickerHeader } from './VDatepickerHeader'
 import { VDatePickerDates } from './VDatePickerDates'
 import { VDatePickerYears } from './VDatePickerYears'
 import { VDatePickerMonths } from './VDatePickerMonths'
+import { VMenu } from '../VMenu'
 // Helpers
 import { parseDate } from './helpers'
+import { addScopedSlot } from '../../helpers'
 // Utils
 import { formatDate } from './utils'
 import { DatePickerBtnHandlers, DatePickerDate } from '../../types'
@@ -68,7 +68,7 @@ export const VDatePicker = defineComponent({
     prependIcon: String,
     format: {
       type: String,
-      default: 'yyyy-mm-dd',
+      default: 'yyyy MM dd D',
     },
     rules: Array,
     value: [String, Date, Number],
@@ -85,7 +85,7 @@ export const VDatePicker = defineComponent({
 
   emits: ['update:value', 'update:modelValue', 'selected'],
 
-  setup(props, { emit }) {
+  setup(props, { emit, slots }) {
     const data: DatePickerData = reactive({
       year: null,
       month: null,
@@ -141,15 +141,6 @@ export const VDatePicker = defineComponent({
     const computedValue = computed<string | number | Date>(() => {
       const { year, month, date } = data.selected as DatePickerDate
       return new Date(year, month, date as number)
-    })
-
-    const directive = computed<object | undefined>(() => {
-      return data.isActive
-        ? {
-            handler: () => (data.isActive = false),
-            closeConditional: false,
-          }
-        : undefined
     })
 
     function setInitDate() {
@@ -223,8 +214,6 @@ export const VDatePicker = defineComponent({
       emit('update:value', computedValue.value)
       emit('update:modelValue', computedValue.value)
       emit('selected', computedValue.value)
-
-      data.isActive = false
     }
 
     function onDateMonthUpdate(dateObject) {
@@ -233,7 +222,6 @@ export const VDatePicker = defineComponent({
     }
 
     function onDateInput(date: string): any {
-      data.isActive = false
       onDateUpdate(stringToDate(date)!)
     }
 
@@ -335,16 +323,22 @@ export const VDatePicker = defineComponent({
     }
 
     function genDatepickerDatesTable(): VNode {
-      return h(VDatePickerDates, {
-        locale: localWeek,
-        mondayFirst: props.mondayFirst,
-        month: data.tableMonth,
-        year: data.tableYear,
-        value: data.selected,
-        disabledDates: props.disabledDates,
-        ['onUpdate:value']: onDateUpdate,
-        ['onUpdate:month']: onDateMonthUpdate,
-      })
+      return h(
+        VDatePickerDates,
+        {
+          locale: localWeek,
+          mondayFirst: props.mondayFirst,
+          month: data.tableMonth,
+          year: data.tableYear,
+          value: data.selected,
+          disabledDates: props.disabledDates,
+          ['onUpdate:value']: onDateUpdate,
+          ['onUpdate:month']: onDateMonthUpdate,
+        },
+        {
+          date: slots.date && addScopedSlot('date', slots),
+        }
+      )
     }
 
     function genDatepickerBody(): VNode {
@@ -377,9 +371,7 @@ export const VDatePicker = defineComponent({
         prependIcon: props.prependIcon,
         rules: props.rules,
         clearable: props.clearable,
-        onFocus: () => (data.isActive = true),
         onInput: onDateInput,
-
         onClear: () => {
           data.convertedDateString = ''
           emit('update:value', null)
@@ -394,14 +386,11 @@ export const VDatePicker = defineComponent({
         class: tableClasses.value,
       })
 
-      return withDirectives(
-        h('div', setTextColor(contentColor, propsData), [
-          genDatepickerDisplay(),
-          genDatepickerHeader(),
-          genDatepickerBody(),
-        ]),
-        [[vShow, data.isActive]]
-      )
+      return h('div', setTextColor(contentColor, propsData), [
+        genDatepickerDisplay(),
+        genDatepickerHeader(),
+        genDatepickerBody(),
+      ])
     }
 
     function genDatepicker(): VNode {
@@ -409,13 +398,24 @@ export const VDatePicker = defineComponent({
         class: classes.value,
       }
 
-      return withDirectives(
-        h('div', propsData, [
-          genDatepickerInput(),
-          useTransition(genDatepickerTable(), 'fade'),
-        ]),
-        [[clickOutside, directive.value]]
+      const content = {
+        activator: () => genDatepickerInput(),
+        content: () => genDatepickerTable(),
+      }
+
+      const menu = h(
+        VMenu,
+        {
+          width: 'auto',
+          maxHeight: 'auto',
+          offsetY: props.typeable ? -70 : 0,
+          openOnClick: true,
+          closeOnContentClick: false,
+        },
+        content
       )
+
+      return h('div', propsData, menu)
     }
 
     return () => genDatepicker()

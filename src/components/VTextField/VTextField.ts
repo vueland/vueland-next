@@ -9,7 +9,7 @@ import {
   computed,
   reactive,
   defineComponent,
-  onBeforeUnmount
+  onBeforeUnmount,
 } from 'vue'
 
 // Effects
@@ -39,15 +39,15 @@ export const VTextField = defineComponent({
     isDirty: Boolean,
     type: {
       type: String,
-      default: 'text'
+      default: 'text',
     },
     modelValue: [String, Number, Date],
     tag: {
       type: String,
-      default: 'input'
+      default: 'input',
     },
     ...validateProps(),
-    ...colorProps()
+    ...colorProps(),
   } as any,
 
   emits: [
@@ -57,13 +57,13 @@ export const VTextField = defineComponent({
     'change',
     'clear',
     'update:value',
-    'update:modelValue'
+    'update:modelValue',
   ],
 
   setup(props, { emit, attrs }): () => VNode {
     const state: TextFieldState = reactive({
       value: '',
-      focused: false
+      focused: false,
     })
 
     state.value = props.modelValue || props.value
@@ -79,7 +79,7 @@ export const VTextField = defineComponent({
       update,
       errorState,
       validateClasses,
-      validationState
+      validationState,
     } = useValidate(props)
 
     watch(
@@ -96,7 +96,7 @@ export const VTextField = defineComponent({
       'v-text-field--dirty': errorState.isDirty,
       'v-text-field--valid': errorState.isDirty && !errorState.innerError,
       'v-text-field--not-valid': errorState.isDirty && !!errorState.innerError,
-      ...validateClasses.value
+      ...validateClasses.value,
     }))
 
     function validateValue(): boolean | void {
@@ -123,9 +123,11 @@ export const VTextField = defineComponent({
     }
 
     function onBlur() {
-      state.focused = false
-      emit('blur')
-      requestAnimationFrame(validateValue)
+      setTimeout(() => {
+        state.focused = false
+        emit('blur')
+        requestAnimationFrame(validateValue)
+      })
     }
 
     function onFocus() {
@@ -156,17 +158,14 @@ export const VTextField = defineComponent({
         onFocus,
         onBlur,
         onInput,
-        onChange
+        onChange,
       } as any
 
       if (props.tag === 'input') {
         propsData.type = props.type
       }
 
-      return h(
-        props.tag,
-        setTextColor(props.dark ? 'white' : base, propsData)
-      )
+      return h(props.tag, setTextColor(props.dark ? 'white' : base, propsData))
     }
 
     function genTextField(): VNode {
@@ -184,12 +183,12 @@ export const VTextField = defineComponent({
         isDirty: errorState.isDirty,
         disabled: props.disabled,
         message: errorState.innerErrorMessage,
-        onClear
+        onClear,
       }
 
       return h(VInput, propsData, {
-        textField: () => genTextField()
+        textField: () => genTextField(),
       })
     }
-  }
+  },
 })

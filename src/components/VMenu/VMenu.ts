@@ -18,6 +18,7 @@ import { useDetachable } from '../../effects/use-detachable'
 import { useTransition } from '../../effects/use-transition'
 import { useElevation } from '../../effects/use-elevation'
 import { useToggle } from '../../effects/use-toggle'
+import { positionProps } from '../../effects/use-position'
 
 // Helpers
 import { convertToUnit } from '../../helpers'
@@ -37,10 +38,6 @@ export const VMenu = defineComponent({
       type: [Number, String],
       default: 0,
     },
-    offsetY: {
-      type: [Number, String],
-      default: 0,
-    },
     openOnHover: Boolean,
     openOnClick: Boolean,
     closeOnContentClick: {
@@ -55,6 +52,7 @@ export const VMenu = defineComponent({
       type: [Number, String],
       default: 10,
     },
+    ...positionProps(),
   },
 
   emits: ['open', 'close'],
@@ -62,7 +60,7 @@ export const VMenu = defineComponent({
   setup(props, { emit, slots }) {
     const { elevationClasses } = useElevation(props)
     const { isActive } = useToggle(props)
-    const { contentRef, setDimensions, dimensions } = useDimensions()
+    const { contentRef, setDimensions, dimensions } = useDimensions(props)
     const { setDetached, removeDetached } = useDetachable()
     const {
       activatorRef,
@@ -134,7 +132,7 @@ export const VMenu = defineComponent({
         style: {
           width: calcWidth.value,
           maxHeight: calcMaxHeight.value,
-          top: convertToUnit(dimensions.content.top - +props.offsetY),
+          top: convertToUnit(dimensions.content.top),
           left: convertToUnit(dimensions.content.left),
         },
         onClick: () => {

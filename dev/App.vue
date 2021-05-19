@@ -1,7 +1,6 @@
 <script lang="ts">
 import { h, reactive, ref, computed, watch } from 'vue'
 import { FaIcons } from '../src/services/icons'
-import { VIcon } from '../src'
 
 export default {
   setup() {
@@ -347,6 +346,7 @@ export default {
         :rules="[val => !!val || 'Required']"
         clearable
         typeable
+
         monday-first
         :disabled-dates="disabledDates"
         @selected="testFunc"
@@ -496,6 +496,22 @@ export default {
         </v-card>
       </v-modal>
     </teleport>
+
+    <v-menu open-on-click>
+      <template #activator>
+        <v-button
+          label="test"
+          elevation="3"
+          style="margin-right: 10px;"
+          color="blue"
+        />
+      </template>
+      <template #content>
+        <div>
+          salam
+        </div>
+      </template>
+    </v-menu>
 
     <v-badge
       color="blue darken-3"

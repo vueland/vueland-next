@@ -188,6 +188,8 @@ export const VDatePicker = defineComponent({
       const dateForParsing = selectedDate || new Date()
 
       data.selected = parseDate(dateForParsing)
+      !selectedDate && (data.selected.default = !selectedDate)
+
       setDataDate(data.selected)
     }
 
@@ -206,6 +208,7 @@ export const VDatePicker = defineComponent({
 
     function onDateUpdate(date: DatePickerDate) {
       if (!date) return
+
       data.selected = date
       data.tableMonth = date.month
       data.tableYear = date.year
@@ -270,7 +273,7 @@ export const VDatePicker = defineComponent({
       }
 
       return h('div', propsData, [
-        genDisplayValue(data.selected!.year as number),
+        genDisplayValue(data.selected?.year as number),
         genDisplayValue(displayDate.value),
       ])
     }
@@ -413,7 +416,7 @@ export const VDatePicker = defineComponent({
         {
           width: 'auto',
           maxHeight: 'auto',
-          offsetY: props.typeable ? -70 : 0,
+          bottom: props.typeable,
           openOnClick: true,
           closeOnContentClick: closeConditional.value,
         },

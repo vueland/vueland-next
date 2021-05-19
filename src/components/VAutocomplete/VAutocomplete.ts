@@ -117,13 +117,12 @@ export const VAutocomplete = defineComponent({
       if (!propValue.value) state.search = ''
 
       if (!state.search && propValue.value) {
-        requestAnimationFrame(() => (state.search = inputValue.value))
+        state.search = inputValue.value
       }
-
-      setTimeout(validateValue)
 
       state.focused = false
       emit('blur')
+      setTimeout(validateValue)
     }
 
     function onInput(e) {

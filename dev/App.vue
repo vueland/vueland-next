@@ -38,7 +38,9 @@ export default {
     const fetchItems = () => {
       fetch('https://jsonplaceholder.typicode.com/comments')
         .then(response => response.json())
-        .then(json => data.users = [...data.users, ...json])
+        .then(json => setTimeout(() => {
+          data.users = [...data.users, ...json]
+        }, 5000))
     }
 
     fetchItems()
@@ -395,6 +397,7 @@ export default {
         :items="data.users"
         value-key="name"
         clearable
+        typeable
         prepend-icon="search"
         :rules="[v => !!v || 'required']"
         @select="testFunc"
@@ -496,21 +499,21 @@ export default {
       </v-modal>
     </teleport>
 
-<!--    <v-menu open-on-click>-->
-<!--      <template #activator>-->
-<!--        <v-button-->
-<!--          label="test"-->
-<!--          elevation="3"-->
-<!--          style="margin-right: 10px;"-->
-<!--          color="blue"-->
-<!--        />-->
-<!--      </template>-->
-<!--      <template #content>-->
-<!--        <div>-->
-<!--          salam-->
-<!--        </div>-->
-<!--      </template>-->
-<!--    </v-menu>-->
+    <!--    <v-menu open-on-click>-->
+    <!--      <template #activator>-->
+    <!--        <v-button-->
+    <!--          label="test"-->
+    <!--          elevation="3"-->
+    <!--          style="margin-right: 10px;"-->
+    <!--          color="blue"-->
+    <!--        />-->
+    <!--      </template>-->
+    <!--      <template #content>-->
+    <!--        <div>-->
+    <!--          salam-->
+    <!--        </div>-->
+    <!--      </template>-->
+    <!--    </v-menu>-->
 
     <v-badge
       color="blue darken-3"

@@ -175,8 +175,23 @@ export const VAutocomplete = defineComponent({
       return h(VAutocompleteList, propsData)
     }
 
+    function genMenu() {
+      return h(
+        VMenu,
+        {
+          openOnClick: true,
+          maxHeight: 240,
+          bottom: true,
+          onClose: () => onBlur(),
+        },
+        {
+          default: genAutocompleteList,
+        }
+      )
+    }
+
     function genAutocomplete(): VNode {
-      return h('div', { class: classes.value }, genInput())
+      return h('div', { class: classes.value }, [genInput(), genMenu()])
     }
 
     onBeforeUnmount(() => {
@@ -199,22 +214,8 @@ export const VAutocomplete = defineComponent({
         onClear,
       }
 
-      const menuContent = {
-        activator: genAutocomplete,
-        default: genAutocompleteList,
-      }
-
       return h(VInput, propsData, {
-        select: () =>
-          h(
-            VMenu,
-            {
-              openOnClick: true,
-              maxHeight: 240,
-              onClose: () => onBlur(),
-            },
-            menuContent
-          ),
+        select: () => genAutocomplete(),
       })
     }
   },

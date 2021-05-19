@@ -401,17 +401,8 @@ export const VDatePicker = defineComponent({
       ])
     }
 
-    function genDatepicker(): VNode {
-      const propsData = {
-        class: classes.value,
-      }
-
-      const content = {
-        activator: () => genDatepickerInput(),
-        default: () => genDatepickerTable(),
-      }
-
-      const menu = h(
+    function genMenu() {
+      return h(
         VMenu,
         {
           width: 'auto',
@@ -420,10 +411,18 @@ export const VDatePicker = defineComponent({
           openOnClick: true,
           closeOnContentClick: closeConditional.value,
         },
-        content
+        {
+          default: () => genDatepickerTable(),
+        }
       )
+    }
 
-      return h('div', propsData, menu)
+    function genDatepicker(): VNode {
+      const propsData = {
+        class: classes.value,
+      }
+
+      return h('div', propsData, [genDatepickerInput(), genMenu()])
     }
 
     return () => genDatepicker()

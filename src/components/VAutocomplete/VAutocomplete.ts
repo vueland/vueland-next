@@ -201,7 +201,7 @@ export const VAutocomplete = defineComponent({
 
       const menuContent = {
         activator: genAutocomplete,
-        content: genAutocompleteList,
+        default: genAutocompleteList,
       }
 
       return h(VInput, propsData, {

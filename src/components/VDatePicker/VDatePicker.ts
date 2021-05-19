@@ -408,7 +408,7 @@ export const VDatePicker = defineComponent({
 
       const content = {
         activator: () => genDatepickerInput(),
-        content: () => genDatepickerTable(),
+        default: () => genDatepickerTable(),
       }
 
       const menu = h(

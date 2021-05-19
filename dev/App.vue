@@ -345,7 +345,6 @@ export default {
         prepend-icon="event"
         :rules="[val => !!val || 'Required']"
         clearable
-        typeable
 
         monday-first
         :disabled-dates="disabledDates"
@@ -497,21 +496,21 @@ export default {
       </v-modal>
     </teleport>
 
-    <v-menu open-on-click>
-      <template #activator>
-        <v-button
-          label="test"
-          elevation="3"
-          style="margin-right: 10px;"
-          color="blue"
-        />
-      </template>
-      <template #content>
-        <div>
-          salam
-        </div>
-      </template>
-    </v-menu>
+<!--    <v-menu open-on-click>-->
+<!--      <template #activator>-->
+<!--        <v-button-->
+<!--          label="test"-->
+<!--          elevation="3"-->
+<!--          style="margin-right: 10px;"-->
+<!--          color="blue"-->
+<!--        />-->
+<!--      </template>-->
+<!--      <template #content>-->
+<!--        <div>-->
+<!--          salam-->
+<!--        </div>-->
+<!--      </template>-->
+<!--    </v-menu>-->
 
     <v-badge
       color="blue darken-3"

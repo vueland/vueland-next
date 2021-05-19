@@ -23,12 +23,12 @@ export function useDimensions(props) {
   })
 
   const contentRef = ref<HTMLElement | any | null>(null)
-  const minDiff = 20
-  const offset = 0
+  const offset = 10
   let activator
   let activatorRect
   let content
   let diff
+  let minDiff = 20
 
   function getBoundedClientRect(el) {
     const rect = el.getBoundingClientRect()
@@ -75,6 +75,7 @@ export function useDimensions(props) {
     const contentFull = dimensions.content.height + dimensions.activator.top
 
     diff = scrollHeight - contentFull
+    minDiff = dimensions.content.height / 100 * 10
   }
 
   function snapShot(cb) {
@@ -91,16 +92,16 @@ export function useDimensions(props) {
     })
   }
 
-  function setDimensions(activatorRef) {
+  function setDimensions(activatorEl) {
     if (!activator) {
-      activator = activatorRef.value!
+      activator = activatorEl
       content = contentRef.value
     }
 
-    activatorRect = getBoundedClientRect(activator)
-
-    setActivatorDimensions()
-    setContentDimensions()
+    // activatorRect = getBoundedClientRect(activator)
+    //
+    // setActivatorDimensions()
+    // setContentDimensions()
 
     updateDimensions()
   }
@@ -110,10 +111,10 @@ export function useDimensions(props) {
       dimensions.activator.height = activator.offsetHeight
       dimensions.content.height = content.offsetHeight
 
-      // activatorRect = getBoundedClientRect(activator)
-      //
-      // setActivatorDimensions()
-      // setContentDimensions()
+      activatorRect = getBoundedClientRect(activator)
+
+      setActivatorDimensions()
+      setContentDimensions()
     })
   }
 

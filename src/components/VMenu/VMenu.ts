@@ -70,9 +70,10 @@ export const VMenu = defineComponent({
     } = useActivator()
 
     const handlers = {
-      click: async () => {
-        setDimensions(activatorRef.value)
-        await startTransition()
+      click: () => {
+        setDimensions(activatorRef.value).then(() => {
+          requestAnimationFrame(() => (isActive.value = true))
+        })
       },
       mouseenter: () => (isActive.value = true),
       mouseleave: () => (isActive.value = false),
@@ -120,16 +121,6 @@ export const VMenu = defineComponent({
       }
 
       return h(slotContent![0], { ref: activatorRef })
-    }
-
-    function startTransition(): Promise<void> {
-      return new Promise((resolve) =>
-        requestAnimationFrame(() => {
-          setDimensions(activatorRef.value)
-          isActive.value = true
-          resolve()
-        })
-      )
     }
 
     function genContentSlot() {

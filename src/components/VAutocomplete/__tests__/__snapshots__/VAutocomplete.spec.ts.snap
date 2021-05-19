@@ -10,15 +10,15 @@ exports[`VAutocomplete should mount component and match snapshot 1`] = `
              style="left: 0px; position: absolute; color: rgb(33, 150, 243); caret-color: #2196f3;"
       >
       </label>
-      <div class="v-menu">
-      </div>
       <div class="v-autocomplete v-validatable">
         <input class="v-autocomplete__input"
                style="color: rgb(33, 33, 33); caret-color: #212121;"
         >
+        <div class="v-menu">
+        </div>
+        <transition-stub>
+        </transition-stub>
       </div>
-      <transition-stub>
-      </transition-stub>
     </div>
     <div class="v-input__status">
       <transition-stub>

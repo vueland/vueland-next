@@ -23,7 +23,7 @@ export function useDimensions(props) {
   })
 
   const contentRef = ref<HTMLElement | any | null>(null)
-  const offset = props.offsetY || 0
+  const offset = props.offsetY || 10
   let activator
   let activatorRect
   let content
@@ -55,7 +55,15 @@ export function useDimensions(props) {
     return pageYOffset || document.documentElement.scrollTop
   }
 
-  function calcBottom() {
+  function calcDiffs() {
+    const scrollHeight = getOffsetTop() + getInnerHeight()
+    const contentFull = dimensions.content.height + dimensions.activator.top
+
+    diff = scrollHeight - contentFull
+    minDiff = (dimensions.content.height / 100) * 10
+  }
+
+  function calcTopPosition() {
     calcDiffs()
 
     if (props.bottom) {
@@ -70,46 +78,27 @@ export function useDimensions(props) {
     return dimensions.activator.top
   }
 
-  function calcDiffs() {
-    const scrollHeight = getOffsetTop() + getInnerHeight()
-    const contentFull = dimensions.content.height + dimensions.activator.top
-
-    diff = scrollHeight - contentFull
-    minDiff = (dimensions.content.height / 100) * 10
-  }
-
   function snapShot(cb) {
     requestAnimationFrame(() => {
-      if (!content || content.style.display !== 'none') {
-        cb()
-
-        return
-      }
-
+      if (!content || content.style.display !== 'none') return cb()
       content.style.display = 'inline-block'
       cb()
       content.style.display = 'none'
     })
   }
 
-  function setDimensions(activatorEl) {
-    if (!activator) {
-      activator = activatorEl
-      content = contentRef.value
-    }
+  function updateDimensions(): Promise<void> {
+    return new Promise((resolve) => {
+      snapShot(() => {
+        dimensions.activator.height = activator.offsetHeight
+        dimensions.content.height = content.offsetHeight
 
-    activatorRect = getBoundedClientRect(activator)
+        activatorRect = getBoundedClientRect(activator)
 
-    updateDimensions()
-  }
-
-  function updateDimensions() {
-    snapShot(() => {
-      dimensions.activator.height = activator.offsetHeight
-      dimensions.content.height = content.offsetHeight
-
-      setActivatorDimensions()
-      setContentDimensions()
+        setActivatorDimensions()
+        setContentDimensions()
+        resolve()
+      })
     })
   }
 
@@ -120,9 +109,20 @@ export function useDimensions(props) {
   }
 
   function setContentDimensions() {
-    dimensions.content.top = calcBottom() - offset
+    dimensions.content.top =
+      calcTopPosition() - ((!props.bottom && offset) || 0)
+
     dimensions.content.left = dimensions.activator.left
     dimensions.content.width = dimensions.activator.width
+  }
+
+  function setDimensions(activatorEl) {
+    if (!activator) {
+      activator = activatorEl
+      content = contentRef.value
+    }
+
+    return updateDimensions()
   }
 
   return {

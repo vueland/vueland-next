@@ -1,7 +1,6 @@
 <script lang="ts">
 import { h, reactive, ref, computed, watch } from 'vue'
 import { FaIcons } from '../src/services/icons'
-import { VIcon } from '../src'
 
 export default {
   setup() {
@@ -21,7 +20,7 @@ export default {
       users: [
         // {name: 'AAA', email: 'aaa@mail.ru', body: 'fsdf adfasda dasdasd'},
         // {name: 'AAA', email: 'aaa@mail.ru', body: 'fsdf adfasda dasdasd'},
-      ]
+      ],
     })
 
     const onClickLoading = () => {
@@ -38,8 +37,10 @@ export default {
 
     const fetchItems = () => {
       fetch('https://jsonplaceholder.typicode.com/comments')
-        .then(response => response.json())
-        .then(json => data.users = [...data.users, ...json])
+          .then(response => response.json())
+          .then(json => setTimeout(() => {
+            data.users = [...data.users, ...json]
+          }, 5000))
     }
 
     fetchItems()
@@ -64,7 +65,7 @@ export default {
       {
         key: 'actions',
         title: 'Actions',
-        align: 'center'
+        align: 'center',
       },
       {
         key: 'name',
@@ -77,7 +78,7 @@ export default {
         filterClass: '',
         rowCellClass: '',
         format: row => row.name,
-        filter: ({ value, col }) => data.users.filter(user => user[col.key].includes(value))
+        filter: ({ value, col }) => data.users.filter(user => user[col.key].includes(value)),
         // sort: (a, b) => console.log(a, b),
       },
       {
@@ -90,7 +91,7 @@ export default {
         cellClass: 'green darken-3 white--text',
         filterClass: 'grey lighten-2',
         rowCellClass: 'green lighten-1 white--text',
-        format: row => row.email
+        format: row => row.email,
       },
       {
         key: 'body',
@@ -98,28 +99,28 @@ export default {
         width: '250',
         resizeable: true,
         sortable: true,
-        filterable: true
-      }
+        filterable: true,
+      },
     ])
 
     const rows = [
       {
         name: 'Ben',
         email: 'ben@mail.ru',
-        body: 'some body text'
+        body: 'some body text',
       },
       {
         name: 'Alex',
         email: 'alex@mail.ru',
-        body: 'some body text'
-      }
+        body: 'some body text',
+      },
     ]
 
     const addItem = () => {
       data.users.push({
         name: 'Anar',
         email: 'adsadasdasd',
-        body: 'sdfsddfsdfsdfsf'
+        body: 'sdfsddfsdfsdfsf',
       })
     }
 
@@ -140,18 +141,18 @@ export default {
       //   from: new Date(2021, 6, 12),
       //   to: new Date(2021, 7, 25),
       // }],
-      custom: (date) => !(date.date % 2)
+      custom: (date) => !(date.date % 2),
     }
 
     const dayCellContent = ({ date, month, isHoliday }) => {
       return date && h('span', {
-        style: { fontSize: '.8rem', display: 'flex', alignItems: 'center' }
+        style: { fontSize: '.8rem', display: 'flex', alignItems: 'center' },
       }, [
         date, h(VIcon, {
           icon: isHoliday ? 'home' : 'done',
           size: 12,
-          color: isHoliday ? 'cyan' : 'green'
-        })
+          color: isHoliday ? 'cyan' : 'green',
+        }),
       ])
     }
 
@@ -166,16 +167,16 @@ export default {
       toggleAlways,
       onClickLoading,
       addCircular,
-      dayCellContent
+      dayCellContent,
     }
-  }
+  },
 }
 </script>
 
 <template>
   <v-app>
     <div>
-      <v-progress-linear height="7" />
+      <v-progress-linear height="7"/>
       <v-progress-circular
         color="cyan darken-3"
         :value="data.circular"
@@ -239,9 +240,9 @@ export default {
         <v-list-item @click.stop="testFunc">
           salam
         </v-list-item>
-        <v-text-field label="Подъезд" />
-        <v-text-field label="Этаж" />
-        <v-text-field label="Домофон" />
+        <v-text-field label="Подъезд"/>
+        <v-text-field label="Этаж"/>
+        <v-text-field label="Домофон"/>
       </v-list-group>
     </v-list>
     <v-checkbox
@@ -346,7 +347,7 @@ export default {
         prepend-icon="event"
         :rules="[val => !!val || 'Required']"
         clearable
-        typeable
+
         monday-first
         :disabled-dates="disabledDates"
         @selected="testFunc"
@@ -396,6 +397,7 @@ export default {
         :items="data.users"
         value-key="name"
         clearable
+        typeable
         prepend-icon="search"
         :rules="[v => !!v || 'required']"
         @select="testFunc"
@@ -424,10 +426,10 @@ export default {
       <v-card
         elevation="5"
       >
-        <v-resize right />
-        <v-resize bottom />
-        <v-resize top />
-        <v-resize left />
+        <v-resize right/>
+        <v-resize bottom/>
+        <v-resize top/>
+        <v-resize left/>
         <v-card-title>
           <span
             style="display: block; width: 55px; height: 55px; border-radius: 50px"
@@ -496,6 +498,25 @@ export default {
         </v-card>
       </v-modal>
     </teleport>
+
+    <v-menu
+      open-on-click
+      width="150"
+    >
+      <template #activator>
+        <v-button
+          label="test"
+          elevation="3"
+          style="margin-right: 10px;"
+          color="blue"
+        />
+      </template>
+      <template #default>
+        <div>
+          salam
+        </div>
+      </template>
+    </v-menu>
 
     <v-badge
       color="blue darken-3"

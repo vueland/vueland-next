@@ -41,6 +41,7 @@ export type DatePickerDate = {
   day: number
   mls: number
   isHoliday?: boolean
+  default?: boolean
 }
 
 export type DateParams = {
@@ -48,6 +49,7 @@ export type DateParams = {
   mm: number
   yyyy: number
   MM: string
+  D: string
 }
 
 export type Column = {

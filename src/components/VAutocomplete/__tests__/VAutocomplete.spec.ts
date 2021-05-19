@@ -1,18 +1,20 @@
 import { mount, VueWrapper } from '@vue/test-utils'
 import { VAutocomplete } from '../index'
+import 'regenerator-runtime/runtime'
 
 describe('VAutocomplete', () => {
   let mountFunction: (options?: any) => VueWrapper<any>
 
   beforeEach(() => {
-    mountFunction = (options = {}) => mount(VAutocomplete, {
-      ...options,
-      global: {
-        provide: {
-          $options: null,
+    mountFunction = (options = {}) =>
+      mount(VAutocomplete, {
+        ...options,
+        global: {
+          provide: {
+            $options: null,
+          },
         },
-      },
-    })
+      })
   })
 
   it('should mount component and match snapshot', () => {

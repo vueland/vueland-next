@@ -43,10 +43,7 @@ export function useActivator() {
     }
 
     if (props.openOnClick) {
-      listeners.click = () => {
-        console.log('its work')
-        handlers.click()
-      }
+      listeners.click = () => handlers.click()
     }
 
     return listeners

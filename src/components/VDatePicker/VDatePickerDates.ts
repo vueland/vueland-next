@@ -189,7 +189,8 @@ export const VDatePickerDates = defineComponent({
         class: {
           'v-date-picker-dates__cell': !!date.date,
           'v-date-picker-dates__cell--empty': !date.date,
-          'v-date-picker-dates__cell--selected': isSelected,
+          'v-date-picker-dates__cell--selected':
+            isSelected && !props.value.default,
           'v-date-picker-dates__cell--current-date': isToday,
           'v-date-picker-dates__cell--holiday': date.date && date.isHoliday,
         },

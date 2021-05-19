@@ -13,12 +13,12 @@
 
     .v-input__select-slot {
       & > .v-input__prepend-icon + .v-label +
-      .v-menu + .v-select > .v-select__input {
+      .v-select > .v-select__input {
         padding-left: 24px;
       }
 
       & > .v-input__prepend-icon + .v-input__clear + .v-label +
-      .v-menu + .v-select > .v-select__input {
+      .v-select > .v-select__input {
         padding-left: 24px;
       }
 
@@ -28,37 +28,37 @@
       }
 
       & > .v-input__clear + .v-label +
-      .v-menu + .v-select > .v-select__input {
+      .v-select > .v-select__input {
         padding-right: 24px;
       }
 
       & > .v-input__prepend-icon + .v-label +
-      .v-menu + .v-autocomplete > .v-autocomplete__input {
+      .v-autocomplete > .v-autocomplete__input {
         padding-left: 24px;
       }
 
       & > .v-input__prepend-icon + .v-input__clear + .v-label +
-      .v-menu + .v-autocomplete > .v-autocomplete__input {
+      .v-autocomplete > .v-autocomplete__input {
         padding-left: 24px;
       }
 
       & > .v-input__prepend-icon + .v-input__append-icon + .v-label +
-      .v-menu + .v-autocomplete > .v-autocomplete__input {
+      .v-autocomplete > .v-autocomplete__input {
         padding-left: 24px;
       }
 
       & > .v-input__append-icon + .v-label +
-      .v-menu + .v-autocomplete > .v-autocomplete__input {
+      .v-autocomplete > .v-autocomplete__input {
         padding-right: 24px;
       }
 
       & > .v-input__clear + .v-label +
-      .v-menu + .v-autocomplete > .v-autocomplete__input {
+      .v-autocomplete > .v-autocomplete__input {
         padding-right: 24px;
       }
 
       & > .v-input__prepend-icon + .v-input__append-icon +
-      .v-label + .v-menu + .v-select > .v-select__input {
+      .v-label + .v-select > .v-select__input {
         padding-left: 20px;
       }
     }

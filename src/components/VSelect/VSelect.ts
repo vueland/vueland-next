@@ -169,12 +169,26 @@ export const VSelect = defineComponent({
       return h(VSelectList, propsData)
     }
 
+    function genMenu() {
+      return h(
+        VMenu,
+        {
+          openOnClick: true,
+          maxHeight: 240,
+          onClose: onBlur,
+        },
+        {
+          default: () => genSelectList(),
+        }
+      )
+    }
+
     function genSelect(): VNode {
       const propsData = {
         class: classes.value,
       }
 
-      return h('div', propsData, genInput())
+      return h('div', propsData, [genInput(), genMenu()])
     }
 
     onBeforeUnmount(() => {
@@ -199,22 +213,8 @@ export const VSelect = defineComponent({
         ...attrs,
       } as any
 
-      const menuContent = {
-        activator: genSelect,
-        content: () => props.items && genSelectList(),
-      }
-
       return h(VInput, propsData, {
-        select: () =>
-          h(
-            VMenu,
-            {
-              openOnClick: true,
-              maxHeight: 240,
-              onClose: onBlur,
-            },
-            menuContent
-          ),
+        select: () => genSelect(),
       })
     }
   },

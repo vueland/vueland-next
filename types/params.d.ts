@@ -1,17 +1,17 @@
 import { ComponentPublicInstance } from 'vue'
 
 export type UserOptions = {
-  icons?: 'material-icons'
-  theme?: {
-    dark?: boolean
-    themes?: {
-      light?: ThemeOptions
-      dark?: ThemeOptions
+  icons: 'material-icons'
+  theme: {
+    dark: boolean
+    themes: {
+      light: ThemeOptions
+      dark: ThemeOptions
     }
   }
 }
 
-export declare type ThemeOptions = {
+export declare interface ThemeOptions {
   base?: string
   primary: string
   secondary?: string
@@ -22,7 +22,16 @@ export declare type ThemeOptions = {
   warning?: string
 }
 
-export type OffsetSizes = {
+export interface Dimensions {
+  top: number
+  left: number
+  bottom: number
+  right: number
+  width: number
+  height: number
+}
+
+export interface OffsetSizes {
   left: number
   top: number
   width: number
@@ -52,7 +61,7 @@ export type DateParams = {
   D: string
 }
 
-export type Column = {
+export interface DataColumn {
   key: string
   title: string
   width?: string | number
@@ -68,9 +77,18 @@ export type Column = {
   sort?: (a: any, b: any) => number
 }
 
+export interface DataColumnProps {
+  sorted: boolean
+  filtered: boolean
+}
+
+export interface DataRowProps {
+  selected: boolean
+}
+
 export type TableFilter = {
   value: string | number
-  col: Column
+  col: DataColumn
 }
 
 type PaginationOptions = {
@@ -78,7 +96,7 @@ type PaginationOptions = {
   displayColor?: string
 }
 
-export type FooterOptions = {
+export interface FooterOptions {
   pagination?: PaginationOptions
   rowsPerPageOptions?: number[]
   rowsCountText?: string
@@ -86,13 +104,18 @@ export type FooterOptions = {
   dark?: boolean
 }
 
-export type HeaderOptions = {
+export interface HeaderOptions {
   contentColor?: string
   color?: string
   dark?: boolean
 }
 
-export type ListGroup = {
+export interface ListGroup {
   ref: ComponentPublicInstance<HTMLInputElement>
   active: boolean
+}
+
+export interface ColorSetters {
+  setBackground: (color: string, data: any) => object
+  setTextColor: (color: string, data: any) => object
 }

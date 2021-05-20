@@ -1,6 +1,6 @@
 import * as components from './components'
 import * as directives from './directives'
-import { UserOptions } from './types'
+import { UserOptions } from '../types'
 
 export class Vueland {
   static installed: boolean = false
@@ -12,6 +12,7 @@ export class Vueland {
 
   install(app: any) {
     if (Vueland.installed) return
+
     Vueland.installed = true
 
     Object.keys(components).forEach((key) => {

@@ -5,7 +5,7 @@ import './VList.scss'
 import { h, ref, provide, defineComponent } from 'vue'
 
 // Types
-import { ListGroup } from '../../types'
+import { ListGroup } from '../../../types'
 
 export const VList = defineComponent({
   name: 'v-list',

@@ -3,23 +3,15 @@ import { isCssColor } from '../utils/color-parser'
 
 // Types
 import { PropType } from 'vue'
+import { ColorSetters } from '../../types'
 
-type Colorable = {
-  setBackground: (color: string, data: any) => object;
-  setTextColor: (color: string, data: any) => object;
-};
-
-interface ColorProps {
-  color: PropType<string>
-}
-
-export function colorProps(): ColorProps {
+export function colorProps() {
   return {
-    color: String,
+    color: String as PropType<string>,
   }
 }
 
-export const useColors = (): Colorable => {
+export const useColors = (): ColorSetters => {
   const setBackground = (color: string, data: any): object => {
     if (!isCssColor(color)) {
       data.class[color] = true

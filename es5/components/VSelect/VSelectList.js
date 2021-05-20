@@ -46,12 +46,14 @@ var VSelectList = (0, _vue.defineComponent)({
     var selected = (0, _vue.ref)(null);
 
     function genItems() {
+      var _props$items;
+
       var key = props.valueKey;
       var propsData = {
         "class": {},
         style: {}
       };
-      return props.items.map(function (it) {
+      return (_props$items = props.items) === null || _props$items === void 0 ? void 0 : _props$items.map(function (it) {
         var item = (0, _vue.h)(_VList.VListItemTitle, props.color ? setTextColor(props.color, propsData) : propsData, {
           "default": function _default() {
             return key ? it[key] : it;

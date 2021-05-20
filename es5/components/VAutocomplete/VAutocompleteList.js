@@ -11,12 +11,6 @@ var _vue = require("vue");
 
 var _VList = require("../VList");
 
-var _useToggle2 = require("../../effects/use-toggle");
-
-var _useTransition = require("../../effects/use-transition");
-
-var _useElevation2 = require("../../effects/use-elevation");
-
 var _useColors2 = require("../../effects/use-colors");
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
@@ -42,23 +36,19 @@ var VAutocompleteList = (0, _vue.defineComponent)({
   setup: function setup(props, _ref) {
     var emit = _ref.emit;
 
-    var _useToggle = (0, _useToggle2.useToggle)(props, 'active'),
-        isActive = _useToggle.isActive;
-
-    var _useElevation = (0, _useElevation2.useElevation)(props),
-        elevationClasses = _useElevation.elevationClasses;
-
     var _useColors = (0, _useColors2.useColors)(),
         setTextColor = _useColors.setTextColor,
         setBackground = _useColors.setBackground;
 
     function genItems() {
+      var _props$items;
+
       var key = props.valueKey;
       var propsData = {
         "class": {},
         style: {}
       };
-      return props.items.map(function (it) {
+      return (_props$items = props.items) === null || _props$items === void 0 ? void 0 : _props$items.map(function (it) {
         var item = (0, _vue.h)(_VList.VListItemTitle, props.color ? setTextColor(props.color, propsData) : propsData, {
           "default": function _default() {
             return key ? it[key] : it;
@@ -89,16 +79,16 @@ var VAutocompleteList = (0, _vue.defineComponent)({
 
     function genList() {
       var propsData = {
-        "class": _objectSpread({
+        "class": {
           'v-autocomplete-list': true
-        }, elevationClasses.value),
+        },
         style: {}
       };
-      return (0, _vue.withDirectives)((0, _vue.h)('div', props.listColor ? setBackground(props.listColor, propsData) : propsData, genAutocompleteListItems()), [[_vue.vShow, isActive.value]]);
+      return (0, _vue.h)('div', props.listColor ? setBackground(props.listColor, propsData) : propsData, genAutocompleteListItems());
     }
 
     return function () {
-      return (0, _useTransition.useTransition)(genList(), 'fade');
+      return genList();
     };
   }
 });

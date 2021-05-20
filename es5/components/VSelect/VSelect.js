@@ -158,11 +158,23 @@ var VSelect = (0, _vue.defineComponent)({
       return (0, _vue.h)(_VSelectList.VSelectList, propsData);
     }
 
+    function genMenu() {
+      return (0, _vue.h)(_VMenu.VMenu, {
+        openOnClick: true,
+        maxHeight: 240,
+        onClose: onBlur
+      }, {
+        "default": function _default() {
+          return genSelectList();
+        }
+      });
+    }
+
     function genSelect() {
       var propsData = {
         "class": classes.value
       };
-      return (0, _vue.h)('div', propsData, genInput());
+      return (0, _vue.h)('div', propsData, [genInput(), genMenu()]);
     }
 
     (0, _vue.onBeforeUnmount)(function () {
@@ -187,24 +199,9 @@ var VSelect = (0, _vue.defineComponent)({
         onClear: onClear
       }, attrs);
 
-      var menuContent = {
-        activator: function activator() {
-          return genSelect();
-        },
-        content: function content() {
-          return props.items && genSelectList();
-        }
-      };
       return (0, _vue.h)(_VInput.VInput, propsData, {
         select: function select() {
-          return (0, _vue.h)(_VMenu.VMenu, {
-            openOnClick: true,
-            maxHeight: 400,
-            offsetY: props.typeable ? 1 : 0,
-            onClose: function onClose() {
-              return onBlur();
-            }
-          }, menuContent);
+          return genSelect();
         }
       });
     };

@@ -19,7 +19,7 @@ var _VInput = require("../VInput");
 
 var _VAutocompleteList = require("./VAutocompleteList");
 
-var _directives = require("../../directives");
+var _VMenu = require("../VMenu");
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -67,12 +67,6 @@ var VAutocomplete = (0, _vue.defineComponent)({
         validationState = _useValidate.validationState;
 
     var fields = props.rules && (0, _vue.inject)('fields');
-    var directive = (0, _vue.computed)(function () {
-      return state.isMenuActive && !state.focused ? {
-        handler: clickOutsideHandler,
-        closeConditional: true
-      } : undefined;
-    });
     var classes = (0, _vue.computed)(function () {
       return _objectSpread({
         'v-autocomplete': true,
@@ -90,13 +84,6 @@ var VAutocomplete = (0, _vue.defineComponent)({
       return !!props.items && !!props.items.length;
     });
     state.search = propValue.value ? inputValue.value : '';
-    (0, _vue.watch)(function () {
-      return isListItemsExists.value;
-    }, function (to) {
-      if (to && !state.isMenuActive && state.focused) {
-        state.isMenuActive = true;
-      }
-    });
 
     if (fields !== null && fields !== void 0 && fields.value && (_props$rules = props.rules) !== null && _props$rules !== void 0 && _props$rules.length) {
       fields.value.push(validateValue);
@@ -108,11 +95,6 @@ var VAutocomplete = (0, _vue.defineComponent)({
       return ((_props$rules2 = props.rules) === null || _props$rules2 === void 0 ? void 0 : _props$rules2.length) && validate(state.search);
     }
 
-    function clickOutsideHandler() {
-      state.focused = false;
-      state.isMenuActive = false;
-    }
-
     function onFocus() {
       state.focused = true;
       state.isMenuActive = isListItemsExists.value;
@@ -122,19 +104,15 @@ var VAutocomplete = (0, _vue.defineComponent)({
     }
 
     function onBlur() {
-      if (!propValue.value) {
-        state.search = '';
-      }
+      if (!propValue.value) state.search = '';
 
       if (!state.search && propValue.value) {
-        requestAnimationFrame(function () {
-          state.search = inputValue.value;
-        });
+        state.search = inputValue.value;
       }
 
-      setTimeout(validateValue);
       state.focused = false;
       emit('blur');
+      setTimeout(validateValue);
     }
 
     function onInput(e) {
@@ -151,12 +129,8 @@ var VAutocomplete = (0, _vue.defineComponent)({
     }
 
     function onSelect(it) {
-      if (props.valueKey) {
-        state.search = it[props.valueKey];
-      } else {
-        state.search = it;
-      }
-
+      props.valueKey && (state.search = it[props.valueKey]);
+      !props.valueKey && (state.search = it);
       emit('select', it);
       emit('update:modelValue', it);
       emit('update:value', it);
@@ -187,13 +161,26 @@ var VAutocomplete = (0, _vue.defineComponent)({
         listColor: props.listColor,
         onSelect: onSelect
       };
-      return (0, _vue.withDirectives)((0, _vue.h)(_VAutocompleteList.VAutocompleteList, propsData), [[_directives.clickOutside, directive.value]]);
+      return (0, _vue.h)(_VAutocompleteList.VAutocompleteList, propsData);
+    }
+
+    function genMenu() {
+      return (0, _vue.h)(_VMenu.VMenu, {
+        openOnClick: true,
+        maxHeight: 240,
+        bottom: true,
+        onClose: function onClose() {
+          return onBlur();
+        }
+      }, {
+        "default": genAutocompleteList
+      });
     }
 
     function genAutocomplete() {
       return (0, _vue.h)('div', {
         "class": classes.value
-      }, [genInput(), props.items && genAutocompleteList()]);
+      }, [genInput(), genMenu()]);
     }
 
     (0, _vue.onBeforeUnmount)(function () {
@@ -206,7 +193,7 @@ var VAutocomplete = (0, _vue.defineComponent)({
     return function () {
       var propsData = {
         label: props.label,
-        focused: state.focused || state.isMenuActive,
+        focused: state.focused,
         hasState: !!state.search,
         hasError: errorState.innerError,
         dark: !!props.dark,

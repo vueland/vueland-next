@@ -1,7 +1,15 @@
 import { ref, reactive } from 'vue'
+import { Dimensions } from '../../types'
 
-export function useDimensions(props) {
-  const dimensions = reactive({
+type MainDimensions = {
+  activator: Dimensions
+  content: Dimensions
+  pageYOffset: number
+  pageWidth: number
+}
+
+export function useAutoPosition(props) {
+  const dimensions = reactive<MainDimensions>({
     activator: {
       top: 0,
       left: 0,
@@ -23,12 +31,13 @@ export function useDimensions(props) {
   })
 
   const contentRef = ref<HTMLElement | any | null>(null)
-  const offset = props.offsetY || 10
-  let activator
-  let activatorRect
-  let content
-  let diff
-  let minDiff = 20
+  const offset: number = +props.offsetY || 10
+
+  let activator: HTMLElement
+  let content: HTMLElement
+  let activatorRect: Dimensions
+  let diff: number
+  let minDiff: number
 
   function getBoundedClientRect(el) {
     const rect = el.getBoundingClientRect()

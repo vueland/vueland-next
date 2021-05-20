@@ -29,7 +29,7 @@ import { parseDate } from './helpers'
 import { addScopedSlot } from '../../helpers'
 // Utils
 import { formatDate } from './utils'
-import { DatePickerBtnHandlers, DatePickerDate } from '../../types'
+import { DatePickerBtnHandlers, DatePickerDate } from '../../../types'
 // Services
 import { locale } from '../../services/locale'
 
@@ -188,9 +188,9 @@ export const VDatePicker = defineComponent({
       const dateForParsing = selectedDate || new Date()
 
       data.selected = parseDate(dateForParsing)
-      !selectedDate && (data.selected.default = !selectedDate)
+      !selectedDate && (data.selected!.default = !selectedDate)
 
-      setDataDate(data.selected)
+      setDataDate(data.selected!)
     }
 
     function onYearUpdate(year: number) {

@@ -9,7 +9,7 @@ import { genTableRows } from './helpers'
 
 // Types
 import { VNode, Ref } from 'vue'
-import { DatePickerBtnHandlers } from '../../types'
+import { DatePickerBtnHandlers } from '../../../types'
 
 // Effects
 import { useTransition } from '../../effects/use-transition'

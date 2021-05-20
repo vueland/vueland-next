@@ -14,7 +14,9 @@ import { VProgressCircular } from '../VProgressCircular'
 
 // Types
 import { VNode } from 'vue'
-import { convertToUnit } from '@/helpers'
+
+// Helpers
+import { convertToUnit } from '../../helpers'
 
 export const VButton = defineComponent({
   name: 'v-button',

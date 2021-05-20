@@ -1,5 +1,5 @@
 // Styles
-import "./VListGroup.scss";
+import './VListGroup.scss'
 
 // Vue API
 import {
@@ -12,32 +12,32 @@ import {
   defineComponent,
   onBeforeUnmount,
   vShow,
-} from "vue";
+} from 'vue'
 
 // Effects
-import { useColors } from "../../effects/use-colors";
-import { elevationProps, useElevation } from "../../effects/use-elevation";
+import { useColors } from '../../effects/use-colors'
+import { elevationProps, useElevation } from '../../effects/use-elevation'
 
 // Components
-import { VIcon } from "../VIcon";
-import { VListItem } from "./VListItem";
-import { VListItemIcon } from "./index";
-import { VExpandTransition } from "../transitions";
+import { VIcon } from '../VIcon'
+import { VListItem } from './VListItem'
+import { VListItemIcon } from './index'
+import { VExpandTransition } from '../transitions'
 
 // Types
-import { VNode, ComponentPublicInstance } from "vue";
-import { ListGroup } from "../../types";
+import { VNode, ComponentPublicInstance } from 'vue'
+import { ListGroup } from '../../../types'
 
 // Services
-import { FaIcons } from "../../services/icons";
-import { Sizes } from "../../services/sizes";
+import { FaIcons } from '../../services/icons'
+import { Sizes } from '../../services/sizes'
 
 export const VListGroup = defineComponent({
-  name: "v-list-group",
+  name: 'v-list-group',
   props: {
     activeClass: {
       type: String,
-      default: "",
+      default: '',
     },
     appendIcon: {
       type: String,
@@ -45,7 +45,7 @@ export const VListGroup = defineComponent({
     },
     prependIcon: {
       type: String,
-      default: "",
+      default: '',
     },
     color: {
       type: String,
@@ -59,99 +59,98 @@ export const VListGroup = defineComponent({
   } as any,
 
   setup(props, { slots }) {
-    const { setTextColor } = useColors();
-    const { elevationClasses } = useElevation(props);
+    const { setTextColor } = useColors()
+    const { elevationClasses } = useElevation(props)
 
-    const refGroup = ref<ComponentPublicInstance<HTMLDivElement> | null>(null);
-    const isActive = ref<boolean>(false);
-    const children = ref<ListGroup[]>([]);
-    const { groups, register, unRegister, listClick }: any = inject("groups");
+    const refGroup = ref<ComponentPublicInstance<HTMLDivElement> | null>(null)
+    const isActive = ref<boolean>(false)
+    const children = ref<ListGroup[]>([])
+    const { groups, register, unRegister, listClick }: any = inject('groups')
 
-    provide("subgroups", children);
+    provide('subgroups', children)
 
-    const subgroups: any = props.subGroup && inject("subgroups");
+    const subgroups: any = props.subGroup && inject('subgroups')
 
     const listGroup = {
       ref: refGroup,
       active: isActive,
-    };
+    }
 
-    if (groups) register(listGroup);
-    if (subgroups) subgroups.value.push(listGroup);
+    if (groups) register(listGroup)
+    if (subgroups) subgroups.value.push(listGroup)
     if (!props.noAction && props.expanded) {
-      requestAnimationFrame(onClick);
+      requestAnimationFrame(onClick)
     }
 
     const classes = computed<Record<string, boolean>>(() => ({
-      "v-list-group": true,
-      "v-list-group__sub-group": props.subGroup,
-      "v-list-group--expanded": isActive.value && !props.noAction,
+      'v-list-group': true,
+      'v-list-group__sub-group': props.subGroup,
+      'v-list-group--expanded': isActive.value && !props.noAction,
       [props.activeClass]: isActive.value,
       ...elevationClasses.value,
-    }));
+    }))
 
     function onClick() {
-      if (props.noAction) return;
+      if (props.noAction) return
 
-      groups?.value.length && listClick(refGroup);
+      groups?.value.length && listClick(refGroup)
       children.value.length &&
-        children.value.forEach((it: any) => (it.active = false));
+        children.value.forEach((it: any) => (it.active = false))
     }
 
     function genIcon(icon: string): VNode {
       const propsData = {
         size: Sizes.small,
-      };
+      }
 
       return h(VIcon, propsData, {
         default: () => icon,
-      });
+      })
     }
 
     function genAppendIcon(): VNode | null {
-      const slotIcon = slots.appendIcon && slots.appendIcon();
-      const icon =
-        !props.subGroup && !props.noAction ? props.appendIcon : false;
+      const slotIcon = slots.appendIcon && slots.appendIcon()
+      const icon = !props.subGroup && !props.noAction ? props.appendIcon : false
 
       if ((!icon && !slotIcon) || (!props.subGroup && props.noAction))
-        return null;
+        return null
 
       const propsData = {
-        class: "v-list-group__append-icon",
-      };
+        class: 'v-list-group__append-icon',
+      }
 
       return h(VListItemIcon, propsData, {
         default: () => slotIcon || genIcon(icon as string),
-      });
+      })
     }
 
     function genPrependIcon(): VNode | null {
       const icon =
         props.subGroup && !props.noAction
           ? FaIcons.$subgroup
-          : props.prependIcon;
+          : props.prependIcon
 
-      const slotIcon = slots.prependIcon && slots.prependIcon();
+      const slotIcon = slots.prependIcon && slots.prependIcon()
 
-      if (!icon && !slotIcon) return null;
+      if (!icon && !slotIcon) return null
 
       const propsData = {
-        class: "v-list-group__prepend-icon",
-      };
+        class: 'v-list-group__prepend-icon',
+      }
 
       return h(VListItemIcon, propsData, {
         default: () => slotIcon || genIcon(icon as string),
-      });
+      })
     }
 
     function genGroupHeader(): VNode {
       const propsData = {
         class: {
-          "v-list-group__header": !props.subGroup,
-          "v-list-group__header--sub-group": props.subGroup,
+          'v-list-group__header': !props.subGroup,
+          'v-list-group__header--sub-group': props.subGroup,
         },
         onClick,
-      };
+      }
 
       return h(VListItem, propsData, {
         default: () => [
@@ -159,42 +158,42 @@ export const VListGroup = defineComponent({
           slots.title && slots.title(),
           genAppendIcon(),
         ],
-      });
+      })
     }
 
     function genItems(): VNode {
       const propsData = {
-        class: "v-list-group__items",
-      };
+        class: 'v-list-group__items',
+      }
 
       return withDirectives(
-        h("div", propsData, slots.default && slots.default()),
+        h('div', propsData, slots.default && slots.default()),
         [[vShow, isActive.value]]
-      );
+      )
     }
 
     function genPropsData() {
       return {
         class: classes.value,
         ref: refGroup,
-      };
+      }
     }
 
     onBeforeUnmount(() => {
-      unRegister(refGroup);
-    });
+      unRegister(refGroup)
+    })
 
     return () => {
-      const items = slots.default && VExpandTransition(genItems());
-      const header = slots.title && genGroupHeader();
+      const items = slots.default && VExpandTransition(genItems())
+      const header = slots.title && genGroupHeader()
 
       const propsData = props.color
         ? setTextColor(props.color, genPropsData())
-        : genPropsData();
+        : genPropsData()
 
-      const children = [header, items];
+      const children = [header, items]
 
-      return h("div", propsData, children);
-    };
+      return h('div', propsData, children)
+    }
   },
-});
+})

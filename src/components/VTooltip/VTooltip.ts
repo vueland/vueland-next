@@ -23,7 +23,7 @@ import { elevationProps, useElevation } from '../../effects/use-elevation'
 import { positionProps } from '../../effects/use-position'
 
 // Types
-import { OffsetSizes } from '../../types'
+import { OffsetSizes } from '../../../types'
 import { VNode } from 'vue'
 
 // Helpers

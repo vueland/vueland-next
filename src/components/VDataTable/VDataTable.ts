@@ -18,10 +18,16 @@ import { addScopedSlot } from '../../helpers'
 
 // Types
 import { VNode, PropType } from 'vue'
-import { Column, FooterOptions, HeaderOptions, TableFilter } from '../../types'
+import {
+  DataColumn,
+  DataColumnProps,
+  FooterOptions,
+  HeaderOptions,
+  TableFilter,
+} from '../../../types'
 
 type TableState = {
-  cols: Column[]
+  cols: DataColumn[]
   rows: { [key: string]: any }[]
   checkedRows: { [key: string]: any }[]
   rowsOnPage: number
@@ -134,7 +140,7 @@ export const VDataTable = defineComponent({
 
     watch(
       () => props.rows,
-      (to) => data.rows = Object.assign([], to),
+      (to) => (data.rows = Object.assign([], to)),
       { immediate: true }
     )
 
@@ -158,7 +164,7 @@ export const VDataTable = defineComponent({
       }
     }
 
-    function onSort<T extends Column, S extends { sorted: boolean }>(
+    function onSort<T extends DataColumn, S extends DataColumnProps>(
       col: T & S
     ) {
       if (col.sorted) {
@@ -171,7 +177,7 @@ export const VDataTable = defineComponent({
       sortColumn(col)
     }
 
-    function sortColumn<T extends Column, S extends { sorted: boolean }>(
+    function sortColumn<T extends DataColumn, S extends DataColumnProps>(
       col: T & S
     ) {
       if (!col.sorted) {
@@ -211,14 +217,14 @@ export const VDataTable = defineComponent({
       data.rowsOnPage = count
     }
 
-    function filterRows<T, C extends Column>(rows: T[], cols: C[]) {
+    function filterRows<T, C extends DataColumn>(rows: T[], cols: C[]) {
       const filterKeys = Object.keys(filters)
 
       return rows.reduce((acc, row) => {
         const rowResults: T[] = []
 
         filterKeys.forEach((key) => {
-          const { format } = cols.find((col) => col.key === key) as Column
+          const { format } = cols.find((col) => col.key === key) as DataColumn
 
           const value = format ? format(row) : row[key]
 

@@ -32,11 +32,11 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var VListGroup = (0, _vue.defineComponent)({
-  name: "v-list-group",
+  name: 'v-list-group',
   props: _objectSpread({
     activeClass: {
       type: String,
-      "default": ""
+      "default": ''
     },
     appendIcon: {
       type: String,
@@ -44,7 +44,7 @@ var VListGroup = (0, _vue.defineComponent)({
     },
     prependIcon: {
       type: String,
-      "default": ""
+      "default": ''
     },
     color: {
       type: String
@@ -68,14 +68,14 @@ var VListGroup = (0, _vue.defineComponent)({
     var isActive = (0, _vue.ref)(false);
     var children = (0, _vue.ref)([]);
 
-    var _inject = (0, _vue.inject)("groups"),
+    var _inject = (0, _vue.inject)('groups'),
         groups = _inject.groups,
         register = _inject.register,
         unRegister = _inject.unRegister,
         listClick = _inject.listClick;
 
-    (0, _vue.provide)("subgroups", children);
-    var subgroups = props.subGroup && (0, _vue.inject)("subgroups");
+    (0, _vue.provide)('subgroups', children);
+    var subgroups = props.subGroup && (0, _vue.inject)('subgroups');
     var listGroup = {
       ref: refGroup,
       active: isActive
@@ -89,9 +89,9 @@ var VListGroup = (0, _vue.defineComponent)({
 
     var classes = (0, _vue.computed)(function () {
       return _objectSpread(_defineProperty({
-        "v-list-group": true,
-        "v-list-group__sub-group": props.subGroup,
-        "v-list-group--expanded": isActive.value && !props.noAction
+        'v-list-group': true,
+        'v-list-group__sub-group': props.subGroup,
+        'v-list-group--expanded': isActive.value && !props.noAction
       }, props.activeClass, isActive.value), elevationClasses.value);
     });
 
@@ -119,7 +119,7 @@ var VListGroup = (0, _vue.defineComponent)({
       var icon = !props.subGroup && !props.noAction ? props.appendIcon : false;
       if (!icon && !slotIcon || !props.subGroup && props.noAction) return null;
       var propsData = {
-        "class": "v-list-group__append-icon"
+        "class": 'v-list-group__append-icon'
       };
       return (0, _vue.h)(_index.VListItemIcon, propsData, {
         "default": function _default() {
@@ -133,7 +133,7 @@ var VListGroup = (0, _vue.defineComponent)({
       var slotIcon = slots.prependIcon && slots.prependIcon();
       if (!icon && !slotIcon) return null;
       var propsData = {
-        "class": "v-list-group__prepend-icon"
+        "class": 'v-list-group__prepend-icon'
       };
       return (0, _vue.h)(_index.VListItemIcon, propsData, {
         "default": function _default() {
@@ -145,8 +145,8 @@ var VListGroup = (0, _vue.defineComponent)({
     function genGroupHeader() {
       var propsData = {
         "class": {
-          "v-list-group__header": !props.subGroup,
-          "v-list-group__header--sub-group": props.subGroup
+          'v-list-group__header': !props.subGroup,
+          'v-list-group__header--sub-group': props.subGroup
         },
         onClick: onClick
       };
@@ -159,9 +159,9 @@ var VListGroup = (0, _vue.defineComponent)({
 
     function genItems() {
       var propsData = {
-        "class": "v-list-group__items"
+        "class": 'v-list-group__items'
       };
-      return (0, _vue.withDirectives)((0, _vue.h)("div", propsData, slots["default"] && slots["default"]()), [[_vue.vShow, isActive.value]]);
+      return (0, _vue.withDirectives)((0, _vue.h)('div', propsData, slots["default"] && slots["default"]()), [[_vue.vShow, isActive.value]]);
     }
 
     function genPropsData() {
@@ -179,7 +179,7 @@ var VListGroup = (0, _vue.defineComponent)({
       var header = slots.title && genGroupHeader();
       var propsData = props.color ? setTextColor(props.color, genPropsData()) : genPropsData();
       var children = [header, items];
-      return (0, _vue.h)("div", propsData, children);
+      return (0, _vue.h)('div', propsData, children);
     };
   }
 });

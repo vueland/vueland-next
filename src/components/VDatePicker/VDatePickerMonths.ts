@@ -9,7 +9,7 @@ import { genTableRows } from './helpers'
 
 // Types
 import { VNode } from 'vue'
-import { DatePickerBtnHandlers } from '../../types'
+import { DatePickerBtnHandlers } from '../../../types'
 
 export const VDatePickerMonths = defineComponent({
   name: 'v-date-picker-months',

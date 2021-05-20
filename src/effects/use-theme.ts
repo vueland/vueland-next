@@ -1,5 +1,5 @@
 import { inject } from 'vue'
-import { ThemeOptions } from '../types'
+import { ThemeOptions } from '../../types'
 import colors from '../utils/colors'
 
 type ThemeColors = {
@@ -16,7 +16,7 @@ const defaultThemeColors: ThemeColors = {
     error: colors.red.accent3,
     info: colors.blue.accent3,
     success: colors.green.base,
-    warning: colors.amber.base
+    warning: colors.amber.base,
   },
 
   dark: {
@@ -27,13 +27,13 @@ const defaultThemeColors: ThemeColors = {
     error: colors.red.accent3,
     info: colors.blue.accent3,
     success: colors.green.accent3,
-    warning: colors.amber.accent3
-  }
+    warning: colors.amber.accent3,
+  },
 }
 
 export function themeProps() {
   return {
-    dark: Boolean
+    dark: Boolean,
   }
 }
 
@@ -45,12 +45,12 @@ export function useTheme() {
   if (!options?.theme?.dark) {
     return {
       ...defaultThemeColors.light,
-      ...light
+      ...light,
     }
   }
 
   return {
     ...defaultThemeColors.dark,
-    ...dark
+    ...dark,
   }
 }

@@ -9,7 +9,7 @@ require("../../../src/components/VMenu/VMenu.scss");
 
 var _vue = require("vue");
 
-var _useDimensions2 = require("../../effects/use-dimensions");
+var _useAutoPosition2 = require("../../effects/use-auto-position");
 
 var _useActivator2 = require("../../effects/use-activator");
 
@@ -21,9 +21,13 @@ var _useElevation2 = require("../../effects/use-elevation");
 
 var _useToggle2 = require("../../effects/use-toggle");
 
+var _usePosition = require("../../effects/use-position");
+
 var _helpers = require("../../helpers");
 
 var _directives = require("../../directives");
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -31,20 +35,14 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 var VMenu = (0, _vue.defineComponent)({
   name: 'v-menu',
-  props: {
+  props: _objectSpread({
     maxHeight: {
       type: [Number, String],
       "default": 200
     },
     width: {
-      type: [Number, String],
-      "default": 0
-    },
-    offsetY: {
       type: [Number, String],
       "default": 0
     },
@@ -62,7 +60,7 @@ var VMenu = (0, _vue.defineComponent)({
       type: [Number, String],
       "default": 10
     }
-  },
+  }, (0, _usePosition.positionProps)()),
   emits: ['open', 'close'],
   setup: function setup(props, _ref) {
     var emit = _ref.emit,
@@ -74,10 +72,10 @@ var VMenu = (0, _vue.defineComponent)({
     var _useToggle = (0, _useToggle2.useToggle)(props),
         isActive = _useToggle.isActive;
 
-    var _useDimensions = (0, _useDimensions2.useDimensions)(),
-        contentRef = _useDimensions.contentRef,
-        setDimensions = _useDimensions.setDimensions,
-        dimensions = _useDimensions.dimensions;
+    var _useAutoPosition = (0, _useAutoPosition2.useAutoPosition)(props),
+        contentRef = _useAutoPosition.contentRef,
+        setDimensions = _useAutoPosition.setDimensions,
+        dimensions = _useAutoPosition.dimensions;
 
     var _useDetachable = (0, _useDetachable2.useDetachable)(),
         setDetached = _useDetachable.setDetached,
@@ -91,8 +89,11 @@ var VMenu = (0, _vue.defineComponent)({
 
     var handlers = {
       click: function click() {
-        setDimensions(activatorRef);
-        isActive.value = true;
+        setDimensions(activatorRef.value).then(function () {
+          requestAnimationFrame(function () {
+            return isActive.value = true;
+          });
+        });
       },
       mouseenter: function mouseenter() {
         return isActive.value = true;
@@ -111,11 +112,8 @@ var VMenu = (0, _vue.defineComponent)({
         closeConditional: props.closeOnContentClick
       } : undefined;
     });
-    var calcMaxHeight = (0, _vue.computed)(function () {
-      return isNaN(+props.maxHeight) ? props.maxHeight : (0, _helpers.convertToUnit)(props.maxHeight);
-    });
     var calcWidth = (0, _vue.computed)(function () {
-      return isNaN(+props.width) ? props.width : (0, _helpers.convertToUnit)(props.width || dimensions.content.width);
+      return props.width || dimensions.content.width;
     });
     (0, _vue.watch)(function () {
       return isActive.value;
@@ -124,46 +122,50 @@ var VMenu = (0, _vue.defineComponent)({
       !to && emit('close');
     });
 
-    function genMenuActivator() {
-      var slotContent = slots.activator && slots.activator({
-        on: listeners
-      });
+    function genActivatorSlot() {
+      if (slots.activator) {
+        var slotContent = slots.activator({
+          on: listeners
+        });
 
-      if (_typeof(slotContent[0].type) === 'object') {
-        return (0, _vue.h)('div', {
+        if (_typeof(slotContent[0].type) === 'object') {
+          return (0, _vue.h)('div', {
+            ref: activatorRef
+          }, (0, _vue.h)(slotContent[0]));
+        }
+
+        return (0, _vue.h)(slotContent[0], {
           ref: activatorRef
-        }, (0, _vue.h)(slotContent[0]));
+        });
       }
 
-      return (0, _vue.h)(slotContent[0], {
-        ref: activatorRef
-      });
+      return null;
     }
 
-    function genMenuContent() {
+    function genContentSlot() {
       var propsData = {
         ref: contentRef,
         "class": _objectSpread({
           'v-menu__content': true
         }, elevationClasses.value),
         style: {
-          width: calcWidth.value,
-          maxHeight: calcMaxHeight.value,
-          top: (0, _helpers.convertToUnit)(dimensions.content.top - +props.offsetY),
+          maxHeight: (0, _helpers.convertToUnit)(props.maxHeight),
+          width: (0, _helpers.convertToUnit)(calcWidth.value),
+          top: (0, _helpers.convertToUnit)(dimensions.content.top),
           left: (0, _helpers.convertToUnit)(dimensions.content.left)
         },
         onClick: function onClick() {
           isActive.value = !props.closeOnContentClick;
         }
       };
-      var content = (0, _vue.h)('div', propsData, slots.content && slots.content());
+      var content = (0, _vue.h)('div', propsData, [slots["default"] && slots["default"]()]);
       var directives = [[_vue.vShow, isActive.value], [_directives.resize, onResize]];
       if (props.closeOnClick) directives.push([_directives.clickOutside, directive.value]);
       return (0, _vue.withDirectives)(content, directives);
     }
 
     (0, _vue.onMounted)(function () {
-      setDimensions(activatorRef);
+      activatorRef.value = slots.activator ? activatorRef.value : contentRef.value.parentNode;
       addActivatorEvents();
       setDetached(contentRef.value);
     });
@@ -184,7 +186,7 @@ var VMenu = (0, _vue.defineComponent)({
         "class": {
           'v-menu': true
         }
-      }), genMenuActivator(), (0, _useTransition.useTransition)(genMenuContent(), 'fade')];
+      }), slots.activator && genActivatorSlot(), (0, _useTransition.useTransition)(genContentSlot(), 'fade')];
     };
   }
 });

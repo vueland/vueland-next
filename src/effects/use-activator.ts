@@ -2,24 +2,24 @@
 import { ref } from 'vue'
 
 // Types
-import { OffsetSizes } from '../types'
+import { OffsetSizes } from '../../types'
 
 type ActivatorListeners = {
-  mouseenter?: (e: Event) => void
-  mouseleave?: (e: Event) => void
-  mouseover?: (e: Event) => void
-  mouseout?: (e: Event) => void
-  focus?: (e: Event) => void
-  blur?: (e: Event) => void
-  click?: (e: Event) => void
-  input?: (e: Event) => void
-  change?: (e: Event) => void
+  mouseenter: (e: Event) => void
+  mouseleave: (e: Event) => void
+  mouseover: (e: Event) => void
+  mouseout: (e: Event) => void
+  focus: (e: Event) => void
+  blur: (e: Event) => void
+  click: (e: Event) => void
+  input: (e: Event) => void
+  change: (e: Event) => void
 }
 
 export function useActivator() {
   const activatorRef = ref<HTMLElement | null>(null)
   const activatorSizes: Partial<OffsetSizes> = {}
-  const listeners: ActivatorListeners = {}
+  const listeners: Partial<ActivatorListeners> = {}
 
   const getActivatorSizes = () => {
     const el = (activatorRef.value! as any).$el || (activatorRef.value! as any)

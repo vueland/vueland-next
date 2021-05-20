@@ -1,6 +1,6 @@
 import { h, VNode } from 'vue'
 import { getFullYear, getMonth, getDate, getDay } from './utils'
-import { DatePickerDate } from '@/types'
+import { DatePickerDate } from '../../../types'
 
 export function genTableRows(
   vNodesArray: VNode[],

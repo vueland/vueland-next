@@ -179,6 +179,7 @@ var VDatePicker = (0, _vue.defineComponent)({
       var selectedDate = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
       var dateForParsing = selectedDate || new Date();
       data.selected = (0, _helpers.parseDate)(dateForParsing);
+      !selectedDate && (data.selected["default"] = !selectedDate);
       setDataDate(data.selected);
     }
 
@@ -242,10 +243,12 @@ var VDatePicker = (0, _vue.defineComponent)({
     }
 
     function genDatepickerDisplayInner() {
+      var _data$selected3;
+
       var propsData = {
         "class": 'v-date-picker__display-inner'
       };
-      return (0, _vue.h)('div', propsData, [genDisplayValue(data.selected.year), genDisplayValue(displayDate.value)]);
+      return (0, _vue.h)('div', propsData, [genDisplayValue((_data$selected3 = data.selected) === null || _data$selected3 === void 0 ? void 0 : _data$selected3.year), genDisplayValue(displayDate.value)]);
     }
 
     function genDatepickerDisplay() {
@@ -351,26 +354,25 @@ var VDatePicker = (0, _vue.defineComponent)({
       return (0, _vue.h)('div', setTextColor(contentColor, propsData), [genDatepickerDisplay(), genDatepickerHeader(), genDatepickerBody()]);
     }
 
+    function genMenu() {
+      return (0, _vue.h)(_VMenu.VMenu, {
+        width: 'auto',
+        maxHeight: 'auto',
+        bottom: props.typeable,
+        openOnClick: true,
+        closeOnContentClick: closeConditional.value
+      }, {
+        "default": function _default() {
+          return genDatepickerTable();
+        }
+      });
+    }
+
     function genDatepicker() {
       var propsData = {
         "class": classes.value
       };
-      var content = {
-        activator: function activator() {
-          return genDatepickerInput();
-        },
-        content: function content() {
-          return genDatepickerTable();
-        }
-      };
-      var menu = (0, _vue.h)(_VMenu.VMenu, {
-        width: 'auto',
-        maxHeight: 'auto',
-        offsetY: props.typeable ? -70 : 0,
-        openOnClick: true,
-        closeOnContentClick: closeConditional.value
-      }, content);
-      return (0, _vue.h)('div', propsData, menu);
+      return (0, _vue.h)('div', propsData, [genDatepickerInput(), genMenu()]);
     }
 
     return function () {

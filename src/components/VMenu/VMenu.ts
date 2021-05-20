@@ -13,7 +13,7 @@ import {
 } from 'vue'
 
 // Effects
-import { useDimensions } from '../../effects/use-dimensions'
+import { useAutoPosition } from '../../effects/use-auto-position'
 import { useActivator } from '../../effects/use-activator'
 import { useDetachable } from '../../effects/use-detachable'
 import { useTransition } from '../../effects/use-transition'
@@ -64,7 +64,7 @@ export const VMenu = defineComponent({
   setup(props, { emit, slots }) {
     const { elevationClasses } = useElevation(props)
     const { isActive } = useToggle(props)
-    const { contentRef, setDimensions, dimensions } = useDimensions(props)
+    const { contentRef, setDimensions, dimensions } = useAutoPosition(props)
     const { setDetached, removeDetached } = useDetachable()
     const {
       activatorRef,

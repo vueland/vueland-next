@@ -1,6 +1,7 @@
 // Styles
 import './VMenu.scss'
 
+// Vue API
 import {
   h,
   defineComponent,
@@ -26,6 +27,9 @@ import { convertToUnit } from '../../helpers'
 // Directives
 import { clickOutside, resize } from '../../directives'
 import { vShow } from 'vue'
+
+// Types
+import { VNode } from 'vue'
 
 export const VMenu = defineComponent({
   name: 'v-menu',
@@ -93,16 +97,8 @@ export const VMenu = defineComponent({
         : undefined
     })
 
-    const calcMaxHeight = computed<string>(() => {
-      return isNaN(+props.maxHeight)
-        ? (props.maxHeight as string)
-        : (convertToUnit(props.maxHeight) as string)
-    })
-
-    const calcWidth = computed<string>(() => {
-      return isNaN(+props.width)
-        ? (props.width as string)
-        : (convertToUnit(props.width || dimensions.content.width) as string)
+    const calcWidth = computed<string | number>(() => {
+      return props.width || dimensions.content.width
     })
 
     watch(
@@ -113,14 +109,18 @@ export const VMenu = defineComponent({
       }
     )
 
-    function genActivatorSlot() {
-      const slotContent = slots.activator && slots.activator({ on: listeners })
+    function genActivatorSlot(): VNode | null {
+      if (slots.activator) {
+        const slotContent = slots.activator({ on: listeners })
 
-      if (typeof slotContent![0].type === 'object') {
-        return h('div', { ref: activatorRef }, h(slotContent![0]))
+        if (typeof slotContent![0].type === 'object') {
+          return h('div', { ref: activatorRef }, h(slotContent![0]))
+        }
+
+        return h(slotContent![0], { ref: activatorRef })
       }
 
-      return h(slotContent![0], { ref: activatorRef })
+      return null
     }
 
     function genContentSlot() {
@@ -131,8 +131,8 @@ export const VMenu = defineComponent({
           ...elevationClasses.value,
         },
         style: {
-          width: calcWidth.value,
-          maxHeight: calcMaxHeight.value,
+          maxHeight: convertToUnit(props.maxHeight),
+          width: convertToUnit(calcWidth.value),
           top: convertToUnit(dimensions.content.top),
           left: convertToUnit(dimensions.content.left),
         },

@@ -501,16 +501,9 @@ export default {
 
     <v-menu
       open-on-click
+      close-on-click
       width="150"
     >
-      <template #activator>
-        <v-button
-          label="test"
-          elevation="3"
-          style="margin-right: 10px;"
-          color="blue"
-        />
-      </template>
       <template #default>
         <div>
           salam

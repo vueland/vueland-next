@@ -22,15 +22,14 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
 var Vueland = /*#__PURE__*/function () {
-  function Vueland() {
-    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-
+  function Vueland(options) {
     _classCallCheck(this, Vueland);
 
     this.userOptions = options;
+    Vueland.options = this.userOptions;
   }
 
-  _createClass(Vueland, [{
+  _createClass(Vueland, null, [{
     key: "install",
     value: function install(app) {
       if (Vueland.installed) return;
@@ -46,7 +45,7 @@ var Vueland = /*#__PURE__*/function () {
           app.directive(key, directives[key]);
         }
       });
-      app.provide('$options', this.userOptions);
+      app.provide('$options', Vueland.options);
     }
   }]);
 

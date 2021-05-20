@@ -3,10 +3,10 @@ import { ComponentPublicInstance } from 'vue'
 export type UserOptions = {
   icons: 'material-icons'
   theme: {
-    dark: boolean
-    themes: {
-      light: ThemeOptions
-      dark: ThemeOptions
+    dark?: boolean
+    themes?: {
+      light?: ThemeOptions
+      dark?: ThemeOptions
     }
   }
 }

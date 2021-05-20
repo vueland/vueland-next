@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import Vueland from '../src'
+import Vueland from '../'
 import colors from '../src/utils/colors'
 
 const vueland = new Vueland({
@@ -23,5 +23,5 @@ const vueland = new Vueland({
 })
 
 const app = createApp(App)
-app.use(vueland)
+app.use(Vueland)
 app.mount('#app')

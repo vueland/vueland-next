@@ -1,5 +1,6 @@
 import { Plugin } from 'vue'
 import { UserOptions } from './params'
+import { App } from 'vue'
 
 export default class Vueland {
   constructor(presets?: Partial<UserOptions>)
@@ -7,8 +8,9 @@ export default class Vueland {
   install: Plugin
   userOptions: UserOptions
 
+  static install: (app: App, options?: UserOptions) => void
   static installed: boolean
-  static version: string
+  static options: UserOptions
 }
 
 export {

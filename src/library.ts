@@ -4,13 +4,15 @@ import { UserOptions } from '../types'
 
 export class Vueland {
   static installed: boolean = false
-  public userOptions: any
+  static options: UserOptions
+  public userOptions: UserOptions | undefined
 
-  constructor(options: UserOptions | null = null) {
+  constructor(options?: UserOptions) {
     this.userOptions = options
+    Vueland.options = this.userOptions!
   }
 
-  install(app: any) {
+  static install(app: any) {
     if (Vueland.installed) return
 
     Vueland.installed = true
@@ -28,6 +30,6 @@ export class Vueland {
       }
     })
 
-    app.provide('$options', this.userOptions)
+    app.provide('$options', Vueland.options)
   }
 }

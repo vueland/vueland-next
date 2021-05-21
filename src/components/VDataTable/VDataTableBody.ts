@@ -27,30 +27,22 @@ export const VDataTableBody = defineComponent({
     align: String,
     colWidth: {
       type: [String, Number],
-      default: 125
+      default: 125,
     },
     page: Number,
     rowsOnPage: Number,
-    ...colorProps()
+    ...colorProps(),
   } as any,
 
-  emits: [
-    'select',
-    'click:row',
-    'dblclick:row',
-    'contextmenu:row'
-  ],
+  emits: ['select', 'click:row', 'dblclick:row', 'contextmenu:row'],
 
-  setup(props, {
-    slots,
-    emit
-  }): () => VNode {
+  setup(props, { slots, emit }): () => VNode {
     const checkedRows = ref([])
 
     const { setBackground } = useColors()
 
     const classes = computed<Record<string, boolean>>(() => ({
-      'v-data-table__body': true
+      'v-data-table__body': true,
     }))
 
     const rowsOnTable = computed<any[]>(() => {
@@ -81,10 +73,10 @@ export const VDataTableBody = defineComponent({
           align: 'center',
           dark: props.dark,
           color: props.color,
-          class: 'v-data-table__row-number'
+          class: 'v-data-table__row-number',
         },
         {
-          default: () => count + 1
+          default: () => count + 1,
         }
       )
     }
@@ -97,7 +89,7 @@ export const VDataTableBody = defineComponent({
           align: 'center',
           dark: props.dark,
           color: props.color,
-          class: 'v-data-table__row-checkbox'
+          class: 'v-data-table__row-checkbox',
         },
         {
           default: () =>
@@ -105,18 +97,20 @@ export const VDataTableBody = defineComponent({
               modelValue: checkedRows.value,
               color: props.dark ? 'white' : '',
               value: row,
-              onChecked: onSelectRows
-            })
+              onChecked: onSelectRows,
+            }),
         }
       )
     }
 
     function genRowCell(col, row): VNode {
       const { format } = col
-      const slotContent = slots[col.key] && slots[col.key]!({
-        row,
-        format
-      })
+      const slotContent =
+        slots[col.key] &&
+        slots[col.key]!({
+          row,
+          format,
+        })
 
       return h(
         VDataTableCell,
@@ -124,7 +118,7 @@ export const VDataTableBody = defineComponent({
           width: col.width,
           align: col.align || props.align,
           dark: props.dark,
-          class: { [col.rowCellClass]: !!col.rowCellClass }
+          class: { [col.rowCellClass]: !!col.rowCellClass },
         },
         {
           default: () =>
@@ -132,7 +126,7 @@ export const VDataTableBody = defineComponent({
               ? slotContent
               : format
               ? format(row)
-              : String(row[col.key])
+              : String(row[col.key]),
         }
       )
     }
@@ -143,19 +137,23 @@ export const VDataTableBody = defineComponent({
       props.showSequence && rowCells.push(genNumberCell(rowCount))
       props.showCheckbox && rowCells.push(genCheckboxCell(row))
 
-      props.cols.forEach(col => {
+      props.cols.forEach((col) => {
         col.show && rowCells.push(genRowCell(col, row))
       })
 
-      return h('div', {
-        class: { 'v-data-table__row': true },
-        onClick: () => emit('click:row', row),
-        onDblclick: () => emit('dblclick:row', row),
-        onContextmenu: (e) => {
-          e.preventDefault()
-          emit('contextmenu:row', row)
-        }
-      }, rowCells)
+      return h(
+        'div',
+        {
+          class: { 'v-data-table__row': true },
+          onClick: () => emit('click:row', row),
+          onDblclick: () => emit('dblclick:row', row),
+          onContextmenu: (e) => {
+            e.preventDefault()
+            emit('contextmenu:row', row)
+          },
+        },
+        rowCells
+      )
     }
 
     function genTableRows(): VNode[] {
@@ -172,7 +170,7 @@ export const VDataTableBody = defineComponent({
 
     return () => {
       const propsData = {
-        class: classes.value
+        class: classes.value,
       }
 
       return h(
@@ -183,5 +181,5 @@ export const VDataTableBody = defineComponent({
         genTableRows()
       )
     }
-  }
+  },
 })

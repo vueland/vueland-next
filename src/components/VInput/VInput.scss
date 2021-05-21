@@ -11,7 +11,39 @@
     width: 100%;
     height: 100%;
 
-    .v-input__select-slot {
+    .v-input__field-slot {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      color: inherit;
+      border-bottom: 1px solid map-get($grey, 'lighten-2');
+    }
+
+    .v-input__field-slot {
+      & > .v-input__append-icon + .v-label +
+      .v-text-field > .v-text-field__input {
+        padding-right: 24px;
+      }
+
+      & > .v-input__clear + .v-label +
+      .v-text-field > .v-text-field__input {
+        padding-right: 24px;
+      }
+
+      & > .v-input__prepend-icon + .v-label +
+      .v-text-field > .v-text-field__input {
+        padding-left: 24px;
+      }
+
+      & > .v-input__prepend-icon + .v-input__append-icon +
+      .v-label + .v-text-field > .v-text-field__input {
+        padding-left: 24px;
+      }
+
+      & > .v-input__prepend-icon + .v-input__clear +
+      .v-label + .v-text-field > .v-text-field__input {
+        padding-left: 24px;
+      }
       & > .v-input__prepend-icon + .v-label +
       .v-select > .v-select__input {
         padding-left: 24px;
@@ -60,42 +92,6 @@
       & > .v-input__prepend-icon + .v-input__append-icon +
       .v-label + .v-select > .v-select__input {
         padding-left: 20px;
-      }
-    }
-
-    .v-input__select-slot,
-    .v-input__field-slot {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      color: inherit;
-      border-bottom: 1px solid map-get($grey, 'lighten-2');
-    }
-
-    .v-input__field-slot {
-      & > .v-input__append-icon + .v-label +
-      .v-text-field > .v-text-field__input {
-        padding-right: 24px;
-      }
-
-      & > .v-input__clear + .v-label +
-      .v-text-field > .v-text-field__input {
-        padding-right: 24px;
-      }
-
-      & > .v-input__prepend-icon + .v-label +
-      .v-text-field > .v-text-field__input {
-        padding-left: 24px;
-      }
-
-      & > .v-input__prepend-icon + .v-input__append-icon +
-      .v-label + .v-text-field > .v-text-field__input {
-        padding-left: 24px;
-      }
-
-      & > .v-input__prepend-icon + .v-input__clear +
-      .v-label + .v-text-field > .v-text-field__input {
-        padding-left: 24px;
       }
     }
 

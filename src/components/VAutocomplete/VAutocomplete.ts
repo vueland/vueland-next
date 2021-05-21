@@ -2,23 +2,15 @@
 import './VAutocomplete.scss'
 
 // Vue API
-import {
-  h,
-  ref,
-  reactive,
-  computed,
-  defineComponent,
-  inject,
-  onBeforeUnmount,
-} from 'vue'
+import { h, ref, reactive, computed, defineComponent } from 'vue'
 
 // Effects
-import { validateProps, useValidate } from '../../effects/use-validate'
+import { validateProps } from '../../effects/use-validate'
 import { colorProps, useColors } from '../../effects/use-colors'
 import { useTheme } from '../../effects/use-theme'
 
 // Types
-import { VNode, Ref } from 'vue'
+import { VNode } from 'vue'
 
 // Components
 import { VInput } from '../VInput'
@@ -63,66 +55,44 @@ export const VAutocomplete = defineComponent({
 
     const { setTextColor } = useColors()
     const { base } = useTheme()
-    const inputTemplateRef = ref(null)
-
-    const {
-      validate,
-      dirty,
-      update,
-      errorState,
-      validateClasses,
-      validationState,
-    } = useValidate(props)
-
-    const fields: Ref<any[]> | undefined = props.rules && inject('fields')
+    const inputRef = ref(null)
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-autocomplete': true,
       'v-autocomplete--disabled': props.disabled,
       'v-autocomplete--focused': state.focused,
-      ...validateClasses.value,
     }))
 
-    const propValue = computed<any>(() => {
+    const computedValue = computed<any>(() => {
       return props.modelValue || props.value
     })
 
     const inputValue = computed<string>(() => {
-      return props.valueKey ? propValue.value[props.valueKey] : propValue.value
+      return props.valueKey
+        ? computedValue.value[props.valueKey]
+        : computedValue.value
     })
 
     const isListItemsExists = computed<boolean>(() => {
       return !!props.items && !!props.items.length
     })
 
-    state.search = propValue.value ? inputValue.value : ''
-
-    if (fields?.value && props.rules?.length) {
-      fields.value.push(validateValue)
-    }
-
-    function validateValue() {
-      return props.rules?.length && validate(state.search)
-    }
+    state.search = computedValue.value ? inputValue.value : ''
 
     function onFocus() {
       state.focused = true
       state.isMenuActive = isListItemsExists.value
-      dirty()
-      update(errorState.innerError)
       emit('focus')
     }
 
     function onBlur() {
-      if (!propValue.value) state.search = ''
+      if (!computedValue.value) state.search = ''
 
-      if (!state.search && propValue.value) {
+      if (!state.search && computedValue.value) {
         state.search = inputValue.value
       }
-
       state.focused = false
       emit('blur')
-      setTimeout(validateValue)
     }
 
     function onInput(e) {
@@ -135,7 +105,6 @@ export const VAutocomplete = defineComponent({
       emit('select', '')
       emit('update:modelValue', '')
       emit('update:value', '')
-      requestAnimationFrame(validateValue)
     }
 
     function onSelect(it) {
@@ -144,7 +113,6 @@ export const VAutocomplete = defineComponent({
       emit('select', it)
       emit('update:modelValue', it)
       emit('update:value', it)
-      requestAnimationFrame(validateValue)
     }
 
     function genInput(): VNode {
@@ -152,7 +120,7 @@ export const VAutocomplete = defineComponent({
         value: state.search,
         disabled: props.disabled,
         readonly: props.readonly && !props.typeable,
-        ref: inputTemplateRef,
+        ref: inputRef,
         class: 'v-autocomplete__input',
         onInput,
         onFocus,
@@ -179,6 +147,7 @@ export const VAutocomplete = defineComponent({
       return h(
         VMenu,
         {
+          activator: inputRef,
           openOnClick: true,
           maxHeight: 240,
           bottom: true,
@@ -194,28 +163,22 @@ export const VAutocomplete = defineComponent({
       return h('div', { class: classes.value }, [genInput(), genMenu()])
     }
 
-    onBeforeUnmount(() => {
-      if (fields?.value) {
-        fields!.value = fields!.value.filter((v) => v !== validateValue)
-      }
-    })
-
     return () => {
       const propsData = {
         label: props.label,
         focused: state.focused,
-        hasState: !!state.search,
-        hasError: errorState.innerError,
-        dark: !!props.dark,
-        color: validationState.value,
-        disabled: !!props.disabled,
-        isDirty: !!errorState.isDirty,
-        message: errorState.innerErrorMessage,
+        hasState: !!computedValue.value,
+        dark: props.dark,
+        disabled: props.disabled,
+        clearable: props.clearable,
+        rules: props.rules,
+        value: computedValue.value,
+        color: props.color,
         onClear,
       }
 
       return h(VInput, propsData, {
-        select: () => genAutocomplete(),
+        textField: () => genAutocomplete(),
       })
     }
   },

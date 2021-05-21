@@ -21,7 +21,19 @@ export default {
         // {name: 'AAA', email: 'aaa@mail.ru', body: 'fsdf adfasda dasdasd'},
         // {name: 'AAA', email: 'aaa@mail.ru', body: 'fsdf adfasda dasdasd'},
       ],
+      positionX: 0,
+      positionY: 0,
+      isOpen: false,
     })
+
+    const showMenu = (e) => {
+      e.preventDefault()
+
+      data.positionX = e.clientX
+      data.positionY = e.clientY
+
+      requestAnimationFrame(() => data.isOpen = true)
+    }
 
     const onClickLoading = () => {
       data.loading = true
@@ -144,18 +156,6 @@ export default {
       custom: (date) => !(date.date % 2),
     }
 
-    const dayCellContent = ({ date, month, isHoliday }) => {
-      return date && h('span', {
-        style: { fontSize: '.8rem', display: 'flex', alignItems: 'center' },
-      }, [
-        date, h(VIcon, {
-          icon: isHoliday ? 'home' : 'done',
-          size: 12,
-          color: isHoliday ? 'cyan' : 'green',
-        }),
-      ])
-    }
-
     return {
       data,
       cols,
@@ -167,7 +167,7 @@ export default {
       toggleAlways,
       onClickLoading,
       addCircular,
-      dayCellContent,
+      showMenu,
     }
   },
 }
@@ -338,11 +338,9 @@ export default {
     >
       <v-date-picker
         v-model="data.date"
-        lang="ru"
+        lang="en"
         label="set date"
-        color="blue darken-4"
-        content-color="white"
-        format="dd MMMM yyyy D"
+        format="dd MMM yyyy D"
         elevation="15"
         prepend-icon="event"
         :rules="[val => !!val || 'Required']"
@@ -382,10 +380,9 @@ export default {
         :rules="[v => !!v || 'required', v => v.length > 5 || 'more than 5']"
       />
       <v-select
-        v-model="data.user2"
+
         label="select"
         :items="data.users"
-        color="cyan"
         value-key="name"
         clearable
         prepend-icon="search"
@@ -480,6 +477,56 @@ export default {
         </v-card-content>
       </v-card>
     </v-form>
+    <v-card
+      elevation="10"
+      style="margin: 20px;"
+      @contextmenu="showMenu"
+    >
+      <img
+        src="https://i.mycdn.me/i?r=AzEPZsRbOZEKgBhR0XGMT1RkPGSRVI_2X7nqC2oTGvMWj6aKTM5SRkZCeTgDn6uOyic"
+        alt=""
+        style="width: 100%"
+      >
+      <v-card-title>
+        <v-icon
+          icon="pets"
+          size="18"
+          color="grey lighten-2"
+        />
+        <span style="margin-left: 10px">White panter</span>
+      </v-card-title>
+      <v-card-content>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias commodi, consectetur dolorum iure praesentium
+        reprehenderit sint ut vero. Accusamus, aperiam et impedit in ipsam obcaecati possimus quasi reiciendis rerum
+        veniam.
+      </v-card-content>
+      <v-card-actions>
+        <v-button
+          label="support"
+          text
+          color="blue"
+        />
+      </v-card-actions>
+    </v-card>
+    <v-menu
+      v-model="data.isOpen"
+      :position-x="data.positionX"
+      :position-y="data.positionY"
+      width="150"
+      absolute
+      @close="data.isOpen = false"
+    >
+      <div
+        style="width: 150px; height: 100px; border-radius: 5px;"
+        class="grey lighten-3 elevation-10"
+      >
+        <v-list>
+          <v-list-item>
+            <v-list-item-title>salam</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </div>
+    </v-menu>
     <teleport to="#modal">
       <v-modal
         v-model="data.show"
@@ -498,18 +545,6 @@ export default {
         </v-card>
       </v-modal>
     </teleport>
-
-    <v-menu
-      open-on-click
-      close-on-click
-      width="150"
-    >
-      <template #default>
-        <div>
-          salam
-        </div>
-      </template>
-    </v-menu>
 
     <v-badge
       color="blue darken-3"

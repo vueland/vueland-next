@@ -13,7 +13,7 @@ export type UserOptions = {
 
 export declare interface ThemeOptions {
   base?: string
-  primary: string
+  primary?: string
   secondary?: string
   accent?: string
   error?: string

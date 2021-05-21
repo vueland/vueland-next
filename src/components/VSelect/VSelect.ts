@@ -2,23 +2,15 @@
 import './VSelect.scss'
 
 // Vue API
-import {
-  h,
-  reactive,
-  computed,
-  defineComponent,
-  watch,
-  inject,
-  onBeforeUnmount,
-} from 'vue'
+import { h, ref, reactive, computed, defineComponent, watch } from 'vue'
 
 // Effects
-import { validateProps, useValidate } from '../../effects/use-validate'
 import { colorProps, useColors } from '../../effects/use-colors'
 import { useTheme } from '../../effects/use-theme'
+import { activatorProps } from '../../effects/use-activator'
 
 // Types
-import { VNode, Ref } from 'vue'
+import { VNode } from 'vue'
 
 // Components
 import { VInput } from '../VInput'
@@ -44,8 +36,8 @@ export const VSelect = defineComponent({
     readonly: Boolean,
     clearable: Boolean,
     modelValue: [Array, String, Object, Number],
-    ...validateProps(),
     ...colorProps(),
+    ...activatorProps(),
   } as any,
 
   emits: [
@@ -65,15 +57,8 @@ export const VSelect = defineComponent({
 
     const { setTextColor } = useColors()
     const { base } = useTheme()
-    const {
-      validate,
-      dirty,
-      update,
-      errorState,
-      validationState,
-    } = useValidate(props)
 
-    const fields: Ref<any[]> | undefined = props.rules && inject('fields')
+    const inputRef = ref<HTMLElement | null>(null)
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-select': true,
@@ -96,23 +81,9 @@ export const VSelect = defineComponent({
 
     watch(
       () => computedValue.value,
-      (value) => {
-        state.selected = value
-        !state.focused &&
-          errorState.isDirty &&
-          props.rules?.length &&
-          validateValue()
-      },
+      (to) => (state.selected = to),
       { immediate: true }
     )
-
-    if (fields?.value && props.rules?.length) {
-      fields.value.push(validateValue)
-    }
-
-    function validateValue() {
-      return props.rules?.length && validate(computedInputValue.value)
-    }
 
     function toggleState() {
       state.focused = !state.focused
@@ -120,22 +91,18 @@ export const VSelect = defineComponent({
 
     function onBlur() {
       setTimeout(() => {
-        requestAnimationFrame(validateValue)
         toggleState()
         emit('blur')
       })
     }
 
     function onClick() {
-      dirty()
-      update(errorState.innerError)
       toggleState()
       emit('focus')
     }
 
     function onClear() {
       state.selected = ''
-      requestAnimationFrame(validateValue)
     }
 
     function selectItem(item) {
@@ -151,6 +118,7 @@ export const VSelect = defineComponent({
         disabled: props.disabled,
         readonly: props.readonly && !props.typeable,
         class: 'v-select__input',
+        ref: inputRef,
         onClick,
       }
       return h('input', setTextColor(props.dark ? 'white' : base, propsData))
@@ -173,6 +141,7 @@ export const VSelect = defineComponent({
       return h(
         VMenu,
         {
+          activator: inputRef!,
           openOnClick: true,
           maxHeight: 240,
           onClose: onBlur,
@@ -191,30 +160,23 @@ export const VSelect = defineComponent({
       return h('div', propsData, [genInput(), genMenu()])
     }
 
-    onBeforeUnmount(() => {
-      if (fields?.value) {
-        fields!.value = fields!.value.filter((v) => v !== validateValue)
-      }
-    })
-
     return () => {
       const propsData = {
         label: props.label,
         focused: state.focused,
         hasState: !!computedInputValue.value,
-        hasError: errorState.innerError,
         dark: props.dark,
-        color: validationState.value,
         disabled: props.disabled,
-        isDirty: !!errorState.isDirty,
-        message: errorState.innerErrorMessage,
         clearable: props.clearable,
+        rules: props.rules,
+        value: computedInputValue.value,
+        color: props.color,
         onClear,
         ...attrs,
       } as any
 
       return h(VInput, propsData, {
-        select: () => genSelect(),
+        textField: () => genSelect(),
       })
     }
   },

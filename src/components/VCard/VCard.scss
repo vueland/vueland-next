@@ -6,6 +6,7 @@
   background: map-get($white, 'base');
   border-radius: 5px;
   position: relative;
+  overflow: hidden;
 
   &__title {
     @include flex(flex, flex-start, center);

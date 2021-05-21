@@ -60,7 +60,7 @@ export const VDataTableCell = defineComponent({
       const propsData = {
         class: {
           'v-data-table__cell-content': true,
-          [`text-align--${ props.align }`]: !!props.align,
+          [`text-align--${props.align}`]: !!props.align,
         },
       }
 
@@ -77,11 +77,11 @@ export const VDataTableCell = defineComponent({
         },
       })
 
-      return h('div', props.color ?
-        setBackground(props.color, propsData) : propsData, [
-        genCellContent(),
-        props.resizeable && genResize(),
-      ])
+      return h(
+        'div',
+        props.color ? setBackground(props.color, propsData) : propsData,
+        [genCellContent(), props.resizeable && genResize()]
+      )
     }
   },
 })

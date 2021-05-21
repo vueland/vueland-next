@@ -71,7 +71,7 @@ export const VCheckbox = defineComponent({
           isChecked.value = !!props.modelValue
         }
       },
-      { immediate: true },
+      { immediate: true }
     )
 
     if (fields?.value) {

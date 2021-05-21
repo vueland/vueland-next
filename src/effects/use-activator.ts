@@ -9,6 +9,7 @@ type ActivatorListeners = {
   mouseleave: (e: Event) => void
   mouseover: (e: Event) => void
   mouseout: (e: Event) => void
+  contextmenu: (e: Event) => void
   focus: (e: Event) => void
   blur: (e: Event) => void
   click: (e: Event) => void
@@ -16,10 +17,51 @@ type ActivatorListeners = {
   change: (e: Event) => void
 }
 
-export function useActivator() {
+export function activatorProps() {
+  return {
+    activator: {
+      type: [Object, String],
+    },
+    internalActivator: Boolean,
+  }
+}
+
+export function useActivator(props: any = null) {
   const activatorRef = ref<HTMLElement | null>(null)
   const activatorSizes: Partial<OffsetSizes> = {}
   const listeners: Partial<ActivatorListeners> = {}
+
+  const getActivator = (e?: Event): HTMLElement | null => {
+    if (activatorRef.value) return activatorRef.value
+
+    const target = props.internalActivator
+      ? props.activator.value.$el
+      : (document as any)
+
+    if (props.inputActivator) {
+      return (activatorRef.value = target.querySelector(props.inputActivator))
+    }
+
+    if (props?.activator) {
+      if (typeof props.activator === 'string') {
+        return (activatorRef.value = target.querySelector(props.activator))
+      }
+
+      if (props.activator.value.$el) {
+        return (activatorRef.value = props.activator.value.$el)
+      }
+
+      if (props.activator.value) {
+        return (activatorRef.value = props.activator.value)
+      }
+    }
+
+    if (e) {
+      return (activatorRef.value = (e.target || e.currentTarget) as HTMLElement)
+    }
+
+    return null
+  }
 
   const getActivatorSizes = () => {
     const el = (activatorRef.value! as any).$el || (activatorRef.value! as any)
@@ -33,17 +75,16 @@ export function useActivator() {
 
   const genActivatorListeners = (props, handlers) => {
     if (props.openOnHover) {
-      listeners.mouseenter = () => {
-        handlers.mouseenter()
-      }
-
-      listeners.mouseleave = () => {
-        handlers.mouseleave()
-      }
+      listeners.mouseenter = (e) => handlers.mouseenter(e)
+      listeners.mouseleave = (e) => handlers.mouseleave(e)
     }
 
     if (props.openOnClick) {
-      listeners.click = () => handlers.click()
+      listeners.click = (e) => handlers.click(e)
+    }
+
+    if (props.openOnContextmenu) {
+      listeners.contextmenu = (e) => handlers.contextmenu(e)
     }
 
     return listeners
@@ -71,6 +112,7 @@ export function useActivator() {
 
   return {
     activatorRef,
+    getActivator,
     getActivatorSizes,
     addActivatorEvents,
     removeActivatorEvents,

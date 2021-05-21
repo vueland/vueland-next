@@ -2,69 +2,103 @@
 import './VInput.scss'
 
 // Vue API
-import { h, computed, defineComponent } from 'vue'
+import {
+  h,
+  watch,
+  computed,
+  defineComponent,
+  inject,
+  onBeforeUnmount,
+} from 'vue'
 
 // Components
 import { VLabel } from '../VLabel'
 import { VIcon } from '../VIcon'
 
 // Types
-import { VNode } from 'vue'
+import { VNode, PropType, Ref } from 'vue'
 
 // Effects
 import { useTransition } from '../../effects/use-transition'
 import { useColors } from '../../effects/use-colors'
 import { useIcons } from '../../effects/use-icons'
 import { themeProps } from '../../effects/use-theme'
+import { validateProps, useValidate } from '@/effects/use-validate'
 
 export const VInput = defineComponent({
   name: 'v-input',
   inheritAttrs: false,
   props: {
+    inputSlotRef: Object as PropType<Ref<null>>,
     focused: Boolean,
     hasState: Boolean,
-    hasError: Boolean,
-    isDirty: Boolean,
     disabled: Boolean,
     clearable: Boolean,
     label: String,
     prependIcon: String,
     appendIcon: String,
-    message: String,
     type: {
       type: String,
       default: 'text',
     },
     color: {
       type: String,
-      default: 'primary',
     },
-    modelValue: [String, Number],
+    modelValue: [String, Number, Object],
     ...themeProps(),
+    ...validateProps(),
   } as any,
 
-  emits: ['clear'],
+  emits: ['clear', 'focus'],
 
   setup(props, { slots, emit }): () => VNode {
     const { setTextColor } = useColors()
     const { icons, iconSize } = useIcons('md')
+    const {
+      validate,
+      dirty,
+      // update,
+      errorState,
+      validationState,
+    } = useValidate(props)
+
+    const fields: Ref<any[]> | undefined = props.rules && inject('fields')
+
+    if (fields?.value && props.rules?.length) {
+      fields.value.push(validateValue)
+    }
 
     const isValid = computed<boolean>(() => {
-      return props.isDirty && props.hasState && !props.hasError
+      return errorState.isDirty && props.hasState && !errorState.innerError
     })
 
     const isNotValid = computed<boolean>(() => {
-      return props.isDirty && props.hasError
+      return errorState.isDirty && !!errorState.innerError
     })
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-input': true,
       'v-input--disabled': props.disabled,
-      'v-input--dirty': props.isDirty,
+      'v-input--dirty': errorState.isDirty,
       'v-input--valid': isValid.value,
       'v-input--not-valid': isNotValid.value,
       'v-input--focused': props.focused,
     }))
+
+    watch(() => props.value, validateValue)
+    watch(
+      () => props.focused,
+      (to) => !to && validateValue()
+    )
+
+    function onClick() {
+      dirty()
+      emit('focus')
+    }
+
+    function validateValue() {
+      return props.rules?.length && validate(props.value)
+    }
 
     function genLabel(): VNode {
       const propsData = {
@@ -73,7 +107,7 @@ export const VInput = defineComponent({
         hasState: props.hasState,
         disabled: props.disabled,
         focused: props.focused,
-        color: props.color,
+        color: validationState.value,
       }
 
       return h(VLabel, propsData, {
@@ -83,7 +117,7 @@ export const VInput = defineComponent({
 
     function genIcon(iconName, clickable = false) {
       return h(VIcon, {
-        color: props.color,
+        color: validationState.value,
         dark: props.dark,
         icon: iconName,
         size: iconSize,
@@ -116,19 +150,18 @@ export const VInput = defineComponent({
     function genInputSlot() {
       const propsData = {
         class: 'v-input__slot',
+        onClick,
       }
-      return h(
-        'div',
-        props.color ? setTextColor(props.color, propsData) : propsData,
-        [genSlotContent(), genStatus()]
-      )
+      return h('div', setTextColor(validationState.value!, propsData), [
+        genSlotContent(),
+        genStatus(),
+      ])
     }
 
     function genSlotContent(): VNode {
       const propsData = {
         class: {
-          'v-input__select-slot': !!slots.select,
-          'v-input__field-slot': !!slots.textField,
+          'v-input__field-slot': true,
         },
       }
 
@@ -137,7 +170,6 @@ export const VInput = defineComponent({
         !props.clearable && props.appendIcon && genAppendIcon(),
         props.clearable && genClearIcon(),
         genLabel(),
-        slots.select && slots.select(),
         slots.textField && slots.textField(),
       ])
     }
@@ -147,12 +179,12 @@ export const VInput = defineComponent({
         class: { 'v-input__status-message': true },
       }
 
-      return h('span', propsData, props.message)
+      return h('span', propsData, errorState.innerErrorMessage!)
     }
 
     function genStatus(): VNode {
       const transitionedMessage = useTransition(
-        (props.message && genStatusMessage()) as VNode,
+        errorState.innerErrorMessage! && (genStatusMessage() as VNode),
         'fade'
       )
 
@@ -164,6 +196,12 @@ export const VInput = defineComponent({
     function genPropsData() {
       return { class: classes.value }
     }
+
+    onBeforeUnmount(() => {
+      if (fields?.value) {
+        fields!.value = fields!.value.filter((v) => v !== validateValue)
+      }
+    })
 
     return () => h('div', genPropsData(), genInputSlot())
   },

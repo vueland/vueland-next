@@ -1,22 +1,14 @@
 // Styles
 import './VDatePicker.scss'
+
 // Vue API
-// Directives
-// Types
-import {
-  computed,
-  defineComponent,
-  h,
-  provide,
-  reactive,
-  ref,
-  VNode,
-} from 'vue'
+import { computed, defineComponent, h, provide, reactive, ref } from 'vue'
 
 // Effects
 import { useColors } from '../../effects/use-colors'
 import { elevationProps, useElevation } from '../../effects/use-elevation'
 import { useTransition } from '../../effects/use-transition'
+
 // Components
 import { VTextField } from '../VTextField'
 import { VDatepickerHeader } from './VDatepickerHeader'
@@ -24,12 +16,18 @@ import { VDatePickerDates } from './VDatePickerDates'
 import { VDatePickerYears } from './VDatePickerYears'
 import { VDatePickerMonths } from './VDatePickerMonths'
 import { VMenu } from '../VMenu'
+
 // Helpers
 import { parseDate } from './helpers'
 import { addScopedSlot } from '../../helpers'
+
 // Utils
 import { formatDate } from './utils'
+
+// Types
+import { VNode } from 'vue'
 import { DatePickerBtnHandlers, DatePickerDate } from '../../../types'
+
 // Services
 import { locale } from '../../services/locale'
 
@@ -75,7 +73,10 @@ export const VDatePicker = defineComponent({
     modelValue: [String, Date, Number],
     disabledDates: Object,
     highlighted: Object,
-    contentColor: String,
+    contentColor: {
+      type: String,
+      default: 'primary',
+    },
     color: {
       type: String,
       default: 'white',
@@ -110,10 +111,9 @@ export const VDatePicker = defineComponent({
 
     const handlers = ref<DatePickerBtnHandlers>({})
     const closeConditional = ref<boolean>(true)
+    const inputSlotRef = ref<VNode | null>(null)
 
     provide('handlers', handlers)
-
-    setInitDate()
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-date-picker': true,
@@ -379,6 +379,7 @@ export const VDatePicker = defineComponent({
         prependIcon: props.prependIcon,
         rules: props.rules,
         clearable: props.clearable,
+        ref: inputSlotRef,
         onInput: onDateInput,
         onClear: () => {
           data.convertedDateString = ''
@@ -405,6 +406,9 @@ export const VDatePicker = defineComponent({
       return h(
         VMenu,
         {
+          activator: inputSlotRef,
+          internalActivator: true,
+          inputActivator: '.v-text-field__input',
           width: 'auto',
           maxHeight: 'auto',
           bottom: props.typeable,
@@ -424,6 +428,8 @@ export const VDatePicker = defineComponent({
 
       return h('div', propsData, [genDatepickerInput(), genMenu()])
     }
+
+    setInitDate()
 
     return () => genDatepicker()
   },

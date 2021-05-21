@@ -68,7 +68,10 @@ var VDatePicker = (0, _vue.defineComponent)({
     modelValue: [String, Date, Number],
     disabledDates: Object,
     highlighted: Object,
-    contentColor: String,
+    contentColor: {
+      type: String,
+      "default": 'primary'
+    },
     color: {
       type: String,
       "default": 'white'

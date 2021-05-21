@@ -92,7 +92,9 @@ export const VIcon = defineComponent({
         onClick,
       }
 
-      return h(iconTag, setTextColor(props.color, propsData),
+      return h(
+        iconTag,
+        setTextColor(props.color, propsData),
         options?.icons ? icon.value : ''
       )
     }

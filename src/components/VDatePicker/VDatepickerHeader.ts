@@ -42,7 +42,7 @@ export const VDatepickerHeader = defineComponent({
 
       const arrowBtn = h(
         VIcon,
-        props.color ? setTextColor(props.color, iconPropsData) : iconPropsData,
+        props.color ? setTextColor(props.color, iconPropsData) : iconPropsData
       )
 
       return h('div', propsData, arrowBtn)
@@ -59,7 +59,7 @@ export const VDatepickerHeader = defineComponent({
       return h(
         'div',
         props.color ? setTextColor(props.color, propsData) : propsData,
-        slots.default && slots.default(),
+        slots.default && slots.default()
       )
     }
 
@@ -69,7 +69,7 @@ export const VDatepickerHeader = defineComponent({
         {
           class: 'v-date-picker__header',
         },
-        [genHeaderButton(false), genHeaderDisplay(), genHeaderButton(true)],
+        [genHeaderButton(false), genHeaderDisplay(), genHeaderButton(true)]
       )
   },
 })

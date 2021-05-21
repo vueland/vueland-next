@@ -13,9 +13,12 @@ import {
 } from 'vue'
 
 // Effects
-import { useAutoPosition } from '../../effects/use-auto-position'
-import { useActivator } from '../../effects/use-activator'
-import { useDetachable } from '../../effects/use-detachable'
+import {
+  autoPositionProps,
+  useAutoPosition,
+} from '../../effects/use-auto-position'
+import { activatorProps, useActivator } from '../../effects/use-activator'
+import { useDetach } from '../../effects/use-detach'
 import { useTransition } from '../../effects/use-transition'
 import { useElevation } from '../../effects/use-elevation'
 import { useToggle } from '../../effects/use-toggle'
@@ -42,8 +45,21 @@ export const VMenu = defineComponent({
       type: [Number, String],
       default: 0,
     },
+    zIndex: {
+      type: [String, Number],
+      default: 10,
+    },
+    parent: {
+      type: Object,
+      default: null,
+    },
+    inputActivator: {
+      type: String,
+      default: null,
+    },
     openOnHover: Boolean,
     openOnClick: Boolean,
+    openOnContextmenu: Boolean,
     closeOnContentClick: {
       type: Boolean,
       default: true,
@@ -56,7 +72,10 @@ export const VMenu = defineComponent({
       type: [Number, String],
       default: 10,
     },
+    modelValue: Boolean,
     ...positionProps(),
+    ...autoPositionProps(),
+    ...activatorProps(),
   },
 
   emits: ['open', 'close'],
@@ -65,22 +84,24 @@ export const VMenu = defineComponent({
     const { elevationClasses } = useElevation(props)
     const { isActive } = useToggle(props)
     const { contentRef, setDimensions, dimensions } = useAutoPosition(props)
-    const { setDetached, removeDetached } = useDetachable()
+    const { setDetached, removeDetached } = useDetach()
     const {
       activatorRef,
+      getActivator,
       genActivatorListeners,
       addActivatorEvents,
       removeActivatorEvents,
-    } = useActivator()
+    } = useActivator(props)
 
     const handlers = {
-      click: () => {
-        setDimensions(activatorRef.value).then(() => {
+      click: (e) => {
+        setDimensions(getActivator(e)).then(() => {
           requestAnimationFrame(() => (isActive.value = true))
         })
       },
       mouseenter: () => (isActive.value = true),
       mouseleave: () => (isActive.value = false),
+      contextmenu: () => (isActive.value = true),
     }
 
     const listeners = genActivatorListeners(props, handlers)
@@ -88,17 +109,14 @@ export const VMenu = defineComponent({
     const directive = computed(() => {
       return isActive.value
         ? {
-            handler: (e) => {
-              if (activatorRef.value!.contains(e.target)) return
-              isActive.value = false
-            },
+            handler: () => (isActive.value = false),
             closeConditional: props.closeOnContentClick,
           }
         : undefined
     })
 
-    const calcWidth = computed<string | number>(() => {
-      return props.width || dimensions.content.width
+    const calcWidth = computed<number | string>(() => {
+      return props.width || +dimensions.content.width
     })
 
     watch(
@@ -107,6 +125,11 @@ export const VMenu = defineComponent({
         to && emit('open')
         !to && emit('close')
       }
+    )
+
+    watch(
+      () => props.positionY,
+      () => setDimensions(activatorRef.value)
     )
 
     function genActivatorSlot(): VNode | null {
@@ -123,7 +146,7 @@ export const VMenu = defineComponent({
       return null
     }
 
-    function genContentSlot() {
+    function genContentSlot(): VNode {
       const propsData = {
         ref: contentRef,
         class: {
@@ -135,6 +158,8 @@ export const VMenu = defineComponent({
           width: convertToUnit(calcWidth.value),
           top: convertToUnit(dimensions.content.top),
           left: convertToUnit(dimensions.content.left),
+          zIndex: props.zIndex,
+          position: props.absolute ? 'absolute' : '',
         },
         onClick: () => {
           isActive.value = !props.closeOnContentClick
@@ -154,10 +179,7 @@ export const VMenu = defineComponent({
     }
 
     onMounted(() => {
-      activatorRef.value = slots.activator
-        ? activatorRef.value
-        : contentRef.value.parentNode
-
+      activatorRef.value = getActivator()
       addActivatorEvents()
       setDetached(contentRef.value)
     })

@@ -34,7 +34,13 @@ export function useActivator(props: any = null) {
   const getActivator = (e?: Event): HTMLElement | null => {
     if (activatorRef.value) return activatorRef.value
 
-    const target = props.internalActivator ? '' : (document as any)
+    const target = props.internalActivator
+      ? props.activator.value.$el
+      : (document as any)
+
+    if (props.inputActivator) {
+      return (activatorRef.value = target.querySelector(props.inputActivator))
+    }
 
     if (props?.activator) {
       if (typeof props.activator === 'string') {
@@ -69,21 +75,16 @@ export function useActivator(props: any = null) {
 
   const genActivatorListeners = (props, handlers) => {
     if (props.openOnHover) {
-      listeners.mouseenter = () => {
-        handlers.mouseenter()
-      }
-
-      listeners.mouseleave = () => {
-        handlers.mouseleave()
-      }
+      listeners.mouseenter = (e) => handlers.mouseenter(e)
+      listeners.mouseleave = (e) => handlers.mouseleave(e)
     }
 
     if (props.openOnClick) {
-      listeners.click = () => handlers.click()
+      listeners.click = (e) => handlers.click(e)
     }
 
     if (props.openOnContextmenu) {
-      listeners.contextmenu = () => handlers.contextmenu()
+      listeners.contextmenu = (e) => handlers.contextmenu(e)
     }
 
     return listeners
@@ -91,8 +92,6 @@ export function useActivator(props: any = null) {
 
   const addActivatorEvents = () => {
     const events = Object.keys(listeners)
-
-    console.log(activatorRef.value)
 
     if (activatorRef.value) {
       events.forEach((key) => {

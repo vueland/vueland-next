@@ -79,13 +79,17 @@ export const VInput = defineComponent({
     const classes = computed<Record<string, boolean>>(() => ({
       'v-input': true,
       'v-input--disabled': props.disabled,
-      'v-input--dirty': props.isDirty,
+      'v-input--dirty': errorState.isDirty,
       'v-input--valid': isValid.value,
       'v-input--not-valid': isNotValid.value,
       'v-input--focused': props.focused,
     }))
 
     watch(() => props.value, validateValue)
+    watch(
+      () => props.focused,
+      (to) => !to && validateValue()
+    )
 
     function onClick() {
       dirty()

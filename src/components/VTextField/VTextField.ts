@@ -2,18 +2,10 @@
 import './VTextField.scss'
 
 // Vue API
-import {
-  h,
-  inject,
-  watch,
-  computed,
-  reactive,
-  defineComponent,
-  onBeforeUnmount,
-} from 'vue'
+import { h, watch, computed, reactive, defineComponent } from 'vue'
 
 // Effects
-import { useValidate, validateProps } from '../../effects/use-validate'
+import { validateProps } from '../../effects/use-validate'
 import { useColors, colorProps } from '../../effects/use-colors'
 import { useTheme } from '../../effects/use-theme'
 
@@ -21,7 +13,7 @@ import { useTheme } from '../../effects/use-theme'
 import { VInput } from '../VInput'
 
 // Types
-import { VNode, Ref } from 'vue'
+import { VNode } from 'vue'
 
 type TextFieldState = {
   value: string | number
@@ -68,50 +60,22 @@ export const VTextField = defineComponent({
 
     state.value = props.modelValue || props.value
 
-    const fields: Ref<any[]> | undefined = props.rules && inject('fields')
-
     const { setTextColor } = useColors()
     const { base } = useTheme()
 
-    const {
-      validate,
-      dirty,
-      update,
-      errorState,
-      validateClasses,
-      validationState,
-    } = useValidate(props)
+    const computedValue = computed(() => {
+      return props.modelValue || props.value
+    })
 
     watch(
-      () => props.modelValue || props.value,
-      (value) => {
-        state.value = value as any
-        !state.focused && validateValue()
-      }
+      () => computedValue.value,
+      (value) => (state.value = value as any)
     )
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-text-field': true,
       'v-text-field--disabled': props.disabled,
-      'v-text-field--dirty': errorState.isDirty,
-      'v-text-field--valid': errorState.isDirty && !errorState.innerError,
-      'v-text-field--not-valid': errorState.isDirty && !!errorState.innerError,
-      ...validateClasses.value,
     }))
-
-    function validateValue(): boolean | void {
-      return props.rules?.length && validate(state.value)
-    }
-
-    if (fields?.value && props.rules?.length) {
-      fields!.value.push(validateValue)
-    }
-
-    onBeforeUnmount(() => {
-      if (fields?.value) {
-        fields.value = fields.value.filter((v) => v !== validateValue)
-      }
-    })
 
     function onClear() {
       state.value = ''
@@ -119,20 +83,16 @@ export const VTextField = defineComponent({
       emit('update:value', state.value)
       emit('input', state.value)
       emit('clear', state.value)
-      requestAnimationFrame(validateValue)
     }
 
     function onBlur() {
       setTimeout(() => {
         state.focused = false
         emit('blur')
-        requestAnimationFrame(validateValue)
       })
     }
 
     function onFocus() {
-      dirty()
-      update(errorState.innerError)
       state.focused = true
       emit('focus')
     }
@@ -176,13 +136,13 @@ export const VTextField = defineComponent({
       const propsData = {
         label: props.label,
         focused: state.focused,
-        hasState: !!state.value,
-        hasError: errorState.innerError,
+        hasState: !!computedValue.value,
         dark: props.dark,
-        color: validationState.value,
-        isDirty: errorState.isDirty,
         disabled: props.disabled,
-        message: errorState.innerErrorMessage,
+        clearable: props.clearable,
+        rules: props.rules,
+        value: computedValue.value,
+        color: props.color,
         onClear,
       }
 

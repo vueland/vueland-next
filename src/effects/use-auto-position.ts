@@ -49,6 +49,7 @@ export function useAutoPosition(props) {
   let activator: HTMLElement
   let content: HTMLElement
   let activatorRect: Dimensions
+  let contentRect: Dimensions
   let diff: number
   let minDiff: number
 
@@ -77,16 +78,33 @@ export function useAutoPosition(props) {
     return pageYOffset || document.documentElement.scrollTop
   }
 
+  function getOffsetLeft(): number {
+    if (!window) return 0
+
+    return pageXOffset || document.documentElement.scrollLeft
+  }
+
   function calcDiffs() {
     const scrollHeight = getOffsetTop() + getInnerHeight()
-    const contentFull = dimensions.content.height + dimensions.activator.top
+    const { activator, content } = dimensions
 
-    diff = scrollHeight - contentFull
+    const bottom = dimensions.content.height + activator?.top || content.top
+
     minDiff = (dimensions.content.height / 100) * 10
+
+    return scrollHeight - bottom
+  }
+
+  function calcLeftPosition() {
+    if (props.positionX) return props.positionX + getOffsetLeft()
+
+    return dimensions.activator.left
   }
 
   function calcTopPosition() {
-    calcDiffs()
+    diff = calcDiffs()
+
+    if (props.positionY) return props.positionY + getOffsetTop()
 
     if (props.bottom) {
       if (diff <= minDiff)
@@ -112,37 +130,40 @@ export function useAutoPosition(props) {
   function updateDimensions(): Promise<void> {
     return new Promise((resolve) => {
       snapShot(() => {
-        dimensions.activator.height = activator?.offsetHeight
-        dimensions.content.height = content.offsetHeight
-
-        activatorRect = getBoundedClientRect(activator)
-
-        setActivatorDimensions()
-        setContentDimensions()
+        activator && setActivatorDimensions()
+        content && setContentDimensions()
         resolve()
       })
     })
   }
 
   function setActivatorDimensions() {
+    activatorRect = getBoundedClientRect(activator)
+
+    dimensions.activator.height = activator.offsetHeight
     dimensions.activator.width = activatorRect.width
-    dimensions.activator.top = activatorRect.top + pageYOffset
-    dimensions.activator.left = activatorRect.left
+    dimensions.activator.top = activatorRect.top + getOffsetTop()
+    dimensions.activator.left = activatorRect.left + getOffsetLeft()
   }
 
   function setContentDimensions() {
-    dimensions.content.top =
-      calcTopPosition() - ((!props.bottom && offset) || 0)
+    const rect = activatorRect || contentRect
+    const topOffset = (activator && !props.bottom && offset) || 0
 
-    dimensions.content.left = dimensions.activator.left
-    dimensions.content.width = dimensions.activator.width
+    dimensions.content.height = content.offsetHeight
+    dimensions.content.top = calcTopPosition() - topOffset
+    dimensions.content.left = calcLeftPosition()
+    dimensions.content.width = rect.width
   }
 
   function setDimensions(activatorEl) {
-    if (!activator) {
+    if (!activator && !content) {
       activator = activatorEl
       content = contentRef.value
     }
+
+    activator && (activatorRect = getBoundedClientRect(activator))
+    content && (contentRect = getBoundedClientRect(content))
 
     return updateDimensions()
   }

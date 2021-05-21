@@ -18,7 +18,7 @@ import {
   useAutoPosition,
 } from '../../effects/use-auto-position'
 import { activatorProps, useActivator } from '../../effects/use-activator'
-import { useDetachable } from '../../effects/use-detachable'
+import { useDetach } from '../../effects/use-detach'
 import { useTransition } from '../../effects/use-transition'
 import { useElevation } from '../../effects/use-elevation'
 import { useToggle } from '../../effects/use-toggle'
@@ -44,6 +44,18 @@ export const VMenu = defineComponent({
     width: {
       type: [Number, String],
       default: 0,
+    },
+    zIndex: {
+      type: [String, Number],
+      default: 10,
+    },
+    parent: {
+      type: Object,
+      default: null,
+    },
+    inputActivator: {
+      type: String,
+      default: null,
     },
     openOnHover: Boolean,
     openOnClick: Boolean,
@@ -72,7 +84,7 @@ export const VMenu = defineComponent({
     const { elevationClasses } = useElevation(props)
     const { isActive } = useToggle(props)
     const { contentRef, setDimensions, dimensions } = useAutoPosition(props)
-    const { setDetached, removeDetached } = useDetachable()
+    const { setDetached, removeDetached } = useDetach()
     const {
       activatorRef,
       getActivator,
@@ -97,10 +109,7 @@ export const VMenu = defineComponent({
     const directive = computed(() => {
       return isActive.value
         ? {
-            handler: (e) => {
-              if (activatorRef.value!.contains(e.target)) return
-              isActive.value = false
-            },
+            handler: () => (isActive.value = false),
             closeConditional: props.closeOnContentClick,
           }
         : undefined
@@ -110,22 +119,17 @@ export const VMenu = defineComponent({
       return props.width || +dimensions.content.width
     })
 
-    const calcTopPosition = computed<number>(() => {
-      if (props.positionY) return +props.positionY
-      return dimensions.content.top
-    })
-
-    const calcLeftPosition = computed<number>(() => {
-      if (props.positionX) return +props.positionX
-      return dimensions.content.left
-    })
-
     watch(
       () => isActive.value,
       (to) => {
         to && emit('open')
         !to && emit('close')
       }
+    )
+
+    watch(
+      () => props.positionY,
+      () => setDimensions(activatorRef.value)
     )
 
     function genActivatorSlot(): VNode | null {
@@ -142,7 +146,7 @@ export const VMenu = defineComponent({
       return null
     }
 
-    function genContentSlot() {
+    function genContentSlot(): VNode {
       const propsData = {
         ref: contentRef,
         class: {
@@ -152,9 +156,9 @@ export const VMenu = defineComponent({
         style: {
           maxHeight: convertToUnit(props.maxHeight),
           width: convertToUnit(calcWidth.value),
-          top: convertToUnit(calcTopPosition.value),
-          left: convertToUnit(calcLeftPosition.value),
-          zIndex: 10,
+          top: convertToUnit(dimensions.content.top),
+          left: convertToUnit(dimensions.content.left),
+          zIndex: props.zIndex,
           position: props.absolute ? 'absolute' : '',
         },
         onClick: () => {
@@ -175,7 +179,7 @@ export const VMenu = defineComponent({
     }
 
     onMounted(() => {
-      activatorRef.value = activatorRef.value || getActivator()
+      activatorRef.value = getActivator()
       addActivatorEvents()
       setDetached(contentRef.value)
     })

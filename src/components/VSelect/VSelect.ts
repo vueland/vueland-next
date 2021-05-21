@@ -7,6 +7,7 @@ import { h, ref, reactive, computed, defineComponent, watch } from 'vue'
 // Effects
 import { colorProps, useColors } from '../../effects/use-colors'
 import { useTheme } from '../../effects/use-theme'
+import { activatorProps } from '../../effects/use-activator'
 
 // Types
 import { VNode } from 'vue'
@@ -35,9 +36,8 @@ export const VSelect = defineComponent({
     readonly: Boolean,
     clearable: Boolean,
     modelValue: [Array, String, Object, Number],
-    rules: Array,
-    value: [String, Number, Object],
     ...colorProps(),
+    ...activatorProps(),
   } as any,
 
   emits: [
@@ -58,7 +58,7 @@ export const VSelect = defineComponent({
     const { setTextColor } = useColors()
     const { base } = useTheme()
 
-    const inputSlotRef = ref<HTMLElement | null>(null)
+    const inputRef = ref<HTMLElement | null>(null)
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-select': true,
@@ -118,7 +118,7 @@ export const VSelect = defineComponent({
         disabled: props.disabled,
         readonly: props.readonly && !props.typeable,
         class: 'v-select__input',
-        ref: inputSlotRef,
+        ref: inputRef,
         onClick,
       }
       return h('input', setTextColor(props.dark ? 'white' : base, propsData))
@@ -141,10 +141,9 @@ export const VSelect = defineComponent({
       return h(
         VMenu,
         {
-          activator: inputSlotRef!,
+          activator: inputRef!,
           openOnClick: true,
           maxHeight: 240,
-          color: props.listColor,
           onClose: onBlur,
         },
         {

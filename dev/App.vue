@@ -28,9 +28,10 @@ export default {
 
     const showMenu = (e) => {
       e.preventDefault()
-      data.isOpen = false
+
       data.positionX = e.clientX
       data.positionY = e.clientY
+
       requestAnimationFrame(() => data.isOpen = true)
     }
 
@@ -155,18 +156,6 @@ export default {
       custom: (date) => !(date.date % 2),
     }
 
-    const dayCellContent = ({ date, month, isHoliday }) => {
-      return date && h('span', {
-        style: { fontSize: '.8rem', display: 'flex', alignItems: 'center' },
-      }, [
-        date, h(VIcon, {
-          icon: isHoliday ? 'home' : 'done',
-          size: 12,
-          color: isHoliday ? 'cyan' : 'green',
-        }),
-      ])
-    }
-
     return {
       data,
       cols,
@@ -178,7 +167,6 @@ export default {
       toggleAlways,
       onClickLoading,
       addCircular,
-      dayCellContent,
       showMenu,
     }
   },
@@ -392,7 +380,7 @@ export default {
         :rules="[v => !!v || 'required', v => v.length > 5 || 'more than 5']"
       />
       <v-select
-        v-model="data.user2"
+
         label="select"
         :items="data.users"
         value-key="name"
@@ -491,25 +479,42 @@ export default {
     </v-form>
     <v-card
       elevation="10"
+      style="margin: 20px;"
       @contextmenu="showMenu"
     >
+      <img
+        src="https://i.mycdn.me/i?r=AzEPZsRbOZEKgBhR0XGMT1RkPGSRVI_2X7nqC2oTGvMWj6aKTM5SRkZCeTgDn6uOyic"
+        alt=""
+        style="width: 100%"
+      >
       <v-card-title>
-        text
+        <v-icon
+          icon="pets"
+          size="18"
+          color="grey lighten-2"
+        />
+        <span style="margin-left: 10px">White panter</span>
       </v-card-title>
       <v-card-content>
-        <img
-          src="https://i.mycdn.me/i?r=AzEPZsRbOZEKgBhR0XGMT1RkPGSRVI_2X7nqC2oTGvMWj6aKTM5SRkZCeTgDn6uOyic"
-          alt=""
-          style="width: 100%"
-        >
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias commodi, consectetur dolorum iure praesentium
+        reprehenderit sint ut vero. Accusamus, aperiam et impedit in ipsam obcaecati possimus quasi reiciendis rerum
+        veniam.
       </v-card-content>
+      <v-card-actions>
+        <v-button
+          label="support"
+          text
+          color="blue"
+        />
+      </v-card-actions>
     </v-card>
     <v-menu
       v-model="data.isOpen"
-      width="150"
       :position-x="data.positionX"
       :position-y="data.positionY"
+      width="150"
       absolute
+      @close="data.isOpen = false"
     >
       <div
         style="width: 150px; height: 100px; border-radius: 5px;"

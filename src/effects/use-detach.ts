@@ -1,4 +1,4 @@
-export function useDetachable() {
+export function useDetach() {
   let target
   const setDetached = (el: HTMLElement, selector: string = '') => {
     if (selector) target = document.querySelector(selector)
@@ -15,6 +15,6 @@ export function useDetachable() {
 
   return {
     setDetached,
-    removeDetached
+    removeDetached,
   }
 }

@@ -1,1 +1,0 @@
-import { FunctionalComponent } from 'vue'

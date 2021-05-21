@@ -8,6 +8,19 @@ type MainDimensions = {
   pageWidth: number
 }
 
+export function autoPositionProps() {
+  return {
+    positionX: {
+      type: Number,
+      default: 0,
+    },
+    positionY: {
+      type: Number,
+      default: 0,
+    },
+  }
+}
+
 export function useAutoPosition(props) {
   const dimensions = reactive<MainDimensions>({
     activator: {
@@ -99,7 +112,7 @@ export function useAutoPosition(props) {
   function updateDimensions(): Promise<void> {
     return new Promise((resolve) => {
       snapShot(() => {
-        dimensions.activator.height = activator.offsetHeight
+        dimensions.activator.height = activator?.offsetHeight
         dimensions.content.height = content.offsetHeight
 
         activatorRect = getBoundedClientRect(activator)

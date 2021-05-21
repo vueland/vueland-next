@@ -5,11 +5,9 @@ import { UserOptions } from '../types'
 export class Vueland {
   static installed: boolean = false
   static options: UserOptions
-  public userOptions: UserOptions | undefined
 
   constructor(options?: UserOptions) {
-    this.userOptions = options
-    Vueland.options = this.userOptions!
+    Vueland.options = options!
   }
 
   static install(app: any) {

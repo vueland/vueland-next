@@ -179,6 +179,7 @@ export const VAutocomplete = defineComponent({
       return h(
         VMenu,
         {
+          activator: inputTemplateRef,
           openOnClick: true,
           maxHeight: 240,
           bottom: true,
@@ -215,7 +216,7 @@ export const VAutocomplete = defineComponent({
       }
 
       return h(VInput, propsData, {
-        select: () => genAutocomplete(),
+        textField: () => genAutocomplete(),
       })
     }
   },

@@ -108,8 +108,8 @@ var VDatePicker = (0, _vue.defineComponent)({
     var contentColor = props.dark ? 'white' : props.contentColor;
     var handlers = (0, _vue.ref)({});
     var closeConditional = (0, _vue.ref)(true);
+    var inputSlotRef = (0, _vue.ref)(null);
     (0, _vue.provide)('handlers', handlers);
-    setInitDate();
     var classes = (0, _vue.computed)(function () {
       return {
         'v-date-picker': true,
@@ -340,6 +340,7 @@ var VDatePicker = (0, _vue.defineComponent)({
         prependIcon: props.prependIcon,
         rules: props.rules,
         clearable: props.clearable,
+        ref: inputSlotRef,
         onInput: onDateInput,
         onClear: function onClear() {
           data.convertedDateString = '';
@@ -359,6 +360,9 @@ var VDatePicker = (0, _vue.defineComponent)({
 
     function genMenu() {
       return (0, _vue.h)(_VMenu.VMenu, {
+        activator: inputSlotRef,
+        internalActivator: true,
+        inputActivator: '.v-text-field__input',
         width: 'auto',
         maxHeight: 'auto',
         bottom: props.typeable,
@@ -378,6 +382,7 @@ var VDatePicker = (0, _vue.defineComponent)({
       return (0, _vue.h)('div', propsData, [genDatepickerInput(), genMenu()]);
     }
 
+    setInitDate();
     return function () {
       return genDatepicker();
     };

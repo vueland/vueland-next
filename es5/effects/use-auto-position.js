@@ -3,9 +3,23 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.autoPositionProps = autoPositionProps;
 exports.useAutoPosition = useAutoPosition;
 
 var _vue = require("vue");
+
+function autoPositionProps() {
+  return {
+    positionX: {
+      type: Number,
+      "default": 0
+    },
+    positionY: {
+      type: Number,
+      "default": 0
+    }
+  };
+}
 
 function useAutoPosition(props) {
   var dimensions = (0, _vue.reactive)({
@@ -32,7 +46,6 @@ function useAutoPosition(props) {
   var offset = +props.offsetY || 10;
   var activator;
   var content;
-  var activatorRect;
   var diff;
   var minDiff;
 
@@ -48,6 +61,10 @@ function useAutoPosition(props) {
     };
   }
 
+  var isAbsolutePositioned = (0, _vue.computed)(function () {
+    return props.positionY || props.positionX;
+  });
+
   function getInnerHeight() {
     if (!window) return 0;
     return innerHeight || document.documentElement.clientHeight;
@@ -58,15 +75,38 @@ function useAutoPosition(props) {
     return pageYOffset || document.documentElement.scrollTop;
   }
 
+  function getOffsetLeft() {
+    if (!window) return 0;
+    return pageXOffset || document.documentElement.scrollLeft;
+  }
+
+  function getContentAbsoluteBottom() {
+    return dimensions.content.height + props.positionY + getOffsetTop();
+  }
+
+  function getContentBottom() {
+    return dimensions.content.height + dimensions.activator.top;
+  }
+
   function calcDiffs() {
-    var scrollHeight = getOffsetTop() + getInnerHeight();
-    var contentFull = dimensions.content.height + dimensions.activator.top;
-    diff = scrollHeight - contentFull;
+    var pageHeight = getOffsetTop() + getInnerHeight() - offset;
+    var contentBottom = isAbsolutePositioned.value ? getContentAbsoluteBottom() : getContentBottom();
     minDiff = dimensions.content.height / 100 * 10;
+    return pageHeight - contentBottom;
+  }
+
+  function calcLeftPosition() {
+    if (props.positionX) return props.positionX + getOffsetLeft();
+    return dimensions.activator.left;
   }
 
   function calcTopPosition() {
-    calcDiffs();
+    diff = calcDiffs();
+
+    if (props.positionY) {
+      if (diff <= minDiff) return props.positionY + getOffsetTop() + diff;
+      return props.positionY + getOffsetTop();
+    }
 
     if (props.bottom) {
       if (diff <= minDiff) return dimensions.activator.top - dimensions.content.height;
@@ -89,30 +129,30 @@ function useAutoPosition(props) {
   function updateDimensions() {
     return new Promise(function (resolve) {
       snapShot(function () {
-        dimensions.activator.height = activator.offsetHeight;
-        dimensions.content.height = content.offsetHeight;
-        activatorRect = getBoundedClientRect(activator);
-        setActivatorDimensions();
-        setContentDimensions();
+        activator && setActivatorDimensions();
+        content && setContentDimensions();
         resolve();
       });
     });
   }
 
   function setActivatorDimensions() {
-    dimensions.activator.width = activatorRect.width;
-    dimensions.activator.top = activatorRect.top + pageYOffset;
-    dimensions.activator.left = activatorRect.left;
+    dimensions.activator = getBoundedClientRect(activator);
+    dimensions.activator.height = activator.offsetHeight;
+    dimensions.activator.top = dimensions.activator.top + getOffsetTop();
+    dimensions.activator.left = dimensions.activator.left + getOffsetLeft();
   }
 
   function setContentDimensions() {
-    dimensions.content.top = calcTopPosition() - (!props.bottom && offset || 0);
-    dimensions.content.left = dimensions.activator.left;
-    dimensions.content.width = dimensions.activator.width;
+    var rect = activator ? dimensions.activator : getBoundedClientRect(content);
+    dimensions.content.height = content.offsetHeight;
+    dimensions.content.top = calcTopPosition();
+    dimensions.content.left = calcLeftPosition();
+    dimensions.content.width = rect.width;
   }
 
   function setDimensions(activatorEl) {
-    if (!activator) {
+    if (!activator && !content) {
       activator = activatorEl;
       content = contentRef.value;
     }

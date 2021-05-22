@@ -20,7 +20,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var VLabel = (0, _vue.defineComponent)({
-  name: "v-label",
+  name: 'v-label',
   props: _objectSpread({
     absolute: Boolean,
     disabled: Boolean,
@@ -32,7 +32,7 @@ var VLabel = (0, _vue.defineComponent)({
     },
     right: {
       type: [Number, String],
-      "default": "auto"
+      "default": 'auto'
     },
     hasState: Boolean
   }, (0, _useColors2.colorProps)()),
@@ -47,11 +47,11 @@ var VLabel = (0, _vue.defineComponent)({
     });
     var classes = (0, _vue.computed)(function () {
       return {
-        "v-label": true,
-        "v-label--active": isActive.value,
-        "v-label--on-field": props.onField,
-        "v-label--has-state": props.hasState,
-        "v-label--is-disabled": !!props.disabled
+        'v-label': true,
+        'v-label--active': isActive.value,
+        'v-label--on-field': props.onField,
+        'v-label--has-state': props.hasState,
+        'v-label--is-disabled': !!props.disabled
       };
     });
 
@@ -61,14 +61,14 @@ var VLabel = (0, _vue.defineComponent)({
         style: {
           left: (0, _helpers.convertToUnit)(props.left),
           right: (0, _helpers.convertToUnit)(props.right),
-          position: props.absolute ? "absolute" : "relative"
+          position: props.absolute ? 'absolute' : 'relative'
         }
       };
     }
 
     return function () {
       var propsData = genPropsData();
-      return (0, _vue.h)("label", props.color ? setTextColor(props.color, propsData) : propsData, slots["default"] && slots["default"]());
+      return (0, _vue.h)('label', props.color ? setTextColor(props.color, propsData) : propsData, slots["default"] && slots["default"]());
     };
   }
 });

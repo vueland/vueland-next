@@ -17,6 +17,7 @@ export default {
       date: null,
       loading: false,
       circular: 10,
+      title: 'cat',
       users: [
         // {name: 'AAA', email: 'aaa@mail.ru', body: 'fsdf adfasda dasdasd'},
         // {name: 'AAA', email: 'aaa@mail.ru', body: 'fsdf adfasda dasdasd'},
@@ -345,14 +346,15 @@ export default {
         prepend-icon="event"
         :rules="[val => !!val || 'Required']"
         clearable
-
+        color="grey darken-4"
+        content-color="pink lighten-3"
         monday-first
         :disabled-dates="disabledDates"
         @selected="testFunc"
       >
         <template #date="{date, isHoliday}">
           <div
-            :class="[isHoliday? 'green--text text--accent-3' : '']"
+            :class="[isHoliday? 'grey--text text--darken-2' : 'white--text']"
             :style="{
               width: '100%',
               height: '100%',
@@ -497,9 +499,9 @@ export default {
           <v-icon
             icon="pets"
             size="18"
-            color="grey lighten-2"
+            color="blue lighten-2"
           />
-          <span style="margin-left: 10px">White panter</span>
+          <span style="margin-left: 10px">{{ data.title }}</span>
         </v-card-title>
         <v-card-content>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias commodi, consectetur dolorum iure praesentium
@@ -524,11 +526,13 @@ export default {
       >
         <div
           style="width: 150px; height: 100px; border-radius: 5px;"
-          class="grey lighten-3 elevation-10"
+          class="grey darken-3 elevation-10"
         >
           <v-list>
-            <v-list-item>
-              <v-list-item-title>salam</v-list-item-title>
+            <v-list-item @click="data.title = 'Panter'">
+              <v-list-item-title class="white--text">
+                salam
+              </v-list-item-title>
             </v-list-item>
           </v-list>
         </div>

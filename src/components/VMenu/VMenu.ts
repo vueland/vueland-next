@@ -167,7 +167,6 @@ export const VMenu = defineComponent({
           top: convertToUnit(dimensions.content.top),
           left: convertToUnit(dimensions.content.left),
           zIndex: props.zIndex,
-          position: props.absolute ? 'absolute' : '',
         },
         onClick: () => {
           isActive.value = !props.closeOnContentClick

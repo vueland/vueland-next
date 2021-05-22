@@ -6,8 +6,12 @@
   min-width: 140px;
 
   &__content {
+    position: absolute;
+    display: inline-block;
+    max-width: 80%;
+    overflow-y: auto;
+    overflow-x: hidden;
     border-radius: 3px;
-    overflow: auto;
-    transition: .15s all $primary-transition
+    transition: .15s all $primary-transition;
   }
 }

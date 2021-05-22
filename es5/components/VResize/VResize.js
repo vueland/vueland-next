@@ -54,7 +54,7 @@ var VResize = (0, _vue.defineComponent)({
       top: 0,
       isActive: false
     });
-    var resRef = (0, _vue.ref)(null);
+    var resizeRef = (0, _vue.ref)(null);
 
     var _useColors = (0, _useColors2.useColors)(),
         setBackground = _useColors.setBackground;
@@ -133,7 +133,7 @@ var VResize = (0, _vue.defineComponent)({
     }
 
     function setParent() {
-      var parent = resRef.value.parentNode;
+      var parent = resizeRef.value.parentNode;
       data.parentNode = parent;
     }
 
@@ -220,7 +220,7 @@ var VResize = (0, _vue.defineComponent)({
       var propsData = {
         "class": _objectSpread({}, classes.value),
         key: 'resize',
-        ref: resRef,
+        ref: resizeRef,
         onMousedown: onMousedown
       };
       return (0, _vue.h)('div', setBackground(props.color, propsData));

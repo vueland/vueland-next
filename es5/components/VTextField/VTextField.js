@@ -9,7 +9,7 @@ require("../../../src/components/VTextField/VTextField.scss");
 
 var _vue = require("vue");
 
-var _useValidate2 = require("../../effects/use-validate");
+var _useValidate = require("../../effects/use-validate");
 
 var _useColors2 = require("../../effects/use-colors");
 
@@ -40,11 +40,9 @@ var VTextField = (0, _vue.defineComponent)({
       type: String,
       "default": 'input'
     }
-  }, (0, _useValidate2.validateProps)()), (0, _useColors2.colorProps)()),
+  }, (0, _useValidate.validateProps)()), (0, _useColors2.colorProps)()),
   emits: ['input', 'focus', 'blur', 'change', 'clear', 'update:value', 'update:modelValue'],
   setup: function setup(props, _ref) {
-    var _props$rules2;
-
     var emit = _ref.emit,
         attrs = _ref.attrs;
     var state = (0, _vue.reactive)({
@@ -52,7 +50,6 @@ var VTextField = (0, _vue.defineComponent)({
       focused: false
     });
     state.value = props.modelValue || props.value;
-    var fields = props.rules && (0, _vue.inject)('fields');
 
     var _useColors = (0, _useColors2.useColors)(),
         setTextColor = _useColors.setTextColor;
@@ -60,46 +57,19 @@ var VTextField = (0, _vue.defineComponent)({
     var _useTheme = (0, _useTheme2.useTheme)(),
         base = _useTheme.base;
 
-    var _useValidate = (0, _useValidate2.useValidate)(props),
-        validate = _useValidate.validate,
-        dirty = _useValidate.dirty,
-        update = _useValidate.update,
-        errorState = _useValidate.errorState,
-        validateClasses = _useValidate.validateClasses,
-        validationState = _useValidate.validationState;
-
-    (0, _vue.watch)(function () {
+    var computedValue = (0, _vue.computed)(function () {
       return props.modelValue || props.value;
+    });
+    (0, _vue.watch)(function () {
+      return computedValue.value;
     }, function (value) {
-      state.value = value;
-      !state.focused && validateValue();
+      return state.value = value;
     });
     var classes = (0, _vue.computed)(function () {
-      return _objectSpread({
+      return {
         'v-text-field': true,
-        'v-text-field--disabled': props.disabled,
-        'v-text-field--dirty': errorState.isDirty,
-        'v-text-field--valid': errorState.isDirty && !errorState.innerError,
-        'v-text-field--not-valid': errorState.isDirty && !!errorState.innerError
-      }, validateClasses.value);
-    });
-
-    function validateValue() {
-      var _props$rules;
-
-      return ((_props$rules = props.rules) === null || _props$rules === void 0 ? void 0 : _props$rules.length) && validate(state.value);
-    }
-
-    if (fields !== null && fields !== void 0 && fields.value && (_props$rules2 = props.rules) !== null && _props$rules2 !== void 0 && _props$rules2.length) {
-      fields.value.push(validateValue);
-    }
-
-    (0, _vue.onBeforeUnmount)(function () {
-      if (fields !== null && fields !== void 0 && fields.value) {
-        fields.value = fields.value.filter(function (v) {
-          return v !== validateValue;
-        });
-      }
+        'v-text-field--disabled': props.disabled
+      };
     });
 
     function onClear() {
@@ -108,20 +78,16 @@ var VTextField = (0, _vue.defineComponent)({
       emit('update:value', state.value);
       emit('input', state.value);
       emit('clear', state.value);
-      requestAnimationFrame(validateValue);
     }
 
     function onBlur() {
       setTimeout(function () {
         state.focused = false;
         emit('blur');
-        requestAnimationFrame(validateValue);
       });
     }
 
     function onFocus() {
-      dirty();
-      update(errorState.innerError);
       state.focused = true;
       emit('focus');
     }
@@ -167,13 +133,13 @@ var VTextField = (0, _vue.defineComponent)({
       var propsData = {
         label: props.label,
         focused: state.focused,
-        hasState: !!state.value,
-        hasError: errorState.innerError,
+        hasState: !!computedValue.value,
         dark: props.dark,
-        color: validationState.value,
-        isDirty: errorState.isDirty,
         disabled: props.disabled,
-        message: errorState.innerErrorMessage,
+        clearable: props.clearable,
+        rules: props.rules,
+        value: computedValue.value,
+        color: props.color,
         onClear: onClear
       };
       return (0, _vue.h)(_VInput.VInput, propsData, {

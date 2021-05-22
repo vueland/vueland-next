@@ -13,7 +13,7 @@ var _useAutoPosition2 = require("../../effects/use-auto-position");
 
 var _useActivator2 = require("../../effects/use-activator");
 
-var _useDetachable2 = require("../../effects/use-detachable");
+var _useDetach2 = require("../../effects/use-detach");
 
 var _useTransition = require("../../effects/use-transition");
 
@@ -37,7 +37,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var VMenu = (0, _vue.defineComponent)({
   name: 'v-menu',
-  props: _objectSpread({
+  props: _objectSpread(_objectSpread(_objectSpread({
     maxHeight: {
       type: [Number, String],
       "default": 200
@@ -46,8 +46,21 @@ var VMenu = (0, _vue.defineComponent)({
       type: [Number, String],
       "default": 0
     },
+    zIndex: {
+      type: [String, Number],
+      "default": 10
+    },
+    parent: {
+      type: Object,
+      "default": null
+    },
+    inputActivator: {
+      type: String,
+      "default": null
+    },
     openOnHover: Boolean,
     openOnClick: Boolean,
+    openOnContextmenu: Boolean,
     closeOnContentClick: {
       type: Boolean,
       "default": true
@@ -59,8 +72,9 @@ var VMenu = (0, _vue.defineComponent)({
     elevation: {
       type: [Number, String],
       "default": 10
-    }
-  }, (0, _usePosition.positionProps)()),
+    },
+    modelValue: Boolean
+  }, (0, _usePosition.positionProps)()), (0, _useAutoPosition2.autoPositionProps)()), (0, _useActivator2.activatorProps)()),
   emits: ['open', 'close'],
   setup: function setup(props, _ref) {
     var emit = _ref.emit,
@@ -77,19 +91,20 @@ var VMenu = (0, _vue.defineComponent)({
         setDimensions = _useAutoPosition.setDimensions,
         dimensions = _useAutoPosition.dimensions;
 
-    var _useDetachable = (0, _useDetachable2.useDetachable)(),
-        setDetached = _useDetachable.setDetached,
-        removeDetached = _useDetachable.removeDetached;
+    var _useDetach = (0, _useDetach2.useDetach)(),
+        setDetached = _useDetach.setDetached,
+        removeDetached = _useDetach.removeDetached;
 
-    var _useActivator = (0, _useActivator2.useActivator)(),
+    var _useActivator = (0, _useActivator2.useActivator)(props),
         activatorRef = _useActivator.activatorRef,
+        getActivator = _useActivator.getActivator,
         genActivatorListeners = _useActivator.genActivatorListeners,
         addActivatorEvents = _useActivator.addActivatorEvents,
         removeActivatorEvents = _useActivator.removeActivatorEvents;
 
     var handlers = {
-      click: function click() {
-        setDimensions(activatorRef.value).then(function () {
+      click: function click(e) {
+        setDimensions(getActivator(e)).then(function () {
           requestAnimationFrame(function () {
             return isActive.value = true;
           });
@@ -100,26 +115,41 @@ var VMenu = (0, _vue.defineComponent)({
       },
       mouseleave: function mouseleave() {
         return isActive.value = false;
+      },
+      contextmenu: function contextmenu() {
+        return isActive.value = true;
       }
     };
     var listeners = genActivatorListeners(props, handlers);
     var directive = (0, _vue.computed)(function () {
       return isActive.value ? {
-        handler: function handler(e) {
-          if (activatorRef.value.contains(e.target)) return;
-          isActive.value = false;
+        handler: function handler() {
+          return isActive.value = false;
         },
         closeConditional: props.closeOnContentClick
       } : undefined;
     });
     var calcWidth = (0, _vue.computed)(function () {
-      return props.width || dimensions.content.width;
+      return props.width || +dimensions.content.width;
     });
     (0, _vue.watch)(function () {
       return isActive.value;
     }, function (to) {
       to && emit('open');
       !to && emit('close');
+    });
+    (0, _vue.watch)(function () {
+      return [props.positionY, props.positionX];
+    }, function () {
+      return setDimensions(activatorRef.value);
+    });
+    (0, _vue.watch)(function () {
+      return props.modelValue;
+    }, function (to) {
+      isActive.value = false;
+      requestAnimationFrame(function () {
+        return isActive.value = to;
+      });
     });
 
     function genActivatorSlot() {
@@ -152,7 +182,8 @@ var VMenu = (0, _vue.defineComponent)({
           maxHeight: (0, _helpers.convertToUnit)(props.maxHeight),
           width: (0, _helpers.convertToUnit)(calcWidth.value),
           top: (0, _helpers.convertToUnit)(dimensions.content.top),
-          left: (0, _helpers.convertToUnit)(dimensions.content.left)
+          left: (0, _helpers.convertToUnit)(dimensions.content.left),
+          zIndex: props.zIndex
         },
         onClick: function onClick() {
           isActive.value = !props.closeOnContentClick;
@@ -165,7 +196,7 @@ var VMenu = (0, _vue.defineComponent)({
     }
 
     (0, _vue.onMounted)(function () {
-      activatorRef.value = slots.activator ? activatorRef.value : contentRef.value.parentNode;
+      activatorRef.value = getActivator();
       addActivatorEvents();
       setDetached(contentRef.value);
     });

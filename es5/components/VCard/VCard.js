@@ -20,7 +20,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var VCard = (0, _vue.defineComponent)({
-  name: "v-card",
+  name: 'v-card',
   props: _objectSpread(_objectSpread({
     width: {
       type: [String, Number],
@@ -38,21 +38,23 @@ var VCard = (0, _vue.defineComponent)({
 
     var classes = (0, _vue.computed)(function () {
       return _objectSpread({
-        "v-card": true
+        'v-card': true
       }, elevationClasses.value);
     });
-
-    var genDataProps = function genDataProps() {
+    var styles = (0, _vue.computed)(function () {
       return {
-        "class": classes.value,
-        style: {
-          width: "".concat(props.width, "px")
-        }
+        width: "".concat(props.width, "px")
       };
-    };
-
+    });
+    var cachedCard = (0, _vue.computed)(function () {
+      var propsData = {
+        "class": classes.value,
+        style: styles.value
+      };
+      return (0, _vue.h)('div', props.color ? setBackground(props.color, propsData) : propsData, slots["default"] && slots["default"]());
+    });
     return function () {
-      return (0, _vue.h)("div", props.color ? setBackground(props.color, genDataProps()) : genDataProps(), slots["default"] && slots["default"]());
+      return cachedCard.value;
     };
   }
 });

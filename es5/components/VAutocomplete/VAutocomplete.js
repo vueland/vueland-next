@@ -9,7 +9,7 @@ require("../../../src/components/VAutocomplete/VAutocomplete.scss");
 
 var _vue = require("vue");
 
-var _useValidate2 = require("../../effects/use-validate");
+var _useValidate = require("../../effects/use-validate");
 
 var _useColors2 = require("../../effects/use-colors");
 
@@ -38,11 +38,9 @@ var VAutocomplete = (0, _vue.defineComponent)({
     listColor: String,
     disabled: Boolean,
     modelValue: [Array, String, Object, Number]
-  }, (0, _useValidate2.validateProps)()), (0, _useColors2.colorProps)()),
+  }, (0, _useValidate.validateProps)()), (0, _useColors2.colorProps)()),
   emits: ['input', 'blur', 'focus', 'select', 'update:modelValue', 'update:value'],
   setup: function setup(props, _ref) {
-    var _props$rules;
-
     var emit = _ref.emit;
     var state = (0, _vue.reactive)({
       focused: false,
@@ -56,63 +54,40 @@ var VAutocomplete = (0, _vue.defineComponent)({
     var _useTheme = (0, _useTheme2.useTheme)(),
         base = _useTheme.base;
 
-    var inputTemplateRef = (0, _vue.ref)(null);
-
-    var _useValidate = (0, _useValidate2.useValidate)(props),
-        validate = _useValidate.validate,
-        dirty = _useValidate.dirty,
-        update = _useValidate.update,
-        errorState = _useValidate.errorState,
-        validateClasses = _useValidate.validateClasses,
-        validationState = _useValidate.validationState;
-
-    var fields = props.rules && (0, _vue.inject)('fields');
+    var inputRef = (0, _vue.ref)(null);
     var classes = (0, _vue.computed)(function () {
-      return _objectSpread({
+      return {
         'v-autocomplete': true,
         'v-autocomplete--disabled': props.disabled,
         'v-autocomplete--focused': state.focused
-      }, validateClasses.value);
+      };
     });
-    var propValue = (0, _vue.computed)(function () {
+    var computedValue = (0, _vue.computed)(function () {
       return props.modelValue || props.value;
     });
     var inputValue = (0, _vue.computed)(function () {
-      return props.valueKey ? propValue.value[props.valueKey] : propValue.value;
+      return props.valueKey ? computedValue.value[props.valueKey] : computedValue.value;
     });
     var isListItemsExists = (0, _vue.computed)(function () {
       return !!props.items && !!props.items.length;
     });
-    state.search = propValue.value ? inputValue.value : '';
-
-    if (fields !== null && fields !== void 0 && fields.value && (_props$rules = props.rules) !== null && _props$rules !== void 0 && _props$rules.length) {
-      fields.value.push(validateValue);
-    }
-
-    function validateValue() {
-      var _props$rules2;
-
-      return ((_props$rules2 = props.rules) === null || _props$rules2 === void 0 ? void 0 : _props$rules2.length) && validate(state.search);
-    }
+    state.search = computedValue.value ? inputValue.value : '';
 
     function onFocus() {
       state.focused = true;
       state.isMenuActive = isListItemsExists.value;
-      dirty();
-      update(errorState.innerError);
       emit('focus');
     }
 
     function onBlur() {
-      if (!propValue.value) state.search = '';
+      if (!computedValue.value) state.search = '';
 
-      if (!state.search && propValue.value) {
+      if (!state.search && computedValue.value) {
         state.search = inputValue.value;
       }
 
       state.focused = false;
       emit('blur');
-      setTimeout(validateValue);
     }
 
     function onInput(e) {
@@ -125,7 +100,6 @@ var VAutocomplete = (0, _vue.defineComponent)({
       emit('select', '');
       emit('update:modelValue', '');
       emit('update:value', '');
-      requestAnimationFrame(validateValue);
     }
 
     function onSelect(it) {
@@ -134,7 +108,6 @@ var VAutocomplete = (0, _vue.defineComponent)({
       emit('select', it);
       emit('update:modelValue', it);
       emit('update:value', it);
-      requestAnimationFrame(validateValue);
     }
 
     function genInput() {
@@ -142,7 +115,7 @@ var VAutocomplete = (0, _vue.defineComponent)({
         value: state.search,
         disabled: props.disabled,
         readonly: props.readonly && !props.typeable,
-        ref: inputTemplateRef,
+        ref: inputRef,
         "class": 'v-autocomplete__input',
         onInput: onInput,
         onFocus: onFocus,
@@ -166,6 +139,7 @@ var VAutocomplete = (0, _vue.defineComponent)({
 
     function genMenu() {
       return (0, _vue.h)(_VMenu.VMenu, {
+        activator: inputRef,
         openOnClick: true,
         maxHeight: 240,
         bottom: true,
@@ -183,28 +157,21 @@ var VAutocomplete = (0, _vue.defineComponent)({
       }, [genInput(), genMenu()]);
     }
 
-    (0, _vue.onBeforeUnmount)(function () {
-      if (fields !== null && fields !== void 0 && fields.value) {
-        fields.value = fields.value.filter(function (v) {
-          return v !== validateValue;
-        });
-      }
-    });
     return function () {
       var propsData = {
         label: props.label,
         focused: state.focused,
-        hasState: !!state.search,
-        hasError: errorState.innerError,
-        dark: !!props.dark,
-        color: validationState.value,
-        disabled: !!props.disabled,
-        isDirty: !!errorState.isDirty,
-        message: errorState.innerErrorMessage,
+        hasState: !!computedValue.value,
+        dark: props.dark,
+        disabled: props.disabled,
+        clearable: props.clearable,
+        rules: props.rules,
+        value: computedValue.value,
+        color: props.color,
         onClear: onClear
       };
       return (0, _vue.h)(_VInput.VInput, propsData, {
-        select: function select() {
+        textField: function textField() {
           return genAutocomplete();
         }
       });

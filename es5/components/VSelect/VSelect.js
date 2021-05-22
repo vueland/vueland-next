@@ -9,11 +9,11 @@ require("../../../src/components/VSelect/VSelect.scss");
 
 var _vue = require("vue");
 
-var _useValidate2 = require("../../effects/use-validate");
-
 var _useColors2 = require("../../effects/use-colors");
 
 var _useTheme2 = require("../../effects/use-theme");
+
+var _useActivator = require("../../effects/use-activator");
 
 var _VInput = require("../VInput");
 
@@ -40,11 +40,9 @@ var VSelect = (0, _vue.defineComponent)({
     readonly: Boolean,
     clearable: Boolean,
     modelValue: [Array, String, Object, Number]
-  }, (0, _useValidate2.validateProps)()), (0, _useColors2.colorProps)()),
+  }, (0, _useColors2.colorProps)()), (0, _useActivator.activatorProps)()),
   emits: ['input', 'blur', 'focus', 'select', 'update:modelValue', 'update:value'],
   setup: function setup(props, _ref) {
-    var _props$rules2;
-
     var emit = _ref.emit,
         attrs = _ref.attrs;
     var state = (0, _vue.reactive)({
@@ -58,14 +56,7 @@ var VSelect = (0, _vue.defineComponent)({
     var _useTheme = (0, _useTheme2.useTheme)(),
         base = _useTheme.base;
 
-    var _useValidate = (0, _useValidate2.useValidate)(props),
-        validate = _useValidate.validate,
-        dirty = _useValidate.dirty,
-        update = _useValidate.update,
-        errorState = _useValidate.errorState,
-        validationState = _useValidate.validationState;
-
-    var fields = props.rules && (0, _vue.inject)('fields');
+    var inputRef = (0, _vue.ref)(null);
     var classes = (0, _vue.computed)(function () {
       return {
         'v-select': true,
@@ -82,24 +73,11 @@ var VSelect = (0, _vue.defineComponent)({
     });
     (0, _vue.watch)(function () {
       return computedValue.value;
-    }, function (value) {
-      var _props$rules;
-
-      state.selected = value;
-      !state.focused && errorState.isDirty && ((_props$rules = props.rules) === null || _props$rules === void 0 ? void 0 : _props$rules.length) && validateValue();
+    }, function (to) {
+      return state.selected = to;
     }, {
       immediate: true
     });
-
-    if (fields !== null && fields !== void 0 && fields.value && (_props$rules2 = props.rules) !== null && _props$rules2 !== void 0 && _props$rules2.length) {
-      fields.value.push(validateValue);
-    }
-
-    function validateValue() {
-      var _props$rules3;
-
-      return ((_props$rules3 = props.rules) === null || _props$rules3 === void 0 ? void 0 : _props$rules3.length) && validate(computedInputValue.value);
-    }
 
     function toggleState() {
       state.focused = !state.focused;
@@ -107,22 +85,18 @@ var VSelect = (0, _vue.defineComponent)({
 
     function onBlur() {
       setTimeout(function () {
-        requestAnimationFrame(validateValue);
         toggleState();
         emit('blur');
       });
     }
 
     function onClick() {
-      dirty();
-      update(errorState.innerError);
       toggleState();
       emit('focus');
     }
 
     function onClear() {
       state.selected = '';
-      requestAnimationFrame(validateValue);
     }
 
     function selectItem(item) {
@@ -138,6 +112,7 @@ var VSelect = (0, _vue.defineComponent)({
         disabled: props.disabled,
         readonly: props.readonly && !props.typeable,
         "class": 'v-select__input',
+        ref: inputRef,
         onClick: onClick
       };
       return (0, _vue.h)('input', setTextColor(props.dark ? 'white' : base, propsData));
@@ -160,6 +135,7 @@ var VSelect = (0, _vue.defineComponent)({
 
     function genMenu() {
       return (0, _vue.h)(_VMenu.VMenu, {
+        activator: inputRef,
         openOnClick: true,
         maxHeight: 240,
         onClose: onBlur
@@ -177,30 +153,22 @@ var VSelect = (0, _vue.defineComponent)({
       return (0, _vue.h)('div', propsData, [genInput(), genMenu()]);
     }
 
-    (0, _vue.onBeforeUnmount)(function () {
-      if (fields !== null && fields !== void 0 && fields.value) {
-        fields.value = fields.value.filter(function (v) {
-          return v !== validateValue;
-        });
-      }
-    });
     return function () {
       var propsData = _objectSpread({
         label: props.label,
         focused: state.focused,
         hasState: !!computedInputValue.value,
-        hasError: errorState.innerError,
         dark: props.dark,
-        color: validationState.value,
         disabled: props.disabled,
-        isDirty: !!errorState.isDirty,
-        message: errorState.innerErrorMessage,
         clearable: props.clearable,
+        rules: props.rules,
+        value: computedInputValue.value,
+        color: props.color,
         onClear: onClear
       }, attrs);
 
       return (0, _vue.h)(_VInput.VInput, propsData, {
-        select: function select() {
+        textField: function textField() {
           return genSelect();
         }
       });

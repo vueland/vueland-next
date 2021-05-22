@@ -36,20 +36,22 @@ export const VCard = defineComponent({
       }
     )
 
-    const genDataProps = () => {
-      return {
-        class: classes.value,
-        style: { width: `${props.width}px` },
-      }
-    }
+    const styles = computed(() => ({
+      width: `${props.width}px`,
+    }))
 
-    return () =>
-      h(
+    const cachedCard = computed<VNode>(() => {
+      const propsData = {
+        class: classes.value,
+        style: styles.value,
+      }
+      return h(
         'div',
-        props.color
-          ? setBackground(props.color, genDataProps())
-          : genDataProps(),
+        props.color ? setBackground(props.color, propsData) : propsData,
         slots.default && slots.default()
       )
+    })
+
+    return () => cachedCard.value
   },
 })

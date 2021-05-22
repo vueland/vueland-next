@@ -74,7 +74,7 @@ export const VResize = defineComponent({
       isActive: false,
     })
 
-    const resRef = ref<HTMLElement | null>(null)
+    const resizeRef = ref<HTMLElement | null>(null)
 
     const { setBackground } = useColors()
 
@@ -173,7 +173,7 @@ export const VResize = defineComponent({
     }
 
     function setParent() {
-      const parent = resRef.value!.parentNode
+      const parent = resizeRef.value!.parentNode
       data.parentNode = parent as HTMLElement
     }
 
@@ -265,7 +265,7 @@ export const VResize = defineComponent({
           ...classes.value,
         },
         key: 'resize',
-        ref: resRef,
+        ref: resizeRef,
         onMousedown,
       }
       return h('div', setBackground(props.color, propsData))

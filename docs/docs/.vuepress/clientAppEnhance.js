@@ -4,12 +4,12 @@ import * as components from './components'
 import 'vueland/dist/vueland.css'
 import './styles/js.css'
 
-const vueland = new Vueland({
+new Vueland({
   icons: 'material-icons',
 })
 
 export default defineClientAppEnhance(({ app }) => {
-  app.use(vueland)
+  app.use(Vueland)
   Object.keys(components).forEach((cmp) => {
     app.component(cmp, components[cmp])
   })

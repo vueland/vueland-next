@@ -17,6 +17,7 @@ export default {
       date: null,
       loading: false,
       circular: 10,
+      title: 'cat',
       users: [
         // {name: 'AAA', email: 'aaa@mail.ru', body: 'fsdf adfasda dasdasd'},
         // {name: 'AAA', email: 'aaa@mail.ru', body: 'fsdf adfasda dasdasd'},
@@ -498,9 +499,9 @@ export default {
           <v-icon
             icon="pets"
             size="18"
-            color="grey lighten-2"
+            color="blue lighten-2"
           />
-          <span style="margin-left: 10px">White panter</span>
+          <span style="margin-left: 10px">{{ data.title }}</span>
         </v-card-title>
         <v-card-content>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias commodi, consectetur dolorum iure praesentium
@@ -525,11 +526,13 @@ export default {
       >
         <div
           style="width: 150px; height: 100px; border-radius: 5px;"
-          class="grey lighten-3 elevation-10"
+          class="grey darken-3 elevation-10"
         >
           <v-list>
-            <v-list-item>
-              <v-list-item-title>salam</v-list-item-title>
+            <v-list-item @click="data.title = 'Panter'">
+              <v-list-item-title class="white--text">
+                salam
+              </v-list-item-title>
             </v-list-item>
           </v-list>
         </div>

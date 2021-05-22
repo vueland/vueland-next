@@ -8,6 +8,7 @@ import {
   withDirectives,
   computed,
   watch,
+  watchEffect,
   onMounted,
   onBeforeUnmount,
 } from 'vue'
@@ -132,13 +133,22 @@ export const VMenu = defineComponent({
       () => setDimensions(activatorRef.value)
     )
 
-    watch(
-      () => props.modelValue,
-      (to) => {
-        isActive.value = false
-        requestAnimationFrame(() => (isActive.value = to))
-      }
+    watchEffect(
+      () =>
+        props.modelValue &&
+        (() => {
+          isActive.value = false
+          requestAnimationFrame(() => (isActive.value = true))
+        })()
     )
+
+    // watch(
+    //   () => props.modelValue,
+    //   (to) => {
+    //     isActive.value = false
+    //     requestAnimationFrame(() => (isActive.value = to))
+    //   }
+    // )
 
     function genActivatorSlot(): VNode | null {
       if (slots.activator) {
@@ -167,7 +177,6 @@ export const VMenu = defineComponent({
           top: convertToUnit(dimensions.content.top),
           left: convertToUnit(dimensions.content.left),
           zIndex: props.zIndex,
-          position: props.absolute ? 'absolute' : '',
         },
         onClick: () => {
           isActive.value = !props.closeOnContentClick

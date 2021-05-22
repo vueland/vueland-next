@@ -143,13 +143,13 @@ var VMenu = (0, _vue.defineComponent)({
     }, function () {
       return setDimensions(activatorRef.value);
     });
-    (0, _vue.watch)(function () {
-      return props.modelValue;
-    }, function (to) {
-      isActive.value = false;
-      requestAnimationFrame(function () {
-        return isActive.value = to;
-      });
+    (0, _vue.watchEffect)(function () {
+      return props.modelValue && function () {
+        isActive.value = false;
+        requestAnimationFrame(function () {
+          return isActive.value = true;
+        });
+      }();
     });
 
     function genActivatorSlot() {
@@ -183,8 +183,7 @@ var VMenu = (0, _vue.defineComponent)({
           width: (0, _helpers.convertToUnit)(calcWidth.value),
           top: (0, _helpers.convertToUnit)(dimensions.content.top),
           left: (0, _helpers.convertToUnit)(dimensions.content.left),
-          zIndex: props.zIndex,
-          position: props.absolute ? 'absolute' : ''
+          zIndex: props.zIndex
         },
         onClick: function onClick() {
           isActive.value = !props.closeOnContentClick;

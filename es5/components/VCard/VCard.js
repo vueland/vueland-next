@@ -41,18 +41,20 @@ var VCard = (0, _vue.defineComponent)({
         'v-card': true
       }, elevationClasses.value);
     });
-
-    var genDataProps = function genDataProps() {
+    var styles = (0, _vue.computed)(function () {
       return {
-        "class": classes.value,
-        style: {
-          width: "".concat(props.width, "px")
-        }
+        width: "".concat(props.width, "px")
       };
-    };
-
+    });
+    var cachedCard = (0, _vue.computed)(function () {
+      var propsData = {
+        "class": classes.value,
+        style: styles.value
+      };
+      return (0, _vue.h)('div', props.color ? setBackground(props.color, propsData) : propsData, slots["default"] && slots["default"]());
+    });
     return function () {
-      return (0, _vue.h)('div', props.color ? setBackground(props.color, genDataProps()) : genDataProps(), slots["default"] && slots["default"]());
+      return cachedCard.value;
     };
   }
 });

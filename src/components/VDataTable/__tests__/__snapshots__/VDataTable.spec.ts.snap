@@ -23,8 +23,8 @@ exports[`VDataTable should mount component and match snapshot 1`] = `
           <div class="v-input__slot"
                style="color: rgb(33, 150, 243); caret-color: #2196f3;"
           >
-            <div class="v-input__select-slot">
-              <label class="v-label v-label--active v-label--on-field v-label--has-state"
+            <div class="v-input__field-slot">
+              <label class="v-label v-label--on-field"
                      style="left: 0px; position: absolute; color: rgb(33, 150, 243); caret-color: #2196f3;"
               >
               </label>
@@ -129,7 +129,7 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
                   >
                     search
                   </label>
-                  <div class="v-text-field v-validatable">
+                  <div class="v-text-field">
                     <input class="v-text-field__input"
                            type="text"
                            style="color: rgb(33, 33, 33); caret-color: #212121;"
@@ -697,8 +697,8 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
           <div class="v-input__slot"
                style="color: rgb(33, 150, 243); caret-color: #2196f3;"
           >
-            <div class="v-input__select-slot">
-              <label class="v-label v-label--active v-label--on-field v-label--has-state"
+            <div class="v-input__field-slot">
+              <label class="v-label v-label--on-field"
                      style="left: 0px; position: absolute; color: rgb(33, 150, 243); caret-color: #2196f3;"
               >
               </label>
@@ -804,7 +804,7 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
                   >
                     search
                   </label>
-                  <div class="v-text-field v-validatable">
+                  <div class="v-text-field">
                     <input class="v-text-field__input"
                            type="text"
                            style="color: rgb(33, 33, 33); caret-color: #212121;"
@@ -1372,8 +1372,8 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
           <div class="v-input__slot"
                style="color: rgb(33, 150, 243); caret-color: #2196f3;"
           >
-            <div class="v-input__select-slot">
-              <label class="v-label v-label--active v-label--on-field v-label--has-state"
+            <div class="v-input__field-slot">
+              <label class="v-label v-label--on-field"
                      style="left: 0px; position: absolute; color: rgb(33, 150, 243); caret-color: #2196f3;"
               >
               </label>
@@ -1479,7 +1479,7 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
                   >
                     search
                   </label>
-                  <div class="v-text-field v-validatable">
+                  <div class="v-text-field">
                     <input class="v-text-field__input"
                            type="text"
                            style="color: rgb(33, 33, 33); caret-color: #212121;"
@@ -2047,8 +2047,8 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
           <div class="v-input__slot"
                style="color: rgb(33, 150, 243); caret-color: #2196f3;"
           >
-            <div class="v-input__select-slot">
-              <label class="v-label v-label--active v-label--on-field v-label--has-state"
+            <div class="v-input__field-slot">
+              <label class="v-label v-label--on-field"
                      style="left: 0px; position: absolute; color: rgb(33, 150, 243); caret-color: #2196f3;"
               >
               </label>
@@ -2130,8 +2130,8 @@ exports[`VDataTable should test color prop and match snapshot 1`] = `
           <div class="v-input__slot"
                style="color: rgb(33, 150, 243); caret-color: #2196f3;"
           >
-            <div class="v-input__select-slot">
-              <label class="v-label v-label--active v-label--on-field v-label--has-state"
+            <div class="v-input__field-slot">
+              <label class="v-label v-label--on-field"
                      style="left: 0px; position: absolute; color: rgb(33, 150, 243); caret-color: #2196f3;"
               >
               </label>
@@ -2236,7 +2236,7 @@ exports[`VDataTable should test cols prop and match snapshot 1`] = `
                   >
                     search
                   </label>
-                  <div class="v-text-field v-validatable">
+                  <div class="v-text-field">
                     <input class="v-text-field__input"
                            type="text"
                            style="color: rgb(33, 33, 33); caret-color: #212121;"
@@ -2290,8 +2290,8 @@ exports[`VDataTable should test cols prop and match snapshot 1`] = `
           <div class="v-input__slot"
                style="color: rgb(33, 150, 243); caret-color: #2196f3;"
           >
-            <div class="v-input__select-slot">
-              <label class="v-label v-label--active v-label--on-field v-label--has-state"
+            <div class="v-input__field-slot">
+              <label class="v-label v-label--on-field"
                      style="left: 0px; position: absolute; color: rgb(33, 150, 243); caret-color: #2196f3;"
               >
               </label>
@@ -2400,7 +2400,7 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
                   >
                     search
                   </label>
-                  <div class="v-text-field v-validatable">
+                  <div class="v-text-field">
                     <input class="v-text-field__input"
                            type="text"
                            style="color: rgb(33, 33, 33); caret-color: #212121;"
@@ -2968,8 +2968,8 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
           <div class="v-input__slot"
                style="color: rgb(33, 150, 243); caret-color: #2196f3;"
           >
-            <div class="v-input__select-slot">
-              <label class="v-label v-label--active v-label--on-field v-label--has-state"
+            <div class="v-input__field-slot">
+              <label class="v-label v-label--on-field"
                      style="left: 0px; position: absolute; color: rgb(33, 150, 243); caret-color: #2196f3;"
               >
               </label>
@@ -3073,7 +3073,7 @@ exports[`VDataTable should test dark prop and match snapshot 1`] = `
                   >
                     search
                   </label>
-                  <div class="v-text-field v-validatable">
+                  <div class="v-text-field">
                     <input class="v-text-field__input white--text"
                            type="text"
                     >
@@ -3638,8 +3638,8 @@ exports[`VDataTable should test dark prop and match snapshot 1`] = `
         </span>
         <div class="v-input">
           <div class="v-input__slot white--text">
-            <div class="v-input__select-slot">
-              <label class="v-label v-label--active v-label--on-field v-label--has-state white--text"
+            <div class="v-input__field-slot">
+              <label class="v-label v-label--on-field white--text"
                      style="left: 0px; position: absolute;"
               >
               </label>
@@ -3736,12 +3736,12 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
                     >
                     </button>
                   </div>
-                  <label class="v-label v-label--active v-label--on-field v-label--has-state"
+                  <label class="v-label v-label--on-field"
                          style="left: 0px; position: absolute; color: rgb(33, 150, 243); caret-color: #2196f3;"
                   >
                     search
                   </label>
-                  <div class="v-text-field v-validatable">
+                  <div class="v-text-field">
                     <input class="v-text-field__input"
                            type="text"
                            style="color: rgb(33, 33, 33); caret-color: #212121;"
@@ -4309,8 +4309,8 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
           <div class="v-input__slot"
                style="color: rgb(33, 150, 243); caret-color: #2196f3;"
           >
-            <div class="v-input__select-slot">
-              <label class="v-label v-label--active v-label--on-field v-label--has-state"
+            <div class="v-input__field-slot">
+              <label class="v-label v-label--on-field"
                      style="left: 0px; position: absolute; color: rgb(33, 150, 243); caret-color: #2196f3;"
               >
               </label>
@@ -4411,12 +4411,12 @@ exports[`VDataTable should test table filter and match snapshot 1`] = `
                     >
                     </button>
                   </div>
-                  <label class="v-label v-label--active v-label--on-field v-label--has-state"
+                  <label class="v-label v-label--on-field"
                          style="left: 0px; position: absolute; color: rgb(33, 150, 243); caret-color: #2196f3;"
                   >
                     search
                   </label>
-                  <div class="v-text-field v-validatable">
+                  <div class="v-text-field">
                     <input class="v-text-field__input"
                            type="text"
                            style="color: rgb(33, 33, 33); caret-color: #212121;"
@@ -4493,8 +4493,8 @@ exports[`VDataTable should test table filter and match snapshot 1`] = `
           <div class="v-input__slot"
                style="color: rgb(33, 150, 243); caret-color: #2196f3;"
           >
-            <div class="v-input__select-slot">
-              <label class="v-label v-label--active v-label--on-field v-label--has-state"
+            <div class="v-input__field-slot">
+              <label class="v-label v-label--on-field"
                      style="left: 0px; position: absolute; color: rgb(33, 150, 243); caret-color: #2196f3;"
               >
               </label>

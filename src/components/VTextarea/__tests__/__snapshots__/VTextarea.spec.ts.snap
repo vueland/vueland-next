@@ -10,7 +10,7 @@ exports[`VTextarea should mount component and match snapshot 1`] = `
              style="left: 0px; position: absolute; color: rgb(33, 150, 243); caret-color: #2196f3;"
       >
       </label>
-      <div class="v-text-field v-validatable">
+      <div class="v-text-field">
         <textarea class="v-text-field__input"
                   style="color: rgb(33, 33, 33); caret-color: #212121;"
         >

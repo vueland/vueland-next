@@ -15,6 +15,7 @@ import {
 } from 'vue'
 
 // Effects
+import { useIcons } from '../../effects/use-icons'
 import { useColors } from '../../effects/use-colors'
 import { elevationProps, useElevation } from '../../effects/use-elevation'
 
@@ -29,8 +30,6 @@ import { VNode, ComponentPublicInstance } from 'vue'
 import { ListGroup } from '../../../types'
 
 // Services
-import { FaIcons } from '../../services/icons'
-import { Sizes } from '../../services/sizes'
 
 export const VListGroup = defineComponent({
   name: 'v-list-group',
@@ -41,7 +40,7 @@ export const VListGroup = defineComponent({
     },
     appendIcon: {
       type: String,
-      default: FaIcons.$expand,
+      default: '',
     },
     prependIcon: {
       type: String,
@@ -50,10 +49,11 @@ export const VListGroup = defineComponent({
     color: {
       type: String,
     },
-    disabled: Boolean,
     group: String,
-    expanded: Boolean,
+    disabled: Boolean,
+    active: Boolean,
     noAction: Boolean,
+    expanded: Boolean,
     subGroup: Boolean,
     ...elevationProps(),
   } as any,
@@ -61,13 +61,18 @@ export const VListGroup = defineComponent({
   setup(props, { slots }) {
     const { setTextColor } = useColors()
     const { elevationClasses } = useElevation(props)
+    const { icons, iconSize } = useIcons('md')
 
     const refGroup = ref<ComponentPublicInstance<HTMLDivElement> | null>(null)
     const isActive = ref<boolean>(false)
-    const children = ref<ListGroup[]>([])
+    const childrenGroups = ref<ListGroup[]>([])
+    const childrenItems = ref<any[]>([])
+    const selected = ref<any[]>([])
     const { groups, register, unRegister, listClick }: any = inject('groups')
 
-    provide('subgroups', children)
+    provide('subgroups', childrenGroups)
+    provide('selected', selected)
+    provide('items', childrenItems)
 
     const subgroups: any = props.subGroup && inject('subgroups')
 
@@ -78,29 +83,31 @@ export const VListGroup = defineComponent({
 
     if (groups) register(listGroup)
     if (subgroups) subgroups.value.push(listGroup)
-    if (!props.noAction && props.expanded) {
-      requestAnimationFrame(onClick)
-    }
+    if (!props.active) isActive.value = true
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-list-group': true,
       'v-list-group__sub-group': props.subGroup,
-      'v-list-group--expanded': isActive.value && !props.noAction,
+      'v-list-group--active': props.active,
+      'v-list-group--not-active': !props.active,
+      'v-list-group--expanded': isActive.value,
       [props.activeClass]: isActive.value,
       ...elevationClasses.value,
     }))
 
     function onClick() {
-      if (props.noAction) return
+      if (!props.active) return
 
-      groups?.value.length && listClick(refGroup)
-      children.value.length &&
-        children.value.forEach((it: any) => (it.active = false))
+      if (groups?.value.length) listClick(refGroup)
+
+      if (childrenGroups.value.length) {
+        childrenGroups.value.forEach((it: any) => (it.active = false))
+      }
     }
 
     function genIcon(icon: string): VNode {
       const propsData = {
-        size: Sizes.small,
+        size: iconSize,
       }
 
       return h(VIcon, propsData, {
@@ -109,26 +116,24 @@ export const VListGroup = defineComponent({
     }
 
     function genAppendIcon(): VNode | null {
-      const slotIcon = slots.appendIcon && slots.appendIcon()
-      const icon = !props.subGroup && !props.noAction ? props.appendIcon : false
+      const slotAppendIcon = slots.appendIcon && slots.appendIcon()
 
-      if ((!icon && !slotIcon) || (!props.subGroup && props.noAction))
-        return null
+      const propsAppendIcon =
+        !props.subGroup && (props.appendIcon || icons.$expand)
+
+      if ((!propsAppendIcon && !slotAppendIcon) || props.subGroup) return null
 
       const propsData = {
         class: 'v-list-group__append-icon',
       }
 
       return h(VListItemIcon, propsData, {
-        default: () => slotIcon || genIcon(icon as string),
+        default: () => slotAppendIcon || genIcon(propsAppendIcon as string),
       })
     }
 
     function genPrependIcon(): VNode | null {
-      const icon =
-        props.subGroup && !props.noAction
-          ? FaIcons.$subgroup
-          : props.prependIcon
+      const icon = props.subGroup ? icons.$subgroup : props.prependIcon
 
       const slotIcon = slots.prependIcon && slots.prependIcon()
 

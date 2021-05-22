@@ -132,6 +132,14 @@ export const VMenu = defineComponent({
       () => setDimensions(activatorRef.value)
     )
 
+    watch(
+      () => props.modelValue,
+      (to) => {
+        isActive.value = false
+        requestAnimationFrame(() => (isActive.value = to))
+      }
+    )
+
     function genActivatorSlot(): VNode | null {
       if (slots.activator) {
         const slotContent = slots.activator({ on: listeners })

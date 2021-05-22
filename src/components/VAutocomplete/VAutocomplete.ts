@@ -33,7 +33,9 @@ export const VAutocomplete = defineComponent({
     idKey: String,
     listColor: String,
     disabled: Boolean,
-    modelValue: [Array, String, Object, Number],
+    modelValue: {
+      default: null,
+    },
     ...validateProps(),
     ...colorProps(),
   } as any,

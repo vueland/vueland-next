@@ -11,6 +11,7 @@ import {
   withDirectives,
   defineComponent,
   onBeforeUnmount,
+  onMounted,
   vShow,
 } from 'vue'
 
@@ -81,9 +82,9 @@ export const VListGroup = defineComponent({
       active: isActive,
     }
 
-    if (groups) register(listGroup)
-    if (subgroups) subgroups.value.push(listGroup)
-    if (!props.active) isActive.value = true
+    const isNotActive = computed<boolean>(() => {
+      return !props.subGroup && !props.active
+    })
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-list-group': true,
@@ -96,7 +97,7 @@ export const VListGroup = defineComponent({
     }))
 
     function onClick() {
-      if (!props.active) return
+      if (isNotActive.value) return
 
       if (groups?.value.length) listClick(refGroup)
 
@@ -110,16 +111,17 @@ export const VListGroup = defineComponent({
         size: iconSize,
       }
 
-      return h(VIcon, propsData, {
-        default: () => icon,
-      })
+      return h(VIcon, propsData, { default: () => icon })
     }
 
     function genAppendIcon(): VNode | null {
       const slotAppendIcon = slots.appendIcon && slots.appendIcon()
 
-      const propsAppendIcon =
-        !props.subGroup && (props.appendIcon || icons.$expand)
+      const propsAppendIcon = !props.subGroup
+        ? props.active
+          ? icons.$expand
+          : props.appendIcon
+        : ''
 
       if ((!propsAppendIcon && !slotAppendIcon) || props.subGroup) return null
 
@@ -139,9 +141,7 @@ export const VListGroup = defineComponent({
 
       if (!icon && !slotIcon) return null
 
-      const propsData = {
-        class: 'v-list-group__prepend-icon',
-      }
+      const propsData = { class: 'v-list-group__prepend-icon' }
 
       return h(VListItemIcon, propsData, {
         default: () => slotIcon || genIcon(icon as string),
@@ -183,6 +183,12 @@ export const VListGroup = defineComponent({
         ref: refGroup,
       }
     }
+
+    onMounted(() => {
+      if (groups) register(listGroup)
+      if (subgroups) subgroups.value.push(listGroup)
+      if (isNotActive.value) isActive.value = true
+    })
 
     onBeforeUnmount(() => {
       unRegister(refGroup)

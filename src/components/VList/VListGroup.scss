@@ -11,11 +11,15 @@
   transition: all .3s $primary-transition;
 
   & > .v-list-group {
-    box-shadow: none !important;
+
   }
 
-  & > .v-list-group__items > .v-list-item {
-    padding-left: 10px;
+  &__items > .v-list-item {
+    cursor: pointer;
+
+    &:hover:after {
+      opacity: .1;
+    }
   }
 
   &__header {

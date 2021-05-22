@@ -477,56 +477,63 @@ export default {
         </v-card-content>
       </v-card>
     </v-form>
-    <v-card
-      elevation="10"
-      style="margin: 20px;"
-      @contextmenu="showMenu"
+    <div
+      class="block"
+      style="display: flex;"
     >
-      <img
-        src="https://i.mycdn.me/i?r=AzEPZsRbOZEKgBhR0XGMT1RkPGSRVI_2X7nqC2oTGvMWj6aKTM5SRkZCeTgDn6uOyic"
-        alt=""
-        style="width: 100%"
+      <v-card
+        v-for="it in 3"
+        :key="it"
+        elevation="10"
+        style="margin: 20px;"
+        @contextmenu="showMenu"
       >
-      <v-card-title>
-        <v-icon
-          icon="pets"
-          size="18"
-          color="grey lighten-2"
-        />
-        <span style="margin-left: 10px">White panter</span>
-      </v-card-title>
-      <v-card-content>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias commodi, consectetur dolorum iure praesentium
-        reprehenderit sint ut vero. Accusamus, aperiam et impedit in ipsam obcaecati possimus quasi reiciendis rerum
-        veniam.
-      </v-card-content>
-      <v-card-actions>
-        <v-button
-          label="support"
-          text
-          color="blue"
-        />
-      </v-card-actions>
-    </v-card>
-    <v-menu
-      v-model="data.isOpen"
-      :position-x="data.positionX"
-      :position-y="data.positionY"
-      width="150"
-      absolute
-      @close="data.isOpen = false"
-    >
-      <div
-        style="width: 150px; height: 100px; border-radius: 5px;"
-        class="grey lighten-3 elevation-10"
+        <img
+          src="https://i.mycdn.me/i?r=AzEPZsRbOZEKgBhR0XGMT1RkPGSRVI_2X7nqC2oTGvMWj6aKTM5SRkZCeTgDn6uOyic"
+          alt=""
+          style="width: 100%"
+        >
+        <v-card-title>
+          <v-icon
+            icon="pets"
+            size="18"
+            color="grey lighten-2"
+          />
+          <span style="margin-left: 10px">White panter</span>
+        </v-card-title>
+        <v-card-content>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias commodi, consectetur dolorum iure praesentium
+          reprehenderit sint ut vero. Accusamus, aperiam et impedit in ipsam obcaecati possimus quasi reiciendis rerum
+          veniam.
+        </v-card-content>
+        <v-card-actions>
+          <v-button
+            label="support"
+            text
+            color="blue"
+          />
+        </v-card-actions>
+      </v-card>
+      <v-menu
+        v-model="data.isOpen"
+        :position-x="data.positionX"
+        :position-y="data.positionY"
+        width="150"
+        absolute
+        @close="data.isOpen = false"
       >
-        <v-list>
-          <v-list-item>
-            <v-list-item-title>salam</v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </div>
-    </v-menu>
+        <div
+          style="width: 150px; height: 100px; border-radius: 5px;"
+          class="grey lighten-3 elevation-10"
+        >
+          <v-list>
+            <v-list-item>
+              <v-list-item-title>salam</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </div>
+      </v-menu>
+    </div>
     <teleport to="#modal">
       <v-modal
         v-model="data.show"

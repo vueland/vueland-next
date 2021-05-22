@@ -5,12 +5,12 @@ exports[`VAutocomplete should mount component and match snapshot 1`] = `
   <div class="v-input__slot"
        style="color: rgb(33, 150, 243); caret-color: #2196f3;"
   >
-    <div class="v-input__select-slot">
+    <div class="v-input__field-slot">
       <label class="v-label v-label--on-field"
              style="left: 0px; position: absolute; color: rgb(33, 150, 243); caret-color: #2196f3;"
       >
       </label>
-      <div class="v-autocomplete v-validatable">
+      <div class="v-autocomplete">
         <input class="v-autocomplete__input"
                style="color: rgb(33, 33, 33); caret-color: #212121;"
         >

@@ -1,4 +1,4 @@
-import { ref, reactive } from 'vue'
+import { ref, reactive, computed } from 'vue'
 import { Dimensions } from '../../types'
 
 type MainDimensions = {
@@ -48,8 +48,6 @@ export function useAutoPosition(props) {
 
   let activator: HTMLElement
   let content: HTMLElement
-  let activatorRect: Dimensions
-  let contentRect: Dimensions
   let diff: number
   let minDiff: number
 
@@ -65,6 +63,10 @@ export function useAutoPosition(props) {
       height: rect.height,
     }
   }
+
+  const isAbsolutePositioned = computed(() => {
+    return props.positionY || props.positionX
+  })
 
   function getInnerHeight(): number {
     if (!window) return 0
@@ -84,27 +86,40 @@ export function useAutoPosition(props) {
     return pageXOffset || document.documentElement.scrollLeft
   }
 
-  function calcDiffs() {
-    const scrollHeight = getOffsetTop() + getInnerHeight()
-    const { activator, content } = dimensions
+  function getContentAbsoluteBottom() {
+    return dimensions.content.height + props.positionY + getOffsetTop()
+  }
 
-    const bottom = dimensions.content.height + activator?.top || content.top
+  function getContentBottom() {
+    return dimensions.content.height + dimensions.activator.top
+  }
+
+  function calcDiffs() {
+    const pageHeight = getOffsetTop() + getInnerHeight() - offset
+
+    const contentBottom = isAbsolutePositioned.value
+      ? getContentAbsoluteBottom()
+      : getContentBottom()
 
     minDiff = (dimensions.content.height / 100) * 10
 
-    return scrollHeight - bottom
+    return pageHeight - contentBottom
   }
 
-  function calcLeftPosition() {
+  function calcLeftPosition(): number {
     if (props.positionX) return props.positionX + getOffsetLeft()
 
     return dimensions.activator.left
   }
 
-  function calcTopPosition() {
+  function calcTopPosition(): number {
     diff = calcDiffs()
 
-    if (props.positionY) return props.positionY + getOffsetTop()
+    if (props.positionY) {
+      if (diff <= minDiff) return props.positionY + getOffsetTop() + diff
+
+      return props.positionY + getOffsetTop()
+    }
 
     if (props.bottom) {
       if (diff <= minDiff)
@@ -138,20 +153,20 @@ export function useAutoPosition(props) {
   }
 
   function setActivatorDimensions() {
-    activatorRect = getBoundedClientRect(activator)
+    dimensions.activator = getBoundedClientRect(activator)
 
     dimensions.activator.height = activator.offsetHeight
-    dimensions.activator.width = activatorRect.width
-    dimensions.activator.top = activatorRect.top + getOffsetTop()
-    dimensions.activator.left = activatorRect.left + getOffsetLeft()
+    dimensions.activator.top = dimensions.activator.top + getOffsetTop()
+    dimensions.activator.left = dimensions.activator.left + getOffsetLeft()
   }
 
   function setContentDimensions() {
-    const rect = activatorRect || contentRect
-    const topOffset = (activator && !props.bottom && offset) || 0
+    const rect = activator
+      ? dimensions.activator
+      : getBoundedClientRect(content)
 
     dimensions.content.height = content.offsetHeight
-    dimensions.content.top = calcTopPosition() - topOffset
+    dimensions.content.top = calcTopPosition()
     dimensions.content.left = calcLeftPosition()
     dimensions.content.width = rect.width
   }
@@ -161,9 +176,6 @@ export function useAutoPosition(props) {
       activator = activatorEl
       content = contentRef.value
     }
-
-    activator && (activatorRect = getBoundedClientRect(activator))
-    content && (contentRect = getBoundedClientRect(content))
 
     return updateDimensions()
   }

@@ -128,7 +128,7 @@ export const VMenu = defineComponent({
     )
 
     watch(
-      () => props.positionY,
+      () => [props.positionY, props.positionX],
       () => setDimensions(activatorRef.value)
     )
 

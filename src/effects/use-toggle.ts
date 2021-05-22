@@ -20,7 +20,7 @@ export function useToggle(props: any, propName?: string): Toggleable {
 
   watch(
     () => props[prop],
-    (to) => (isActive.value = !!to),
+    (to) => requestAnimationFrame(() => (isActive.value = !!to)),
     { immediate: true }
   )
 

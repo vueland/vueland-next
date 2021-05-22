@@ -3,9 +3,9 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.useDetachable = useDetachable;
+exports.useDetach = useDetach;
 
-function useDetachable() {
+function useDetach() {
   var target;
 
   var setDetached = function setDetached(el) {
@@ -26,4 +26,4 @@ function useDetachable() {
     removeDetached: removeDetached
   };
 }
-//# sourceMappingURL=use-detachable.js.map
+//# sourceMappingURL=use-detach.js.map

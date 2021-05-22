@@ -25,8 +25,7 @@ var Vueland = /*#__PURE__*/function () {
   function Vueland(options) {
     _classCallCheck(this, Vueland);
 
-    this.userOptions = options;
-    Vueland.options = this.userOptions;
+    Vueland.options = options;
   }
 
   _createClass(Vueland, null, [{

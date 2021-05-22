@@ -26,7 +26,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var VBadge = (0, _vue.defineComponent)({
-  name: "v-badge",
+  name: 'v-badge',
   props: _objectSpread(_objectSpread({
     dot: Boolean,
     avatar: Boolean,
@@ -37,11 +37,11 @@ var VBadge = (0, _vue.defineComponent)({
     },
     color: {
       type: String,
-      "default": "primary"
+      "default": 'primary'
     },
     transition: {
       type: String,
-      "default": "scaleIn"
+      "default": 'scaleIn'
     }
   }, (0, _usePosition.positionProps)()), (0, _useElevation2.elevationProps)()),
   setup: function setup(props, _ref) {
@@ -77,15 +77,15 @@ var VBadge = (0, _vue.defineComponent)({
     });
     var classes = (0, _vue.computed)(function () {
       return {
-        "v-badge": true,
-        "v-badge--border": props.border,
-        "v-badge--dot": props.dot,
-        "v-badge--avatar": props.avatar
+        'v-badge': true,
+        'v-badge--border': props.border,
+        'v-badge--dot': props.dot,
+        'v-badge--avatar': props.avatar
       };
     });
     var badgeClasses = (0, _vue.computed)(function () {
       return _objectSpread({
-        "v-badge__badge": true
+        'v-badge__badge': true
       }, elevationClasses.value);
     });
     var styles = (0, _vue.computed)(function () {
@@ -106,19 +106,19 @@ var VBadge = (0, _vue.defineComponent)({
     function genBadgeSlot() {
       var propsData = {
         "class": {
-          "v-badge__badge-slot": true
+          'v-badge__badge-slot': true
         }
       };
-      return slots.badge ? (0, _vue.h)("div", propsData, slots.badge()) : null;
+      return slots.badge ? (0, _vue.h)('div', propsData, slots.badge()) : null;
     }
 
     function genContent() {
       var propsData = {
         "class": {
-          "v-badge__content": true
+          'v-badge__content': true
         }
       };
-      return (0, _vue.h)("div", propsData, [addContent(), genBadgeSlot()]);
+      return (0, _vue.h)('div', propsData, [addContent(), genBadgeSlot()]);
     }
 
     function genBadge() {
@@ -126,14 +126,14 @@ var VBadge = (0, _vue.defineComponent)({
         "class": badgeClasses.value,
         style: styles.value
       });
-      return (0, _vue.h)("div", propsData, genContent());
+      return (0, _vue.h)('div', propsData, genContent());
     }
 
     return function () {
       var badge = genBadge();
 
       if (props.toggle && !slots.badge) {
-        var _useToggle = (0, _useToggle2.useToggle)(props, "content"),
+        var _useToggle = (0, _useToggle2.useToggle)(props, 'content'),
             isActive = _useToggle.isActive;
 
         badge = (0, _vue.withDirectives)(badge, [[_vue.vShow, isActive.value]]);
@@ -143,7 +143,7 @@ var VBadge = (0, _vue.defineComponent)({
         "class": classes.value
       };
       var children = [(0, _useTransition.useTransition)(badge, props.transition), slots["default"] && slots["default"]()];
-      return (0, _vue.h)("div", propsData, children);
+      return (0, _vue.h)('div', propsData, children);
     };
   }
 });

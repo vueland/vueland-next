@@ -345,14 +345,15 @@ export default {
         prepend-icon="event"
         :rules="[val => !!val || 'Required']"
         clearable
-
+        color="grey darken-4"
+        content-color="pink lighten-3"
         monday-first
         :disabled-dates="disabledDates"
         @selected="testFunc"
       >
         <template #date="{date, isHoliday}">
           <div
-            :class="[isHoliday? 'green--text text--accent-3' : '']"
+            :class="[isHoliday? 'grey--text text--darken-2' : 'white--text']"
             :style="{
               width: '100%',
               height: '100%',

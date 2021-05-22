@@ -143,13 +143,13 @@ var VMenu = (0, _vue.defineComponent)({
     }, function () {
       return setDimensions(activatorRef.value);
     });
-    (0, _vue.watchEffect)(function () {
-      return props.modelValue && function () {
-        isActive.value = false;
-        requestAnimationFrame(function () {
-          return isActive.value = true;
-        });
-      }();
+    (0, _vue.watch)(function () {
+      return props.modelValue;
+    }, function (to) {
+      isActive.value = false;
+      requestAnimationFrame(function () {
+        return isActive.value = to;
+      });
     });
 
     function genActivatorSlot() {

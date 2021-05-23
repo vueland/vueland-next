@@ -228,16 +228,19 @@ export default {
       />
     </div>
     <v-list>
-      <v-list-group active>
+      <v-list-group
+        active
+        class="elevation-4"
+      >
         <template #title>
           <v-list-item-title> salam</v-list-item-title>
         </template>
-        <!--        <template #prependIcon>-->
-        <!--          <v-icon-->
-        <!--            icon="account_circle"-->
-        <!--            size="18"-->
-        <!--          />-->
-        <!--        </template>-->
+        <template #prependIcon>
+          <v-icon
+            icon="account_circle"
+            size="18"
+          />
+        </template>
         <v-list-group sub-group>
           <template #title>
             <v-list-item-title> salam</v-list-item-title>

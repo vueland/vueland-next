@@ -136,7 +136,7 @@ export const VTextField = defineComponent({
       const propsData = {
         label: props.label,
         focused: state.focused,
-        hasState: !!computedValue.value,
+        hasState: !!state.value,
         dark: props.dark,
         disabled: props.disabled,
         clearable: props.clearable,

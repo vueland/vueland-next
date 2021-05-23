@@ -1,15 +1,27 @@
-import { provide, inject, ref, ComponentPublicInstance, Ref } from 'vue'
+import { provide, inject, ref } from 'vue'
 
-type Group = {
-  ref: Ref<HTMLElement | ComponentPublicInstance | null>
-  active: boolean
-}
+import { Group } from '../../types'
 
 export function useGroup() {
-  const groupRef: Ref<HTMLElement | ComponentPublicInstance | null> = ref(null)
+  function provideGroup(groupName: string, options = {}) {
+    const groups = ref<Group[]>([])
 
-  function provideGroup(groupName, options: object | null = null) {
-    provide(groupName, options)
+    Object.keys(options).forEach((key) => {
+      let value
+
+      if (typeof options[key] === 'function') {
+        value = options[key].bind(null, groups)
+      } else {
+        value = options[key]
+      }
+
+      Object.defineProperty(options, key, { value })
+    })
+
+    provide(groupName, {
+      groups,
+      ...options,
+    })
   }
 
   function injectGroup(groupName: string) {
@@ -17,11 +29,11 @@ export function useGroup() {
 
     injected.value = inject(groupName) || null
 
-    function register(group: Group) {
+    const register = (group: Group) => {
       injected.value?.groups.push(group)
     }
 
-    function unregister(group: Group) {
+    const unregister = (group: Group) => {
       injected.value?.groups.filter((it) => {
         return it.ref !== group.ref
       })
@@ -31,7 +43,7 @@ export function useGroup() {
       return {
         ...injected.value,
         register,
-        unregister
+        unregister,
       }
     }
 
@@ -39,7 +51,6 @@ export function useGroup() {
   }
 
   return {
-    groupRef,
     provideGroup,
     injectGroup,
   }

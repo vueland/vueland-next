@@ -111,7 +111,7 @@ export const VDatePicker = defineComponent({
 
     const handlers = ref<DatePickerBtnHandlers>({})
     const closeConditional = ref<boolean>(true)
-    const inputSlotRef = ref<VNode | null>(null)
+    const inputRef = ref<VNode | null>(null)
 
     provide('handlers', handlers)
 
@@ -379,7 +379,7 @@ export const VDatePicker = defineComponent({
         prependIcon: props.prependIcon,
         rules: props.rules,
         clearable: props.clearable,
-        ref: inputSlotRef,
+        ref: inputRef,
         onInput: onDateInput,
         onClear: () => {
           data.convertedDateString = ''
@@ -406,7 +406,7 @@ export const VDatePicker = defineComponent({
       return h(
         VMenu,
         {
-          activator: inputSlotRef,
+          activator: inputRef,
           internalActivator: true,
           inputActivator: '.v-text-field__input',
           width: 'auto',

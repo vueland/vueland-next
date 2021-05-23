@@ -95,15 +95,15 @@
     }
 
     & > .v-list-group__items > .v-list-item {
-      padding-left: 40px !important;
+      padding-left: $append-icon-min-width !important;
     }
 
     & > .v-list-group__header--sub-group >
     .v-list-group__prepend-icon {
-      min-width: $append-icon-min-width;
+      min-width: $prepend-icon-max-width;
       flex-shrink: 0;
       flex-grow: 0;
-      min-height: $append-icon-min-height;
+      min-height: $prepend-icon-min-height;
     }
 
     & > .v-list-group__header--sub-group >

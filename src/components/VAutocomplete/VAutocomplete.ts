@@ -126,7 +126,6 @@ export const VAutocomplete = defineComponent({
         class: 'v-autocomplete__input',
         onInput,
         onFocus,
-        onBlur,
       }
 
       return h('input', setTextColor(props.dark ? 'white' : base, propsData))

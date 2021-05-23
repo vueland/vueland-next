@@ -40,7 +40,7 @@ export const VCard = defineComponent({
       width: `${props.width}px`,
     }))
 
-    const cachedCard = computed<VNode>(() => {
+    const genCachedCard = computed<VNode>(() => {
       const propsData = {
         class: classes.value,
         style: styles.value,
@@ -52,6 +52,6 @@ export const VCard = defineComponent({
       )
     })
 
-    return () => cachedCard.value
+    return () => genCachedCard.value
   },
 })

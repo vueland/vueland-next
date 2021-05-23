@@ -33,7 +33,9 @@ export const VAutocomplete = defineComponent({
     idKey: String,
     listColor: String,
     disabled: Boolean,
-    modelValue: [Array, String, Object, Number],
+    modelValue: {
+      default: null,
+    },
     ...validateProps(),
     ...colorProps(),
   } as any,
@@ -124,7 +126,6 @@ export const VAutocomplete = defineComponent({
         class: 'v-autocomplete__input',
         onInput,
         onFocus,
-        onBlur,
       }
 
       return h('input', setTextColor(props.dark ? 'white' : base, propsData))

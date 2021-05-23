@@ -6,9 +6,7 @@
   width: 100%;
   min-height: 48px;
   position: relative;
-  border-radius: 3px;
   overflow: hidden;
-  transition: all .3s $primary-transition;
 
   &:after {
     content: "";
@@ -35,10 +33,13 @@
     display: block;
     width: 100%;
     padding: 0 10px;
+    text-overflow: ellipsis;
+    white-space: no-wrap;
+    overflow: hidden;
   }
 
   &__icon {
-    min-width: 48px;
+    min-width: 36px;
     @include flex(flex, center, center)
   }
 }

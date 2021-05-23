@@ -3736,7 +3736,7 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
                     >
                     </button>
                   </div>
-                  <label class="v-label v-label--on-field"
+                  <label class="v-label v-label--active v-label--on-field v-label--has-state"
                          style="left: 0px; position: absolute; color: rgb(33, 150, 243); caret-color: #2196f3;"
                   >
                     search
@@ -4411,7 +4411,7 @@ exports[`VDataTable should test table filter and match snapshot 1`] = `
                     >
                     </button>
                   </div>
-                  <label class="v-label v-label--on-field"
+                  <label class="v-label v-label--active v-label--on-field v-label--has-state"
                          style="left: 0px; position: absolute; color: rgb(33, 150, 243); caret-color: #2196f3;"
                   >
                     search

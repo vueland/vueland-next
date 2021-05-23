@@ -1,4 +1,4 @@
-import { ComponentPublicInstance } from 'vue'
+import { ComponentPublicInstance, Ref } from 'vue'
 
 export type UserOptions = {
   icons: 'material-icons'
@@ -110,8 +110,8 @@ export interface HeaderOptions {
   dark?: boolean
 }
 
-export interface ListGroup {
-  ref: ComponentPublicInstance<HTMLInputElement>
+export interface Group {
+  ref: HTMLElement | ComponentPublicInstance | null
   active: boolean
 }
 

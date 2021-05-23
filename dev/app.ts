@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import { Vueland } from '../src'
 import colors from '../src/utils/colors'
-import '../dist/vueland.css'
+import '../src/styles/scss/main.scss'
 
 new Vueland({
   icons: 'material-icons',

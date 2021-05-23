@@ -228,22 +228,27 @@ export default {
       />
     </div>
     <v-list>
-      <v-list-group>
+      <v-list-group
+        active
+        class="elevation-4"
+      >
         <template #title>
           <v-list-item-title> salam</v-list-item-title>
         </template>
         <template #prependIcon>
           <v-icon
-            icon="fas fa-book"
+            icon="account_circle"
             size="18"
           />
         </template>
-        <v-list-item @click.stop="testFunc">
-          salam
-        </v-list-item>
-        <v-text-field label="Подъезд"/>
-        <v-text-field label="Этаж"/>
-        <v-text-field label="Домофон"/>
+        <v-list-group sub-group>
+          <template #title>
+            <v-list-item-title> salam</v-list-item-title>
+          </template>
+          <v-list-item @click.stop="testFunc">
+            salam
+          </v-list-item>
+        </v-list-group>
       </v-list-group>
     </v-list>
     <v-checkbox
@@ -484,7 +489,7 @@ export default {
       style="display: flex;"
     >
       <v-card
-        v-for="it in 3"
+        v-for="it in 4"
         :key="it"
         elevation="10"
         style="margin: 20px;"
@@ -520,20 +525,41 @@ export default {
         v-model="data.isOpen"
         :position-x="data.positionX"
         :position-y="data.positionY"
-        width="150"
+        width="200"
         absolute
+        open-on-click
         @close="data.isOpen = false"
       >
         <div
-          style="width: 150px; height: 100px; border-radius: 5px;"
-          class="grey darken-3 elevation-10"
+          class="grey lighten-5 elevation-10"
         >
           <v-list>
-            <v-list-item @click="data.title = 'Panter'">
-              <v-list-item-title class="white--text">
-                salam
-              </v-list-item-title>
-            </v-list-item>
+            <v-list-group
+              color="blue accent-3"
+            >
+              <v-list-item
+                @click="data.title = 'Panter'"
+              >
+                <template #default="{active}">
+                  <v-list-item-icon>
+                    <v-icon
+                      icon="account_circle"
+                      size="18"
+                    />
+                  </v-list-item-icon>
+                  <v-list-item-title>
+                    Panter {{ active }}
+                  </v-list-item-title>
+                </template>
+              </v-list-item>
+              <v-list-item @click="data.title = 'Rice'">
+                <template #default="{active}">
+                  <v-list-item-title>
+                    Rice {{ active }}
+                  </v-list-item-title>
+                </template>
+              </v-list-item>
+            </v-list-group>
           </v-list>
         </div>
       </v-menu>

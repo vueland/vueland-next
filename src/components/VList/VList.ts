@@ -2,42 +2,32 @@
 import './VList.scss'
 
 // Vue API
-import { h, ref, provide, defineComponent } from 'vue'
+import { h, defineComponent } from 'vue'
+
+// Effects
+import { useGroup } from '../../effects/use-group'
 
 // Types
-import { ListGroup } from '../../../types'
+import { Group } from '../../../types'
 
 export const VList = defineComponent({
   name: 'v-list',
 
   setup(_, { slots }) {
-    const groups = ref<ListGroup[]>([])
+    const { provideGroup } = useGroup()
 
-    function register(group) {
-      groups.value.push(group)
-    }
+    provideGroup('list-groups', {
+      listClick,
+    })
 
-    function unRegister(group) {
-      groups.value.filter((it: ListGroup) => {
-        return it.ref !== group.value
-      })
-    }
-
-    function listClick(ref) {
+    function listClick(groups, listGroup) {
       groups.value.length &&
-        groups.value.forEach((group: ListGroup) => {
-          if (group.ref === ref.value) {
+        groups.value.forEach((group: Group) => {
+          if (group.ref === listGroup.ref.value) {
             group.active = !group.active
           }
         })
     }
-
-    provide('groups', {
-      groups,
-      register,
-      unRegister,
-      listClick,
-    })
 
     return () => {
       const dataProps = {

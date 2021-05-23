@@ -35,7 +35,9 @@ export const VSelect = defineComponent({
     disabled: Boolean,
     readonly: Boolean,
     clearable: Boolean,
-    modelValue: [Array, String, Object, Number],
+    modelValue: {
+      default: null,
+    },
     ...colorProps(),
     ...activatorProps(),
   } as any,

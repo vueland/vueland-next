@@ -110,8 +110,8 @@ export const VDatePicker = defineComponent({
     const contentColor: string = props.dark ? 'white' : props.contentColor
 
     const handlers = ref<DatePickerBtnHandlers>({})
-    const closeConditional = ref<boolean>(true)
     const inputRef = ref<VNode | null>(null)
+    const closeConditional = ref<boolean>(false)
 
     provide('handlers', handlers)
 
@@ -209,6 +209,8 @@ export const VDatePicker = defineComponent({
     function onDateUpdate(date: DatePickerDate) {
       if (!date) return
 
+      closeConditional.value = true
+
       data.selected = date
       data.tableMonth = date.month
       data.tableYear = date.year
@@ -218,6 +220,7 @@ export const VDatePicker = defineComponent({
       emit('update:value', computedValue.value)
       emit('update:modelValue', computedValue.value)
       emit('selected', computedValue.value)
+      requestAnimationFrame(() => (closeConditional.value = false))
     }
 
     function onDateMonthUpdate(dateObject) {
@@ -299,9 +302,6 @@ export const VDatePicker = defineComponent({
           onNext: () => handlers.value.onNext!(),
           onPrev: () => handlers.value.onPrev!(),
           onTable: onTableChange,
-          onMouseenter: () => (closeConditional.value = false),
-          onMouseleave: () =>
-            (closeConditional.value = !data.isYears && !data.isMonths),
         },
         {
           default: () => headerValue.value,
@@ -341,7 +341,6 @@ export const VDatePicker = defineComponent({
           disabledDates: props.disabledDates,
           ['onUpdate:value']: onDateUpdate,
           ['onUpdate:month']: onDateMonthUpdate,
-          onMouseenter: () => (closeConditional.value = true),
         },
         {
           date: slots.date && addScopedSlot('date', slots),

@@ -22,6 +22,10 @@
     }
   }
 
+  &__items > .v-list-item--active {
+    color: red;
+  }
+
   &__header {
     height: 48px;
 

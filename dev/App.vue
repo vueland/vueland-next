@@ -228,7 +228,7 @@ export default {
       />
     </div>
     <v-list>
-      <v-list-group sub-group>
+      <v-list-group active>
         <template #title>
           <v-list-item-title> salam</v-list-item-title>
         </template>
@@ -238,9 +238,14 @@ export default {
         <!--            size="18"-->
         <!--          />-->
         <!--        </template>-->
-        <v-list-item @click.stop="testFunc">
-          salam
-        </v-list-item>
+        <v-list-group sub-group>
+          <template #title>
+            <v-list-item-title> salam</v-list-item-title>
+          </template>
+          <v-list-item @click.stop="testFunc">
+            salam
+          </v-list-item>
+        </v-list-group>
       </v-list-group>
     </v-list>
     <v-checkbox

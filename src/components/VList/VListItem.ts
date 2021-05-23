@@ -5,13 +5,15 @@ import './VListItem.scss'
 import { h, ref, computed, defineComponent } from 'vue'
 
 // Effects
+import { useColors, colorProps } from '../../effects/use-colors'
 
 export const VListItem = defineComponent({
   name: 'v-list-item',
 
   props: {
     value: String,
-    modelValue: [String, Number]
+    modelValue: [String, Number],
+    ...colorProps()
   } as any,
 
   emits: ['update:active', 'active'],
@@ -19,8 +21,11 @@ export const VListItem = defineComponent({
   setup(props, { slots, emit }) {
     const isActive = ref<boolean>(false)
 
+    const { setTextColor } = useColors()
+
     const classes = computed<Record<string, boolean>>(() => ({
-      'v-list-item': true
+      'v-list-item': true,
+      'v-list-item--active': isActive.value
     }))
 
     function onClick() {
@@ -40,7 +45,9 @@ export const VListItem = defineComponent({
         onClick
       }
 
-      return h('div', propsData, content)
+      return h('div',
+        props.color && isActive.value ?
+          setTextColor(props.color, propsData) : propsData, content)
     }
   }
 })

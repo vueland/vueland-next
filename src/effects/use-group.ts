@@ -3,7 +3,7 @@ import { provide, inject, ref } from 'vue'
 import { Group } from '../../types'
 
 export function useGroup() {
-  function provideGroup(groupName: string, options = {}) {
+  const provideGroup = (groupName: string, options = {}) => {
     const groups = ref<Group[]>([])
 
     Object.keys(options).forEach((key) => {
@@ -24,7 +24,7 @@ export function useGroup() {
     })
   }
 
-  function injectGroup(groupName: string) {
+  const injectGroup = (groupName: string) => {
     const injected: any = ref(null)
 
     injected.value = inject(groupName) || null

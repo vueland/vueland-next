@@ -233,17 +233,17 @@ export default {
         class="elevation-4"
       >
         <template #title>
-          <v-list-item-title> salam</v-list-item-title>
+          <v-list-item-title>Google Maps Api</v-list-item-title>
         </template>
         <template #prependIcon>
           <v-icon
-            icon="account_circle"
+            icon="map"
             size="18"
           />
         </template>
         <v-list-group sub-group>
           <template #title>
-            <v-list-item-title> salam</v-list-item-title>
+            <v-list-item-title>Azerbaijan</v-list-item-title>
           </template>
           <v-list-item @click.stop="testFunc">
             salam
@@ -387,7 +387,7 @@ export default {
         :rules="[v => !!v || 'required', v => v.length > 5 || 'more than 5']"
       />
       <v-select
-
+        v-model="data.user2"
         label="select"
         :items="data.users"
         value-key="name"

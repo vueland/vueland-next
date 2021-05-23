@@ -35,6 +35,9 @@ export const VSelect = defineComponent({
     disabled: Boolean,
     readonly: Boolean,
     clearable: Boolean,
+    value: {
+      default: null,
+    },
     modelValue: {
       default: null,
     },
@@ -83,7 +86,10 @@ export const VSelect = defineComponent({
 
     watch(
       () => computedValue.value,
-      (to) => (state.selected = to),
+      (to) => {
+        console.log(to)
+        state.selected = to
+      },
       { immediate: true }
     )
 

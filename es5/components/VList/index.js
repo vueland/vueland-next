@@ -21,7 +21,7 @@ Object.defineProperty(exports, "VListItem", {
     return _VListItem.VListItem;
   }
 });
-exports.VListItemIcon = exports.VListItemTitle = void 0;
+exports.VListItemIcon = exports.VListItemContent = exports.VListItemSubTitle = exports.VListItemTitle = void 0;
 
 var _helpers = require("../../helpers");
 
@@ -31,8 +31,12 @@ var _VListGroup = require("./VListGroup");
 
 var _VListItem = require("./VListItem");
 
-var VListItemTitle = (0, _helpers.createSimpleFunctional)('v-list-item__title', 'span');
+var VListItemTitle = (0, _helpers.createSimpleFunctional)('v-list-item__title', 'div');
 exports.VListItemTitle = VListItemTitle;
-var VListItemIcon = (0, _helpers.createSimpleFunctional)('v-list-item__icon', 'span');
+var VListItemSubTitle = (0, _helpers.createSimpleFunctional)('v-list-item__sub-title', 'div');
+exports.VListItemSubTitle = VListItemSubTitle;
+var VListItemContent = (0, _helpers.createSimpleFunctional)('v-list-item__content', 'div');
+exports.VListItemContent = VListItemContent;
+var VListItemIcon = (0, _helpers.createSimpleFunctional)('v-list-item__icon', 'div');
 exports.VListItemIcon = VListItemIcon;
 //# sourceMappingURL=index.js.map

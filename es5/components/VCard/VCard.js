@@ -46,7 +46,7 @@ var VCard = (0, _vue.defineComponent)({
         width: "".concat(props.width, "px")
       };
     });
-    var cachedCard = (0, _vue.computed)(function () {
+    var genCachedCard = (0, _vue.computed)(function () {
       var propsData = {
         "class": classes.value,
         style: styles.value
@@ -54,7 +54,7 @@ var VCard = (0, _vue.defineComponent)({
       return (0, _vue.h)('div', props.color ? setBackground(props.color, propsData) : propsData, slots["default"] && slots["default"]());
     });
     return function () {
-      return cachedCard.value;
+      return genCachedCard.value;
     };
   }
 });

@@ -2,52 +2,61 @@
 import './VListItem.scss'
 
 // Vue API
-import { h, ref, computed, defineComponent } from 'vue'
+import { h, computed, defineComponent } from 'vue'
 
 // Effects
 import { useColors, colorProps } from '../../effects/use-colors'
+import { useToggle } from '../../effects/use-toggle'
 
 export const VListItem = defineComponent({
   name: 'v-list-item',
 
   props: {
-    value: String,
-    modelValue: [String, Number],
-    ...colorProps()
-  } as any,
+    activeClass: {
+      type: String,
+      default: '',
+    },
+    dark: Boolean,
+    inactive: Boolean,
+    value: {
+      type: [Object, String, Number, Boolean],
+      default: null,
+    },
+    ...colorProps(),
+  },
 
-  emits: ['update:active', 'active'],
+  emits: ['click'],
 
   setup(props, { slots, emit }) {
-    const isActive = ref<boolean>(false)
-
     const { setTextColor } = useColors()
+    const { isActive } = useToggle(props)
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-list-item': true,
-      'v-list-item--active': isActive.value
+      'v-list-item--active': isActive.value,
     }))
 
-    function onClick() {
+    function onClick(e) {
+      e.preventDefault()
       isActive.value = !isActive.value
-      emit('update:active', !props.active)
-      emit('active', !props.active)
+      emit('click', e)
     }
 
     return () => {
-      const content =
-        props.value || props.modelValue || (slots.default && slots.default({
-          active: isActive.value
-        }))
+      const content = slots.default && slots.default({ active: isActive.value })
 
       const propsData = {
         class: classes.value,
-        onClick
+        onClick,
       }
 
-      return h('div',
-        props.color && isActive.value ?
-          setTextColor(props.color, propsData) : propsData, content)
+      const color = props.dark ? 'white' : props.color
+
+      return h(
+        'div',
+        color && isActive.value ? setTextColor(color, propsData) : propsData,
+        content
+      )
     }
-  }
+  },
 })

@@ -25,23 +25,23 @@ export function useGroup() {
   }
 
   const injectGroup = (groupName: string) => {
-    const injected: any = ref(null)
+    let injected: any = {}
 
-    injected.value = inject(groupName) || null
+    injected = inject(groupName) || null
 
     const register = (group: Group) => {
-      injected.value?.groups.push(group)
+      injected.groups.value.push(group)
     }
 
     const unregister = (group: Group) => {
-      injected.value?.groups.filter((it) => {
+      injected.groups.value.filter((it) => {
         return it.ref !== group.ref
       })
     }
 
-    if (injected.value) {
+    if (injected) {
       return {
-        ...injected.value,
+        ...injected,
         register,
         unregister,
       }

@@ -37,7 +37,9 @@ var VAutocomplete = (0, _vue.defineComponent)({
     idKey: String,
     listColor: String,
     disabled: Boolean,
-    modelValue: [Array, String, Object, Number]
+    modelValue: {
+      "default": null
+    }
   }, (0, _useValidate.validateProps)()), (0, _useColors2.colorProps)()),
   emits: ['input', 'blur', 'focus', 'select', 'update:modelValue', 'update:value'],
   setup: function setup(props, _ref) {
@@ -118,8 +120,7 @@ var VAutocomplete = (0, _vue.defineComponent)({
         ref: inputRef,
         "class": 'v-autocomplete__input',
         onInput: onInput,
-        onFocus: onFocus,
-        onBlur: onBlur
+        onFocus: onFocus
       };
       return (0, _vue.h)('input', setTextColor(props.dark ? 'white' : base, propsData));
     }

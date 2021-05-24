@@ -133,7 +133,7 @@ var VTextField = (0, _vue.defineComponent)({
       var propsData = {
         label: props.label,
         focused: state.focused,
-        hasState: !!computedValue.value,
+        hasState: !!state.value,
         dark: props.dark,
         disabled: props.disabled,
         clearable: props.clearable,

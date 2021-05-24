@@ -86,10 +86,7 @@ export const VSelect = defineComponent({
 
     watch(
       () => computedValue.value,
-      (to) => {
-        console.log(to)
-        state.selected = to
-      },
+      (to) => (state.selected = to),
       { immediate: true }
     )
 

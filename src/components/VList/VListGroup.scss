@@ -10,10 +10,6 @@
   border: none;
   transition: all .3s $primary-transition;
 
-  & > .v-list-group {
-
-  }
-
   &__items > .v-list-item {
     cursor: pointer;
 
@@ -22,8 +18,12 @@
     }
   }
 
-  &__items > .v-list-item--active {
-    color: red;
+  &__items > .v-list-group__sub-group > .v-list-group__header {
+    padding-left: 24px;
+
+    //&:hover:after {
+    //  opacity: .1;
+    //}
   }
 
   &__header {
@@ -31,16 +31,6 @@
 
     &:hover {
       cursor: pointer;
-    }
-
-    &__sub-group {
-      padding-left: 20px !important;
-    }
-  }
-
-  &--not-active > .v-list-group__header {
-    &:hover {
-      cursor: auto;
     }
   }
 
@@ -71,31 +61,30 @@
     min-height: 100%;
   }
 
-  &--expanded > .v-list-group__header >
-  .v-list-group__append-icon .v-icon {
+  &__items > .v-list-group--active .v-list-group__header{
+    .v-list-group__append-icon > .v-icon {
+      transform: none;
+    }
+  }
+
+  &--active > .v-list-group__header >
+  .v-list-group__append-icon > .v-icon {
     transform: rotate(-180deg);
   }
 
-  &--expanded > .v-list-group__header--sub-group >
+  &--no-action > .v-list-group__items > .v-list-item {
+    pointer-events: none;
+  }
+
+
+  &__items > .v-list-group--active > .v-list-group__header >
   .v-list-group__prepend-icon .v-icon {
     transform: rotate(-180deg)
   }
 
-  &__title {
-
-  }
-
-  &__icon {
-
-  }
-
   &__sub-group {
-    & > .v-list-group__header--sub-group > {
-
-    }
-
     & > .v-list-group__items > .v-list-item {
-      padding-left: $append-icon-min-width !important;
+      padding-left: 84px;
     }
 
     & > .v-list-group__header--sub-group >
@@ -106,19 +95,15 @@
       min-height: $prepend-icon-min-height;
     }
 
-    & > .v-list-group__header--sub-group >
+    & > .v-list-group__header >
     .v-list-item__title {
       padding: 0 20px;
     }
 
-    & > .v-list-group__header--sub-group >
+    & > .v-list-group__header >
     .v-list-group__prepend-icon + .v-list-item__title {
       padding: 0 10px;
     }
-  }
-
-  &__append-icon {
-
   }
 
   &__prepend-icon .v-icon {

@@ -107,8 +107,8 @@ var VDatePicker = (0, _vue.defineComponent)({
     var localeWeek = _locale.locale[props.lang].week;
     var contentColor = props.dark ? 'white' : props.contentColor;
     var handlers = (0, _vue.ref)({});
-    var closeConditional = (0, _vue.ref)(true);
-    var inputSlotRef = (0, _vue.ref)(null);
+    var inputRef = (0, _vue.ref)(null);
+    var closeConditional = (0, _vue.ref)(false);
     (0, _vue.provide)('handlers', handlers);
     var classes = (0, _vue.computed)(function () {
       return {
@@ -201,6 +201,7 @@ var VDatePicker = (0, _vue.defineComponent)({
 
     function onDateUpdate(date) {
       if (!date) return;
+      closeConditional.value = true;
       data.selected = date;
       data.tableMonth = date.month;
       data.tableYear = date.year;
@@ -208,6 +209,9 @@ var VDatePicker = (0, _vue.defineComponent)({
       emit('update:value', computedValue.value);
       emit('update:modelValue', computedValue.value);
       emit('selected', computedValue.value);
+      requestAnimationFrame(function () {
+        return closeConditional.value = false;
+      });
     }
 
     function onDateMonthUpdate(dateObject) {
@@ -271,13 +275,7 @@ var VDatePicker = (0, _vue.defineComponent)({
         onPrev: function onPrev() {
           return handlers.value.onPrev();
         },
-        onTable: onTableChange,
-        onMouseenter: function onMouseenter() {
-          return closeConditional.value = false;
-        },
-        onMouseleave: function onMouseleave() {
-          return closeConditional.value = !data.isYears && !data.isMonths;
-        }
+        onTable: onTableChange
       }, {
         "default": function _default() {
           return headerValue.value;
@@ -314,9 +312,7 @@ var VDatePicker = (0, _vue.defineComponent)({
         year: data.tableYear,
         value: data.selected,
         disabledDates: props.disabledDates
-      }, _defineProperty(_h2, 'onUpdate:value', onDateUpdate), _defineProperty(_h2, 'onUpdate:month', onDateMonthUpdate), _defineProperty(_h2, "onMouseenter", function onMouseenter() {
-        return closeConditional.value = true;
-      }), _h2), {
+      }, _defineProperty(_h2, 'onUpdate:value', onDateUpdate), _defineProperty(_h2, 'onUpdate:month', onDateMonthUpdate), _h2), {
         date: slots.date && (0, _helpers2.addScopedSlot)('date', slots)
       });
     }
@@ -340,7 +336,7 @@ var VDatePicker = (0, _vue.defineComponent)({
         prependIcon: props.prependIcon,
         rules: props.rules,
         clearable: props.clearable,
-        ref: inputSlotRef,
+        ref: inputRef,
         onInput: onDateInput,
         onClear: function onClear() {
           data.convertedDateString = '';
@@ -360,7 +356,7 @@ var VDatePicker = (0, _vue.defineComponent)({
 
     function genMenu() {
       return (0, _vue.h)(_VMenu.VMenu, {
-        activator: inputSlotRef,
+        activator: inputRef,
         internalActivator: true,
         inputActivator: '.v-text-field__input',
         width: 'auto',

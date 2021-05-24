@@ -48,6 +48,8 @@ export const VListGroup = defineComponent({
       type: String,
       default: '',
     },
+    dark: Boolean,
+    multiple: Boolean,
     group: String,
     disabled: Boolean,
     active: Boolean,
@@ -55,6 +57,7 @@ export const VListGroup = defineComponent({
     expanded: Boolean,
     subGroup: Boolean,
     value: Boolean,
+    modelValue: Boolean,
     ...elevationProps(),
   } as any,
 
@@ -74,9 +77,8 @@ export const VListGroup = defineComponent({
     provideGroup('selected')
     provideGroup('items')
 
-    const subgroups: any = props.subGroup && injectGroup('subgroups')
-
-    const listGroups = injectGroup('list-groups')
+    const groups = injectGroup('list-groups')
+    const subgroups = props.subGroup && injectGroup('subgroups')
     const listGroup = genListGroupParams()
 
     const isNotActive = computed<boolean>(() => {
@@ -86,9 +88,8 @@ export const VListGroup = defineComponent({
     const classes = computed<Record<string, boolean>>(() => ({
       'v-list-group': true,
       'v-list-group__sub-group': props.subGroup,
-      'v-list-group--active': props.active,
-      'v-list-group--not-active': !props.active,
-      'v-list-group--expanded': isActive.value,
+      'v-list-group--active': isActive.value,
+      'v-list-group--no-action': props.noAction,
       [props.activeClass]: isActive.value,
       ...elevationClasses.value,
     }))
@@ -96,7 +97,7 @@ export const VListGroup = defineComponent({
     function onClick() {
       if (isNotActive.value) return
 
-      if (listGroups) listGroups.listClick(listGroup)
+      if (groups) groups.listClick(listGroup)
 
       if (childrenGroups.value.length) {
         childrenGroups.value.forEach((it: any) => (it.active = false))
@@ -121,13 +122,9 @@ export const VListGroup = defineComponent({
     function genAppendIcon(): VNode | null {
       const slotAppendIcon = slots.appendIcon && slots.appendIcon()
 
-      const propsAppendIcon = !props.subGroup
-        ? props.active
-          ? icons.$expand
-          : props.appendIcon
-        : ''
+      const propsAppendIcon = !props.subGroup ? icons.$expand : props.appendIcon
 
-      if ((!propsAppendIcon && !slotAppendIcon) || props.subGroup) return null
+      if (!propsAppendIcon && !slotAppendIcon) return null
 
       const propsData = {
         class: 'v-list-group__append-icon',
@@ -155,8 +152,7 @@ export const VListGroup = defineComponent({
     function genGroupHeader(): VNode {
       const propsData = {
         class: {
-          'v-list-group__header': !props.subGroup,
-          'v-list-group__header--sub-group': props.subGroup,
+          'v-list-group__header': true,
         },
         onClick,
       }
@@ -182,13 +178,13 @@ export const VListGroup = defineComponent({
     }
 
     onMounted(() => {
-      if (listGroups) listGroups.register(listGroup)
+      if (groups) groups.register(listGroup)
       if (subgroups) subgroups.register(listGroup)
       if (isNotActive.value) isActive.value = true
     })
 
     onBeforeUnmount(() => {
-      listGroups.unregister(listGroup)
+      groups.unregister(listGroup)
     })
 
     return () => {
@@ -201,10 +197,11 @@ export const VListGroup = defineComponent({
       }
 
       const children = [header, items]
+      const color = props.dark ? 'white' : props.color
 
       return h(
         'div',
-        props.color ? setTextColor(props.color, propsData) : propsData,
+        color ? setTextColor(color, propsData) : propsData,
         children
       )
     }

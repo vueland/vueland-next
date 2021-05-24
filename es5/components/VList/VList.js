@@ -9,36 +9,28 @@ require("../../../src/components/VList/VList.scss");
 
 var _vue = require("vue");
 
+var _useGroup2 = require("../../effects/use-group");
+
 var VList = (0, _vue.defineComponent)({
   name: 'v-list',
   setup: function setup(_, _ref) {
     var slots = _ref.slots;
-    var groups = (0, _vue.ref)([]);
 
-    function register(group) {
-      groups.value.push(group);
-    }
+    var _useGroup = (0, _useGroup2.useGroup)(),
+        provideGroup = _useGroup.provideGroup;
 
-    function unRegister(group) {
-      groups.value.filter(function (it) {
-        return it.ref !== group.value;
-      });
-    }
+    provideGroup('list-groups', {
+      listClick: listClick
+    });
 
-    function listClick(ref) {
+    function listClick(groups, listGroup) {
       groups.value.length && groups.value.forEach(function (group) {
-        if (group.ref === ref.value) {
+        if (group.ref === listGroup.ref.value) {
           group.active = !group.active;
         }
       });
     }
 
-    (0, _vue.provide)('groups', {
-      groups: groups,
-      register: register,
-      unRegister: unRegister,
-      listClick: listClick
-    });
     return function () {
       var dataProps = {
         "class": {

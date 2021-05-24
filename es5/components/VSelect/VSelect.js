@@ -39,7 +39,12 @@ var VSelect = (0, _vue.defineComponent)({
     disabled: Boolean,
     readonly: Boolean,
     clearable: Boolean,
-    modelValue: [Array, String, Object, Number]
+    value: {
+      "default": null
+    },
+    modelValue: {
+      "default": null
+    }
   }, (0, _useColors2.colorProps)()), (0, _useActivator.activatorProps)()),
   emits: ['input', 'blur', 'focus', 'select', 'update:modelValue', 'update:value'],
   setup: function setup(props, _ref) {

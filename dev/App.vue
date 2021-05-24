@@ -12,8 +12,9 @@ export default {
       email: '',
       password: '',
       user: '',
-      checked: false,
+      checked: [],
       user2: { name: 'igor' },
+      user3: { name: 'kirill' },
       date: null,
       loading: false,
       circular: 10,
@@ -26,6 +27,8 @@ export default {
       positionY: 0,
       isOpen: false,
     })
+
+    watch(() => data.checked, to => console.log(to))
 
     const showMenu = (e) => {
       e.preventDefault()
@@ -228,34 +231,91 @@ export default {
       />
     </div>
     <v-list>
+      <v-list-group>
+        <template #prependIcon>
+          <v-icon icon="map"/>
+        </template>
+        <template #title>
+          <v-list-item-title>
+            salam
+          </v-list-item-title>
+        </template>
+      </v-list-group>
+    </v-list>
+    <v-list>
       <v-list-group
         active
-        class="elevation-4"
+        elevation="4"
+        dark
+        class="grey darken-4"
       >
         <template #title>
-          <v-list-item-title>Google Maps Api</v-list-item-title>
+          <v-list-item-content>
+            <v-list-item-title class="cyan--text text--accent-3">
+              Google Maps Api
+            </v-list-item-title>
+            <v-list-item-sub-title class="grey--text">
+              open the best countries
+            </v-list-item-sub-title>
+          </v-list-item-content>
         </template>
         <template #prependIcon>
           <v-icon
             icon="map"
             size="18"
+            color="cyan accent-3"
           />
         </template>
-        <v-list-group sub-group>
+        <v-list-group
+          sub-group
+        >
+          <template #appendIcon>
+            <v-icon
+              icon="flag"
+              size="18"
+              color="cyan accent-3"
+            />
+          </template>
           <template #title>
             <v-list-item-title>Azerbaijan</v-list-item-title>
           </template>
           <v-list-item @click.stop="testFunc">
-            salam
+            <v-list-item-icon>
+              <v-icon
+                icon="place"
+                size="18"
+                color="cyan accent-3"
+              />
+            </v-list-item-icon>
+            <v-list-item-title>Baku</v-list-item-title>
+          </v-list-item>
+          <v-list-item @click.stop="testFunc">
+            <v-list-item-icon>
+              <v-icon
+                icon="place"
+                size="18"
+                color="cyan accent-3"
+              />
+            </v-list-item-icon>
+            <v-list-item-title>Ganja</v-list-item-title>
           </v-list-item>
         </v-list-group>
       </v-list-group>
     </v-list>
-    <v-checkbox
-      v-model="data.checked"
-      label="test"
-      validate
-    />
+    <v-form>
+      <v-checkbox
+        v-model="data.checked"
+        :label="data.user2.name"
+        validate
+        :value="data.user2"
+      />
+      <v-checkbox
+        v-model="data.checked"
+        :label="data.user3.name"
+        validate
+        :value="data.user3"
+      />
+    </v-form>
     <div
       class="table-wrap"
       style="height: 850px; padding: 10px;"

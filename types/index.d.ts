@@ -23,6 +23,9 @@ export {
   OffsetSizes,
   ColorSetters,
   Group,
+  RefGroup,
+  InjectedGroup,
+  GroupManager,
   DatePickerBtnHandlers,
   DatePickerDate,
 } from './params'

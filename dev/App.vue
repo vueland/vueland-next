@@ -244,9 +244,9 @@ export default {
     </v-list>
     <v-list>
       <v-list-group
-        active
         elevation="4"
         dark
+        expanded
         class="grey darken-4"
       >
         <template #title>
@@ -268,6 +268,7 @@ export default {
         </template>
         <v-list-group
           sub-group
+          expanded
         >
           <template #appendIcon>
             <v-icon
@@ -449,7 +450,6 @@ export default {
       <v-select
         v-model="data.user2"
         label="select"
-        :items="data.users"
         value-key="name"
         clearable
         prepend-icon="search"
@@ -458,7 +458,6 @@ export default {
       <v-autocomplete
         v-model:value="data.user"
         label="autocomplete"
-        :items="data.users"
         value-key="name"
         clearable
         typeable
@@ -594,32 +593,28 @@ export default {
           class="grey lighten-5 elevation-10"
         >
           <v-list>
-            <v-list-group
-              color="blue accent-3"
+            <v-list-item
+              @click="data.title = 'Panter'"
             >
-              <v-list-item
-                @click="data.title = 'Panter'"
-              >
-                <template #default="{active}">
-                  <v-list-item-icon>
-                    <v-icon
-                      icon="account_circle"
-                      size="18"
-                    />
-                  </v-list-item-icon>
-                  <v-list-item-title>
-                    Panter {{ active }}
-                  </v-list-item-title>
-                </template>
-              </v-list-item>
-              <v-list-item @click="data.title = 'Rice'">
-                <template #default="{active}">
-                  <v-list-item-title>
-                    Rice {{ active }}
-                  </v-list-item-title>
-                </template>
-              </v-list-item>
-            </v-list-group>
+              <template #default="{active}">
+                <v-list-item-icon>
+                  <v-icon
+                    icon="account_circle"
+                    size="18"
+                  />
+                </v-list-item-icon>
+                <v-list-item-title>
+                  Panter {{ active }}
+                </v-list-item-title>
+              </template>
+            </v-list-item>
+            <v-list-item @click="data.title = 'Rice'">
+              <template #default="{active}">
+                <v-list-item-title>
+                  Rice {{ active }}
+                </v-list-item-title>
+              </template>
+            </v-list-item>
           </v-list>
         </div>
       </v-menu>

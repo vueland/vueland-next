@@ -115,7 +115,25 @@ export interface Group {
   active: boolean
 }
 
+export interface RefGroup {
+  ref: Ref<Group['ref']>
+  active: Ref<Group['active']>
+}
+
 export interface ColorSetters {
   setBackground: (color: string, data: any) => object
   setTextColor: (color: string, data: any) => object
+}
+
+export interface GroupManager {
+  injectGroup: (groupName: string) => InjectedGroup | null
+  provideGroup: (groupName: string, options?: any) => void
+  options?: any
+}
+
+export interface InjectedGroup {
+  register: (group: RefGroup) => void
+  unregister: (group: RefGroup) => void
+  group: Ref<any[]>
+  options?: any
 }

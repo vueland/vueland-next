@@ -16,9 +16,18 @@ export const VList = defineComponent({
   setup(_, { slots }) {
     const { provideGroup } = useGroup()
 
-    provideGroup('list-groups', {
-      listClick,
+    provideGroup('lists-group', { listClick })
+    provideGroup('items-group', {
+      isInList: false,
+      isInGroup: false,
     })
+    provideGroup('selected')
+
+    /***
+     *
+     * @param groups {array} -
+     * @param listGroup {object} -
+     */
 
     function listClick(groups, listGroup) {
       groups.value.length &&

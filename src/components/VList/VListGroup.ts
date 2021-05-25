@@ -27,7 +27,7 @@ import { VExpandTransition } from '../transitions'
 
 // Types
 import { VNode, ComponentPublicInstance, Ref } from 'vue'
-import { Group } from '../../../types'
+import { Group, RefGroup } from '../../../types'
 
 export const VListGroup = defineComponent({
   name: 'v-list-group',
@@ -52,7 +52,6 @@ export const VListGroup = defineComponent({
     multiple: Boolean,
     group: String,
     disabled: Boolean,
-    active: Boolean,
     noAction: Boolean,
     expanded: Boolean,
     subGroup: Boolean,
@@ -74,40 +73,36 @@ export const VListGroup = defineComponent({
     const childrenGroups = ref<Group[]>([])
 
     provideGroup('subgroups')
-    provideGroup('selected')
-    provideGroup('items')
 
-    const groups = injectGroup('list-groups')
+    const group = injectGroup('lists-group')
     const subgroups = props.subGroup && injectGroup('subgroups')
+    // const itemsGroup = injectGroup('items-group')
     const listGroup = genListGroupParams()
-
-    const isNotActive = computed<boolean>(() => {
-      return !props.subGroup && !props.active
-    })
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-list-group': true,
       'v-list-group__sub-group': props.subGroup,
       'v-list-group--active': isActive.value,
+      'v-list-group--expanded': props.expanded,
       'v-list-group--no-action': props.noAction,
       [props.activeClass]: isActive.value,
       ...elevationClasses.value,
     }))
 
     function onClick() {
-      if (isNotActive.value) return
+      if (props.disabled) return
 
-      if (groups) groups.listClick(listGroup)
+      if (group) group.options.listClick(listGroup)
 
       if (childrenGroups.value.length) {
-        childrenGroups.value.forEach((it: any) => (it.active = false))
+        childrenGroups.value.forEach((it) => (it.active = false))
       }
     }
 
-    function genListGroupParams<T extends keyof Group>() {
+    function genListGroupParams(): RefGroup {
       return {
-        ref: refGroup as Ref<Group[T]>,
-        active: isActive as Ref<Group[T]>,
+        ref: refGroup,
+        active: isActive,
       }
     }
 
@@ -154,6 +149,8 @@ export const VListGroup = defineComponent({
         class: {
           'v-list-group__header': true,
         },
+        link: true,
+        active: isActive.value,
         onClick,
       }
 
@@ -178,13 +175,15 @@ export const VListGroup = defineComponent({
     }
 
     onMounted(() => {
-      if (groups) groups.register(listGroup)
+      // @ts-ignore
+      // console.log({ ref: itemsGroup?.group.value[0]?.ref.__vnode })
+      if (group) group.register(listGroup)
       if (subgroups) subgroups.register(listGroup)
-      if (isNotActive.value) isActive.value = true
+      if (props.expanded) isActive.value = true
     })
 
     onBeforeUnmount(() => {
-      groups.unregister(listGroup)
+      group?.unregister(listGroup)
     })
 
     return () => {

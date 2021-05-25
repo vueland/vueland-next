@@ -2,11 +2,23 @@
 import './VListItem.scss'
 
 // Vue API
-import { h, computed, defineComponent } from 'vue'
+import {
+  h,
+  ref,
+  computed,
+  watch,
+  defineComponent,
+  onMounted,
+  onBeforeUnmount,
+} from 'vue'
 
 // Effects
 import { useColors, colorProps } from '../../effects/use-colors'
 import { useToggle } from '../../effects/use-toggle'
+import { useGroup } from '../../effects/use-group'
+
+// Types
+import { RefGroup } from '../../../types'
 
 export const VListItem = defineComponent({
   name: 'v-list-item',
@@ -18,6 +30,8 @@ export const VListItem = defineComponent({
     },
     dark: Boolean,
     inactive: Boolean,
+    active: Boolean,
+    link: Boolean,
     value: {
       type: [Object, String, Number, Boolean],
       default: null,
@@ -30,23 +44,42 @@ export const VListItem = defineComponent({
   setup(props, { slots, emit }) {
     const { setTextColor } = useColors()
     const { isActive } = useToggle(props)
+    const { injectGroup } = useGroup()
+    const itemRef = ref(null)
+
+    const itemsGroup = injectGroup('items-group')
+
+    const item: RefGroup = {
+      ref: itemRef,
+      active: isActive,
+    }
+
+    watch(
+      () => props.active,
+      (to) => (isActive.value = to),
+      { immediate: true }
+    )
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-list-item': true,
       'v-list-item--active': isActive.value,
+      'v-list-item--link': props.link,
     }))
 
     function onClick(e) {
-      e.preventDefault()
       isActive.value = !isActive.value
       emit('click', e)
     }
+
+    onMounted(() => !props.link && itemsGroup?.register(item))
+    onBeforeUnmount(() => itemsGroup?.unregister(item))
 
     return () => {
       const content = slots.default && slots.default({ active: isActive.value })
 
       const propsData = {
         class: classes.value,
+        ref: itemRef,
         onClick,
       }
 

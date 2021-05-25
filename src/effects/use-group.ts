@@ -1,16 +1,16 @@
 import { provide, inject, ref } from 'vue'
 
-import { Group } from '../../types'
+import { Group, RefGroup, InjectedGroup, GroupManager } from '../../types'
 
-export function useGroup() {
+export function useGroup(): GroupManager {
   const provideGroup = (groupName: string, options = {}) => {
-    const groups = ref<Group[]>([])
+    const group = ref<Group[]>([])
 
     Object.keys(options).forEach((key) => {
       let value
 
       if (typeof options[key] === 'function') {
-        value = options[key].bind(null, groups)
+        value = options[key].bind(null, group)
       } else {
         value = options[key]
       }
@@ -19,22 +19,22 @@ export function useGroup() {
     })
 
     provide(groupName, {
-      groups,
-      ...options,
+      group,
+      options,
     })
   }
 
-  const injectGroup = (groupName: string) => {
+  const injectGroup = (groupName: string): InjectedGroup | null => {
     let injected: any = {}
 
     injected = inject(groupName) || null
 
-    const register = (group: Group) => {
-      injected.groups.value.push(group)
+    const register = (group: RefGroup) => {
+      injected.group.value.push(group)
     }
 
-    const unregister = (group: Group) => {
-      injected.groups.value.filter((it) => {
+    const unregister = (group: RefGroup) => {
+      injected.group.value.filter((it) => {
         return it.ref !== group.ref
       })
     }

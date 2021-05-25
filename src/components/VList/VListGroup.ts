@@ -76,7 +76,7 @@ export const VListGroup = defineComponent({
 
     const group = injectGroup('lists-group')
     const subgroups = props.subGroup && injectGroup('subgroups')
-    const itemsGroup = injectGroup('items-group')
+    // const itemsGroup = injectGroup('items-group')
     const listGroup = genListGroupParams()
 
     const classes = computed<Record<string, boolean>>(() => ({

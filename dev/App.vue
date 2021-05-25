@@ -245,13 +245,11 @@ export default {
     <v-list>
       <v-list-group
         elevation="4"
-        dark
-        expanded
-        class="grey darken-4"
+        color="primary"
       >
         <template #title>
           <v-list-item-content>
-            <v-list-item-title class="cyan--text text--accent-3">
+            <v-list-item-title class="blue--text">
               Google Maps Api
             </v-list-item-title>
             <v-list-item-sub-title class="grey--text">
@@ -268,7 +266,6 @@ export default {
         </template>
         <v-list-group
           sub-group
-          expanded
         >
           <template #appendIcon>
             <v-icon
@@ -285,7 +282,6 @@ export default {
               <v-icon
                 icon="place"
                 size="18"
-                color="cyan accent-3"
               />
             </v-list-item-icon>
             <v-list-item-title>Baku</v-list-item-title>
@@ -295,10 +291,18 @@ export default {
               <v-icon
                 icon="place"
                 size="18"
-                color="cyan accent-3"
               />
             </v-list-item-icon>
             <v-list-item-title>Ganja</v-list-item-title>
+          </v-list-item>
+          <v-list-item @click.stop="testFunc">
+            <v-list-item-icon>
+              <v-icon
+                icon="place"
+                size="18"
+              />
+            </v-list-item-icon>
+            <v-list-item-title>Sheki</v-list-item-title>
           </v-list-item>
         </v-list-group>
       </v-list-group>
@@ -453,6 +457,7 @@ export default {
         value-key="name"
         clearable
         prepend-icon="search"
+        :items="data.users"
         :rules="[v => !!v || 'required']"
       />
       <v-autocomplete
@@ -462,6 +467,7 @@ export default {
         clearable
         typeable
         prepend-icon="search"
+        :items="data.users"
         :rules="[v => !!v || 'required']"
         @select="testFunc"
       />
@@ -594,6 +600,7 @@ export default {
         >
           <v-list>
             <v-list-item
+              active-class="red--text"
               @click="data.title = 'Panter'"
             >
               <template #default="{active}">

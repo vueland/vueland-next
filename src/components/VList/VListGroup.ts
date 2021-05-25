@@ -15,7 +15,6 @@ import {
 
 // Effects
 import { useIcons } from '../../effects/use-icons'
-import { useColors } from '../../effects/use-colors'
 import { useGroup } from '../../effects/use-group'
 import { elevationProps, useElevation } from '../../effects/use-elevation'
 
@@ -61,7 +60,6 @@ export const VListGroup = defineComponent({
   } as any,
 
   setup(props, { slots }) {
-    const { setTextColor } = useColors()
     const { elevationClasses } = useElevation(props)
     const { icons, iconSize } = useIcons('md')
     const { injectGroup, provideGroup } = useGroup()
@@ -76,14 +74,14 @@ export const VListGroup = defineComponent({
 
     const group = injectGroup('lists-group')
     const subgroups = props.subGroup && injectGroup('subgroups')
-    // const itemsGroup = injectGroup('items-group')
+    const itemsGroup = injectGroup('items-group')
     const listGroup = genListGroupParams()
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-list-group': true,
       'v-list-group__sub-group': props.subGroup,
       'v-list-group--active': isActive.value,
-      'v-list-group--expanded': props.expanded,
+      'v-list-group--expanded': isActive.value,
       'v-list-group--no-action': props.noAction,
       [props.activeClass]: isActive.value,
       ...elevationClasses.value,
@@ -175,8 +173,12 @@ export const VListGroup = defineComponent({
     }
 
     onMounted(() => {
-      // @ts-ignore
-      // console.log({ ref: itemsGroup?.group.value[0]?.ref.__vnode })
+      if (itemsGroup?.group.value.length) {
+        itemsGroup.group.value.forEach(item => {
+          item.ref.__vnode.ref.i.props.color = props.color
+        })
+      }
+
       if (group) group.register(listGroup)
       if (subgroups) subgroups.register(listGroup)
       if (props.expanded) isActive.value = true
@@ -196,11 +198,10 @@ export const VListGroup = defineComponent({
       }
 
       const children = [header, items]
-      const color = props.dark ? 'white' : props.color
 
       return h(
         'div',
-        color ? setTextColor(color, propsData) : propsData,
+        propsData,
         children
       )
     }

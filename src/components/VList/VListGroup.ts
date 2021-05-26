@@ -167,7 +167,10 @@ export const VListGroup = defineComponent({
 
     onMounted(() => {
       console.log(itemsGroup)
-      itemsGroup?.group.value[2].active = true
+      if (itemsGroup && itemsGroup?.group.value[2]) {
+        itemsGroup.group.value[2].active = true
+      }
+
       groups?.register(listGroup)
       if (props.expanded || props.noAction) isActive.value = true
     })

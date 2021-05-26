@@ -231,28 +231,26 @@ export default {
       />
     </div>
     <v-list>
-      <v-list-group>
-        <template #prependIcon>
-          <v-icon icon="map"/>
-        </template>
-        <template #title>
-          <v-list-item-title>
-            salam
-          </v-list-item-title>
-        </template>
-      </v-list-group>
+      <v-list-item>
+        <v-list-item-title>
+          salam
+        </v-list-item-title>
+      </v-list-item>
     </v-list>
     <v-list>
       <v-list-group
         elevation="4"
-        color="primary"
+        color="red accent-3"
+        class="grey darken-4"
+        dark
+        group="main"
       >
         <template #title>
           <v-list-item-content>
-            <v-list-item-title class="blue--text">
+            <v-list-item-title>
               Google Maps Api
             </v-list-item-title>
-            <v-list-item-sub-title class="grey--text">
+            <v-list-item-sub-title>
               open the best countries
             </v-list-item-sub-title>
           </v-list-item-content>
@@ -264,8 +262,22 @@ export default {
             color="cyan accent-3"
           />
         </template>
+        <v-list-item>
+          <v-list-item-icon>
+            <v-icon
+              icon="place"
+              size="18"
+            />
+          </v-list-item-icon>
+          <v-list-item-title>
+            Baku
+          </v-list-item-title>
+        </v-list-item>
         <v-list-group
           sub-group
+          group="sub-main"
+          color="primary"
+          dark
         >
           <template #appendIcon>
             <v-icon
@@ -277,14 +289,16 @@ export default {
           <template #title>
             <v-list-item-title>Azerbaijan</v-list-item-title>
           </template>
-          <v-list-item @click.stop="testFunc">
+          <v-list-item>
             <v-list-item-icon>
               <v-icon
                 icon="place"
                 size="18"
               />
             </v-list-item-icon>
-            <v-list-item-title>Baku</v-list-item-title>
+            <v-list-item-title>
+              Baku
+            </v-list-item-title>
           </v-list-item>
           <v-list-item @click.stop="testFunc">
             <v-list-item-icon>

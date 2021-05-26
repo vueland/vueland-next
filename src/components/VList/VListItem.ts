@@ -13,7 +13,6 @@ import {
 } from 'vue'
 
 // Effects
-import { useColors, colorProps } from '../../effects/use-colors'
 import { useToggle } from '../../effects/use-toggle'
 import { useGroup } from '../../effects/use-group'
 
@@ -36,13 +35,11 @@ export const VListItem = defineComponent({
       type: [Object, String, Number, Boolean],
       default: null,
     },
-    ...colorProps(),
   },
 
   emits: ['click'],
 
   setup(props, { slots, emit }) {
-    const { setTextColor } = useColors()
     const { isActive } = useToggle(props)
     const { injectGroup } = useGroup()
     const itemRef = ref(null)
@@ -64,7 +61,9 @@ export const VListItem = defineComponent({
       'v-list-item': true,
       'v-list-item--active': isActive.value,
       'v-list-item--link': props.link,
-      [props.activeClass]: isActive.value && !!props.activeClass
+      // 'light--theme': !props.dark,
+      // 'dark--theme': props.dark,
+      [props.activeClass]: isActive.value && !!props.activeClass,
     }))
 
     function onClick(e) {
@@ -84,13 +83,7 @@ export const VListItem = defineComponent({
         onClick,
       }
 
-      const color = props.dark ? 'white' : props.link ? '' : props.color
-
-      return h(
-        'div',
-        color && isActive.value ? setTextColor(color, propsData) : propsData,
-        content
-      )
+      return h('div', propsData, content)
     }
   },
 })

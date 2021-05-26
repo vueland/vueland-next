@@ -17,10 +17,7 @@ export const VList = defineComponent({
     const { provideGroup } = useGroup()
 
     provideGroup('lists-group', { listClick })
-    provideGroup('items-group', {
-      isInList: false,
-      isInGroup: false,
-    })
+    provideGroup('items-group', {})
     provideGroup('selected')
 
     /***

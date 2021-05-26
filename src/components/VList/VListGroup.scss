@@ -10,6 +10,26 @@
   border: none;
   transition: all .3s $primary-transition;
 
+  &--dark > .v-list-group__items > .v-list-item:not(.v-list-item--active) {
+    color: #ffffff !important;
+  }
+
+  &--dark > .v-list-group__items > .v-list-group:not(.v-list-group--active) {
+    color: #ffffff !important;
+  }
+
+  &--light > .v-list-group__items > .v-list-item:not(.v-list-item--active) {
+    color: rgba(0, 0, 0, .87) !important;
+  }
+
+  &--light > .v-list-group__items > .v-list-group:not(.v-list-group--active) {
+    color: rgba(0, 0, 0, .87) !important;
+  }
+
+  &--active {
+    color: currentColor
+  }
+
   &__items > .v-list-item {
     cursor: pointer;
 
@@ -58,7 +78,7 @@
     min-height: 100%;
   }
 
-  &__items > .v-list-group--active .v-list-group__header{
+  &__items > .v-list-group--active .v-list-group__header {
     .v-list-group__append-icon > .v-icon {
       transform: none;
     }
@@ -70,7 +90,7 @@
   }
 
   &--no-action > .v-list-group__items > .v-list-item {
-    pointer-events: none;
+    //pointer-events: none;
   }
 
 

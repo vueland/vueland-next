@@ -1,5 +1,13 @@
 @import "../../styles/scss/modules/global";
 
+//.dark--theme:not(.v-list-item--active) {
+//  color: #ffffff !important;
+//}
+//
+//.light--theme:not(.v-list-item--active) {
+//  color: rgba(0, 0, 0, .87) !important;
+//}
+
 .v-list-item {
   @include flex(flex, flex-start, center);
   flex: 1 1 100%;
@@ -8,6 +16,7 @@
   position: relative;
   overflow: hidden;
   transition: all .3s $primary-transition;
+  color: curretnColor;
 
   &:after {
     content: "";
@@ -28,6 +37,7 @@
 
   &--active {
     cursor: pointer;
+    color: inherit;
 
     &:after {
       opacity: .1;

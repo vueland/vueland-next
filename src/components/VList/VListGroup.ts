@@ -69,7 +69,7 @@ export const VListGroup = defineComponent({
     const isActive = ref<boolean>(false)
 
     const groups = injectGroup('lists-group')
-    // const itemsGroup = injectGroup('items-group')
+    const itemsGroup = injectGroup('items-group')
 
     const listGroup = genListGroupParams()
 
@@ -166,6 +166,11 @@ export const VListGroup = defineComponent({
     }
 
     onMounted(() => {
+      console.log(itemsGroup)
+      if (itemsGroup && itemsGroup?.group.value[2]) {
+        itemsGroup.group.value[2].active = true
+      }
+
       groups?.register(listGroup)
       if (props.expanded || props.noAction) isActive.value = true
     })

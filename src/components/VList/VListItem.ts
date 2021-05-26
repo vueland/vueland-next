@@ -61,8 +61,6 @@ export const VListItem = defineComponent({
       'v-list-item': true,
       'v-list-item--active': isActive.value,
       'v-list-item--link': props.link,
-      // 'light--theme': !props.dark,
-      // 'dark--theme': props.dark,
       [props.activeClass]: isActive.value && !!props.activeClass,
     }))
 

@@ -77,7 +77,6 @@ export const VListItem = defineComponent({
     }
 
     onMounted(() => {
-      // listType.isInGroup && console.log(itemsGroup)
       if (
         itemsGroup?.options?.parent.value ===
         (itemRef.value as any).parentNode.parentNode

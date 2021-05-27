@@ -71,12 +71,12 @@ export const VListItem = defineComponent({
 
     function onClick() {
       !listType.isInGroup && (isActive.value = !isActive.value)
+      props.link && (isActive.value = !isActive.value)
       !props.link && select(item.ref)
       emit('click')
     }
 
     onMounted(() => {
-      // listType.isInGroup && console.log(itemsGroup)
       if (
         itemsGroup?.options?.parent.value ===
         (itemRef.value as any).parentNode.parentNode

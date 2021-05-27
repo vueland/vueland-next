@@ -240,7 +240,7 @@ export default {
     <v-list>
       <v-list-group
         elevation="4"
-        color="red accent-3"
+        color="cyan accent-3"
         class="grey darken-4"
         dark
         group="main"
@@ -259,7 +259,6 @@ export default {
           <v-icon
             icon="map"
             size="18"
-            color="cyan accent-3"
           />
         </template>
         <v-list-item>

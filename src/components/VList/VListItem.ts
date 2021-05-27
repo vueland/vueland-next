@@ -10,12 +10,13 @@ import {
   watch,
   defineComponent,
   onMounted,
-  onBeforeUnmount,
+  onBeforeUnmount
 } from 'vue'
 
 // Effects
 import { useToggle } from '../../effects/use-toggle'
 import { useGroup } from '../../effects/use-group'
+import { useSelectMultiple } from '../../effects/use-select-multiple'
 
 // Types
 import { RefGroup } from '../../../types'
@@ -26,7 +27,7 @@ export const VListItem = defineComponent({
   props: {
     activeClass: {
       type: String,
-      default: '',
+      default: ''
     },
     dark: Boolean,
     inactive: Boolean,
@@ -34,8 +35,8 @@ export const VListItem = defineComponent({
     link: Boolean,
     value: {
       type: [Object, String, Number, Boolean],
-      default: null,
-    },
+      default: null
+    }
   },
 
   emits: ['click'],
@@ -43,13 +44,16 @@ export const VListItem = defineComponent({
   setup(props, { slots, emit }) {
     const { isActive } = useToggle(props)
     const { injectGroup } = useGroup()
+
     const listType: any = inject('list-type')
     const itemsGroup = listType.isInGroup && injectGroup('items-group')
     const itemRef = ref<HTMLElement | null>(null)
 
+    const { select } = itemsGroup && useSelectMultiple(itemsGroup.group.value)
+
     const item: RefGroup = {
       ref: itemRef,
-      active: isActive,
+      active: isActive
     }
 
     watch(
@@ -62,17 +66,17 @@ export const VListItem = defineComponent({
       'v-list-item': true,
       'v-list-item--active': isActive.value,
       'v-list-item--link': props.link,
-      [props.activeClass]: isActive.value && !!props.activeClass,
+      [props.activeClass]: isActive.value && !!props.activeClass
     }))
 
     function onClick() {
-      isActive.value = !isActive.value
+      !listType.isInGroup && (isActive.value = !isActive.value)
+      !props.link && select(item.ref)
       emit('click')
-      // select(item.ref)
     }
 
     onMounted(() => {
-      listType.isInGroup && console.log(itemsGroup)
+      // listType.isInGroup && console.log(itemsGroup)
       if (
         itemsGroup?.options?.parent.value ===
         (itemRef.value as any).parentNode.parentNode
@@ -80,6 +84,7 @@ export const VListItem = defineComponent({
         !props.link && itemsGroup.register(item)
       }
     })
+
     onBeforeUnmount(() => itemsGroup?.unregister(item))
 
     return () => {
@@ -88,10 +93,10 @@ export const VListItem = defineComponent({
       const propsData = {
         class: classes.value,
         ref: itemRef,
-        onClick,
+        onClick
       }
 
       return h('div', propsData, content)
     }
-  },
+  }
 })

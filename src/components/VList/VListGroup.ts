@@ -7,6 +7,7 @@ import {
   ref,
   computed,
   inject,
+  watch,
   withDirectives,
   defineComponent,
   onBeforeUnmount,
@@ -83,6 +84,8 @@ export const VListGroup = defineComponent({
     provideGroup('items-group', {
       parent: refGroup
     }, items)
+
+    watch(() => items.value, to => console.log(to))
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-list-group': true,

@@ -1,7 +1,12 @@
 export function useSelectMultiple(items) {
   const select = (item) => {
     (items as any).forEach(it => {
-      it.active = item.value === it.ref
+      if (item.value === it.ref && it.active)  {
+        console.log(it.active)
+        it.active = false
+      } else {
+        it.active = item.value === it.ref
+      }
     })
   }
 

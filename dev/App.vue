@@ -613,29 +613,30 @@ export default {
           class="grey lighten-5 elevation-10"
         >
           <v-list>
-            <v-list-item
-              active-class="red--text"
-              @click="data.title = 'Panter'"
-            >
-              <template #default="{active}">
-                <v-list-item-icon>
-                  <v-icon
-                    icon="account_circle"
-                    size="18"
-                  />
-                </v-list-item-icon>
-                <v-list-item-title>
-                  Panter {{ active }}
-                </v-list-item-title>
-              </template>
-            </v-list-item>
-            <v-list-item @click="data.title = 'Rice'">
-              <template #default="{active}">
-                <v-list-item-title>
-                  Rice {{ active }}
-                </v-list-item-title>
-              </template>
-            </v-list-item>
+            <v-list-group no-action color="primary">
+              <v-list-item
+                @click="data.title = 'Panter'"
+              >
+                <template #default="{active}">
+                  <v-list-item-icon>
+                    <v-icon
+                      icon="account_circle"
+                      size="18"
+                    />
+                  </v-list-item-icon>
+                  <v-list-item-title>
+                    Panter {{ active }}
+                  </v-list-item-title>
+                </template>
+              </v-list-item>
+              <v-list-item @click="data.title = 'Rice'">
+                <template #default="{active}">
+                  <v-list-item-title>
+                    Rice {{ active }}
+                  </v-list-item-title>
+                </template>
+              </v-list-item>
+            </v-list-group>
           </v-list>
         </div>
       </v-menu>

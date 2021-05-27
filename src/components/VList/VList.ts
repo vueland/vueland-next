@@ -2,7 +2,7 @@
 import './VList.scss'
 
 // Vue API
-import { h, defineComponent } from 'vue'
+import { h, provide, defineComponent } from 'vue'
 
 // Effects
 import { useGroup } from '../../effects/use-group'
@@ -18,8 +18,13 @@ export const VList = defineComponent({
     const { provideGroup } = useGroup()
 
     provideGroup('lists-group', { listClick })
-    provideGroup('items-group', {})
     provideGroup('selected')
+
+    provide('list-type', {
+      isInGroup: false,
+      isInNav: false,
+      isInList: false
+    })
 
     function listClick(groups: Ref<Group[]>, listGroup: RefGroup) {
       groups.value.length &&

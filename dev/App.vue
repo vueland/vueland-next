@@ -278,6 +278,7 @@ export default {
           group="sub-main"
           color="primary"
           dark
+          @click="testFunc"
         >
           <template #appendIcon>
             <v-icon
@@ -300,7 +301,7 @@ export default {
               Baku
             </v-list-item-title>
           </v-list-item>
-          <v-list-item @click.stop="testFunc">
+          <v-list-item>
             <v-list-item-icon>
               <v-icon
                 icon="place"
@@ -309,7 +310,7 @@ export default {
             </v-list-item-icon>
             <v-list-item-title>Ganja</v-list-item-title>
           </v-list-item>
-          <v-list-item @click.stop="testFunc">
+          <v-list-item>
             <v-list-item-icon>
               <v-icon
                 icon="place"

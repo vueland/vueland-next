@@ -71,6 +71,7 @@ export const VListItem = defineComponent({
 
     function onClick() {
       !listType.isInGroup && (isActive.value = !isActive.value)
+      props.link && (isActive.value = !isActive.value)
       !props.link && select(item.ref)
       emit('click')
     }

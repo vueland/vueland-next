@@ -5,6 +5,7 @@ import './VListItem.scss'
 import {
   h,
   ref,
+  inject,
   computed,
   watch,
   defineComponent,
@@ -42,9 +43,9 @@ export const VListItem = defineComponent({
   setup(props, { slots, emit }) {
     const { isActive } = useToggle(props)
     const { injectGroup } = useGroup()
-    const itemRef = ref(null)
-
-    const itemsGroup = injectGroup('items-group')
+    const listType: any = inject('list-type')
+    const itemsGroup = listType.isInGroup && injectGroup('items-group')
+    const itemRef = ref<HTMLElement | null>(null)
 
     const item: RefGroup = {
       ref: itemRef,
@@ -64,12 +65,21 @@ export const VListItem = defineComponent({
       [props.activeClass]: isActive.value && !!props.activeClass,
     }))
 
-    function onClick(e) {
+    function onClick() {
       isActive.value = !isActive.value
-      emit('click', e)
+      emit('click')
+      // select(item.ref)
     }
 
-    onMounted(() => !props.link && itemsGroup?.register(item))
+    onMounted(() => {
+      listType.isInGroup && console.log(itemsGroup)
+      if (
+        itemsGroup?.options?.parent.value ===
+        (itemRef.value as any).parentNode.parentNode
+      ) {
+        !props.link && itemsGroup.register(item)
+      }
+    })
     onBeforeUnmount(() => itemsGroup?.unregister(item))
 
     return () => {

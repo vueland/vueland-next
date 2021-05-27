@@ -3,8 +3,8 @@ import { provide, inject, ref } from 'vue'
 import { Group, RefGroup, InjectedGroup, GroupManager } from '../../types'
 
 export function useGroup(): GroupManager {
-  const provideGroup = (groupName: string, options = {}) => {
-    const group = ref<Group[]>([])
+  const provideGroup = (groupName: string, options = {}, group?: any) => {
+    if (!group) group = ref<Group[]>([])
 
     Object.keys(options).forEach((key) => {
       let value
@@ -20,7 +20,7 @@ export function useGroup(): GroupManager {
 
     provide(groupName, {
       group,
-      options,
+      options
     })
   }
 
@@ -43,7 +43,7 @@ export function useGroup(): GroupManager {
       return {
         ...injected,
         register,
-        unregister,
+        unregister
       }
     }
 
@@ -52,6 +52,6 @@ export function useGroup(): GroupManager {
 
   return {
     provideGroup,
-    injectGroup,
+    injectGroup
   }
 }

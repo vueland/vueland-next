@@ -127,7 +127,7 @@ export interface ColorSetters {
 
 export interface GroupManager {
   injectGroup: (groupName: string) => InjectedGroup | null
-  provideGroup: (groupName: string, options?: any) => void
+  provideGroup: (groupName: string, options?: any, group?: any) => void
   options?: any
 }
 

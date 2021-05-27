@@ -8,7 +8,8 @@ import { h, defineComponent } from 'vue'
 import { useGroup } from '../../effects/use-group'
 
 // Types
-import { Group } from '../../../types'
+import { Group, RefGroup } from '../../../types'
+import { Ref } from 'vue'
 
 export const VList = defineComponent({
   name: 'v-list',
@@ -20,29 +21,23 @@ export const VList = defineComponent({
     provideGroup('items-group', {})
     provideGroup('selected')
 
-    /***
-     *
-     * @param groups {array} -
-     * @param listGroup {object} -
-     */
-
-    function listClick(groups, listGroup) {
+    function listClick(groups: Ref<Group[]>, listGroup: RefGroup) {
       groups.value.length &&
-        groups.value.forEach((group: Group) => {
-          if (group.ref === listGroup.ref.value) {
-            group.active = !group.active
-          }
-        })
+      groups.value.forEach((group: Group) => {
+        if (group.ref === listGroup.ref.value) {
+          group.active = !group.active
+        }
+      })
     }
 
     return () => {
       const dataProps = {
         class: {
-          'v-list': true,
-        },
+          'v-list': true
+        }
       }
 
       return h('div', dataProps, slots.default && slots.default())
     }
-  },
+  }
 })

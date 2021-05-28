@@ -237,7 +237,7 @@ export default {
         </v-list-item-title>
       </v-list-item>
     </v-list>
-    <v-list>
+    <v-list style="width: 350px">
       <v-list-group
         elevation="4"
         color="cyan accent-3"

@@ -95,8 +95,7 @@
       }
     }
 
-    .v-input__field-slot,
-    .v-input__select-slot {
+    .v-input__field-slot{
       &:after {
         content: "";
         display: block;

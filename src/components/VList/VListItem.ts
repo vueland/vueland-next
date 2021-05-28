@@ -44,12 +44,12 @@ export const VListItem = defineComponent({
   setup(props, { slots, emit }) {
     const { isActive } = useToggle(props)
     const { injectGroup } = useGroup()
+    const { select } = useSelectMultiple()
 
     const listType: any = inject('list-type')
     const itemsGroup = listType.isInGroup && injectGroup('items-group')
-    const itemRef = ref<HTMLElement | null>(null)
 
-    const { select } = itemsGroup && useSelectMultiple(itemsGroup.group.value)
+    const itemRef = ref<HTMLElement | null>(null)
 
     const item: RefGroup = {
       ref: itemRef,
@@ -72,7 +72,7 @@ export const VListItem = defineComponent({
     function onClick() {
       !listType.isInGroup && (isActive.value = !isActive.value)
       props.link && (isActive.value = !isActive.value)
-      !props.link && select(item.ref)
+      !props.link && listType.isInGroup && select(item.ref, itemsGroup.group.value)
       emit('click')
     }
 

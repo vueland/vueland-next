@@ -10,7 +10,7 @@ import {
   watch,
   defineComponent,
   onMounted,
-  onBeforeUnmount
+  onBeforeUnmount,
 } from 'vue'
 
 // Effects
@@ -27,7 +27,7 @@ export const VListItem = defineComponent({
   props: {
     activeClass: {
       type: String,
-      default: ''
+      default: '',
     },
     dark: Boolean,
     inactive: Boolean,
@@ -35,8 +35,8 @@ export const VListItem = defineComponent({
     link: Boolean,
     value: {
       type: [Object, String, Number, Boolean],
-      default: null
-    }
+      default: null,
+    },
   },
 
   emits: ['click'],
@@ -48,12 +48,17 @@ export const VListItem = defineComponent({
 
     const listType: any = inject('list-type')
     const itemsGroup = listType.isInGroup && injectGroup('items-group')
+    const listItemsGroup = listType.isInList && injectGroup('list-items')
 
     const itemRef = ref<HTMLElement | null>(null)
 
     const item: RefGroup = {
       ref: itemRef,
-      active: isActive
+      active: isActive,
+    }
+
+    if (!listType.isInGroup && !listType.isInNav) {
+      listType.isInList = true
     }
 
     watch(
@@ -66,13 +71,20 @@ export const VListItem = defineComponent({
       'v-list-item': true,
       'v-list-item--active': isActive.value,
       'v-list-item--link': props.link,
-      [props.activeClass]: isActive.value && !!props.activeClass
+      [props.activeClass]: isActive.value && !!props.activeClass,
     }))
 
     function onClick() {
-      !listType.isInGroup && (isActive.value = !isActive.value)
-      props.link && (isActive.value = !isActive.value)
-      !props.link && listType.isInGroup && select(item.ref, itemsGroup.group.value)
+      if (!listType.isInGroup || props.link) isActive.value = !isActive.value
+
+      if (!props.link && listType.isInGroup) {
+        select(item.ref, itemsGroup.group.value)
+      }
+
+      if (listType.isInList) {
+        select(item.ref, listItemsGroup.group.value)
+      }
+
       emit('click')
     }
 
@@ -82,6 +94,10 @@ export const VListItem = defineComponent({
         (itemRef.value as any).parentNode.parentNode
       ) {
         !props.link && itemsGroup.register(item)
+      }
+
+      if (listType.isInList) {
+        listItemsGroup && listItemsGroup?.register(item)
       }
     })
 
@@ -93,10 +109,10 @@ export const VListItem = defineComponent({
       const propsData = {
         class: classes.value,
         ref: itemRef,
-        onClick
+        onClick,
       }
 
       return h('div', propsData, content)
     }
-  }
+  },
 })

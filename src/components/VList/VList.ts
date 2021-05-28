@@ -18,31 +18,31 @@ export const VList = defineComponent({
     const { provideGroup } = useGroup()
 
     provideGroup('lists-group', { listClick })
-    provideGroup('selected')
+    provideGroup('list-items')
 
     provide('list-type', {
       isInGroup: false,
       isInNav: false,
-      isInList: false
+      isInList: false,
     })
 
     function listClick(groups: Ref<Group[]>, listGroup: RefGroup) {
       groups.value.length &&
-      groups.value.forEach((group: Group) => {
-        if (group.ref === listGroup.ref.value) {
-          group.active = !group.active
-        }
-      })
+        groups.value.forEach((group: Group) => {
+          if (group.ref === listGroup.ref.value) {
+            group.active = !group.active
+          }
+        })
     }
 
     return () => {
       const dataProps = {
         class: {
-          'v-list': true
-        }
+          'v-list': true,
+        },
       }
 
       return h('div', dataProps, slots.default && slots.default())
     }
-  }
+  },
 })

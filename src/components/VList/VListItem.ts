@@ -10,16 +10,14 @@ import {
   watch,
   defineComponent,
   onMounted,
-  onBeforeUnmount,
+  onBeforeUnmount
 } from 'vue'
 
 // Effects
 import { useToggle } from '../../effects/use-toggle'
-import { useGroup } from '../../effects/use-group'
-import { useSelectMultiple } from '../../effects/use-select-multiple'
 
 // Types
-import { RefGroup } from '../../../types'
+import { ListItemRef, ListTypes } from '../../../types'
 
 export const VListItem = defineComponent({
   name: 'v-list-item',
@@ -27,7 +25,7 @@ export const VListItem = defineComponent({
   props: {
     activeClass: {
       type: String,
-      default: '',
+      default: ''
     },
     dark: Boolean,
     inactive: Boolean,
@@ -35,31 +33,28 @@ export const VListItem = defineComponent({
     link: Boolean,
     value: {
       type: [Object, String, Number, Boolean],
-      default: null,
-    },
+      default: null
+    }
   },
 
   emits: ['click'],
 
   setup(props, { slots, emit }) {
     const { isActive } = useToggle(props)
-    const { injectGroup } = useGroup()
-    const { select } = useSelectMultiple()
 
-    const listType: any = inject('list-type')
-    const itemsGroup = listType.isInGroup && injectGroup('items-group')
-    const listItemsGroup = listType.isInList && injectGroup('list-items')
+    const handlers: any = inject('list-handlers')
+    const listTypes = inject('list-types') as ListTypes
+    const listItems = inject('list-items') as any
+    const groupItems = listTypes.isInGroup && inject('group-items') as any
 
     const itemRef = ref<HTMLElement | null>(null)
 
-    const item: RefGroup = {
+    const item: ListItemRef = {
       ref: itemRef,
-      active: isActive,
+      active: isActive
     }
 
-    if (!listType.isInGroup && !listType.isInNav) {
-      listType.isInList = true
-    }
+    listTypes.isInList = !listTypes.isInGroup
 
     watch(
       () => props.active,
@@ -71,18 +66,20 @@ export const VListItem = defineComponent({
       'v-list-item': true,
       'v-list-item--active': isActive.value,
       'v-list-item--link': props.link,
-      [props.activeClass]: isActive.value && !!props.activeClass,
+      [props.activeClass]: isActive.value && !!props.activeClass
     }))
 
     function onClick() {
-      if (!listType.isInGroup || props.link) isActive.value = !isActive.value
-
-      if (!props.link && listType.isInGroup) {
-        select(item.ref, itemsGroup.group.value)
+      if (!listTypes.isInGroup || props.link) {
+        isActive.value = !isActive.value
       }
 
-      if (listType.isInList) {
-        select(item.ref, listItemsGroup.group.value)
+      if (!props.link && listTypes.isInGroup) {
+        handlers.itemClick(groupItems.items, item)
+      }
+
+      if (!props.link && listTypes.isInList) {
+        handlers.itemClick(listItems.items, item)
       }
 
       emit('click')
@@ -90,18 +87,16 @@ export const VListItem = defineComponent({
 
     onMounted(() => {
       if (
-        itemsGroup?.options?.parent.value ===
+        groupItems && (groupItems as any).parent.value ===
         (itemRef.value as any).parentNode.parentNode
       ) {
-        !props.link && itemsGroup.register(item)
+        !props.link && groupItems?.items.value.push(item)
       }
 
-      if (listType.isInList) {
-        listItemsGroup && listItemsGroup?.register(item)
-      }
+      if (listTypes.isInList && listItems) listItems.register(item)
     })
 
-    onBeforeUnmount(() => itemsGroup?.unregister(item))
+    onBeforeUnmount(() => groupItems && groupItems.unregister(item))
 
     return () => {
       const content = slots.default && slots.default({ active: isActive.value })
@@ -109,10 +104,10 @@ export const VListItem = defineComponent({
       const propsData = {
         class: classes.value,
         ref: itemRef,
-        onClick,
+        onClick
       }
 
       return h('div', propsData, content)
     }
-  },
+  }
 })

@@ -110,14 +110,14 @@ export interface HeaderOptions {
   dark?: boolean
 }
 
-export interface Group {
+export interface ListItem {
   ref: HTMLElement | ComponentPublicInstance | null
   active: boolean
 }
 
-export interface RefGroup {
-  ref: Ref<Group['ref']>
-  active: Ref<Group['active']>
+export interface ListItemRef {
+  ref: Ref<ListItem['ref']>
+  active: Ref<ListItem['active']>
 }
 
 export interface ColorSetters {
@@ -132,8 +132,13 @@ export interface GroupManager {
 }
 
 export interface InjectedGroup {
-  register: (group: RefGroup) => void
-  unregister: (group: RefGroup) => void
+  register: (group: ListItemRef) => void
+  unregister: (group: ListItemRef) => void
   group: Ref<any[]>
   options?: any
+}
+
+export interface ListTypes {
+  isInGroup: boolean
+  isInList: boolean
 }

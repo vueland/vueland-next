@@ -1,4 +1,4 @@
-import { Group, UserOptions } from './params'
+import { ListItemRef, ListItem, UserOptions } from './params'
 import { App } from 'vue'
 
 export default class Vueland {
@@ -22,10 +22,11 @@ export {
   Dimensions,
   OffsetSizes,
   ColorSetters,
-  Group,
-  RefGroup,
+  ListItem,
+  ListItemRef,
   InjectedGroup,
   GroupManager,
   DatePickerBtnHandlers,
   DatePickerDate,
+  ListTypes
 } from './params'

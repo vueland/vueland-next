@@ -272,6 +272,17 @@ export default {
             Baku
           </v-list-item-title>
         </v-list-item>
+        <v-list-item>
+          <v-list-item-icon>
+            <v-icon
+              icon="place"
+              size="18"
+            />
+          </v-list-item-icon>
+          <v-list-item-title>
+            Tashkent
+          </v-list-item-title>
+        </v-list-item>
         <v-list-group
           sub-group
           group="sub-main"

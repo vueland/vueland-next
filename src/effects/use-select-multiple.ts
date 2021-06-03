@@ -1,22 +1,18 @@
-import { Group, RefGroup } from '../../types'
+import { Ref } from 'vue'
+import { ListItem, ListItemRef } from '../../types'
 
 export function useSelectMultiple() {
-  const select = (item: RefGroup['ref'], items: Group[]) => {
-    items.forEach(it => {
-      if (item.value === it.ref && it.active) {
+  const select = (items: Ref<ListItem[]>, item: ListItemRef) => {
+    items.value.forEach(it => {
+      if ((item.ref.value === it.ref) && it.active) {
         it.active = false
         return
       }
-      it.active = item.value === it.ref
+      it.active = item.ref.value === it.ref
     })
   }
 
-  const multiple = () => {
-    console.log('multiple')
-  }
-
   return {
-    select,
-    multiple
+    select
   }
 }

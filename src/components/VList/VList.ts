@@ -2,47 +2,78 @@
 import './VList.scss'
 
 // Vue API
-import { h, provide, defineComponent } from 'vue'
+import { h, ref, provide, defineComponent } from 'vue'
 
 // Effects
-import { useGroup } from '../../effects/use-group'
+import { useSelectMultiple } from '../../effects/use-select-multiple'
 
 // Types
-import { Group, RefGroup } from '../../../types'
+import { ListItem, ListItemRef } from '../../../types'
 import { Ref } from 'vue'
 
 export const VList = defineComponent({
   name: 'v-list',
 
   setup(_, { slots }) {
-    const { provideGroup } = useGroup()
+    const { select } = useSelectMultiple()
 
-    provideGroup('lists-group', { listClick })
-    provideGroup('list-items')
+    const listsGroup = ref([])
+    const listItems = ref([])
 
-    provide('list-type', {
-      isInGroup: false,
-      isInNav: false,
-      isInList: false,
+    provide('lists-group', {
+      items: listsGroup,
+      register: register.bind(null, listsGroup),
+      unregister: unregister.bind(null, listsGroup)
     })
 
-    function listClick(groups: Ref<Group[]>, listGroup: RefGroup) {
-      groups.value.length &&
-        groups.value.forEach((group: Group) => {
-          if (group.ref === listGroup.ref.value) {
-            group.active = !group.active
+    provide('list-items', {
+      items: listItems,
+      register: register.bind(null, listItems),
+      unregister: unregister.bind(null, listItems),
+    })
+
+    provide('list-handlers', {
+      listClick,
+      itemClick
+    })
+
+    provide('list-types', {
+      isInGroup: false,
+      isInList: false
+    })
+
+    function register(items: Ref<ListItem[]>, item: ListItem) {
+      items.value.push(item)
+    }
+
+    function unregister(items: Ref<ListItem[]>, item: ListItem) {
+      items.value.filter((it) => {
+        return it.ref !== item.ref
+      })
+    }
+
+    function listClick(groups: Ref<ListItem[]>, item: ListItemRef) {
+      if (groups.value.length) {
+        groups.value.forEach((it: ListItem) => {
+          if (it.ref === item.ref.value) {
+            it.active = !it.active
           }
         })
+      }
+    }
+
+    function itemClick(items: Ref<ListItem[]>, item: ListItemRef) {
+      select(items, item)
     }
 
     return () => {
       const dataProps = {
         class: {
-          'v-list': true,
-        },
+          'v-list': true
+        }
       }
 
       return h('div', dataProps, slots.default && slots.default())
     }
-  },
+  }
 })

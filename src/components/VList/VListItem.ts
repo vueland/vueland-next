@@ -93,10 +93,18 @@ export const VListItem = defineComponent({
         !props.link && groupItems?.items.value.push(item)
       }
 
-      if (listTypes.isInList && listItems) listItems.register(item)
+      if (listTypes.isInList && listItems) listItems.items.value.push(item)
     })
 
-    onBeforeUnmount(() => groupItems && groupItems.unregister(item))
+    onBeforeUnmount(() => {
+      if (listTypes.isInGroup) {
+        groupItems.items.value = groupItems.items.value.filter(it => it !== item)
+      }
+
+      if (listTypes.isInList) {
+        listItems.items.value = listItems.items.value.filter(it => it !== item)
+      }
+    })
 
     return () => {
       const content = slots.default && slots.default({ active: isActive.value })

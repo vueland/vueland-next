@@ -5,7 +5,6 @@ import './VTextField.scss'
 import { h, watch, computed, reactive, defineComponent } from 'vue'
 
 // Effects
-import { validateProps } from '../../effects/use-validate'
 import { useColors, colorProps } from '../../effects/use-colors'
 import { useTheme } from '../../effects/use-theme'
 
@@ -34,11 +33,11 @@ export const VTextField = defineComponent({
       default: 'text',
     },
     modelValue: [String, Number, Date],
+    value: [String, Number, Date],
     tag: {
       type: String,
       default: 'input',
     },
-    ...validateProps(),
     ...colorProps(),
   } as any,
 
@@ -140,7 +139,6 @@ export const VTextField = defineComponent({
         dark: props.dark,
         disabled: props.disabled,
         clearable: props.clearable,
-        rules: props.rules,
         value: computedValue.value,
         color: props.color,
         onClear,

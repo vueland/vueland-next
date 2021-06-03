@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import { Vueland } from '../src'
+import Vueland from '../src'
 import colors from '../src/utils/colors'
 import '../src/styles/scss/main.scss'
 

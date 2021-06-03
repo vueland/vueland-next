@@ -40,6 +40,8 @@ var VAutocompleteList = (0, _vue.defineComponent)({
         setTextColor = _useColors.setTextColor,
         setBackground = _useColors.setBackground;
 
+    var selected = (0, _vue.ref)(null);
+
     function genItems() {
       var _props$items;
 
@@ -55,9 +57,13 @@ var VAutocompleteList = (0, _vue.defineComponent)({
           }
         });
         return (0, _vue.h)(_VList.VListItem, {
+          "class": {
+            'v-autocomplete-item--selected': it === selected.value
+          },
           key: props.idKey,
           onClick: function onClick() {
-            return emit('select', it);
+            selected.value = it;
+            emit('select', it);
           }
         }, {
           "default": function _default() {

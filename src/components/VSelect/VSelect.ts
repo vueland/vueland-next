@@ -173,7 +173,6 @@ export const VSelect = defineComponent({
         dark: props.dark,
         disabled: props.disabled,
         clearable: props.clearable,
-        rules: props.rules,
         value: computedInputValue.value,
         color: props.color,
         onClear,

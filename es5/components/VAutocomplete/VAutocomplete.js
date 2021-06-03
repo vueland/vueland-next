@@ -168,7 +168,6 @@ var VAutocomplete = (0, _vue.defineComponent)({
         clearable: props.clearable,
         rules: props.rules,
         value: computedValue.value,
-        color: props.color,
         onClear: onClear
       };
       return (0, _vue.h)(_VInput.VInput, propsData, {

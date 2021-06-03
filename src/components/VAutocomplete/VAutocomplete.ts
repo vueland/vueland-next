@@ -174,7 +174,6 @@ export const VAutocomplete = defineComponent({
         clearable: props.clearable,
         rules: props.rules,
         value: computedValue.value,
-        color: props.color,
         onClear,
       }
 

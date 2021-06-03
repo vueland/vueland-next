@@ -83,10 +83,20 @@ var VListItem = (0, _vue.defineComponent)({
         !props.link && (groupItems === null || groupItems === void 0 ? void 0 : groupItems.items.value.push(item));
       }
 
-      if (listTypes.isInList && listItems) listItems.register(item);
+      if (listTypes.isInList && listItems) listItems.items.value.push(item);
     });
     (0, _vue.onBeforeUnmount)(function () {
-      return groupItems && groupItems.unregister(item);
+      if (listTypes.isInGroup) {
+        groupItems.items.value = groupItems.items.value.filter(function (it) {
+          return it !== item;
+        });
+      }
+
+      if (listTypes.isInList) {
+        listItems.items.value = listItems.items.value.filter(function (it) {
+          return it !== item;
+        });
+      }
     });
     return function () {
       var content = slots["default"] && slots["default"]({

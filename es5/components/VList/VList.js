@@ -9,26 +9,59 @@ require("../../../src/components/VList/VList.scss");
 
 var _vue = require("vue");
 
-var _useGroup2 = require("../../effects/use-group");
+var _useSelectMultiple2 = require("../../effects/use-select-multiple");
 
 var VList = (0, _vue.defineComponent)({
   name: 'v-list',
   setup: function setup(_, _ref) {
     var slots = _ref.slots;
 
-    var _useGroup = (0, _useGroup2.useGroup)(),
-        provideGroup = _useGroup.provideGroup;
+    var _useSelectMultiple = (0, _useSelectMultiple2.useSelectMultiple)(),
+        select = _useSelectMultiple.select;
 
-    provideGroup('list-groups', {
-      listClick: listClick
+    var listsGroup = (0, _vue.ref)([]);
+    var listItems = (0, _vue.ref)([]);
+    (0, _vue.provide)('lists-group', {
+      items: listsGroup,
+      register: register.bind(null, listsGroup),
+      unregister: unregister.bind(null, listsGroup)
+    });
+    (0, _vue.provide)('list-items', {
+      items: listItems,
+      register: register.bind(null, listItems),
+      unregister: unregister.bind(null, listItems)
+    });
+    (0, _vue.provide)('list-handlers', {
+      listClick: listClick,
+      itemClick: itemClick
+    });
+    (0, _vue.provide)('list-types', {
+      isInGroup: false,
+      isInList: false
     });
 
-    function listClick(groups, listGroup) {
-      groups.value.length && groups.value.forEach(function (group) {
-        if (group.ref === listGroup.ref.value) {
-          group.active = !group.active;
-        }
+    function register(items, item) {
+      items.value.push(item);
+    }
+
+    function unregister(items, item) {
+      items.value.filter(function (it) {
+        return it.ref !== item.ref;
       });
+    }
+
+    function listClick(groups, item) {
+      if (groups.value.length) {
+        groups.value.forEach(function (it) {
+          if (it.ref === item.ref.value) {
+            it.active = !it.active;
+          }
+        });
+      }
+    }
+
+    function itemClick(items, item) {
+      select(items, item);
     }
 
     return function () {

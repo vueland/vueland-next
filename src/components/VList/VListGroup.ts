@@ -5,6 +5,7 @@ import './VListGroup.scss'
 import {
   h,
   ref,
+  provide,
   computed,
   inject,
   withDirectives,
@@ -16,9 +17,9 @@ import {
 
 // Effects
 import { useIcons } from '../../effects/use-icons'
-import { useGroup } from '../../effects/use-group'
 import { colorProps, useColors } from '../../effects/use-colors'
 import { elevationProps, useElevation } from '../../effects/use-elevation'
+// import { useSelectMultiple } from '../../effects/use-select-multiple'
 
 // Components
 import { VIcon } from '../VIcon'
@@ -28,7 +29,7 @@ import { VExpandTransition } from '../transitions'
 
 // Types
 import { VNode, ComponentPublicInstance, Ref } from 'vue'
-import { RefGroup } from '../../../types'
+import { ListItemRef } from '../../../types'
 
 export const VListGroup = defineComponent({
   name: 'v-list-group',
@@ -63,7 +64,6 @@ export const VListGroup = defineComponent({
     const { elevationClasses } = useElevation(props)
     const { icons, iconSize } = useIcons('md')
     const { setTextColor } = useColors()
-    const { injectGroup, provideGroup } = useGroup()
 
     // refs
     const refGroup: Ref<HTMLElement | ComponentPublicInstance | null> = ref(
@@ -71,18 +71,19 @@ export const VListGroup = defineComponent({
     )
     const isActive = ref<boolean>(false)
     const items = ref<any>([])
+    const listGroupItem = genListGroupParams()
 
     // injects
-    const groups = injectGroup('lists-group')
-    const listType: any = inject('list-type')
-
-    const listGroup = genListGroupParams()
+    const groups: any = inject('lists-group')
+    const listType: any = inject('list-types')
+    const handlers = inject('list-handlers') as any
 
     listType.isInGroup = true
 
-    provideGroup('items-group', {
-      parent: refGroup
-    }, items)
+    provide('group-items', {
+      parent: refGroup,
+      items
+    })
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-list-group': true,
@@ -99,10 +100,10 @@ export const VListGroup = defineComponent({
     function onClick() {
       if (props.disabled || props.noAction) return
 
-      groups?.options.listClick(listGroup)
+      handlers.listClick(groups.items, listGroupItem)
     }
 
-    function genListGroupParams(): RefGroup {
+    function genListGroupParams(): ListItemRef {
       return {
         ref: refGroup,
         active: isActive
@@ -177,13 +178,13 @@ export const VListGroup = defineComponent({
     }
 
     onMounted(() => {
-      groups?.register(listGroup)
+      groups?.register(listGroupItem)
       if (props.expanded || props.noAction) isActive.value = true
     })
 
     onBeforeUnmount(() => {
       if (groups) {
-        groups.unregister(listGroup)
+        groups.unregister(listGroupItem)
       }
     })
 

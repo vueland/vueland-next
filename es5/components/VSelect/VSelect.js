@@ -166,7 +166,6 @@ var VSelect = (0, _vue.defineComponent)({
         dark: props.dark,
         disabled: props.disabled,
         clearable: props.clearable,
-        rules: props.rules,
         value: computedInputValue.value,
         color: props.color,
         onClear: onClear

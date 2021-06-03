@@ -9,8 +9,6 @@ require("../../../src/components/VTextField/VTextField.scss");
 
 var _vue = require("vue");
 
-var _useValidate = require("../../effects/use-validate");
-
 var _useColors2 = require("../../effects/use-colors");
 
 var _useTheme2 = require("../../effects/use-theme");
@@ -25,7 +23,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var VTextField = (0, _vue.defineComponent)({
   name: 'v-text-field',
-  props: _objectSpread(_objectSpread({
+  props: _objectSpread({
     dark: Boolean,
     disabled: Boolean,
     readonly: Boolean,
@@ -36,11 +34,12 @@ var VTextField = (0, _vue.defineComponent)({
       "default": 'text'
     },
     modelValue: [String, Number, Date],
+    value: [String, Number, Date],
     tag: {
       type: String,
       "default": 'input'
     }
-  }, (0, _useValidate.validateProps)()), (0, _useColors2.colorProps)()),
+  }, (0, _useColors2.colorProps)()),
   emits: ['input', 'focus', 'blur', 'change', 'clear', 'update:value', 'update:modelValue'],
   setup: function setup(props, _ref) {
     var emit = _ref.emit,
@@ -137,7 +136,6 @@ var VTextField = (0, _vue.defineComponent)({
         dark: props.dark,
         disabled: props.disabled,
         clearable: props.clearable,
-        rules: props.rules,
         value: computedValue.value,
         color: props.color,
         onClear: onClear

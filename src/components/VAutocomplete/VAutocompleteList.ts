@@ -2,7 +2,7 @@
 import './VAutocompleteList.scss'
 
 // Vue API
-import { h, defineComponent } from 'vue'
+import { h, defineComponent, ref } from 'vue'
 
 // Components
 import { VList, VListItem, VListItemTitle } from '../VList'
@@ -32,6 +32,8 @@ export const VAutocompleteList = defineComponent({
   setup(props, { emit }) {
     const { setTextColor, setBackground } = useColors()
 
+    const selected = ref<any>(null)
+
     function genItems(): VNode[] {
       const key = props.valueKey
 
@@ -52,8 +54,14 @@ export const VAutocompleteList = defineComponent({
         return h(
           VListItem,
           {
+            class: {
+              'v-autocomplete-item--selected': it === selected.value,
+            },
             key: props.idKey,
-            onClick: () => emit('select', it),
+            onClick: () => {
+              selected.value = it
+              emit('select', it)
+            },
           },
           {
             default: () => item,

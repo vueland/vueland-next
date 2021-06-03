@@ -28,7 +28,7 @@ export default {
       isOpen: false,
     })
 
-    watch(() => data.checked, to => console.log(to))
+    // watch(() => data.password, () => console.log(data.password))
 
     const showMenu = (e) => {
       e.preventDefault()
@@ -242,6 +242,7 @@ export default {
         elevation="4"
         color="cyan accent-3"
         class="grey darken-4"
+        active-class="active-now"
         dark
         group="main"
       >
@@ -476,11 +477,20 @@ export default {
         clearable
         :rules="[v => !!v || 'required', v => v.length > 5 || 'more than 5']"
       />
+      <v-text-field
+        v-model="data.title"
+        label="teal"
+        autocomplete="new-password"
+        prepend-icon="map"
+        clearable
+        :rules="[v => !!v || 'required', v => v.length > 5 || 'more than 5']"
+      />
       <v-select
         v-model="data.user2"
         label="select"
         value-key="name"
         clearable
+        color="green"
         prepend-icon="search"
         :items="data.users"
         :rules="[v => !!v || 'required']"

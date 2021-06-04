@@ -7,6 +7,7 @@ import { h, watch, computed, reactive, defineComponent } from 'vue'
 // Effects
 import { useColors, colorProps } from '../../effects/use-colors'
 import { useTheme } from '../../effects/use-theme'
+import { validateProps } from '../../effects/use-validate'
 
 // Components
 import { VInput } from '../VInput'
@@ -33,12 +34,12 @@ export const VTextField = defineComponent({
       default: 'text',
     },
     modelValue: [String, Number, Date],
-    value: [String, Number, Date],
     tag: {
       type: String,
       default: 'input',
     },
     ...colorProps(),
+    ...validateProps()
   } as any,
 
   emits: [
@@ -140,6 +141,7 @@ export const VTextField = defineComponent({
         disabled: props.disabled,
         clearable: props.clearable,
         value: computedValue.value,
+        rules: props.rules,
         color: props.color,
         onClear,
       }

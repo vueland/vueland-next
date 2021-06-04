@@ -13,6 +13,8 @@ var _useColors2 = require("../../effects/use-colors");
 
 var _useTheme2 = require("../../effects/use-theme");
 
+var _useValidate = require("../../effects/use-validate");
+
 var _VInput = require("../VInput");
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
@@ -23,7 +25,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var VTextField = (0, _vue.defineComponent)({
   name: 'v-text-field',
-  props: _objectSpread({
+  props: _objectSpread(_objectSpread({
     dark: Boolean,
     disabled: Boolean,
     readonly: Boolean,
@@ -34,12 +36,11 @@ var VTextField = (0, _vue.defineComponent)({
       "default": 'text'
     },
     modelValue: [String, Number, Date],
-    value: [String, Number, Date],
     tag: {
       type: String,
       "default": 'input'
     }
-  }, (0, _useColors2.colorProps)()),
+  }, (0, _useColors2.colorProps)()), (0, _useValidate.validateProps)()),
   emits: ['input', 'focus', 'blur', 'change', 'clear', 'update:value', 'update:modelValue'],
   setup: function setup(props, _ref) {
     var emit = _ref.emit,
@@ -137,6 +138,7 @@ var VTextField = (0, _vue.defineComponent)({
         disabled: props.disabled,
         clearable: props.clearable,
         value: computedValue.value,
+        rules: props.rules,
         color: props.color,
         onClear: onClear
       };

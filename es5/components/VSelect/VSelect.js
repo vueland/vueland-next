@@ -15,6 +15,8 @@ var _useTheme2 = require("../../effects/use-theme");
 
 var _useActivator = require("../../effects/use-activator");
 
+var _useValidate = require("../../effects/use-validate");
+
 var _VInput = require("../VInput");
 
 var _VSelectList = require("./VSelectList");
@@ -29,7 +31,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var VSelect = (0, _vue.defineComponent)({
   name: 'v-select',
-  props: _objectSpread(_objectSpread({
+  props: _objectSpread(_objectSpread(_objectSpread({
     label: String,
     items: Array,
     dark: Boolean,
@@ -39,13 +41,10 @@ var VSelect = (0, _vue.defineComponent)({
     disabled: Boolean,
     readonly: Boolean,
     clearable: Boolean,
-    value: {
-      "default": null
-    },
     modelValue: {
       "default": null
     }
-  }, (0, _useColors2.colorProps)()), (0, _useActivator.activatorProps)()),
+  }, (0, _useColors2.colorProps)()), (0, _useActivator.activatorProps)()), (0, _useValidate.validateProps)()),
   emits: ['input', 'blur', 'focus', 'select', 'update:modelValue', 'update:value'],
   setup: function setup(props, _ref) {
     var emit = _ref.emit,
@@ -168,6 +167,7 @@ var VSelect = (0, _vue.defineComponent)({
         clearable: props.clearable,
         value: computedInputValue.value,
         color: props.color,
+        rules: props.rules,
         onClear: onClear
       }, attrs);
 

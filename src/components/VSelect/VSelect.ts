@@ -8,6 +8,7 @@ import { h, ref, reactive, computed, defineComponent, watch } from 'vue'
 import { colorProps, useColors } from '../../effects/use-colors'
 import { useTheme } from '../../effects/use-theme'
 import { activatorProps } from '../../effects/use-activator'
+import { validateProps } from '../../effects/use-validate'
 
 // Types
 import { VNode } from 'vue'
@@ -35,14 +36,12 @@ export const VSelect = defineComponent({
     disabled: Boolean,
     readonly: Boolean,
     clearable: Boolean,
-    value: {
-      default: null,
-    },
     modelValue: {
-      default: null,
+      default: null
     },
     ...colorProps(),
     ...activatorProps(),
+    ...validateProps()
   } as any,
 
   emits: [
@@ -51,13 +50,13 @@ export const VSelect = defineComponent({
     'focus',
     'select',
     'update:modelValue',
-    'update:value',
+    'update:value'
   ],
 
   setup(props, { emit, attrs }): () => VNode {
     const state: SelectState = reactive({
       selected: null,
-      focused: false,
+      focused: false
     })
 
     const { setTextColor } = useColors()
@@ -69,7 +68,7 @@ export const VSelect = defineComponent({
       'v-select': true,
       'v-select--disabled': props.disabled,
       'v-select--readonly': props.readonly,
-      'v-select--focused': state.focused,
+      'v-select--focused': state.focused
     }))
 
     const computedInputValue = computed<string>(() => {
@@ -124,7 +123,7 @@ export const VSelect = defineComponent({
         readonly: props.readonly && !props.typeable,
         class: 'v-select__input',
         ref: inputRef,
-        onClick,
+        onClick
       }
       return h('input', setTextColor(props.dark ? 'white' : base, propsData))
     }
@@ -137,7 +136,7 @@ export const VSelect = defineComponent({
         active: state.focused,
         color: props.dark ? 'white' : base,
         listColor: props.listColor || 'white',
-        onSelect: (item) => selectItem(item),
+        onSelect: (item) => selectItem(item)
       }
       return h(VSelectList, propsData)
     }
@@ -149,17 +148,17 @@ export const VSelect = defineComponent({
           activator: inputRef!,
           openOnClick: true,
           maxHeight: 240,
-          onClose: onBlur,
+          onClose: onBlur
         },
         {
-          default: () => genSelectList(),
+          default: () => genSelectList()
         }
       )
     }
 
     function genSelect(): VNode {
       const propsData = {
-        class: classes.value,
+        class: classes.value
       }
 
       return h('div', propsData, [genInput(), genMenu()])
@@ -175,13 +174,14 @@ export const VSelect = defineComponent({
         clearable: props.clearable,
         value: computedInputValue.value,
         color: props.color,
+        rules: props.rules,
         onClear,
-        ...attrs,
+        ...attrs
       } as any
 
       return h(VInput, propsData, {
-        textField: () => genSelect(),
+        textField: () => genSelect()
       })
     }
-  },
+  }
 })

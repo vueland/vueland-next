@@ -9,15 +9,18 @@ require("../../../src/components/VList/VList.scss");
 
 var _vue = require("vue");
 
-var _useSelectMultiple2 = require("../../effects/use-select-multiple");
+var _useSelectMultiple = require("../../effects/use-select-multiple");
 
 var VList = (0, _vue.defineComponent)({
   name: 'v-list',
-  setup: function setup(_, _ref) {
+  props: {
+    multiple: Boolean
+  },
+  setup: function setup(props, _ref) {
     var slots = _ref.slots;
 
-    var _useSelectMultiple = (0, _useSelectMultiple2.useSelectMultiple)(),
-        select = _useSelectMultiple.select;
+    var _useSelect = (0, _useSelectMultiple.useSelect)(),
+        select = _useSelect.select;
 
     var listsGroup = (0, _vue.ref)([]);
     var listItems = (0, _vue.ref)([]);
@@ -61,7 +64,8 @@ var VList = (0, _vue.defineComponent)({
     }
 
     function itemClick(items, item) {
-      select(items, item);
+      !props.multiple && select(items, item);
+      props.multiple && (item.active.value = !item.active.value);
     }
 
     return function () {

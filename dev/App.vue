@@ -25,7 +25,7 @@ export default {
       ],
       positionX: 0,
       positionY: 0,
-      isOpen: false,
+      isOpen: false
     })
 
     // watch(() => data.password, () => console.log(data.password))
@@ -39,9 +39,11 @@ export default {
       requestAnimationFrame(() => data.isOpen = true)
     }
 
-    const onClickLoading = () => {
-      data.loading = true
-      setTimeout(() => data.loading = false, 2000)
+    const onClickLoading = (validate) => {
+      validate().then(() => {
+        data.loading = true
+        setTimeout(() => data.loading = false, 2000)
+      })
     }
 
     const addCircular = () => {
@@ -53,10 +55,10 @@ export default {
 
     const fetchItems = () => {
       fetch('https://jsonplaceholder.typicode.com/comments')
-          .then(response => response.json())
-          .then(json => setTimeout(() => {
-            data.users = [...data.users, ...json]
-          }, 5000))
+        .then(response => response.json())
+        .then(json => setTimeout(() => {
+          data.users = [...data.users, ...json]
+        }, 5000))
     }
 
     fetchItems()
@@ -81,7 +83,7 @@ export default {
       {
         key: 'actions',
         title: 'Actions',
-        align: 'center',
+        align: 'center'
       },
       {
         key: 'name',
@@ -94,7 +96,7 @@ export default {
         filterClass: '',
         rowCellClass: '',
         format: row => row.name,
-        filter: ({ value, col }) => data.users.filter(user => user[col.key].includes(value)),
+        filter: ({ value, col }) => data.users.filter(user => user[col.key].includes(value))
         // sort: (a, b) => console.log(a, b),
       },
       {
@@ -107,7 +109,7 @@ export default {
         cellClass: 'green darken-3 white--text',
         filterClass: 'grey lighten-2',
         rowCellClass: 'green lighten-1 white--text',
-        format: row => row.email,
+        format: row => row.email
       },
       {
         key: 'body',
@@ -115,28 +117,28 @@ export default {
         width: '250',
         resizeable: true,
         sortable: true,
-        filterable: true,
-      },
+        filterable: true
+      }
     ])
 
     const rows = [
       {
         name: 'Ben',
         email: 'ben@mail.ru',
-        body: 'some body text',
+        body: 'some body text'
       },
       {
         name: 'Alex',
         email: 'alex@mail.ru',
-        body: 'some body text',
-      },
+        body: 'some body text'
+      }
     ]
 
     const addItem = () => {
       data.users.push({
         name: 'Anar',
         email: 'adsadasdasd',
-        body: 'sdfsddfsdfsdfsf',
+        body: 'sdfsddfsdfsdfsf'
       })
     }
 
@@ -157,7 +159,7 @@ export default {
       //   from: new Date(2021, 6, 12),
       //   to: new Date(2021, 7, 25),
       // }],
-      custom: (date) => !(date.date % 2),
+      custom: (date) => !(date.date % 2)
     }
 
     return {
@@ -171,16 +173,16 @@ export default {
       toggleAlways,
       onClickLoading,
       addCircular,
-      showMenu,
+      showMenu
     }
-  },
+  }
 }
 </script>
 
 <template>
   <v-app>
     <div>
-      <v-progress-linear height="7"/>
+      <v-progress-linear height="7" />
       <v-progress-circular
         color="cyan darken-3"
         :value="data.circular"
@@ -237,7 +239,10 @@ export default {
         </v-list-item-title>
       </v-list-item>
     </v-list>
-    <v-list style="width: 350px">
+    <v-list
+      style="width: 350px"
+      multiple
+    >
       <v-list-group
         elevation="4"
         color="cyan accent-3"
@@ -485,6 +490,22 @@ export default {
         clearable
         :rules="[v => !!v || 'required', v => v.length > 5 || 'more than 5']"
       />
+      <v-text-field
+        v-model="data.email"
+        label="teal"
+        autocomplete="new-password"
+        prepend-icon="map"
+        clearable
+        :rules="[v => !!v || 'required', v => v.length > 5 || 'more than 5']"
+      />
+      <v-text-field
+        v-model="data.login"
+        label="teal"
+        autocomplete="new-password"
+        prepend-icon="map"
+        clearable
+        :rules="[v => !!v || 'required', v => v.length > 5 || 'more than 5']"
+      />
       <v-select
         v-model="data.user2"
         label="select"
@@ -514,7 +535,7 @@ export default {
         rounded
         width="150"
         elevation="4"
-        @click="onClickLoading"
+        @click="onClickLoading(validate)"
       >
         <template #loading>
           <span>loading...</span>
@@ -530,10 +551,10 @@ export default {
       <v-card
         elevation="5"
       >
-        <v-resize right/>
-        <v-resize bottom/>
-        <v-resize top/>
-        <v-resize left/>
+        <v-resize right />
+        <v-resize bottom />
+        <v-resize top />
+        <v-resize left />
         <v-card-title>
           <span
             style="display: block; width: 55px; height: 55px; border-radius: 50px"

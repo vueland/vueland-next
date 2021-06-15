@@ -1,7 +1,8 @@
 import { Ref } from 'vue'
 import { ListItem, ListItemRef } from '../../types'
 
-export function useSelectMultiple() {
+export function useSelect() {
+
   const select = (items: Ref<ListItem[]>, item: ListItemRef) => {
     items.value.forEach(it => {
       if ((item.ref.value === it.ref) && it.active) {

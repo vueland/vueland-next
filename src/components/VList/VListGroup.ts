@@ -47,7 +47,6 @@ export const VListGroup = defineComponent({
       default: ''
     },
     dark: Boolean,
-    multiple: Boolean,
     group: String,
     disabled: Boolean,
     noAction: Boolean,

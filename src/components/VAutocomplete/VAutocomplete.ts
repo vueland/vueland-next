@@ -110,8 +110,7 @@ export const VAutocomplete = defineComponent({
     }
 
     function onSelect(it) {
-      props.valueKey && (state.search = it[props.valueKey])
-      !props.valueKey && (state.search = it)
+      state.search = props.valueKey ? it[props.valueKey] : it
       emit('select', it)
       emit('update:modelValue', it)
       emit('update:value', it)
@@ -167,13 +166,13 @@ export const VAutocomplete = defineComponent({
     return () => {
       const propsData = {
         label: props.label,
-        focused: state.focused,
+        focused: state.focused || !!state.search,
         hasState: !!computedValue.value,
         dark: props.dark,
         disabled: props.disabled,
         clearable: props.clearable,
         rules: props.rules,
-        value: computedValue.value,
+        value: computedValue.value || state.search,
         onClear,
       }
 

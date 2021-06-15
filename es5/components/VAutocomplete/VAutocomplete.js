@@ -105,8 +105,7 @@ var VAutocomplete = (0, _vue.defineComponent)({
     }
 
     function onSelect(it) {
-      props.valueKey && (state.search = it[props.valueKey]);
-      !props.valueKey && (state.search = it);
+      state.search = props.valueKey ? it[props.valueKey] : it;
       emit('select', it);
       emit('update:modelValue', it);
       emit('update:value', it);
@@ -161,13 +160,13 @@ var VAutocomplete = (0, _vue.defineComponent)({
     return function () {
       var propsData = {
         label: props.label,
-        focused: state.focused,
+        focused: state.focused || !!state.search,
         hasState: !!computedValue.value,
         dark: props.dark,
         disabled: props.disabled,
         clearable: props.clearable,
         rules: props.rules,
-        value: computedValue.value,
+        value: computedValue.value || state.search,
         onClear: onClear
       };
       return (0, _vue.h)(_VInput.VInput, propsData, {

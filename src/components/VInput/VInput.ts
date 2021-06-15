@@ -86,6 +86,7 @@ export const VInput = defineComponent({
     }))
 
     watch(() => props.value, validateValue)
+
     watch(
       () => props.focused,
       (to) => !to && validateValue()

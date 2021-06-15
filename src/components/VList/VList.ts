@@ -5,7 +5,7 @@ import './VList.scss'
 import { h, ref, provide, defineComponent } from 'vue'
 
 // Effects
-import { useSelectMultiple } from '../../effects/use-select-multiple'
+import { useSelect } from '../../effects/use-select-multiple'
 
 // Types
 import { ListItem, ListItemRef } from '../../../types'
@@ -13,9 +13,12 @@ import { Ref } from 'vue'
 
 export const VList = defineComponent({
   name: 'v-list',
+  props: {
+    multiple: Boolean
+  },
 
-  setup(_, { slots }) {
-    const { select } = useSelectMultiple()
+  setup(props, { slots }) {
+    const { select } = useSelect()
 
     const listsGroup = ref([])
     const listItems = ref([])
@@ -29,7 +32,7 @@ export const VList = defineComponent({
     provide('list-items', {
       items: listItems,
       register: register.bind(null, listItems),
-      unregister: unregister.bind(null, listItems),
+      unregister: unregister.bind(null, listItems)
     })
 
     provide('list-handlers', {
@@ -39,7 +42,7 @@ export const VList = defineComponent({
 
     provide('list-types', {
       isInGroup: false,
-      isInList: false
+      isInList: false,
     })
 
     function register(items: Ref<ListItem[]>, item: ListItem) {
@@ -63,7 +66,8 @@ export const VList = defineComponent({
     }
 
     function itemClick(items: Ref<ListItem[]>, item: ListItemRef) {
-      select(items, item)
+      !props.multiple && select(items, item)
+      props.multiple && (item.active.value = !item.active.value)
     }
 
     return () => {

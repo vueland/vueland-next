@@ -3,9 +3,9 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.useSelectMultiple = useSelectMultiple;
+exports.useSelect = useSelect;
 
-function useSelectMultiple() {
+function useSelect() {
   var select = function select(items, item) {
     items.value.forEach(function (it) {
       if (item.ref.value === it.ref && it.active) {

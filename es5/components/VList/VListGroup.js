@@ -45,7 +45,6 @@ var VListGroup = (0, _vue.defineComponent)({
       "default": ''
     },
     dark: Boolean,
-    multiple: Boolean,
     group: String,
     disabled: Boolean,
     noAction: Boolean,

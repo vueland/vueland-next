@@ -64,16 +64,16 @@ var VAutocomplete = (0, _vue.defineComponent)({
         'v-autocomplete--focused': state.focused
       };
     });
-    var computedValue = (0, _vue.computed)(function () {
+    var valueProperty = (0, _vue.computed)(function () {
       return props.modelValue || props.value;
     });
     var inputValue = (0, _vue.computed)(function () {
-      return props.valueKey ? computedValue.value[props.valueKey] : computedValue.value;
+      return props.valueKey ? valueProperty.value[props.valueKey] : valueProperty.value;
     });
     var isListItemsExists = (0, _vue.computed)(function () {
       return !!props.items && !!props.items.length;
     });
-    state.search = computedValue.value ? inputValue.value : '';
+    state.search = valueProperty.value ? inputValue.value : '';
 
     function onFocus() {
       state.focused = true;
@@ -82,9 +82,9 @@ var VAutocomplete = (0, _vue.defineComponent)({
     }
 
     function onBlur() {
-      if (!computedValue.value) state.search = '';
+      if (!valueProperty.value) state.search = '';
 
-      if (!state.search && computedValue.value) {
+      if (!state.search && valueProperty.value) {
         state.search = inputValue.value;
       }
 
@@ -160,13 +160,13 @@ var VAutocomplete = (0, _vue.defineComponent)({
     return function () {
       var propsData = {
         label: props.label,
-        focused: state.focused || !!state.search,
-        hasState: !!computedValue.value,
+        focused: state.focused,
+        hasState: !!valueProperty.value || !!state.search,
         dark: props.dark,
         disabled: props.disabled,
         clearable: props.clearable,
         rules: props.rules,
-        value: computedValue.value || state.search,
+        value: valueProperty.value || state.search,
         onClear: onClear
       };
       return (0, _vue.h)(_VInput.VInput, propsData, {

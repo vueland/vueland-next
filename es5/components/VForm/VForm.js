@@ -10,11 +10,11 @@ require("../../../src/components/VForm/VForm.scss");
 var _vue = require("vue");
 
 var VForm = (0, _vue.defineComponent)({
-  name: "v-form",
+  name: 'v-form',
   setup: function setup(_, _ref) {
     var slots = _ref.slots;
     var fields = (0, _vue.ref)([]);
-    (0, _vue.provide)("fields", fields);
+    (0, _vue.provide)('fields', fields);
 
     var validate = function validate() {
       var promises = [];
@@ -27,14 +27,14 @@ var VForm = (0, _vue.defineComponent)({
     };
 
     var genSlot = function genSlot() {
-      return (0, _vue.renderSlot)(slots, "default", {
+      return slots["default"] && slots["default"]({
         validate: validate
       });
     };
 
     return function () {
-      return (0, _vue.h)("span", {
-        "class": "v-form"
+      return (0, _vue.h)('span', {
+        "class": 'v-form'
       }, genSlot());
     };
   }

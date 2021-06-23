@@ -241,7 +241,6 @@ export default {
     </v-list>
     <v-list
       style="width: 350px"
-      multiple
     >
       <v-list-group
         elevation="4"
@@ -517,7 +516,6 @@ export default {
         :rules="[v => !!v || 'required']"
       />
       <v-autocomplete
-        v-model:value="data.user"
         label="autocomplete"
         value-key="name"
         clearable
@@ -526,6 +524,7 @@ export default {
         :items="data.users"
         :rules="[v => !!v || 'required']"
         @select="testFunc"
+        @input="$event => data.users = data.users.filter(u => u.name.includes($event))"
       />
       <v-button
         :disabled="false"

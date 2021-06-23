@@ -1,34 +1,34 @@
 // Styles
-import "./VForm.scss";
+import './VForm.scss'
 
 // Vue API
-import { defineComponent, h, ref, renderSlot, provide } from "vue";
+import { defineComponent, h, ref, provide } from 'vue'
 
 // Types
-import { Ref } from "vue";
+import { Ref } from 'vue'
 
 export const VForm = defineComponent({
-  name: "v-form",
+  name: 'v-form',
 
   setup(_, { slots }) {
-    const fields: Ref<(() => boolean)[]> = ref([]);
+    const fields: Ref<(() => boolean)[]> = ref([])
 
-    provide("fields", fields);
+    provide('fields', fields)
 
     const validate = () => {
-      const promises: boolean[] = [];
+      const promises: boolean[] = []
 
       fields.value.forEach((it) => {
-        promises.push(it());
-      });
+        promises.push(it())
+      })
 
-      return !promises.some((f) => !f) ? Promise.resolve() : Promise.reject();
-    };
+      return !promises.some((f) => !f) ? Promise.resolve() : Promise.reject()
+    }
 
     const genSlot = () => {
-      return renderSlot(slots, "default", { validate });
-    };
+      return slots.default && slots.default({ validate })
+    }
 
-    return () => h("span", { class: "v-form" }, genSlot());
-  },
-});
+    return () => h('span', { class: 'v-form' }, genSlot())
+  }
+})

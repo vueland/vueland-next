@@ -65,21 +65,21 @@ export const VAutocomplete = defineComponent({
       'v-autocomplete--focused': state.focused,
     }))
 
-    const computedValue = computed<any>(() => {
+    const valueProperty = computed<any>(() => {
       return props.modelValue || props.value
     })
 
     const inputValue = computed<string>(() => {
       return props.valueKey
-        ? computedValue.value[props.valueKey]
-        : computedValue.value
+        ? valueProperty.value[props.valueKey]
+        : valueProperty.value
     })
 
     const isListItemsExists = computed<boolean>(() => {
       return !!props.items && !!props.items.length
     })
 
-    state.search = computedValue.value ? inputValue.value : ''
+    state.search = valueProperty.value ? inputValue.value : ''
 
     function onFocus() {
       state.focused = true
@@ -88,9 +88,9 @@ export const VAutocomplete = defineComponent({
     }
 
     function onBlur() {
-      if (!computedValue.value) state.search = ''
+      if (!valueProperty.value) state.search = ''
 
-      if (!state.search && computedValue.value) {
+      if (!state.search && valueProperty.value) {
         state.search = inputValue.value
       }
       state.focused = false
@@ -166,13 +166,13 @@ export const VAutocomplete = defineComponent({
     return () => {
       const propsData = {
         label: props.label,
-        focused: state.focused || !!state.search,
-        hasState: !!computedValue.value,
+        focused: state.focused,
+        hasState: !!valueProperty.value || !!state.search,
         dark: props.dark,
         disabled: props.disabled,
         clearable: props.clearable,
         rules: props.rules,
-        value: computedValue.value || state.search,
+        value: valueProperty.value || state.search,
         onClear,
       }
 

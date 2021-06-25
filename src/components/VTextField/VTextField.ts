@@ -103,9 +103,9 @@ export const VTextField = defineComponent({
 
     function onInput(e) {
       state.value = e.target.value
-      emit('update:modelValue', state.value)
-      emit('update:value', state.value)
-      emit('input', state.value)
+      emit('update:modelValue', e.target.value)
+      emit('update:value', e.target.value)
+      emit('input', e.target.value)
     }
 
     function genInput(): VNode {

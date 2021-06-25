@@ -44,6 +44,7 @@ function useValidate(props) {
     return props.dark ? 'white' : primary;
   });
   var validationState = (0, _vue.computed)(function () {
+    console.log(error);
     if (errorState.innerError) return error;
     if (!errorState.innerError && errorState.innerError !== null) return computedColor.value;
     return computedColor.value || primary;

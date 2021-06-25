@@ -57,11 +57,11 @@ var VTextField = (0, _vue.defineComponent)({
     var _useTheme = (0, _useTheme2.useTheme)(),
         base = _useTheme.base;
 
-    var computedValue = (0, _vue.computed)(function () {
+    var computedPropValue = (0, _vue.computed)(function () {
       return props.modelValue || props.value;
     });
     (0, _vue.watch)(function () {
-      return computedValue.value;
+      return computedPropValue.value;
     }, function (value) {
       return state.value = value;
     });
@@ -137,7 +137,7 @@ var VTextField = (0, _vue.defineComponent)({
         dark: props.dark,
         disabled: props.disabled,
         clearable: props.clearable,
-        value: computedValue.value,
+        value: state.value,
         rules: props.rules,
         color: props.color,
         onClear: onClear

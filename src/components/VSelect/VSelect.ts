@@ -5,7 +5,7 @@ import './VSelect.scss'
 import { h, ref, reactive, computed, defineComponent, watch } from 'vue'
 
 // Effects
-import { colorProps, useColors } from '../../effects/use-colors'
+import { useColors } from '../../effects/use-colors'
 import { useTheme } from '../../effects/use-theme'
 import { activatorProps } from '../../effects/use-activator'
 import { validateProps } from '../../effects/use-validate'
@@ -39,7 +39,10 @@ export const VSelect = defineComponent({
     modelValue: {
       default: null
     },
-    ...colorProps(),
+    color: {
+      type: String,
+      default: 'primary'
+    },
     ...activatorProps(),
     ...validateProps()
   } as any,
@@ -134,8 +137,9 @@ export const VSelect = defineComponent({
         valueKey: props.valueKey,
         idKey: props.idKey,
         active: state.focused,
-        color: props.dark ? 'white' : base,
+        color: props.dark ? 'white' : props.color,
         listColor: props.listColor || 'white',
+        clear: !state.selected,
         onSelect: (item) => selectItem(item)
       }
       return h(VSelectList, propsData)

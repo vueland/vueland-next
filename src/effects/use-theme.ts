@@ -10,13 +10,13 @@ type ThemeColors = {
 const defaultThemeColors: ThemeColors = {
   light: {
     base: colors.grey.darken4,
-    primary: colors.blue.base,
+    primary: 'primary',
     secondary: colors.blue.darken2,
     accent: colors.blue.accent3,
-    error: colors.red.accent3,
-    info: colors.blue.accent3,
-    success: colors.green.base,
-    warning: colors.amber.base,
+    error: 'error',
+    info: 'info',
+    success: 'success',
+    warning: 'warning',
   },
 
   dark: {

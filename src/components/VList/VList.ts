@@ -43,6 +43,7 @@ export const VList = defineComponent({
     provide('list-types', {
       isInGroup: false,
       isInList: false,
+      isInMenu: false
     })
 
     function register(items: Ref<ListItem[]>, item: ListItem) {

@@ -63,13 +63,13 @@ export const VTextField = defineComponent({
     const { setTextColor } = useColors()
     const { base } = useTheme()
 
-    const computedValue = computed(() => {
+    const computedPropValue = computed(() => {
       return props.modelValue || props.value
     })
 
     watch(
-      () => computedValue.value,
-      (value) => (state.value = value as any)
+      () => computedPropValue.value,
+      (value) => (state.value = value as any),
     )
 
     const classes = computed<Record<string, boolean>>(() => ({
@@ -140,7 +140,7 @@ export const VTextField = defineComponent({
         dark: props.dark,
         disabled: props.disabled,
         clearable: props.clearable,
-        value: computedValue.value,
+        value: state.value,
         rules: props.rules,
         color: props.color,
         onClear,

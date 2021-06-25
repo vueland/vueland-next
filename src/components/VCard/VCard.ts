@@ -17,10 +17,10 @@ export const VCard = defineComponent({
   props: {
     width: {
       type: [String, Number],
-      default: 350,
+      default: 350
     },
     ...colorProps(),
-    ...elevationProps(),
+    ...elevationProps()
   } as any,
 
   setup(props, { slots }): () => VNode {
@@ -31,27 +31,27 @@ export const VCard = defineComponent({
       (): Record<string, boolean> => {
         return {
           'v-card': true,
-          ...elevationClasses.value,
+          ...elevationClasses.value
         }
       }
     )
 
     const styles = computed(() => ({
-      width: `${props.width}px`,
+      width: `${ props.width }px`
     }))
 
-    const genCachedCard = computed<VNode>(() => {
+    function genCard() {
       const propsData = {
         class: classes.value,
-        style: styles.value,
+        style: styles.value
       }
       return h(
         'div',
         props.color ? setBackground(props.color, propsData) : propsData,
         slots.default && slots.default()
       )
-    })
+    }
 
-    return () => genCachedCard.value
-  },
+    return () => genCard()
+  }
 })

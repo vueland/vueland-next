@@ -510,7 +510,6 @@ export default {
         label="select"
         value-key="name"
         clearable
-        color="green"
         prepend-icon="search"
         :items="data.users"
         :rules="[v => !!v || 'required']"

@@ -21,13 +21,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var defaultThemeColors = {
   light: {
     base: _colors["default"].grey.darken4,
-    primary: _colors["default"].blue.base,
+    primary: 'primary',
     secondary: _colors["default"].blue.darken2,
     accent: _colors["default"].blue.accent3,
-    error: _colors["default"].red.accent3,
-    info: _colors["default"].blue.accent3,
-    success: _colors["default"].green.base,
-    warning: _colors["default"].amber.base
+    error: 'error',
+    info: 'info',
+    success: 'success',
+    warning: 'warning'
   },
   dark: {
     base: _colors["default"].shades.white,

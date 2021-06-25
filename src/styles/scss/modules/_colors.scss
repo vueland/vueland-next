@@ -318,6 +318,10 @@ $grey: (
 );
 
 $primary: (
+  'base': #1E88E5
+);
+
+$info: (
   'base': #1565C0
 );
 
@@ -329,7 +333,7 @@ $warning: (
             'base': #f57c00
 );
 
-$danger: (
+$error: (
             'base': #E53935
 );
 
@@ -362,6 +366,6 @@ $colors: (
         "primary": $primary,
         "success": $success,
         "warning": $warning,
-        "danger": $danger,
+        "danger": $error,
         "disabled": $disabled
 );

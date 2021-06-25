@@ -20,7 +20,7 @@ import { VNode, PropType, Ref } from 'vue'
 
 // Effects
 import { useTransition } from '../../effects/use-transition'
-import { useColors } from '../../effects/use-colors'
+import { colorProps, useColors } from '../../effects/use-colors'
 import { useIcons } from '../../effects/use-icons'
 import { themeProps } from '../../effects/use-theme'
 import { validateProps, useValidate } from '@/effects/use-validate'
@@ -41,10 +41,8 @@ export const VInput = defineComponent({
       type: String,
       default: 'text',
     },
-    color: {
-      type: String,
-    },
     modelValue: [String, Number, Object],
+    ...colorProps(),
     ...themeProps(),
     ...validateProps(),
   } as any,
@@ -57,7 +55,6 @@ export const VInput = defineComponent({
     const {
       validate,
       dirty,
-      // update,
       errorState,
       validationState,
     } = useValidate(props)
@@ -85,11 +82,11 @@ export const VInput = defineComponent({
       'v-input--focused': props.focused,
     }))
 
-    watch(() => props.value, validateValue)
+    watch(() => props.value, () => requestAnimationFrame(validateValue))
 
     watch(
       () => props.focused,
-      (to) => !to && validateValue()
+      (to) => !to && requestAnimationFrame(validateValue)
     )
 
     function onClick() {

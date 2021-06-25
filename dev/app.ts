@@ -10,13 +10,13 @@ new Vueland({
     dark: false,
     themes: {
       light: {
-        base: colors.blue.darken4,
+        base: colors.blue.darken3,
         secondary: 'rgba(#fa5a5a, .3)',
         accent: '',
         error: 'pink accent-1',
         info: '#2196F3',
         success: '#4CAF50',
-        warning: '#FFC107'
+        warning: '#FFC107',
       }
     }
   }

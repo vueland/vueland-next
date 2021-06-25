@@ -33,7 +33,8 @@ var VSelectList = (0, _vue.defineComponent)({
     elevation: {
       type: [String, Number],
       "default": 4
-    }
+    },
+    clear: Boolean
   }, (0, _useColors2.colorProps)()),
   emits: ['select'],
   setup: function setup(props, _ref) {
@@ -54,16 +55,14 @@ var VSelectList = (0, _vue.defineComponent)({
         style: {}
       };
       return (_props$items = props.items) === null || _props$items === void 0 ? void 0 : _props$items.map(function (it) {
-        var item = (0, _vue.h)(_VList.VListItemTitle, props.color ? setTextColor(props.color, propsData) : propsData, {
+        var color = props.dark ? 'white' : '';
+        var item = (0, _vue.h)(_VList.VListItemTitle, setTextColor(color, propsData), {
           "default": function _default() {
             return key ? it[key] : it;
           }
         });
         return (0, _vue.h)(_VList.VListItem, {
           key: props.idKey,
-          "class": {
-            'v-select-item--selected': it === selected.value
-          },
           onClick: function onClick() {
             selected.value = it;
             emit('select', it);
@@ -78,6 +77,17 @@ var VSelectList = (0, _vue.defineComponent)({
 
     function genSelectListItems() {
       return (0, _vue.h)(_VList.VList, {}, {
+        "default": function _default() {
+          return genItemsGroup();
+        }
+      });
+    }
+
+    function genItemsGroup() {
+      return (0, _vue.h)(_VList.VListGroup, {
+        color: props.color,
+        noAction: true
+      }, {
         "default": function _default() {
           return genItems();
         }

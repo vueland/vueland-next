@@ -5,7 +5,7 @@ import './VSelectList.scss'
 import { h, ref, defineComponent } from 'vue'
 
 // Components
-import { VList, VListItem, VListItemTitle } from '../VList'
+import { VList, VListGroup, VListItem, VListItemTitle } from '../VList'
 
 // Effects
 import { colorProps, useColors } from '../../effects/use-colors'
@@ -28,6 +28,7 @@ export const VSelectList = defineComponent({
       type: [String, Number],
       default: 4,
     },
+    clear: Boolean,
     ...colorProps(),
   } as any,
 
@@ -40,15 +41,18 @@ export const VSelectList = defineComponent({
 
     function genItems(): VNode[] {
       const key = props.valueKey
+
       const propsData = {
         class: {},
         style: {},
       }
 
       return props.items?.map((it: any) => {
+        const color = props.dark ? 'white' : ''
+
         const item = h(
           VListItemTitle,
-          props.color ? setTextColor(props.color, propsData) : propsData,
+          setTextColor(color, propsData),
           {
             default: () => (key ? it[key] : it),
           }
@@ -58,9 +62,6 @@ export const VSelectList = defineComponent({
           VListItem,
           {
             key: props.idKey,
-            class: {
-              'v-select-item--selected': it === selected.value,
-            },
             onClick: () => {
               selected.value = it
               emit('select', it)
@@ -74,7 +75,14 @@ export const VSelectList = defineComponent({
     }
 
     function genSelectListItems(): VNode {
-      return h(VList, {}, { default: () => genItems() })
+      return h(VList, {}, { default: () => genItemsGroup() })
+    }
+
+    function genItemsGroup(): VNode {
+      return h(VListGroup, {
+        color: props.color,
+        noAction: true
+      }, { default: () => genItems() })
     }
 
     function genList(): VNode {

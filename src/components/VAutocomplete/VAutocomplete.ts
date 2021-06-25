@@ -6,7 +6,7 @@ import { h, ref, reactive, computed, defineComponent } from 'vue'
 
 // Effects
 import { validateProps } from '../../effects/use-validate'
-import { colorProps, useColors } from '../../effects/use-colors'
+import { useColors } from '../../effects/use-colors'
 import { useTheme } from '../../effects/use-theme'
 
 // Types
@@ -14,7 +14,7 @@ import { VNode } from 'vue'
 
 // Components
 import { VInput } from '../VInput'
-import { VAutocompleteList } from './VAutocompleteList'
+import { VSelectList } from '../VSelect'
 import { VMenu } from '../VMenu'
 
 type SelectState = {
@@ -34,25 +34,29 @@ export const VAutocomplete = defineComponent({
     listColor: String,
     disabled: Boolean,
     modelValue: {
-      default: null,
+      default: null
+    },
+    color: {
+      type: String,
+      default: 'primary'
     },
     ...validateProps(),
-    ...colorProps(),
   } as any,
+
   emits: [
     'input',
     'blur',
     'focus',
     'select',
     'update:modelValue',
-    'update:value',
+    'update:value'
   ],
 
   setup(props, { emit }): () => VNode {
     const state: SelectState = reactive({
       focused: false,
       isMenuActive: false,
-      search: '',
+      search: ''
     })
 
     const { setTextColor } = useColors()
@@ -62,7 +66,7 @@ export const VAutocomplete = defineComponent({
     const classes = computed<Record<string, boolean>>(() => ({
       'v-autocomplete': true,
       'v-autocomplete--disabled': props.disabled,
-      'v-autocomplete--focused': state.focused,
+      'v-autocomplete--focused': state.focused
     }))
 
     const valueProperty = computed<any>(() => {
@@ -124,7 +128,7 @@ export const VAutocomplete = defineComponent({
         ref: inputRef,
         class: 'v-autocomplete__input',
         onInput,
-        onFocus,
+        onFocus
       }
 
       return h('input', setTextColor(props.dark ? 'white' : base, propsData))
@@ -136,11 +140,11 @@ export const VAutocomplete = defineComponent({
         valueKey: props.valueKey,
         idKey: props.idKey,
         active: state.isMenuActive,
-        color: props.dark ? 'white' : base,
+        color: props.dark ? 'white' : props.color,
         listColor: props.listColor,
-        onSelect,
+        onSelect
       }
-      return h(VAutocompleteList, propsData)
+      return h(VSelectList, propsData)
     }
 
     function genMenu() {
@@ -151,10 +155,10 @@ export const VAutocomplete = defineComponent({
           openOnClick: true,
           maxHeight: 240,
           bottom: true,
-          onClose: () => onBlur(),
+          onClose: () => onBlur()
         },
         {
-          default: genAutocompleteList,
+          default: genAutocompleteList
         }
       )
     }
@@ -171,14 +175,15 @@ export const VAutocomplete = defineComponent({
         dark: props.dark,
         disabled: props.disabled,
         clearable: props.clearable,
+        color: props.color,
         rules: props.rules,
         value: valueProperty.value || state.search,
-        onClear,
+        onClear
       }
 
       return h(VInput, propsData, {
-        textField: () => genAutocomplete(),
+        textField: () => genAutocomplete()
       })
     }
-  },
+  }
 })

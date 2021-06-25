@@ -36,8 +36,8 @@ exports[`VCheckbox should set "on" and "off" icon and match snapshot 1`] = `
 exports[`VCheckbox should set disabled and match snapshot 1`] = `
 <div class="v-checkbox v-checkbox--disabled">
   <div class="v-checkbox__square">
-    <i class="v-icon v-icon--disabled far fa-square"
-       style="font-size: 24px; color: rgb(33, 150, 243); caret-color: #2196f3;"
+    <i class="v-icon v-icon--disabled far fa-square primary--text"
+       style="font-size: 24px;"
     >
     </i>
   </div>
@@ -74,8 +74,8 @@ exports[`VCheckbox should set validate and match snapshot 1`] = `
 exports[`VCheckbox should set validate and match snapshot 2`] = `
 <div class="v-checkbox v-validatable">
   <div class="v-checkbox__square">
-    <i class="v-icon far fa-square"
-       style="font-size: 24px; color: rgb(255, 23, 68); caret-color: #ff1744;"
+    <i class="v-icon far fa-square error--text"
+       style="font-size: 24px;"
     >
     </i>
   </div>

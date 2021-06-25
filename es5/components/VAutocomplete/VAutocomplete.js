@@ -17,7 +17,7 @@ var _useTheme2 = require("../../effects/use-theme");
 
 var _VInput = require("../VInput");
 
-var _VAutocompleteList = require("./VAutocompleteList");
+var _VSelect = require("../VSelect");
 
 var _VMenu = require("../VMenu");
 
@@ -29,7 +29,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var VAutocomplete = (0, _vue.defineComponent)({
   name: 'v-autocomplete',
-  props: _objectSpread(_objectSpread({
+  props: _objectSpread({
     label: String,
     items: Array,
     dark: Boolean,
@@ -39,8 +39,12 @@ var VAutocomplete = (0, _vue.defineComponent)({
     disabled: Boolean,
     modelValue: {
       "default": null
+    },
+    color: {
+      type: String,
+      "default": 'primary'
     }
-  }, (0, _useValidate.validateProps)()), (0, _useColors2.colorProps)()),
+  }, (0, _useValidate.validateProps)()),
   emits: ['input', 'blur', 'focus', 'select', 'update:modelValue', 'update:value'],
   setup: function setup(props, _ref) {
     var emit = _ref.emit;
@@ -130,11 +134,11 @@ var VAutocomplete = (0, _vue.defineComponent)({
         valueKey: props.valueKey,
         idKey: props.idKey,
         active: state.isMenuActive,
-        color: props.dark ? 'white' : base,
+        color: props.dark ? 'white' : props.color,
         listColor: props.listColor,
         onSelect: onSelect
       };
-      return (0, _vue.h)(_VAutocompleteList.VAutocompleteList, propsData);
+      return (0, _vue.h)(_VSelect.VSelectList, propsData);
     }
 
     function genMenu() {
@@ -165,6 +169,7 @@ var VAutocomplete = (0, _vue.defineComponent)({
         dark: props.dark,
         disabled: props.disabled,
         clearable: props.clearable,
+        color: props.color,
         rules: props.rules,
         value: valueProperty.value || state.search,
         onClear: onClear

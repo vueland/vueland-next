@@ -40,7 +40,8 @@ var VList = (0, _vue.defineComponent)({
     });
     (0, _vue.provide)('list-types', {
       isInGroup: false,
-      isInList: false
+      isInList: false,
+      isInMenu: false
     });
 
     function register(items, item) {

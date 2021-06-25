@@ -46,15 +46,17 @@ var VCard = (0, _vue.defineComponent)({
         width: "".concat(props.width, "px")
       };
     });
-    var genCachedCard = (0, _vue.computed)(function () {
+
+    function genCard() {
       var propsData = {
         "class": classes.value,
         style: styles.value
       };
       return (0, _vue.h)('div', props.color ? setBackground(props.color, propsData) : propsData, slots["default"] && slots["default"]());
-    });
+    }
+
     return function () {
-      return genCachedCard.value;
+      return genCard();
     };
   }
 });

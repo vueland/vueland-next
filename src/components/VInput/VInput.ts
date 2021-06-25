@@ -82,11 +82,11 @@ export const VInput = defineComponent({
       'v-input--focused': props.focused,
     }))
 
-    watch(() => props.value, validateValue)
+    watch(() => props.value, () => requestAnimationFrame(validateValue))
 
     watch(
       () => props.focused,
-      (to) => !to && validateValue()
+      (to) => !to && requestAnimationFrame(validateValue)
     )
 
     function onClick() {

@@ -32,7 +32,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var VInput = (0, _vue.defineComponent)({
   name: 'v-input',
   inheritAttrs: false,
-  props: _objectSpread(_objectSpread({
+  props: _objectSpread(_objectSpread(_objectSpread({
     inputSlotRef: Object,
     focused: Boolean,
     hasState: Boolean,
@@ -45,11 +45,8 @@ var VInput = (0, _vue.defineComponent)({
       type: String,
       "default": 'text'
     },
-    color: {
-      type: String
-    },
     modelValue: [String, Number, Object]
-  }, (0, _useTheme.themeProps)()), (0, _useValidate2.validateProps)()),
+  }, (0, _useColors2.colorProps)()), (0, _useTheme.themeProps)()), (0, _useValidate2.validateProps)()),
   emits: ['clear', 'focus'],
   setup: function setup(props, _ref) {
     var _props$rules;
@@ -94,11 +91,13 @@ var VInput = (0, _vue.defineComponent)({
     });
     (0, _vue.watch)(function () {
       return props.value;
-    }, validateValue);
+    }, function () {
+      return requestAnimationFrame(validateValue);
+    });
     (0, _vue.watch)(function () {
       return props.focused;
     }, function (to) {
-      return !to && validateValue();
+      return !to && requestAnimationFrame(validateValue);
     });
 
     function onClick() {

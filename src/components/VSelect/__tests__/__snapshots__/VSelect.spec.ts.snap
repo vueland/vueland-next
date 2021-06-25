@@ -2,12 +2,10 @@
 
 exports[`VSelect should mount component and match snapshot 1`] = `
 <div class="v-input">
-  <div class="v-input__slot"
-       style="color: rgb(33, 150, 243); caret-color: #2196f3;"
-  >
+  <div class="v-input__slot primary--text">
     <div class="v-input__field-slot">
-      <label class="v-label v-label--on-field"
-             style="left: 0px; position: absolute; color: rgb(33, 150, 243); caret-color: #2196f3;"
+      <label class="v-label v-label--on-field primary--text"
+             style="left: 0px; position: absolute;"
       >
       </label>
       <div class="v-select">

@@ -241,6 +241,7 @@ export default {
     </v-list>
     <v-list
       style="width: 350px"
+      multiple
     >
       <v-list-group
         elevation="4"

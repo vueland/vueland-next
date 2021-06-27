@@ -70,10 +70,6 @@ export const VListItem = defineComponent({
     }))
 
     function onClick() {
-      if (item.active) {
-        isActive.value = true
-      }
-
       if (!listTypes.isInGroup || props.link) {
         isActive.value = !isActive.value
       }

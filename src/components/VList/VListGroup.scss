@@ -93,6 +93,10 @@
     //pointer-events: none;
   }
 
+  &--disabled > .v-list-group__items > .v-list-item {
+    pointer-events: none;
+  }
+
 
   &__items > .v-list-group--active > .v-list-group__header >
   .v-list-group__prepend-icon .v-icon {

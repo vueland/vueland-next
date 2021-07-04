@@ -29,12 +29,9 @@ export const VListItem = defineComponent({
     },
     dark: Boolean,
     inactive: Boolean,
+    activator: Boolean,
     active: Boolean,
-    link: Boolean,
-    value: {
-      type: [Object, String, Number, Boolean],
-      default: null
-    }
+    noAction: Boolean,
   },
 
   emits: ['click'],
@@ -65,20 +62,22 @@ export const VListItem = defineComponent({
     const classes = computed<Record<string, boolean>>(() => ({
       'v-list-item': true,
       'v-list-item--active': isActive.value,
-      'v-list-item--link': props.link,
+      'v-list-item--activator': props.activator,
       [props.activeClass]: isActive.value && !!props.activeClass
     }))
 
     function onClick() {
-      if (!listTypes.isInGroup || props.link) {
+      if (props.noAction) return
+
+      if (props.activator) {
         isActive.value = !isActive.value
       }
 
-      if (!props.link && listTypes.isInGroup) {
+      if (listTypes.isInGroup && !props.activator) {
         handlers.itemClick(groupItems.items, item)
       }
 
-      if (!props.link && listTypes.isInList) {
+      if (!props.activator && listTypes.isInList) {
         handlers.itemClick(listItems.items, item)
       }
 
@@ -90,7 +89,7 @@ export const VListItem = defineComponent({
         groupItems && (groupItems as any).parent.value ===
         (itemRef.value as any).parentNode.parentNode
       ) {
-        !props.link && groupItems?.items.value.push(item)
+        !props.activator && groupItems?.items.value.push(item)
       }
 
       if (listTypes.isInList && listItems) listItems.items.value.push(item)

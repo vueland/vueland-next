@@ -233,7 +233,10 @@ export default {
       />
     </div>
     <v-list>
-      <v-list-item>
+      <v-list-item
+        active-class="primary--text"
+        active
+      >
         <v-list-item-title>
           salam
         </v-list-item-title>
@@ -248,6 +251,7 @@ export default {
         class="grey darken-4"
         active-class="active-now"
         dark
+        expanded
         group="main"
       >
         <template #title>
@@ -291,7 +295,7 @@ export default {
         <v-list-group
           sub-group
           group="sub-main"
-          color="primary"
+          color="amber accent-3"
           dark
           @click="testFunc"
         >

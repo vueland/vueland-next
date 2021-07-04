@@ -50,10 +50,8 @@ export const VListGroup = defineComponent({
     group: String,
     disabled: Boolean,
     noAction: Boolean,
-    expanded: Boolean,
     subGroup: Boolean,
-    value: Boolean,
-    modelValue: Boolean,
+    expanded: Boolean,
     ...elevationProps(),
     ...colorProps()
   } as any,
@@ -84,12 +82,15 @@ export const VListGroup = defineComponent({
       items
     })
 
+    if (props.expanded || props.noAction) isActive.value = true
+
     const classes = computed<Record<string, boolean>>(() => ({
       'v-list-group': true,
       'v-list-group__sub-group': props.subGroup,
       'v-list-group--active': isActive.value && !props.noAction,
       'v-list-group--expanded': isActive.value,
       'v-list-group--no-action': props.noAction,
+      'v-list-group--disabled': props.disabled,
       'v-list-group--light': !props.dark,
       'v-list-group--dark': props.dark,
       [props.activeClass]: isActive.value,
@@ -148,11 +149,11 @@ export const VListGroup = defineComponent({
 
     function genGroupHeader(): VNode {
       const propsData = {
-        class: {
-          'v-list-group__header': true
-        },
-        link: true,
+        class: 'v-list-group__header',
+        activator: true,
         dark: props.dark,
+        active: isActive.value,
+        noAction: props.noAction || props.disabled,
         onClick
       }
 
@@ -178,7 +179,6 @@ export const VListGroup = defineComponent({
 
     onMounted(() => {
       groups?.register(listGroupItem)
-      if (props.expanded || props.noAction) isActive.value = true
     })
 
     onBeforeUnmount(() => {

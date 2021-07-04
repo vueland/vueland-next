@@ -82,6 +82,8 @@ export const VListGroup = defineComponent({
       items
     })
 
+    if (props.expanded || props.noAction) isActive.value = true
+
     const classes = computed<Record<string, boolean>>(() => ({
       'v-list-group': true,
       'v-list-group__sub-group': props.subGroup,
@@ -177,7 +179,6 @@ export const VListGroup = defineComponent({
 
     onMounted(() => {
       groups?.register(listGroupItem)
-      if (props.expanded || props.noAction) isActive.value = true
     })
 
     onBeforeUnmount(() => {

@@ -386,14 +386,14 @@ export default {
         @contextmenu:row="testFunc"
         @last-page="testFunc"
       >
-        <!--      <template #header="props">-->
-        <!--        <span-->
-        <!--          v-for="col in props.cols"-->
-        <!--          :style="{width: `${col.width}px`}"-->
-        <!--        >-->
-        <!--          {{ col.title }}-->
-        <!--        </span>-->
-        <!--      </template>-->
+<!--              <template #header="props">-->
+<!--                <span-->
+<!--                  v-for="col in props.cols"-->
+<!--                  :style="{width: `${col.width}px`}"-->
+<!--                >-->
+<!--                  {{ col.title }}-->
+<!--                </span>-->
+<!--              </template>-->
         <template #paginationText="{start, last, length}">
           <span>{{ start + ' - ' + last + ' из ' + length + ' строк' }}</span>
         </template>
@@ -448,7 +448,7 @@ export default {
         format="dd MMM yyyy D"
         elevation="15"
         prepend-icon="event"
-        :rules="[val => !!val || 'Required']"
+        :rules="[val => !!val || 'Required', val => val.length > 5 || 'Required to be 5 symbols']"
         clearable
         color="grey darken-4"
         content-color="pink lighten-3"
@@ -483,7 +483,7 @@ export default {
         autocomplete="new-password"
         prepend-icon="map"
         clearable
-        :rules="[v => !!v || 'required', v => v.length > 5 || 'more than 5']"
+        :rules="[v => !!v || 'required', v => v.length > 10 || 'more than 10']"
       />
       <v-text-field
         v-model="data.title"
@@ -516,6 +516,9 @@ export default {
         value-key="name"
         clearable
         prepend-icon="search"
+        color="red"
+        dark
+        list-color="grey darken-4"
         :items="data.users"
         :rules="[v => !!v || 'required']"
       />
@@ -658,7 +661,11 @@ export default {
           class="grey lighten-5 elevation-10"
         >
           <v-list>
-            <v-list-group no-action color="primary">
+            <v-list-group
+              no-action
+              expanded
+              color="primary"
+            >
               <v-list-item
                 @click="data.title = 'Panter'"
               >

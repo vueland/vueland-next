@@ -140,7 +140,9 @@ export const VInput = defineComponent({
     function genClearIcon() {
       const propsData = {
         class: 'v-input__clear',
-        onClick: () => !props.disabled && emit('clear'),
+        onClick: () => {
+          !props.disabled && props.hasState && emit('clear')
+        },
       }
       return h('div', propsData, genIcon(icons.$close, true))
     }

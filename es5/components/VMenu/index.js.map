@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../../../src/components/VMenu/index.ts"],"names":[],"mappings":";;;;;;AAAA;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA","sourcesContent":["export * from './VMenu'\n"],"sourceRoot":"","file":"index.js"}

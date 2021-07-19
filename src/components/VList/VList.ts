@@ -51,9 +51,7 @@ export const VList = defineComponent({
     }
 
     function unregister(items: Ref<ListItem[]>, item: ListItem) {
-      items.value.filter((it) => {
-        return it.ref !== item.ref
-      })
+      items.value.filter((it) => it.ref !== item.ref)
     }
 
     function listClick(groups: Ref<ListItem[]>, item: ListItemRef) {

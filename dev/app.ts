@@ -10,7 +10,7 @@ new Vueland({
     dark: false,
     themes: {
       light: {
-        base: colors.blue.darken3,
+        base: colors.grey.darken3,
         secondary: 'rgba(#fa5a5a, .3)',
         accent: '',
         error: 'pink accent-1',

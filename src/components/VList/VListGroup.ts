@@ -19,7 +19,6 @@ import {
 import { useIcons } from '../../effects/use-icons'
 import { colorProps, useColors } from '../../effects/use-colors'
 import { elevationProps, useElevation } from '../../effects/use-elevation'
-// import { useSelectMultiple } from '../../effects/use-select-multiple'
 
 // Components
 import { VIcon } from '../VIcon'
@@ -82,13 +81,13 @@ export const VListGroup = defineComponent({
       items
     })
 
-    if (props.expanded || props.noAction) isActive.value = true
+    if (props.expanded) isActive.value = true
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-list-group': true,
       'v-list-group__sub-group': props.subGroup,
       'v-list-group--active': isActive.value && !props.noAction,
-      'v-list-group--expanded': isActive.value,
+      'v-list-group--expanded': props.expanded,
       'v-list-group--no-action': props.noAction,
       'v-list-group--disabled': props.disabled,
       'v-list-group--light': !props.dark,

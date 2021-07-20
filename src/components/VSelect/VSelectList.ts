@@ -20,6 +20,7 @@ export const VSelectList = defineComponent({
     valueKey: String,
     idKey: String,
     active: Boolean,
+    dark: Boolean,
     listColor: {
       type: String,
       default: 'white',
@@ -81,7 +82,9 @@ export const VSelectList = defineComponent({
     function genItemsGroup(): VNode {
       return h(VListGroup, {
         color: props.color,
-        noAction: true
+        noAction: true,
+        expanded: true,
+        dark: props.dark,
       }, { default: () => genItems() })
     }
 

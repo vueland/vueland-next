@@ -140,6 +140,7 @@ export const VSelect = defineComponent({
         color: props.dark ? 'white' : props.color,
         listColor: props.listColor || 'white',
         clear: !state.selected,
+        dark: props.dark,
         onSelect: (item) => selectItem(item)
       }
       return h(VSelectList, propsData)

@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../../../src/components/VApp/index.ts"],"names":[],"mappings":";;;;;;AAAA;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA","sourcesContent":["export * from './VApp'"],"sourceRoot":"","file":"index.js"}

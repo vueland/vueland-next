@@ -22,7 +22,7 @@ exports[`VDataTable should mount component and match snapshot 1`] = `
         <div class="v-input">
           <div class="v-input__slot primary--text">
             <div class="v-input__field-slot">
-              <label class="v-label v-label--active v-label--on-field v-label--has-state primary--text"
+              <label class="v-label v-label--active v-label--has-state v-label--on-field primary--text"
                      style="left: 0px; position: absolute;"
               >
               </label>
@@ -692,7 +692,7 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
         <div class="v-input">
           <div class="v-input__slot primary--text">
             <div class="v-input__field-slot">
-              <label class="v-label v-label--active v-label--on-field v-label--has-state primary--text"
+              <label class="v-label v-label--active v-label--has-state v-label--on-field primary--text"
                      style="left: 0px; position: absolute;"
               >
               </label>
@@ -1363,7 +1363,7 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
         <div class="v-input">
           <div class="v-input__slot primary--text">
             <div class="v-input__field-slot">
-              <label class="v-label v-label--active v-label--on-field v-label--has-state primary--text"
+              <label class="v-label v-label--active v-label--has-state v-label--on-field primary--text"
                      style="left: 0px; position: absolute;"
               >
               </label>
@@ -2034,7 +2034,7 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
         <div class="v-input">
           <div class="v-input__slot primary--text">
             <div class="v-input__field-slot">
-              <label class="v-label v-label--active v-label--on-field v-label--has-state primary--text"
+              <label class="v-label v-label--active v-label--has-state v-label--on-field primary--text"
                      style="left: 0px; position: absolute;"
               >
               </label>
@@ -2115,7 +2115,7 @@ exports[`VDataTable should test color prop and match snapshot 1`] = `
         <div class="v-input">
           <div class="v-input__slot primary--text">
             <div class="v-input__field-slot">
-              <label class="v-label v-label--active v-label--on-field v-label--has-state primary--text"
+              <label class="v-label v-label--active v-label--has-state v-label--on-field primary--text"
                      style="left: 0px; position: absolute;"
               >
               </label>
@@ -2271,7 +2271,7 @@ exports[`VDataTable should test cols prop and match snapshot 1`] = `
         <div class="v-input">
           <div class="v-input__slot primary--text">
             <div class="v-input__field-slot">
-              <label class="v-label v-label--active v-label--on-field v-label--has-state primary--text"
+              <label class="v-label v-label--active v-label--has-state v-label--on-field primary--text"
                      style="left: 0px; position: absolute;"
               >
               </label>
@@ -2945,7 +2945,7 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
         <div class="v-input">
           <div class="v-input__slot primary--text">
             <div class="v-input__field-slot">
-              <label class="v-label v-label--active v-label--on-field v-label--has-state primary--text"
+              <label class="v-label v-label--active v-label--has-state v-label--on-field primary--text"
                      style="left: 0px; position: absolute;"
               >
               </label>
@@ -3615,7 +3615,7 @@ exports[`VDataTable should test dark prop and match snapshot 1`] = `
         <div class="v-input">
           <div class="v-input__slot primary--text">
             <div class="v-input__field-slot">
-              <label class="v-label v-label--active v-label--on-field v-label--has-state primary--text"
+              <label class="v-label v-label--active v-label--has-state v-label--on-field primary--text"
                      style="left: 0px; position: absolute;"
               >
               </label>
@@ -3710,7 +3710,7 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
                     >
                     </button>
                   </div>
-                  <label class="v-label v-label--active v-label--on-field v-label--has-state primary--text"
+                  <label class="v-label v-label--active v-label--has-state v-label--on-field primary--text"
                          style="left: 0px; position: absolute;"
                   >
                     search
@@ -4282,7 +4282,7 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
         <div class="v-input">
           <div class="v-input__slot primary--text">
             <div class="v-input__field-slot">
-              <label class="v-label v-label--active v-label--on-field v-label--has-state primary--text"
+              <label class="v-label v-label--active v-label--has-state v-label--on-field primary--text"
                      style="left: 0px; position: absolute;"
               >
               </label>
@@ -4381,7 +4381,7 @@ exports[`VDataTable should test table filter and match snapshot 1`] = `
                     >
                     </button>
                   </div>
-                  <label class="v-label v-label--active v-label--on-field v-label--has-state primary--text"
+                  <label class="v-label v-label--active v-label--has-state v-label--on-field primary--text"
                          style="left: 0px; position: absolute;"
                   >
                     search
@@ -4462,7 +4462,7 @@ exports[`VDataTable should test table filter and match snapshot 1`] = `
         <div class="v-input">
           <div class="v-input__slot primary--text">
             <div class="v-input__field-slot">
-              <label class="v-label v-label--active v-label--on-field v-label--has-state primary--text"
+              <label class="v-label v-label--active v-label--has-state v-label--on-field primary--text"
                      style="left: 0px; position: absolute;"
               >
               </label>

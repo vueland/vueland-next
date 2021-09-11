@@ -1,5 +1,5 @@
 import { mount, VueWrapper } from "@vue/test-utils";
-import { VLabel } from "../index";
+import { VLabel } from "../VLabel";
 
 describe("VLabel", () => {
   let mountFunction: (options?: any) => VueWrapper<any>;

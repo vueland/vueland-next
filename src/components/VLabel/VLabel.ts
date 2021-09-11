@@ -13,6 +13,7 @@ import { colorProps, useColors } from '../../effects/use-colors'
 // Types
 import { VNode } from 'vue'
 
+// @ts-ignore
 export const VLabel = defineComponent({
   name: 'v-label',
 
@@ -22,15 +23,15 @@ export const VLabel = defineComponent({
     focused: Boolean,
     onField: Boolean,
     left: {
-      type: [Number, String],
-      default: 0,
+      type: [ Number, String ],
+      default: 0
     },
     right: {
-      type: [Number, String],
-      default: 'auto',
+      type: [ Number, String ],
+      default: 'auto'
     },
     hasState: Boolean,
-    ...colorProps(),
+    ...colorProps()
   } as any,
 
   setup(props, { slots }): () => VNode {
@@ -43,10 +44,10 @@ export const VLabel = defineComponent({
     const classes = computed<Record<string, boolean>>(() => ({
       'v-label': true,
       'v-label--active': isActive.value,
-      'v-label--on-field': props.onField,
       'v-label--has-state': props.hasState,
-      'v-label--is-disabled': !!props.disabled,
-    }))
+      'v-label--on-field': props.onField,
+      'v-label--is-disabled': !!props.disabled
+    }) as any)
 
     function genPropsData(): Record<string, any> {
       return {
@@ -54,8 +55,8 @@ export const VLabel = defineComponent({
         style: {
           left: convertToUnit(props.left),
           right: convertToUnit(props.right),
-          position: props.absolute ? 'absolute' : 'relative',
-        },
+          position: props.absolute ? 'absolute' : 'relative'
+        }
       }
     }
 
@@ -68,5 +69,5 @@ export const VLabel = defineComponent({
         slots.default && slots.default()
       )
     }
-  },
+  }
 })

@@ -9,13 +9,13 @@ import {
   computed,
   watch,
   onMounted,
-  onBeforeUnmount,
+  onBeforeUnmount
 } from 'vue'
 
 // Effects
 import {
   autoPositionProps,
-  useAutoPosition,
+  useAutoPosition
 } from '../../effects/use-auto-position'
 import { activatorProps, useActivator } from '../../effects/use-activator'
 import { useDetach } from '../../effects/use-detach'
@@ -38,47 +38,47 @@ export const VMenu = defineComponent({
   name: 'v-menu',
   props: {
     maxHeight: {
-      type: [Number, String],
-      default: 200,
+      type: [ Number, String ],
+      default: 200
     },
     width: {
-      type: [Number, String],
-      default: 0,
+      type: [ Number, String ],
+      default: 0
     },
     zIndex: {
-      type: [String, Number],
-      default: 10,
+      type: [ String, Number ],
+      default: 10
     },
     parent: {
       type: Object,
-      default: null,
+      default: null
     },
     inputActivator: {
       type: String,
-      default: null,
+      default: null
     },
     openOnHover: Boolean,
     openOnClick: Boolean,
     openOnContextmenu: Boolean,
     closeOnContentClick: {
       type: Boolean,
-      default: true,
+      default: true
     },
     closeOnClick: {
       type: Boolean,
-      default: true,
+      default: true
     },
     elevation: {
-      type: [Number, String],
-      default: 10,
+      type: [ Number, String ],
+      default: 10
     },
     modelValue: Boolean,
     ...positionProps(),
     ...autoPositionProps(),
-    ...activatorProps(),
+    ...activatorProps()
   },
 
-  emits: ['open', 'close'],
+  emits: [ 'open', 'close' ],
 
   setup(props, { emit, slots }) {
     const { elevationClasses } = useElevation(props)
@@ -90,7 +90,7 @@ export const VMenu = defineComponent({
       getActivator,
       genActivatorListeners,
       addActivatorEvents,
-      removeActivatorEvents,
+      removeActivatorEvents
     } = useActivator(props)
 
     const handlers = {
@@ -101,7 +101,7 @@ export const VMenu = defineComponent({
       },
       mouseenter: () => (isActive.value = true),
       mouseleave: () => (isActive.value = false),
-      contextmenu: () => (isActive.value = true),
+      contextmenu: () => (isActive.value = true)
     }
 
     const listeners = genActivatorListeners(props, handlers)
@@ -109,9 +109,9 @@ export const VMenu = defineComponent({
     const directive = computed(() => {
       return isActive.value
         ? {
-            handler: () => (isActive.value = false),
-            closeConditional: props.closeOnContentClick,
-          }
+          handler: () => (isActive.value = false),
+          closeConditional: props.closeOnContentClick
+        }
         : undefined
     })
 
@@ -128,7 +128,7 @@ export const VMenu = defineComponent({
     )
 
     watch(
-      () => [props.positionY, props.positionX],
+      () => [ props.positionY, props.positionX ],
       () => setDimensions(activatorRef.value)
     )
 
@@ -159,28 +159,28 @@ export const VMenu = defineComponent({
         ref: contentRef,
         class: {
           'v-menu__content': true,
-          ...elevationClasses.value,
+          ...elevationClasses.value
         },
         style: {
           maxHeight: convertToUnit(props.maxHeight),
           width: convertToUnit(calcWidth.value),
           top: convertToUnit(dimensions.content.top),
           left: convertToUnit(dimensions.content.left),
-          zIndex: props.zIndex,
+          zIndex: props.zIndex
         },
         onClick: () => {
           isActive.value = !props.closeOnContentClick
-        },
+        }
       }
 
-      const content = h('div', propsData, [slots.default && slots.default()])
+      const content = h('div', propsData, [ slots.default && slots.default() ])
 
       const directives: any = [
-        [vShow, isActive.value],
-        [resize, onResize],
+        [ vShow, isActive.value ],
+        [ resize, onResize ]
       ]
 
-      if (props.closeOnClick) directives.push([clickOutside, directive.value])
+      if (props.closeOnClick) directives.push([ clickOutside, directive.value ])
 
       return withDirectives(content, directives)
     }
@@ -204,7 +204,7 @@ export const VMenu = defineComponent({
     return () => [
       h('div', { class: { 'v-menu': true } }),
       slots.activator && genActivatorSlot(),
-      useTransition(genContentSlot(), 'fade'),
+      useTransition(genContentSlot(), 'fade')
     ]
-  },
+  }
 })

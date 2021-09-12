@@ -1,31 +1,31 @@
 import { defineComponent, h, Slots } from 'vue'
 
-export function createSimpleFunctional(
+export const createSimpleFunctional = (
   c: string,
   el = 'div',
   name: string = ''
-) {
+) => {
   return defineComponent({
     name: name || c.replace(/__/g, '-'),
 
     setup(_, { slots }) {
       const propsData = {
         class: {
-          [c.trim()]: true,
-        },
+          [c.trim()]: true
+        }
       }
 
       return () => h(el, propsData, slots.default && slots.default())
-    },
+    }
   })
 }
 
-export function addOnceListener(
+export const addOnceListener = (
   el: EventTarget,
   eventName: string,
   cb: (event: Event) => void,
   options: boolean | AddEventListenerOptions = false
-): void {
+): void => {
   const once = (event: Event) => {
     cb(event)
     el.removeEventListener(eventName, once, options)
@@ -34,24 +34,24 @@ export function addOnceListener(
   el.addEventListener(eventName, once, options)
 }
 
-export function convertToUnit(
+export const convertToUnit = (
   str: string | number | null | undefined,
   unit = 'px'
-): string | undefined {
+): string | undefined => {
   if (str == null || str === '') {
     return undefined
   } else if (isNaN(+str!)) {
     return String(str)
   } else {
-    return `${Number(str)}${unit}`
+    return `${ Number(str) }${ unit }`
   }
 }
 
-export function warning(warningText) {
+export const warning = (warningText) => {
   console.warn(warningText)
 }
 
-export function copyWithoutLink(obj) {
+export const copyWithoutLink = (obj) => {
   return JSON.parse(JSON.stringify(obj))
 }
 
@@ -61,4 +61,8 @@ export const addScopedSlot = (slotName: string, slots: Slots) => {
 
     return slots[slotName] && slots[slotName]!(arg)
   }
+}
+
+export const getKeyValueFromTarget = <T>(valueKey: string, target: T): string => {
+  return valueKey.split('.').reduce((acc, it) => acc[it], target)
 }

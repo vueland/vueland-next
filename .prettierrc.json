@@ -1,5 +1,5 @@
 {
-  "max-line-length": 140,
+  "max-line-length": 120,
   "jsRules": {},
   "singleQuote": true,
   "semi": false,

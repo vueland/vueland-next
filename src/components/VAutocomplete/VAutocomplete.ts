@@ -2,7 +2,7 @@
 import './VAutocomplete.scss'
 
 // Vue API
-import { h, ref, reactive, computed, defineComponent } from 'vue'
+import { h, ref, reactive, computed, defineComponent, onBeforeMount } from 'vue'
 
 // Effects
 import { validateProps } from '../../effects/use-validate'
@@ -40,7 +40,7 @@ export const VAutocomplete = defineComponent({
       type: String,
       default: 'primary'
     },
-    ...validateProps(),
+    ...validateProps()
   } as any,
 
   emits: [
@@ -79,15 +79,9 @@ export const VAutocomplete = defineComponent({
         : valueProperty.value
     })
 
-    const isListItemsExists = computed<boolean>(() => {
-      return !!props.items && !!props.items.length
-    })
-
-    state.search = valueProperty.value ? inputValue.value : ''
-
     function onFocus() {
       state.focused = true
-      state.isMenuActive = isListItemsExists.value
+      state.isMenuActive = true
       emit('focus')
     }
 
@@ -128,7 +122,8 @@ export const VAutocomplete = defineComponent({
         ref: inputRef,
         class: 'v-autocomplete__input',
         onInput,
-        onFocus
+        onFocus,
+        onBlur
       }
 
       return h('input', setTextColor(props.dark ? 'white' : base, propsData))
@@ -155,7 +150,7 @@ export const VAutocomplete = defineComponent({
           openOnClick: true,
           maxHeight: 240,
           bottom: true,
-          onClose: () => onBlur()
+          onClose: () => setTimeout(() => state.isMenuActive = state.focused)
         },
         {
           default: genAutocompleteList
@@ -164,13 +159,17 @@ export const VAutocomplete = defineComponent({
     }
 
     function genAutocomplete(): VNode {
-      return h('div', { class: classes.value }, [genInput(), genMenu()])
+      return h('div', { class: classes.value }, [ genInput(), genMenu() ])
     }
+
+    onBeforeMount(() => {
+      state.search = valueProperty.value ? inputValue.value : ''
+    })
 
     return () => {
       const propsData = {
         label: props.label,
-        focused: state.focused,
+        focused: state.isMenuActive,
         hasState: !!valueProperty.value || !!state.search,
         dark: props.dark,
         disabled: props.disabled,

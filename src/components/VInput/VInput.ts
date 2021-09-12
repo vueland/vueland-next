@@ -8,7 +8,7 @@ import {
   computed,
   defineComponent,
   inject,
-  onBeforeUnmount,
+  onBeforeUnmount
 } from 'vue'
 
 // Components
@@ -25,6 +25,8 @@ import { useIcons } from '../../effects/use-icons'
 import { themeProps } from '../../effects/use-theme'
 import { validateProps, useValidate } from '@/effects/use-validate'
 
+import { Transitions } from '../../services/transitions'
+
 export const VInput = defineComponent({
   name: 'v-input',
   inheritAttrs: false,
@@ -39,15 +41,15 @@ export const VInput = defineComponent({
     appendIcon: String,
     type: {
       type: String,
-      default: 'text',
+      default: 'text'
     },
-    modelValue: [String, Number, Object],
+    modelValue: [ String, Number, Object ],
     ...colorProps(),
     ...themeProps(),
-    ...validateProps(),
+    ...validateProps()
   } as any,
 
-  emits: ['clear', 'focus'],
+  emits: [ 'clear', 'focus' ],
 
   setup(props, { slots, emit }): () => VNode {
     const { setTextColor } = useColors()
@@ -56,7 +58,7 @@ export const VInput = defineComponent({
       validate,
       dirty,
       errorState,
-      validationState,
+      validationState
     } = useValidate(props)
 
     const fields: Ref<any[]> | undefined = props.rules && inject('fields')
@@ -79,7 +81,7 @@ export const VInput = defineComponent({
       'v-input--dirty': errorState.isDirty,
       'v-input--valid': isValid.value,
       'v-input--not-valid': isNotValid.value,
-      'v-input--focused': props.focused,
+      'v-input--focused': props.focused
     }))
 
     watch(() => props.value, () => requestAnimationFrame(validateValue))
@@ -105,11 +107,11 @@ export const VInput = defineComponent({
         hasState: props.hasState,
         disabled: props.disabled,
         focused: props.focused,
-        color: validationState.value,
+        color: validationState.value
       }
 
       return h(VLabel, propsData, {
-        default: () => props.label,
+        default: () => props.label
       })
     }
 
@@ -120,7 +122,7 @@ export const VInput = defineComponent({
         icon: iconName,
         size: iconSize,
         disabled: props.disabled,
-        clickable,
+        clickable
       })
     }
 
@@ -142,7 +144,7 @@ export const VInput = defineComponent({
         class: 'v-input__clear',
         onClick: () => {
           !props.disabled && props.hasState && emit('clear')
-        },
+        }
       }
       return h('div', propsData, genIcon(icons.$close, true))
     }
@@ -150,19 +152,19 @@ export const VInput = defineComponent({
     function genInputSlot() {
       const propsData = {
         class: 'v-input__slot',
-        onClick,
+        onClick
       }
       return h('div', setTextColor(validationState.value!, propsData), [
         genSlotContent(),
-        genStatus(),
+        genStatus()
       ])
     }
 
     function genSlotContent(): VNode {
       const propsData = {
         class: {
-          'v-input__field-slot': true,
-        },
+          'v-input__field-slot': true
+        }
       }
 
       return h('div', propsData, [
@@ -170,13 +172,13 @@ export const VInput = defineComponent({
         !props.clearable && props.appendIcon && genAppendIcon(),
         props.clearable && genClearIcon(),
         genLabel(),
-        slots.textField && slots.textField(),
+        slots.textField && slots.textField()
       ])
     }
 
     function genStatusMessage(): VNode {
       const propsData = {
-        class: { 'v-input__status-message': true },
+        class: { 'v-input__status-message': true }
       }
 
       return h('span', propsData, errorState.innerErrorMessage!)
@@ -185,7 +187,7 @@ export const VInput = defineComponent({
     function genStatus(): VNode {
       const transitionedMessage = useTransition(
         errorState.innerErrorMessage! && (genStatusMessage() as VNode),
-        'fade'
+        Transitions.FADE
       )
 
       const propsData = { class: 'v-input__status' }
@@ -204,5 +206,5 @@ export const VInput = defineComponent({
     })
 
     return () => h('div', genPropsData(), genInputSlot())
-  },
+  }
 })

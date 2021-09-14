@@ -185,7 +185,11 @@
 <template>
   <v-app>
     <div>
-      <v-progress-linear height="7" />
+      <v-progress-linear
+        height="7"
+        background-color="red"
+        indeterminate
+      />
       <v-progress-circular
         color="cyan darken-3"
         :value="data.circular"
@@ -701,12 +705,13 @@
         overlay
         transition="scale-in"
       >
-        <v-card color="blue darken-2">
+        <v-card color="blue darken-2" elevation="14">
           <v-card-title> test</v-card-title>
           <v-card-content> salam</v-card-content>
           <v-card-actions>
             <v-button
               label="click"
+              elevation="4"
               @click="data.show = !data.show"
             />
           </v-card-actions>

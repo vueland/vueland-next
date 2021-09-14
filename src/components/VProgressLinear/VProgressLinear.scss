@@ -1,9 +1,78 @@
 .v-progress-linear {
   width: 100%;
+  background: transparent;
+  position: relative;
 }
 
 .v-progress-linear__buffer {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
+.v-progress-linear__background {
   width: 100%;
   height: 100%;
-  background: #0D47A1;
+  position: absolute;
+}
+
+.v-progress-linear__indeterminate {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.v-progress-linear__bar {
+  height: 100%;
+  width: 0;
+  position: absolute;
+}
+
+.v-progress-linear__indeterminate > .long {
+  animation: query-long-rtl 2s linear 1s infinite;
+}
+
+.v-progress-linear__indeterminate > .short {
+  animation: query-short-rtl 2s linear 2s infinite;
+}
+
+@keyframes query-long-rtl {
+  0% {
+    right: 100%;
+    width: 10%;
+  }
+  30% {
+    right: 0%;
+    width: 40%;
+  }
+  50% {
+    right: 0%;
+    width: 0%;
+  }
+  80% {
+    right: 0%;
+    width: 0%;
+  }
+  100% {
+    right: 0%;
+    width: 0%;
+  }
+}
+
+@keyframes query-short-rtl {
+  0% {
+    right: 100%;
+    left: -200%;
+    width: 40%;
+  }
+  60% {
+    right: -8%;
+    left: 107%;
+    width: 18%;
+  }
+  100% {
+    right: -8%;
+    left: 107%;
+    width: 8%;
+  }
 }

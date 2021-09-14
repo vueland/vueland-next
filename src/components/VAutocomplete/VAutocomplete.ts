@@ -16,11 +16,16 @@ import { VNode } from 'vue'
 import { VInput } from '../VInput'
 import { VSelectList } from '../VSelect'
 import { VMenu } from '../VMenu'
+import { VProgressLinear } from '../VProgressLinear'
+
+// Helpers
+import { getKeyValueFromTarget } from '../../helpers'
 
 type SelectState = {
   focused: boolean
   isMenuActive: boolean
-  search: string
+  search: string,
+  select: any
 }
 
 export const VAutocomplete = defineComponent({
@@ -33,6 +38,8 @@ export const VAutocomplete = defineComponent({
     idKey: String,
     listColor: String,
     disabled: Boolean,
+    typeable: Boolean,
+    loading: Boolean,
     modelValue: {
       default: null
     },
@@ -56,7 +63,8 @@ export const VAutocomplete = defineComponent({
     const state: SelectState = reactive({
       focused: false,
       isMenuActive: false,
-      search: ''
+      search: '',
+      select: null
     })
 
     const { setTextColor } = useColors()
@@ -74,8 +82,8 @@ export const VAutocomplete = defineComponent({
     })
 
     const inputValue = computed<string>(() => {
-      return props.valueKey
-        ? valueProperty.value[props.valueKey]
+      return props.valueKey && valueProperty.value
+        ? getKeyValueFromTarget(props.valueKey, valueProperty.value)
         : valueProperty.value
     })
 
@@ -86,11 +94,8 @@ export const VAutocomplete = defineComponent({
     }
 
     function onBlur() {
-      if (!valueProperty.value) state.search = ''
-
-      if (!state.search && valueProperty.value) {
-        state.search = inputValue.value
-      }
+      if (!valueProperty.value && !state.search) state.search = ''
+      if (!state.search && valueProperty.value) state.search = inputValue.value
       state.focused = false
       emit('blur')
     }
@@ -102,13 +107,15 @@ export const VAutocomplete = defineComponent({
 
     function onClear() {
       state.search = ''
-      emit('select', '')
-      emit('update:modelValue', '')
-      emit('update:value', '')
+      state.select = null
+      emit('select', null)
+      emit('update:modelValue', null)
+      emit('update:value', null)
     }
 
     function onSelect(it) {
-      state.search = props.valueKey ? it[props.valueKey] : it
+      state.search = props.valueKey ? getKeyValueFromTarget(props.valueKey, it) : it
+      state.select = it
       emit('select', it)
       emit('update:modelValue', it)
       emit('update:value', it)
@@ -137,6 +144,7 @@ export const VAutocomplete = defineComponent({
         active: state.isMenuActive,
         color: props.dark ? 'white' : props.color,
         listColor: props.listColor,
+        select: state.select,
         onSelect
       }
       return h(VSelectList, propsData)
@@ -150,7 +158,7 @@ export const VAutocomplete = defineComponent({
           openOnClick: true,
           maxHeight: 240,
           bottom: true,
-          onClose: () => setTimeout(() => state.isMenuActive = state.focused)
+          onClose: () => state.isMenuActive = state.focused
         },
         {
           default: genAutocompleteList
@@ -158,19 +166,35 @@ export const VAutocomplete = defineComponent({
       )
     }
 
+    function genLinearProgress() {
+      return h('div', {
+        class: { 'v-autocomplete__loading': true }
+      }, h(VProgressLinear, {
+        height: 3,
+        indeterminate: true,
+        color: props.color,
+        backgroundColor: props.color
+      }))
+    }
+
     function genAutocomplete(): VNode {
-      return h('div', { class: classes.value }, [ genInput(), genMenu() ])
+      return h('div', { class: classes.value }, [
+        genInput(),
+        props.loading && genLinearProgress(),
+        genMenu()
+      ])
     }
 
     onBeforeMount(() => {
-      state.search = valueProperty.value ? inputValue.value : ''
+      state.select = valueProperty.value
+      state.search = inputValue.value
     })
 
     return () => {
       const propsData = {
         label: props.label,
         focused: state.isMenuActive,
-        hasState: !!valueProperty.value || !!state.search,
+        hasState: !!state.search,
         dark: props.dark,
         disabled: props.disabled,
         clearable: props.clearable,

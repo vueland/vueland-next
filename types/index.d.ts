@@ -1,4 +1,4 @@
-import { ListItemRef, ListItem, UserOptions } from './params'
+import { ListItemRef, ListItem, UserOptions, Nullable } from './params'
 import { App } from 'vue'
 
 export default class Vueland {
@@ -28,5 +28,6 @@ export {
   GroupManager,
   DatePickerBtnHandlers,
   DatePickerDate,
-  ListTypes
+  ListTypes,
+  Nullable
 } from './params'

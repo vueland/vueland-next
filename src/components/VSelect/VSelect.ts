@@ -18,6 +18,9 @@ import { VInput } from '../VInput'
 import { VSelectList } from './VSelectList'
 import { VMenu } from '../VMenu'
 
+// Helpers
+import { getKeyValueFromTarget } from '../../helpers'
+
 type SelectState = {
   selected: any | null
   focused: boolean
@@ -77,7 +80,7 @@ export const VSelect = defineComponent({
     const computedInputValue = computed<string>(() => {
       return state.selected
         ? props.valueKey
-          ? state.selected[props.valueKey]
+          ? getKeyValueFromTarget(props.valueKey, state.selected)
           : state.selected
         : ''
     })
@@ -88,7 +91,7 @@ export const VSelect = defineComponent({
 
     watch(
       () => computedValue.value,
-      (to) => (state.selected = to),
+      (to) => state.selected = to,
       { immediate: true }
     )
 
@@ -139,7 +142,7 @@ export const VSelect = defineComponent({
         active: state.focused,
         color: props.dark ? 'white' : props.color,
         listColor: props.listColor || 'white',
-        clear: !state.selected,
+        select: state.selected,
         dark: props.dark,
         onSelect: (item) => selectItem(item)
       }
@@ -166,7 +169,7 @@ export const VSelect = defineComponent({
         class: classes.value
       }
 
-      return h('div', propsData, [genInput(), genMenu()])
+      return h('div', propsData, [ genInput(), genMenu() ])
     }
 
     return () => {
@@ -184,9 +187,7 @@ export const VSelect = defineComponent({
         ...attrs
       } as any
 
-      return h(VInput, propsData, {
-        textField: () => genSelect()
-      })
+      return h(VInput, propsData, { textField: () => genSelect() })
     }
   }
 })

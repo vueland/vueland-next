@@ -12,7 +12,7 @@ import { useTransition } from '../../effects/use-transition'
 
 // Types
 import { VNode, Ref } from 'vue'
-import { DatePickerBtnHandlers, DatePickerDate } from '../../../types'
+import { DatePickerBtnHandlers, DatePickerDate, Nullable } from '../../../types'
 
 type UpdateParams = {
   month?: number
@@ -24,20 +24,20 @@ export const VDatePickerDates = defineComponent({
 
   props: {
     locale: Array,
-    year: [String, Number],
-    month: [String, Number],
-    date: [String, Number],
+    year: [ String, Number ],
+    month: [ String, Number ],
+    date: [ String, Number ],
     value: Object,
     mondayFirst: Boolean,
-    disabledDates: Object,
+    disabledDates: Object
   } as any,
 
-  emits: ['update:month', 'update:value'],
+  emits: [ 'update:month', 'update:value' ],
 
   setup(props, { emit, slots }): () => VNode {
     const FIRST_MONTH = 0
     const LAST_MONTH = 11
-    const DAYS = [0, 1, 2, 3, 4, 5, 6]
+    const DAYS = [ 0, 1, 2, 3, 4, 5, 6 ]
     const ANIMATION_TIMEOUT = 0
 
     const dates = ref<(DatePickerDate | null)[]>([])
@@ -48,7 +48,7 @@ export const VDatePickerDates = defineComponent({
 
     handlers.value = {
       onNext: () => updateMonth(true),
-      onPrev: () => updateMonth(false),
+      onPrev: () => updateMonth(false)
     }
 
     if (props.mondayFirst) {
@@ -86,7 +86,7 @@ export const VDatePickerDates = defineComponent({
 
     function genWeekDays(): VNode[] {
       const propsData = {
-        class: 'v-date-picker-dates__day',
+        class: 'v-date-picker-dates__day'
       }
 
       return DAYS.map((day) =>
@@ -101,11 +101,8 @@ export const VDatePickerDates = defineComponent({
 
     function setEmptiesBeforeFirstDate(dateObject) {
       const firstDay = DAYS[0]
-
       const startDay = firstDay && !dateObject.day ? dateObject.day : firstDay
-
-      const tillDay =
-        firstDay && !dateObject.day ? DAYS.length - 1 : dateObject.day
+      const tillDay = firstDay && !dateObject.day ? DAYS.length - 1 : dateObject.day
 
       for (let i = startDay; i <= tillDay; i += 1) {
         dates.value[i] = { date: null } as any
@@ -138,6 +135,7 @@ export const VDatePickerDates = defineComponent({
     function setDisabled(date: DatePickerDate): boolean {
       if (!date.date) return false
       if (!props.disabledDates) return !!date.isHoliday
+
       const { disabledDates } = props
 
       return (
@@ -157,8 +155,8 @@ export const VDatePickerDates = defineComponent({
       return date.mls >= dateFrom.mls && date.mls <= dateTo.mls
     }
 
-    function disableDaysOfMonth(date: DatePickerDate) {
-      return !!props.disabledDates.daysOfMonth.find((it) => it === date.date)
+    function disableDaysOfMonth(date: DatePickerDate): boolean {
+      return props.disabledDates.daysOfMonth.some((it) => it === date.date)
     }
 
     function disableDates(date: DatePickerDate): boolean {
@@ -189,16 +187,15 @@ export const VDatePickerDates = defineComponent({
         class: {
           'v-date-picker-dates__cell': !!date.date,
           'v-date-picker-dates__cell--empty': !date.date,
-          'v-date-picker-dates__cell--selected':
-            isSelected && !props.value.default,
+          'v-date-picker-dates__cell--selected': isSelected && !props.value.default,
           'v-date-picker-dates__cell--current-date': isToday,
-          'v-date-picker-dates__cell--holiday': date.date && date.isHoliday,
+          'v-date-picker-dates__cell--holiday': date.date && date.isHoliday
         },
-        onClick: () => date.date && emit('update:value', date),
+        onClick: () => date.date && emit('update:value', date)
       }
 
       return h('div', propsData, [
-        (date.date && slots.date && slots.date(date)) || date.date,
+        (date.date && slots.date && slots.date(date)) || date.date
       ])
     }
 
@@ -215,7 +212,7 @@ export const VDatePickerDates = defineComponent({
       return genTableRows(datesVNodes, 'v-date-picker-dates__row', DAYS.length)
     }
 
-    function genDates(): VNode | null {
+    function genDates(): Nullable<VNode> {
       return (
         (!isDatesChanged.value &&
           h('div', { class: 'v-date-picker-dates__dates' }, genDateRows())) ||
@@ -230,7 +227,7 @@ export const VDatePickerDates = defineComponent({
     return () =>
       h('div', { class: 'v-date-picker-dates' }, [
         genWeek(),
-        useTransition(genDates() as any, 'fade'),
+        useTransition(genDates() as any, 'fade')
       ])
-  },
+  }
 })

@@ -142,3 +142,5 @@ export interface ListTypes {
   isInGroup: boolean
   isInList: boolean
 }
+
+export type Nullable<T> = T | null

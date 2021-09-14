@@ -9,50 +9,105 @@ import { useColors } from '../../effects/use-colors'
 export const VProgressLinear = defineComponent({
   name: 'v-progress-linear',
   props: {
+    value: {
+      type: [ String, Number ],
+      default: null
+    },
+    modelValue: {
+      type: [ String, Number ],
+      default: null
+    },
+    bufferValue: {
+      type: [ String, Number ],
+      default: null
+    },
     height: {
-      type: [Number, String],
-      default: 4,
+      type: [ Number, String ],
+      default: 4
     },
     color: {
       type: String,
-      default: 'primary',
+      default: 'primary'
     },
     backgroundColor: {
       type: String,
-      default: null,
+      default: 'primary'
     },
     backgroundOpacity: {
       type: String,
-      default: null,
+      default: '0.3'
     },
     indeterminate: Boolean,
     reverse: Boolean,
     rounded: Boolean,
     stream: Boolean,
-    striped: Boolean,
+    striped: Boolean
   },
   setup(props) {
-    const {} = useColors()
+    const { setBackground } = useColors()
+
+    function genProgressBar(type = '') {
+      const barWidth = props.value || props.modelValue
+      const propsData = {
+        class: { 'v-progress-linear__bar': true, [type]: !!type },
+        style: {
+          width: !props.indeterminate ? barWidth + '%' : ''
+        }
+      }
+      return h('div', setBackground(props.color, propsData))
+    }
 
     function genProgressBuffer() {
+      const bufferWidth = props.value || props.modelValue
+
+      const propsData = {
+        class: {
+          'v-progress-linear__buffer': true
+        },
+        style: {
+          width: bufferWidth ? bufferWidth + '%' : ''
+        }
+      }
+
+      return h('div', propsData)
+    }
+
+    function genProgressBackground() {
+      const propsData = {
+        class: { 'v-progress-linear__background': true },
+        style: {
+          opacity: props.backgroundOpacity
+        }
+      }
+
+      return h('div', setBackground(props.backgroundColor, propsData))
+    }
+
+    function genProgressIndeterminate() {
       return h('div', {
-        class: 'v-progress-linear__buffer',
-      })
+        class: { 'v-progress-linear__indeterminate': true }
+      }, [
+        genProgressBar('long'),
+        genProgressBar('short')
+      ])
     }
 
     function genProgressLinear() {
-      return h(
-        'div',
+      return h('div',
         {
           class: 'v-progress-linear',
           style: {
-            height: `${props.height}px`,
-          },
+            height: `${ props.height }px`
+          }
         },
-        genProgressBuffer()
+        [
+          genProgressBackground(),
+          genProgressBuffer(),
+          props.indeterminate ? genProgressIndeterminate() : genProgressBar()
+        ]
       )
     }
 
     return () => genProgressLinear()
-  },
+  }
 })

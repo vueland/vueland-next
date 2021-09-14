@@ -187,7 +187,7 @@
     <div>
       <v-progress-linear
         height="7"
-        background-color="red"
+        value="75"
         indeterminate
       />
       <v-progress-circular
@@ -535,7 +535,7 @@
         typeable
         prepend-icon="search"
         :items="data.users"
-        :rules="[v => !!v || 'required']"
+        :loading="!data.user"
         @select="testFunc"
         @input="$event => data.users = data.users.filter(u => u.name.includes($event))"
       />

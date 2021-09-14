@@ -16,6 +16,7 @@ import { VNode } from 'vue'
 import { VInput } from '../VInput'
 import { VSelectList } from '../VSelect'
 import { VMenu } from '../VMenu'
+import { VProgressLinear } from '../VProgressLinear'
 
 // Helpers
 import { getKeyValueFromTarget } from '../../helpers'
@@ -38,6 +39,7 @@ export const VAutocomplete = defineComponent({
     listColor: String,
     disabled: Boolean,
     typeable: Boolean,
+    loading: Boolean,
     modelValue: {
       default: null
     },
@@ -164,8 +166,23 @@ export const VAutocomplete = defineComponent({
       )
     }
 
+    function genLinearProgress() {
+      return h('div', {
+        class: { 'v-autocomplete__loading': true }
+      }, h(VProgressLinear, {
+        height: 3,
+        indeterminate: true,
+        color: props.color,
+        backgroundColor: props.color
+      }))
+    }
+
     function genAutocomplete(): VNode {
-      return h('div', { class: classes.value }, [ genInput(), genMenu() ])
+      return h('div', { class: classes.value }, [
+        genInput(),
+        props.loading && genLinearProgress(),
+        genMenu()
+      ])
     }
 
     onBeforeMount(() => {

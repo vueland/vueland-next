@@ -37,9 +37,6 @@ export const VProgressLinear = defineComponent({
       type: String,
       default: '0.3'
     },
-    bufferColor: {
-      type: String
-    },
     indeterminate: Boolean,
     reverse: Boolean,
     rounded: Boolean,
@@ -63,14 +60,16 @@ export const VProgressLinear = defineComponent({
     function genProgressBuffer() {
       const bufferWidth = props.value || props.modelValue
 
-      return h('div', {
+      const propsData = {
         class: {
           'v-progress-linear__buffer': true
         },
         style: {
           width: bufferWidth ? bufferWidth + '%' : ''
         }
-      })
+      }
+
+      return h('div', propsData)
     }
 
     function genProgressBackground() {

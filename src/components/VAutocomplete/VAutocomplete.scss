@@ -11,8 +11,11 @@
     padding: 6px 0;
     background: transparent;
   }
-  .v-select-list {
 
+  &__loading {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
   }
 }
 

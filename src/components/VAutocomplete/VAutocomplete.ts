@@ -170,7 +170,7 @@ export const VAutocomplete = defineComponent({
       return h('div', {
         class: { 'v-autocomplete__loading': true }
       }, h(VProgressLinear, {
-        height: 3,
+        height: 2,
         indeterminate: true,
         color: props.color,
         backgroundColor: props.color

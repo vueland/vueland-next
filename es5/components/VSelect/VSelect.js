@@ -23,6 +23,8 @@ var _VSelectList = require("./VSelectList");
 
 var _VMenu = require("../VMenu");
 
+var _helpers = require("../../helpers");
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -74,7 +76,7 @@ var VSelect = (0, _vue.defineComponent)({
       };
     });
     var computedInputValue = (0, _vue.computed)(function () {
-      return state.selected ? props.valueKey ? state.selected[props.valueKey] : state.selected : '';
+      return state.selected ? props.valueKey ? (0, _helpers.getKeyValueFromTarget)(props.valueKey, state.selected) : state.selected : '';
     });
     var computedValue = (0, _vue.computed)(function () {
       return props.modelValue || props.value;
@@ -134,7 +136,7 @@ var VSelect = (0, _vue.defineComponent)({
         active: state.focused,
         color: props.dark ? 'white' : props.color,
         listColor: props.listColor || 'white',
-        clear: !state.selected,
+        select: state.selected,
         dark: props.dark,
         onSelect: function onSelect(item) {
           return selectItem(item);

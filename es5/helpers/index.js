@@ -3,12 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.createSimpleFunctional = createSimpleFunctional;
-exports.addOnceListener = addOnceListener;
-exports.convertToUnit = convertToUnit;
-exports.warning = warning;
-exports.copyWithoutLink = copyWithoutLink;
-exports.addScopedSlot = void 0;
+exports.getKeyValueFromTarget = exports.addScopedSlot = exports.copyWithoutLink = exports.warning = exports.convertToUnit = exports.addOnceListener = exports.createSimpleFunctional = void 0;
 
 var _vue = require("vue");
 
@@ -18,7 +13,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function createSimpleFunctional(c) {
+var createSimpleFunctional = function createSimpleFunctional(c) {
   var el = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'div';
   var name = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
   return (0, _vue.defineComponent)({
@@ -33,9 +28,11 @@ function createSimpleFunctional(c) {
       };
     }
   });
-}
+};
 
-function addOnceListener(el, eventName, cb) {
+exports.createSimpleFunctional = createSimpleFunctional;
+
+var addOnceListener = function addOnceListener(el, eventName, cb) {
   var options = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
 
   var once = function once(event) {
@@ -44,9 +41,11 @@ function addOnceListener(el, eventName, cb) {
   };
 
   el.addEventListener(eventName, once, options);
-}
+};
 
-function convertToUnit(str) {
+exports.addOnceListener = addOnceListener;
+
+var convertToUnit = function convertToUnit(str) {
   var unit = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'px';
 
   if (str == null || str === '') {
@@ -56,15 +55,21 @@ function convertToUnit(str) {
   } else {
     return "".concat(Number(str)).concat(unit);
   }
-}
+};
 
-function warning(warningText) {
+exports.convertToUnit = convertToUnit;
+
+var warning = function warning(warningText) {
   console.warn(warningText);
-}
+};
 
-function copyWithoutLink(obj) {
+exports.warning = warning;
+
+var copyWithoutLink = function copyWithoutLink(obj) {
   return JSON.parse(JSON.stringify(obj));
-}
+};
+
+exports.copyWithoutLink = copyWithoutLink;
 
 var addScopedSlot = function addScopedSlot(slotName, slots) {
   return function (scoped) {
@@ -75,4 +80,12 @@ var addScopedSlot = function addScopedSlot(slotName, slots) {
 };
 
 exports.addScopedSlot = addScopedSlot;
+
+var getKeyValueFromTarget = function getKeyValueFromTarget(valueKey, target) {
+  return valueKey.split('.').reduce(function (acc, it) {
+    return acc[it];
+  }, target);
+};
+
+exports.getKeyValueFromTarget = getKeyValueFromTarget;
 //# sourceMappingURL=index.js.map

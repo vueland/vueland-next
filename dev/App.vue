@@ -539,6 +539,7 @@
         @select="testFunc"
         @input="$event => data.users = data.users.filter(u => u.name.includes($event))"
       />
+      <v-button label="test" color="blue darken-2"/>
       <v-button
         :disabled="false"
         :loading="data.loading"
@@ -562,6 +563,7 @@
     <v-form>
       <v-card
         elevation="5"
+        color="red"
       >
         <v-resize right />
         <v-resize bottom />

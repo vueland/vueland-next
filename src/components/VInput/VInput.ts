@@ -51,7 +51,7 @@ export const VInput = defineComponent({
 
   emits: [ 'clear', 'focus' ],
 
-  setup(props, { slots, emit }): () => VNode {
+  setup(props, { slots, emit, attrs }): () => VNode {
     const { setTextColor } = useColors()
     const { icons, iconSize } = useIcons('md')
     const {
@@ -195,16 +195,18 @@ export const VInput = defineComponent({
       return h('div', propsData, transitionedMessage)
     }
 
-    function genPropsData() {
-      return { class: classes.value }
-    }
-
     onBeforeUnmount(() => {
       if (fields?.value) {
         fields!.value = fields!.value.filter((v) => v !== validateValue)
       }
     })
 
-    return () => h('div', genPropsData(), genInputSlot())
+    return () => {
+      const propsData = {
+        class: classes.value,
+        style: attrs.style
+      }
+      return h('div', propsData, genInputSlot())
+    }
   }
 })

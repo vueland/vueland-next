@@ -3613,9 +3613,9 @@ exports[`VDataTable should test dark prop and match snapshot 1`] = `
           Rows per page
         </span>
         <div class="v-input">
-          <div class="v-input__slot primary--text">
+          <div class="v-input__slot white--text">
             <div class="v-input__field-slot">
-              <label class="v-label v-label--active v-label--has-state v-label--on-field primary--text"
+              <label class="v-label v-label--active v-label--has-state v-label--on-field white--text"
                      style="left: 0px; position: absolute;"
               >
               </label>

@@ -45,8 +45,7 @@ function useValidate(props) {
   });
   var validationState = (0, _vue.computed)(function () {
     if (errorState.innerError) return error;
-    if (!errorState.innerError && errorState.innerError !== null) return computedColor.value;
-    return computedColor.value || primary;
+    return computedColor.value;
   });
   var hasRules = (0, _vue.computed)(function () {
     return props.rules !== void 0 && props.rules !== null && props.rules.length > 0;

@@ -351,7 +351,7 @@
     <v-form>
       <v-checkbox
         v-model="data.checked"
-        :label="data.user2.name"
+        label="Проверочное слово"
         validate
         :value="data.user2"
       />
@@ -515,6 +515,7 @@
         prepend-icon="map"
         clearable
         :rules="[v => !!v || 'required', v => v.length > 5 || 'more than 5']"
+        style="margin-top: 10px;"
         dark
       />
       <v-select
@@ -522,9 +523,9 @@
         label="select"
         value-key="car.brand"
         clearable
-
         prepend-icon="search"
         list-color="grey darken-4"
+        style="margin-top: 10px;"
         :items="data.users"
         :rules="[v => !!v || 'required']"
       />

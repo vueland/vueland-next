@@ -54,7 +54,8 @@ var VInput = (0, _vue.defineComponent)({
     var _props$rules;
 
     var slots = _ref.slots,
-        emit = _ref.emit;
+        emit = _ref.emit,
+        attrs = _ref.attrs;
 
     var _useColors = (0, _useColors2.useColors)(),
         setTextColor = _useColors.setTextColor;
@@ -198,12 +199,6 @@ var VInput = (0, _vue.defineComponent)({
       return (0, _vue.h)('div', propsData, transitionedMessage);
     }
 
-    function genPropsData() {
-      return {
-        "class": classes.value
-      };
-    }
-
     (0, _vue.onBeforeUnmount)(function () {
       if (fields !== null && fields !== void 0 && fields.value) {
         fields.value = fields.value.filter(function (v) {
@@ -212,7 +207,11 @@ var VInput = (0, _vue.defineComponent)({
       }
     });
     return function () {
-      return (0, _vue.h)('div', genPropsData(), genInputSlot());
+      var propsData = {
+        "class": classes.value,
+        style: attrs.style
+      };
+      return (0, _vue.h)('div', propsData, genInputSlot());
     };
   }
 });

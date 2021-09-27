@@ -36,7 +36,7 @@ exports[`VCheckbox should set "on" and "off" icon and match snapshot 1`] = `
 exports[`VCheckbox should set disabled and match snapshot 1`] = `
 <div class="v-checkbox v-checkbox--disabled">
   <div class="v-checkbox__square">
-    <i class="v-icon v-icon--disabled far fa-square primary--text"
+    <i class="v-icon v-icon--disabled far fa-square"
        style="font-size: 24px;"
     >
     </i>

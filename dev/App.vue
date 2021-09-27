@@ -515,13 +515,14 @@
         prepend-icon="map"
         clearable
         :rules="[v => !!v || 'required', v => v.length > 5 || 'more than 5']"
-
+        dark
       />
       <v-select
         v-model="data.user"
         label="select"
         value-key="car.brand"
         clearable
+
         prepend-icon="search"
         list-color="grey darken-4"
         :items="data.users"

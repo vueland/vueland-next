@@ -10,7 +10,7 @@ export const validateProps = () => {
       type: Array,
       default: null
     },
-    value: [String, Number, Date, Object]
+    value: [ String, Number, Date, Object ]
   }
 }
 
@@ -39,9 +39,7 @@ export function useValidate(props) {
 
   const validationState = computed<string | undefined>(() => {
     if (errorState.innerError) return error
-    if (!errorState.innerError && errorState.innerError !== null)
-      return computedColor.value
-    return computedColor.value || primary
+    return computedColor.value
   })
 
   const hasRules = computed<boolean>(() => {

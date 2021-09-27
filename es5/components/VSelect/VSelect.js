@@ -33,7 +33,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var VSelect = (0, _vue.defineComponent)({
   name: 'v-select',
-  props: _objectSpread(_objectSpread({
+  props: _objectSpread(_objectSpread(_objectSpread({
     label: String,
     items: Array,
     dark: Boolean,
@@ -45,12 +45,8 @@ var VSelect = (0, _vue.defineComponent)({
     clearable: Boolean,
     modelValue: {
       "default": null
-    },
-    color: {
-      type: String,
-      "default": 'primary'
     }
-  }, (0, _useActivator.activatorProps)()), (0, _useValidate.validateProps)()),
+  }, (0, _useColors2.colorProps)()), (0, _useActivator.activatorProps)()), (0, _useValidate.validateProps)()),
   emits: ['input', 'blur', 'focus', 'select', 'update:modelValue', 'update:value'],
   setup: function setup(props, _ref) {
     var emit = _ref.emit,

@@ -141,7 +141,7 @@ var VDatePickerDates = (0, _vue.defineComponent)({
     }
 
     function disableDaysOfMonth(date) {
-      return !!props.disabledDates.daysOfMonth.find(function (it) {
+      return props.disabledDates.daysOfMonth.some(function (it) {
         return it === date.date;
       });
     }

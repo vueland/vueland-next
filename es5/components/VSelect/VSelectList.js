@@ -13,6 +13,8 @@ var _VList = require("../VList");
 
 var _useColors2 = require("../../effects/use-colors");
 
+var _helpers = require("../../helpers");
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -35,7 +37,7 @@ var VSelectList = (0, _vue.defineComponent)({
       type: [String, Number],
       "default": 4
     },
-    clear: Boolean
+    select: [Object, String, Array, Number]
   }, (0, _useColors2.colorProps)()),
   emits: ['select'],
   setup: function setup(props, _ref) {
@@ -46,6 +48,13 @@ var VSelectList = (0, _vue.defineComponent)({
         setBackground = _useColors.setBackground;
 
     var selected = (0, _vue.ref)(null);
+    (0, _vue.watch)(function () {
+      return props.select;
+    }, function (to) {
+      return selected.value = to;
+    }, {
+      immediate: true
+    });
 
     function genItems() {
       var _props$items;
@@ -59,11 +68,12 @@ var VSelectList = (0, _vue.defineComponent)({
         var color = props.dark ? 'white' : '';
         var item = (0, _vue.h)(_VList.VListItemTitle, setTextColor(color, propsData), {
           "default": function _default() {
-            return key ? it[key] : it;
+            return key ? (0, _helpers.getKeyValueFromTarget)(key, it) : it;
           }
         });
         return (0, _vue.h)(_VList.VListItem, {
           key: props.idKey,
+          active: selected.value === it,
           onClick: function onClick() {
             selected.value = it;
             emit('select', it);

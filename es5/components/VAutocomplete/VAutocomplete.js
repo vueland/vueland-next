@@ -21,6 +21,10 @@ var _VSelect = require("../VSelect");
 
 var _VMenu = require("../VMenu");
 
+var _VProgressLinear = require("../VProgressLinear");
+
+var _helpers = require("../../helpers");
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -37,6 +41,8 @@ var VAutocomplete = (0, _vue.defineComponent)({
     idKey: String,
     listColor: String,
     disabled: Boolean,
+    typeable: Boolean,
+    loading: Boolean,
     modelValue: {
       "default": null
     },
@@ -51,7 +57,8 @@ var VAutocomplete = (0, _vue.defineComponent)({
     var state = (0, _vue.reactive)({
       focused: false,
       isMenuActive: false,
-      search: ''
+      search: '',
+      select: null
     });
 
     var _useColors = (0, _useColors2.useColors)(),
@@ -72,26 +79,18 @@ var VAutocomplete = (0, _vue.defineComponent)({
       return props.modelValue || props.value;
     });
     var inputValue = (0, _vue.computed)(function () {
-      return props.valueKey ? valueProperty.value[props.valueKey] : valueProperty.value;
+      return props.valueKey && valueProperty.value ? (0, _helpers.getKeyValueFromTarget)(props.valueKey, valueProperty.value) : valueProperty.value;
     });
-    var isListItemsExists = (0, _vue.computed)(function () {
-      return !!props.items && !!props.items.length;
-    });
-    state.search = valueProperty.value ? inputValue.value : '';
 
     function onFocus() {
       state.focused = true;
-      state.isMenuActive = isListItemsExists.value;
+      state.isMenuActive = true;
       emit('focus');
     }
 
     function onBlur() {
-      if (!valueProperty.value) state.search = '';
-
-      if (!state.search && valueProperty.value) {
-        state.search = inputValue.value;
-      }
-
+      if (!valueProperty.value && !state.search) state.search = '';
+      if (!state.search && valueProperty.value) state.search = inputValue.value;
       state.focused = false;
       emit('blur');
     }
@@ -103,13 +102,15 @@ var VAutocomplete = (0, _vue.defineComponent)({
 
     function onClear() {
       state.search = '';
-      emit('select', '');
-      emit('update:modelValue', '');
-      emit('update:value', '');
+      state.select = null;
+      emit('select', null);
+      emit('update:modelValue', null);
+      emit('update:value', null);
     }
 
     function onSelect(it) {
-      state.search = props.valueKey ? it[props.valueKey] : it;
+      state.search = props.valueKey ? (0, _helpers.getKeyValueFromTarget)(props.valueKey, it) : it;
+      state.select = it;
       emit('select', it);
       emit('update:modelValue', it);
       emit('update:value', it);
@@ -123,7 +124,8 @@ var VAutocomplete = (0, _vue.defineComponent)({
         ref: inputRef,
         "class": 'v-autocomplete__input',
         onInput: onInput,
-        onFocus: onFocus
+        onFocus: onFocus,
+        onBlur: onBlur
       };
       return (0, _vue.h)('input', setTextColor(props.dark ? 'white' : base, propsData));
     }
@@ -136,6 +138,7 @@ var VAutocomplete = (0, _vue.defineComponent)({
         active: state.isMenuActive,
         color: props.dark ? 'white' : props.color,
         listColor: props.listColor,
+        select: state.select,
         onSelect: onSelect
       };
       return (0, _vue.h)(_VSelect.VSelectList, propsData);
@@ -148,24 +151,41 @@ var VAutocomplete = (0, _vue.defineComponent)({
         maxHeight: 240,
         bottom: true,
         onClose: function onClose() {
-          return onBlur();
+          return state.isMenuActive = state.focused;
         }
       }, {
         "default": genAutocompleteList
       });
     }
 
+    function genLinearProgress() {
+      return (0, _vue.h)('div', {
+        "class": {
+          'v-autocomplete__loading': true
+        }
+      }, (0, _vue.h)(_VProgressLinear.VProgressLinear, {
+        height: 2,
+        indeterminate: true,
+        color: props.color,
+        backgroundColor: props.color
+      }));
+    }
+
     function genAutocomplete() {
       return (0, _vue.h)('div', {
         "class": classes.value
-      }, [genInput(), genMenu()]);
+      }, [genInput(), props.loading && genLinearProgress(), genMenu()]);
     }
 
+    (0, _vue.onBeforeMount)(function () {
+      state.select = valueProperty.value;
+      state.search = inputValue.value;
+    });
     return function () {
       var propsData = {
         label: props.label,
-        focused: state.focused,
-        hasState: !!valueProperty.value || !!state.search,
+        focused: state.isMenuActive,
+        hasState: !!state.search,
         dark: props.dark,
         disabled: props.disabled,
         clearable: props.clearable,

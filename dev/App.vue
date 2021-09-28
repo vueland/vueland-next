@@ -57,7 +57,7 @@
         fetch('https://jsonplaceholder.typicode.com/comments')
           .then(response => response.json())
           .then(json => setTimeout(() => {
-            data.users = [ ...data.users ]
+            data.users = json
           }, 500))
       }
 
@@ -146,8 +146,8 @@
       data.user = data.users[0]
 
       const disabledDates = {
-        // from: new Date(2021, 4, 2),
-        // to: new Date(2021, 4, 10),
+        from: new Date(2021, 4, 2),
+        to: new Date(2021, 4, 10),
         days: [ 0, 6 ],
         // daysOfMonth: [29, 30, 31],
         // dates: [
@@ -258,7 +258,6 @@
         class="grey darken-4"
         active-class="active-now"
         dark
-        expanded
         group="main"
       >
         <template #title>
@@ -379,6 +378,7 @@
             displayColor: ''
           },
           color: 'blue darken-3',
+          dark: true,
           rowsPerPageOptions: [25, 40, 50, 75],
           rowsPerPageText: 'Кол-во строк',
         }"
@@ -457,15 +457,15 @@
         prepend-icon="event"
         :rules="[val => !!val || 'Required', val => val.length > 5 || 'Required to be 5 symbols']"
         clearable
-        color="grey darken-4"
-        content-color="pink lighten-3"
+        color="blue darken-4"
+        content-color="white"
         monday-first
         :disabled-dates="disabledDates"
         @selected="testFunc"
       >
         <template #date="{date, isHoliday}">
           <div
-            :class="[isHoliday? 'grey--text text--darken-2' : 'white--text']"
+            :class="[isHoliday? 'red--text text--lighten-2' : 'white--text']"
             :style="{
               width: '100%',
               height: '100%',
@@ -478,7 +478,7 @@
             <span style="font-size: .9rem; font-weight: 500;">{{ date }}</span>
             <v-icon
               :icon="isHoliday ? 'home' : 'done'"
-              size="10"
+              size="14"
               style="position: absolute; top: 0; left: 0"
             />
           </div>
@@ -521,7 +521,7 @@
       <v-select
         v-model="data.user"
         label="select"
-        value-key="car.brand"
+        value-key="email"
         clearable
         prepend-icon="search"
         list-color="grey darken-4"
@@ -532,7 +532,7 @@
       <v-autocomplete
         v-model:value="data.user"
         label="autocomplete"
-        value-key="car.brand"
+        value-key="email"
         clearable
         typeable
         prepend-icon="search"

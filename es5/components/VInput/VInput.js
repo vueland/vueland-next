@@ -104,7 +104,7 @@ var VInput = (0, _vue.defineComponent)({
     });
 
     function onClick() {
-      dirty();
+      !errorState.isDirty && dirty();
       emit('focus');
     }
 
@@ -199,6 +199,9 @@ var VInput = (0, _vue.defineComponent)({
       return (0, _vue.h)('div', propsData, transitionedMessage);
     }
 
+    (0, _vue.onBeforeMount)(function () {
+      props.focused && !errorState.isDirty && dirty();
+    });
     (0, _vue.onBeforeUnmount)(function () {
       if (fields !== null && fields !== void 0 && fields.value) {
         fields.value = fields.value.filter(function (v) {

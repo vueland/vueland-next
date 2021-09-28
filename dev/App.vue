@@ -510,14 +510,13 @@
       />
       <v-text-field
         v-model="data.login"
-        label="teal"
+        label="teal no validate"
         autocomplete="new-password"
         prepend-icon="map"
         clearable
-        :rules="[v => !!v || 'required', v => v.length > 5 || 'more than 5']"
         style="margin-top: 10px;"
-        dark
       />
+
       <v-select
         v-model="data.user"
         label="select"

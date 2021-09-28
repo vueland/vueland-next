@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VApp should mount component and match snapshot 1`] = `
+<div class="v-app">
+  <div class="default">
+  </div>
+</div>
+`;

@@ -1,13 +1,5 @@
 @import "../../styles/scss/modules/global";
 
-//.dark--theme:not(.v-list-item--active) {
-//  color: #ffffff !important;
-//}
-//
-//.light--theme:not(.v-list-item--active) {
-//  color: rgba(0, 0, 0, .87) !important;
-//}
-
 .v-list-item {
   @include flex(flex, flex-start, center);
   flex: 1 1 100%;

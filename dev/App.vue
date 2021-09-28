@@ -106,9 +106,9 @@
           resizeable: true,
           sortable: true,
           filterable: true,
-          cellClass: 'green darken-3 white--text',
-          filterClass: 'grey lighten-2',
-          rowCellClass: 'green lighten-1 white--text',
+          // cellClass: 'green darken-3 white--text',
+          // filterClass: 'grey lighten-2',
+          // rowCellClass: 'green lighten-1 white--text',
           format: row => row.email
         },
         {
@@ -369,9 +369,9 @@
       <v-data-table
         :cols="cols"
         :rows="data.users"
-        color="grey darken-2"
+        
         :header-options="{
-          color: 'grey darken-4'
+          
         }"
         :footer-options="{
           pagination: {
@@ -382,7 +382,7 @@
           rowsPerPageOptions: [25, 40, 50, 75],
           rowsPerPageText: 'Кол-во строк',
         }"
-        dark
+        
         align="left"
         class="elevation-10"
         show-sequence
@@ -565,7 +565,7 @@
     <v-form>
       <v-card
         elevation="5"
-        color="red"
+        color="white"
       >
         <v-resize right />
         <v-resize bottom />

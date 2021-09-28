@@ -16,3 +16,20 @@ exports[`VInput should mount component and match snapshot 1`] = `
   </div>
 </div>
 `;
+
+exports[`VInput should test "focused" prop and match snapshot 1`] = `
+<div class="v-input v-input--dirty v-input--focused">
+  <div class="v-input__slot primary--text">
+    <div class="v-input__field-slot">
+      <label class="v-label v-label--active v-label--on-field primary--text"
+             style="left: 0px; position: absolute;"
+      >
+      </label>
+    </div>
+    <div class="v-input__status">
+      <transition-stub>
+      </transition-stub>
+    </div>
+  </div>
+</div>
+`;

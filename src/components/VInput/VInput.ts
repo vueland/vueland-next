@@ -8,6 +8,7 @@ import {
   computed,
   defineComponent,
   inject,
+  onBeforeMount,
   onBeforeUnmount
 } from 'vue'
 
@@ -85,15 +86,15 @@ export const VInput = defineComponent({
     }))
 
     watch(() => props.value, () => requestAnimationFrame(validateValue))
-
-    watch(
-      () => props.focused,
-      (to) => !to && requestAnimationFrame(validateValue)
-    )
+    watch(() => props.focused, (to) => !to && requestAnimationFrame(validateValue))
 
     function onClick() {
-      dirty()
+      !errorState.isDirty && dirty()
       emit('focus')
+    }
+
+    function onClear() {
+      !props.disabled && props.hasState && emit('clear')
     }
 
     function validateValue() {
@@ -142,9 +143,7 @@ export const VInput = defineComponent({
     function genClearIcon() {
       const propsData = {
         class: 'v-input__clear',
-        onClick: () => {
-          !props.disabled && props.hasState && emit('clear')
-        }
+        onClick: onClear
       }
       return h('div', propsData, genIcon(icons.$close, true))
     }
@@ -194,6 +193,10 @@ export const VInput = defineComponent({
 
       return h('div', propsData, transitionedMessage)
     }
+
+    onBeforeMount(() => {
+      props.focused && !errorState.isDirty && dirty()
+    })
 
     onBeforeUnmount(() => {
       if (fields?.value) {

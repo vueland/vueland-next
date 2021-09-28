@@ -70,12 +70,12 @@ var VList = (0, _vue.defineComponent)({
     }
 
     return function () {
-      var dataProps = {
+      var propsData = {
         "class": {
           'v-list': true
         }
       };
-      return (0, _vue.h)('div', dataProps, slots["default"] && slots["default"]());
+      return (0, _vue.h)('div', propsData, slots["default"] && slots["default"]());
     };
   }
 });

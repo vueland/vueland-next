@@ -11,13 +11,13 @@ describe('VAutocomplete', () => {
         ...options,
         global: {
           provide: {
-            $options: null,
-          },
-        },
+            $options: null
+          }
+        }
       })
   })
 
-  it('should mount component and match snapshot', () => {
+  test('should mount component and match snapshot', () => {
     const cmp = mountFunction()
 
     expect(cmp.html()).toMatchSnapshot()

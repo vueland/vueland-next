@@ -14,7 +14,7 @@ import { Ref } from 'vue'
 export const VList = defineComponent({
   name: 'v-list',
   props: {
-    multiple: Boolean
+    multiple: Boolean,
   },
 
   setup(props, { slots }) {
@@ -26,24 +26,24 @@ export const VList = defineComponent({
     provide('lists-group', {
       items: listsGroup,
       register: register.bind(null, listsGroup),
-      unregister: unregister.bind(null, listsGroup)
+      unregister: unregister.bind(null, listsGroup),
     })
 
     provide('list-items', {
       items: listItems,
       register: register.bind(null, listItems),
-      unregister: unregister.bind(null, listItems)
+      unregister: unregister.bind(null, listItems),
     })
 
     provide('list-handlers', {
       listClick,
-      itemClick
+      itemClick,
     })
 
     provide('list-types', {
       isInGroup: false,
       isInList: false,
-      isInMenu: false
+      isInMenu: false,
     })
 
     function register(items: Ref<ListItem[]>, item: ListItem) {
@@ -70,13 +70,13 @@ export const VList = defineComponent({
     }
 
     return () => {
-      const dataProps = {
+      const propsData = {
         class: {
-          'v-list': true
-        }
+          'v-list': true,
+        },
       }
 
-      return h('div', dataProps, slots.default && slots.default())
+      return h('div', propsData, slots.default && slots.default())
     }
-  }
+  },
 })

@@ -39,6 +39,7 @@ export const VIcon = defineComponent({
   setup(props, { slots, emit }): () => VNode {
     const { setTextColor } = useColors()
     const iconTag = props.clickable ? 'button' : props.tag
+
     const options: any = inject('$options')
 
     const icon = computed<string>(() => {

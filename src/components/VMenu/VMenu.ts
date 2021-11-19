@@ -95,7 +95,7 @@ export const VMenu = defineComponent({
 
     const handlers = {
       click: (e) => {
-        setDimensions(getActivator(e)).then(() => {
+        setDimensions(getActivator(e)!).then(() => {
           requestAnimationFrame(() => (isActive.value = true))
         })
       },
@@ -129,7 +129,7 @@ export const VMenu = defineComponent({
 
     watch(
       () => [ props.positionY, props.positionX ],
-      () => setDimensions(activatorRef.value)
+      () => setDimensions(activatorRef.value!)
     )
 
     watch(
@@ -198,7 +198,7 @@ export const VMenu = defineComponent({
 
     function onResize() {
       if (!isActive.value) return
-      requestAnimationFrame(() => setDimensions(activatorRef))
+      requestAnimationFrame(() => setDimensions(activatorRef.value!))
     }
 
     return () => [

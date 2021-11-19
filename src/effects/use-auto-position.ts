@@ -12,16 +12,16 @@ export function autoPositionProps() {
   return {
     positionX: {
       type: Number,
-      default: 0,
+      default: 0
     },
     positionY: {
       type: Number,
-      default: 0,
-    },
+      default: 0
+    }
   }
 }
 
-export function useAutoPosition(props) {
+export function useAutoPosition(props: any) {
   const dimensions = reactive<MainDimensions>({
     activator: {
       top: 0,
@@ -29,7 +29,7 @@ export function useAutoPosition(props) {
       bottom: 0,
       right: 0,
       width: 0,
-      height: 0,
+      height: 0
     },
     content: {
       top: 0,
@@ -37,21 +37,20 @@ export function useAutoPosition(props) {
       bottom: 0,
       right: 0,
       width: 0,
-      height: 0,
+      height: 0
     },
     pageYOffset: 0,
-    pageWidth: 0,
+    pageWidth: 0
   })
 
   const contentRef = ref<HTMLElement | any | null>(null)
-  const offset: number = +props.offsetY || 10
+  const offset: number = +props.offsetY || 20
 
   let activator: HTMLElement
   let content: HTMLElement
-  let diff: number
-  let minDiff: number
+  let overflowY: number = 0
 
-  function getBoundedClientRect(el) {
+  function getBoundedClientRect(el: HTMLElement) {
     const rect = el.getBoundingClientRect()
 
     return {
@@ -60,7 +59,7 @@ export function useAutoPosition(props) {
       bottom: rect.bottom,
       right: rect.right,
       width: rect.width,
-      height: rect.height,
+      height: rect.height
     }
   }
 
@@ -94,14 +93,12 @@ export function useAutoPosition(props) {
     return dimensions.content.height + dimensions.activator.top
   }
 
-  function calcDiffs() {
+  function calcDistanceY() {
     const pageHeight = getOffsetTop() + getInnerHeight() - offset
 
     const contentBottom = isAbsolutePositioned.value
       ? getContentAbsoluteBottom()
       : getContentBottom()
-
-    minDiff = (dimensions.content.height / 100) * 10
 
     return pageHeight - contentBottom
   }
@@ -112,28 +109,33 @@ export function useAutoPosition(props) {
     return dimensions.activator.left
   }
 
-  function calcTopPosition(): number {
-    diff = calcDiffs()
+  function autoPositionY(): number {
+    overflowY = calcDistanceY()
 
     if (props.positionY) {
-      if (diff <= minDiff) return props.positionY + getOffsetTop() + diff
+
+      if (overflowY <= offset) {
+        return props.positionY + getOffsetTop() + overflowY
+      }
 
       return props.positionY + getOffsetTop()
     }
 
     if (props.bottom) {
-      if (diff <= minDiff)
+      if (overflowY <= offset)
         return dimensions.activator.top - dimensions.content.height
 
       return dimensions.activator.top + dimensions.activator.height
     }
 
-    if (diff <= minDiff) return dimensions.activator.top + diff
+    if (overflowY <= offset) {
+      return dimensions.activator.top + overflowY
+    }
 
     return dimensions.activator.top
   }
 
-  function snapShot(cb) {
+  function snapShot(cb: () => any) {
     requestAnimationFrame(() => {
       if (!content || content.style.display !== 'none') return cb()
       content.style.display = 'inline-block'
@@ -166,12 +168,12 @@ export function useAutoPosition(props) {
       : getBoundedClientRect(content)
 
     dimensions.content.height = content.offsetHeight
-    dimensions.content.top = calcTopPosition()
+    dimensions.content.top = autoPositionY()
     dimensions.content.left = calcLeftPosition()
     dimensions.content.width = rect.width
   }
 
-  function setDimensions(activatorEl) {
+  function setDimensions(activatorEl: HTMLElement) {
     if (!activator && !content) {
       activator = activatorEl
       content = contentRef.value
@@ -184,6 +186,6 @@ export function useAutoPosition(props) {
     dimensions,
     contentRef,
     setDimensions,
-    updateDimensions,
+    updateDimensions
   }
 }

@@ -1,5 +1,6 @@
 export function useDetach() {
   let target
+
   const setDetached = (el: HTMLElement, selector: string = '') => {
     if (selector) target = document.querySelector(selector)
     if (!selector) target = document.querySelector('.v-app')

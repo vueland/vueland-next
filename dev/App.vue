@@ -540,7 +540,7 @@
         @select="testFunc"
         @input="$event => data.users = data.users.filter(u => u.name.includes($event))"
       />
-      <v-button label="test" color="blue darken-2"/>
+      <v-button label="test" color="blue darken-2" loading/>
       <v-button
         :disabled="false"
         :loading="data.loading"

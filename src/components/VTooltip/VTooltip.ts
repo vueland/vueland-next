@@ -50,6 +50,14 @@ export const VTooltip = defineComponent({
     maxWidth: [Number, String],
     minWidth: [Number, String],
     modelValue: Boolean,
+    offsetX: {
+      type: [String, Number],
+      default: 20,
+    },
+    offsetY: {
+      type: [String, Number],
+      default: 20,
+    },
     ...elevationProps(),
     ...positionProps(),
   } as any,
@@ -63,11 +71,8 @@ export const VTooltip = defineComponent({
     const { isActive } = useToggle(props)
     const { elevationClasses } = useElevation(props)
     const { setBackground } = useColors()
-    const {
-      activatorRef,
-      getActivatorSizes,
-      genActivatorListeners,
-    } = useActivator()
+    const { activatorRef, getActivatorSizes, genActivatorListeners } =
+      useActivator()
 
     const handlers = {
       mouseenter: () => (isActive.value = true),

@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ECol should test "grid order" and match snapshot 1`] = `
+<div class="e-col order-sm-1 order-md-3 order-lg-4 order-xl-2">
+</div>
+`;
+
+exports[`ECol should test "grid" and match snapshot 1`] = `
+<div class="e-col sm-12 md-6 lg-4 xl-12">
+</div>
+`;

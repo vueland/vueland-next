@@ -6,7 +6,7 @@ import { ComputedRef } from 'vue'
 
 type Positionable = {
   positionClasses: ComputedRef<Record<string, boolean>>
-};
+}
 
 export const positionProps = () => {
   return {
@@ -15,14 +15,6 @@ export const positionProps = () => {
     right: Boolean,
     top: Boolean,
     bottom: Boolean,
-    offsetX: {
-      type: [String, Number],
-      default: 0,
-    },
-    offsetY: {
-      type: [String, Number],
-      default: 0,
-    },
   }
 }
 

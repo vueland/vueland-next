@@ -1,6 +1,3 @@
-// Styles
-import './VDatePickerYears.scss'
-
 // VUe API
 import { h, ref, watchEffect, inject, computed, defineComponent } from 'vue'
 

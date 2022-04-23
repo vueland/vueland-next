@@ -1,6 +1,3 @@
-// Styles
-import './VCard.scss'
-
 // Vue API
 import { defineComponent, h, computed } from 'vue'
 
@@ -17,33 +14,31 @@ export const VCard = defineComponent({
   props: {
     width: {
       type: [String, Number],
-      default: 350
+      default: 350,
     },
     ...colorProps(),
-    ...elevationProps()
+    ...elevationProps(),
   } as any,
 
   setup(props, { slots }): () => VNode {
     const { setBackground } = useColors()
     const { elevationClasses } = useElevation(props)
 
-    const classes = computed(
-      (): Record<string, boolean> => {
-        return {
-          'v-card': true,
-          ...elevationClasses.value
-        }
+    const classes = computed((): Record<string, boolean> => {
+      return {
+        'v-card': true,
+        ...elevationClasses.value,
       }
-    )
+    })
 
     const styles = computed(() => ({
-      width: `${ props.width }px`
+      width: `${props.width}px`,
     }))
 
     function genCard() {
       const propsData = {
         class: classes.value,
-        style: styles.value
+        style: styles.value,
       }
       return h(
         'div',
@@ -53,5 +48,5 @@ export const VCard = defineComponent({
     }
 
     return () => genCard()
-  }
+  },
 })

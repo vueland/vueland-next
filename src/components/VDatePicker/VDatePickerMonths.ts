@@ -1,6 +1,3 @@
-// Styles
-import './VDatePickerMonths.scss'
-
 // Vue API
 import { h, inject, computed, defineComponent } from 'vue'
 

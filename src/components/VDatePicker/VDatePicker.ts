@@ -1,6 +1,3 @@
-// Styles
-import './VDatePicker.scss'
-
 // Vue API
 import { computed, defineComponent, h, provide, reactive, ref } from 'vue'
 
@@ -110,7 +107,7 @@ export const VDatePicker = defineComponent({
     const contentColor: string = props.dark ? 'white' : props.contentColor
 
     const handlers = ref<DatePickerBtnHandlers>({})
-    const inputRef = ref<VNode | null>(null)
+    const activator = ref<VNode | null>(null)
     const closeConditional = ref<boolean>(false)
 
     provide('handlers', handlers)
@@ -378,7 +375,7 @@ export const VDatePicker = defineComponent({
         prependIcon: props.prependIcon,
         rules: props.rules,
         clearable: props.clearable,
-        ref: inputRef,
+        ref: activator,
         onInput: onDateInput,
         onClear: () => {
           data.convertedDateString = ''
@@ -405,14 +402,14 @@ export const VDatePicker = defineComponent({
       return h(
         VMenu,
         {
-          activator: inputRef,
+          activator: activator.value!,
           internalActivator: true,
           inputActivator: '.v-text-field__input',
           width: 'auto',
           maxHeight: 'auto',
           bottom: props.typeable,
           openOnClick: true,
-          closeOnContentClick: closeConditional.value,
+          // closeOnClick: closeConditional.value,
         },
         {
           default: () => genDatepickerTable(),
@@ -425,7 +422,10 @@ export const VDatePicker = defineComponent({
         class: classes.value,
       }
 
-      return h('div', propsData, [genDatepickerInput(), genMenu()])
+      return h('div', propsData, [
+        genDatepickerInput(),
+        activator.value && genMenu(),
+      ])
     }
 
     setInitDate()

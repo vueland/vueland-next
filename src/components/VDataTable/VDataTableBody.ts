@@ -1,6 +1,3 @@
-// Styles
-import './VDataTableBody.scss'
-
 // Vue API
 import { h, ref, watch, computed, defineComponent } from 'vue'
 

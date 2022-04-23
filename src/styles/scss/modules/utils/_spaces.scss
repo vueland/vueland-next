@@ -1,0 +1,68 @@
+$step: 4;
+$z: $step;
+$till: 20 * $step;
+
+@while $z <= $till {
+  $r: $z / $step;
+
+  .ma-#{$r} {
+    margin: #{$z}px !important;
+  }
+  .ml-#{$r} {
+    margin-left: #{$z}px !important;
+  }
+
+  .mr-#{$r} {
+    margin-right: #{$z}px !important;
+  }
+
+  .mb-#{$r} {
+    margin-bottom: #{$z}px !important;
+  }
+
+  .mt-#{$r} {
+    margin-top: #{$z}px !important;
+  }
+
+  .mx-#{$r} {
+    margin-left: #{$z}px !important;
+    margin-right: #{$z}px !important;
+  }
+
+  .my-#{$r} {
+    margin-top: #{$z}px !important;
+    margin-bottom: #{$z}px !important;
+  }
+
+  .pl-#{$r} {
+    padding-left: #{$z}px !important;
+  }
+
+  .pr-#{$r} {
+    padding-right: #{$z}px !important;
+  }
+
+  .pb-#{$r} {
+    padding-bottom: #{$z}px !important;
+  }
+
+  .pt-#{$r} {
+    padding-top: #{$z}px !important;
+  }
+
+  .pa-#{$r} {
+    padding: #{$z}px !important;
+  }
+
+  .px-#{$r} {
+    padding-left: #{$z}px !important;
+    padding-right: #{$z}px !important;
+  }
+
+  .py-#{$r} {
+    padding-top: #{$z}px !important;
+    padding-bottom: #{$z}px !important;
+  }
+
+  $z: $z + $step;
+}

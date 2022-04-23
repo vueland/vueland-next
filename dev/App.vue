@@ -1,195 +1,207 @@
 <script lang="ts">
-  import { reactive, ref, computed } from 'vue'
-  import { FaIcons } from '../src/services/icons'
+import { reactive, ref, computed } from 'vue'
+import { FaIcons } from '../src/services/icons'
 
-  export default {
-    setup() {
-      const data = reactive({
-        always: true,
-        show: false,
-        test: true,
-        login: '',
-        email: '',
-        password: '',
-        user: '',
-        checked: [],
-        user2: { name: 'igor', car: { brand: 'bmw' } },
-        user3: { name: 'kirill' },
-        date: null,
-        loading: false,
-        circular: 10,
-        title: 'cat',
-        users: [
-          { name: 'AAA', car: { brand: 'mercedes' }, email: 'aaa@mail.ru', body: 'fsdf adfasda dasdasd' },
-          { name: 'BBB', car: { brand: 'audi' }, email: 'aaa@mail.ru', body: 'fsdf adfasda dasdasd' }
-        ],
-        positionX: 0,
-        positionY: 0,
-        isOpen: false
+export default {
+  setup() {
+    const data = reactive({
+      always: true,
+      show: false,
+      test: true,
+      login: '',
+      email: '',
+      password: '',
+      user: '',
+      checked: [],
+      user2: { name: 'igor', car: { brand: 'bmw' } },
+      user3: { name: 'kirill' },
+      date: null,
+      loading: false,
+      circular: 10,
+      title: 'cat',
+      users: [
+        { name: 'AAA', car: { brand: 'mercedes' }, email: 'aaa@mail.ru', body: 'fsdf adfasda dasdasd' },
+        { name: 'BBB', car: { brand: 'audi' }, email: 'aaa@mail.ru', body: 'fsdf adfasda dasdasd' },
+      ],
+      positionX: 0,
+      positionY: 0,
+      isOpen: false,
+    })
+
+    // watch(() => data.password, () => console.log(data.password))
+
+    const showMenu = (e) => {
+      e.preventDefault()
+
+      data.positionX = e.clientX
+      data.positionY = e.clientY
+
+      requestAnimationFrame(() => data.isOpen = true)
+    }
+
+    const onClickLoading = (validate) => {
+      validate().then(() => {
+        data.loading = true
+        setTimeout(() => data.loading = false, 2000)
       })
+    }
 
-      // watch(() => data.password, () => console.log(data.password))
-
-      const showMenu = (e) => {
-        e.preventDefault()
-
-        data.positionX = e.clientX
-        data.positionY = e.clientY
-
-        requestAnimationFrame(() => data.isOpen = true)
+    const addCircular = () => {
+      if (data.circular < 100) {
+        return data.circular += Math.ceil(Math.random() * 100) / 2
       }
+      data.circular -= Math.ceil(Math.random() * 100)
+    }
 
-      const onClickLoading = (validate) => {
-        validate().then(() => {
-          data.loading = true
-          setTimeout(() => data.loading = false, 2000)
-        })
-      }
-
-      const addCircular = () => {
-        if (data.circular < 100) {
-          return data.circular += Math.ceil(Math.random() * 100) / 2
-        }
-        data.circular -= Math.ceil(Math.random() * 100)
-      }
-
-      const fetchItems = () => {
-        fetch('https://jsonplaceholder.typicode.com/comments')
+    const fetchItems = () => {
+      fetch('https://jsonplaceholder.typicode.com/comments')
           .then(response => response.json())
           .then(json => setTimeout(() => {
-            data.users = [ ...data.users ]
+            data.users = [...data.users]
           }, 500))
-      }
-
-      fetchItems()
-
-      setTimeout(() => {
-        data.always = false
-      }, 2000)
-
-      const toggleAlways = () => {
-        data.always = !data.always
-      }
-
-      const testFunc = date => {
-        console.log(date)
-      }
-
-      const forOut = computed(() => {
-        return data.always ? testFunc : undefined
-      })
-
-      const cols = ref([
-        {
-          key: 'actions',
-          title: 'Actions',
-          align: 'center'
-        },
-        {
-          key: 'name',
-          title: 'Name',
-          width: '250',
-          resizeable: true,
-          sortable: true,
-          filterable: true,
-          cellClass: '',
-          filterClass: '',
-          rowCellClass: '',
-          format: row => row.name,
-          filter: ({ value, col }) => data.users.filter(user => user[col.key].includes(value))
-          // sort: (a, b) => console.log(a, b),
-        },
-        {
-          key: 'email',
-          title: 'Email',
-          width: '250',
-          resizeable: true,
-          sortable: true,
-          filterable: true,
-          // cellClass: 'green darken-3 white--text',
-          // filterClass: 'grey lighten-2',
-          // rowCellClass: 'green lighten-1 white--text',
-          format: row => row.email
-        },
-        {
-          key: 'body',
-          title: 'Body',
-          width: '250',
-          resizeable: true,
-          sortable: true,
-          filterable: true
-        }
-      ])
-
-      const rows = [
-        {
-          name: 'Ben',
-          email: 'ben@mail.ru',
-          body: 'some body text'
-        },
-        {
-          name: 'Alex',
-          email: 'alex@mail.ru',
-          body: 'some body text'
-        }
-      ]
-
-      const addItem = () => {
-        data.users.push({
-          name: 'Anar',
-          car: { brand: 'tesla' },
-          email: 'adsadasdasd',
-          body: 'sdfsddfsdfsdfsf'
-        })
-      }
-
-      data.user = data.users[0]
-
-      const disabledDates = {
-        // from: new Date(2021, 4, 2),
-        // to: new Date(2021, 4, 10),
-        days: [ 0, 6 ],
-        // daysOfMonth: [29, 30, 31],
-        // dates: [
-        //   new Date(2021, 6, 14),
-        //   new Date(2021, 6, 15),
-        //   new Date(2021, 6, 16),
-        // ],
-        // ranges: [{
-        //   from: new Date(2021, 4, 25),
-        //   to: new Date(2021, 5, 10),
-        // }, {
-        //   from: new Date(2021, 6, 12),
-        //   to: new Date(2021, 7, 25),
-        // }],
-        custom: (date) => !(date.date % 2)
-      }
-
-      return {
-        data,
-        cols,
-        disabledDates,
-        forOut,
-        FaIcons,
-        addItem,
-        testFunc,
-        toggleAlways,
-        onClickLoading,
-        addCircular,
-        showMenu
-      }
     }
-  }
+
+    fetchItems()
+
+    setTimeout(() => {
+      data.always = false
+    }, 2000)
+
+    const toggleAlways = () => {
+      data.always = !data.always
+    }
+
+    const testFunc = date => {
+      console.log(date)
+    }
+
+    const forOut = computed(() => {
+      return data.always ? testFunc : undefined
+    })
+
+    const cols = ref([
+      {
+        key: 'actions',
+        title: 'Actions',
+        align: 'center',
+      },
+      {
+        key: 'name',
+        title: 'Name',
+        width: '250',
+        resizeable: true,
+        sortable: true,
+        filterable: true,
+        cellClass: '',
+        filterClass: '',
+        rowCellClass: '',
+        format: row => row.name,
+        filter: ({ value, col }) => data.users.filter(user => user[col.key].includes(value)),
+        // sort: (a, b) => console.log(a, b),
+      },
+      {
+        key: 'email',
+        title: 'Email',
+        width: '250',
+        resizeable: true,
+        sortable: true,
+        filterable: true,
+        // cellClass: 'green darken-3 white--text',
+        // filterClass: 'grey lighten-2',
+        // rowCellClass: 'green lighten-1 white--text',
+        format: row => row.email,
+      },
+      {
+        key: 'body',
+        title: 'Body',
+        width: '250',
+        resizeable: true,
+        sortable: true,
+        filterable: true,
+      },
+    ])
+
+    const rows = [
+      {
+        name: 'Ben',
+        email: 'ben@mail.ru',
+        body: 'some body text',
+      },
+      {
+        name: 'Alex',
+        email: 'alex@mail.ru',
+        body: 'some body text',
+      },
+    ]
+
+    const addItem = () => {
+      data.users.push({
+        name: 'Anar',
+        car: { brand: 'tesla' },
+        email: 'adsadasdasd',
+        body: 'sdfsddfsdfsdfsf',
+      })
+    }
+
+    data.user = data.users[0]
+
+    const disabledDates = {
+      // from: new Date(2021, 4, 2),
+      // to: new Date(2021, 4, 10),
+      days: [0, 6],
+      // daysOfMonth: [29, 30, 31],
+      // dates: [
+      //   new Date(2021, 6, 14),
+      //   new Date(2021, 6, 15),
+      //   new Date(2021, 6, 16),
+      // ],
+      // ranges: [{
+      //   from: new Date(2021, 4, 25),
+      //   to: new Date(2021, 5, 10),
+      // }, {
+      //   from: new Date(2021, 6, 12),
+      //   to: new Date(2021, 7, 25),
+      // }],
+      custom: (date) => !(date.date % 2),
+    }
+
+    return {
+      data,
+      cols,
+      disabledDates,
+      forOut,
+      FaIcons,
+      addItem,
+      testFunc,
+      toggleAlways,
+      onClickLoading,
+      addCircular,
+      showMenu,
+    }
+  },
+}
 </script>
 
 <template>
   <v-app>
     <div>
-      <v-progress-linear
-        height="7"
-        value="75"
-        indeterminate
-      />
+      <v-layout>
+        <v-row>
+          <v-col
+            cols="3"
+            xl="3"
+            lg="6"
+            md="9"
+            sm="12"
+          >
+            <v-progress-linear
+              height="7"
+              value="75"
+              indeterminate
+            />
+          </v-col>
+        </v-row>
+      </v-layout>
       <v-progress-circular
         color="cyan darken-3"
         :value="data.circular"
@@ -369,9 +381,9 @@
       <v-data-table
         :cols="cols"
         :rows="data.users"
-        
+
         :header-options="{
-          
+
         }"
         :footer-options="{
           pagination: {
@@ -382,7 +394,7 @@
           rowsPerPageOptions: [25, 40, 50, 75],
           rowsPerPageText: 'Кол-во строк',
         }"
-        
+
         align="left"
         class="elevation-10"
         show-sequence
@@ -541,7 +553,10 @@
         @select="testFunc"
         @input="$event => data.users = data.users.filter(u => u.name.includes($event))"
       />
-      <v-button label="test" color="blue darken-2"/>
+      <v-button
+        label="test"
+        color="blue darken-2"
+      />
       <v-button
         :disabled="false"
         :loading="data.loading"
@@ -567,10 +582,10 @@
         elevation="5"
         color="white"
       >
-        <v-resize right />
-        <v-resize bottom />
-        <v-resize top />
-        <v-resize left />
+        <v-resize right/>
+        <v-resize bottom/>
+        <v-resize top/>
+        <v-resize left/>
         <v-card-title>
           <span
             style="display: block; width: 55px; height: 55px; border-radius: 50px"
@@ -709,7 +724,10 @@
         overlay
         transition="scale-in"
       >
-        <v-card color="blue darken-2" elevation="14">
+        <v-card
+          color="blue darken-2"
+          elevation="14"
+        >
           <v-card-title> test</v-card-title>
           <v-card-content> salam</v-card-content>
           <v-card-actions>
@@ -754,56 +772,56 @@
 </template>
 
 <style lang="scss">
-  .active-class {
-    background: #272727;
-    color: white !important;
-  }
+.active-class {
+  background: #272727;
+  color: white !important;
+}
 
-  .wrap {
-    position: absolute;
-    left: 60px;
-    top: 60px;
-    width: calc(100% - 60px);
-    height: calc(100vh - 60px);
-  }
+.wrap {
+  position: absolute;
+  left: 60px;
+  top: 60px;
+  width: calc(100% - 60px);
+  height: calc(100vh - 60px);
+}
 
-  .app {
-    &-header {
-      width: 100%;
-      height: 60px;
-      background: #272727;
-    }
-
-    &-sidebar {
-      position: absolute;
-      top: 60px;
-      left: 0;
-      width: 60px;
-      height: calc(100vh - 60px);
-      background: #272727;
-    }
-  }
-
-  .text {
-    display: inline-block;
-  }
-
-  .test {
-    display: flex;
-    justify-content: center;
+.app {
+  &-header {
     width: 100%;
+    height: 60px;
+    background: #272727;
   }
 
-  .v-data-table {
-    background-color: yellow;
+  &-sidebar {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 60px;
+    height: calc(100vh - 60px);
+    background: #272727;
   }
+}
 
-  .v-data-table > .v-data-table__inner > .v-data-table__header {
-    background-color: #0D47A1 !important;
-    border-color: red !important;
-  }
+.text {
+  display: inline-block;
+}
 
-  body {
-    font-family: Bitstream Charter, sans-serif !important;
-  }
+.test {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.v-data-table {
+  background-color: yellow;
+}
+
+.v-data-table > .v-data-table__inner > .v-data-table__header {
+  background-color: #0D47A1 !important;
+  border-color: red !important;
+}
+
+body {
+  font-family: Bitstream Charter, sans-serif !important;
+}
 </style>

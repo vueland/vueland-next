@@ -1,6 +1,3 @@
-// Styles
-import './VDatePickerHeader.scss'
-
 // Vue API
 import { h, defineComponent } from 'vue'
 

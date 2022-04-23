@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VRow should test "align-start" prop and match snapshot 1`] = `
+<div class="e-row align-xl-center">
+</div>
+`;
+
+exports[`VRow should test "justify-center" props and match snapshot 1`] = `
+<div class="e-row justify-xl-start">
+</div>
+`;

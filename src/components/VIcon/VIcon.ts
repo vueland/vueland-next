@@ -1,6 +1,3 @@
-// Styles
-import './VIcon.scss'
-
 // Vue API
 import { defineComponent, h, inject, computed } from 'vue'
 

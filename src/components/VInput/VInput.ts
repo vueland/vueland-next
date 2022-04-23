@@ -1,6 +1,3 @@
-// Style
-import './VInput.scss'
-
 // Vue API
 import {
   h,
@@ -8,7 +5,7 @@ import {
   computed,
   defineComponent,
   inject,
-  onBeforeUnmount
+  onBeforeUnmount,
 } from 'vue'
 
 // Components
@@ -41,25 +38,20 @@ export const VInput = defineComponent({
     appendIcon: String,
     type: {
       type: String,
-      default: 'text'
+      default: 'text',
     },
-    modelValue: [ String, Number, Object ],
+    modelValue: [String, Number, Object],
     ...colorProps(),
     ...themeProps(),
-    ...validateProps()
+    ...validateProps(),
   } as any,
 
-  emits: [ 'clear', 'focus' ],
+  emits: ['clear', 'focus'],
 
   setup(props, { slots, emit, attrs }): () => VNode {
     const { setTextColor } = useColors()
     const { icons, iconSize } = useIcons('md')
-    const {
-      validate,
-      dirty,
-      errorState,
-      validationState
-    } = useValidate(props)
+    const { validate, dirty, errorState, validationState } = useValidate(props)
 
     const fields: Ref<any[]> | undefined = props.rules && inject('fields')
 
@@ -81,10 +73,13 @@ export const VInput = defineComponent({
       'v-input--dirty': errorState.isDirty,
       'v-input--valid': isValid.value,
       'v-input--not-valid': isNotValid.value,
-      'v-input--focused': props.focused
+      'v-input--focused': props.focused,
     }))
 
-    watch(() => props.value, () => requestAnimationFrame(validateValue))
+    watch(
+      () => props.value,
+      () => requestAnimationFrame(validateValue)
+    )
 
     watch(
       () => props.focused,
@@ -107,11 +102,11 @@ export const VInput = defineComponent({
         hasState: props.hasState,
         disabled: props.disabled,
         focused: props.focused,
-        color: validationState.value
+        color: validationState.value,
       }
 
       return h(VLabel, propsData, {
-        default: () => props.label
+        default: () => props.label,
       })
     }
 
@@ -122,7 +117,7 @@ export const VInput = defineComponent({
         icon: iconName,
         size: iconSize,
         disabled: props.disabled,
-        clickable
+        clickable,
       })
     }
 
@@ -144,7 +139,7 @@ export const VInput = defineComponent({
         class: 'v-input__clear',
         onClick: () => {
           !props.disabled && props.hasState && emit('clear')
-        }
+        },
       }
       return h('div', propsData, genIcon(icons.$close, true))
     }
@@ -152,19 +147,19 @@ export const VInput = defineComponent({
     function genInputSlot() {
       const propsData = {
         class: 'v-input__slot',
-        onClick
+        onClick,
       }
       return h('div', setTextColor(validationState.value!, propsData), [
         genSlotContent(),
-        genStatus()
+        genStatus(),
       ])
     }
 
     function genSlotContent(): VNode {
       const propsData = {
         class: {
-          'v-input__field-slot': true
-        }
+          'v-input__field-slot': true,
+        },
       }
 
       return h('div', propsData, [
@@ -172,13 +167,13 @@ export const VInput = defineComponent({
         !props.clearable && props.appendIcon && genAppendIcon(),
         props.clearable && genClearIcon(),
         genLabel(),
-        slots.textField && slots.textField()
+        slots.textField && slots.textField(),
       ])
     }
 
     function genStatusMessage(): VNode {
       const propsData = {
-        class: { 'v-input__status-message': true }
+        class: { 'v-input__status-message': true },
       }
 
       return h('span', propsData, errorState.innerErrorMessage!)
@@ -204,9 +199,9 @@ export const VInput = defineComponent({
     return () => {
       const propsData = {
         class: classes.value,
-        style: attrs.style
+        style: attrs.style,
       }
       return h('div', propsData, genInputSlot())
     }
-  }
+  },
 })

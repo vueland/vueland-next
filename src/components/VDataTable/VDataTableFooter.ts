@@ -1,6 +1,3 @@
-// Styles
-import './VDataTableFooter.scss'
-
 // Vue API
 import { watch, computed, defineComponent, h } from 'vue'
 

@@ -20,6 +20,7 @@
     "no-multiple-empty-lines": "error",
     "no-console": "off",
     "no-debugger": "error",
+
     "vue/html-self-closing": "off",
     "vue/html-closing-bracket-spacing": "off",
     "vue/component-definition-name-casing": ["error", "kebab-case"],

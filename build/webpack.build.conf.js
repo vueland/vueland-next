@@ -8,6 +8,8 @@ const buildConfig = merge(baseConfig, {
   mode: 'production',
   entry: {
     [pkg.name]: baseConfig.externals.path.src + '/index.ts',
+    ['vueland-base']: baseConfig.externals.src + '/styles/main.scss',
+    ['themes/material-theme']: baseConfig.externals.src + '/styles/themes/material-theme.scss',
   },
   output: {
     filename: `[name].js`,

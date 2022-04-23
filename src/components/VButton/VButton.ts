@@ -1,6 +1,3 @@
-// Styles
-import './VButton.scss'
-
 // Vue API
 import { defineComponent, h, computed } from 'vue'
 

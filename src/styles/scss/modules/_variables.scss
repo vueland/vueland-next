@@ -13,4 +13,28 @@ $phoneWidth: 480px;
 $smPhoneWidth: 320px;
 
 // Transitions
-$primary-transition: cubic-bezier(.25, .8, .5, 1)
+$primary-transition: cubic-bezier(.25, .8, .5, 1);
+
+$columns: 12;
+$grid-gutter: 10px;
+$gutter-column: $grid-gutter / 2;
+
+$xl: 48px;
+$lg: 40px;
+$md: 32px;
+$sm: 24px;
+
+$grid-gutters: (
+        'sm': $grid-gutter / 12,
+        'md': $grid-gutter / 6,
+        'lg': $grid-gutter / 3,
+        'xl': $grid-gutter * 2/3,
+);
+
+$grid-breakpoints: (
+        'sm': 576px,
+        'md': 768px,
+        'lg': 992px,
+        'xl': 1200px,
+);
+

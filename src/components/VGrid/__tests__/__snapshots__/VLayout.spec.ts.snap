@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VLayout should test "column" prop and match snapshot 1`] = `
+<div class="e-layout flex-column">
+</div>
+`;
+
+exports[`VLayout should test "wrap" prop and match snapshot 1`] = `
+<div class="e-layout flex-wrap">
+</div>
+`;

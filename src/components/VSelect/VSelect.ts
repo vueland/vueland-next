@@ -19,7 +19,7 @@ import { VSelectList } from './VSelectList'
 import { VMenu } from '../VMenu'
 
 // Helpers
-import { getKeyValueFromTarget } from '../../helpers'
+import { getStringKeysValue } from '../../helpers'
 
 type SelectState = {
   selected: any | null
@@ -40,11 +40,11 @@ export const VSelect = defineComponent({
     readonly: Boolean,
     clearable: Boolean,
     modelValue: {
-      default: null
+      default: null,
     },
     ...colorProps(),
     ...activatorProps(),
-    ...validateProps()
+    ...validateProps(),
   } as any,
 
   emits: [
@@ -53,31 +53,31 @@ export const VSelect = defineComponent({
     'focus',
     'select',
     'update:modelValue',
-    'update:value'
+    'update:value',
   ],
 
   setup(props, { emit, attrs }): () => VNode {
     const state: SelectState = reactive({
       selected: null,
-      focused: false
+      focused: false,
     })
 
     const { setTextColor } = useColors()
     const { base } = useTheme()
 
-    const inputRef = ref<HTMLElement | null>(null)
+    const activator = ref<HTMLElement | null>(null)
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-select': true,
       'v-select--disabled': props.disabled,
       'v-select--readonly': props.readonly,
-      'v-select--focused': state.focused
+      'v-select--focused': state.focused,
     }))
 
     const computedInputValue = computed<string>(() => {
       return state.selected
         ? props.valueKey
-          ? getKeyValueFromTarget(props.valueKey, state.selected)
+          ? getStringKeysValue(props.valueKey, state.selected)
           : state.selected
         : ''
     })
@@ -88,11 +88,11 @@ export const VSelect = defineComponent({
 
     watch(
       () => computedValue.value,
-      (to) => state.selected = to,
+      (to) => (state.selected = to),
       { immediate: true }
     )
 
-    function toggleState() {
+    const toggleState = () => {
       state.focused = !state.focused
     }
 
@@ -125,8 +125,8 @@ export const VSelect = defineComponent({
         disabled: props.disabled,
         readonly: props.readonly && !props.typeable,
         class: 'v-select__input',
-        ref: inputRef,
-        onClick
+        ref: activator,
+        onClick,
       }
       return h('input', setTextColor(props.dark ? 'white' : base, propsData))
     }
@@ -141,8 +141,9 @@ export const VSelect = defineComponent({
         listColor: props.listColor || 'white',
         select: state.selected,
         dark: props.dark,
-        onSelect: (item) => selectItem(item)
+        onSelect: (item) => selectItem(item),
       }
+
       return h(VSelectList, propsData)
     }
 
@@ -150,23 +151,24 @@ export const VSelect = defineComponent({
       return h(
         VMenu,
         {
-          activator: inputRef!,
+          activator: activator.value!,
           openOnClick: true,
           maxHeight: 240,
-          onClose: onBlur
+          onHide: onBlur,
+          onShow: () => console.log('show'),
         },
         {
-          default: () => genSelectList()
+          default: () => genSelectList(),
         }
       )
     }
 
     function genSelect(): VNode {
       const propsData = {
-        class: classes.value
+        class: classes.value,
       }
 
-      return h('div', propsData, [ genInput(), genMenu() ])
+      return h('div', propsData, [genInput(), activator.value && genMenu()])
     }
 
     return () => {
@@ -181,10 +183,10 @@ export const VSelect = defineComponent({
         color: props.color,
         rules: props.rules,
         onClear,
-        ...attrs
+        ...attrs,
       } as any
 
       return h(VInput, propsData, { textField: () => genSelect() })
     }
-  }
+  },
 })

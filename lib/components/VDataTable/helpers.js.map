@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../../../src/components/VDataTable/helpers.ts"],"names":[],"mappings":"AAAA,OAAO,MAAM,wBAAwB,GAAI,GAAD,IACtC,MAAM,CAAC,MAAM,CAAC,GAAD,CAAN,IAAe,GAAG,CAAC,WAAJ,EAAhB,CADD","sourcesContent":["export const toComparableStringFormat = (val) =>\n  String(Number(val) || val.toLowerCase())\n"],"sourceRoot":"","file":"helpers.js"}

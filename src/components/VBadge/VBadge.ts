@@ -1,5 +1,3 @@
-import './VBadge.scss'
-
 // Vue API
 import { vShow, h, computed, withDirectives, defineComponent } from 'vue'
 

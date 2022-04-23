@@ -1,0 +1,77 @@
+@import "../../styles/scss/modules/variables";
+
+.v-layout {
+  display: flex;
+  flex: 1 1 auto;
+  flex-wrap: nowrap;
+  min-width: 0;
+
+  &--column {
+    flex-direction: column;
+  }
+
+  &--wrap {
+    flex-wrap: wrap;
+  }
+}
+
+.v-row {
+  display: flex;
+  flex: 1 1 100%;
+  flex-wrap: wrap;
+  max-width: calc(100% + map-get($grid-gutters, 'xl'));
+}
+
+.v-row.no-gutter {
+  max-width: 100%;
+
+  & > .v-col {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+.v-col {
+  width: 100%;
+  position: relative;
+  padding-right: map-get($grid-gutters, 'xl');
+  padding-left: map-get($grid-gutters, 'xl');
+}
+
+.v-spacer {
+  flex-grow: 1 !important;
+}
+
+@for $n from 1 through $columns {
+  .v-col-#{$n} {
+    flex: 0 0 percentage($n / $columns);
+    max-width: percentage($n / $columns);
+  }
+
+  .offset-#{$n} {
+    margin-left: percentage($n / $columns);
+  }
+}
+
+@each $size in map-keys($grid-breakpoints) {
+  @media all and (min-width: map-get($grid-breakpoints, $size)) {
+    @for $i from 1 through $columns {
+      $p: $i / $columns;
+
+      .v-col.#{$size}-#{$i} {
+        flex: 0 0 percentage($p);
+        max-width: percentage($p);
+        padding-right: map-get($grid-gutters, $size);
+        padding-left: map-get($grid-gutters, $size);
+      }
+
+      .offset-#{$size}-#{$i} {
+        margin-left: percentage($p);
+      }
+
+      .order-#{$size}-#{$i} {
+        order: $i;
+      }
+    }
+  }
+}

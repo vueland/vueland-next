@@ -1,6 +1,3 @@
-// Styles
-import './VList.scss'
-
 // Vue API
 import { h, ref, provide, defineComponent } from 'vue'
 

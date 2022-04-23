@@ -1,6 +1,3 @@
-// Styles
-import './VListGroup.scss'
-
 // Vue API
 import {
   h,
@@ -12,7 +9,7 @@ import {
   defineComponent,
   onBeforeUnmount,
   onMounted,
-  vShow
+  vShow,
 } from 'vue'
 
 // Effects
@@ -35,15 +32,15 @@ export const VListGroup = defineComponent({
   props: {
     activeClass: {
       type: String,
-      default: ''
+      default: '',
     },
     appendIcon: {
       type: String,
-      default: ''
+      default: '',
     },
     prependIcon: {
       type: String,
-      default: ''
+      default: '',
     },
     dark: Boolean,
     group: String,
@@ -52,7 +49,7 @@ export const VListGroup = defineComponent({
     subGroup: Boolean,
     expanded: Boolean,
     ...elevationProps(),
-    ...colorProps()
+    ...colorProps(),
   } as any,
 
   setup(props, { slots }) {
@@ -62,9 +59,8 @@ export const VListGroup = defineComponent({
     const { setTextColor } = useColors()
 
     // refs
-    const refGroup: Ref<HTMLElement | ComponentPublicInstance | null> = ref(
-      null
-    )
+    const refGroup: Ref<HTMLElement | ComponentPublicInstance | null> =
+      ref(null)
     const isActive = ref<boolean>(false)
     const items = ref<any>([])
     const listGroupItem = genListGroupParams()
@@ -78,7 +74,7 @@ export const VListGroup = defineComponent({
 
     provide('group-items', {
       parent: refGroup,
-      items
+      items,
     })
 
     if (props.expanded) isActive.value = true
@@ -93,7 +89,7 @@ export const VListGroup = defineComponent({
       'v-list-group--light': !props.dark,
       'v-list-group--dark': props.dark,
       [props.activeClass]: isActive.value,
-      ...elevationClasses.value
+      ...elevationClasses.value,
     }))
 
     function onClick() {
@@ -105,13 +101,13 @@ export const VListGroup = defineComponent({
     function genListGroupParams(): ListItemRef {
       return {
         ref: refGroup,
-        active: isActive
+        active: isActive,
       }
     }
 
     function genIcon(icon: string): VNode {
       const propsData = {
-        size: iconSize
+        size: iconSize,
       }
 
       return h(VIcon, propsData, { default: () => icon })
@@ -125,11 +121,11 @@ export const VListGroup = defineComponent({
       if ((!propsAppendIcon && !slotAppendIcon) || props.noAction) return null
 
       const propsData = {
-        class: 'v-list-group__append-icon'
+        class: 'v-list-group__append-icon',
       }
 
       return h(VListItemIcon, propsData, {
-        default: () => slotAppendIcon || genIcon(propsAppendIcon as string)
+        default: () => slotAppendIcon || genIcon(propsAppendIcon as string),
       })
     }
 
@@ -142,7 +138,7 @@ export const VListGroup = defineComponent({
       const propsData = { class: 'v-list-group__prepend-icon' }
 
       return h(VListItemIcon, propsData, {
-        default: () => slotIcon || genIcon(icon as string)
+        default: () => slotIcon || genIcon(icon as string),
       })
     }
 
@@ -153,21 +149,21 @@ export const VListGroup = defineComponent({
         dark: props.dark,
         active: isActive.value,
         noAction: props.noAction || props.disabled,
-        onClick
+        onClick,
       }
 
       return h(VListItem, propsData, {
         default: () => [
           genPrependIcon(),
           slots.title && slots.title(),
-          genAppendIcon()
-        ]
+          genAppendIcon(),
+        ],
       })
     }
 
     function genItems(): VNode {
       const propsData = {
-        class: 'v-list-group__items'
+        class: 'v-list-group__items',
       }
 
       return withDirectives(
@@ -192,7 +188,7 @@ export const VListGroup = defineComponent({
 
       const propsData = {
         class: classes.value,
-        ref: refGroup
+        ref: refGroup,
       }
 
       const children = [header, items]
@@ -210,5 +206,5 @@ export const VListGroup = defineComponent({
         children
       )
     }
-  }
+  },
 })

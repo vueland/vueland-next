@@ -1,59 +1,43 @@
-// Vue API
-import { ref } from 'vue'
-
-// Types
-import { OffsetSizes } from '../../types'
-
-type ActivatorListeners = {
-  mouseenter: (e: Event) => void
-  mouseleave: (e: Event) => void
-  mouseover: (e: Event) => void
-  mouseout: (e: Event) => void
-  contextmenu: (e: Event) => void
-  focus: (e: Event) => void
-  blur: (e: Event) => void
-  click: (e: Event) => void
-  input: (e: Event) => void
-  change: (e: Event) => void
-}
+import { ref, ComponentPublicInstance } from 'vue'
+import { ActivatorListeners, Dimensions } from '../../types/composables'
+import { Maybe } from '../../types/base'
 
 export function activatorProps() {
   return {
     activator: {
       type: [Object, String],
+      default: null,
     },
     internalActivator: Boolean,
   }
 }
 
-export function useActivator(props: any = null) {
-  const activatorRef = ref<HTMLElement | null>(null)
-  const activatorSizes: Partial<OffsetSizes> = {}
+export const useActivator = (props) => {
+  const activatorRef =
+    ref<Maybe<HTMLElement | ComponentPublicInstance<any>>>(null)
+  const activatorSizes: Partial<Dimensions> = {}
   const listeners: Partial<ActivatorListeners> = {}
 
-  const getActivator = (e?: Event): HTMLElement | null => {
+  const getActivator = (e?: Event): Maybe<HTMLElement> => {
     if (activatorRef.value) return activatorRef.value
 
-    const target = props.internalActivator
-      ? props.activator.value.$el
-      : (document as any)
+    const target = props.internalActivator ? props.activator.$el : document
 
     if (props.inputActivator) {
       return (activatorRef.value = target.querySelector(props.inputActivator))
     }
 
-    if (props?.activator) {
+    if (props.activator) {
+      console.log(props.activator, 'props suka')
       if (typeof props.activator === 'string') {
         return (activatorRef.value = target.querySelector(props.activator))
       }
 
-      if (props.activator.value.$el) {
-        return (activatorRef.value = props.activator.value.$el)
+      if (props.activator.$el) {
+        return (activatorRef.value = props.activator.$el)
       }
 
-      if (props.activator.value) {
-        return (activatorRef.value = props.activator.value)
-      }
+      return (activatorRef.value = props.activator)
     }
 
     if (e) {
@@ -64,7 +48,8 @@ export function useActivator(props: any = null) {
   }
 
   const getActivatorSizes = () => {
-    const el = (activatorRef.value! as any).$el || (activatorRef.value! as any)
+    const el = activatorRef.value!.$el || activatorRef.value!
+
     activatorSizes.left = el.offsetLeft
     activatorSizes.top = el.offsetTop
     activatorSizes.height = el.offsetHeight

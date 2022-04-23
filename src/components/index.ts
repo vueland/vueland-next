@@ -1,6 +1,7 @@
 export * from './VApp'
 export * from './VButton'
 export * from './VCard'
+export * from './VGrid'
 export * from './VOverlay'
 export * from './VModal'
 export * from './VMenu'

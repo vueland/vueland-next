@@ -1,6 +1,3 @@
-// Styles
-import './VForm.scss'
-
 // Vue API
 import { defineComponent, h, ref, provide } from 'vue'
 
@@ -30,5 +27,5 @@ export const VForm = defineComponent({
     }
 
     return () => h('span', { class: 'v-form' }, genSlot())
-  }
+  },
 })

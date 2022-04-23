@@ -11,12 +11,12 @@ export const createSimpleFunctional = (
     setup(_, { slots }) {
       const propsData = {
         class: {
-          [c.trim()]: true
-        }
+          [c.trim()]: true,
+        },
       }
 
       return () => h(el, propsData, slots.default && slots.default())
-    }
+    },
   })
 }
 
@@ -43,7 +43,7 @@ export const convertToUnit = (
   } else if (isNaN(+str!)) {
     return String(str)
   } else {
-    return `${ Number(str) }${ unit }`
+    return `${Number(str)}${unit}`
   }
 }
 
@@ -63,6 +63,23 @@ export const addScopedSlot = (slotName: string, slots: Slots) => {
   }
 }
 
-export const getKeyValueFromTarget = <T>(valueKey: string, target: T): string => {
+export const getKeyValueFromTarget = <T>(
+  valueKey: string,
+  target: T
+): string => {
   return valueKey.split('.').reduce((acc, it) => acc[it], target)
+}
+
+export const mapToValArray = (map): any[] => Array.from(map.values())
+
+export const getStringKeysValue = (str: string, value: any) => {
+  return str.split('.').reduce((acc, it) => acc[it], value)
+}
+
+export const toCamelCase = (...args: string[]): string => {
+  return args.reduce((res, s, i) => {
+    if (i === 0) res += s
+    else res += s[0].toUpperCase() + s.slice(1)
+    return res
+  }, '')
 }

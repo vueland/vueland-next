@@ -1,6 +1,3 @@
-// Styles
-import './VDataTableHeader.scss'
-
 // Vue API
 import { h, computed, withDirectives, defineComponent } from 'vue'
 

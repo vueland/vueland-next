@@ -2,6 +2,7 @@ const webpack = require('webpack')
 const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
+const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin')
 
 const resolve = pathString => {
   return path.resolve(__dirname, pathString)
@@ -121,6 +122,21 @@ module.exports = {
     global: false,
   },
   plugins: [
+    // new ModuleFederationPlugin({
+    //   name: 'exporter',
+    //   filename: 'library.js',
+    //   library: { type: 'var', name: 'vueland' },
+    //   shared: {
+    //     // ...require('../package.json').dependencies,
+    //     vue: {
+    //       eager: true,
+    //       singleton: true
+    //     }
+    //   },
+    //   exposes: {
+    //     './lib': './src/components'
+    //   }
+    // }),
     new MiniCssExtractPlugin({
       filename: '[name].css',
       chunkFilename: 'css/chunk.[name].[hash].css',

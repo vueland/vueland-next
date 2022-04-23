@@ -1,6 +1,3 @@
-// Styles
-import './VListItem.scss'
-
 // Vue API
 import {
   h,
@@ -10,7 +7,7 @@ import {
   watch,
   defineComponent,
   onMounted,
-  onBeforeUnmount
+  onBeforeUnmount,
 } from 'vue'
 
 // Effects
@@ -25,7 +22,7 @@ export const VListItem = defineComponent({
   props: {
     activeClass: {
       type: String,
-      default: ''
+      default: '',
     },
     dark: Boolean,
     inactive: Boolean,
@@ -42,13 +39,13 @@ export const VListItem = defineComponent({
     const handlers: any = inject('list-handlers')
     const listTypes = inject('list-types') as ListTypes
     const listItems = inject('list-items') as any
-    const groupItems = listTypes.isInGroup && inject('group-items') as any
+    const groupItems = listTypes.isInGroup && (inject('group-items') as any)
 
     const itemRef = ref<HTMLElement | null>(null)
 
     const item: ListItemRef = {
       ref: itemRef,
-      active: isActive
+      active: isActive,
     }
 
     listTypes.isInList = !listTypes.isInGroup
@@ -63,7 +60,7 @@ export const VListItem = defineComponent({
       'v-list-item': true,
       'v-list-item--active': isActive.value,
       'v-list-item--activator': props.activator,
-      [props.activeClass]: isActive.value && !!props.activeClass
+      [props.activeClass]: isActive.value && !!props.activeClass,
     }))
 
     function onClick() {
@@ -86,8 +83,9 @@ export const VListItem = defineComponent({
 
     onMounted(() => {
       if (
-        groupItems && (groupItems as any).parent.value ===
-        (itemRef.value as any).parentNode.parentNode
+        groupItems &&
+        (groupItems as any).parent.value ===
+          (itemRef.value as any).parentNode.parentNode
       ) {
         !props.activator && groupItems?.items.value.push(item)
       }
@@ -97,11 +95,15 @@ export const VListItem = defineComponent({
 
     onBeforeUnmount(() => {
       if (listTypes.isInGroup) {
-        groupItems.items.value = groupItems.items.value.filter(it => it !== item)
+        groupItems.items.value = groupItems.items.value.filter(
+          (it) => it !== item
+        )
       }
 
       if (listTypes.isInList) {
-        listItems.items.value = listItems.items.value.filter(it => it !== item)
+        listItems.items.value = listItems.items.value.filter(
+          (it) => it !== item
+        )
       }
     })
 
@@ -111,10 +113,10 @@ export const VListItem = defineComponent({
       const propsData = {
         class: classes.value,
         ref: itemRef,
-        onClick
+        onClick,
       }
 
       return h('div', propsData, content)
     }
-  }
+  },
 })

@@ -7,7 +7,7 @@ const devConfig = merge(baseConfig, {
   mode: 'development',
   devtool: 'eval-cheap-module-source-map',
   devServer: {
-    port: 3000,
+    port: 3001,
     historyApiFallback: true,
   },
   entry: {
@@ -17,7 +17,10 @@ const devConfig = merge(baseConfig, {
     filename: `index.js`,
     path: baseConfig.externals.path.dist,
     chunkFilename: `chunk.[name].[hash].js`,
-    publicPath: '/',
+    publicPath: 'auto',
+  },
+  optimization: {
+    runtimeChunk: false
   },
   plugins: [
     new webpack.SourceMapDevToolPlugin({

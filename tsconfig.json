@@ -2,7 +2,7 @@
   "compileOnSave": true,
   "compilerOptions": {
     "target": "es2018",
-    "module": "esNEXT",
+    "module": "esnext",
     "strict": true,
     "allowJs": true,
     "removeComments": true,

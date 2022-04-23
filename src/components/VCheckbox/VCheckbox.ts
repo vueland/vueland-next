@@ -1,6 +1,3 @@
-// Styles
-import './VCheckbox.scss'
-
 // Vue API
 import { h, ref, watch, computed, defineComponent, inject } from 'vue'
 

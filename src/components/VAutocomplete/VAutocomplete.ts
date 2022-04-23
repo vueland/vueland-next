@@ -1,6 +1,3 @@
-// Styles
-import './VAutocomplete.scss'
-
 // Vue API
 import { h, ref, reactive, computed, defineComponent, onBeforeMount } from 'vue'
 
@@ -24,7 +21,7 @@ import { getKeyValueFromTarget } from '../../helpers'
 type SelectState = {
   focused: boolean
   isMenuActive: boolean
-  search: string,
+  search: string
   select: any
 }
 
@@ -41,13 +38,13 @@ export const VAutocomplete = defineComponent({
     typeable: Boolean,
     loading: Boolean,
     modelValue: {
-      default: null
+      default: null,
     },
     color: {
       type: String,
-      default: 'primary'
+      default: 'primary',
     },
-    ...validateProps()
+    ...validateProps(),
   } as any,
 
   emits: [
@@ -56,7 +53,7 @@ export const VAutocomplete = defineComponent({
     'focus',
     'select',
     'update:modelValue',
-    'update:value'
+    'update:value',
   ],
 
   setup(props, { emit }): () => VNode {
@@ -64,17 +61,17 @@ export const VAutocomplete = defineComponent({
       focused: false,
       isMenuActive: false,
       search: '',
-      select: null
+      select: null,
     })
 
     const { setTextColor } = useColors()
     const { base } = useTheme()
-    const inputRef = ref(null)
+    const activator = ref(null)
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-autocomplete': true,
       'v-autocomplete--disabled': props.disabled,
-      'v-autocomplete--focused': state.focused
+      'v-autocomplete--focused': state.focused,
     }))
 
     const valueProperty = computed<any>(() => {
@@ -114,7 +111,9 @@ export const VAutocomplete = defineComponent({
     }
 
     function onSelect(it) {
-      state.search = props.valueKey ? getKeyValueFromTarget(props.valueKey, it) : it
+      state.search = props.valueKey
+        ? getKeyValueFromTarget(props.valueKey, it)
+        : it
       state.select = it
       emit('select', it)
       emit('update:modelValue', it)
@@ -126,11 +125,11 @@ export const VAutocomplete = defineComponent({
         value: state.search,
         disabled: props.disabled,
         readonly: props.readonly && !props.typeable,
-        ref: inputRef,
+        ref: activator,
         class: 'v-autocomplete__input',
         onInput,
         onFocus,
-        onBlur
+        onBlur,
       }
 
       return h('input', setTextColor(props.dark ? 'white' : base, propsData))
@@ -145,7 +144,7 @@ export const VAutocomplete = defineComponent({
         color: props.dark ? 'white' : props.color,
         listColor: props.listColor,
         select: state.select,
-        onSelect
+        onSelect,
       }
       return h(VSelectList, propsData)
     }
@@ -154,34 +153,38 @@ export const VAutocomplete = defineComponent({
       return h(
         VMenu,
         {
-          activator: inputRef,
+          activator: activator.value!,
           openOnClick: true,
           maxHeight: 240,
           bottom: true,
-          onClose: () => state.isMenuActive = state.focused
+          onHide: () => (state.isMenuActive = state.focused),
         },
         {
-          default: genAutocompleteList
+          default: genAutocompleteList,
         }
       )
     }
 
     function genLinearProgress() {
-      return h('div', {
-        class: { 'v-autocomplete__loading': true }
-      }, h(VProgressLinear, {
-        height: 2,
-        indeterminate: true,
-        color: props.color,
-        backgroundColor: props.color
-      }))
+      return h(
+        'div',
+        {
+          class: { 'v-autocomplete__loading': true },
+        },
+        h(VProgressLinear, {
+          height: 2,
+          indeterminate: true,
+          color: props.color,
+          backgroundColor: props.color,
+        })
+      )
     }
 
     function genAutocomplete(): VNode {
       return h('div', { class: classes.value }, [
         genInput(),
         props.loading && genLinearProgress(),
-        genMenu()
+        activator.value && genMenu(),
       ])
     }
 
@@ -201,12 +204,12 @@ export const VAutocomplete = defineComponent({
         color: props.color,
         rules: props.rules,
         value: valueProperty.value || state.search,
-        onClear
+        onClear,
       }
 
       return h(VInput, propsData, {
-        textField: () => genAutocomplete()
+        textField: () => genAutocomplete(),
       })
     }
-  }
+  },
 })

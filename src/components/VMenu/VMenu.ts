@@ -1,27 +1,26 @@
-// Styles
-import './VMenu.scss'
-
 // Vue API
 import {
-  h,
   defineComponent,
+  watch,
+  h,
   withDirectives,
   computed,
-  watch,
   onMounted,
-  onBeforeUnmount
+  onBeforeUnmount,
+  vShow,
+  VNode,
 } from 'vue'
 
-// Effects
+// Composable
 import {
   autoPositionProps,
-  useAutoPosition
+  useAutoPosition,
 } from '../../effects/use-auto-position'
 import { activatorProps, useActivator } from '../../effects/use-activator'
 import { useDetach } from '../../effects/use-detach'
-import { useTransition } from '../../effects/use-transition'
 import { useElevation } from '../../effects/use-elevation'
 import { useToggle } from '../../effects/use-toggle'
+import { useTransition } from '../../effects/use-transition'
 import { positionProps } from '../../effects/use-position'
 
 // Helpers
@@ -29,56 +28,58 @@ import { convertToUnit } from '../../helpers'
 
 // Directives
 import { clickOutside, resize } from '../../directives'
-import { vShow } from 'vue'
 
-// Types
-import { VNode } from 'vue'
+import { Maybe } from '../../../types/base'
 
 export const VMenu = defineComponent({
   name: 'v-menu',
+  directives: {
+    clickOutside,
+    resize,
+  },
   props: {
     maxHeight: {
-      type: [ Number, String ],
-      default: 200
+      type: [Number, String],
+      default: 200,
     },
     width: {
-      type: [ Number, String ],
-      default: 0
+      type: [Number, String],
+      default: 0,
     },
     zIndex: {
-      type: [ String, Number ],
-      default: 10
-    },
-    parent: {
-      type: Object,
-      default: null
-    },
-    inputActivator: {
-      type: String,
-      default: null
+      type: [String, Number],
+      default: 10,
     },
     openOnHover: Boolean,
     openOnClick: Boolean,
     openOnContextmenu: Boolean,
-    closeOnContentClick: {
-      type: Boolean,
-      default: true
-    },
     closeOnClick: {
       type: Boolean,
-      default: true
+      default: true,
     },
     elevation: {
-      type: [ Number, String ],
-      default: 10
+      type: [Number, String],
+      default: 10,
+    },
+    offsetX: {
+      type: [String, Number],
+      default: 20,
+    },
+    offsetY: {
+      type: [String, Number],
+      default: 20,
     },
     modelValue: Boolean,
+    inputActivator: {
+      type: String,
+      default: '',
+    },
     ...positionProps(),
     ...autoPositionProps(),
-    ...activatorProps()
+    ...activatorProps(),
   },
 
-  emits: [ 'open', 'close' ],
+  emits: ['show', 'hide'],
 
   setup(props, { emit, slots }) {
     const { elevationClasses } = useElevation(props)
@@ -90,18 +91,20 @@ export const VMenu = defineComponent({
       getActivator,
       genActivatorListeners,
       addActivatorEvents,
-      removeActivatorEvents
+      removeActivatorEvents,
     } = useActivator(props)
 
+    const setDimensionsOn = (e, flag) => {
+      setDimensions(getActivator(e)!).then(() => {
+        requestAnimationFrame(() => (isActive.value = flag))
+      })
+    }
+
     const handlers = {
-      click: (e) => {
-        setDimensions(getActivator(e)!).then(() => {
-          requestAnimationFrame(() => (isActive.value = true))
-        })
-      },
-      mouseenter: () => (isActive.value = true),
-      mouseleave: () => (isActive.value = false),
-      contextmenu: () => (isActive.value = true)
+      click: (e) => setDimensionsOn(e, props.openOnClick),
+      mouseenter: (e) => setDimensionsOn(e, props.openOnHover),
+      mouseleave: (e) => setDimensionsOn(e, !props.openOnHover),
+      contextmenu: (e) => setDimensionsOn(e, props.openOnContextmenu),
     }
 
     const listeners = genActivatorListeners(props, handlers)
@@ -109,9 +112,9 @@ export const VMenu = defineComponent({
     const directive = computed(() => {
       return isActive.value
         ? {
-          handler: () => (isActive.value = false),
-          closeConditional: props.closeOnContentClick
-        }
+            handler: () => (isActive.value = false),
+            closeConditional: props.closeOnClick,
+          }
         : undefined
     })
 
@@ -119,16 +122,13 @@ export const VMenu = defineComponent({
       return props.width || +dimensions.content.width
     })
 
-    watch(
-      () => isActive.value,
-      (to) => {
-        to && emit('open')
-        !to && emit('close')
-      }
-    )
+    watch(isActive, (to) => {
+      to && emit('show')
+      !to && emit('hide')
+    })
 
     watch(
-      () => [ props.positionY, props.positionX ],
+      () => [props.positionY, props.positionX],
       () => setDimensions(activatorRef.value!)
     )
 
@@ -136,11 +136,31 @@ export const VMenu = defineComponent({
       () => props.modelValue,
       (to) => {
         isActive.value = false
-        requestAnimationFrame(() => (isActive.value = to))
+        setTimeout(() => (isActive.value = to))
       }
     )
 
-    function genActivatorSlot(): VNode | null {
+    const contentClasses = computed<Record<string, boolean>>(() => ({
+      'v-menu__content': true,
+      ...elevationClasses.value,
+    }))
+
+    const contentStyles = computed<Record<string, string | number>>(() => ({
+      top: convertToUnit(dimensions.content.top)!,
+      left: convertToUnit(dimensions.content.left)!,
+      zIndex: props.zIndex,
+    })) as any
+
+    const onContentClick = () => {
+      isActive.value = !props.closeOnClick
+    }
+
+    const onResize = () => {
+      if (!isActive.value) return
+      requestAnimationFrame(() => setDimensions(activatorRef.value!))
+    }
+
+    const genActivatorSlot = (): Maybe<VNode> => {
       if (slots.activator) {
         const slotContent = slots.activator({ on: listeners })
 
@@ -154,57 +174,56 @@ export const VMenu = defineComponent({
       return null
     }
 
-    function genContentSlot(): VNode {
+    const genContentSlot = (): VNode => {
       const propsData = {
         ref: contentRef,
-        class: {
-          'v-menu__content': true,
-          ...elevationClasses.value
-        },
-        style: {
-          maxHeight: convertToUnit(props.maxHeight),
-          width: convertToUnit(calcWidth.value),
-          top: convertToUnit(dimensions.content.top),
-          left: convertToUnit(dimensions.content.left),
-          zIndex: props.zIndex
-        },
-        onClick: () => {
-          isActive.value = !props.closeOnContentClick
-        }
+        class: contentClasses.value,
+        style: contentStyles.value,
+        onClick: onContentClick,
       }
 
-      const content = h('div', propsData, [ slots.default && slots.default() ])
+      const content = h(
+        'div',
+        propsData,
+        h(
+          'div',
+          {
+            class: 'v-menu__slot',
+            style: {
+              maxHeight: convertToUnit(props.maxHeight),
+              width: convertToUnit(calcWidth.value),
+            },
+          },
+          [slots.default && slots.default()]
+        )
+      )
 
       const directives: any = [
-        [ vShow, isActive.value ],
-        [ resize, onResize ]
+        [vShow, isActive.value],
+        [resize, onResize],
       ]
 
-      if (props.closeOnClick) directives.push([ clickOutside, directive.value ])
+      if (props.closeOnClick) directives.push([clickOutside, directive.value])
 
       return withDirectives(content, directives)
     }
 
     onMounted(() => {
       activatorRef.value = getActivator()
+
       addActivatorEvents()
-      setDetached(contentRef.value)
+      setDetached(contentRef.value!)
     })
 
     onBeforeUnmount(() => {
       removeActivatorEvents()
-      removeDetached(contentRef.value)
+      removeDetached(contentRef.value!)
     })
-
-    function onResize() {
-      if (!isActive.value) return
-      requestAnimationFrame(() => setDimensions(activatorRef.value!))
-    }
 
     return () => [
       h('div', { class: { 'v-menu': true } }),
       slots.activator && genActivatorSlot(),
-      useTransition(genContentSlot(), 'fade')
+      useTransition(genContentSlot(), 'fade'),
     ]
-  }
+  },
 })

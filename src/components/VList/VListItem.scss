@@ -1,73 +1,52 @@
 @import "../../styles/scss/modules/global";
 
+$item-title-padding: 0 10px;
+$item-title-font-size: 1rem;
+$item-subtitle-font-size: .8rem;
+$item-icon-width: 44px;
+
 .v-list-item {
-  @include flex(flex, flex-start, center);
-  flex: 1 1 100%;
-  width: 100%;
-  min-height: 48px;
+  display: flex;
+  align-items: center;
+  height: 45px;
+  border-bottom: thin solid #eeeeee;
+  transition: .4s background-color, color, border $primary-transition;
   position: relative;
   overflow: hidden;
-  transition: all .3s $primary-transition;
   color: curretnColor;
 
-  &:after {
-    content: "";
-    display: block;
-    position: absolute;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    background: currentColor;
-    opacity: 0;
-    transition: opacity .3s $primary-transition;
+  &:nth-last-child(1) {
+    border-bottom: none;
   }
 
-  &:hover:after {
-    //opacity: .1;
-  }
-
-  &--active {
-    cursor: pointer;
-    color: inherit;
-
-    &:after {
-      opacity: .1;
-    }
-  }
-
-  &__title {
-    flex: 1 1 100%;
-    font-size: 1rem;
-    padding: 0 10px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-  }
-
-  &__sub-title {
-    flex: 1 1 100%;
-    font-size: .8rem;
-    padding: 0 10px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    color: currentColor;
-  }
-
-  &__content {
-    display: flex;
-    flex: 1 1;
-    flex-wrap: wrap;
-    align-items: center;
-    align-self: center;
-    overflow: hidden;
+  &--selected {
+    color: map-get($primary, 'base')
   }
 
   &__icon {
-    min-width: 48px;
-    display: inherit;
+    width: $item-icon-width;
+    height: 100%;
+    display: flex;
     justify-content: center;
-    align-items: center
+    align-items: center;
+    overflow: hidden;
+    & > * {
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  &__content {
+  }
+
+  &__title {
+    padding: $item-title-padding;
+    font-size: $item-title-font-size;
+  }
+
+  &__subtitle {
+    padding: $item-title-padding;
+    font-size: $item-subtitle-font-size;
+    opacity: .5;
   }
 }

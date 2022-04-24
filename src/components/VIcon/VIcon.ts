@@ -1,25 +1,24 @@
 // Vue API
-import { defineComponent, h, inject, computed } from 'vue'
+import { defineComponent, h, computed } from 'vue'
 
-// Effects
+// Composable
 import { useColors, colorProps } from '../../composable/use-colors'
-import { sizeProps } from '../../composable/use-sizes'
+import { sizeProps } from '../../composable/use-size'
 
 // Helpers
 import { convertToUnit } from '../../helpers'
 
-// Types
+// Typev
 import { VNode } from 'vue'
 
 // Services
-import { Sizes } from '../../services/sizes'
+import { sizes } from '../../services/sizes'
 
 export const VIcon = defineComponent({
   name: 'v-icon',
 
   props: {
     disabled: Boolean,
-    active: Boolean,
     clickable: Boolean,
     size: [String, Number],
     icon: String,
@@ -34,66 +33,50 @@ export const VIcon = defineComponent({
   emits: ['click'],
 
   setup(props, { slots, emit }): () => VNode {
-    const { setTextClassNameColor, setTextCssColor } = useColors()
+    const { setTextCssColor, setTextClassNameColor } = useColors()
     const iconTag = props.clickable ? 'button' : props.tag
-    const options: any = inject('$options')
 
-    const icon = computed<string>(() => {
-      return props.icon || (slots.default && slots.default()[0].children)
+    const computedIcon = computed<string>(() => {
+      return (
+        props.icon ||
+        (slots.default && slots.default()[0].children)
+      )?.trim()
     })
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-icon': true,
       'v-icon--disabled': props.disabled,
-      'v-icon--link': props.clickable,
       'v-icon--clickable': props.clickable,
-      [options?.icons]: !!options?.icons,
-      [icon.value]: !options?.icons && !!icon.value,
+      [computedIcon.value]: !!computedIcon.value,
       ...(props.color ? setTextClassNameColor(props.color) : {}),
     }))
 
-    const styles = computed(() => ({
+    const styles = computed<Record<string, string>>(() => ({
       fontSize: getSizes(),
       ...(props.color ? setTextCssColor(props.color) : {}),
     }))
 
-    const isMedium = computed<boolean>(() => {
-      return (
-        !props.large &&
-        !props.small &&
-        !props.xLarge &&
-        !props.xSmall &&
-        !props.size
-      )
-    })
-
-    function getSizes(): string {
+    const getSizes = (): string => {
       const sizeProps = {
-        large: props.large,
-        small: props.small,
-        xLarge: props.xLarge,
-        xSmall: props.xSmall,
-        medium: isMedium.value,
+        sm: props.sm,
+        md: props.md,
+        lg: props.lg,
+        xl: props.xl,
       }
-      const explicitSize = Object.keys(sizeProps).find((key) => sizeProps[key])
+      const explicitSize = Object.keys(sizeProps).find((key) => sizeProps[key])!
 
-      return (explicitSize && Sizes[explicitSize]) || convertToUnit(props.size)
+      return convertToUnit((explicitSize && sizes[explicitSize]) || props.size)!
     }
 
-    function onClick() {
-      if (!props.disabled && props.clickable) {
-        emit('click')
-      }
+    const onClick = () => {
+      if (!props.disabled && props.clickable) emit('click')
     }
 
-    return () => {
-      const propsData = {
+    return () =>
+      h(iconTag, {
         class: classes.value,
         style: styles.value,
         onClick,
-      }
-
-      return h(iconTag, propsData, options?.icons ? icon.value : '')
-    }
+      })
   },
 })

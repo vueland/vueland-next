@@ -1,0 +1,119 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ESelect should mount component and match snapshot 1`] = `
+<body>
+  <div
+    class="e-app"
+  >
+    <div
+      data-v-app=""
+    >
+      <div
+        class="e-input e-input--primary e-input--has-append-icon"
+      >
+        <div
+          class="e-input__label"
+        >
+          <label
+            class="e-label"
+          >
+            
+          </label>
+        </div>
+        <div
+          class="e-input__text-field"
+        >
+          <!---->
+          
+          <div
+            class="e-select"
+          >
+            <input
+              class="e-select__input dark--text text--graphite-2"
+              readonly=""
+              type="text"
+            />
+          </div>
+          
+          <div
+            class="e-input__append-icon"
+          >
+            <i
+              class="e-icon fas fa-chevron-down"
+              style="font-size: 16px;"
+            />
+          </div>
+        </div>
+        <div
+          class="e-input__hints"
+        >
+          <transition-stub>
+            <!---->
+          </transition-stub>
+        </div>
+        <div
+          class="e-input__selects"
+        >
+          
+          <div
+            class="e-menu"
+          />
+          <!---->
+          <transition-stub />
+          
+        </div>
+      </div>
+    </div>
+    <div
+      class="e-menu__content elevation-10"
+      style="top: 0px; left: 0px; z-index: 10; display: none;"
+    >
+      <div
+        class="e-menu__slot"
+        style="max-height: 240px; width: 0px;"
+      >
+        
+        <div
+          class="e-select-list"
+        >
+          <div
+            class="e-list e-list--active"
+            style="background-color: rgb(255, 255, 255); border-color: #ffffff;"
+          >
+            
+            <div
+              class="e-list-item"
+            >
+              <div
+                class="e-list-item__title"
+              >
+                javascript
+              </div>
+            </div>
+            <div
+              class="e-list-item"
+            >
+              <div
+                class="e-list-item__title"
+              >
+                Kotlin
+              </div>
+            </div>
+            <div
+              class="e-list-item"
+            >
+              <div
+                class="e-list-item__title"
+              >
+                Rust
+              </div>
+            </div>
+            
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</body>
+`;

@@ -52,7 +52,7 @@ export const VInput = defineComponent({
     readonly: Boolean,
     textColor: {
       type: String,
-      default: 'dark graphite-2',
+      default: '',
     },
     ...validationProps(),
     ...colorProps(),

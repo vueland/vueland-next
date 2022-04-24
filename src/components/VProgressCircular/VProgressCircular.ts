@@ -95,7 +95,7 @@ export const VProgressCircular = defineComponent({
       })
     }
 
-    function genSvg() {
+    const genSvg = () => {
       const children = [
         props.indeterminate || genCircle('underlay', 0),
         genCircle('overlay', strokeDashOffset.value),
@@ -113,7 +113,7 @@ export const VProgressCircular = defineComponent({
       return h('svg', propsData, children)
     }
 
-    function genInfo() {
+    const genInfo = () => {
       const propsData = {
         class: 'v-progress-circular__info',
       }

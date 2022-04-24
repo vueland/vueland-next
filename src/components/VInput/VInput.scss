@@ -3,7 +3,7 @@
 $input-height: 48px;
 $input-border-radius: 8px;
 $input-hints-height: 24px;
-$input-label-height: 32px;
+$input-label-height: 24px;
 
 .v-input {
   &__label {
@@ -11,6 +11,7 @@ $input-label-height: 32px;
     align-items: flex-start;
     height: $input-label-height;
     line-height: 20px;
+    position: relative;
   }
 
   &__text-field {

@@ -536,7 +536,6 @@ export default {
         value-key="car.brand"
         clearable
         prepend-icon="search"
-        list-color="grey darken-4"
         style="margin-top: 10px;"
         :items="data.users"
         :rules="[v => !!v || 'required']"
@@ -680,7 +679,7 @@ export default {
         width="200"
         absolute
         open-on-click
-        @close="data.isOpen = false"
+        @hide="data.isOpen = false"
       >
         <div
           class="grey lighten-5 elevation-10"

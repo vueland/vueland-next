@@ -1,5 +1,13 @@
 // Vue API
-import { h, ref, watch, computed, defineComponent, inject } from 'vue'
+import {
+  h,
+  ref,
+  watch,
+  computed,
+  defineComponent,
+  inject,
+  onBeforeUnmount,
+} from 'vue'
 
 // Effects
 import { useValidation } from '../../composable/use-validation'
@@ -13,7 +21,7 @@ import { VLabel } from '../VLabel'
 import { warning } from '../../helpers'
 
 // Types
-import { VNode, Ref } from 'vue'
+import { VNode } from 'vue'
 
 export const VCheckbox = defineComponent({
   name: 'v-checkbox',
@@ -40,7 +48,7 @@ export const VCheckbox = defineComponent({
   emits: ['checked', 'update:modelValue'],
   setup(props, { emit }): () => VNode {
     const isChecked = ref(false)
-    const fields: Ref<any[]> | undefined = props.validate && inject('fields')
+    const form: any = inject('form', null)
 
     const { validate } = useValidation(props)
     const { icons, iconSize } = useIcons('l')
@@ -71,8 +79,8 @@ export const VCheckbox = defineComponent({
       { immediate: true }
     )
 
-    if (fields?.value) {
-      fields!.value.push(validateValue)
+    if (form) {
+      form!.add(validateValue)
     }
 
     function validateValue(): boolean | void {
@@ -140,6 +148,10 @@ export const VCheckbox = defineComponent({
       emit('update:modelValue', value)
       emit('checked', value)
     }
+
+    onBeforeUnmount(() => {
+      form.remove(validateValue)
+    })
 
     return (): VNode => {
       const dataProps = {

@@ -1,6 +1,6 @@
 @import "../../styles/scss/modules/global";
 
-.v-icon {
+.e-icon {
   background: none;
   display: inline-flex;
   align-items: center;
@@ -21,7 +21,7 @@
   }
 
   &--disabled {
-    color: map-get($disabled, 'base') !important;
+    color: map-get($disabled, 'base');
     pointer-events: none;
   }
 

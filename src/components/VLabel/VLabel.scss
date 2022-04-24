@@ -1,28 +1,16 @@
 @import "../../styles/scss/modules/global";
 
 .v-label {
-  font-size: 16px;
-  min-height: 8px;
-  max-width: 90%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  pointer-events: none;
-  height: 20px;
-  line-height: 20px;
-  transform-origin: top left;
-  transition: transform .3s $primary-transition;
-  will-change: transform;
+  color: currentColor;
+  position: absolute;
+  left: 0;
+  transition: .4s left $primary-transition;
 
-  &--on-field {
-    top: 5px;
+  &--focused {
+    left: 10px;
   }
 
-  &--active {
-    transform: translateY(-17px) scale(.75);
-  }
-
-  &--is-disabled {
-    color: map-get($disabled, 'base') !important;
+  &--disabled {
+    color: map-get($disabled, 'base');
   }
 }

@@ -1,31 +1,42 @@
-// Vue API
-import { defineComponent, h, ref, provide } from 'vue'
-
-// Types
-import { Ref } from 'vue'
+import { defineComponent, provide, h } from 'vue'
 
 export const VForm = defineComponent({
   name: 'v-form',
-
   setup(_, { slots }) {
-    const fields: Ref<(() => boolean)[]> = ref([])
+    let fields: Array<(...args: any) => Promise<boolean>> = []
 
-    provide('fields', fields)
+    const addFieldValidator = (item) => {
+      fields.push(item)
+    }
+
+    const removeFieldValidator = (item) => {
+      fields = fields.filter((v) => v !== item)
+    }
+
+    provide('form', {
+      add: addFieldValidator,
+      remove: removeFieldValidator,
+    })
 
     const validate = () => {
-      const promises: boolean[] = []
+      const promises: Array<Promise<boolean>> = []
 
-      fields.value.forEach((it) => {
-        promises.push(it())
+      fields.forEach((v: (...args: any) => Promise<boolean>) => {
+        promises.push(v())
       })
 
       return !promises.some((f) => !f) ? Promise.resolve() : Promise.reject()
     }
 
-    const genSlot = () => {
-      return slots.default && slots.default({ validate })
-    }
-
-    return () => h('span', { class: 'v-form' }, genSlot())
+    return () =>
+      h(
+        'form',
+        {
+          class: 'v-form',
+        },
+        {
+          default: () => slots.default && slots.default({ validate }),
+        }
+      )
   },
 })

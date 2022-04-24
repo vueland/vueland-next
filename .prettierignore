@@ -1,9 +1,0 @@
-node_modules
-build
-dist
-dev
-es5
-lib
-
-.babelrc
-jest.config.js

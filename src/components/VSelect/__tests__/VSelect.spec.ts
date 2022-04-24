@@ -7,7 +7,7 @@ describe('VSelect', () => {
   const mountFunction = (options = {}) =>
     mount(VSelect as any, {
       ...options,
-      attachTo: document.querySelector('.e-app') as HTMLElement,
+      attachTo: document.querySelector('.v-app') as HTMLElement,
     })
 
   beforeEach(() => (document.body.innerHTML = `<div class="v-app"></div>`))
@@ -25,11 +25,11 @@ describe('VSelect', () => {
     // wait for mounting of select list
     await new Promise((resolve) => setTimeout(resolve))
 
-    await wrapper.find('.e-input__text-field').trigger('click')
+    await wrapper.find('.v-input__text-field').trigger('click')
     // wait
     await new Promise((resolve) => setTimeout(resolve, 100))
 
-    const menuContent = document.body.querySelector('.e-menu__content')!
+    const menuContent = document.body.querySelector('.v-menu__content')!
     const contentStyle = menuContent.getAttribute('style')!
 
     expect(contentStyle.includes('display')).toBeFalsy()
@@ -50,7 +50,7 @@ describe('VSelect', () => {
       .find('.v-input')
       .trigger('click')
       .then(() => {
-        const menuContent = document.body.querySelector('.e-menu__content')!
+        const menuContent = document.body.querySelector('.v-menu__content')!
         const contentStyle = menuContent.getAttribute('style')!
 
         expect(contentStyle.includes('display: none;')).toBeTruthy()
@@ -72,7 +72,7 @@ describe('VSelect', () => {
       .find('.v-input')
       .trigger('click')
       .then(() => {
-        const menuContent = document.body.querySelector('.e-menu__content')!
+        const menuContent = document.body.querySelector('.v-menu__content')!
         const contentStyle = menuContent.getAttribute('style')!
 
         expect(contentStyle.includes('display: none;')).toBeTruthy()

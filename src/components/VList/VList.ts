@@ -6,31 +6,31 @@ export const VList = defineComponent({
   name: 'v-list',
   props: {
     value: {
-      type: [Number, Array],
-      default: null,
+      type: [ Number, Array ],
+      default: null
     },
     multiple: Boolean,
     active: {
       type: Boolean,
-      default: false,
+      default: false
     },
     activeClass: {
       type: String,
-      default: 'primary white--text text--base',
+      default: 'primary white--text text--base'
     },
     textColor: {
       type: String,
-      default: '',
+      default: ''
     },
-    ...colorProps('white'),
+    ...colorProps('white')
   },
-  emits: ['update:value'],
+  emits: [ 'update:value' ],
   setup(props, { emit, slots }) {
     const {
       setTextClassNameColor,
       setBackgroundClassNameColor,
       setTextCssColor,
-      setBackgroundCssColor,
+      setBackgroundCssColor
     } = useColors()
 
     const items = new Map()
@@ -40,12 +40,12 @@ export const VList = defineComponent({
       'v-list': true,
       'v-list--active': props.active,
       ...setTextClassNameColor(props.textColor),
-      ...setBackgroundClassNameColor(props.color),
+      ...setBackgroundClassNameColor(props.color)
     }))
 
     const styles = computed<Record<string, string>>(() => ({
       ...setTextCssColor(props.textColor),
-      ...setBackgroundCssColor(props.color),
+      ...setBackgroundCssColor(props.color)
     }))
 
     const register = (item) => {
@@ -124,19 +124,13 @@ export const VList = defineComponent({
       add: register,
       remove: unregister,
       click: onClick,
-      activeClass: props.activeClass,
+      activeClass: props.activeClass
     })
 
-    return () =>
-      h(
-        'div',
-        {
-          class: classes.value,
-          style: styles.value,
-        },
-        {
-          default: () => slots.default && slots.default(),
-        }
-      )
-  },
+    return () => h(
+      'div',
+      { class: classes.value, style: styles.value },
+      { default: () => slots.default && slots.default() }
+    )
+  }
 })

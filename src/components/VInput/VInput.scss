@@ -59,8 +59,12 @@ $input-label-height: 24px;
   &--focused > .v-input__text-field {
     border-color: currentColor
   }
-  //
-  //&--not-valid {
-  //  color: map-get($main, 'evo') !important;
-  //}
+
+  &--not-valid {
+    color: map-get($states, 'error') !important;
+
+    & > .v-input__text-field {
+      border-color: currentColor
+    }
+  }
 }

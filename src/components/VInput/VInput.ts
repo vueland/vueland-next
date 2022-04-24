@@ -7,7 +7,7 @@ import {
   computed,
   onBeforeMount,
   onBeforeUnmount,
-  VNode,
+  VNode
 } from 'vue'
 
 // Composable
@@ -31,33 +31,33 @@ export const VInput = defineComponent({
   name: 'v-input',
   components: {
     VLabel,
-    VIcon,
+    VIcon
   },
   inheritAttrs: false,
   props: {
     label: {
       type: String,
-      default: '',
+      default: ''
     },
     prependIcon: {
       type: String,
-      default: '',
+      default: ''
     },
     appendIcon: {
       type: String,
-      default: '',
+      default: ''
     },
     disabled: Boolean,
     focused: Boolean,
     readonly: Boolean,
     textColor: {
       type: String,
-      default: '',
+      default: ''
     },
     ...validationProps(),
-    ...colorProps(),
+    ...colorProps()
   },
-  emits: ['click'],
+  emits: [ 'click' ],
   setup(props, { attrs, emit, slots }) {
     const { validate, errorState } = useValidation(props)
     const { setTextCssColor, setTextClassNameColor } = useColors()
@@ -93,14 +93,14 @@ export const VInput = defineComponent({
       ...(!props.disabled && !errorState.innerError
         ? setTextClassNameColor(props.color)
         : {}),
-      ...(attrs.class as object),
+      ...(attrs.class as object)
     }))
 
     const styles = computed<Record<string, string>>(() => ({
       ...(!props.disabled && !errorState.innerError
         ? setTextCssColor(props.color)
         : {}),
-      ...(attrs.style as object),
+      ...(attrs.style as object)
     }))
 
     watch(
@@ -120,20 +120,14 @@ export const VInput = defineComponent({
           class: 'v-label--on-input',
           disabled: isDisabled.value,
           focused: props.focused,
-          color: !errorState.innerError ? props.color : '',
+          color: !errorState.innerError ? props.color : ''
         },
         {
-          default: () => props.label,
+          default: () => props.label
         }
       )
 
-      return h(
-        'div',
-        {
-          class: 'v-input__label',
-        },
-        [label]
-      )
+      return h('div', { class: 'v-input__label' }, [ label ])
     }
 
     const genIcon = (iconName, clickable = false): VNode => {
@@ -141,7 +135,7 @@ export const VInput = defineComponent({
         icon: iconName,
         size: 16,
         disabled: props.disabled,
-        clickable,
+        clickable
       })
     }
 
@@ -154,14 +148,8 @@ export const VInput = defineComponent({
         content = slots['prepend-icon']?.()
       }
 
-      return content
-        ? h(
-            'div',
-            {
-              class: 'v-input__prepend-icon',
-            },
-            content
-          )
+      return content ?
+        h('div', { class: 'v-input__prepend-icon' }, content)
         : null
     }
 
@@ -174,14 +162,8 @@ export const VInput = defineComponent({
         content = slots['append-icon']?.()
       }
 
-      return content
-        ? h(
-            'div',
-            {
-              class: 'v-input__append-icon',
-            },
-            content
-          )
+      return content ?
+        h('div', { class: 'v-input__append-icon' }, content)
         : null
     }
 
@@ -192,49 +174,41 @@ export const VInput = defineComponent({
       const textFieldContent = slots['text-field']?.({
         cssColor: textCssColor,
         clsColor: textClassColor,
-        disabled: props.disabled,
+        disabled: props.disabled
       })
 
       return h(
         'div',
-        {
-          class: 'v-input__text-field',
-        },
-        [prependIconContent, textFieldContent, appendIconContent]
+        { class: 'v-input__text-field' },
+        [ prependIconContent, textFieldContent, appendIconContent ]
       )
     }
 
     const genHintMessage = (): Maybe<VNode> => {
-      return errorState.innerErrorMessage
-        ? h(
-            'span',
-            {
-              class: 'v-input__hints-message',
-            },
-            [errorState.innerErrorMessage]
-          )
+      return errorState.innerErrorMessage ?
+        h(
+          'span',
+          { class: 'v-input__hints-message' },
+          [ errorState.innerErrorMessage ]
+        )
         : null
     }
 
     const genHints = () => {
       return h(
         'div',
-        {
-          class: 'v-input__hints',
-        },
+        { class: 'v-input__hints' },
         useTransition(genHintMessage()!, 'fade')
       )
     }
 
     const genSelectSlot = (): Maybe<VNode> => {
-      return slots.select
-        ? h(
-            'div',
-            {
-              class: 'v-input__selects',
-            },
-            slots.select?.()
-          )
+      return slots.select ?
+        h(
+          'div',
+          { class: 'v-input__selects' },
+          slots.select?.()
+        )
         : null
     }
 
@@ -246,14 +220,10 @@ export const VInput = defineComponent({
       form?.remove(validate)
     })
 
-    return () =>
-      h(
-        'div',
-        {
-          class: classes.value,
-          style: styles.value,
-        },
-        [genLabel(), genTextFieldSlot(), genHints(), genSelectSlot()]
-      )
-  },
+    return () => h(
+      'div',
+      { class: classes.value, style: styles.value },
+      [ genLabel(), genTextFieldSlot(), genHints(), genSelectSlot() ]
+    )
+  }
 })

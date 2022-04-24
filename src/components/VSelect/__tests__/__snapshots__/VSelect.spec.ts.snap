@@ -1,62 +1,62 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ESelect should mount component and match snapshot 1`] = `
+exports[`VSelect should mount component and match snapshot 1`] = `
 <body>
   <div
-    class="e-app"
+    class="v-app"
   >
     <div
       data-v-app=""
     >
       <div
-        class="e-input e-input--primary e-input--has-append-icon"
+        class="v-input v-input--primary v-input--has-append-icon"
       >
         <div
-          class="e-input__label"
+          class="v-input__label"
         >
           <label
-            class="e-label"
+            class="v-label v-label--on-input"
           >
             
           </label>
         </div>
         <div
-          class="e-input__text-field"
+          class="v-input__text-field"
         >
           <!---->
           
           <div
-            class="e-select"
+            class="v-select"
           >
             <input
-              class="e-select__input dark--text text--graphite-2"
+              class="v-select__input"
               readonly=""
               type="text"
             />
           </div>
           
           <div
-            class="e-input__append-icon"
+            class="v-input__append-icon"
           >
             <i
-              class="e-icon fas fa-chevron-down"
+              class="v-icon fas fa-chevron-down"
               style="font-size: 16px;"
             />
           </div>
         </div>
         <div
-          class="e-input__hints"
+          class="v-input__hints"
         >
           <transition-stub>
             <!---->
           </transition-stub>
         </div>
         <div
-          class="e-input__selects"
+          class="v-input__selects"
         >
           
           <div
-            class="e-menu"
+            class="v-menu"
           />
           <!---->
           <transition-stub />
@@ -65,45 +65,44 @@ exports[`ESelect should mount component and match snapshot 1`] = `
       </div>
     </div>
     <div
-      class="e-menu__content elevation-10"
+      class="v-menu__content elevation-10"
       style="top: 0px; left: 0px; z-index: 10; display: none;"
     >
       <div
-        class="e-menu__slot"
+        class="v-menu__slot"
         style="max-height: 240px; width: 0px;"
       >
         
         <div
-          class="e-select-list"
+          class="v-select-list"
         >
           <div
-            class="e-list e-list--active"
-            style="background-color: rgb(255, 255, 255); border-color: #ffffff;"
+            class="v-list v-list--active white"
           >
             
             <div
-              class="e-list-item"
+              class="v-list-item"
             >
               <div
-                class="e-list-item__title"
+                class="v-list-item__title"
               >
                 javascript
               </div>
             </div>
             <div
-              class="e-list-item"
+              class="v-list-item"
             >
               <div
-                class="e-list-item__title"
+                class="v-list-item__title"
               >
                 Kotlin
               </div>
             </div>
             <div
-              class="e-list-item"
+              class="v-list-item"
             >
               <div
-                class="e-list-item__title"
+                class="v-list-item__title"
               >
                 Rust
               </div>

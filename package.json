@@ -32,7 +32,6 @@
     "test": "jest -u",
     "test:editor": "editorconfig-checker --exclude '.git|node_modules|dist|es5|lib|.idea'",
     "declarations": "ttsc --emitDeclarationOnly",
-    "prettier": "prettier --write --config .prettierrc.json './src/**/*.{ts,tsx}'",
     "lint": "eslint --ext .ts,.vue src"
   },
   "repository": {
@@ -73,7 +72,6 @@
     "node-sass": "^7.0.1",
     "postcss-loader": "^6.2.1",
     "postcss-preset-env": "^7.4.1",
-    "prettier": "^2.5.1",
     "regenerator-runtime": "^0.13.9",
     "sass-loader": "^12.6.0",
     "serve": "^13.0.2",

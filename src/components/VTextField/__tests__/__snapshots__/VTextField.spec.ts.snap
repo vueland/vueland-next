@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ETextField should mount component and match snapshot 1`] = `
+exports[`VTextField should mount component and match snapshot 1`] = `
 <div class="v-input v-input--primary">
   <div class="v-input__label">
     <label class="v-label v-label--on-input">
@@ -20,7 +20,7 @@ exports[`ETextField should mount component and match snapshot 1`] = `
 </div>
 `;
 
-exports[`ETextField should test disabled state 1`] = `
+exports[`VTextField should test disabled state 1`] = `
 <div class="v-input v-input--disabled">
   <div class="v-input__label">
     <label class="v-label v-label--disabled v-label--on-input">
@@ -37,31 +37,6 @@ exports[`ETextField should test disabled state 1`] = `
   </div>
   <div class="v-input__hints">
     <transition-stub>
-    </transition-stub>
-  </div>
-</div>
-`;
-
-exports[`ETextField should test non disabled state 1`] = `
-<div class="e-input e-input--not-valid">
-  <div class="e-input__label">
-    <label class="e-label">
-      email
-    </label>
-  </div>
-  <div class="e-input__text-field">
-    <div class="e-text-field">
-      <input class="e-text-field__input"
-             style="color: rgb(250, 90, 90);"
-             type="text"
-      >
-    </div>
-  </div>
-  <div class="e-input__hints">
-    <transition-stub>
-      <span class="e-input__hints-message">
-        required input
-      </span>
     </transition-stub>
   </div>
 </div>

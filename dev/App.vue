@@ -461,17 +461,16 @@
       style="display: block; margin: 20px; width: 25%"
     >
       <v-date-picker
-        lang="en"
+        lang="ru"
         label="set date"
-        format="dd MMM yyyy D"
+        format="dd.MM.yyyy D"
         elevation="15"
-        prepend-icon="event"
+        prepend-icon="fas fa-calendar-alt"
         :rules="[val => !!val || 'Required', val => val.length > 5 || 'Required to be 5 symbols']"
         clearable
         color="grey darken-4"
         content-color="pink lighten-3"
         monday-first
-        typeable
         :disabled-dates="disabledDates"
         @selected="testFunc"
       >
@@ -500,8 +499,9 @@
         v-model="data.password"
         label="teal"
         autocomplete="new-password"
-        prepend-icon="map"
+        prepend-icon="fas fa-at"
         clearable
+        color="green darken-2"
         :rules="[v => !!v || 'required', v => v.length > 10 || 'more than 10']"
       />
       <v-text-field
@@ -685,34 +685,28 @@
           class="grey lighten-5 elevation-10"
         >
           <v-list>
-            <v-list-group
-              no-action
-              expanded
-              color="primary"
+            <v-list-item
+              @click="data.title = 'Panter'"
             >
-              <v-list-item
-                @click="data.title = 'Panter'"
-              >
-                <template #default="{active}">
-                  <v-list-item-icon>
-                    <v-icon
-                      icon="account_circle"
-                      size="18"
-                    />
-                  </v-list-item-icon>
-                  <v-list-item-title>
-                    Panter {{ active }}
-                  </v-list-item-title>
-                </template>
-              </v-list-item>
-              <v-list-item @click="data.title = 'Rice'">
-                <template #default="{active}">
-                  <v-list-item-title>
-                    Rice {{ active }}
-                  </v-list-item-title>
-                </template>
-              </v-list-item>
-            </v-list-group>
+              <template #default="{active}">
+                <v-list-item-icon>
+                  <v-icon
+                    icon="account_circle"
+                    size="18"
+                  />
+                </v-list-item-icon>
+                <v-list-item-title>
+                  Panter {{ active }}
+                </v-list-item-title>
+              </template>
+            </v-list-item>
+            <v-list-item @click="data.title = 'Rice'">
+              <template #default="{active}">
+                <v-list-item-title>
+                  Rice {{ active }}
+                </v-list-item-title>
+              </template>
+            </v-list-item>
           </v-list>
         </div>
       </v-menu>

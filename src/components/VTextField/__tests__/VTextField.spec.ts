@@ -3,7 +3,7 @@ import { VTextField } from '../index'
 import { ref } from 'vue'
 import 'regenerator-runtime'
 
-describe('ETextField', () => {
+describe('VTextField', () => {
   const mountFunction = (options = {}) => mount(VTextField as any, options)
 
   it('should mount component and match snapshot', () => {
@@ -43,7 +43,7 @@ describe('ETextField', () => {
     await wrapper.find('input').trigger('blur')
 
     expect(wrapper.find('.e-input').attributes('class')).toContain(
-      'e-input--not-valid'
+      'v-input--not-valid'
     )
     expect(wrapper.html()).toMatchSnapshot()
 
@@ -51,7 +51,7 @@ describe('ETextField', () => {
 
     await wrapper.find('input').trigger('input')
 
-    expect(wrapper.find('.e-input--not-valid').exists()).toBeFalsy()
+    expect(wrapper.find('.v-input--not-valid').exists()).toBeFalsy()
   })
 
   it('should test disabled state', async () => {

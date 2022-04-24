@@ -419,7 +419,7 @@ export const VDatePicker = defineComponent({
         {
           activator: activator.value!,
           internalActivator: true,
-          inputActivator: '.v-text-field__input',
+          inputActivator: '.v-input__text-field',
           width: 'auto',
           maxHeight: 'auto',
           bottom: props.typeable,

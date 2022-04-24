@@ -1,19 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ETextField should mount component and match snapshot 1`] = `
-<div class="e-input e-input--primary">
-  <div class="e-input__label">
-    <label class="e-label">
+<div class="v-input v-input--primary">
+  <div class="v-input__label">
+    <label class="v-label v-label--on-input">
     </label>
   </div>
-  <div class="e-input__text-field">
-    <div class="e-text-field">
-      <input class="e-text-field__input dark--text text--graphite-2"
+  <div class="v-input__text-field">
+    <div class="v-text-field">
+      <input class="v-text-field__input"
              type="text"
       >
     </div>
   </div>
-  <div class="e-input__hints">
+  <div class="v-input__hints">
     <transition-stub>
     </transition-stub>
   </div>
@@ -21,21 +21,21 @@ exports[`ETextField should mount component and match snapshot 1`] = `
 `;
 
 exports[`ETextField should test disabled state 1`] = `
-<div class="e-input e-input--disabled">
-  <div class="e-input__label">
-    <label class="e-label e-label--disabled">
+<div class="v-input v-input--disabled">
+  <div class="v-input__label">
+    <label class="v-label v-label--disabled v-label--on-input">
       email
     </label>
   </div>
-  <div class="e-input__text-field">
-    <div class="e-text-field e-text-field--disabled">
-      <input class="e-text-field__input"
+  <div class="v-input__text-field">
+    <div class="v-text-field v-text-field--disabled">
+      <input class="v-text-field__input"
              disabled
              type="text"
       >
     </div>
   </div>
-  <div class="e-input__hints">
+  <div class="v-input__hints">
     <transition-stub>
     </transition-stub>
   </div>

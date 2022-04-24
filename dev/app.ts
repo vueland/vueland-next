@@ -6,7 +6,7 @@ import '../src/styles/scss/main.scss'
 import '../src/styles/scss/themes/material-theme.scss'
 
 new Vueland({
-  icons: 'material-icons',
+  icons: 'fa',
   theme: {
     dark: false,
     themes: {

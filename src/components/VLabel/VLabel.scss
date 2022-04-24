@@ -2,9 +2,12 @@
 
 .v-label {
   color: currentColor;
-  position: absolute;
-  left: 0;
   transition: .4s left $primary-transition;
+
+  &--on-input {
+    position: absolute;
+    left: 0;
+  }
 
   &--focused {
     left: 10px;

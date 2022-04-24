@@ -1,7 +1,7 @@
 import { ComponentPublicInstance, Ref } from 'vue'
 
 export type UserOptions = {
-  icons: 'material-icons'
+  icons: 'material-icons' | 'fa'
   theme: {
     dark?: boolean
     themes?: {

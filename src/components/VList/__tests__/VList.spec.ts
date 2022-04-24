@@ -1,5 +1,5 @@
 import { mount, VueWrapper } from '@vue/test-utils'
-import { VList, VListGroup, VListItem } from '../index'
+import { VList, VListItem } from '../index'
 import { h } from 'vue'
 
 describe('VList', () => {
@@ -9,9 +9,7 @@ describe('VList', () => {
     mountFunction = (options = {}) => mount(VList, {
       ...options,
       slots: {
-        default: h(VListGroup, {
-          color: 'primary'
-        }, [h(VListItem, 'first'), h(VListItem, 'second')])
+        default: [h(VListItem, 'first'), h(VListItem, 'second')]
       }
     })
   })

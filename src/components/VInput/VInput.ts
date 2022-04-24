@@ -117,6 +117,7 @@ export const VInput = defineComponent({
       const label = h(
         VLabel,
         {
+          class: 'v-label--on-input',
           disabled: isDisabled.value,
           focused: props.focused,
           color: !errorState.innerError ? props.color : '',

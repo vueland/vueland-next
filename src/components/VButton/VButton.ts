@@ -1,7 +1,7 @@
 // Vue API
 import { defineComponent, h, computed } from 'vue'
 
-// Compositions
+// Composable
 import { useColors } from '../../composable/use-colors'
 import { elevationProps, useElevation } from '../../composable/use-elevation'
 import { usePosition } from '../../composable/use-position'
@@ -97,7 +97,7 @@ export const VButton = defineComponent({
       }
     })
 
-    function genLoader() {
+    const genLoader = (): VNode => {
       return h(
         'span',
         {
@@ -112,35 +112,35 @@ export const VButton = defineComponent({
       )
     }
 
-    function genLabel() {
-      const propsData = {
-        class: 'v-button__label',
-      }
-
-      return h('span', propsData, props.label)
+    const genLabel = (): VNode => {
+      return h(
+        'span',
+        {
+          class: 'v-button__label',
+        },
+        props.label
+      )
     }
 
-    function genContent() {
+    const genContent = (): VNode => {
       return h(
         'div',
         {
           class: 'v-button__content',
         },
-        [props.label && genLabel(), slots.default && slots.default()]
+        [(slots.default && slots.default()) || (props.label && genLabel())]
       )
     }
 
-    return () => {
-      const propsData = {
-        class: classes.value,
-        style: styles.value,
-        onClick: () => !props.disabled && emit('click'),
-      }
-
-      return h('button', propsData, [
-        genContent(),
-        props.loading && genLoader(),
-      ])
-    }
+    return () =>
+      h(
+        'button',
+        {
+          class: classes.value,
+          style: styles.value,
+          onClick: () => !props.disabled && emit('click'),
+        },
+        [genContent(), props.loading && genLoader()]
+      )
   },
 })

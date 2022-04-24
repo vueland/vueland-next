@@ -20,7 +20,7 @@ $item-icon-width: 44px;
   }
 
   &--selected {
-    color: map-get($primary, 'base')
+    color: map-get($states, 'primary')
   }
 
   &__icon {

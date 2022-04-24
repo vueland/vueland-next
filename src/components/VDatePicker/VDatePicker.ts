@@ -383,7 +383,7 @@ export const VDatePicker = defineComponent({
 
     function genDatepickerInput(): VNode {
       return h(VTextField, {
-        value: data.convertedDateString,
+        modelValue: data.convertedDateString!,
         dark: props.dark,
         label: props.label,
         readonly: !props.typeable,

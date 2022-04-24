@@ -1,7 +1,7 @@
 @import "../../styles/scss/modules/global";
 
 $input-height: 48px;
-$input-border-radius: 8px;
+$input-border-radius: 4px;
 $input-hints-height: 24px;
 $input-label-height: 24px;
 
@@ -17,7 +17,7 @@ $input-label-height: 24px;
   &__text-field {
     display: flex;
     height: $input-height;
-    border: 2px solid currentColor;
+    border: 1px solid map-get($grey, 'lighten-1');
     border-radius: $input-border-radius;
     transition: .4s color $primary-transition;
     overflow: hidden;
@@ -48,17 +48,17 @@ $input-label-height: 24px;
   }
 
   &--primary {
-    color: map-get($primary, 'base') !important;
+    color: map-get($states, 'primary') !important;
   }
 
   &--disabled {
-    color: map-get($disabled, 'base') !important;
+    color: map-get($states, 'disabled') !important;
     pointer-events: none;
   }
 
-  //&--focused > .e-input__text-field {
-  //  color: map-get($main, 'evo') !important;
-  //}
+  &--focused > .v-input__text-field {
+    border-color: currentColor
+  }
   //
   //&--not-valid {
   //  color: map-get($main, 'evo') !important;

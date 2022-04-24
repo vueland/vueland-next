@@ -73,6 +73,7 @@
 
       const testFunc = date => {
         console.log(date)
+        data.date = date
       }
 
       const forOut = computed(() => {
@@ -461,7 +462,6 @@
       style="display: block; margin: 20px; width: 25%"
     >
       <v-date-picker
-        v-model="data.date"
         lang="en"
         label="set date"
         format="dd MMM yyyy D"
@@ -472,6 +472,7 @@
         color="grey darken-4"
         content-color="pink lighten-3"
         monday-first
+        typeable
         :disabled-dates="disabledDates"
         @selected="testFunc"
       >
@@ -679,7 +680,6 @@
         width="200"
         absolute
         open-on-click
-        :close-on-click="false"
         @hide="data.isOpen = false"
       >
         <div

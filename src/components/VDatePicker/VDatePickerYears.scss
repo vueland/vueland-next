@@ -30,7 +30,7 @@
     }
 
     &--current-year {
-      border-color: map-get($primary, 'base');
+      border-color: map-get($states, 'primary');
     }
   }
 }

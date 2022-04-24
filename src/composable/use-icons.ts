@@ -1,9 +1,14 @@
 import { inject } from 'vue'
-import { FaIcons, MaterialIcons, FaSizes, MaterialSizes } from '../services/icons'
+import {
+  FaIcons,
+  MaterialIcons,
+  FaSizes,
+  MaterialSizes,
+} from '../services/icons'
 
 export function useIcons(size) {
   const options: any = inject('$options')
-  console.log(options)
+
   let icons: any = FaIcons
   let iconSize: number = FaSizes[size] as any
 

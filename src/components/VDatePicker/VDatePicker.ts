@@ -24,6 +24,7 @@ import { formatDate } from './utils'
 // Types
 import { VNode } from 'vue'
 import { DatePickerBtnHandlers, DatePickerDate } from '../../../types'
+import { Maybe } from '../../../types/base'
 
 // Services
 import { locale } from '../../services/locale'
@@ -112,7 +113,7 @@ export const VDatePicker = defineComponent({
     const contentColor: string = props.dark ? 'white' : props.contentColor
 
     const handlers = ref<DatePickerBtnHandlers>({})
-    const activator = ref<VNode | null>(null)
+    const activator = ref<Maybe<VNode>>(null)
     const closeConditional = ref<boolean>(false)
 
     provide('handlers', handlers)
@@ -229,6 +230,7 @@ export const VDatePicker = defineComponent({
       emit('update:value', computedValue.value)
       emit('update:modelValue', computedValue.value)
       emit('selected', computedValue.value)
+
       requestAnimationFrame(() => (closeConditional.value = false))
     }
 
@@ -424,7 +426,7 @@ export const VDatePicker = defineComponent({
           maxHeight: 'auto',
           bottom: props.typeable,
           openOnClick: true,
-          // closeOnClick: closeConditional.value,
+          closeOnClick: closeConditional.value,
         },
         {
           default: () => genDatepickerTable(),

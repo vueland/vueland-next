@@ -16,13 +16,13 @@ export const VList = defineComponent({
     },
     activeClass: {
       type: String,
-      default: 'red--text text--darken-1',
+      default: 'primary white--text text--base',
     },
     textColor: {
       type: String,
       default: '',
     },
-    ...colorProps('#ffffff'),
+    ...colorProps('white'),
   },
   emits: ['update:value'],
   setup(props, { emit, slots }) {

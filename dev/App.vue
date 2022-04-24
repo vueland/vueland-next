@@ -679,6 +679,7 @@
         width="200"
         absolute
         open-on-click
+        :close-on-click="false"
         @hide="data.isOpen = false"
       >
         <div

@@ -27,8 +27,6 @@ export const VListItem = defineComponent({
       [list?.activeClass]: isActive.value,
     }))
 
-    console.log(list.activeClass)
-
     const onClick = () => {
       list?.click(item)
       emit('click')

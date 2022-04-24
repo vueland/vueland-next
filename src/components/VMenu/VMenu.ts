@@ -9,6 +9,7 @@ import {
   onBeforeUnmount,
   vShow,
   VNode,
+  DirectiveArguments,
 } from 'vue'
 
 // Composable
@@ -182,28 +183,25 @@ export const VMenu = defineComponent({
         onClick: onContentClick,
       }
 
-      const content = h(
+      const slotContent = h(
         'div',
-        propsData,
-        h(
-          'div',
-          {
-            class: 'v-menu__slot',
-            style: {
-              maxHeight: convertToUnit(props.maxHeight),
-              width: convertToUnit(calcWidth.value),
-            },
+        {
+          class: 'v-menu__slot',
+          style: {
+            maxHeight: convertToUnit(props.maxHeight),
+            width: convertToUnit(calcWidth.value),
           },
-          [slots.default && slots.default()]
-        )
+        },
+        [slots.default && slots.default()]
       )
 
-      const directives: any = [
+      const content = h('div', propsData, slotContent)
+
+      const directives: DirectiveArguments = [
         [vShow, isActive.value],
         [resize, onResize],
+        [clickOutside, directive.value],
       ]
-
-      if (props.closeOnClick) directives.push([clickOutside, directive.value])
 
       return withDirectives(content, directives)
     }

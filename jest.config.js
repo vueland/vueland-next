@@ -1,10 +1,11 @@
 module.exports = {
-  verbose: false,
+  verbose: true,
   testEnvironment: 'jest-environment-jsdom-fourteen',
   roots: [
     '<rootDir>/src',
   ],
   moduleFileExtensions: [
+    'vue',
     'ts',
     'js',
   ],
@@ -17,11 +18,9 @@ module.exports = {
   },
 
   transform: {
-    '\\.(styl)$': 'jest-css-modules',
-    '\\.(sass|scss)$': 'jest-css-modules',
     '.*\\.(j|t)s$': 'ts-jest',
     '.*\\.ts$': 'babel-jest',
-    '.*\\.(vue)$': '@vue/test-utils',
+    '.*\\.(vue)$': 'vue-jest',
   },
   collectCoverageFrom: [
     'src/**/*.{js,ts,tsx}',
@@ -35,8 +34,6 @@ module.exports = {
   ],
   testMatch: [
     // Default
-    '**/test/**/*.js',
-    '**/__tests__/**/*.spec.js',
     '**/__tests__/**/*.spec.ts',
   ],
   globals: {

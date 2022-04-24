@@ -5,5 +5,5 @@ dev
 es5
 lib
 
-babel.config.js
+.babelrc
 jest.config.js

@@ -57,7 +57,7 @@
         fetch('https://jsonplaceholder.typicode.com/comments')
           .then(response => response.json())
           .then(json => setTimeout(() => {
-            data.users = [ ...data.users ]
+            data.users = json
           }, 500))
       }
 
@@ -122,18 +122,18 @@
         }
       ])
 
-      const rows = [
-        {
-          name: 'Ben',
-          email: 'ben@mail.ru',
-          body: 'some body text'
-        },
-        {
-          name: 'Alex',
-          email: 'alex@mail.ru',
-          body: 'some body text'
-        }
-      ]
+      // const rows = [
+      //   {
+      //     name: 'Ben',
+      //     email: 'ben@mail.ru',
+      //     body: 'some body text'
+      //   },
+      //   {
+      //     name: 'Alex',
+      //     email: 'alex@mail.ru',
+      //     body: 'some body text'
+      //   }
+      // ]
 
       const addItem = () => {
         data.users.push({
@@ -382,7 +382,6 @@
       <v-data-table
         :cols="cols"
         :rows="data.users"
-
         :header-options="{
 
         }"
@@ -534,7 +533,7 @@
       <v-select
         v-model="data.user"
         label="select"
-        value-key="car.brand"
+        value-key="email"
         clearable
         prepend-icon="search"
         style="margin-top: 10px;"

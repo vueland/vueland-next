@@ -150,7 +150,7 @@ export const VCheckbox = defineComponent({
     }
 
     onBeforeUnmount(() => {
-      form.remove(validateValue)
+      form?.remove(validateValue)
     })
 
     return (): VNode =>

@@ -5,7 +5,7 @@ import { h, ref, inject, computed, watch, defineComponent } from 'vue'
 import { genTableRows, parseDate, toDateString } from './helpers'
 
 // Effects
-import { useTransition } from '../../effects/use-transition'
+import { useTransition } from '../../composable/use-transition'
 
 // Types
 import { VNode, Ref } from 'vue'

@@ -2,8 +2,8 @@
 import { h, ref, watch, computed, defineComponent, inject } from 'vue'
 
 // Effects
-import { useValidate } from '../../effects/use-validate'
-import { useIcons } from '../../effects/use-icons'
+import { useValidation } from '../../composable/use-validation'
+import { useIcons } from '../../composable/use-icons'
 
 // Components
 import { VIcon } from '../VIcon'
@@ -42,7 +42,7 @@ export const VCheckbox = defineComponent({
     const isChecked = ref(false)
     const fields: Ref<any[]> | undefined = props.validate && inject('fields')
 
-    const { validate, validationState } = useValidate(props)
+    const { validate } = useValidation(props)
     const { icons, iconSize } = useIcons('l')
 
     const isArray = computed<boolean>(() => Array.isArray(props.modelValue))
@@ -100,7 +100,7 @@ export const VCheckbox = defineComponent({
       const propsData = {
         icon,
         size: iconSize,
-        color: validationState.value,
+        color: props.color,
         disabled: props.disabled,
       }
 

@@ -2,9 +2,9 @@
 import { defineComponent, h, computed } from 'vue'
 
 // Compositions
-import { useColors } from '../../effects/use-colors'
-import { elevationProps, useElevation } from '../../effects/use-elevation'
-import { usePosition } from '../../effects/use-position'
+import { useColors } from '../../composable/use-colors'
+import { elevationProps, useElevation } from '../../composable/use-elevation'
+import { usePosition } from '../../composable/use-position'
 
 // Components
 import { VProgressCircular } from '../VProgressCircular'
@@ -39,7 +39,12 @@ export const VButton = defineComponent({
   emits: ['click'],
 
   setup(props, { slots, emit }): () => VNode {
-    const { setTextColor, setBackground } = useColors()
+    const {
+      setTextClassNameColor,
+      setBackgroundClassNameColor,
+      setBackgroundCssColor,
+      setTextCssColor,
+    } = useColors()
 
     const { elevationClasses } = useElevation(props)
 
@@ -70,6 +75,25 @@ export const VButton = defineComponent({
         'v-button--loading': props.loading,
         ...elevations,
         ...positionClasses.value,
+        ...(props.color && isFlat.value
+          ? setTextClassNameColor(props.color)
+          : {}),
+        ...(props.color && !isFlat.value
+          ? setBackgroundClassNameColor(props.color)
+          : {}),
+      }
+    })
+
+    const styles = computed(() => {
+      const width = props.width || 40
+
+      return {
+        width: (props.width || props.round) && convertToUnit(width),
+        height: props.round && convertToUnit(width),
+        ...(props.color && isFlat.value ? setTextCssColor(props.color) : {}),
+        ...(props.color && !isFlat.value
+          ? setBackgroundCssColor(props.color)
+          : {}),
       }
     })
 
@@ -107,25 +131,16 @@ export const VButton = defineComponent({
     }
 
     return () => {
-      const setColor = isFlat.value ? setTextColor : setBackground
-      const width = props.width || 40
-
       const propsData = {
         class: classes.value,
-        style: {
-          width: (props.width || props.round) && convertToUnit(width),
-          height: props.round && convertToUnit(width),
-        },
+        style: styles.value,
         onClick: () => !props.disabled && emit('click'),
       }
 
-      return h(
-        'button',
-        props.color && !isLoadable.value && !props.disabled
-          ? setColor(props.color, propsData)
-          : propsData,
-        [genContent(), props.loading && genLoader()]
-      )
+      return h('button', propsData, [
+        genContent(),
+        props.loading && genLoader(),
+      ])
     }
   },
 })

@@ -5,10 +5,8 @@ import './VSelect.scss'
 import { h, ref, reactive, computed, defineComponent, watch } from 'vue'
 
 // Effects
-import { colorProps, useColors } from '../../effects/use-colors'
-import { useTheme } from '../../effects/use-theme'
-import { activatorProps } from '../../effects/use-activator'
-import { validateProps } from '../../effects/use-validate'
+import { colorProps, useColors } from '../../composable/use-colors'
+import { activatorProps } from '../../composable/use-activator'
 
 // Types
 import { VNode } from 'vue'
@@ -44,7 +42,6 @@ export const VSelect = defineComponent({
     },
     ...colorProps(),
     ...activatorProps(),
-    ...validateProps(),
   } as any,
 
   emits: [
@@ -62,8 +59,7 @@ export const VSelect = defineComponent({
       focused: false,
     })
 
-    const { setTextColor } = useColors()
-    const { base } = useTheme()
+    const { setTextClassNameColor, setTextCssColor } = useColors()
 
     const activator = ref<HTMLElement | null>(null)
 
@@ -72,6 +68,11 @@ export const VSelect = defineComponent({
       'v-select--disabled': props.disabled,
       'v-select--readonly': props.readonly,
       'v-select--focused': state.focused,
+      ...(props.color ? setTextClassNameColor(props.color) : {}),
+    }))
+
+    const styles = computed(() => ({
+      ...(props.color ? setTextCssColor(props.color) : {}),
     }))
 
     const computedInputValue = computed<string>(() => {
@@ -128,7 +129,7 @@ export const VSelect = defineComponent({
         ref: activator,
         onClick,
       }
-      return h('input', setTextColor(props.dark ? 'white' : base, propsData))
+      return h('input', propsData)
     }
 
     function genSelectList(): VNode {
@@ -166,6 +167,7 @@ export const VSelect = defineComponent({
     function genSelect(): VNode {
       const propsData = {
         class: classes.value,
+        style: styles.value,
       }
 
       return h('div', propsData, [genInput(), activator.value && genMenu()])

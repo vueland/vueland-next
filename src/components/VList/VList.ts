@@ -2,7 +2,7 @@
 import { h, ref, provide, defineComponent } from 'vue'
 
 // Effects
-import { useSelect } from '../../effects/use-select-multiple'
+import { useSelect } from '../../composable/use-select-multiple'
 
 // Types
 import { ListItem, ListItemRef } from '../../../types'

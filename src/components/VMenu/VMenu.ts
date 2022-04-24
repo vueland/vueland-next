@@ -15,13 +15,13 @@ import {
 import {
   autoPositionProps,
   useAutoPosition,
-} from '../../effects/use-auto-position'
-import { activatorProps, useActivator } from '../../effects/use-activator'
-import { useDetach } from '../../effects/use-detach'
-import { useElevation } from '../../effects/use-elevation'
-import { useToggle } from '../../effects/use-toggle'
-import { useTransition } from '../../effects/use-transition'
-import { positionProps } from '../../effects/use-position'
+} from '../../composable/use-auto-position'
+import { activatorProps, useActivator } from '../../composable/use-activator'
+import { useDetach } from '../../composable/use-detach'
+import { useElevation } from '../../composable/use-elevation'
+import { useToggle } from '../../composable/use-toggle'
+import { useTransition } from '../../composable/use-transition'
+import { positionProps } from '../../composable/use-position'
 
 // Helpers
 import { convertToUnit } from '../../helpers'

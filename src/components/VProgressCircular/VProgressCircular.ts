@@ -3,7 +3,7 @@ import './VProgressCircular.scss'
 import { h, computed, defineComponent } from 'vue'
 
 // Effects
-import { colorProps, useColors } from '../../effects/use-colors'
+import { colorProps, useColors } from '../../composable/use-colors'
 
 // Types
 import { VNode } from 'vue'
@@ -34,7 +34,7 @@ export const VProgressCircular = defineComponent({
   setup(props, { slots }) {
     const radius = 20
 
-    const { setTextColor } = useColors()
+    const { setTextClassNameColor, setTextCssColor } = useColors()
 
     const normalizedValue = computed<number>(() => {
       if (props.value < 0) return 0
@@ -44,12 +44,11 @@ export const VProgressCircular = defineComponent({
       return parseFloat(props.value as string)
     })
 
-    const classes = computed<Record<string, boolean>>(() => {
-      return {
-        'v-progress-circular': true,
-        'v-progress-circular--indeterminate': props.indeterminate,
-      }
-    })
+    const classes = computed<Record<string, boolean>>(() => ({
+      'v-progress-circular': true,
+      'v-progress-circular--indeterminate': props.indeterminate,
+      ...(props.color ? setTextClassNameColor(props.color) : {}),
+    }))
 
     const circumference = computed<number>(() => {
       return 2 * Math.PI * radius
@@ -71,12 +70,11 @@ export const VProgressCircular = defineComponent({
       return (Number(props.width) / +props.size) * viewBoxSize.value * 2
     })
 
-    const styles = computed<object>(() => {
-      return {
-        width: convertToUnit(props.size),
-        height: convertToUnit(props.size),
-      }
-    })
+    const styles = computed<object>(() => ({
+      width: convertToUnit(props.size),
+      height: convertToUnit(props.size),
+      ...(props.color ? setTextCssColor(props.color) : {}),
+    }))
 
     const svgStyle = computed(() => {
       return {
@@ -123,10 +121,10 @@ export const VProgressCircular = defineComponent({
     }
 
     return () => {
-      const propsData = setTextColor(props.color!, {
+      const propsData = {
         class: classes.value,
         style: styles.value,
-      })
+      }
       return h('div', propsData, [genSvg(), genInfo()])
     }
   },

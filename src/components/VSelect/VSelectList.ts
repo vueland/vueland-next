@@ -8,7 +8,7 @@ import { h, ref, watch, defineComponent } from 'vue'
 import { VList, VListGroup, VListItem, VListItemTitle } from '../VList'
 
 // Effects
-import { colorProps, useColors } from '../../effects/use-colors'
+import { colorProps, useColors } from '../../composable/use-colors'
 
 // Helpers
 import { getKeyValueFromTarget } from '../../helpers'
@@ -26,25 +26,30 @@ export const VSelectList = defineComponent({
     dark: Boolean,
     listColor: {
       type: String,
-      default: 'white'
+      default: 'white',
     },
     elevation: {
-      type: [ String, Number ],
-      default: 4
+      type: [String, Number],
+      default: 4,
     },
-    select: [ Object, String, Array, Number ],
-    ...colorProps()
+    select: [Object, String, Array, Number],
+    ...colorProps(),
   } as any,
 
-  emits: [ 'select' ],
+  emits: ['select'],
 
   setup(props, { emit }) {
-    const { setTextColor, setBackground } = useColors()
+    const {
+      setTextCssColor,
+      setTextClassNameColor,
+      setBackgroundCssColor,
+      setBackgroundClassNameColor,
+    } = useColors()
     const selected = ref<any>(null)
 
     watch(
       () => props.select,
-      to => selected.value = to,
+      (to) => (selected.value = to),
       { immediate: true }
     )
 
@@ -52,20 +57,18 @@ export const VSelectList = defineComponent({
       const key = props.valueKey
 
       const propsData = {
-        class: {},
-        style: {}
+        class: {
+          ...(props.color ? setTextClassNameColor(props.color) : {}),
+        },
+        style: {
+          ...(props.color ? setTextCssColor(props.color) : {}),
+        },
       }
 
       return props.items?.map((it: any) => {
-        const color = props.dark ? 'white' : ''
-
-        const item = h(
-          VListItemTitle,
-          setTextColor(color, propsData),
-          {
-            default: () => (key ? getKeyValueFromTarget(key, it) : it)
-          }
-        )
+        const item = h(VListItemTitle, propsData, {
+          default: () => (key ? getKeyValueFromTarget(key, it) : it),
+        })
 
         return h(
           VListItem,
@@ -75,10 +78,10 @@ export const VSelectList = defineComponent({
             onClick: () => {
               selected.value = it
               emit('select', it)
-            }
+            },
           },
           {
-            default: () => item
+            default: () => item,
           }
         )
       })
@@ -89,27 +92,34 @@ export const VSelectList = defineComponent({
     }
 
     function genItemsGroup(): VNode {
-      return h(VListGroup, {
-        color: props.color,
-        noAction: true,
-        expanded: true,
-        dark: props.dark
-      }, { default: () => genItems() })
+      return h(
+        VListGroup,
+        {
+          color: props.color,
+          noAction: true,
+          expanded: true,
+          dark: props.dark,
+        },
+        { default: () => genItems() }
+      )
     }
 
     function genList(): VNode {
       const propsData = {
-        class: { 'v-select-list': true },
-        style: {}
+        class: {
+          'v-select-list': true,
+          ...(props.listColor
+            ? setBackgroundClassNameColor(props.listColor)
+            : {}),
+        },
+        style: {
+          ...(props.listColor ? setBackgroundCssColor(props.listColor) : {}),
+        },
       }
 
-      return h(
-        'div',
-        props.listColor ? setBackground(props.listColor, propsData) : propsData,
-        genSelectListItems()
-      )
+      return h('div', propsData, genSelectListItems())
     }
 
     return () => genList()
-  }
+  },
 })

@@ -7,8 +7,8 @@ import { VButton } from '../VButton'
 import { VSelect } from '../VSelect'
 
 // Effects
-import { useColors } from '../../effects/use-colors'
-import { useIcons } from '../../effects/use-icons'
+import { useColors } from '../../composable/use-colors'
+import { useIcons } from '../../composable/use-icons'
 
 // Types
 import { VNode } from 'vue'
@@ -35,7 +35,12 @@ export const VDataTableFooter = defineComponent({
   ],
 
   setup(props, { emit, slots }): () => VNode {
-    const { setTextColor, setBackground } = useColors()
+    const {
+      setBackgroundCssColor,
+      setBackgroundClassNameColor,
+      setTextClassNameColor,
+      setTextCssColor,
+    } = useColors()
     const { icons, iconSize } = useIcons('xs')
 
     const paginationDisplayText = computed<string>(() => {
@@ -116,15 +121,20 @@ export const VDataTableFooter = defineComponent({
     }
 
     function genRowsCountSelectCaption(): VNode {
-      const propsData = {
-        class: 'v-data-table__pagination-label',
-      }
-
       const color = props.options.dark ? 'white' : ''
+      const propsData = {
+        class: {
+          'v-data-table__pagination-label': true,
+          ...(color ? setTextClassNameColor(color) : {}),
+        },
+        style: {
+          ...(color ? setTextCssColor(color) : {}),
+        },
+      }
 
       return h(
         'span',
-        color ? setTextColor(color, propsData) : propsData,
+        propsData,
         props.options?.rowsPerPageText || 'Rows per page'
       )
     }
@@ -137,18 +147,23 @@ export const VDataTableFooter = defineComponent({
     }
 
     function genPagesCountDisplay(): VNode {
-      const propsData = {
-        class: 'v-data-table__pagination-pages',
-      }
-
       const color = props.options.dark ? 'white' : ''
+
+      const propsData = {
+        class: {
+          'v-data-table__pagination-pages': true,
+          ...(color ? setTextClassNameColor(color) : {}),
+        },
+        style: {
+          ...(color ? setTextCssColor(color) : {}),
+        },
+      }
 
       props.pageCorrection && emit('correct-page', -props.pageCorrection)
 
       return h(
         'div',
-        color ? setTextColor(color, propsData) : propsData,
-
+        propsData,
         (props.rowsLength && slots.paginationText && slots.paginationText()) ||
           (props.rowsLength && paginationDisplayText.value) ||
           '-'
@@ -175,16 +190,18 @@ export const VDataTableFooter = defineComponent({
       const propsData = {
         class: {
           'v-data-table__footer': true,
+          ...(props.options.color
+            ? setBackgroundClassNameColor(props.options.color)
+            : {}),
+        },
+        style: {
+          ...(props.options.color
+            ? setBackgroundCssColor(props.options.color)
+            : {}),
         },
       }
 
-      return h(
-        'div',
-        props.options?.color
-          ? setBackground(props.options.color, propsData)
-          : propsData,
-        genPaginationBlock()
-      )
+      return h('div', propsData, genPaginationBlock())
     }
   },
 })

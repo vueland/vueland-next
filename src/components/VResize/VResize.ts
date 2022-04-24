@@ -13,8 +13,8 @@ import {
 } from 'vue'
 
 // Effects
-import { positionProps } from '../../effects/use-position'
-import { useColors } from '../../effects/use-colors'
+import { positionProps } from '../../composable/use-position'
+import { useColors } from '../../composable/use-colors'
 
 // Types
 import { VNode } from 'vue'
@@ -76,7 +76,7 @@ export const VResize = defineComponent({
 
     const resizeRef = ref<HTMLElement | null>(null)
 
-    const { setBackground } = useColors()
+    const { setBackgroundClassNameColor, setBackgroundCssColor } = useColors()
 
     const classes = computed<Record<string, boolean>>(() => {
       return {
@@ -87,8 +87,13 @@ export const VResize = defineComponent({
         'v-resize--right': props.right,
         'v-resize--left': props.left,
         [props.customClass]: !!props.customClass,
+        ...(props.color ? setBackgroundClassNameColor(props.color) : {}),
       }
     })
+
+    const styles = computed(() => ({
+      ...(props.color ? setBackgroundCssColor(props.color) : {}),
+    }))
 
     const isDirectY = computed<boolean>(() => {
       return props.top || props.bottom
@@ -178,14 +183,8 @@ export const VResize = defineComponent({
     }
 
     function computeSizes() {
-      const {
-        top,
-        left,
-        height,
-        width,
-        marginLeft,
-        marginTop,
-      } = getComputedStyle(data.parentNode!)
+      const { top, left, height, width, marginLeft, marginTop } =
+        getComputedStyle(data.parentNode!)
 
       data.offsetTop = data.parentNode!.offsetTop
       data.offsetLeft = data.parentNode!.offsetLeft
@@ -261,14 +260,13 @@ export const VResize = defineComponent({
 
     return () => {
       const propsData = {
-        class: {
-          ...classes.value,
-        },
+        class: classes.value,
+        style: styles.value,
         key: 'resize',
         ref: resizeRef,
         onMousedown,
       }
-      return h('div', setBackground(props.color, propsData))
+      return h('div', propsData)
     }
   },
 })

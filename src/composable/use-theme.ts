@@ -1,6 +1,6 @@
 import { inject } from 'vue'
 import { ThemeOptions } from '../../types'
-import colors from '../utils/colors'
+import colors from '../services/colors'
 
 type ThemeColors = {
   dark: ThemeOptions

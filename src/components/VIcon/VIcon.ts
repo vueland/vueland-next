@@ -2,8 +2,8 @@
 import { defineComponent, h, inject, computed } from 'vue'
 
 // Effects
-import { useColors, colorProps } from '../../effects/use-colors'
-import { sizeProps } from '../../effects/use-sizes'
+import { useColors, colorProps } from '../../composable/use-colors'
+import { sizeProps } from '../../composable/use-sizes'
 
 // Helpers
 import { convertToUnit } from '../../helpers'
@@ -34,7 +34,7 @@ export const VIcon = defineComponent({
   emits: ['click'],
 
   setup(props, { slots, emit }): () => VNode {
-    const { setTextColor } = useColors()
+    const { setTextClassNameColor, setTextCssColor } = useColors()
     const iconTag = props.clickable ? 'button' : props.tag
     const options: any = inject('$options')
 
@@ -49,6 +49,12 @@ export const VIcon = defineComponent({
       'v-icon--clickable': props.clickable,
       [options?.icons]: !!options?.icons,
       [icon.value]: !options?.icons && !!icon.value,
+      ...(props.color ? setTextClassNameColor(props.color) : {}),
+    }))
+
+    const styles = computed(() => ({
+      fontSize: getSizes(),
+      ...(props.color ? setTextCssColor(props.color) : {}),
     }))
 
     const isMedium = computed<boolean>(() => {
@@ -83,17 +89,11 @@ export const VIcon = defineComponent({
     return () => {
       const propsData = {
         class: classes.value,
-        style: {
-          fontSize: getSizes(),
-        },
+        style: styles.value,
         onClick,
       }
 
-      return h(
-        iconTag,
-        setTextColor(props.color, propsData),
-        options?.icons ? icon.value : ''
-      )
+      return h(iconTag, propsData, options?.icons ? icon.value : '')
     }
   },
 })

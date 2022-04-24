@@ -11,7 +11,7 @@ import {
 } from 'vue'
 
 // Effects
-import { useToggle } from '../../effects/use-toggle'
+import { useToggle } from '../../composable/use-toggle'
 
 // Types
 import { ListItemRef, ListTypes } from '../../../types'

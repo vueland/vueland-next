@@ -13,9 +13,9 @@ import {
 } from 'vue'
 
 // Effects
-import { useIcons } from '../../effects/use-icons'
-import { colorProps, useColors } from '../../effects/use-colors'
-import { elevationProps, useElevation } from '../../effects/use-elevation'
+import { useIcons } from '../../composable/use-icons'
+import { colorProps, useColors } from '../../composable/use-colors'
+import { elevationProps, useElevation } from '../../composable/use-elevation'
 
 // Components
 import { VIcon } from '../VIcon'
@@ -56,7 +56,7 @@ export const VListGroup = defineComponent({
     // effects
     const { elevationClasses } = useElevation(props)
     const { icons, iconSize } = useIcons('md')
-    const { setTextColor } = useColors()
+    const { setTextClassNameColor, setTextCssColor } = useColors()
 
     // refs
     const refGroup: Ref<HTMLElement | ComponentPublicInstance | null> =
@@ -89,7 +89,12 @@ export const VListGroup = defineComponent({
       'v-list-group--light': !props.dark,
       'v-list-group--dark': props.dark,
       [props.activeClass]: isActive.value,
+      ...(props.color ? setTextClassNameColor(props.color) : {}),
       ...elevationClasses.value,
+    }))
+
+    const styles = computed(() => ({
+      ...(props.color ? setTextCssColor(props.color) : {}),
     }))
 
     function onClick() {
@@ -188,23 +193,13 @@ export const VListGroup = defineComponent({
 
       const propsData = {
         class: classes.value,
+        style: styles.value,
         ref: refGroup,
       }
 
       const children = [header, items]
 
-      const color =
-        props.dark && !isActive.value
-          ? 'white'
-          : !props.dark && !isActive.value
-          ? ''
-          : props.color
-
-      return h(
-        'div',
-        color ? setTextColor(color, propsData) : propsData,
-        children
-      )
+      return h('div', propsData, children)
     }
   },
 })

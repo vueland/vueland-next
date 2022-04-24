@@ -2,11 +2,11 @@
 import { vShow, h, computed, withDirectives, defineComponent } from 'vue'
 
 // Effects
-import { positionProps } from '../../effects/use-position'
-import { useColors } from '../../effects/use-colors'
-import { useToggle } from '../../effects/use-toggle'
-import { useElevation, elevationProps } from '../../effects/use-elevation'
-import { useTransition } from '../../effects/use-transition'
+import { positionProps } from '../../composable/use-position'
+import { useColors } from '../../composable/use-colors'
+import { useToggle } from '../../composable/use-toggle'
+import { useElevation, elevationProps } from '../../composable/use-elevation'
+import { useTransition } from '../../composable/use-transition'
 
 // Types
 import { VNode } from 'vue'
@@ -36,7 +36,7 @@ export const VBadge = defineComponent({
 
   setup(props, { slots }): () => VNode {
     const { elevationClasses } = useElevation(props)
-    const { setBackground } = useColors()
+    const { setBackgroundClassNameColor, setBackgroundCssColor } = useColors()
 
     const offset = computed<number>(() => {
       return props.dot ? 4 : 12
@@ -70,21 +70,19 @@ export const VBadge = defineComponent({
       'v-badge--avatar': props.avatar,
     }))
 
-    const badgeClasses = computed<Record<string, boolean>>(() => {
-      return {
-        'v-badge__badge': true,
-        ...elevationClasses.value,
-      }
-    })
+    const badgeClasses = computed<Record<string, boolean>>(() => ({
+      'v-badge__badge': true,
+      ...elevationClasses.value,
+      ...(props.color ? setBackgroundClassNameColor(props.color) : {}),
+    }))
 
-    const styles = computed<Record<string, string | boolean>>(() => {
-      return {
-        top: computedTop.value,
-        right: computedRight.value,
-        bottom: computedBottom.value,
-        left: computedLeft.value,
-      }
-    })
+    const styles = computed<Record<string, string | boolean>>(() => ({
+      top: computedTop.value,
+      right: computedRight.value,
+      bottom: computedBottom.value,
+      left: computedLeft.value,
+      ...(props.color ? setBackgroundCssColor(props.color) : {}),
+    }))
 
     function addContent(): string | undefined {
       if (props.dot) return undefined
@@ -114,12 +112,14 @@ export const VBadge = defineComponent({
     }
 
     function genBadge(): VNode {
-      const propsData = setBackground(props.color, {
-        class: badgeClasses.value,
-        style: styles.value,
-      })
-
-      return h('div', propsData, genContent())
+      return h(
+        'div',
+        {
+          class: badgeClasses.value,
+          style: styles.value,
+        },
+        genContent()
+      )
     }
 
     return () => {

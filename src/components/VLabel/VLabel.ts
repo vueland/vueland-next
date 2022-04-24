@@ -5,7 +5,7 @@ import { h, computed, defineComponent } from 'vue'
 import { convertToUnit } from '../../helpers'
 
 // Effects
-import { colorProps, useColors } from '../../effects/use-colors'
+import { colorProps, useColors } from '../../composable/use-colors'
 
 // Types
 import { VNode } from 'vue'
@@ -32,40 +32,35 @@ export const VLabel = defineComponent({
   } as any,
 
   setup(props, { slots }): () => VNode {
-    const { setTextColor } = useColors()
+    const { setTextClassNameColor, setTextCssColor } = useColors()
 
     const isActive = computed<boolean>(() => {
       return !!props.hasState || !!props.focused
     })
 
-    const classes = computed<Record<string, boolean>>(
-      () =>
-        ({
-          'v-label': true,
-          'v-label--active': isActive.value,
-          'v-label--has-state': props.hasState,
-          'v-label--on-field': props.onField,
-          'v-label--is-disabled': !!props.disabled,
-        } as any)
-    )
+    const classes = computed<Record<string, boolean>>(() => ({
+      'v-label': true,
+      'v-label--active': isActive.value,
+      'v-label--has-state': props.hasState,
+      'v-label--on-field': !!props.onField,
+      'v-label--is-disabled': props.disabled,
+      ...(props.color ? setTextClassNameColor(props.color) : {}),
+    }))
 
-    function genPropsData(): Record<string, any> {
-      return {
-        class: classes.value,
-        style: {
-          left: convertToUnit(props.left),
-          right: convertToUnit(props.right),
-          position: props.absolute ? 'absolute' : 'relative',
-        },
-      }
-    }
+    const styles = computed(() => ({
+      left: convertToUnit(props.left),
+      right: convertToUnit(props.right),
+      position: props.absolute ? 'absolute' : 'relative',
+      ...(props.color ? setTextCssColor(props.color) : {}),
+    }))
 
     return (): VNode => {
-      const propsData = genPropsData()
-
       return h(
         'label',
-        props.color ? setTextColor(props.color!, propsData) : propsData,
+        {
+          class: classes.value,
+          style: styles.value,
+        },
         slots.default && slots.default()
       )
     }

@@ -2,7 +2,7 @@
 import { h, ref, watch, computed, defineComponent } from 'vue'
 
 // Effects
-import { colorProps, useColors } from '../../effects/use-colors'
+import { colorProps, useColors } from '../../composable/use-colors'
 
 // Components
 import { VDataTableCell } from './VDataTableCell'

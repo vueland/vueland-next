@@ -2,8 +2,8 @@
 import { h, computed, withDirectives, defineComponent } from 'vue'
 
 // Effects
-import { useColors } from '../../effects/use-colors'
-import { useIcons } from '../../effects/use-icons'
+import { useColors } from '../../composable/use-colors'
+import { useIcons } from '../../composable/use-icons'
 
 // Components
 import { VIcon } from '../VIcon'
@@ -37,11 +37,20 @@ export const VDataTableHeader = defineComponent({
   emits: ['sort', 'filter', 'select-all', 'update:cols'],
 
   setup(props, { emit, slots }) {
-    const { setBackground } = useColors()
+    const { setBackgroundClassNameColor, setBackgroundCssColor } = useColors()
     const { icons, iconSize } = useIcons('s')
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-data-table__header': true,
+      ...(props.options.color
+        ? setBackgroundClassNameColor(props.options.color)
+        : {}),
+    }))
+
+    const styles = computed(() => ({
+      ...(props.options.color
+        ? setBackgroundCssColor(props.options.color)
+        : {}),
     }))
 
     const computedContentColor = computed<string>(() => {
@@ -148,22 +157,19 @@ export const VDataTableHeader = defineComponent({
           'v-data-table-col__custom-filter': !!filterSlot,
           'elevation-5': true,
           [col.cellClass]: !!col.cellClass,
+          ...(color ? setBackgroundClassNameColor(color) : {}),
+        },
+        style: {
+          ...(color ? setBackgroundCssColor(color) : {}),
         },
       }
 
       return (
         col.filterable &&
-        withDirectives(
-          h(
-            'div',
-            !col.filterClass ? setBackground(color, propsData) : propsData,
-            filterSlot || genFilterInput(col)
-          ),
-          [
-            [clickOutside, directive],
-            [vShow, col.showFilter],
-          ]
-        )
+        withDirectives(h('div', propsData, filterSlot || genFilterInput(col)), [
+          [clickOutside, directive],
+          [vShow, col.showFilter],
+        ])
       )
     }
 
@@ -262,15 +268,10 @@ export const VDataTableHeader = defineComponent({
     return () => {
       const propsData = {
         class: classes.value,
+        style: styles.value,
       }
 
-      return h(
-        'div',
-        props.options.color
-          ? setBackground(props.options.color, propsData)
-          : propsData,
-        genHeaderChildren()
-      )
+      return h('div', propsData, genHeaderChildren())
     }
   },
 })

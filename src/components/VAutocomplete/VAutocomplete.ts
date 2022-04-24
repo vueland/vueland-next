@@ -2,9 +2,8 @@
 import { h, ref, reactive, computed, defineComponent, onBeforeMount } from 'vue'
 
 // Effects
-import { validateProps } from '../../effects/use-validate'
-import { useColors } from '../../effects/use-colors'
-import { useTheme } from '../../effects/use-theme'
+import { validationProps } from '../../composable/use-validation'
+import { useColors } from '../../composable/use-colors'
 
 // Types
 import { VNode } from 'vue'
@@ -44,7 +43,7 @@ export const VAutocomplete = defineComponent({
       type: String,
       default: 'primary',
     },
-    ...validateProps(),
+    ...validationProps(),
   } as any,
 
   emits: [
@@ -64,14 +63,18 @@ export const VAutocomplete = defineComponent({
       select: null,
     })
 
-    const { setTextColor } = useColors()
-    const { base } = useTheme()
+    const { setTextCssColor, setTextClassNameColor } = useColors()
     const activator = ref(null)
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-autocomplete': true,
       'v-autocomplete--disabled': props.disabled,
       'v-autocomplete--focused': state.focused,
+      ...(props.color ? setTextClassNameColor(props.color) : {}),
+    }))
+
+    const styles = computed<Record<string, string>>(() => ({
+      ...(props.color ? setTextCssColor(props.color) : {}),
     }))
 
     const valueProperty = computed<any>(() => {
@@ -84,25 +87,25 @@ export const VAutocomplete = defineComponent({
         : valueProperty.value
     })
 
-    function onFocus() {
+    const onFocus = () => {
       state.focused = true
       state.isMenuActive = true
       emit('focus')
     }
 
-    function onBlur() {
+    const onBlur = () => {
       if (!valueProperty.value && !state.search) state.search = ''
       if (!state.search && valueProperty.value) state.search = inputValue.value
       state.focused = false
       emit('blur')
     }
 
-    function onInput(e) {
+    const onInput = (e) => {
       state.search = e.target.value
       emit('input', e.target.value)
     }
 
-    function onClear() {
+    const onClear = () => {
       state.search = ''
       state.select = null
       emit('select', null)
@@ -110,7 +113,7 @@ export const VAutocomplete = defineComponent({
       emit('update:value', null)
     }
 
-    function onSelect(it) {
+    const onSelect = (it) => {
       state.search = props.valueKey
         ? getKeyValueFromTarget(props.valueKey, it)
         : it
@@ -120,8 +123,8 @@ export const VAutocomplete = defineComponent({
       emit('update:value', it)
     }
 
-    function genInput(): VNode {
-      const propsData = {
+    const genInput = (): VNode => {
+      return h('input', {
         value: state.search,
         disabled: props.disabled,
         readonly: props.readonly && !props.typeable,
@@ -130,13 +133,11 @@ export const VAutocomplete = defineComponent({
         onInput,
         onFocus,
         onBlur,
-      }
-
-      return h('input', setTextColor(props.dark ? 'white' : base, propsData))
+      })
     }
 
-    function genAutocompleteList(): VNode {
-      const propsData = {
+    const genAutocompleteList = (): VNode => {
+      return h(VSelectList, {
         items: props.items,
         valueKey: props.valueKey,
         idKey: props.idKey,
@@ -145,11 +146,10 @@ export const VAutocomplete = defineComponent({
         listColor: props.listColor,
         select: state.select,
         onSelect,
-      }
-      return h(VSelectList, propsData)
+      })
     }
 
-    function genMenu() {
+    const genMenu = (): VNode => {
       return h(
         VMenu,
         {
@@ -165,7 +165,7 @@ export const VAutocomplete = defineComponent({
       )
     }
 
-    function genLinearProgress() {
+    const genLinearProgress = (): VNode => {
       return h(
         'div',
         {
@@ -180,12 +180,19 @@ export const VAutocomplete = defineComponent({
       )
     }
 
-    function genAutocomplete(): VNode {
-      return h('div', { class: classes.value }, [
-        genInput(),
-        props.loading && genLinearProgress(),
-        activator.value && genMenu(),
-      ])
+    const genAutocomplete = (): VNode => {
+      return h(
+        'div',
+        {
+          class: classes.value,
+          style: styles.value,
+        },
+        [
+          genInput(),
+          props.loading && genLinearProgress(),
+          activator.value && genMenu(),
+        ]
+      )
     }
 
     onBeforeMount(() => {

@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ETextField should mount component and match snapshot 1`] = `
+<div class="e-input e-input--primary">
+  <div class="e-input__label">
+    <label class="e-label">
+    </label>
+  </div>
+  <div class="e-input__text-field">
+    <div class="e-text-field">
+      <input class="e-text-field__input dark--text text--graphite-2"
+             type="text"
+      >
+    </div>
+  </div>
+  <div class="e-input__hints">
+    <transition-stub>
+    </transition-stub>
+  </div>
+</div>
+`;
+
+exports[`ETextField should test disabled state 1`] = `
+<div class="e-input e-input--disabled">
+  <div class="e-input__label">
+    <label class="e-label e-label--disabled">
+      email
+    </label>
+  </div>
+  <div class="e-input__text-field">
+    <div class="e-text-field e-text-field--disabled">
+      <input class="e-text-field__input"
+             disabled
+             type="text"
+      >
+    </div>
+  </div>
+  <div class="e-input__hints">
+    <transition-stub>
+    </transition-stub>
+  </div>
+</div>
+`;
+
+exports[`ETextField should test non disabled state 1`] = `
+<div class="e-input e-input--not-valid">
+  <div class="e-input__label">
+    <label class="e-label">
+      email
+    </label>
+  </div>
+  <div class="e-input__text-field">
+    <div class="e-text-field">
+      <input class="e-text-field__input"
+             style="color: rgb(250, 90, 90);"
+             type="text"
+      >
+    </div>
+  </div>
+  <div class="e-input__hints">
+    <transition-stub>
+      <span class="e-input__hints-message">
+        required input
+      </span>
+    </transition-stub>
+  </div>
+</div>
+`;

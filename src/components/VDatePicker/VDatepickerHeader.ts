@@ -2,8 +2,8 @@
 import { h, defineComponent } from 'vue'
 
 // Effects
-import { useColors } from '../../effects/use-colors'
-import { useIcons } from '../../effects/use-icons'
+import { useColors } from '../../composable/use-colors'
+import { useIcons } from '../../composable/use-icons'
 
 // Components
 import { VIcon } from '../VIcon'
@@ -20,7 +20,7 @@ export const VDatepickerHeader = defineComponent({
   emits: ['table'],
 
   setup(props, { slots, emit }) {
-    const { setTextColor } = useColors()
+    const { setTextClassNameColor, setTextCssColor } = useColors()
     const { icons, iconSize } = useIcons('md')
 
     const genHeaderButton = (isRight) => {
@@ -34,13 +34,16 @@ export const VDatepickerHeader = defineComponent({
         icon,
         clickable: true,
         size: iconSize,
+        class: {
+          ...(props.color ? setTextClassNameColor(props.color) : {}),
+        },
+        style: {
+          ...(props.color ? setTextCssColor(props.color) : {}),
+        },
         onClick: () => (isRight ? props.onNext() : props.onPrev()),
       }
 
-      const arrowBtn = h(
-        VIcon,
-        props.color ? setTextColor(props.color, iconPropsData) : iconPropsData
-      )
+      const arrowBtn = h(VIcon, iconPropsData)
 
       return h('div', propsData, arrowBtn)
     }
@@ -49,15 +52,15 @@ export const VDatepickerHeader = defineComponent({
       const propsData = {
         class: {
           'v-date-picker__header-display': true,
+          ...(props.color ? setTextClassNameColor(props.color) : {}),
+        },
+        style: {
+          ...(props.color ? setTextCssColor(props.color) : {}),
         },
         onClick: () => emit('table'),
       }
 
-      return h(
-        'div',
-        props.color ? setTextColor(props.color, propsData) : propsData,
-        slots.default && slots.default()
-      )
+      return h('div', propsData, slots.default && slots.default())
     }
 
     return () =>

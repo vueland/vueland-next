@@ -2,9 +2,9 @@
 import { computed, defineComponent, h, provide, reactive, ref } from 'vue'
 
 // Effects
-import { useColors } from '../../effects/use-colors'
-import { elevationProps, useElevation } from '../../effects/use-elevation'
-import { useTransition } from '../../effects/use-transition'
+import { useColors } from '../../composable/use-colors'
+import { elevationProps, useElevation } from '../../composable/use-elevation'
+import { useTransition } from '../../composable/use-transition'
 
 // Components
 import { VTextField } from '../VTextField'
@@ -99,7 +99,12 @@ export const VDatePicker = defineComponent({
       isActive: false,
     })
 
-    const { setTextColor, setBackground } = useColors()
+    const {
+      setTextClassNameColor,
+      setTextCssColor,
+      setBackgroundClassNameColor,
+      setBackgroundCssColor,
+    } = useColors()
     const { elevationClasses } = useElevation(props)
 
     const localeMonths: string[] = locale[props.lang].monthsAbbr
@@ -121,6 +126,13 @@ export const VDatePicker = defineComponent({
     const tableClasses = computed<Record<string, boolean>>(() => ({
       'v-date-picker__table': true,
       ...elevationClasses.value,
+      ...(props.color ? setBackgroundClassNameColor(props.color) : {}),
+      ...(contentColor ? setTextClassNameColor(contentColor) : {}),
+    }))
+
+    const tableStyles = computed(() => ({
+      ...(props.color ? setBackgroundCssColor(props.color) : {}),
+      ...(contentColor ? setTextCssColor(contentColor) : {}),
     }))
 
     const headerValue = computed<string>(() => {
@@ -279,17 +291,19 @@ export const VDatePicker = defineComponent({
     }
 
     function genDatepickerDisplay(): VNode {
-      const propsData = setBackground(props.contentColor, {
+      const propsData = {
         class: {
           'v-date-picker__display': true,
+          ...(contentColor ? setBackgroundClassNameColor(contentColor) : {}),
+          ...(props.color ? setTextClassNameColor(props.color) : {}),
         },
-      })
+        style: {
+          ...(contentColor ? setBackgroundCssColor(contentColor) : {}),
+          ...(props.color ? setTextCssColor(props.color) : {}),
+        },
+      }
 
-      return h(
-        'div',
-        setTextColor(props.color, propsData),
-        genDatepickerDisplayInner()
-      )
+      return h('div', propsData, genDatepickerDisplayInner())
     }
 
     function genDatepickerHeader(): VNode {
@@ -387,11 +401,12 @@ export const VDatePicker = defineComponent({
     }
 
     function genDatepickerTable(): VNode {
-      const propsData = setBackground(props.color, {
+      const propsData = {
         class: tableClasses.value,
-      })
+        style: tableStyles.value,
+      }
 
-      return h('div', setTextColor(contentColor, propsData), [
+      return h('div', propsData, [
         genDatepickerDisplay(),
         genDatepickerHeader(),
         genDatepickerBody(),

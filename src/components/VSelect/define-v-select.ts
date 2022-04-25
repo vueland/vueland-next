@@ -40,8 +40,12 @@ export const defineVSelect = () => {
         type: String,
         default: 'primary white--text text--base',
       },
+      showExpIcon: {
+        type: Boolean,
+        default: true,
+      },
     },
-    emits: ['click', 'focus', 'blur', 'change', 'update:modelValue'],
+    emits: ['click', 'focus', 'select', 'blur', 'change', 'update:modelValue'],
     setup(props, { attrs, emit }) {
       const { isDisabled, isReadonly, state, onBlur, onSelect, onFocus } =
         useInputStates(props, { attrs, emit })

@@ -21,6 +21,7 @@
     &-select {
       @include flex(flex, flex-start, center);
       padding: 0 10px;
+      width: 200px;
     }
 
     &-pages {

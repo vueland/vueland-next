@@ -111,9 +111,10 @@ export const VDataTableFooter = defineComponent({
     function genRowsCountSelect(): VNode {
       const propsData = {
         items: props.options.rowsPerPageOptions,
-        dark: props.options.dark,
-        listColor: props.options.color,
-        value: props.rowsOnPage,
+        textColor: props.options.contentColor,
+        modelValue: props.rowsOnPage,
+        hints: false,
+        showExpIcon: false,
         onSelect: (e) => emit('select-rows-count', e),
       }
 
@@ -121,7 +122,8 @@ export const VDataTableFooter = defineComponent({
     }
 
     function genRowsCountSelectCaption(): VNode {
-      const color = props.options.dark ? 'white' : ''
+      const color = props.options.contentColor
+
       const propsData = {
         class: {
           'v-data-table__pagination-label': true,
@@ -147,7 +149,7 @@ export const VDataTableFooter = defineComponent({
     }
 
     function genPagesCountDisplay(): VNode {
-      const color = props.options.dark ? 'white' : ''
+      const color = props.options.contentColor
 
       const propsData = {
         class: {

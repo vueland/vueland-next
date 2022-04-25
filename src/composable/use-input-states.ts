@@ -48,6 +48,7 @@ export const useInputStates = (props, { attrs, emit }) => {
   const onSelect = (val) => {
     state.focused = false
     emit('update:modelValue', val)
+    emit('select', val)
     onChange()
   }
 

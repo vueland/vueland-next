@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { defineVSelect } from './define-v-select'
+import { defineVSelect } from './define-v-select'
 
-  export default defineVSelect()
+export default defineVSelect()
 </script>
 <template>
   <v-input
@@ -9,13 +9,13 @@
     :value="computedKeyValue"
     :focused="focused"
   >
-    <template #text-field="{cssColor, clsColor, disabled}">
+    <template #text-field="{textCssColor, textClassColor, disabled}">
       <div
         :class="classes"
       >
         <input
-          :class="['v-select__input', !disabled && clsColor]"
-          :style="disabled ? {} : cssColor"
+          :class="['v-select__input', !disabled && textClassColor]"
+          :style="!disabled && textCssColor"
           :disabled="isDisabled"
           :type="$attrs.type ? $attrs.type : 'text'"
           :placeholder="$attrs.placeholder"
@@ -44,7 +44,10 @@
         />
       </v-menu>
     </template>
-    <template #append-icon>
+    <template
+      v-if="showExpIcon"
+      #append-icon
+    >
       <v-icon size="16">
         {{ FaIcons.$expand }}
       </v-icon>

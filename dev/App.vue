@@ -1,199 +1,223 @@
 <script lang="ts">
-  import { reactive, ref, computed } from 'vue'
-  import { FaIcons } from '../src/services/icons'
+import { reactive, ref, computed } from 'vue'
+import { FaIcons } from '../src/services/icons'
 
-  export default {
-    setup() {
-      const data = reactive({
-        always: true,
-        show: false,
-        test: true,
-        login: '',
-        email: '',
-        password: '',
-        user: '',
-        checked: [],
-        user2: { name: 'igor', car: { brand: 'bmw' } },
-        user3: { name: 'kirill' },
-        date: null,
-        loading: false,
-        circular: 10,
-        title: 'cat',
-        users: [
-          { name: 'AAA', car: { brand: 'mercedes' }, email: 'aaa@mail.ru', body: 'fsdf adfasda dasdasd' },
-          { name: 'BBB', car: { brand: 'audi' }, email: 'aaa@mail.ru', body: 'fsdf adfasda dasdasd' }
-        ],
-        positionX: 0,
-        positionY: 0,
-        isOpen: false
-      })
+export default {
+  setup() {
+    const data = reactive({
+      always: true,
+      show: false,
+      test: true,
+      login: '',
+      email: '',
+      password: '',
+      user: '',
+      checked: [],
+      user2: { name: 'igor', car: { brand: 'bmw' } },
+      user3: { name: 'kirill' },
+      date: null,
+      loading: false,
+      circular: 10,
+      title: null,
+      users: [
+        { name: 'AAA', car: { brand: 'mercedes' }, email: 'sade@mail.ru', body: 'best practice' },
+        { name: 'BBB', car: { brand: 'audi' }, email: 'aaa@mail.ru', body: 'javascript' },
+      ],
+      positionX: 0,
+      positionY: 0,
+      isOpen: false,
+    })
 
-      // watch(() => data.password, () => console.log(data.password))
+    // watch(() => data.password, () => console.log(data.password))
 
-      const showMenu = (e) => {
-        e.preventDefault()
+    const showMenu = (e) => {
+      e.preventDefault()
 
-        data.positionX = e.clientX
-        data.positionY = e.clientY
+      data.positionX = e.clientX
+      data.positionY = e.clientY
 
-        requestAnimationFrame(() => data.isOpen = true)
-      }
-
-      const onClickLoading = (validate) => {
-        validate().then(() => {
-          data.loading = true
-          setTimeout(() => data.loading = false, 2000)
-        })
-      }
-
-      const addCircular = () => {
-        if (data.circular < 100) {
-          return data.circular += Math.ceil(Math.random() * 100) / 2
-        }
-        data.circular -= Math.ceil(Math.random() * 100)
-      }
-
-      const fetchItems = () => {
-        fetch('https://jsonplaceholder.typicode.com/comments')
-          .then(response => response.json())
-          .then(json => setTimeout(() => {
-            data.users = json
-          }, 500))
-      }
-
-      fetchItems()
-
-      setTimeout(() => {
-        data.always = false
-      }, 2000)
-
-      const toggleAlways = () => {
-        data.always = !data.always
-      }
-
-      const testFunc = date => {
-        console.log(date)
-        data.date = date
-      }
-
-      const forOut = computed(() => {
-        return data.always ? testFunc : undefined
-      })
-
-      const cols = ref([
-        {
-          key: 'actions',
-          title: 'Actions',
-          align: 'center'
-        },
-        {
-          key: 'name',
-          title: 'Name',
-          width: '250',
-          resizeable: true,
-          sortable: true,
-          filterable: true,
-          cellClass: '',
-          filterClass: '',
-          rowCellClass: '',
-          format: row => row.name,
-          filter: ({ value, col }) => data.users.filter(user => user[col.key].includes(value))
-          // sort: (a, b) => console.log(a, b),
-        },
-        {
-          key: 'email',
-          title: 'Email',
-          width: '250',
-          resizeable: true,
-          sortable: true,
-          filterable: true,
-          // cellClass: 'green darken-3 white--text',
-          // filterClass: 'grey lighten-2',
-          // rowCellClass: 'green lighten-1 white--text',
-          format: row => row.email
-        },
-        {
-          key: 'body',
-          title: 'Body',
-          width: '250',
-          resizeable: true,
-          sortable: true,
-          filterable: true
-        }
-      ])
-
-      // const rows = [
-      //   {
-      //     name: 'Ben',
-      //     email: 'ben@mail.ru',
-      //     body: 'some body text'
-      //   },
-      //   {
-      //     name: 'Alex',
-      //     email: 'alex@mail.ru',
-      //     body: 'some body text'
-      //   }
-      // ]
-
-      const addItem = () => {
-        data.users.push({
-          name: 'Anar',
-          car: { brand: 'tesla' },
-          email: 'adsadasdasd',
-          body: 'sdfsddfsdfsdfsf'
-        })
-      }
-
-      data.user = data.users[0]
-
-      const disabledDates = {
-        // from: new Date(2021, 4, 2),
-        // to: new Date(2021, 4, 10),
-        days: [ 0, 6 ],
-        // daysOfMonth: [29, 30, 31],
-        // dates: [
-        //   new Date(2021, 6, 14),
-        //   new Date(2021, 6, 15),
-        //   new Date(2021, 6, 16),
-        // ],
-        // ranges: [{
-        //   from: new Date(2021, 4, 25),
-        //   to: new Date(2021, 5, 10),
-        // }, {
-        //   from: new Date(2021, 6, 12),
-        //   to: new Date(2021, 7, 25),
-        // }],
-        custom: (date) => !(date.date % 2)
-      }
-
-      return {
-        data,
-        cols,
-        disabledDates,
-        forOut,
-        FaIcons,
-        addItem,
-        testFunc,
-        toggleAlways,
-        onClickLoading,
-        addCircular,
-        showMenu
-      }
+      requestAnimationFrame(() => data.isOpen = true)
     }
-  }
+
+    const onClickLoading = (validate) => {
+      validate().then(() => {
+        data.loading = true
+        setTimeout(() => data.loading = false, 2000)
+      })
+    }
+
+    const addCircular = () => {
+      if (data.circular < 100) {
+        return data.circular += Math.ceil(Math.random() * 100) / 2
+      }
+      data.circular -= Math.ceil(Math.random() * 100)
+    }
+
+    const fetchItems = () => {
+      fetch('https://jsonplaceholder.typicode.com/comments')
+          .then(response => response.json())
+          .then(() => setTimeout(() => {
+            return data.users
+          }, 500))
+    }
+
+    fetchItems()
+
+    setTimeout(() => {
+      data.always = false
+    }, 2000)
+
+    const toggleAlways = () => {
+      data.always = !data.always
+    }
+
+    const testFunc = date => {
+      console.log(date)
+      data.date = date
+    }
+
+    const forOut = computed(() => {
+      return data.always ? testFunc : undefined
+    })
+
+    const cols = ref([
+      {
+        key: 'actions',
+        title: 'Actions',
+        align: 'center',
+      },
+      {
+        key: 'name',
+        title: 'Name',
+        width: '500',
+        resizeable: true,
+        sortable: true,
+        filterable: true,
+        format: row => row.name,
+        filter: ({ value, col }) => {
+          console.log(value, col)
+          return data.users.filter(user => user[col.key].includes(value))
+        },
+        // sort: (a, b) => console.log(a, b),
+      },
+      {
+        key: 'email',
+        title: 'Email',
+        width: '250',
+        resizeable: true,
+        sortable: true,
+        filterable: true,
+        format: row => row.email,
+      },
+      {
+        key: 'body',
+        title: 'Body',
+        width: '250',
+        resizeable: true,
+        sortable: true,
+        filterable: true,
+      },
+    ])
+
+    // const rows = [
+    //   {
+    //     name: 'Ben',
+    //     email: 'ben@mail.ru',
+    //     body: 'some body text'
+    //   },
+    //   {
+    //     name: 'Alex',
+    //     email: 'alex@mail.ru',
+    //     body: 'some body text'
+    //   }
+    // ]
+
+    const addItem = () => {
+      data.users.push({
+        name: 'Anar',
+        car: { brand: 'tesla' },
+        email: 'adsadasdasd',
+        body: 'sdfsddfsdfsdfsf',
+      })
+    }
+
+    data.user = data.users[0]
+
+    const disabledDates = {
+      // from: new Date(2021, 4, 2),
+      // to: new Date(2021, 4, 10),
+      days: [0, 6],
+      // daysOfMonth: [29, 30, 31],
+      // dates: [
+      //   new Date(2021, 6, 14),
+      //   new Date(2021, 6, 15),
+      //   new Date(2021, 6, 16),
+      // ],
+      // ranges: [{
+      //   from: new Date(2021, 4, 25),
+      //   to: new Date(2021, 5, 10),
+      // }, {
+      //   from: new Date(2021, 6, 12),
+      //   to: new Date(2021, 7, 25),
+      // }],
+      custom: (date) => !(date.date % 2),
+    }
+
+    return {
+      data,
+      cols,
+      disabledDates,
+      forOut,
+      FaIcons,
+      addItem,
+      testFunc,
+      toggleAlways,
+      onClickLoading,
+      addCircular,
+      showMenu,
+    }
+  },
+}
 </script>
 
 <template>
   <v-app>
     <div>
-      <v-layout>
+      <v-layout column>
         <v-row>
+          <v-col cols="12">
+            <v-skeleton
+              class="my-2"
+              height="10"
+            />
+            <v-skeleton
+              class="my-2"
+              height="20"
+            />
+            <v-skeleton
+              class="my-2"
+              height="30"
+            />
+            <v-skeleton
+              class="my-2"
+              height="40"
+            />
+            <v-skeleton
+              class="my-2"
+              height="50"
+            />
+
+            <v-skeleton
+              class="my-2"
+              height="60"
+              width="60"
+              radius="60"
+            />
+          </v-col>
+        </v-row>
+        <v-row class="my-5">
           <v-col
-            cols="3"
-            xl="3"
-            lg="6"
-            md="9"
-            sm="12"
+            cols="12"
           >
             <v-progress-linear
               height="7"
@@ -202,195 +226,133 @@
             />
           </v-col>
         </v-row>
+        <v-row>
+          <v-col
+            v-for="it in 4"
+            :key="it"
+            xl="3"
+            lg="6"
+            md="12"
+            sm="12"
+          >
+            <v-card
+              elevation="10"
+              width="100%"
+              @contextmenu="showMenu"
+            >
+              <img
+                src="https://i.mycdn.me/i?r=AzEPZsRbOZEKgBhR0XGMT1RkPGSRVI_2X7nqC2oTGvMWj6aKTM5SRkZCeTgDn6uOyic"
+                alt=""
+                style="width: 100%"
+              >
+              <v-card-title>
+                <v-icon
+                  icon="pets"
+                  size="18"
+                  color="blue lighten-2"
+                />
+                <span style="margin-left: 10px">{{ data.title }}</span>
+              </v-card-title>
+              <v-card-content>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias commodi, consectetur dolorum iure
+                praesentium
+                reprehenderit sint ut vero. Accusamus, aperiam et impedit in ipsam obcaecati possimus quasi reiciendis
+                rerum
+                veniam.
+              </v-card-content>
+              <v-card-actions>
+                <v-button
+                  label="support"
+                  text
+                  color="blue"
+                />
+              </v-card-actions>
+            </v-card>
+          </v-col>
+        </v-row>
+        <v-row class="py-10">
+          <v-col
+            cols="4"
+            class="d-flex justify-center align-center"
+          >
+            <v-progress-circular
+              color="cyan darken-3"
+              :value="data.circular"
+              size="100"
+              width="5"
+              rotate="270"
+              @click="addCircular"
+            >
+              {{ Number(data.circular).toFixed(1) }}%
+            </v-progress-circular>
+            <v-progress-circular
+              color="cyan darken-3"
+              size="25"
+              width="3"
+              indeterminate
+            />
+          </v-col>
+          <v-col
+            cols="4"
+            class="d-flex justify-center align-center"
+          >
+            <v-progress-circular
+              color="orange darken-3"
+              :value="data.circular / 2"
+              size="100"
+              rotate="-90"
+              width="15"
+            >
+              {{ Number(data.circular / 2).toFixed(1) }}%
+            </v-progress-circular>
+            <v-progress-circular
+              color="red darken-2"
+              size="35"
+              width="4"
+              indeterminate
+            />
+          </v-col>
+          <v-col
+            cols="4"
+            class="d-flex justify-center align-center"
+          >
+            <v-progress-circular
+              color="red darken-3"
+              :value="data.circular / 4"
+              size="100"
+              rotate="-90"
+              width="15"
+            >
+              {{ Number(data.circular / 4).toFixed(1) }}%
+            </v-progress-circular>
+            <v-progress-circular
+              color="green accent-4"
+              size="45"
+              width="6"
+              indeterminate
+            />
+          </v-col>
+        </v-row>
       </v-layout>
-      <v-progress-circular
-        color="cyan darken-3"
-        :value="data.circular"
-        size="100"
-        width="5"
-        rotate="270"
-        @click="addCircular"
-      >
-        {{ Number(data.circular).toFixed(1) }}%
-      </v-progress-circular>
-      <v-progress-circular
-        color="orange darken-3"
-        :value="data.circular / 2"
-        size="100"
-        rotate="-90"
-        width="15"
-      >
-        {{ Number(data.circular / 2).toFixed(1) }}%
-      </v-progress-circular>
-      <v-progress-circular
-        color="red darken-3"
-        :value="data.circular / 4"
-        size="100"
-        rotate="-90"
-        width="15"
-      >
-        {{ Number(data.circular / 4).toFixed(1) }}%
-      </v-progress-circular>
     </div>
-    <div>
-      <v-progress-circular
-        color="cyan darken-3"
-        size="25"
-        width="3"
-        indeterminate
-      />
-      <v-progress-circular
-        color="red darken-2"
-        size="35"
-        width="4"
-        indeterminate
-      />
-      <v-progress-circular
-        color="green accent-4"
-        size="45"
-        width="6"
-        indeterminate
-      />
-    </div>
-    <v-list>
-      <v-list-item
-        active-class="primary--text"
-        active
-      >
-        <v-list-item-title>
-          salam
-        </v-list-item-title>
-      </v-list-item>
-    </v-list>
-    <!--    <v-list-->
-    <!--      style="width: 350px"-->
-    <!--    >-->
-    <!--      <v-list-group-->
-    <!--        elevation="4"-->
-    <!--        color="cyan accent-3"-->
-    <!--        class="grey darken-4"-->
-    <!--        active-class="active-now"-->
-    <!--        dark-->
-    <!--        expanded-->
-    <!--        group="main"-->
-    <!--      >-->
-    <!--        <template #title>-->
-    <!--          <v-list-item-content>-->
-    <!--            <v-list-item-title>-->
-    <!--              Google Maps Api-->
-    <!--            </v-list-item-title>-->
-    <!--            <v-list-item-sub-title>-->
-    <!--              open the best countries-->
-    <!--            </v-list-item-sub-title>-->
-    <!--          </v-list-item-content>-->
-    <!--        </template>-->
-    <!--        <template #prependIcon>-->
-    <!--          <v-icon-->
-    <!--            icon="map"-->
-    <!--            size="18"-->
-    <!--          />-->
-    <!--        </template>-->
-    <!--        <v-list-item>-->
-    <!--          <v-list-item-icon>-->
-    <!--            <v-icon-->
-    <!--              icon="place"-->
-    <!--              size="18"-->
-    <!--            />-->
-    <!--          </v-list-item-icon>-->
-    <!--          <v-list-item-title>-->
-    <!--            Baku-->
-    <!--          </v-list-item-title>-->
-    <!--        </v-list-item>-->
-    <!--        <v-list-item>-->
-    <!--          <v-list-item-icon>-->
-    <!--            <v-icon-->
-    <!--              icon="place"-->
-    <!--              size="18"-->
-    <!--            />-->
-    <!--          </v-list-item-icon>-->
-    <!--          <v-list-item-title>-->
-    <!--            Tashkent-->
-    <!--          </v-list-item-title>-->
-    <!--        </v-list-item>-->
-    <!--        <v-list-group-->
-    <!--          sub-group-->
-    <!--          group="sub-main"-->
-    <!--          color="amber accent-3"-->
-    <!--          dark-->
-    <!--          @click="testFunc"-->
-    <!--        >-->
-    <!--          <template #appendIcon>-->
-    <!--            <v-icon-->
-    <!--              icon="flag"-->
-    <!--              size="18"-->
-    <!--              color="cyan accent-3"-->
-    <!--            />-->
-    <!--          </template>-->
-    <!--          <template #title>-->
-    <!--            <v-list-item-title>Azerbaijan</v-list-item-title>-->
-    <!--          </template>-->
-    <!--          <v-list-item>-->
-    <!--            <v-list-item-icon>-->
-    <!--              <v-icon-->
-    <!--                icon="place"-->
-    <!--                size="18"-->
-    <!--              />-->
-    <!--            </v-list-item-icon>-->
-    <!--            <v-list-item-title>-->
-    <!--              Baku-->
-    <!--            </v-list-item-title>-->
-    <!--          </v-list-item>-->
-    <!--          <v-list-item>-->
-    <!--            <v-list-item-icon>-->
-    <!--              <v-icon-->
-    <!--                icon="place"-->
-    <!--                size="18"-->
-    <!--              />-->
-    <!--            </v-list-item-icon>-->
-    <!--            <v-list-item-title>Ganja</v-list-item-title>-->
-    <!--          </v-list-item>-->
-    <!--          <v-list-item>-->
-    <!--            <v-list-item-icon>-->
-    <!--              <v-icon-->
-    <!--                icon="place"-->
-    <!--                size="18"-->
-    <!--              />-->
-    <!--            </v-list-item-icon>-->
-    <!--            <v-list-item-title>Sheki</v-list-item-title>-->
-    <!--          </v-list-item>-->
-    <!--        </v-list-group>-->
-    <!--      </v-list-group>-->
-    <!--    </v-list>-->
-    <v-form>
-      <v-checkbox
-        v-model="data.checked"
-        label="Проверочное слово"
-        validate
-        :value="data.user2"
-      />
-      <v-checkbox
-        v-model="data.checked"
-        :label="data.user3.name"
-        validate
-        :value="data.user3"
-      />
-    </v-form>
     <div
       class="table-wrap"
-      style="height: 850px; padding: 10px;"
+      style="padding: 10px;"
     >
       <v-data-table
         :cols="cols"
         :rows="data.users"
         :header-options="{
-
+          color: 'primary',
+          contentColor: 'white'
         }"
         :footer-options="{
           pagination: {
             buttonsColor: '',
             displayColor: ''
           },
-          color: 'blue darken-3',
+          color: '#171717',
+          contentColor: '#ffffff',
           rowsPerPageOptions: [25, 40, 50, 75],
           rowsPerPageText: 'Кол-во строк',
         }"
@@ -581,10 +543,10 @@
         elevation="5"
         color="white"
       >
-        <v-resize right />
-        <v-resize bottom />
-        <v-resize top />
-        <v-resize left />
+        <v-resize right/>
+        <v-resize bottom/>
+        <v-resize top/>
+        <v-resize left/>
         <v-card-title>
           <span
             style="display: block; width: 55px; height: 55px; border-radius: 50px"
@@ -639,39 +601,6 @@
       class="block"
       style="display: flex;"
     >
-      <v-card
-        v-for="it in 4"
-        :key="it"
-        elevation="10"
-        style="margin: 20px;"
-        @contextmenu="showMenu"
-      >
-        <img
-          src="https://i.mycdn.me/i?r=AzEPZsRbOZEKgBhR0XGMT1RkPGSRVI_2X7nqC2oTGvMWj6aKTM5SRkZCeTgDn6uOyic"
-          alt=""
-          style="width: 100%"
-        >
-        <v-card-title>
-          <v-icon
-            icon="pets"
-            size="18"
-            color="blue lighten-2"
-          />
-          <span style="margin-left: 10px">{{ data.title }}</span>
-        </v-card-title>
-        <v-card-content>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias commodi, consectetur dolorum iure praesentium
-          reprehenderit sint ut vero. Accusamus, aperiam et impedit in ipsam obcaecati possimus quasi reiciendis rerum
-          veniam.
-        </v-card-content>
-        <v-card-actions>
-          <v-button
-            label="support"
-            text
-            color="blue"
-          />
-        </v-card-actions>
-      </v-card>
       <v-menu
         v-model="data.isOpen"
         :position-x="data.positionX"
@@ -684,23 +613,18 @@
         <div
           class="grey lighten-5 elevation-10"
         >
-          <v-list>
-            <v-list-item
-              @click="data.title = 'Panter'"
-            >
+          <v-list
+            v-model:value="data.title"
+            active
+          >
+            <v-list-item>
               <template #default="{active}">
-                <v-list-item-icon>
-                  <v-icon
-                    icon="account_circle"
-                    size="18"
-                  />
-                </v-list-item-icon>
                 <v-list-item-title>
                   Panter {{ active }}
                 </v-list-item-title>
               </template>
             </v-list-item>
-            <v-list-item @click="data.title = 'Rice'">
+            <v-list-item>
               <template #default="{active}">
                 <v-list-item-title>
                   Rice {{ active }}
@@ -721,8 +645,8 @@
           color="blue darken-2"
           elevation="14"
         >
-          <v-card-title> test</v-card-title>
-          <v-card-content> salam</v-card-content>
+          <v-card-title>test</v-card-title>
+          <v-card-content>salam</v-card-content>
           <v-card-actions>
             <v-button
               label="click"
@@ -765,56 +689,56 @@
 </template>
 
 <style lang="scss">
-  .active-class {
-    background: #272727;
-    color: white !important;
-  }
+.active-class {
+  background: #272727;
+  color: white !important;
+}
 
-  .wrap {
-    position: absolute;
-    left: 60px;
-    top: 60px;
-    width: calc(100% - 60px);
-    height: calc(100vh - 60px);
-  }
+.wrap {
+  position: absolute;
+  left: 60px;
+  top: 60px;
+  width: calc(100% - 60px);
+  height: calc(100vh - 60px);
+}
 
-  .app {
-    &-header {
-      width: 100%;
-      height: 60px;
-      background: #272727;
-    }
-
-    &-sidebar {
-      position: absolute;
-      top: 60px;
-      left: 0;
-      width: 60px;
-      height: calc(100vh - 60px);
-      background: #272727;
-    }
-  }
-
-  .text {
-    display: inline-block;
-  }
-
-  .test {
-    display: flex;
-    justify-content: center;
+.app {
+  &-header {
     width: 100%;
+    height: 60px;
+    background: #272727;
   }
 
-  .v-data-table {
-    background-color: yellow;
+  &-sidebar {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 60px;
+    height: calc(100vh - 60px);
+    background: #272727;
   }
+}
 
-  .v-data-table > .v-data-table__inner > .v-data-table__header {
-    background-color: #0D47A1 !important;
-    border-color: red !important;
-  }
+.text {
+  display: inline-block;
+}
 
-  body {
-    font-family: Bitstream Charter, sans-serif !important;
-  }
+.test {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.v-data-table {
+  background-color: yellow;
+}
+
+.v-data-table > .v-data-table__inner > .v-data-table__header {
+  background-color: #0D47A1 !important;
+  border-color: red !important;
+}
+
+body {
+  font-family: Bitstream Charter, sans-serif !important;
+}
 </style>

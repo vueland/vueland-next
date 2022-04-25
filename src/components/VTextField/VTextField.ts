@@ -38,14 +38,14 @@ export const VTextField = defineComponent({
       computedValue.value = e.target.value
     }
 
-    const genInputField = (clsColor, cssColor) => {
+    const genInputField = (textClassColor, textCssColor) => {
       return h('input', {
         class: {
           'v-text-field__input': true,
-          ...(!attrs.disabled && clsColor),
+          ...(!attrs.disabled && textClassColor),
         },
         style: {
-          ...(!attrs.disabled ? cssColor : {}),
+          ...(!attrs.disabled ? textCssColor : {}),
         },
         disabled: attrs.disabled,
         type: attrs.type ? attrs.type : 'text',

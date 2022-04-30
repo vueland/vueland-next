@@ -27,7 +27,7 @@ import { VNode } from 'vue'
 import { convertToUnit } from '../../helpers'
 
 // Services
-import { Transitions } from '../../services/transitions'
+import { transitions } from '../../services/transitions'
 
 // TODO fix behavior on window resize if v-model used on component
 
@@ -176,7 +176,7 @@ export const VTooltip = defineComponent({
     return () => {
       const content = useTransition(
         genContent() as VNode,
-        isActive.value ? Transitions.SCALE_IN : Transitions.FADE
+        isActive.value ? transitions.SCALE_IN : transitions.FADE
       )
 
       return [content, genActivator()]

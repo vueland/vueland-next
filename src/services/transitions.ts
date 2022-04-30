@@ -1,4 +1,4 @@
-export enum Transitions {
+export enum transitions {
   FADE = "fade",
   FADE_IN_DOWN = "fade-in-down",
   FADE_IN_UP = "fade-in-up",

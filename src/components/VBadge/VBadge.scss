@@ -5,7 +5,9 @@
   position: relative;
 
   &__badge {
-    @include flex(flex, center, center);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 50px;
     position: absolute;
     z-index: 1;

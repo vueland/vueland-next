@@ -69,18 +69,11 @@ export default defineComponent({})
           <v-card-content>
             <v-row>
               <v-col cols="3">
-                <v-badge
-                  bottom
-                  right
-                  dot
-                  color="green lighten-1"
-                >
-                  <v-skeleton
-                    width="50"
-                    height="50"
-                    radius="50"
-                  />
-                </v-badge>
+                <v-skeleton
+                  width="50"
+                  height="50"
+                  radius="50"
+                />
               </v-col>
               <v-col cols="9">
                 <v-skeleton

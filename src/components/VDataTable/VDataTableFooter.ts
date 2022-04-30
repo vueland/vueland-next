@@ -41,11 +41,11 @@ export const VDataTableFooter = defineComponent({
       setTextClassNameColor,
       setTextCssColor,
     } = useColors()
-    const { icons, iconSize } = useIcons('xs')
+    const { icons } = useIcons()
 
     const paginationDisplayText = computed<string>(() => {
-      return `${props.firstOnPage} - ${props.lastOnPage}
-        of ${props.rowsLength}`
+      return `${ props.firstOnPage } - ${ props.lastOnPage }
+        of ${ props.rowsLength }`
     })
 
     const isLastPage = computed<boolean>(() => {
@@ -54,7 +54,7 @@ export const VDataTableFooter = defineComponent({
 
     watch(
       () => isLastPage.value,
-      (to) => to && emit('last-page')
+      (to) => to && emit('last-page'),
     )
 
     function changeTableRowsPage(isNext) {
@@ -87,7 +87,6 @@ export const VDataTableFooter = defineComponent({
           h(VIcon, {
             icon: isNext ? icons.$arrowRight : icons.$arrowLeft,
             color: props.options.dark ? 'white' : '',
-            size: iconSize,
           }),
       })
     }
@@ -137,7 +136,7 @@ export const VDataTableFooter = defineComponent({
       return h(
         'span',
         propsData,
-        props.options?.rowsPerPageText || 'Rows per page'
+        props.options?.rowsPerPageText || 'Rows per page',
       )
     }
 
@@ -167,8 +166,8 @@ export const VDataTableFooter = defineComponent({
         'div',
         propsData,
         (props.rowsLength && slots.paginationText && slots.paginationText()) ||
-          (props.rowsLength && paginationDisplayText.value) ||
-          '-'
+        (props.rowsLength && paginationDisplayText.value) ||
+        '-',
       )
     }
 

@@ -4,8 +4,6 @@ const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
-const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin')
-const config = require('../package.json')
 
 module.exports = (env = {}) => {
   return {
@@ -71,6 +69,7 @@ module.exports = (env = {}) => {
         },
         {
           test: /\.(css|scss)$/,
+          exclude: /node_modules/,
           use: [
             MiniCssExtractPlugin.loader,
             {
@@ -107,23 +106,6 @@ module.exports = (env = {}) => {
       }
     },
     plugins: [
-      new ModuleFederationPlugin({
-        name: 'evo',
-        filename: 'library.js',
-        library: { type: 'var', name: 'evo' },
-        shared: {
-          ...config.dependencies,
-          vue: {
-            eager: true,
-            singleton: true
-          }
-        },
-        exposes: {
-          './lib': './src/',
-          './lib/styles/main': './src/styles/scss/main.scss',
-          './lib/styles/theme/evo-theme': './src/styles/scss/themes/material-theme.scss',
-        }
-      }),
       new RemoveEmptyScriptsPlugin(),
       new MiniCssExtractPlugin(),
       new webpack.DefinePlugin({

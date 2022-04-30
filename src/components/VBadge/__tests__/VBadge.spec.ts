@@ -101,7 +101,7 @@ describe("VBadge", () => {
     const cmp = mountFunction({ props, slots });
 
     expect(cmp.find(".v-badge__badge").attributes().style).toContain(
-      "left: -12px;"
+      "left: 12px;"
     );
     expect(cmp.html()).toMatchSnapshot();
   });
@@ -114,7 +114,7 @@ describe("VBadge", () => {
     const cmp = mountFunction({ props });
 
     expect(cmp.find(".v-badge__badge").attributes().style).toContain(
-      "right: -12px;"
+      "right: 12px;"
     );
     expect(cmp.html()).toMatchSnapshot();
   });
@@ -127,7 +127,7 @@ describe("VBadge", () => {
     const cmp = mountFunction({ props });
 
     expect(cmp.find(".v-badge__badge").attributes().style).toContain(
-      "top: -12px;"
+      "top: 12px;"
     );
     expect(cmp.html()).toMatchSnapshot();
   });
@@ -140,7 +140,7 @@ describe("VBadge", () => {
     const cmp = mountFunction({ props });
 
     expect(cmp.find(".v-badge__badge").attributes().style).toContain(
-      "bottom: -12px;"
+      "bottom: 12px;"
     );
     expect(cmp.html()).toMatchSnapshot();
   });
@@ -154,7 +154,7 @@ describe("VBadge", () => {
     const cmp = mountFunction({ props });
 
     expect(cmp.find(".v-badge__badge").attributes().style).toContain(
-      "right: -24px;"
+      "right: 0px;"
     );
     expect(cmp.html()).toMatchSnapshot();
   });
@@ -168,7 +168,7 @@ describe("VBadge", () => {
     const cmp = mountFunction({ props });
 
     expect(cmp.find(".v-badge__badge").attributes().style).toContain(
-      "top: 0px;"
+      "top: 24px;"
     );
     expect(cmp.html()).toMatchSnapshot();
   });

@@ -1,5 +1,3 @@
-import './VProgressLinear.scss'
-
 // Vue API
 import { h, defineComponent } from 'vue'
 

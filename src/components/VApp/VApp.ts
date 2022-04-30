@@ -88,8 +88,14 @@ export const VApp = defineComponent({
 
     const throttledResizeListener = throttle(
       setSizes,
-      THROTTLING_TIMEOUT
+      THROTTLING_TIMEOUT,
     ) as () => void
+
+    const genAppWrapper = () => {
+      return h('div', { class: 'v-app--wrapper' }, {
+        default: () => slots.default && slots.default(),
+      })
+    }
 
     onMounted(() => {
       setSizes()
@@ -97,14 +103,8 @@ export const VApp = defineComponent({
 
     return () =>
       withDirectives(
-        h(
-          'div',
-          { class: 'v-app' },
-          {
-            default: () => slots.default && slots.default(),
-          }
-        ),
-        [[resize, throttledResizeListener]]
+        h('div', { class: 'v-app' }, genAppWrapper()),
+        [[resize, throttledResizeListener]],
       )
   },
 })

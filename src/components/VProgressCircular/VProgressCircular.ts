@@ -1,5 +1,3 @@
-import './VProgressCircular.scss'
-
 import { h, computed, defineComponent } from 'vue'
 
 // Effects

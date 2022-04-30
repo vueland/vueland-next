@@ -1,6 +1,6 @@
 export enum sizes {
-  sm = 24,
-  md = 32,
-  lg = 40,
-  xl = 48,
+  sm = 16,
+  md = 24,
+  lg = 32,
+  xl = 40,
 }

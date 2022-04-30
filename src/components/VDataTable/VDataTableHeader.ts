@@ -38,7 +38,7 @@ export const VDataTableHeader = defineComponent({
 
   setup(props, { emit, slots }) {
     const { setBackgroundClassNameColor, setBackgroundCssColor } = useColors()
-    const { icons, iconSize } = useIcons('s')
+    const { icons,  } = useIcons()
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-data-table__header': true,
@@ -84,7 +84,6 @@ export const VDataTableHeader = defineComponent({
       const propsData = {
         clickable: true,
         class: classes,
-        size: iconSize,
         icon: icons.$arrowUp,
         onClick: () => onSort(item),
       }
@@ -101,7 +100,6 @@ export const VDataTableHeader = defineComponent({
       const propsData = {
         clickable: true,
         class: classes,
-        size: iconSize,
         icon: icons.$filter,
         color: !item.cellClass ? computedContentColor.value : '',
         onClick: () => showFilter(item),

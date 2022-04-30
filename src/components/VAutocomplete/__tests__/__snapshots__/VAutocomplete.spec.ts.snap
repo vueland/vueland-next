@@ -2,10 +2,6 @@
 
 exports[`VAutocomplete should mount component and match snapshot 1`] = `
 <div class="v-input primary--text">
-  <div class="v-input__label">
-    <label class="v-label primary--text v-label--on-input">
-    </label>
-  </div>
   <div class="v-input__text-field">
   </div>
   <div class="v-input__hints">

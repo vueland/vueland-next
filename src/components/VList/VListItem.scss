@@ -3,17 +3,16 @@
 $item-title-padding: 0 10px;
 $item-title-font-size: 1rem;
 $item-subtitle-font-size: .8rem;
-$item-icon-width: 44px;
+$item-icon-width: 48px;
 
 .v-list-item {
   display: flex;
   align-items: center;
   height: 45px;
-  border-bottom: thin solid #eeeeee;
-  transition: .4s background-color, color, border $primary-transition;
   position: relative;
   overflow: hidden;
   color: curretnColor;
+  transition: .4s background-color, color, border $primary-transition;
 
   &:nth-last-child(1) {
     border-bottom: none;
@@ -25,6 +24,7 @@ $item-icon-width: 44px;
 
   &__icon {
     width: $item-icon-width;
+    flex: 0 0 $item-icon-width;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -37,11 +37,15 @@ $item-icon-width: 44px;
   }
 
   &__content {
+    overflow: hidden;
   }
 
   &__title {
     padding: $item-title-padding;
     font-size: $item-title-font-size;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   &__subtitle {

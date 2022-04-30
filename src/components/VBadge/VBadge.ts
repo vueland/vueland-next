@@ -30,6 +30,14 @@ export const VBadge = defineComponent({
       type: String,
       default: 'scaleIn',
     },
+    offsetY: {
+      type: [String, Number],
+      default: 0
+    },
+    offsetX: {
+      type: [String, Number],
+      default: 0
+    },
     ...positionProps(),
     ...elevationProps(),
   } as any,
@@ -43,7 +51,7 @@ export const VBadge = defineComponent({
     })
 
     const calcPosition = (offsetVal: string | number = 0): string => {
-      const value = -offset.value - Number(offsetVal)
+      const value = offset.value - Number(offsetVal)
       return `${value}px`
     }
 

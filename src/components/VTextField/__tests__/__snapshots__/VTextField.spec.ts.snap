@@ -2,10 +2,6 @@
 
 exports[`VTextField should mount component and match snapshot 1`] = `
 <div class="v-input v-input--primary">
-  <div class="v-input__label">
-    <label class="v-label v-label--on-input">
-    </label>
-  </div>
   <div class="v-input__text-field">
     <div class="v-text-field">
       <input class="v-text-field__input"
@@ -37,6 +33,31 @@ exports[`VTextField should test disabled state 1`] = `
   </div>
   <div class="v-input__hints">
     <transition-stub>
+    </transition-stub>
+  </div>
+</div>
+`;
+
+exports[`VTextField should test non disabled state 1`] = `
+<div class="v-input v-input--not-valid">
+  <div class="v-input__label">
+    <label class="v-label v-label--on-input">
+      email
+    </label>
+  </div>
+  <div class="v-input__text-field">
+    <div class="v-text-field">
+      <input class="v-text-field__input"
+             style="color: rgb(250, 90, 90);"
+             type="text"
+      >
+    </div>
+  </div>
+  <div class="v-input__hints">
+    <transition-stub>
+      <span class="v-input__hints-message">
+        required input
+      </span>
     </transition-stub>
   </div>
 </div>

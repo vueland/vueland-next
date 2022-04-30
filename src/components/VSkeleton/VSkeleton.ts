@@ -1,5 +1,5 @@
 import { defineComponent, h } from 'vue'
-import { convertToUnit } from '@/helpers'
+import { convertToUnit } from '../../helpers'
 
 export const VSkeleton = defineComponent({
   name: 'v-skeleton',
@@ -35,6 +35,7 @@ export const VSkeleton = defineComponent({
       },
       style: {
         width: props.width && convertToUnit(props.width),
+        flexBasis: props.width && convertToUnit(props.width) || '100%',
         height: convertToUnit(props.height),
         borderRadius: convertToUnit(props.radius)
       },

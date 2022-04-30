@@ -1,6 +1,3 @@
-// Styles
-import './VResize.scss'
-
 // Vue API
 import {
   h,

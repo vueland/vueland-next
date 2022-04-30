@@ -1,6 +1,3 @@
-// Styles
-import './VOverlay.scss'
-
 // Vue API
 import { defineComponent, computed, h } from 'vue'
 

@@ -21,7 +21,7 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "baseUrl": "./",
-    //    "declarationDir": "dist/types",
+    "declarationDir": "dist/types",
     "outDir": "./dist",
     "composite": true,
     "paths": {

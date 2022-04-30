@@ -1,36 +1,42 @@
 const { merge } = require('webpack-merge')
 const baseConfig = require('./webpack.base.conf.js')
 const nodeExternals = require('webpack-node-externals')
+const copyWebpackPlugin = require('copy-webpack-plugin')
 const path = require('path')
 
-const pkg = require('../package.json')
 const config = require('./config')
 
-const buildConfig = merge(baseConfig, {
+const buildConfig = (env = {}) => merge(baseConfig(env), {
   target: 'browserslist',
   mode: 'production',
-  plugins: [],
   entry: {
-    [pkg.name]: baseConfig.externals.path.src + '/index.ts',
-    ['vueland-base']: baseConfig.externals.src + '/styles/main.scss',
-    ['themes/material-theme']: baseConfig.externals.src + '/styles/themes/material-theme.scss',
+    ['vueland']: path.resolve(__dirname, '../src/index.ts'),
+    ['vueland-base']: path.resolve(__dirname, '../src/styles/scss/main.scss'),
+    ['themes/vueland-theme']: path.resolve(__dirname, '../src/styles/scss/themes/vueland-theme.scss'),
   },
   output: {
     path: path.resolve(__dirname, '../dist'),
     filename: '[name].js',
     publicPath: '/dist/',
-    library: 'evo-ui',
+    library: 'vueland',
     libraryTarget: 'umd',
     umdNamedDefine: true,
-    globalObject: 'typeof self !== \'undefined\' ? self : this'
+    globalObject: 'typeof self !== \'undefined\' ? self : this',
   },
   devtool: 'eval-source-map',
   externals: [
     { vue: config.vue },
-    nodeExternals()
+    nodeExternals(),
+  ],
+  plugins: [
+    new copyWebpackPlugin({
+      patterns: [
+        { from: path.resolve(__dirname, '../types'), to: 'types/' },
+      ],
+    })
   ]
 })
 
 module.exports = new Promise(res => {
-  res(buildConfig)
+  res(buildConfig({ dev: false }))
 })

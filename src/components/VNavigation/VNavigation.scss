@@ -1,0 +1,16 @@
+@import "../../styles/scss/modules/global";
+
+.v-navigation {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-width: 100%;
+  transition: .3s width $primary-transition;
+  z-index: 10;
+
+  &--fixed {
+    position: fixed;
+  }
+}

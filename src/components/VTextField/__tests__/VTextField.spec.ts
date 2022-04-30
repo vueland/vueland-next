@@ -32,7 +32,7 @@ describe('VTextField', () => {
     })
 
     expect(wrapper.find('label').text()).toContain('email')
-    expect(wrapper.find('.e-input').attributes('class')).toContain(
+    expect(wrapper.find('.v-input').attributes('class')).toContain(
       'orange--text text--darken-1'
     )
     expect(wrapper.find('input').attributes('style')).toContain(
@@ -42,7 +42,7 @@ describe('VTextField', () => {
     await wrapper.find('input').trigger('focus')
     await wrapper.find('input').trigger('blur')
 
-    expect(wrapper.find('.e-input').attributes('class')).toContain(
+    expect(wrapper.find('.v-input').attributes('class')).toContain(
       'v-input--not-valid'
     )
     expect(wrapper.html()).toMatchSnapshot()
@@ -76,6 +76,6 @@ describe('VTextField', () => {
 
     await wrapper.find('input').trigger('input')
 
-    expect(wrapper.find('.e-input--focused').exists()).toBeFalsy()
+    expect(wrapper.find('.v-input--focused').exists()).toBeFalsy()
   })
 })

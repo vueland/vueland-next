@@ -1,6 +1,3 @@
-// Styles
-import './VTooltip.scss'
-
 // Vue API
 import {
   h,
@@ -115,7 +112,7 @@ export const VTooltip = defineComponent({
 
     const styles = computed<Record<string, string>>(() => ({
       top: tooltip.top ? (convertToUnit(tooltip.top) as string) : '',
-      left: tooltip.top ? (convertToUnit(tooltip.left) as string) : '',
+      left: tooltip.top ? (convertToUnit(tooltip.left!) as string) : '',
       maxWidth: !!props.maxWidth ? `${props.maxWidth}px` : '',
       minWidth: !!props.minWidth ? `${props.minWidth}px` : '',
       zIndex: props.zIndex,

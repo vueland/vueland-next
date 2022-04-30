@@ -9,7 +9,8 @@ import { useTransition } from '../../composable/use-transition'
 
 // Types
 import { VNode, Ref } from 'vue'
-import { DatePickerBtnHandlers, DatePickerDate, Nullable } from '../../../types'
+import { DatePickerBtnHandlers, DatePickerDate } from '../../../types'
+import { Maybe } from '../../../types/base'
 
 type UpdateParams = {
   month?: number
@@ -59,12 +60,12 @@ export const VDatePickerDates = defineComponent({
     watch(
       () => props.month,
       () => genTableDates(),
-      { immediate: true }
+      { immediate: true },
     )
 
     watch(
       () => isDatesChanged.value,
-      () => setTimeout(() => (isDatesChanged.value = false), ANIMATION_TIMEOUT)
+      () => setTimeout(() => (isDatesChanged.value = false), ANIMATION_TIMEOUT),
     )
 
     function updateMonth(isNext: boolean) {
@@ -87,7 +88,7 @@ export const VDatePickerDates = defineComponent({
       }
 
       return DAYS.map((day) =>
-        h('span', propsData, props.locale![day] as string)
+        h('span', propsData, props.locale![day] as string),
       )
     }
 
@@ -211,7 +212,7 @@ export const VDatePickerDates = defineComponent({
       return genTableRows(datesVNodes, 'v-date-picker-dates__row', DAYS.length)
     }
 
-    function genDates(): Nullable<VNode> {
+    function genDates(): Maybe<VNode> {
       return (
         (!isDatesChanged.value &&
           h('div', { class: 'v-date-picker-dates__dates' }, genDateRows())) ||

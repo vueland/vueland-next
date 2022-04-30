@@ -77,8 +77,8 @@ export const VTextField = defineComponent({
           value: computedValue.value,
         },
         {
-          ['text-field']: ({ clsColor, cssColor }) => {
-            return genTextFieldWrapper(clsColor, cssColor)
+          ['text-field']: ({ textClassColor, textCssColor }) => {
+            return genTextFieldWrapper(textClassColor, textCssColor)
           },
         }
       )

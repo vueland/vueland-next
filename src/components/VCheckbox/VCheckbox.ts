@@ -3,9 +3,10 @@ import {
   h,
   ref,
   watch,
-  computed,
   defineComponent,
   inject,
+  computed,
+  onBeforeMount,
   onBeforeUnmount,
 } from 'vue'
 
@@ -51,7 +52,7 @@ export const VCheckbox = defineComponent({
     const form: any = inject('form', null)
 
     const { validate } = useValidation(props)
-    const { icons, iconSize } = useIcons('l')
+    const { icons } = useIcons()
 
     const isArray = computed<boolean>(() => Array.isArray(props.modelValue))
     const isValueSet = computed<boolean>(() => props.value !== null)
@@ -76,23 +77,18 @@ export const VCheckbox = defineComponent({
           isChecked.value = !!props.modelValue
         }
       },
-      { immediate: true }
+      { immediate: true },
     )
 
-    if (form) {
-      form!.add(validateValue)
-    }
-
-    function validateValue(): boolean | void {
+    const validateValue = (): boolean | void => {
       return validate(isChecked.value)
     }
 
-    function genLabel(): VNode {
+    const genLabel = (): VNode => {
       const propsData = {
         absolute: false,
         color: props.dark ? 'white' : '',
         disabled: props.disabled,
-        class: 'v-checkbox__label',
       }
 
       return h(VLabel, propsData, {
@@ -100,14 +96,19 @@ export const VCheckbox = defineComponent({
       })
     }
 
-    function genIcon(): VNode {
+    const genLabelWrapper = () => {
+      return h('div', {
+        class: 'v-checkbox__label',
+      }, genLabel())
+    }
+
+    const genIcon = (): VNode => {
       const onIcon = props.onIcon || icons.$checkOn
       const offIcon = props.offIcon || icons.$checkOff
       const icon = isChecked.value ? onIcon : offIcon
 
       const propsData = {
         icon,
-        size: iconSize,
         color: props.color,
         disabled: props.disabled,
       }
@@ -115,15 +116,13 @@ export const VCheckbox = defineComponent({
       return h(VIcon, propsData)
     }
 
-    function genCheckbox(): VNode {
-      const propsData = {
+    const genCheckbox = (): VNode => {
+      return h('div', {
         class: 'v-checkbox__square',
-      }
-
-      return h('div', propsData, genIcon())
+      }, genIcon())
     }
 
-    function computeValue(): boolean | any[] {
+    const computeValue = (): boolean | any[] => {
       if (isArray.value) {
         let modelValue = [...props.modelValue]
         isChecked.value = !modelValue.includes(props.value)
@@ -140,7 +139,7 @@ export const VCheckbox = defineComponent({
       return (isChecked.value = !isChecked.value)
     }
 
-    function onClick() {
+    const onClick = () => {
       if (props.disabled) return
       const value = computeValue()
 
@@ -149,18 +148,17 @@ export const VCheckbox = defineComponent({
       emit('checked', value)
     }
 
+    onBeforeMount(() => {
+      if (form) form!.add(validateValue)
+    })
+
     onBeforeUnmount(() => {
       form?.remove(validateValue)
     })
 
-    return (): VNode =>
-      h(
-        'div',
-        {
-          class: classes.value,
-          onClick,
-        },
-        [genCheckbox(), props.label && genLabel()]
-      )
+    return (): VNode => h('div',
+      { class: classes.value, onClick },
+      [genCheckbox(), props.label && genLabelWrapper()],
+    )
   },
 })

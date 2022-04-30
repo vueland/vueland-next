@@ -21,7 +21,7 @@ export const VDatepickerHeader = defineComponent({
 
   setup(props, { slots, emit }) {
     const { setTextClassNameColor, setTextCssColor } = useColors()
-    const { icons, iconSize } = useIcons('md')
+    const { icons } = useIcons()
 
     const genHeaderButton = (isRight) => {
       const icon = isRight ? icons.$arrowRight : icons.$arrowLeft
@@ -33,7 +33,6 @@ export const VDatepickerHeader = defineComponent({
       const iconPropsData = {
         icon,
         clickable: true,
-        size: iconSize,
         class: {
           ...(props.color ? setTextClassNameColor(props.color) : {}),
         },

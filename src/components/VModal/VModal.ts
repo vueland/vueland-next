@@ -1,6 +1,3 @@
-// Styles
-import './VModal.scss'
-
 // Vue API
 import {
   h,

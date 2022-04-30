@@ -11,15 +11,7 @@ exports[`VSelect should mount component and match snapshot 1`] = `
       <div
         class="v-input v-input--primary v-input--has-append-icon"
       >
-        <div
-          class="v-input__label"
-        >
-          <label
-            class="v-label v-label--on-input"
-          >
-            
-          </label>
-        </div>
+        
         <div
           class="v-input__text-field"
         >
@@ -39,7 +31,7 @@ exports[`VSelect should mount component and match snapshot 1`] = `
             class="v-input__append-icon"
           >
             <i
-              class="v-icon fas fa-chevron-down"
+              class="v-icon"
               style="font-size: 16px;"
             />
           </div>

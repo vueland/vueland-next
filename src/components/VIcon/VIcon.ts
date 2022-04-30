@@ -8,7 +8,7 @@ import { sizeProps } from '../../composable/use-size'
 // Helpers
 import { convertToUnit } from '../../helpers'
 
-// Typev
+// Types
 import { VNode } from 'vue'
 
 // Services
@@ -27,7 +27,7 @@ export const VIcon = defineComponent({
       default: 'i',
     },
     ...colorProps(),
-    ...sizeProps(),
+    ...sizeProps('sm'),
   } as any,
 
   emits: ['click'],

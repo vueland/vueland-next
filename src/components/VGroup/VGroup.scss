@@ -1,0 +1,60 @@
+@import "src/styles/scss/modules/global";
+
+$group-header-height: 48px;
+$group-icon-width: $group-header-height;
+$group-content-padding: 0 10px;
+$group-border-radius: 8px;
+
+.v-group {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: $group-border-radius;
+  overflow: hidden;
+  border: none;
+
+  &__header {
+    display: flex;
+    width: 100%;
+    height: $group-header-height;
+    transition: .3s color $primary-transition;
+
+    &-content {
+      flex: 1 1 100%;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: $group-content-padding;
+      color: currentColor
+    }
+  }
+
+  &__expand-icon,
+  &__sub-expand-icon,
+  &__prepend-icon,
+  &__append-icon{
+    width: $group-icon-width;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: .2s transform $primary-transition;
+  }
+
+  &--default {
+    color: black;
+  }
+
+  &--subgroup {
+    border-radius: 0 !important;
+    background-color: transparent !important;
+  }
+
+  &--active > .v-group__header > .v-group__expand-icon {
+    transform: rotate(180deg);
+  }
+
+  &--active > .v-group__header > .v-group__sub-expand-icon {
+    transform: rotate(180deg);
+  }
+}

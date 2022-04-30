@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VToolbar should mount component and match snapshot 1`] = `
+<div class="v-toolbar"
+     style="height: 56px; background-color: rgb(255, 255, 255); border-color: #ffffff;"
+>
+  <div class="v-toolbar__content">
+    <div class="v-toolbar__nav-btn">
+      <button class="v-icon v-icon--clickable fas fa-bars"
+              style="font-size: 16px;"
+      >
+      </button>
+    </div>
+    <div class="v-toolbar__logo">
+    </div>
+    <div class="v-toolbar__items">
+    </div>
+  </div>
+</div>
+`;

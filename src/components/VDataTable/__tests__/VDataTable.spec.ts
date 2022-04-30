@@ -34,22 +34,6 @@ describe('VDataTable', () => {
     expect(cmp.html()).toMatchSnapshot()
   })
 
-  it('should test dark prop and match snapshot', () => {
-    cols[0].filterable = true
-    const cmp = mountFunction({
-      props: { cols, rows, dark: true },
-    })
-
-    const filter = cmp.find('.v-data-table-col__filter')
-
-    expect(cmp.find('.v-data-table__cell').classes()).toContain('white--text')
-    expect(filter.find('.v-input__slot').classes()).toContain(
-      'white--text'
-    )
-    expect(filter.find('.v-icon').classes()).toContain('white--text')
-    expect(cmp.html()).toMatchSnapshot()
-  })
-
   it('should test align center and match snapshot', () => {
     const cmp = mountFunction({
       props: { cols, rows, align: 'center' },

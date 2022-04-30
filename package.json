@@ -26,9 +26,7 @@
     "dev": "webpack-dev-server --config build/webpack.dev.conf.js",
     "build": "webpack --config build/webpack.build.conf.js",
     "build:ts": "tsc -p tsconfig.dist.json",
-    "build:es5": "cross-env NODE_ENV=es5 babel lib-temp/src --out-dir es5 --source-maps",
-    "build:lib": "cross-env NODE_ENV=lib babel lib-temp/src --out-dir lib --source-maps",
-    "build:all": "npm run test --u & node build/build-lib.js",
+    "build:all": "node build/build-lib.js",
     "test": "jest -u",
     "test:editor": "editorconfig-checker --exclude '.git|node_modules|dist|es5|lib|.idea'",
     "declarations": "ttsc --emitDeclarationOnly",
@@ -49,10 +47,11 @@
     "@types/jest": "^27.4.1",
     "@typescript-eslint/eslint-plugin": "^5.3.1",
     "@typescript-eslint/parser": "^5.3.1",
-    "@vue/compiler-sfc": "^3.2.33",
+    "@vue/compiler-sfc": "^3.2.31",
     "@vue/test-utils": "^2.0.0-rc.17",
     "babel-jest": "^26.5.2",
     "babel-loader": "^8.2.3",
+    "copy-webpack-plugin": "^10.2.4",
     "cross-env": "^7.0.3",
     "css-loader": "^6.6.0",
     "css-mqpacker": "^7.0.0",
@@ -75,12 +74,13 @@
     "regenerator-runtime": "^0.13.9",
     "sass-loader": "^12.6.0",
     "serve": "^13.0.2",
+    "shelljs": "^0.8.5",
     "style-loader": "^3.3.1",
     "terser-webpack-plugin": "^5.3.1",
     "ts-jest": "^26.5.2",
     "ts-loader": "^9.2.6",
     "typescript": "^4.5.5",
-    "vue": "^3.2.33",
+    "vue": "^3.2.31",
     "vue-jest": "^5.0.0-alpha.10",
     "vue-loader": "^17.0.0",
     "vuepress": "^2.0.0-beta.36",
@@ -92,9 +92,9 @@
     "webpack-remove-empty-scripts": "^0.7.3"
   },
   "dependencies": {
-    "vue": "^3.2.33"
+    "vue": "^3.2.31"
   },
   "peerDependencies": {
-    "vue": "^3.2.33"
+    "vue": "^3.2.31"
   }
 }

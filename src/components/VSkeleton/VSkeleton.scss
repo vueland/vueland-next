@@ -18,7 +18,7 @@
   }
 
   &--light {
-    background-image: linear-gradient(100deg, #e5e7e8 30%, #f6f7f8 50%, #e5e7e8 70%);
+    background-image: linear-gradient(100deg, #dddfe0 30%, #f6f7f8 50%, #dddfe0 70%);
     background-size: 300%;
   }
 
@@ -29,13 +29,14 @@
 
   &--dynamic {
     transform-origin: left;
-    animation: dynamicUp 1.2s ease-in-out infinite;
+    animation: dynamicUp 3.2s ease-in-out infinite;
+    opacity: 0;
   }
 }
 
 @for $i from 1 through 50 {
   .v-skeleton--dynamic:nth-child(#{$i}) {
-    animation: dynamicUp 1.2s #{$i * 10/50}s ease-in-out infinite;
+    animation: dynamicUp 1.2s #{calc($i * 10/50)}s ease-in-out infinite;
   }
 }
 
@@ -44,7 +45,7 @@
     transform: translateX(-300%);
   }
   100% {
-    transform: translateX(100%);
+    transform: translateX(300%);
   }
 }
 
@@ -52,11 +53,18 @@
   0% {
     transform: scaleX(0);
   }
-  90% {
-    opacity: 1
+  10% {
+    opacity: 1;
+  }
+  50% {
+    transform: scaleX(1);
+  }
+  80% {
+    opacity: 1;
+    transform: scaleX(1);
   }
   100% {
-    transform: scaleX(1);
+    transform: scaleX(0);
     opacity: 0;
   }
 }

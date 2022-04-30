@@ -3,7 +3,7 @@ import { defineComponent, h, Slots } from 'vue'
 export const createSimpleFunctional = (
   c: string,
   el = 'div',
-  name: string = ''
+  name: string = '',
 ) => {
   return defineComponent({
     name: name || c.replace(/__/g, '-'),
@@ -24,7 +24,7 @@ export const addOnceListener = (
   el: EventTarget,
   eventName: string,
   cb: (event: Event) => void,
-  options: boolean | AddEventListenerOptions = false
+  options: boolean | AddEventListenerOptions = false,
 ): void => {
   const once = (event: Event) => {
     cb(event)
@@ -35,15 +35,13 @@ export const addOnceListener = (
 }
 
 export const convertToUnit = (
-  str: string | number | null | undefined,
-  unit = 'px'
-): string | undefined => {
-  if (str == null || str === '') {
-    return undefined
-  } else if (isNaN(+str!)) {
+  str: string | number,
+  unit = 'px',
+): string => {
+  if (isNaN(+str!)) {
     return String(str)
   } else {
-    return `${Number(str)}${unit}`
+    return `${ Number(str) }${ unit }`
   }
 }
 
@@ -65,7 +63,7 @@ export const addScopedSlot = (slotName: string, slots: Slots) => {
 
 export const getKeyValueFromTarget = <T>(
   valueKey: string,
-  target: T
+  target: T,
 ): string => {
   return valueKey.split('.').reduce((acc, it) => acc[it], target)
 }

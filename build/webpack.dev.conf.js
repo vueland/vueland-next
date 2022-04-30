@@ -1,40 +1,43 @@
+const path = require('path')
 const webpack = require('webpack')
 const { merge } = require('webpack-merge')
-const baseConfig = require('./webpack.base.conf.js')
+const baseConfig = require('./webpack.base.conf')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-const devConfig = merge(baseConfig, {
-  mode: 'development',
+const devConfig = (env = {}) => merge(baseConfig(env), {
   devtool: 'eval-cheap-module-source-map',
-  devServer: {
-    port: 3001,
-    historyApiFallback: true,
-  },
+  target: 'web',
+  mode: 'development',
   entry: {
-    vueland: `${ baseConfig.externals.path.dev }/app.ts`,
+    main: path.resolve(__dirname, '../dev/app.ts')
   },
-  output: {
-    filename: `index.js`,
-    path: baseConfig.externals.path.dist,
-    chunkFilename: `chunk.[name].[hash].js`,
-    publicPath: 'auto',
-  },
-  optimization: {
-    runtimeChunk: false
+  devServer: {
+    host: 'localhost',
+    open: false,
+    port: 8081,
+    hot: true,
+    historyApiFallback: {
+      rewrites: [
+        { from: /\w+/, to: '/index.html' }
+      ]
+    }
   },
   plugins: [
-    new webpack.SourceMapDevToolPlugin({
-      filename: '[file].map',
-    }),
     new HtmlWebpackPlugin({
+      title: 'evo-ui',
       hash: false,
-      template: `${ baseConfig.externals.path.dev }/index.html`,
+      template: path.resolve(__dirname, '../dev') + '/index.html',
       filename: 'index.html',
       inject: true,
+      collapseWhitespace: true,
+      removeComments: true,
+      removeRedundantAttributes: true,
+      removeScriptTypeAttributes: true,
+      removeStyleLinkTypeAttributes: true,
+      useShortDoctype: true
     }),
-  ],
+    new webpack.HotModuleReplacementPlugin(),
+  ]
 })
 
-module.exports = new Promise((res, rej) => {
-  res(devConfig)
-})
+module.exports = new Promise(res => res(devConfig({ dev: true })))

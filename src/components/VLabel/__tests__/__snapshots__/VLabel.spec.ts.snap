@@ -1,8 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`VLabel should mount component and match snapshot 1`] = `
-<label class="v-label"
-       style="left: 0px; position: relative;"
->
+<label class="v-label">
 </label>
 `;

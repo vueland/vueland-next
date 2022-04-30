@@ -1,0 +1,38 @@
+.v-toolbar {
+  width: 100%;
+  z-index: 11;
+
+  &--fixed {
+    position: fixed;
+  }
+
+  &__content {
+    display: flex;
+    padding: 0 10px;
+    height: 100%;
+  }
+
+  &__nav-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 60px;
+  }
+
+  &__logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 187px;
+    height: 100%;
+  }
+
+  &__items {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 60px;
+    height: 100%;
+  }
+}

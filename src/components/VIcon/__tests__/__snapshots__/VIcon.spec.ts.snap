@@ -2,7 +2,7 @@
 
 exports[`VForm should mount component and match snapshot 1`] = `
 <i class="v-icon"
-   style="font-size: 28px;"
+   style="font-size: 16px;"
 >
 </i>
 `;

@@ -1,207 +1,238 @@
 // Vue API
 import {
+  defineComponent,
   h,
   watch,
-  computed,
-  defineComponent,
   inject,
+  computed,
+  onBeforeMount,
   onBeforeUnmount,
+  VNode,
 } from 'vue'
+
+// Composable
+import { useValidation, validationProps } from '../../composable/use-validation'
+import { useColors, colorProps } from '../../composable/use-colors'
+import { useInputStates } from '../../composable/use-input-states'
+import { useTransition } from '../../composable/use-transition'
 
 // Components
 import { VLabel } from '../VLabel'
 import { VIcon } from '../VIcon'
 
-// Types
-import { VNode, PropType, Ref } from 'vue'
+import { Maybe } from '../../../types/base'
 
-// Effects
-import { useTransition } from '../../effects/use-transition'
-import { colorProps, useColors } from '../../effects/use-colors'
-import { useIcons } from '../../effects/use-icons'
-import { themeProps } from '../../effects/use-theme'
-import { validateProps, useValidate } from '@/effects/use-validate'
-
-import { Transitions } from '../../services/transitions'
+type Form = {
+  add: (item: (val?: any) => boolean | void) => void
+  remove: (item: (val?: any) => boolean | void) => void
+}
 
 export const VInput = defineComponent({
   name: 'v-input',
+  components: {
+    VLabel,
+    VIcon,
+  },
   inheritAttrs: false,
   props: {
-    inputSlotRef: Object as PropType<Ref<null>>,
-    focused: Boolean,
-    hasState: Boolean,
-    disabled: Boolean,
-    clearable: Boolean,
-    label: String,
-    prependIcon: String,
-    appendIcon: String,
-    type: {
+    label: {
       type: String,
-      default: 'text',
+      default: '',
     },
-    modelValue: [String, Number, Object],
+    prependIcon: {
+      type: String,
+      default: '',
+    },
+    appendIcon: {
+      type: String,
+      default: '',
+    },
+    disabled: Boolean,
+    focused: Boolean,
+    readonly: Boolean,
+    hints: {
+      type: Boolean,
+      default: true,
+    },
+    hintMessage: {
+      type: String,
+      default: '',
+    },
+    textColor: {
+      type: String,
+      default: '',
+    },
+    ...validationProps(),
     ...colorProps(),
-    ...themeProps(),
-    ...validateProps(),
-  } as any,
+  },
+  emits: ['click'],
+  setup(props, { attrs, emit, slots }) {
+    const { validate, errorState } = useValidation(props)
+    const { setTextCssColor, setTextClassNameColor } = useColors()
+    const { isDisabled, isReadonly } = useInputStates(props, { attrs, emit })
 
-  emits: ['clear', 'focus'],
+    const form: Maybe<Form> = inject('form', null as any)
 
-  setup(props, { slots, emit, attrs }): () => VNode {
-    const { setTextColor } = useColors()
-    const { icons, iconSize } = useIcons('md')
-    const { validate, dirty, errorState, validationState } = useValidate(props)
+    const textClassColor = setTextClassNameColor(props.textColor)
+    const textCssColor = setTextCssColor(props.textColor)
 
-    const fields: Ref<any[]> | undefined = props.rules && inject('fields')
-
-    if (fields?.value && props.rules?.length) {
-      fields.value.push(validateValue)
-    }
-
-    const isValid = computed<boolean>(() => {
-      return errorState.isDirty && props.hasState && !errorState.innerError
+    const hasPrependIcon = computed<boolean>(() => {
+      return !!props.prependIcon || !!slots['prepend-icon']
     })
 
-    const isNotValid = computed<boolean>(() => {
-      return errorState.isDirty && !!errorState.innerError
+    const hasAppendIcon = computed<boolean>(() => {
+      return !!props.appendIcon || !!slots['append-icon']
     })
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-input': true,
-      'v-input--disabled': props.disabled,
-      'v-input--dirty': errorState.isDirty,
-      'v-input--valid': isValid.value,
-      'v-input--not-valid': isNotValid.value,
-      'v-input--focused': props.focused,
+      'v-input--primary': !props.color,
+      'v-input--focused': props.focused && !isReadonly.value,
+      'v-input--disabled': isDisabled.value,
+      'v-input--readonly': isReadonly.value,
+      'v-input--has-prepend-icon': hasPrependIcon.value,
+      'v-input--has-append-icon': hasAppendIcon.value,
+      'v-input--not-valid': !!errorState.innerError,
+      ...(!props.disabled && !errorState.innerError
+        ? setTextClassNameColor(props.color)
+        : {}),
+      ...(attrs.class as object),
+    }))
+
+    const styles = computed<Record<string, string>>(() => ({
+      ...(!props.disabled && !errorState.innerError
+        ? setTextCssColor(props.color)
+        : {}),
+      ...(attrs.style as object),
     }))
 
     watch(
-      () => props.value,
-      () => requestAnimationFrame(validateValue)
+      () => props.focused,
+      (to) => !to && validate(),
     )
 
     watch(
-      () => props.focused,
-      (to) => !to && requestAnimationFrame(validateValue)
+      () => props.value,
+      () => validate(),
     )
 
-    function onClick() {
-      dirty()
-      emit('focus')
+    const genLabel = (): VNode => {
+      const label = h(
+        VLabel,
+        {
+          class: 'v-label--on-input',
+          disabled: isDisabled.value,
+          focused: props.focused,
+          color: !errorState.innerError ? props.color : '',
+        },
+        {
+          default: () => props.label,
+        },
+      )
+
+      return h('div', { class: 'v-input__label' }, [label])
     }
 
-    function validateValue() {
-      return props.rules?.length && validate(props.value)
-    }
-
-    function genLabel(): VNode {
-      const propsData = {
-        absolute: true,
-        onField: true,
-        hasState: props.hasState,
-        disabled: props.disabled,
-        focused: props.focused,
-        color: validationState.value,
-      }
-
-      return h(VLabel, propsData, {
-        default: () => props.label,
-      })
-    }
-
-    function genIcon(iconName, clickable = false) {
+    const genIcon = (iconName, clickable = false): VNode => {
       return h(VIcon, {
-        color: validationState.value,
-        dark: props.dark,
         icon: iconName,
-        size: iconSize,
+        size: 16,
         disabled: props.disabled,
         clickable,
       })
     }
 
-    function genPrependIcon() {
+    const genPrependIcon = (): Maybe<VNode> => {
+      let content
+
+      if (props.prependIcon) {
+        content = genIcon(props.prependIcon)
+      } else {
+        content = slots['prepend-icon']?.()
+      }
+
+      return content ?
+        h('div', { class: 'v-input__prepend-icon' }, content)
+        : null
+    }
+
+    const genAppendIcon = (): Maybe<VNode> => {
+      let content
+
+      if (props.appendIcon) {
+        content = genIcon(props.appendIcon)
+      } else {
+        content = slots['append-icon']?.()
+      }
+
+      return content ?
+        h('div', { class: 'v-input__append-icon' }, content)
+        : null
+    }
+
+    const genTextFieldSlot = () => {
+      const prependIconContent = genPrependIcon()
+      const appendIconContent = genAppendIcon()
+      const { disabled } = props
+
+      const textFieldContent = slots['text-field']?.({
+        textCssColor,
+        textClassColor,
+        disabled,
+      })
+
       return h(
         'div',
-        { class: 'v-input__prepend-icon' },
-        genIcon(props.prependIcon)
+        { class: 'v-input__text-field' },
+        [prependIconContent, textFieldContent, appendIconContent],
       )
     }
 
-    function genAppendIcon() {
-      const propsData = { class: 'v-input__append-icon' }
-      return h('div', propsData, genIcon(props.appendIcon))
+    const genHintMessage = (): Maybe<VNode> => {
+      return props.hintMessage || errorState.innerErrorMessage ?
+        h(
+          'span',
+          { class: 'v-input__hints-message' },
+          [errorState.innerErrorMessage],
+        )
+        : null
     }
 
-    function genClearIcon() {
-      const propsData = {
-        class: 'v-input__clear',
-        onClick: () => {
-          !props.disabled && props.hasState && emit('clear')
-        },
-      }
-      return h('div', propsData, genIcon(icons.$close, true))
+    const genHints = (): Maybe<VNode> => {
+      return (props.hints || props.rules) ? h(
+        'div',
+        { class: 'v-input__hints' },
+        useTransition(genHintMessage()!, 'fade'),
+      ) : null
     }
 
-    function genInputSlot() {
-      const propsData = {
-        class: 'v-input__slot',
-        onClick,
-      }
-      return h('div', setTextColor(validationState.value!, propsData), [
-        genSlotContent(),
-        genStatus(),
-      ])
+    const genSelectSlot = (): Maybe<VNode> => {
+      return slots.select ?
+        h(
+          'div',
+          { class: 'v-input__selects' },
+          slots.select?.(),
+        )
+        : null
     }
 
-    function genSlotContent(): VNode {
-      const propsData = {
-        class: {
-          'v-input__field-slot': true,
-        },
-      }
-
-      return h('div', propsData, [
-        props.prependIcon && genPrependIcon(),
-        !props.clearable && props.appendIcon && genAppendIcon(),
-        props.clearable && genClearIcon(),
-        genLabel(),
-        slots.textField && slots.textField(),
-      ])
-    }
-
-    function genStatusMessage(): VNode {
-      const propsData = {
-        class: { 'v-input__status-message': true },
-      }
-
-      return h('span', propsData, errorState.innerErrorMessage!)
-    }
-
-    function genStatus(): VNode {
-      const transitionedMessage = useTransition(
-        errorState.innerErrorMessage! && (genStatusMessage() as VNode),
-        Transitions.FADE
-      )
-
-      const propsData = { class: 'v-input__status' }
-
-      return h('div', propsData, transitionedMessage)
-    }
-
-    onBeforeUnmount(() => {
-      if (fields?.value) {
-        fields!.value = fields!.value.filter((v) => v !== validateValue)
-      }
+    onBeforeMount(() => {
+      if (props.rules) form?.add(validate)
     })
 
-    return () => {
-      const propsData = {
-        class: classes.value,
-        style: attrs.style,
-      }
-      return h('div', propsData, genInputSlot())
-    }
+    onBeforeUnmount(() => {
+      form?.remove(validate)
+    })
+
+    return () => h(
+      'div',
+      { class: classes.value, style: styles.value },
+      [
+        props.label && genLabel(),
+        genTextFieldSlot(),
+        genHints(),
+        genSelectSlot(),
+      ],
+    )
   },
 })

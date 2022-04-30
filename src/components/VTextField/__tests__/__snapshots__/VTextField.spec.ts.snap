@@ -1,24 +1,64 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`VtextField should mount component and match snapshot 1`] = `
-<div class="v-input">
-  <div class="v-input__slot primary--text">
-    <div class="v-input__field-slot">
-      <label class="v-label v-label--on-field primary--text"
-             style="left: 0px; position: absolute;"
+exports[`VTextField should mount component and match snapshot 1`] = `
+<div class="v-input v-input--primary">
+  <div class="v-input__text-field">
+    <div class="v-text-field">
+      <input class="v-text-field__input"
+             type="text"
       >
-      </label>
-      <div class="v-text-field">
-        <input class="v-text-field__input"
-               type="text"
-               style="color: rgb(33, 33, 33); caret-color: #212121;"
-        >
-      </div>
     </div>
-    <div class="v-input__status">
-      <transition-stub>
-      </transition-stub>
+  </div>
+  <div class="v-input__hints">
+    <transition-stub>
+    </transition-stub>
+  </div>
+</div>
+`;
+
+exports[`VTextField should test disabled state 1`] = `
+<div class="v-input v-input--disabled">
+  <div class="v-input__label">
+    <label class="v-label v-label--disabled v-label--on-input">
+      email
+    </label>
+  </div>
+  <div class="v-input__text-field">
+    <div class="v-text-field v-text-field--disabled">
+      <input class="v-text-field__input"
+             disabled
+             type="text"
+      >
     </div>
+  </div>
+  <div class="v-input__hints">
+    <transition-stub>
+    </transition-stub>
+  </div>
+</div>
+`;
+
+exports[`VTextField should test non disabled state 1`] = `
+<div class="v-input v-input--not-valid">
+  <div class="v-input__label">
+    <label class="v-label v-label--on-input">
+      email
+    </label>
+  </div>
+  <div class="v-input__text-field">
+    <div class="v-text-field">
+      <input class="v-text-field__input"
+             style="color: rgb(250, 90, 90);"
+             type="text"
+      >
+    </div>
+  </div>
+  <div class="v-input__hints">
+    <transition-stub>
+      <span class="v-input__hints-message">
+        required input
+      </span>
+    </transition-stub>
   </div>
 </div>
 `;

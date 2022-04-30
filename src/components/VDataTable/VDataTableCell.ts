@@ -2,7 +2,7 @@
 import { h, computed, defineComponent } from 'vue'
 
 // Effects
-import { colorProps, useColors } from '../../effects/use-colors'
+import { colorProps, useColors } from '../../composable/use-colors'
 
 // Helpers
 import { convertToUnit } from '../../helpers'
@@ -33,10 +33,23 @@ export const VDataTableCell = defineComponent({
   emits: ['resize'],
 
   setup(props, { slots, emit }): () => VNode {
-    const { setTextColor, setBackground } = useColors()
+    const {
+      setTextClassNameColor,
+      setTextCssColor,
+      setBackgroundCssColor,
+      setBackgroundClassNameColor,
+    } = useColors()
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-data-table__cell': true,
+      ...(props.contentColor ? setTextClassNameColor(props.contentColor) : {}),
+      ...(props.color ? setBackgroundClassNameColor(props.color) : {}),
+    }))
+
+    const styles = computed(() => ({
+      width: convertToUnit(+props.width),
+      ...(props.contentColor ? setTextCssColor(props.contentColor) : {}),
+      ...(props.color ? setBackgroundCssColor(props.color) : {}),
     }))
 
     function genResize(): VNode {
@@ -65,20 +78,15 @@ export const VDataTableCell = defineComponent({
     }
 
     return () => {
-      const color = props.contentColor || (props.dark ? 'white' : '')
-
-      const propsData = setTextColor(color, {
+      const propsData = {
         class: classes.value,
-        style: {
-          width: convertToUnit(+props.width),
-        },
-      })
+        style: styles.value,
+      }
 
-      return h(
-        'div',
-        props.color ? setBackground(props.color, propsData) : propsData,
-        [genCellContent(), props.resizeable && genResize()]
-      )
+      return h('div', propsData, [
+        genCellContent(),
+        props.resizeable && genResize(),
+      ])
     }
   },
 })

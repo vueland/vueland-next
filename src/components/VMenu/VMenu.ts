@@ -9,19 +9,20 @@ import {
   onBeforeUnmount,
   vShow,
   VNode,
+  DirectiveArguments,
 } from 'vue'
 
 // Composable
 import {
   autoPositionProps,
   useAutoPosition,
-} from '../../effects/use-auto-position'
-import { activatorProps, useActivator } from '../../effects/use-activator'
-import { useDetach } from '../../effects/use-detach'
-import { useElevation } from '../../effects/use-elevation'
-import { useToggle } from '../../effects/use-toggle'
-import { useTransition } from '../../effects/use-transition'
-import { positionProps } from '../../effects/use-position'
+} from '../../composable/use-auto-position'
+import { activatorProps, useActivator } from '../../composable/use-activator'
+import { useDetach } from '../../composable/use-detach'
+import { useElevation } from '../../composable/use-elevation'
+import { useToggle } from '../../composable/use-toggle'
+import { useTransition } from '../../composable/use-transition'
+import { positionProps } from '../../composable/use-position'
 
 // Helpers
 import { convertToUnit } from '../../helpers'
@@ -182,28 +183,25 @@ export const VMenu = defineComponent({
         onClick: onContentClick,
       }
 
-      const content = h(
+      const slotContent = h(
         'div',
-        propsData,
-        h(
-          'div',
-          {
-            class: 'v-menu__slot',
-            style: {
-              maxHeight: convertToUnit(props.maxHeight),
-              width: convertToUnit(calcWidth.value),
-            },
+        {
+          class: 'v-menu__slot',
+          style: {
+            maxHeight: convertToUnit(props.maxHeight),
+            width: convertToUnit(calcWidth.value),
           },
-          [slots.default && slots.default()]
-        )
+        },
+        [slots.default && slots.default()]
       )
 
-      const directives: any = [
+      const content = h('div', propsData, slotContent)
+
+      const directives: DirectiveArguments = [
         [vShow, isActive.value],
         [resize, onResize],
+        [clickOutside, directive.value],
       ]
-
-      if (props.closeOnClick) directives.push([clickOutside, directive.value])
 
       return withDirectives(content, directives)
     }

@@ -1,1 +1,1 @@
-export * from './VTextField'
+export { VTextField } from './VTextField'

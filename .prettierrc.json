@@ -1,8 +1,0 @@
-{
-  "max-line-length": 120,
-  "jsRules": {},
-  "singleQuote": true,
-  "semi": false,
-  "bracketSpacing": true,
-  "overrides": []
-}

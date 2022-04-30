@@ -1,20 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`VList should mount component and match snapshot 1`] = `
-<div class="v-list">
-  <div class="v-list-group v-list-group--light">
-    <transition-stub>
-      <div class="v-list-group__items"
-           style="display: none;"
-      >
-        <div class="v-list-item">
-          first
-        </div>
-        <div class="v-list-item">
-          second
-        </div>
-      </div>
-    </transition-stub>
+<div class="v-list white">
+  <div class="v-list-item">
+    first
+  </div>
+  <div class="v-list-item">
+    second
   </div>
 </div>
 `;

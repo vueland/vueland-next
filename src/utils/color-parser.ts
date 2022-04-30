@@ -1,3 +1,3 @@
-export function isCssColor(color?: string | false): boolean {
-  return !!color && !!color.match(/^(#|var\(--|(rgb|hsl)a?\()/);
+export function isCssColor(color: string): boolean {
+  return !!color.match(/^(#|var\(--|(rgb|hsl)a?\()/);
 }

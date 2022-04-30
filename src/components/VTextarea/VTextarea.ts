@@ -1,6 +1,3 @@
-// Styles
-import './VTextarea.scss'
-
 // Vue API
 import { h, defineComponent } from 'vue'
 

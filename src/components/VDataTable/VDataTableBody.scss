@@ -15,7 +15,7 @@
   border-bottom: thin solid rgba(0, 0, 0, .2);
 
   &-number {
-    position: sticky;
+    position: sticky !important;
     left: 0;
     z-index: 8;
   }

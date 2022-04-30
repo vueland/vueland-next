@@ -1,73 +1,37 @@
-// Vue API
-import { h, computed, defineComponent } from 'vue'
+import { defineComponent, h, computed } from 'vue'
+import { useColors, colorProps } from '../../composable/use-colors'
 
-// Helpers
-import { convertToUnit } from '../../helpers'
-
-// Effects
-import { colorProps, useColors } from '../../effects/use-colors'
-
-// Types
-import { VNode } from 'vue'
-
-// @ts-ignore
 export const VLabel = defineComponent({
   name: 'v-label',
-
   props: {
-    absolute: Boolean,
     disabled: Boolean,
     focused: Boolean,
-    onField: Boolean,
-    left: {
-      type: [Number, String],
-      default: 0,
-    },
-    right: {
-      type: [Number, String],
-      default: 'auto',
-    },
-    hasState: Boolean,
     ...colorProps(),
-  } as any,
+  },
+  setup(props, { slots }) {
+    const { setTextClassNameColor, setTextCssColor } = useColors()
 
-  setup(props, { slots }): () => VNode {
-    const { setTextColor } = useColors()
+    const classes = computed<Record<string, boolean>>(() => ({
+      'v-label': true,
+      'v-label--disabled': props.disabled,
+      'v-label--focused': props.focused,
+      ...(!props.disabled ? setTextClassNameColor(props.color) : {}),
+    }))
 
-    const isActive = computed<boolean>(() => {
-      return !!props.hasState || !!props.focused
-    })
+    const styles = computed<Record<string, string>>(() => ({
+      ...(!props.disabled ? setTextCssColor(props.color) : {}),
+    }))
 
-    const classes = computed<Record<string, boolean>>(
-      () =>
-        ({
-          'v-label': true,
-          'v-label--active': isActive.value,
-          'v-label--has-state': props.hasState,
-          'v-label--on-field': props.onField,
-          'v-label--is-disabled': !!props.disabled,
-        } as any)
-    )
-
-    function genPropsData(): Record<string, any> {
-      return {
-        class: classes.value,
-        style: {
-          left: convertToUnit(props.left),
-          right: convertToUnit(props.right),
-          position: props.absolute ? 'absolute' : 'relative',
-        },
-      }
-    }
-
-    return (): VNode => {
-      const propsData = genPropsData()
-
-      return h(
+    return () =>
+      h(
         'label',
-        props.color ? setTextColor(props.color!, propsData) : propsData,
-        slots.default && slots.default()
+        {
+          class: classes.value,
+          style: styles.value,
+        },
+        {
+          default: () => slots.default && slots.default(),
+        }
       )
-    }
   },
 })

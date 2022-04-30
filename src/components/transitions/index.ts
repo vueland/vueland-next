@@ -1,9 +1,5 @@
-import { createVTransition } from "./create-transition";
+import { createTransition } from './helpers'
 
-import { expandHooks } from "./expand-transition";
-import { fadeHooks } from "./fade-transition";
+import { expandHooks } from './expand-transition'
 
-export const VExpandTransition = createVTransition(
-  expandHooks("expand-transition")
-);
-export const VFadeTransition = createVTransition(fadeHooks("fade-transition"));
+export const ExpandTransition = createTransition(expandHooks('expand-transition'))

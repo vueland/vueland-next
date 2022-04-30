@@ -12,6 +12,8 @@ const init: InitialStyles = {
   width: 0
 }
 
+const PRIMARY_TRANSITION = 'cubic-bezier(.25, .8, .5, 1)'
+
 const resetStyles = (el) => {
   el.style[init.propSize] = ''
   el.style.transition = ''
@@ -21,13 +23,14 @@ const getChildrenSizes = (el) => {
   return Array.prototype.reduce.call(
     el.children,
     (acc: number, it: HTMLElement) => {
-      const height = getComputedStyle(it)[init.propSize]
+      const size = getComputedStyle(it)[init.propSize]
 
-      return (acc += parseFloat(height))
+      return (acc += parseFloat(size))
     }, 0) as number
 }
 
-const setInitStyles = (el) => {
+const setInitStyles = (el,x) => {
+  init.propSize = x ? 'width' : 'height'
   init.transition = getComputedStyle(el).transition
   init[init.propSize] = getChildrenSizes(el)
 }
@@ -38,14 +41,13 @@ export const expandHooks = (
 ) => {
   return {
     onBeforeEnter(el) {
-      init.propSize = x ? 'width' : 'height'
       el.style.transition = ''
     },
 
     onEnter(el) {
-      setInitStyles(el)
+      setInitStyles(el, x)
       el.style[init.propSize] = '0'
-      el.style.transition = init.transition
+      el.style.transition = `.2s ${ init.propSize } ${ PRIMARY_TRANSITION }`
 
       requestAnimationFrame(() => {
         el.style[init.propSize] = `${ init[init.propSize] }px`
@@ -62,11 +64,13 @@ export const expandHooks = (
     },
 
     onBeforeLeave(el) {
-      setInitStyles(el)
+      setInitStyles(el, x)
     },
 
     onLeave(el) {
-      el.style.transition = init.transition
+      setInitStyles(el, x)
+
+      el.style.transition = `.2s ${ init.propSize } ${ PRIMARY_TRANSITION }`
       el.style[init.propSize] = `${ init[init.propSize] }px`
       requestAnimationFrame(() => (el.style[init.propSize] = '0'))
     },

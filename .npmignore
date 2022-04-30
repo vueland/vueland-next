@@ -10,7 +10,7 @@ node_modules
 .editorconfig
 .eslintrc
 
-babel.config.js
+.babelrc
 jest.config.js
 postcss.config.js
 tsconfig.dist.json

@@ -2,9 +2,9 @@
 import { computed, defineComponent, h, provide, reactive, ref } from 'vue'
 
 // Effects
-import { useColors } from '../../effects/use-colors'
-import { elevationProps, useElevation } from '../../effects/use-elevation'
-import { useTransition } from '../../effects/use-transition'
+import { useColors } from '../../composable/use-colors'
+import { elevationProps, useElevation } from '../../composable/use-elevation'
+import { useTransition } from '../../composable/use-transition'
 
 // Components
 import { VTextField } from '../VTextField'
@@ -24,6 +24,7 @@ import { formatDate } from './utils'
 // Types
 import { VNode } from 'vue'
 import { DatePickerBtnHandlers, DatePickerDate } from '../../../types'
+import { Maybe } from '../../../types/base'
 
 // Services
 import { locale } from '../../services/locale'
@@ -99,7 +100,12 @@ export const VDatePicker = defineComponent({
       isActive: false,
     })
 
-    const { setTextColor, setBackground } = useColors()
+    const {
+      setTextClassNameColor,
+      setTextCssColor,
+      setBackgroundClassNameColor,
+      setBackgroundCssColor,
+    } = useColors()
     const { elevationClasses } = useElevation(props)
 
     const localeMonths: string[] = locale[props.lang].monthsAbbr
@@ -107,7 +113,7 @@ export const VDatePicker = defineComponent({
     const contentColor: string = props.dark ? 'white' : props.contentColor
 
     const handlers = ref<DatePickerBtnHandlers>({})
-    const activator = ref<VNode | null>(null)
+    const activator = ref<Maybe<VNode>>(null)
     const closeConditional = ref<boolean>(false)
 
     provide('handlers', handlers)
@@ -121,6 +127,13 @@ export const VDatePicker = defineComponent({
     const tableClasses = computed<Record<string, boolean>>(() => ({
       'v-date-picker__table': true,
       ...elevationClasses.value,
+      ...(props.color ? setBackgroundClassNameColor(props.color) : {}),
+      ...(contentColor ? setTextClassNameColor(contentColor) : {}),
+    }))
+
+    const tableStyles = computed(() => ({
+      ...(props.color ? setBackgroundCssColor(props.color) : {}),
+      ...(contentColor ? setTextCssColor(contentColor) : {}),
     }))
 
     const headerValue = computed<string>(() => {
@@ -217,6 +230,7 @@ export const VDatePicker = defineComponent({
       emit('update:value', computedValue.value)
       emit('update:modelValue', computedValue.value)
       emit('selected', computedValue.value)
+
       requestAnimationFrame(() => (closeConditional.value = false))
     }
 
@@ -279,17 +293,19 @@ export const VDatePicker = defineComponent({
     }
 
     function genDatepickerDisplay(): VNode {
-      const propsData = setBackground(props.contentColor, {
+      const propsData = {
         class: {
           'v-date-picker__display': true,
+          ...(contentColor ? setBackgroundClassNameColor(contentColor) : {}),
+          ...(props.color ? setTextClassNameColor(props.color) : {}),
         },
-      })
+        style: {
+          ...(contentColor ? setBackgroundCssColor(contentColor) : {}),
+          ...(props.color ? setTextCssColor(props.color) : {}),
+        },
+      }
 
-      return h(
-        'div',
-        setTextColor(props.color, propsData),
-        genDatepickerDisplayInner()
-      )
+      return h('div', propsData, genDatepickerDisplayInner())
     }
 
     function genDatepickerHeader(): VNode {
@@ -367,7 +383,7 @@ export const VDatePicker = defineComponent({
 
     function genDatepickerInput(): VNode {
       return h(VTextField, {
-        value: data.convertedDateString,
+        modelValue: data.convertedDateString!,
         dark: props.dark,
         label: props.label,
         readonly: !props.typeable,
@@ -387,11 +403,12 @@ export const VDatePicker = defineComponent({
     }
 
     function genDatepickerTable(): VNode {
-      const propsData = setBackground(props.color, {
+      const propsData = {
         class: tableClasses.value,
-      })
+        style: tableStyles.value,
+      }
 
-      return h('div', setTextColor(contentColor, propsData), [
+      return h('div', propsData, [
         genDatepickerDisplay(),
         genDatepickerHeader(),
         genDatepickerBody(),
@@ -404,12 +421,12 @@ export const VDatePicker = defineComponent({
         {
           activator: activator.value!,
           internalActivator: true,
-          inputActivator: '.v-text-field__input',
+          inputActivator: '.v-input__text-field',
           width: 'auto',
           maxHeight: 'auto',
           bottom: props.typeable,
           openOnClick: true,
-          // closeOnClick: closeConditional.value,
+          closeOnClick: closeConditional.value,
         },
         {
           default: () => genDatepickerTable(),

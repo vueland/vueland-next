@@ -1,1 +1,1 @@
-export * from './VCheckbox'
+export { VCheckbox } from './VCheckbox'

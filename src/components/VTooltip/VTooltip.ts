@@ -1,6 +1,3 @@
-// Styles
-import './VTooltip.scss'
-
 // Vue API
 import {
   h,
@@ -15,12 +12,12 @@ import {
 } from 'vue'
 
 // Effects
-import { useToggle } from '../../effects/use-toggle'
-import { useColors } from '../../effects/use-colors'
-import { useActivator } from '../../effects/use-activator'
-import { useTransition } from '../../effects/use-transition'
-import { elevationProps, useElevation } from '../../effects/use-elevation'
-import { positionProps } from '../../effects/use-position'
+import { useToggle } from '../../composable/use-toggle'
+import { useColors } from '../../composable/use-colors'
+import { useActivator } from '../../composable/use-activator'
+import { useTransition } from '../../composable/use-transition'
+import { elevationProps, useElevation } from '../../composable/use-elevation'
+import { positionProps } from '../../composable/use-position'
 
 // Types
 import { OffsetSizes } from '../../../types'
@@ -70,9 +67,9 @@ export const VTooltip = defineComponent({
 
     const { isActive } = useToggle(props)
     const { elevationClasses } = useElevation(props)
-    const { setBackground } = useColors()
+    const { setBackgroundClassNameColor, setBackgroundCssColor } = useColors()
     const { activatorRef, getActivatorSizes, genActivatorListeners } =
-      useActivator()
+      useActivator(props)
 
     const handlers = {
       mouseenter: () => (isActive.value = true),
@@ -88,6 +85,7 @@ export const VTooltip = defineComponent({
       'v-tooltip--left': props.left,
       'v-tooltip--bottom': props.bottom,
       ...elevationClasses.value,
+      ...(props.color ? setBackgroundClassNameColor(props.color) : {}),
     }))
 
     const computeTopPosition = computed<number>(() => {
@@ -114,10 +112,11 @@ export const VTooltip = defineComponent({
 
     const styles = computed<Record<string, string>>(() => ({
       top: tooltip.top ? (convertToUnit(tooltip.top) as string) : '',
-      left: tooltip.top ? (convertToUnit(tooltip.left) as string) : '',
+      left: tooltip.top ? (convertToUnit(tooltip.left!) as string) : '',
       maxWidth: !!props.maxWidth ? `${props.maxWidth}px` : '',
       minWidth: !!props.minWidth ? `${props.minWidth}px` : '',
       zIndex: props.zIndex,
+      ...(props.color ? setBackgroundCssColor(props.color) : {}),
     }))
 
     function genActivator(): VNode | null {
@@ -138,11 +137,7 @@ export const VTooltip = defineComponent({
       }
 
       return withDirectives(
-        h(
-          'span',
-          setBackground(props.color, propsData),
-          slots.default && slots.default()
-        ),
+        h('span', propsData, slots.default && slots.default()),
         [[vShow, isActive.value]]
       )
     }

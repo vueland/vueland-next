@@ -2,7 +2,7 @@
 import { h, watch, computed, defineComponent, reactive } from 'vue'
 
 // Effects
-import { useColors } from '../../effects/use-colors'
+import { useColors } from '../../composable/use-colors'
 // import { useTheme } from '../../effects/use-theme'
 
 // Components
@@ -85,12 +85,17 @@ export const VDataTable = defineComponent({
       isAllRowsChecked: false,
     })
 
-    const { setBackground } = useColors()
+    const { setBackgroundCssColor, setBackgroundClassNameColor } = useColors()
 
     const filters = {}
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-data-table': true,
+      ...(props.color ? setBackgroundClassNameColor(props.color) : {}),
+    }))
+
+    const styles = computed(() => ({
+      ...(props.color ? setBackgroundCssColor(props.color) : {}),
     }))
 
     const headerOptions = computed<HeaderOptions>(() => ({
@@ -353,9 +358,10 @@ export const VDataTable = defineComponent({
     return () => {
       const propsData = {
         class: classes.value,
+        style: styles.value,
       }
 
-      return h('div', setBackground(props.color, propsData), [
+      return h('div', propsData, [
         slots.toolbar && genTableTools(),
         genTableInner(),
         genTableFooter(),

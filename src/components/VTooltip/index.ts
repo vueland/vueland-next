@@ -1,1 +1,1 @@
-export * from './VTooltip'
+export { VTooltip } from './VTooltip'

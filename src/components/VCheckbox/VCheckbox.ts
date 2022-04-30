@@ -1,9 +1,18 @@
 // Vue API
-import { h, ref, watch, computed, defineComponent, inject } from 'vue'
+import {
+  h,
+  ref,
+  watch,
+  defineComponent,
+  inject,
+  computed,
+  onBeforeMount,
+  onBeforeUnmount,
+} from 'vue'
 
 // Effects
-import { useValidate } from '../../effects/use-validate'
-import { useIcons } from '../../effects/use-icons'
+import { useValidation } from '../../composable/use-validation'
+import { useIcons } from '../../composable/use-icons'
 
 // Components
 import { VIcon } from '../VIcon'
@@ -13,7 +22,7 @@ import { VLabel } from '../VLabel'
 import { warning } from '../../helpers'
 
 // Types
-import { VNode, Ref } from 'vue'
+import { VNode } from 'vue'
 
 export const VCheckbox = defineComponent({
   name: 'v-checkbox',
@@ -40,10 +49,10 @@ export const VCheckbox = defineComponent({
   emits: ['checked', 'update:modelValue'],
   setup(props, { emit }): () => VNode {
     const isChecked = ref(false)
-    const fields: Ref<any[]> | undefined = props.validate && inject('fields')
+    const form: any = inject('form', null)
 
-    const { validate, validationState } = useValidate(props)
-    const { icons, iconSize } = useIcons('l')
+    const { validate } = useValidation(props)
+    const { icons } = useIcons()
 
     const isArray = computed<boolean>(() => Array.isArray(props.modelValue))
     const isValueSet = computed<boolean>(() => props.value !== null)
@@ -68,23 +77,18 @@ export const VCheckbox = defineComponent({
           isChecked.value = !!props.modelValue
         }
       },
-      { immediate: true }
+      { immediate: true },
     )
 
-    if (fields?.value) {
-      fields!.value.push(validateValue)
-    }
-
-    function validateValue(): boolean | void {
+    const validateValue = (): boolean | void => {
       return validate(isChecked.value)
     }
 
-    function genLabel(): VNode {
+    const genLabel = (): VNode => {
       const propsData = {
         absolute: false,
         color: props.dark ? 'white' : '',
         disabled: props.disabled,
-        class: 'v-checkbox__label',
       }
 
       return h(VLabel, propsData, {
@@ -92,30 +96,33 @@ export const VCheckbox = defineComponent({
       })
     }
 
-    function genIcon(): VNode {
+    const genLabelWrapper = () => {
+      return h('div', {
+        class: 'v-checkbox__label',
+      }, genLabel())
+    }
+
+    const genIcon = (): VNode => {
       const onIcon = props.onIcon || icons.$checkOn
       const offIcon = props.offIcon || icons.$checkOff
       const icon = isChecked.value ? onIcon : offIcon
 
       const propsData = {
         icon,
-        size: iconSize,
-        color: validationState.value,
+        color: props.color,
         disabled: props.disabled,
       }
 
       return h(VIcon, propsData)
     }
 
-    function genCheckbox(): VNode {
-      const propsData = {
+    const genCheckbox = (): VNode => {
+      return h('div', {
         class: 'v-checkbox__square',
-      }
-
-      return h('div', propsData, genIcon())
+      }, genIcon())
     }
 
-    function computeValue(): boolean | any[] {
+    const computeValue = (): boolean | any[] => {
       if (isArray.value) {
         let modelValue = [...props.modelValue]
         isChecked.value = !modelValue.includes(props.value)
@@ -132,7 +139,7 @@ export const VCheckbox = defineComponent({
       return (isChecked.value = !isChecked.value)
     }
 
-    function onClick() {
+    const onClick = () => {
       if (props.disabled) return
       const value = computeValue()
 
@@ -141,13 +148,17 @@ export const VCheckbox = defineComponent({
       emit('checked', value)
     }
 
-    return (): VNode => {
-      const dataProps = {
-        class: classes.value,
-        onClick,
-      }
+    onBeforeMount(() => {
+      if (form) form!.add(validateValue)
+    })
 
-      return h('div', dataProps, [genCheckbox(), props.label && genLabel()])
-    }
+    onBeforeUnmount(() => {
+      form?.remove(validateValue)
+    })
+
+    return (): VNode => h('div',
+      { class: classes.value, onClick },
+      [genCheckbox(), props.label && genLabelWrapper()],
+    )
   },
 })

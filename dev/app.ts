@@ -1,12 +1,12 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import Vueland from '../src'
-import colors from '../src/utils/colors'
+import colors from '../src/services/colors'
 import '../src/styles/scss/main.scss'
-import '../src/styles/scss/themes/material-theme.scss'
+import '../src/styles/scss/themes/vueland-theme.scss'
 
 new Vueland({
-  icons: 'material-icons',
+  icons: 'fa',
   theme: {
     dark: false,
     themes: {

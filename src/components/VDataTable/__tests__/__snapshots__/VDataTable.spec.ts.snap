@@ -8,7 +8,7 @@ exports[`VDataTable should mount component and match snapshot 1`] = `
          dark="false"
     >
     </div>
-    <div class="v-data-table__body">
+    <div class="v-data-table__body white">
     </div>
   </div>
   <div class="v-data-table__footer white"
@@ -19,27 +19,16 @@ exports[`VDataTable should mount component and match snapshot 1`] = `
         <span class="v-data-table__pagination-label">
           Rows per page
         </span>
-        <div class="v-input">
-          <div class="v-input__slot primary--text">
-            <div class="v-input__field-slot">
-              <label class="v-label v-label--active v-label--has-state v-label--on-field primary--text"
-                     style="left: 0px; position: absolute;"
+        <div class="v-input v-input--primary">
+          <div class="v-input__text-field">
+            <div class="v-select">
+              <input class="v-select__input"
+                     type="text"
+                     readonly
               >
-              </label>
-              <div class="v-select">
-                <input class="v-select__input"
-                       style="color: rgb(33, 33, 33); caret-color: #212121;"
-                >
-                <div class="v-menu">
-                </div>
-                <transition-stub>
-                </transition-stub>
-              </div>
             </div>
-            <div class="v-input__status">
-              <transition-stub>
-              </transition-stub>
-            </div>
+          </div>
+          <div class="v-input__selects">
           </div>
         </div>
       </div>
@@ -47,12 +36,12 @@ exports[`VDataTable should mount component and match snapshot 1`] = `
         -
       </div>
       <div class="v-data-table__pagination-route">
-        <button class="v-button v-button--disabled"
+        <button class="v-button v-button--disabled primary"
                 style="width: 42px;"
         >
           <div class="v-button__content">
             <i class="v-icon fas fa-chevron-left"
-               style="font-size: 12px;"
+               style="font-size: 16px;"
             >
             </i>
           </div>
@@ -64,12 +53,12 @@ exports[`VDataTable should mount component and match snapshot 1`] = `
             1
           </div>
         </button>
-        <button class="v-button v-button--disabled"
+        <button class="v-button v-button--disabled primary"
                 style="width: 42px;"
         >
           <div class="v-button__content">
             <i class="v-icon fas fa-chevron-right"
-               style="font-size: 12px;"
+               style="font-size: 16px;"
             >
             </i>
           </div>
@@ -95,50 +84,7 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
             Name
           </div>
           <span class="v-data-table-col__actions">
-            <button class="v-icon v-icon--link v-icon--clickable fas fa-align-justify v-data-table-col__actions-filter"
-                    style="font-size: 14px;"
-            >
-            </button>
           </span>
-          <div class="v-data-table-col__filter elevation-5 white"
-               style="display: none;"
-          >
-            <div class="v-input">
-              <div class="v-input__slot primary--text">
-                <div class="v-input__field-slot">
-                  <div class="v-input__prepend-icon">
-                    <i class="v-icon fas fa-search primary--text"
-                       style="font-size: 18px;"
-                       dark="false"
-                    >
-                    </i>
-                  </div>
-                  <div class="v-input__clear">
-                    <button class="v-icon v-icon--link v-icon--clickable fas fa-times primary--text"
-                            style="font-size: 18px;"
-                            dark="false"
-                    >
-                    </button>
-                  </div>
-                  <label class="v-label v-label--on-field primary--text"
-                         style="left: 0px; position: absolute;"
-                  >
-                    search
-                  </label>
-                  <div class="v-text-field">
-                    <input class="v-text-field__input"
-                           type="text"
-                           style="color: rgb(33, 33, 33); caret-color: #212121;"
-                    >
-                  </div>
-                </div>
-                <div class="v-input__status">
-                  <transition-stub>
-                  </transition-stub>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
       <div class="v-data-table__cell white v-data-table-col"
@@ -164,7 +110,7 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
         </div>
       </div>
     </div>
-    <div class="v-data-table__body">
+    <div class="v-data-table__body white">
       <div class="v-data-table__row">
         <div class="v-data-table__cell"
              style="width: 125px;"
@@ -689,27 +635,16 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
         <span class="v-data-table__pagination-label">
           Rows per page
         </span>
-        <div class="v-input">
-          <div class="v-input__slot primary--text">
-            <div class="v-input__field-slot">
-              <label class="v-label v-label--active v-label--has-state v-label--on-field primary--text"
-                     style="left: 0px; position: absolute;"
+        <div class="v-input v-input--primary">
+          <div class="v-input__text-field">
+            <div class="v-select">
+              <input class="v-select__input"
+                     type="text"
+                     readonly
               >
-              </label>
-              <div class="v-select">
-                <input class="v-select__input"
-                       style="color: rgb(33, 33, 33); caret-color: #212121;"
-                >
-                <div class="v-menu">
-                </div>
-                <transition-stub>
-                </transition-stub>
-              </div>
             </div>
-            <div class="v-input__status">
-              <transition-stub>
-              </transition-stub>
-            </div>
+          </div>
+          <div class="v-input__selects">
           </div>
         </div>
       </div>
@@ -718,12 +653,12 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
         of 20
       </div>
       <div class="v-data-table__pagination-route">
-        <button class="v-button v-button--disabled"
+        <button class="v-button v-button--disabled primary"
                 style="width: 42px;"
         >
           <div class="v-button__content">
             <i class="v-icon fas fa-chevron-left"
-               style="font-size: 12px;"
+               style="font-size: 16px;"
             >
             </i>
           </div>
@@ -735,12 +670,12 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
             1
           </div>
         </button>
-        <button class="v-button v-button--disabled"
+        <button class="v-button v-button--disabled primary"
                 style="width: 42px;"
         >
           <div class="v-button__content">
             <i class="v-icon fas fa-chevron-right"
-               style="font-size: 12px;"
+               style="font-size: 16px;"
             >
             </i>
           </div>
@@ -766,50 +701,7 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
             Name
           </div>
           <span class="v-data-table-col__actions">
-            <button class="v-icon v-icon--link v-icon--clickable fas fa-align-justify v-data-table-col__actions-filter"
-                    style="font-size: 14px;"
-            >
-            </button>
           </span>
-          <div class="v-data-table-col__filter elevation-5 white"
-               style="display: none;"
-          >
-            <div class="v-input">
-              <div class="v-input__slot primary--text">
-                <div class="v-input__field-slot">
-                  <div class="v-input__prepend-icon">
-                    <i class="v-icon fas fa-search primary--text"
-                       style="font-size: 18px;"
-                       dark="false"
-                    >
-                    </i>
-                  </div>
-                  <div class="v-input__clear">
-                    <button class="v-icon v-icon--link v-icon--clickable fas fa-times primary--text"
-                            style="font-size: 18px;"
-                            dark="false"
-                    >
-                    </button>
-                  </div>
-                  <label class="v-label v-label--on-field primary--text"
-                         style="left: 0px; position: absolute;"
-                  >
-                    search
-                  </label>
-                  <div class="v-text-field">
-                    <input class="v-text-field__input"
-                           type="text"
-                           style="color: rgb(33, 33, 33); caret-color: #212121;"
-                    >
-                  </div>
-                </div>
-                <div class="v-input__status">
-                  <transition-stub>
-                  </transition-stub>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
       <div class="v-data-table__cell white v-data-table-col"
@@ -835,7 +727,7 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
         </div>
       </div>
     </div>
-    <div class="v-data-table__body">
+    <div class="v-data-table__body white">
       <div class="v-data-table__row">
         <div class="v-data-table__cell"
              style="width: 125px;"
@@ -1360,27 +1252,16 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
         <span class="v-data-table__pagination-label">
           Rows per page
         </span>
-        <div class="v-input">
-          <div class="v-input__slot primary--text">
-            <div class="v-input__field-slot">
-              <label class="v-label v-label--active v-label--has-state v-label--on-field primary--text"
-                     style="left: 0px; position: absolute;"
+        <div class="v-input v-input--primary">
+          <div class="v-input__text-field">
+            <div class="v-select">
+              <input class="v-select__input"
+                     type="text"
+                     readonly
               >
-              </label>
-              <div class="v-select">
-                <input class="v-select__input"
-                       style="color: rgb(33, 33, 33); caret-color: #212121;"
-                >
-                <div class="v-menu">
-                </div>
-                <transition-stub>
-                </transition-stub>
-              </div>
             </div>
-            <div class="v-input__status">
-              <transition-stub>
-              </transition-stub>
-            </div>
+          </div>
+          <div class="v-input__selects">
           </div>
         </div>
       </div>
@@ -1389,12 +1270,12 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
         of 20
       </div>
       <div class="v-data-table__pagination-route">
-        <button class="v-button v-button--disabled"
+        <button class="v-button v-button--disabled primary"
                 style="width: 42px;"
         >
           <div class="v-button__content">
             <i class="v-icon fas fa-chevron-left"
-               style="font-size: 12px;"
+               style="font-size: 16px;"
             >
             </i>
           </div>
@@ -1406,12 +1287,12 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
             1
           </div>
         </button>
-        <button class="v-button v-button--disabled"
+        <button class="v-button v-button--disabled primary"
                 style="width: 42px;"
         >
           <div class="v-button__content">
             <i class="v-icon fas fa-chevron-right"
-               style="font-size: 12px;"
+               style="font-size: 16px;"
             >
             </i>
           </div>
@@ -1437,50 +1318,7 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
             Name
           </div>
           <span class="v-data-table-col__actions">
-            <button class="v-icon v-icon--link v-icon--clickable fas fa-align-justify v-data-table-col__actions-filter"
-                    style="font-size: 14px;"
-            >
-            </button>
           </span>
-          <div class="v-data-table-col__filter elevation-5 white"
-               style="display: none;"
-          >
-            <div class="v-input">
-              <div class="v-input__slot primary--text">
-                <div class="v-input__field-slot">
-                  <div class="v-input__prepend-icon">
-                    <i class="v-icon fas fa-search primary--text"
-                       style="font-size: 18px;"
-                       dark="false"
-                    >
-                    </i>
-                  </div>
-                  <div class="v-input__clear">
-                    <button class="v-icon v-icon--link v-icon--clickable fas fa-times primary--text"
-                            style="font-size: 18px;"
-                            dark="false"
-                    >
-                    </button>
-                  </div>
-                  <label class="v-label v-label--on-field primary--text"
-                         style="left: 0px; position: absolute;"
-                  >
-                    search
-                  </label>
-                  <div class="v-text-field">
-                    <input class="v-text-field__input"
-                           type="text"
-                           style="color: rgb(33, 33, 33); caret-color: #212121;"
-                    >
-                  </div>
-                </div>
-                <div class="v-input__status">
-                  <transition-stub>
-                  </transition-stub>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
       <div class="v-data-table__cell white v-data-table-col"
@@ -1506,7 +1344,7 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
         </div>
       </div>
     </div>
-    <div class="v-data-table__body">
+    <div class="v-data-table__body white">
       <div class="v-data-table__row">
         <div class="v-data-table__cell"
              style="width: 125px;"
@@ -2031,27 +1869,16 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
         <span class="v-data-table__pagination-label">
           Rows per page
         </span>
-        <div class="v-input">
-          <div class="v-input__slot primary--text">
-            <div class="v-input__field-slot">
-              <label class="v-label v-label--active v-label--has-state v-label--on-field primary--text"
-                     style="left: 0px; position: absolute;"
+        <div class="v-input v-input--primary">
+          <div class="v-input__text-field">
+            <div class="v-select">
+              <input class="v-select__input"
+                     type="text"
+                     readonly
               >
-              </label>
-              <div class="v-select">
-                <input class="v-select__input"
-                       style="color: rgb(33, 33, 33); caret-color: #212121;"
-                >
-                <div class="v-menu">
-                </div>
-                <transition-stub>
-                </transition-stub>
-              </div>
             </div>
-            <div class="v-input__status">
-              <transition-stub>
-              </transition-stub>
-            </div>
+          </div>
+          <div class="v-input__selects">
           </div>
         </div>
       </div>
@@ -2060,12 +1887,12 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
         of 20
       </div>
       <div class="v-data-table__pagination-route">
-        <button class="v-button v-button--disabled"
+        <button class="v-button v-button--disabled primary"
                 style="width: 42px;"
         >
           <div class="v-button__content">
             <i class="v-icon fas fa-chevron-left"
-               style="font-size: 12px;"
+               style="font-size: 16px;"
             >
             </i>
           </div>
@@ -2077,12 +1904,12 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
             1
           </div>
         </button>
-        <button class="v-button v-button--disabled"
+        <button class="v-button v-button--disabled primary"
                 style="width: 42px;"
         >
           <div class="v-button__content">
             <i class="v-icon fas fa-chevron-right"
-               style="font-size: 12px;"
+               style="font-size: 16px;"
             >
             </i>
           </div>
@@ -2101,7 +1928,7 @@ exports[`VDataTable should test color prop and match snapshot 1`] = `
          dark="false"
     >
     </div>
-    <div class="v-data-table__body">
+    <div class="v-data-table__body grey darken-3">
     </div>
   </div>
   <div class="v-data-table__footer grey darken-3"
@@ -2112,27 +1939,16 @@ exports[`VDataTable should test color prop and match snapshot 1`] = `
         <span class="v-data-table__pagination-label">
           Rows per page
         </span>
-        <div class="v-input">
-          <div class="v-input__slot primary--text">
-            <div class="v-input__field-slot">
-              <label class="v-label v-label--active v-label--has-state v-label--on-field primary--text"
-                     style="left: 0px; position: absolute;"
+        <div class="v-input v-input--primary">
+          <div class="v-input__text-field">
+            <div class="v-select">
+              <input class="v-select__input"
+                     type="text"
+                     readonly
               >
-              </label>
-              <div class="v-select">
-                <input class="v-select__input"
-                       style="color: rgb(33, 33, 33); caret-color: #212121;"
-                >
-                <div class="v-menu">
-                </div>
-                <transition-stub>
-                </transition-stub>
-              </div>
             </div>
-            <div class="v-input__status">
-              <transition-stub>
-              </transition-stub>
-            </div>
+          </div>
+          <div class="v-input__selects">
           </div>
         </div>
       </div>
@@ -2140,12 +1956,12 @@ exports[`VDataTable should test color prop and match snapshot 1`] = `
         -
       </div>
       <div class="v-data-table__pagination-route">
-        <button class="v-button v-button--disabled"
+        <button class="v-button v-button--disabled primary"
                 style="width: 42px;"
         >
           <div class="v-button__content">
             <i class="v-icon fas fa-chevron-left"
-               style="font-size: 12px;"
+               style="font-size: 16px;"
             >
             </i>
           </div>
@@ -2157,12 +1973,12 @@ exports[`VDataTable should test color prop and match snapshot 1`] = `
             1
           </div>
         </button>
-        <button class="v-button v-button--disabled"
+        <button class="v-button v-button--disabled primary"
                 style="width: 42px;"
         >
           <div class="v-button__content">
             <i class="v-icon fas fa-chevron-right"
-               style="font-size: 12px;"
+               style="font-size: 16px;"
             >
             </i>
           </div>
@@ -2188,50 +2004,7 @@ exports[`VDataTable should test cols prop and match snapshot 1`] = `
             Name
           </div>
           <span class="v-data-table-col__actions">
-            <button class="v-icon v-icon--link v-icon--clickable fas fa-align-justify v-data-table-col__actions-filter"
-                    style="font-size: 14px;"
-            >
-            </button>
           </span>
-          <div class="v-data-table-col__filter elevation-5 white"
-               style="display: none;"
-          >
-            <div class="v-input">
-              <div class="v-input__slot primary--text">
-                <div class="v-input__field-slot">
-                  <div class="v-input__prepend-icon">
-                    <i class="v-icon fas fa-search primary--text"
-                       style="font-size: 18px;"
-                       dark="false"
-                    >
-                    </i>
-                  </div>
-                  <div class="v-input__clear">
-                    <button class="v-icon v-icon--link v-icon--clickable fas fa-times primary--text"
-                            style="font-size: 18px;"
-                            dark="false"
-                    >
-                    </button>
-                  </div>
-                  <label class="v-label v-label--on-field primary--text"
-                         style="left: 0px; position: absolute;"
-                  >
-                    search
-                  </label>
-                  <div class="v-text-field">
-                    <input class="v-text-field__input"
-                           type="text"
-                           style="color: rgb(33, 33, 33); caret-color: #212121;"
-                    >
-                  </div>
-                </div>
-                <div class="v-input__status">
-                  <transition-stub>
-                  </transition-stub>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
       <div class="v-data-table__cell white v-data-table-col"
@@ -2257,7 +2030,7 @@ exports[`VDataTable should test cols prop and match snapshot 1`] = `
         </div>
       </div>
     </div>
-    <div class="v-data-table__body">
+    <div class="v-data-table__body white">
     </div>
   </div>
   <div class="v-data-table__footer white"
@@ -2268,27 +2041,16 @@ exports[`VDataTable should test cols prop and match snapshot 1`] = `
         <span class="v-data-table__pagination-label">
           Rows per page
         </span>
-        <div class="v-input">
-          <div class="v-input__slot primary--text">
-            <div class="v-input__field-slot">
-              <label class="v-label v-label--active v-label--has-state v-label--on-field primary--text"
-                     style="left: 0px; position: absolute;"
+        <div class="v-input v-input--primary">
+          <div class="v-input__text-field">
+            <div class="v-select">
+              <input class="v-select__input"
+                     type="text"
+                     readonly
               >
-              </label>
-              <div class="v-select">
-                <input class="v-select__input"
-                       style="color: rgb(33, 33, 33); caret-color: #212121;"
-                >
-                <div class="v-menu">
-                </div>
-                <transition-stub>
-                </transition-stub>
-              </div>
             </div>
-            <div class="v-input__status">
-              <transition-stub>
-              </transition-stub>
-            </div>
+          </div>
+          <div class="v-input__selects">
           </div>
         </div>
       </div>
@@ -2296,12 +2058,12 @@ exports[`VDataTable should test cols prop and match snapshot 1`] = `
         -
       </div>
       <div class="v-data-table__pagination-route">
-        <button class="v-button v-button--disabled"
+        <button class="v-button v-button--disabled primary"
                 style="width: 42px;"
         >
           <div class="v-button__content">
             <i class="v-icon fas fa-chevron-left"
-               style="font-size: 12px;"
+               style="font-size: 16px;"
             >
             </i>
           </div>
@@ -2313,12 +2075,12 @@ exports[`VDataTable should test cols prop and match snapshot 1`] = `
             1
           </div>
         </button>
-        <button class="v-button v-button--disabled"
+        <button class="v-button v-button--disabled primary"
                 style="width: 42px;"
         >
           <div class="v-button__content">
             <i class="v-icon fas fa-chevron-right"
-               style="font-size: 12px;"
+               style="font-size: 16px;"
             >
             </i>
           </div>
@@ -2344,54 +2106,11 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
             Name
           </div>
           <span class="v-data-table-col__actions">
-            <button class="v-icon v-icon--link v-icon--clickable fas fa-arrow-up v-data-table-col__actions-sort"
-                    style="font-size: 14px;"
-            >
-            </button>
-            <button class="v-icon v-icon--link v-icon--clickable fas fa-align-justify v-data-table-col__actions-filter"
-                    style="font-size: 14px;"
+            <button class="v-icon v-icon--clickable fas fa-arrow-up v-data-table-col__actions-sort"
+                    style="font-size: 16px;"
             >
             </button>
           </span>
-          <div class="v-data-table-col__filter elevation-5 white"
-               style="display: none;"
-          >
-            <div class="v-input">
-              <div class="v-input__slot primary--text">
-                <div class="v-input__field-slot">
-                  <div class="v-input__prepend-icon">
-                    <i class="v-icon fas fa-search primary--text"
-                       style="font-size: 18px;"
-                       dark="false"
-                    >
-                    </i>
-                  </div>
-                  <div class="v-input__clear">
-                    <button class="v-icon v-icon--link v-icon--clickable fas fa-times primary--text"
-                            style="font-size: 18px;"
-                            dark="false"
-                    >
-                    </button>
-                  </div>
-                  <label class="v-label v-label--on-field primary--text"
-                         style="left: 0px; position: absolute;"
-                  >
-                    search
-                  </label>
-                  <div class="v-text-field">
-                    <input class="v-text-field__input"
-                           type="text"
-                           style="color: rgb(33, 33, 33); caret-color: #212121;"
-                    >
-                  </div>
-                </div>
-                <div class="v-input__status">
-                  <transition-stub>
-                  </transition-stub>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
       <div class="v-data-table__cell white v-data-table-col"
@@ -2417,7 +2136,7 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
         </div>
       </div>
     </div>
-    <div class="v-data-table__body">
+    <div class="v-data-table__body white">
       <div class="v-data-table__row">
         <div class="v-data-table__cell"
              style="width: 125px;"
@@ -2942,27 +2661,20 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
         <span class="v-data-table__pagination-label">
           Rows per page
         </span>
-        <div class="v-input">
-          <div class="v-input__slot primary--text">
-            <div class="v-input__field-slot">
-              <label class="v-label v-label--active v-label--has-state v-label--on-field primary--text"
-                     style="left: 0px; position: absolute;"
+        <div class="v-input v-input--primary">
+          <div class="v-input__text-field">
+            <div class="v-select">
+              <input class="v-select__input"
+                     type="text"
+                     readonly
               >
-              </label>
-              <div class="v-select">
-                <input class="v-select__input"
-                       style="color: rgb(33, 33, 33); caret-color: #212121;"
-                >
-                <div class="v-menu">
-                </div>
-                <transition-stub>
-                </transition-stub>
-              </div>
             </div>
-            <div class="v-input__status">
-              <transition-stub>
-              </transition-stub>
+          </div>
+          <div class="v-input__selects">
+            <div class="v-menu">
             </div>
+            <transition-stub>
+            </transition-stub>
           </div>
         </div>
       </div>
@@ -2971,12 +2683,12 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
         of 20
       </div>
       <div class="v-data-table__pagination-route">
-        <button class="v-button v-button--disabled"
+        <button class="v-button v-button--disabled primary"
                 style="width: 42px;"
         >
           <div class="v-button__content">
             <i class="v-icon fas fa-chevron-left"
-               style="font-size: 12px;"
+               style="font-size: 16px;"
             >
             </i>
           </div>
@@ -2988,680 +2700,12 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
             1
           </div>
         </button>
-        <button class="v-button v-button--disabled"
+        <button class="v-button v-button--disabled primary"
                 style="width: 42px;"
         >
           <div class="v-button__content">
             <i class="v-icon fas fa-chevron-right"
-               style="font-size: 12px;"
-            >
-            </i>
-          </div>
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`VDataTable should test dark prop and match snapshot 1`] = `
-<div class="v-data-table white">
-  <div class="v-data-table__inner">
-    <div class="v-data-table__header white"
-         color="white"
-         dark="true"
-    >
-      <div class="v-data-table__cell white--text white v-data-table-col"
-           style="width: 125px;"
-      >
-        <div class="v-data-table__cell-content text-align--start">
-          <div class="v-data-table-col__title">
-            Name
-          </div>
-          <span class="v-data-table-col__actions">
-            <button class="v-icon v-icon--link v-icon--clickable fas fa-align-justify white--text v-data-table-col__actions-filter"
-                    style="font-size: 14px;"
-            >
-            </button>
-          </span>
-          <div class="v-data-table-col__filter elevation-5 white"
-               style="display: none;"
-          >
-            <div class="v-input">
-              <div class="v-input__slot white--text">
-                <div class="v-input__field-slot">
-                  <div class="v-input__prepend-icon">
-                    <i class="v-icon fas fa-search white--text"
-                       style="font-size: 18px;"
-                       dark="true"
-                    >
-                    </i>
-                  </div>
-                  <div class="v-input__clear">
-                    <button class="v-icon v-icon--link v-icon--clickable fas fa-times white--text"
-                            style="font-size: 18px;"
-                            dark="true"
-                    >
-                    </button>
-                  </div>
-                  <label class="v-label v-label--on-field white--text"
-                         style="left: 0px; position: absolute;"
-                  >
-                    search
-                  </label>
-                  <div class="v-text-field">
-                    <input class="v-text-field__input white--text"
-                           type="text"
-                    >
-                  </div>
-                </div>
-                <div class="v-input__status">
-                  <transition-stub>
-                  </transition-stub>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="v-data-table__cell white--text white v-data-table-col"
-           style="width: 125px;"
-      >
-        <div class="v-data-table__cell-content text-align--start">
-          <div class="v-data-table-col__title">
-            Email
-          </div>
-          <span class="v-data-table-col__actions">
-          </span>
-        </div>
-      </div>
-      <div class="v-data-table__cell white--text white v-data-table-col"
-           style="width: 125px;"
-      >
-        <div class="v-data-table__cell-content text-align--start">
-          <div class="v-data-table-col__title">
-            Body
-          </div>
-          <span class="v-data-table-col__actions">
-          </span>
-        </div>
-      </div>
-    </div>
-    <div class="v-data-table__body">
-      <div class="v-data-table__row">
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            Ben
-          </div>
-        </div>
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            ben@mail.ru
-          </div>
-        </div>
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            some body text
-          </div>
-        </div>
-      </div>
-      <div class="v-data-table__row">
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            Alex
-          </div>
-        </div>
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            alex@mail.ru
-          </div>
-        </div>
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            some body text
-          </div>
-        </div>
-      </div>
-      <div class="v-data-table__row">
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            cccccc
-          </div>
-        </div>
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            Eliseo@gardner.biz
-          </div>
-        </div>
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            laudantium enim quasi est quidem magnam voluptate ipsam eos
-            tempora quo necessitatibus
-            dolor quam autem quasi
-            reiciendis et nam sapiente accusantium
-          </div>
-        </div>
-      </div>
-      <div class="v-data-table__row">
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            dddddd
-          </div>
-        </div>
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            Jayne_Kuhic@sydney.com
-          </div>
-        </div>
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            est natus enim nihil est dolore omnis voluptatem numquam
-            et omnis occaecati quod ullam at
-            voluptatem error expedita pariatur
-            nihil sint nostrum voluptatem reiciendis et
-          </div>
-        </div>
-      </div>
-      <div class="v-data-table__row">
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            eeeeee
-          </div>
-        </div>
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            Nikita@garfield.biz
-          </div>
-        </div>
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            quia molestiae reprehenderit quasi aspernatur
-            aut expedita occaecati aliquam eveniet laudantium
-            omnis quibusdam delectus saepe quia accusamus maiores nam est
-            cum et ducimus et vero voluptates excepturi deleniti ratione
-          </div>
-        </div>
-      </div>
-      <div class="v-data-table__row">
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            ffffff
-          </div>
-        </div>
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            Lew@alysha.tv
-          </div>
-        </div>
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            non et atque
-            occaecati deserunt quas accusantium unde odit nobis qui voluptatem
-            quia voluptas consequuntur itaque dolor
-            et qui rerum deleniti ut occaecati
-          </div>
-        </div>
-      </div>
-      <div class="v-data-table__row">
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            gggggg
-          </div>
-        </div>
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            Hayden@althea.biz
-          </div>
-        </div>
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            harum non quasi et ratione
-            tempore iure ex voluptates in ratione
-            harum architecto fugit inventore cupiditate
-            voluptates magni quo et
-          </div>
-        </div>
-      </div>
-      <div class="v-data-table__row">
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            hhhhhh
-          </div>
-        </div>
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            Presley.Mueller@myrl.com
-          </div>
-        </div>
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            doloribus at sed quis culpa deserunt consectetur qui praesentium
-            accusamus fugiat dicta
-            voluptatem rerum ut voluptate autem
-            voluptatem repellendus aspernatur dolorem in
-          </div>
-        </div>
-      </div>
-      <div class="v-data-table__row">
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            iiiiii
-          </div>
-        </div>
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            Dallas@ole.me
-          </div>
-        </div>
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            maiores sed dolores similique labore et inventore et
-            quasi temporibus esse sunt id et
-            eos voluptatem aliquam
-            aliquid ratione corporis molestiae mollitia quia et magnam dolor
-          </div>
-        </div>
-      </div>
-      <div class="v-data-table__row">
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            jjjjjj
-          </div>
-        </div>
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            Mallory_Kunze@marie.org
-          </div>
-        </div>
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            ut voluptatem corrupti velit
-            ad voluptatem maiores
-            et nisi velit vero accusamus maiores
-            voluptates quia aliquid ullam eaque
-          </div>
-        </div>
-      </div>
-      <div class="v-data-table__row">
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            kkkkkk
-          </div>
-        </div>
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            Meghan_Littel@rene.us
-          </div>
-        </div>
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            sapiente assumenda molestiae atque
-            adipisci laborum distinctio aperiam et ab ut omnis
-            et occaecati aspernatur odit sit rem expedita
-            quas enim ipsam minus
-          </div>
-        </div>
-      </div>
-      <div class="v-data-table__row">
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            llllll
-          </div>
-        </div>
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            Carmen_Keeling@caroline.name
-          </div>
-        </div>
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            voluptate iusto quis nobis reprehenderit ipsum amet nulla
-            quia quas dolores velit et non
-            aut quia necessitatibus
-            nostrum quaerat nulla et accusamus nisi facilis
-          </div>
-        </div>
-      </div>
-      <div class="v-data-table__row">
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            mmmmmm
-          </div>
-        </div>
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            Veronica_Goodwin@timmothy.net
-          </div>
-        </div>
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            ut dolorum nostrum id quia aut est
-            fuga est inventore vel eligendi explicabo quis consectetur
-            aut occaecati repellat id natus quo est
-            ut blanditiis quia ut vel ut maiores ea
-          </div>
-        </div>
-      </div>
-      <div class="v-data-table__row">
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            nnnnnn
-          </div>
-        </div>
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            Oswald.Vandervort@leanne.org
-          </div>
-        </div>
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            expedita maiores dignissimos facilis
-            ipsum est rem est fugit velit sequi
-            eum odio dolores dolor totam
-            occaecati ratione eius rem velit
-          </div>
-        </div>
-      </div>
-      <div class="v-data-table__row">
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            oooooo
-          </div>
-        </div>
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            Kariane@jadyn.tv
-          </div>
-        </div>
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            fuga eos qui dolor rerum
-            inventore corporis exercitationem
-            corporis cupiditate et deserunt recusandae est sed quis culpa
-            eum maiores corporis et
-          </div>
-        </div>
-      </div>
-      <div class="v-data-table__row">
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            pppppp
-          </div>
-        </div>
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            Nathan@solon.io
-          </div>
-        </div>
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            vel quae voluptas qui exercitationem
-            voluptatibus unde sed
-            minima et qui ipsam aspernatur
-            expedita magnam laudantium et et quaerat ut qui dolorum
-          </div>
-        </div>
-      </div>
-      <div class="v-data-table__row">
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            qqqqqq
-          </div>
-        </div>
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            Maynard.Hodkiewicz@roberta.com
-          </div>
-        </div>
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            nihil ut voluptates blanditiis autem odio dicta rerum
-            quisquam saepe et est
-            sunt quasi nemo laudantium deserunt
-            molestias tempora quo quia
-          </div>
-        </div>
-      </div>
-      <div class="v-data-table__row">
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            rrrrrr
-          </div>
-        </div>
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            Christine@ayana.info
-          </div>
-        </div>
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            iste ut laborum aliquid velit facere itaque
-            quo ut soluta dicta voluptate
-            error tempore aut et
-            sequi reiciendis dignissimos expedita consequuntur libero sed fugiat facilis
-          </div>
-        </div>
-      </div>
-      <div class="v-data-table__row">
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            ssssss
-          </div>
-        </div>
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            Preston_Hudson@blaise.tv
-          </div>
-        </div>
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            consequatur necessitatibus totam sed sit dolorum
-            recusandae quae odio excepturi voluptatum harum voluptas
-            quisquam sit ad eveniet delectus
-            doloribus odio qui non labore
-          </div>
-        </div>
-      </div>
-      <div class="v-data-table__row">
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            tttttt
-          </div>
-        </div>
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            Vincenza_Klocko@albertha.name
-          </div>
-        </div>
-        <div class="v-data-table__cell white--text"
-             style="width: 125px;"
-        >
-          <div class="v-data-table__cell-content text-align--start">
-            veritatis voluptates necessitatibus maiores corrupti
-            neque et exercitationem amet sit et
-            ullam velit sit magnam laborum
-            magni ut molestias
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="v-data-table__footer white"
-       dark="true"
-  >
-    <div class="v-data-table__pagination">
-      <div class="v-data-table__pagination-select">
-        <span class="v-data-table__pagination-label white--text">
-          Rows per page
-        </span>
-        <div class="v-input">
-          <div class="v-input__slot white--text">
-            <div class="v-input__field-slot">
-              <label class="v-label v-label--active v-label--has-state v-label--on-field white--text"
-                     style="left: 0px; position: absolute;"
-              >
-              </label>
-              <div class="v-select">
-                <input class="v-select__input white--text">
-                <div class="v-menu">
-                </div>
-                <transition-stub>
-                </transition-stub>
-              </div>
-            </div>
-            <div class="v-input__status">
-              <transition-stub>
-              </transition-stub>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="v-data-table__pagination-pages white--text">
-        1 - 20
-        of 20
-      </div>
-      <div class="v-data-table__pagination-route">
-        <button class="v-button v-button--text v-button--disabled"
-                style="width: 42px;"
-        >
-          <div class="v-button__content">
-            <i class="v-icon fas fa-chevron-left white--text"
-               style="font-size: 12px;"
-            >
-            </i>
-          </div>
-        </button>
-        <button class="v-button v-button--text elevation-3 white--text"
-                style="width: 42px; margin: 0px 10px;"
-        >
-          <div class="v-button__content">
-            1
-          </div>
-        </button>
-        <button class="v-button v-button--text v-button--disabled"
-                style="width: 42px;"
-        >
-          <div class="v-button__content">
-            <i class="v-icon fas fa-chevron-right white--text"
-               style="font-size: 12px;"
+               style="font-size: 16px;"
             >
             </i>
           </div>
@@ -3687,45 +2731,34 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
             Name
           </div>
           <span class="v-data-table-col__actions">
-            <button class="v-icon v-icon--link v-icon--clickable fas fa-align-justify v-data-table-col__actions-filter v-data-table-col__actions-filter--active"
-                    style="font-size: 14px;"
+            <button class="v-icon v-icon--clickable fas fa-align-justify v-data-table-col__actions-filter v-data-table-col__actions-filter--active"
+                    style="font-size: 16px;"
             >
             </button>
           </span>
           <div class="v-data-table-col__filter elevation-5 white">
-            <div class="v-input">
-              <div class="v-input__slot primary--text">
-                <div class="v-input__field-slot">
-                  <div class="v-input__prepend-icon">
-                    <i class="v-icon fas fa-search primary--text"
-                       style="font-size: 18px;"
-                       dark="false"
-                    >
-                    </i>
-                  </div>
-                  <div class="v-input__clear">
-                    <button class="v-icon v-icon--link v-icon--clickable fas fa-times primary--text"
-                            style="font-size: 18px;"
-                            dark="false"
-                    >
-                    </button>
-                  </div>
-                  <label class="v-label v-label--active v-label--has-state v-label--on-field primary--text"
-                         style="left: 0px; position: absolute;"
+            <div class="v-input v-input--primary v-input--has-prepend-icon">
+              <div class="v-input__label">
+                <label class="v-label v-label--on-input">
+                  search
+                </label>
+              </div>
+              <div class="v-input__text-field">
+                <div class="v-input__prepend-icon">
+                  <i class="v-icon fas fa-search"
+                     style="font-size: 16px;"
                   >
-                    search
-                  </label>
-                  <div class="v-text-field">
-                    <input class="v-text-field__input"
-                           type="text"
-                           style="color: rgb(33, 33, 33); caret-color: #212121;"
-                    >
-                  </div>
+                  </i>
                 </div>
-                <div class="v-input__status">
-                  <transition-stub>
-                  </transition-stub>
+                <div class="v-text-field">
+                  <input class="v-text-field__input"
+                         type="text"
+                  >
                 </div>
+              </div>
+              <div class="v-input__hints">
+                <transition-stub>
+                </transition-stub>
               </div>
             </div>
           </div>
@@ -3754,7 +2787,7 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
         </div>
       </div>
     </div>
-    <div class="v-data-table__body">
+    <div class="v-data-table__body white">
       <div class="v-data-table__row">
         <div class="v-data-table__cell"
              style="width: 125px;"
@@ -4279,27 +3312,20 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
         <span class="v-data-table__pagination-label">
           Rows per page
         </span>
-        <div class="v-input">
-          <div class="v-input__slot primary--text">
-            <div class="v-input__field-slot">
-              <label class="v-label v-label--active v-label--has-state v-label--on-field primary--text"
-                     style="left: 0px; position: absolute;"
+        <div class="v-input v-input--primary">
+          <div class="v-input__text-field">
+            <div class="v-select">
+              <input class="v-select__input"
+                     type="text"
+                     readonly
               >
-              </label>
-              <div class="v-select">
-                <input class="v-select__input"
-                       style="color: rgb(33, 33, 33); caret-color: #212121;"
-                >
-                <div class="v-menu">
-                </div>
-                <transition-stub>
-                </transition-stub>
-              </div>
             </div>
-            <div class="v-input__status">
-              <transition-stub>
-              </transition-stub>
+          </div>
+          <div class="v-input__selects">
+            <div class="v-menu">
             </div>
+            <transition-stub>
+            </transition-stub>
           </div>
         </div>
       </div>
@@ -4308,12 +3334,12 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
         of 20
       </div>
       <div class="v-data-table__pagination-route">
-        <button class="v-button v-button--disabled"
+        <button class="v-button v-button--disabled primary"
                 style="width: 42px;"
         >
           <div class="v-button__content">
             <i class="v-icon fas fa-chevron-left"
-               style="font-size: 12px;"
+               style="font-size: 16px;"
             >
             </i>
           </div>
@@ -4325,12 +3351,12 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
             1
           </div>
         </button>
-        <button class="v-button v-button--disabled"
+        <button class="v-button v-button--disabled primary"
                 style="width: 42px;"
         >
           <div class="v-button__content">
             <i class="v-icon fas fa-chevron-right"
-               style="font-size: 12px;"
+               style="font-size: 16px;"
             >
             </i>
           </div>
@@ -4356,47 +3382,36 @@ exports[`VDataTable should test table filter and match snapshot 1`] = `
             Name
           </div>
           <span class="v-data-table-col__actions">
-            <button class="v-icon v-icon--link v-icon--clickable fas fa-align-justify v-data-table-col__actions-filter v-data-table-col__actions-filter--active"
-                    style="font-size: 14px;"
+            <button class="v-icon v-icon--clickable fas fa-align-justify v-data-table-col__actions-filter v-data-table-col__actions-filter--active"
+                    style="font-size: 16px;"
             >
             </button>
           </span>
           <div class="v-data-table-col__filter elevation-5 white"
                style
           >
-            <div class="v-input">
-              <div class="v-input__slot primary--text">
-                <div class="v-input__field-slot">
-                  <div class="v-input__prepend-icon">
-                    <i class="v-icon fas fa-search primary--text"
-                       style="font-size: 18px;"
-                       dark="false"
-                    >
-                    </i>
-                  </div>
-                  <div class="v-input__clear">
-                    <button class="v-icon v-icon--link v-icon--clickable fas fa-times primary--text"
-                            style="font-size: 18px;"
-                            dark="false"
-                    >
-                    </button>
-                  </div>
-                  <label class="v-label v-label--active v-label--has-state v-label--on-field primary--text"
-                         style="left: 0px; position: absolute;"
+            <div class="v-input v-input--primary v-input--has-prepend-icon">
+              <div class="v-input__label">
+                <label class="v-label v-label--on-input">
+                  search
+                </label>
+              </div>
+              <div class="v-input__text-field">
+                <div class="v-input__prepend-icon">
+                  <i class="v-icon fas fa-search"
+                     style="font-size: 16px;"
                   >
-                    search
-                  </label>
-                  <div class="v-text-field">
-                    <input class="v-text-field__input"
-                           type="text"
-                           style="color: rgb(33, 33, 33); caret-color: #212121;"
-                    >
-                  </div>
+                  </i>
                 </div>
-                <div class="v-input__status">
-                  <transition-stub>
-                  </transition-stub>
+                <div class="v-text-field">
+                  <input class="v-text-field__input"
+                         type="text"
+                  >
                 </div>
+              </div>
+              <div class="v-input__hints">
+                <transition-stub>
+                </transition-stub>
               </div>
             </div>
           </div>
@@ -4425,7 +3440,7 @@ exports[`VDataTable should test table filter and match snapshot 1`] = `
         </div>
       </div>
     </div>
-    <div class="v-data-table__body">
+    <div class="v-data-table__body white">
       <div class="v-data-table__row">
         <div class="v-data-table__cell"
              style="width: 125px;"
@@ -4459,27 +3474,20 @@ exports[`VDataTable should test table filter and match snapshot 1`] = `
         <span class="v-data-table__pagination-label">
           Rows per page
         </span>
-        <div class="v-input">
-          <div class="v-input__slot primary--text">
-            <div class="v-input__field-slot">
-              <label class="v-label v-label--active v-label--has-state v-label--on-field primary--text"
-                     style="left: 0px; position: absolute;"
+        <div class="v-input v-input--primary">
+          <div class="v-input__text-field">
+            <div class="v-select">
+              <input class="v-select__input"
+                     type="text"
+                     readonly
               >
-              </label>
-              <div class="v-select">
-                <input class="v-select__input"
-                       style="color: rgb(33, 33, 33); caret-color: #212121;"
-                >
-                <div class="v-menu">
-                </div>
-                <transition-stub>
-                </transition-stub>
-              </div>
             </div>
-            <div class="v-input__status">
-              <transition-stub>
-              </transition-stub>
+          </div>
+          <div class="v-input__selects">
+            <div class="v-menu">
             </div>
+            <transition-stub>
+            </transition-stub>
           </div>
         </div>
       </div>
@@ -4488,12 +3496,12 @@ exports[`VDataTable should test table filter and match snapshot 1`] = `
         of 1
       </div>
       <div class="v-data-table__pagination-route">
-        <button class="v-button v-button--disabled"
+        <button class="v-button v-button--disabled primary"
                 style="width: 42px;"
         >
           <div class="v-button__content">
             <i class="v-icon fas fa-chevron-left"
-               style="font-size: 12px;"
+               style="font-size: 16px;"
             >
             </i>
           </div>
@@ -4505,12 +3513,12 @@ exports[`VDataTable should test table filter and match snapshot 1`] = `
             1
           </div>
         </button>
-        <button class="v-button v-button--disabled"
+        <button class="v-button v-button--disabled primary"
                 style="width: 42px;"
         >
           <div class="v-button__content">
             <i class="v-icon fas fa-chevron-right"
-               style="font-size: 12px;"
+               style="font-size: 16px;"
             >
             </i>
           </div>

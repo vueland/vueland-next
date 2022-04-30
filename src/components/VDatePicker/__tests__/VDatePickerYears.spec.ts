@@ -37,9 +37,10 @@ describe('VYears', () => {
 
   it('should test year update event', async () => {
     const stub = jest.fn()
+    const year = new Date().getFullYear()
     const cmp = mountFunction({
       props: {
-        year: 2021,
+        year,
         ['onUpdate:year']: stub,
       },
     })
@@ -48,6 +49,6 @@ describe('VYears', () => {
     await cells[1].trigger('click')
 
     expect(stub).toBeCalledTimes(1)
-    expect(stub).toBeCalledWith(2022)
+    expect(stub).toBeCalledWith(year + 1)
   })
 })

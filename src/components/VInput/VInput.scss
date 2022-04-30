@@ -1,180 +1,70 @@
 @import "../../styles/scss/modules/global";
 
+$input-height: 48px;
+$input-border-radius: 4px;
+$input-hints-height: 24px;
+$input-label-height: 24px;
+
 .v-input {
-  @include flex(flex, flex-start, flex-start, column);
-  flex: 1 1 auto;
-  width: 100%;
-  position: relative;
-  background: transparent !important;
-
-  &__slot {
-    width: 100%;
-    height: 100%;
-
-    .v-input__field-slot {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      color: inherit;
-      border-bottom: 1px solid map-get($grey, 'lighten-2');
-    }
-
-    .v-input__field-slot {
-      & > .v-input__append-icon + .v-label +
-      .v-text-field > .v-text-field__input {
-        padding-right: 24px;
-      }
-
-      & > .v-input__clear + .v-label +
-      .v-text-field > .v-text-field__input {
-        padding-right: 24px;
-      }
-
-      & > .v-input__prepend-icon + .v-label +
-      .v-text-field > .v-text-field__input {
-        padding-left: 24px;
-      }
-
-      & > .v-input__prepend-icon + .v-input__append-icon +
-      .v-label + .v-text-field > .v-text-field__input {
-        padding-left: 24px;
-      }
-
-      & > .v-input__prepend-icon + .v-input__clear +
-      .v-label + .v-text-field > .v-text-field__input {
-        padding-left: 24px;
-      }
-      & > .v-input__prepend-icon + .v-label +
-      .v-select > .v-select__input {
-        padding-left: 24px;
-      }
-
-      & > .v-input__prepend-icon + .v-input__clear + .v-label +
-      .v-select > .v-select__input {
-        padding-left: 24px;
-      }
-
-      & > .v-input__append-icon + .v-label +
-      .v-menu + .v-select > .v-select__input {
-        padding-right: 24px;
-      }
-
-      & > .v-input__clear + .v-label +
-      .v-select > .v-select__input {
-        padding-right: 24px;
-      }
-
-      & > .v-input__prepend-icon + .v-label +
-      .v-autocomplete > .v-autocomplete__input {
-        padding-left: 24px;
-      }
-
-      & > .v-input__prepend-icon + .v-input__clear + .v-label +
-      .v-autocomplete > .v-autocomplete__input {
-        padding-left: 24px;
-      }
-
-      & > .v-input__prepend-icon + .v-input__append-icon + .v-label +
-      .v-autocomplete > .v-autocomplete__input {
-        padding-left: 24px;
-      }
-
-      & > .v-input__append-icon + .v-label +
-      .v-autocomplete > .v-autocomplete__input {
-        padding-right: 24px;
-      }
-
-      & > .v-input__clear + .v-label +
-      .v-autocomplete > .v-autocomplete__input {
-        padding-right: 24px;
-      }
-
-      & > .v-input__prepend-icon + .v-input__append-icon +
-      .v-label + .v-select > .v-select__input {
-        padding-left: 20px;
-      }
-    }
-
-    .v-input__field-slot{
-      &:after {
-        content: "";
-        display: block;
-        position: absolute;
-        bottom: -1.5px;
-        width: 100%;
-        height: 2px;
-        transform-origin: center;
-        transform: scaleX(0);
-        background-color: currentColor;
-        transition: all .3s $primary-transition;
-        will-change: transform;
-      }
-
-      & > .v-input__prepend-icon {
-        position: absolute;
-        top: 4px;
-      }
-
-      & > .v-input__clear {
-        @include flex(flex, center, center);
-        width: 24px;
-        height: 24px;
-        position: absolute;
-        top: 4px;
-        left: calc(100% - 24px);
-        z-index: 1;
-      }
-
-      & > .v-input__prepend-icon + .v-label {
-        left: 24px !important;
-        color: currentColor;
-      }
-
-      & > .v-input__prepend-icon + .v-input__append-icon + .v-label {
-        left: 24px !important;
-      }
-
-      & > .v-input__prepend-icon + .v-input__clear + .v-label {
-        left: 24px !important;
-      }
-
-      & > .v-input__append-icon {
-        position: absolute;
-        top: 4px;
-        left: calc(100% - 22px)
-      }
-    }
-
-    .v-input__status {
-      width: 100%;
-      height: 25px;
-      position: relative;
-
-      &-message {
-        font-size: .8rem;
-        position: absolute;
-        color: currentColor;
-        bottom: 3px;
-      }
-    }
+  &__label {
+    display: flex;
+    align-items: flex-start;
+    height: $input-label-height;
+    line-height: 20px;
+    position: relative;
   }
 
-  &--focused > .v-input__slot .v-input__field-slot:after,
-  &--focused > .v-input__slot .v-input__select-slot:after, {
-    transform: scaleX(1);
+  &__text-field {
+    display: flex;
+    height: $input-height;
+    border: 1px solid map-get($grey, 'lighten-1');
+    border-radius: $input-border-radius;
+    transition: .4s color $primary-transition;
+    overflow: hidden;
   }
 
-  &--not-valid > .v-input__slot .v-input__field-slot:after,
-  &--not-valid > .v-input__slot .v-input__select-slot:after {
-    background: currentColor;
+  &__hints {
+    display: flex;
+    align-items: center;
+    height: $input-hints-height;
+    transition: .4s color $primary-transition;
+    font-size: .7rem;
   }
 
-  &--not-valid > .v-input__slot .v-input__status > .v-input__status-message {
-    color: currentColor;
+  &__prepend-icon {
+    flex: 0 0 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative
   }
 
-  &--not-valid > .v-input__slot .v-input__field-slot,
-  &--not-valid > .v-input__slot .v-input__select-slot {
-    border-color: currentColor !important;
+  &__append-icon {
+    flex: 0 0 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative
+  }
+
+  &--primary {
+    color: map-get($states, 'primary') !important;
+  }
+
+  &--disabled {
+    color: map-get($states, 'disabled') !important;
+    pointer-events: none;
+  }
+
+  &--focused > .v-input__text-field {
+    border-color: currentColor
+  }
+
+  &--not-valid {
+    color: map-get($states, 'error') !important;
+
+    & > .v-input__text-field {
+      border-color: currentColor
+    }
   }
 }

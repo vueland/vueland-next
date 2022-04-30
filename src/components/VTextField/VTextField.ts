@@ -1,154 +1,86 @@
-// Styles
-import './VTextField.scss'
-
-// Vue API
-import { h, watch, computed, reactive, defineComponent } from 'vue'
-
-// Effects
-import { useColors, colorProps } from '../../effects/use-colors'
-import { useTheme } from '../../effects/use-theme'
-import { validateProps } from '../../effects/use-validate'
-
-// Components
+import { defineComponent, h, computed } from 'vue'
 import { VInput } from '../VInput'
-
-// Types
-import { VNode } from 'vue'
-
-type TextFieldState = {
-  value: string | number
-  focused: boolean
-}
+import { useInputStates } from '../../composable/use-input-states'
 
 export const VTextField = defineComponent({
-  name: 'v-text-field',
-
+  name: 'e-text-field',
+  components: {
+    VInput,
+  },
+  inheritAttrs: true,
   props: {
-    dark: Boolean,
-    disabled: Boolean,
-    readonly: Boolean,
-    label: String,
-    isDirty: Boolean,
-    type: {
-      type: String,
-      default: 'text',
+    modelValue: {
+      type: [String, Number],
+      default: '',
     },
-    modelValue: [String, Number, Date],
-    tag: {
-      type: String,
-      default: 'input',
-    },
-    ...colorProps(),
-    ...validateProps()
-  } as any,
-
-  emits: [
-    'input',
-    'focus',
-    'blur',
-    'change',
-    'clear',
-    'update:value',
-    'update:modelValue',
-  ],
-
-  setup(props, { emit, attrs }): () => VNode {
-    const state: TextFieldState = reactive({
-      value: '',
-      focused: false,
-    })
-
-    state.value = props.modelValue || props.value
-
-    const { setTextColor } = useColors()
-    const { base } = useTheme()
-
-    const computedPropValue = computed(() => {
-      return props.modelValue || props.value
-    })
-
-    watch(
-      () => computedPropValue.value,
-      (value) => (state.value = value as any),
-    )
+  },
+  emits: ['update:modelValue', 'input', 'blur', 'focus', 'change'],
+  setup(props, { emit, attrs }) {
+    const { isReadonly, isDisabled, state, onFocus, onBlur, onChange } =
+      useInputStates(props, { emit, attrs })
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-text-field': true,
-      'v-text-field--disabled': props.disabled,
+      'v-text-field--disabled': isDisabled.value,
+      'v-text-field--readonly': isReadonly.value,
     }))
 
-    function onClear() {
-      state.value = ''
-      emit('update:modelValue', state.value)
-      emit('update:value', state.value)
-      emit('input', state.value)
-      emit('clear', state.value)
+    const computedValue = computed({
+      get: () => props.modelValue,
+
+      set: (val: string) => {
+        emit('input', val)
+        emit('update:modelValue', val)
+      },
+    })
+
+    const onInput = (e) => {
+      computedValue.value = e.target.value
     }
 
-    function onBlur() {
-      setTimeout(() => {
-        state.focused = false
-        emit('blur')
-      })
-    }
-
-    function onFocus() {
-      state.focused = true
-      emit('focus')
-    }
-
-    function onChange() {
-      emit('change', state.value)
-    }
-
-    function onInput(e) {
-      state.value = e.target.value
-      emit('update:modelValue', e.target.value)
-      emit('update:value', e.target.value)
-      emit('input', e.target.value)
-    }
-
-    function genInput(): VNode {
-      const propsData = {
-        disabled: props.disabled,
-        readonly: props.readonly,
-        value: state.value,
-        autocomplete: attrs.autocomplete,
-        class: 'v-text-field__input',
+    const genInputField = (textClassColor, textCssColor) => {
+      return h('input', {
+        class: {
+          'v-text-field__input': true,
+          ...(!attrs.disabled && textClassColor),
+        },
+        style: {
+          ...(!attrs.disabled ? textCssColor : {}),
+        },
+        disabled: attrs.disabled,
+        type: attrs.type ? attrs.type : 'text',
+        placeholder: attrs.placeholder,
+        readonly: attrs.readonly,
+        value: computedValue.value,
+        onInput,
         onFocus,
         onBlur,
-        onInput,
         onChange,
-      } as any
-
-      if (props.tag === 'input') {
-        propsData.type = props.type
-      }
-
-      return h(props.tag, setTextColor(props.dark ? 'white' : base, propsData))
-    }
-
-    function genTextField(): VNode {
-      return h('div', { class: classes.value }, genInput())
-    }
-
-    return () => {
-      const propsData = {
-        label: props.label,
-        focused: state.focused,
-        hasState: !!state.value,
-        dark: props.dark,
-        disabled: props.disabled,
-        clearable: props.clearable,
-        value: state.value,
-        rules: props.rules,
-        color: props.color,
-        onClear,
-      }
-
-      return h(VInput, propsData, {
-        textField: () => genTextField(),
       })
     }
+
+    const genTextFieldWrapper = (clsColor, cssColor) => {
+      return h(
+        'div',
+        {
+          class: classes.value,
+        },
+        genInputField(clsColor, cssColor)
+      )
+    }
+
+    return () =>
+      h(
+        VInput,
+        {
+          focused: state.focused,
+          value: computedValue.value,
+        },
+        {
+          ['text-field']: ({ textClassColor, textCssColor }) => {
+            return genTextFieldWrapper(textClassColor, textCssColor)
+          },
+        }
+      )
   },
 })

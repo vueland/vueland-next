@@ -2,8 +2,8 @@
 import { defineComponent, h, computed } from 'vue'
 
 // Compositions
-import { colorProps, useColors } from '../../effects/use-colors'
-import { elevationProps, useElevation } from '../../effects/use-elevation'
+import { colorProps, useColors } from '../../composable/use-colors'
+import { elevationProps, useElevation } from '../../composable/use-elevation'
 
 // Types
 import { VNode } from 'vue'
@@ -21,18 +21,20 @@ export const VCard = defineComponent({
   } as any,
 
   setup(props, { slots }): () => VNode {
-    const { setBackground } = useColors()
+    const { setBackgroundClassNameColor, setBackgroundCssColor } = useColors()
     const { elevationClasses } = useElevation(props)
 
-    const classes = computed((): Record<string, boolean> => {
-      return {
+    const classes = computed(
+      (): Record<string, boolean> => ({
         'v-card': true,
         ...elevationClasses.value,
-      }
-    })
+        ...(props.color ? setBackgroundClassNameColor(props.color) : {}),
+      })
+    )
 
     const styles = computed(() => ({
       width: `${props.width}px`,
+      ...(props.color ? setBackgroundCssColor(props.color) : {}),
     }))
 
     function genCard() {
@@ -40,11 +42,7 @@ export const VCard = defineComponent({
         class: classes.value,
         style: styles.value,
       }
-      return h(
-        'div',
-        props.color ? setBackground(props.color, propsData) : propsData,
-        slots.default && slots.default()
-      )
+      return h('div', propsData, slots.default && slots.default())
     }
 
     return () => genCard()

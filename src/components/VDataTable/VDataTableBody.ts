@@ -2,7 +2,7 @@
 import { h, ref, watch, computed, defineComponent } from 'vue'
 
 // Effects
-import { colorProps, useColors } from '../../effects/use-colors'
+import { colorProps, useColors } from '../../composable/use-colors'
 
 // Components
 import { VDataTableCell } from './VDataTableCell'
@@ -36,16 +36,21 @@ export const VDataTableBody = defineComponent({
   setup(props, { slots, emit }): () => VNode {
     const checkedRows = ref([])
 
-    const { setBackground } = useColors()
+    const { setBackgroundCssColor, setBackgroundClassNameColor } = useColors()
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-data-table__body': true,
+      ...(props.color ? setBackgroundClassNameColor(props.color) : {}),
+    }))
+
+    const styles = computed(() => ({
+      ...(props.color ? setBackgroundCssColor(props.color) : {}),
     }))
 
     const rowsOnTable = computed<any[]>(() => {
       return props.rows?.slice(
         (props.page - 1) * props.rowsOnPage,
-        props.page * props.rowsOnPage
+        props.page * props.rowsOnPage,
       )
     })
 
@@ -54,7 +59,7 @@ export const VDataTableBody = defineComponent({
       (to) => {
         if (to) onSelectRows(props.rows)
         else onSelectRows([])
-      }
+      },
     )
 
     function onSelectRows(rows) {
@@ -74,7 +79,7 @@ export const VDataTableBody = defineComponent({
         },
         {
           default: () => count + 1,
-        }
+        },
       )
     }
 
@@ -96,7 +101,7 @@ export const VDataTableBody = defineComponent({
               value: row,
               onChecked: onSelectRows,
             }),
-        }
+        },
       )
     }
 
@@ -115,7 +120,6 @@ export const VDataTableBody = defineComponent({
           width: col.width,
           align: col.align || props.align,
           dark: props.dark,
-          class: { [col.rowCellClass]: !!col.rowCellClass },
         },
         {
           default: () =>
@@ -124,7 +128,7 @@ export const VDataTableBody = defineComponent({
               : format
               ? format(row)
               : String(row[col.key]),
-        }
+        },
       )
     }
 
@@ -149,7 +153,7 @@ export const VDataTableBody = defineComponent({
             emit('contextmenu:row', row)
           },
         },
-        rowCells
+        rowCells,
       )
     }
 
@@ -165,18 +169,9 @@ export const VDataTableBody = defineComponent({
       return tableRows
     }
 
-    return () => {
-      const propsData = {
-        class: classes.value,
-      }
-
-      return h(
-        'div',
-        props.options?.color
-          ? setBackground(props.options.color, propsData)
-          : propsData,
-        genTableRows()
-      )
-    }
+    return () => h('div', {
+      class: classes.value,
+      style: styles.value,
+    }, genTableRows())
   },
 })

@@ -70,8 +70,8 @@ exports[`VSelect should mount component and match snapshot 1`] = `
         >
           <div
             class="v-list v-list--active"
+            style="background-color: rgb(255, 255, 255); border-color: #ffffff;"
           >
-            
             <div
               class="v-list-item"
             >
@@ -99,7 +99,6 @@ exports[`VSelect should mount component and match snapshot 1`] = `
                 Rust
               </div>
             </div>
-            
           </div>
         </div>
         

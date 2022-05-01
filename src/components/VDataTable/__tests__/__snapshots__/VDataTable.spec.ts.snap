@@ -19,13 +19,15 @@ exports[`VDataTable should mount component and match snapshot 1`] = `
         <span class="v-data-table__pagination-label">
           Rows per page
         </span>
-        <div class="v-input v-input--primary">
+        <div class="v-input v-input--primary v-input--has-append-icon">
           <div class="v-input__text-field">
             <div class="v-select">
               <input class="v-select__input"
                      type="text"
                      readonly
               >
+            </div>
+            <div class="v-input__append-icon">
             </div>
           </div>
           <div class="v-input__selects">
@@ -635,13 +637,15 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
         <span class="v-data-table__pagination-label">
           Rows per page
         </span>
-        <div class="v-input v-input--primary">
+        <div class="v-input v-input--primary v-input--has-append-icon">
           <div class="v-input__text-field">
             <div class="v-select">
               <input class="v-select__input"
                      type="text"
                      readonly
               >
+            </div>
+            <div class="v-input__append-icon">
             </div>
           </div>
           <div class="v-input__selects">
@@ -1252,13 +1256,15 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
         <span class="v-data-table__pagination-label">
           Rows per page
         </span>
-        <div class="v-input v-input--primary">
+        <div class="v-input v-input--primary v-input--has-append-icon">
           <div class="v-input__text-field">
             <div class="v-select">
               <input class="v-select__input"
                      type="text"
                      readonly
               >
+            </div>
+            <div class="v-input__append-icon">
             </div>
           </div>
           <div class="v-input__selects">
@@ -1869,13 +1875,15 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
         <span class="v-data-table__pagination-label">
           Rows per page
         </span>
-        <div class="v-input v-input--primary">
+        <div class="v-input v-input--primary v-input--has-append-icon">
           <div class="v-input__text-field">
             <div class="v-select">
               <input class="v-select__input"
                      type="text"
                      readonly
               >
+            </div>
+            <div class="v-input__append-icon">
             </div>
           </div>
           <div class="v-input__selects">
@@ -1939,13 +1947,15 @@ exports[`VDataTable should test color prop and match snapshot 1`] = `
         <span class="v-data-table__pagination-label">
           Rows per page
         </span>
-        <div class="v-input v-input--primary">
+        <div class="v-input v-input--primary v-input--has-append-icon">
           <div class="v-input__text-field">
             <div class="v-select">
               <input class="v-select__input"
                      type="text"
                      readonly
               >
+            </div>
+            <div class="v-input__append-icon">
             </div>
           </div>
           <div class="v-input__selects">
@@ -2041,13 +2051,15 @@ exports[`VDataTable should test cols prop and match snapshot 1`] = `
         <span class="v-data-table__pagination-label">
           Rows per page
         </span>
-        <div class="v-input v-input--primary">
+        <div class="v-input v-input--primary v-input--has-append-icon">
           <div class="v-input__text-field">
             <div class="v-select">
               <input class="v-select__input"
                      type="text"
                      readonly
               >
+            </div>
+            <div class="v-input__append-icon">
             </div>
           </div>
           <div class="v-input__selects">
@@ -2661,13 +2673,15 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
         <span class="v-data-table__pagination-label">
           Rows per page
         </span>
-        <div class="v-input v-input--primary">
+        <div class="v-input v-input--primary v-input--has-append-icon">
           <div class="v-input__text-field">
             <div class="v-select">
               <input class="v-select__input"
                      type="text"
                      readonly
               >
+            </div>
+            <div class="v-input__append-icon">
             </div>
           </div>
           <div class="v-input__selects">
@@ -3312,13 +3326,15 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
         <span class="v-data-table__pagination-label">
           Rows per page
         </span>
-        <div class="v-input v-input--primary">
+        <div class="v-input v-input--primary v-input--has-append-icon">
           <div class="v-input__text-field">
             <div class="v-select">
               <input class="v-select__input"
                      type="text"
                      readonly
               >
+            </div>
+            <div class="v-input__append-icon">
             </div>
           </div>
           <div class="v-input__selects">
@@ -3474,13 +3490,15 @@ exports[`VDataTable should test table filter and match snapshot 1`] = `
         <span class="v-data-table__pagination-label">
           Rows per page
         </span>
-        <div class="v-input v-input--primary">
+        <div class="v-input v-input--primary v-input--has-append-icon">
           <div class="v-input__text-field">
             <div class="v-select">
               <input class="v-select__input"
                      type="text"
                      readonly
               >
+            </div>
+            <div class="v-input__append-icon">
             </div>
           </div>
           <div class="v-input__selects">

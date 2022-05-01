@@ -22,7 +22,7 @@ export const VList = defineComponent({
       type: String,
       default: ''
     },
-    ...colorProps('white')
+    ...colorProps()
   },
   emits: [ 'update:value' ],
   setup(props, { emit, slots }) {

@@ -3,13 +3,11 @@
 $group-header-height: 48px;
 $group-icon-width: $group-header-height;
 $group-content-padding: 0 10px;
-$group-border-radius: 8px;
 
 .v-group {
   display: flex;
   flex-direction: column;
   width: 100%;
-  border-radius: $group-border-radius;
   overflow: hidden;
   border: none;
 
@@ -25,7 +23,14 @@ $group-border-radius: 8px;
       align-items: center;
       width: 100%;
       padding: $group-content-padding;
-      color: currentColor
+      color: currentColor;
+      overflow: hidden;
+
+      & > * {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
     }
   }
 
@@ -34,6 +39,7 @@ $group-border-radius: 8px;
   &__prepend-icon,
   &__append-icon{
     width: $group-icon-width;
+    flex: 0 0 $group-icon-width;
     height: 100%;
     display: flex;
     justify-content: center;

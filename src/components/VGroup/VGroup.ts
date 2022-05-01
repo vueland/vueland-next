@@ -27,7 +27,7 @@ export const VGroup = defineComponent({
       type: String,
       default: '',
     },
-    ...colorProps('#ffffff'),
+    ...colorProps(),
   },
   setup(props, { slots }): () => VNode {
     const { icons } = useIcons()

@@ -24,6 +24,35 @@ export default defineComponent({})
       fixed
       on-hover
     >
+      <v-group
+        class="px-1"
+        prepend-icon="fas fa-boxes"
+        color="red"
+      >
+        <template #header>
+          <span>salam</span>
+        </template>
+        <v-list
+          active
+        >
+          <v-list-item
+            v-for="it in 7"
+            :key="it"
+            class="px-1"
+          >
+            <v-list-item-icon>
+              <v-icon>
+                fas fa-atlas
+              </v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>
+                item {{ it }}
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </v-group>
       <v-list
         active
       >

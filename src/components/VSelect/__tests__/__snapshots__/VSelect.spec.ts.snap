@@ -69,7 +69,7 @@ exports[`VSelect should mount component and match snapshot 1`] = `
           class="v-select-list"
         >
           <div
-            class="v-list v-list--active white"
+            class="v-list v-list--active"
           >
             
             <div

@@ -56,7 +56,7 @@ export const VNavigation = defineComponent({
       width: convertToUnit(computedWidth.value),
       maxHeight: `calc(100vh - ${ convertToUnit(props.offsetTop) })`,
       top: props.fixed ? convertToUnit(props.offsetTop) : '',
-      left: props.left && props.fixed ? convertToUnit(0) : '',
+      left: !props.right && props.fixed ? convertToUnit(0) : '',
       right: props.right && props.fixed ? convertToUnit(0) : '',
       ...(props.color ? setBackgroundCssColor(props.color) : {})
     }))

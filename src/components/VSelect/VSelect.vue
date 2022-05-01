@@ -49,7 +49,7 @@ export default defineVSelect()
       #append-icon
     >
       <v-icon size="16">
-        {{ FaIcons.$expand }}
+        {{ FaIcons.$chevronDown }}
       </v-icon>
     </template>
   </v-input>

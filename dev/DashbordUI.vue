@@ -22,7 +22,6 @@ export default defineComponent({})
       offset-top="56"
       class="elevation-2"
       fixed
-      left
       on-hover
     >
       <v-list

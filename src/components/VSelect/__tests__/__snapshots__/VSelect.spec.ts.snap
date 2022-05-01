@@ -31,7 +31,7 @@ exports[`VSelect should mount component and match snapshot 1`] = `
             class="v-input__append-icon"
           >
             <i
-              class="v-icon"
+              class="v-icon fas fa-chevron-down"
               style="font-size: 16px;"
             />
           </div>

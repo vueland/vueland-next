@@ -28,6 +28,10 @@ exports[`VDataTable should mount component and match snapshot 1`] = `
               >
             </div>
             <div class="v-input__append-icon">
+              <i class="v-icon fas fa-chevron-down"
+                 style="font-size: 16px;"
+              >
+              </i>
             </div>
           </div>
           <div class="v-input__selects">
@@ -646,6 +650,10 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
               >
             </div>
             <div class="v-input__append-icon">
+              <i class="v-icon fas fa-chevron-down"
+                 style="font-size: 16px;"
+              >
+              </i>
             </div>
           </div>
           <div class="v-input__selects">
@@ -1265,6 +1273,10 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
               >
             </div>
             <div class="v-input__append-icon">
+              <i class="v-icon fas fa-chevron-down"
+                 style="font-size: 16px;"
+              >
+              </i>
             </div>
           </div>
           <div class="v-input__selects">
@@ -1884,6 +1896,10 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
               >
             </div>
             <div class="v-input__append-icon">
+              <i class="v-icon fas fa-chevron-down"
+                 style="font-size: 16px;"
+              >
+              </i>
             </div>
           </div>
           <div class="v-input__selects">
@@ -1956,6 +1972,10 @@ exports[`VDataTable should test color prop and match snapshot 1`] = `
               >
             </div>
             <div class="v-input__append-icon">
+              <i class="v-icon fas fa-chevron-down"
+                 style="font-size: 16px;"
+              >
+              </i>
             </div>
           </div>
           <div class="v-input__selects">
@@ -2060,6 +2080,10 @@ exports[`VDataTable should test cols prop and match snapshot 1`] = `
               >
             </div>
             <div class="v-input__append-icon">
+              <i class="v-icon fas fa-chevron-down"
+                 style="font-size: 16px;"
+              >
+              </i>
             </div>
           </div>
           <div class="v-input__selects">
@@ -2682,6 +2706,10 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
               >
             </div>
             <div class="v-input__append-icon">
+              <i class="v-icon fas fa-chevron-down"
+                 style="font-size: 16px;"
+              >
+              </i>
             </div>
           </div>
           <div class="v-input__selects">
@@ -3335,6 +3363,10 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
               >
             </div>
             <div class="v-input__append-icon">
+              <i class="v-icon fas fa-chevron-down"
+                 style="font-size: 16px;"
+              >
+              </i>
             </div>
           </div>
           <div class="v-input__selects">
@@ -3499,6 +3531,10 @@ exports[`VDataTable should test table filter and match snapshot 1`] = `
               >
             </div>
             <div class="v-input__append-icon">
+              <i class="v-icon fas fa-chevron-down"
+                 style="font-size: 16px;"
+              >
+              </i>
             </div>
           </div>
           <div class="v-input__selects">

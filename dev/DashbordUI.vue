@@ -4,11 +4,50 @@ import { defineComponent, ref, watch } from 'vue'
 export default defineComponent({
   setup() {
     const select = ref(null)
+    const rows = ref([
+      {name: 'Alex', email: 'aaa@mail.ru'},
+      {name: 'John', email: 'bbb@mail.ru'},
+      {name: 'Erick', email: 'ccc@mail.ru'},
+      {name: 'Don', email: 'dddd@mail.ru'},
+    ])
+    const cols = ref([
+      {
+        key: 'actions',
+        title: 'Actions',
+        align: 'center',
+      },
+      {
+        key: 'name',
+        title: 'Name',
+        width: '500',
+        resizeable: true,
+        sortable: true,
+        filterable: true,
+        format: row => row.name,
+      },
+      {
+        key: 'email',
+        title: 'Email',
+        width: '250',
+        resizeable: true,
+        sortable: true,
+        filterable: true,
+        format: row => row.email,
+      },
+    ])
+
+    const addRow = () => {
+      rows.value.push({name: 'Dina', email: 'eeee@mail.ru'})
+      console.log(rows.value)
+    }
 
     watch(select, to => console.log(to))
 
     return {
-      select
+      select,
+      rows,
+      cols,
+      addRow
     }
   }
 })
@@ -88,56 +127,19 @@ export default defineComponent({
   <v-main
     style="padding: 66px 10px 10px 66px"
   >
-    <v-row
-      v-for="row in 5"
-      :key="row"
-    >
-      <v-col
-        v-for="col in 4"
-        :key="col"
-        xl="3"
-        lg="3"
-        md="6"
-        sm="12"
-      >
-        <v-card
-          width="100%"
-          class="elevation-2"
+    <v-row>
+      <v-col>
+        <v-data-table
+          :cols="cols"
+          :rows="rows"
+          style="height: 300px"
         >
-          <v-card-content>
-            <v-row>
-              <v-col cols="3">
-                <v-skeleton
-                  width="50"
-                  height="50"
-                  radius="50"
-                />
-              </v-col>
-              <v-col cols="9">
-                <v-skeleton
-                  height="10"
-                  radius="3"
-                  class="mb-1"
-                />
-                <v-skeleton
-                  height="10"
-                  radius="3"
-                  class="mb-1"
-                />
-                <v-skeleton
-                  height="10"
-                  radius="3"
-                  class="mb-1"
-                />
-                <v-skeleton
-                  height="10"
-                  radius="3"
-                  class="mb-1"
-                />
-              </v-col>
-            </v-row>
-          </v-card-content>
-        </v-card>
+          <template #toolbar>
+            <v-button @click="addRow">
+              add
+            </v-button>
+          </template>
+        </v-data-table>
       </v-col>
     </v-row>
   </v-main>

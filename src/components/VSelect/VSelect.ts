@@ -80,6 +80,7 @@ export const VSelect = defineComponent({
         inputActivator: '.v-input__text-field',
         openOnClick: !isDisabled.value && !isReadonly.value,
         maxHeight: 240,
+        zIndex: 12,
         onShow: onFocus,
         onHide: onBlur
       }, {

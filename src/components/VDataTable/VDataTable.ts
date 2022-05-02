@@ -136,13 +136,13 @@ export const VDataTable = defineComponent({
 
     watch(
       () => props.cols,
-      (to) => (data.cols = Object.assign([], to)),
+      (to) => (data.cols = to),
       { immediate: true }
     )
 
     watch(
       () => props.rows,
-      (to) => (data.rows = Object.assign([], to)),
+      (to) => (data.rows = to),
       { immediate: true }
     )
 

@@ -58,7 +58,7 @@ exports[`VSelect should mount component and match snapshot 1`] = `
     </div>
     <div
       class="v-menu__content elevation-10"
-      style="top: 0px; left: 0px; z-index: 10; display: none;"
+      style="top: 0px; left: 0px; z-index: 12; display: none;"
     >
       <div
         class="v-menu__slot"

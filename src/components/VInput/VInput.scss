@@ -60,6 +60,12 @@ $input-label-height: 24px;
     border-color: currentColor
   }
 
+  &--file > .v-input__text-field {
+    border-style: dotted;
+    height: auto !important;
+    min-height: $input-height;
+  }
+
   &--not-valid {
     color: map-get($states, 'error') !important;
 

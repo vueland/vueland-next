@@ -17,6 +17,7 @@ export enum FaIcons {
   $marker = 'fas fa-map-marker-alt',
   $search = 'fas fa-search',
   $close = 'fas fa-times',
+  $paperclip = 'fas fa-paperclip'
 }
 
 export enum MaterialIcons {

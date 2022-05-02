@@ -1,0 +1,20 @@
+@import "../../styles/scss/modules/global";
+
+.v-chip {
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 5px 8px;
+  width: auto;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &__content {
+    margin-right: 10px;
+  }
+
+  &--disabled {
+    background-color: map-get($states, 'disabled');
+    pointer-events: none;
+  }
+}

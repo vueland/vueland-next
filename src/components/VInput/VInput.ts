@@ -50,6 +50,7 @@ export const VInput = defineComponent({
     disabled: Boolean,
     focused: Boolean,
     readonly: Boolean,
+    file: Boolean,
     hints: {
       type: Boolean,
       default: true
@@ -90,6 +91,7 @@ export const VInput = defineComponent({
       'v-input--focused': props.focused && !isReadonly.value,
       'v-input--disabled': isDisabled.value,
       'v-input--readonly': isReadonly.value,
+      'v-input--file': props.file,
       'v-input--has-prepend-icon': hasPrependIcon.value,
       'v-input--has-append-icon': hasAppendIcon.value,
       'v-input--not-valid': !!errorState.innerError,

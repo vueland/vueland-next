@@ -88,11 +88,6 @@ export default defineComponent({
   <v-main
     style="padding: 66px 10px 10px 66px"
   >
-    <v-select
-      v-model="select"
-      label="select"
-      :items="['one', 'two']"
-    />
     <v-row
       v-for="row in 5"
       :key="row"

@@ -104,43 +104,33 @@ export const VButton = defineComponent({
           class: 'v-button__loader',
         },
         (slots.loading && slots.loading()) ||
-          h(VProgressCircular, {
-            indeterminate: true,
-            size: 23,
-            width: 2,
-          })
+        h(VProgressCircular, {
+          indeterminate: true,
+          size: 23,
+          width: 2,
+        }),
       )
     }
 
     const genLabel = (): VNode => {
-      return h(
-        'span',
-        {
-          class: 'v-button__label',
-        },
-        props.label
-      )
+      return h('span', {
+        class: 'v-button__label',
+      }, props.label)
     }
 
     const genContent = (): VNode => {
-      return h(
-        'div',
-        {
-          class: 'v-button__content',
-        },
-        [(slots.default && slots.default()) || (props.label && genLabel())]
+      return h('div', { class: 'v-button__content' },
+        [(slots.default && slots.default()) || (props.label && genLabel())],
       )
     }
 
     return () =>
-      h(
-        'button',
-        {
+      h('button', {
           class: classes.value,
           style: styles.value,
           onClick: () => !props.disabled && emit('click'),
         },
-        [genContent(), props.loading && genLoader()]
+        [genContent(), props.loading && genLoader()],
       )
   },
 })

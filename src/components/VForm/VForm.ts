@@ -29,10 +29,9 @@ export const VForm = defineComponent({
     }
 
     return () =>
-      h(
-        'form',
-        {
+      h('form', {
           class: 'v-form',
+          onSubmit: (e) => e.preventDefault()
         },
         {
           default: () => slots.default && slots.default({ validate }),

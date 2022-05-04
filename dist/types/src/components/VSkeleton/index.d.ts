@@ -1,1 +1,0 @@
-export { VSkeleton } from './VSkeleton';

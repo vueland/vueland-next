@@ -1,1 +1,0 @@
-export { VCheckbox } from './VCheckbox';

@@ -1,0 +1,4 @@
+export function isCssColor(color) {
+    return !!color.match(/^(#|var\(--|(rgb|hsl)a?\()/);
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiY29sb3ItcGFyc2VyLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vc3JjL3V0aWxzL2NvbG9yLXBhcnNlci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSxNQUFNLFVBQVUsVUFBVSxDQUFDLEtBQWE7SUFDdEMsT0FBTyxDQUFDLENBQUMsS0FBSyxDQUFDLEtBQUssQ0FBQyw0QkFBNEIsQ0FBQyxDQUFDO0FBQ3JELENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyJleHBvcnQgZnVuY3Rpb24gaXNDc3NDb2xvcihjb2xvcjogc3RyaW5nKTogYm9vbGVhbiB7XG4gIHJldHVybiAhIWNvbG9yLm1hdGNoKC9eKCN8dmFyXFwoLS18KHJnYnxoc2wpYT9cXCgpLyk7XG59XG4iXX0=

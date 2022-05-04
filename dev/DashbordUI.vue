@@ -127,6 +127,10 @@ export default defineComponent({
   <v-main
     style="padding: 66px 10px 10px 66px"
   >
+    <v-file-input
+      label="load file"
+      multiple
+    />
     <v-row>
       <v-col>
         <v-data-table

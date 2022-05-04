@@ -1,0 +1,1 @@
+export { VSkeleton } from './VSkeleton';

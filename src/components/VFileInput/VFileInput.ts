@@ -32,6 +32,7 @@ export const VFileInput = defineComponent({
 
     const inputRef = ref<Maybe<HTMLInputElement>>(null)
     const files = ref<Map<string, File>>(new Map())
+    const srcRef = ref<Maybe<HTMLElement>>(null)
 
     const classes = computed(() => ({
       'v-file-input': true,
@@ -41,6 +42,8 @@ export const VFileInput = defineComponent({
 
     const onChange = (event) => {
       const inputFiles = Array.from(event.target.files) as File[]
+
+      if (!props.multiple) files.value.clear()
 
       inputFiles.forEach(f => files.value.set(f.name, f))
 
@@ -54,7 +57,7 @@ export const VFileInput = defineComponent({
     }
 
     const onClick = ({ srcElement }) => {
-      if (!srcElement.classList.contains('v-file-input__container')) return
+      if (srcElement !== srcRef.value) return
       inputRef.value!.click()
     }
 
@@ -86,6 +89,7 @@ export const VFileInput = defineComponent({
     const genChipsContainer = () => {
       return h('div', {
         class: 'v-file-input__container',
+        ref: srcRef,
       }, genChips())
     }
 

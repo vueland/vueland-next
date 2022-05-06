@@ -24,8 +24,6 @@ export const useActivator = (props) => {
     const target = props.internalActivator ?
       (props.activator?.$el || props.activator) : document
 
-    console.log(target, 'target')
-
     if (props.inputActivator) {
       return (activatorRef.value = target.querySelector(props.inputActivator))
     }

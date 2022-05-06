@@ -1,17 +1,19 @@
 // Vue API
-import { watch, computed, defineComponent, h } from 'vue'
+import { watch, computed, defineComponent, h, ref, PropType } from 'vue'
 
 // Components
 import { VIcon } from '../VIcon'
 import { VButton } from '../VButton'
-import { VSelect } from '../VSelect'
+import { VMenu } from '../VMenu'
 
 // Effects
 import { useColors } from '../../composable/use-colors'
-import { useIcons } from '../../composable/use-icons'
 
+import { useIcons } from '../../composable/use-icons'
 // Types
 import { VNode } from 'vue'
+import { Maybe } from '../../../types/base'
+import { IDataTableFooterOptions } from './types'
 
 export const VDataTableFooter = defineComponent({
   name: 'v-data-table-footer',
@@ -23,7 +25,7 @@ export const VDataTableFooter = defineComponent({
     pageCorrection: Number,
     rowsLength: Number,
     rowsOnPage: Number,
-    options: Object,
+    options: Object as PropType<IDataTableFooterOptions>,
   } as any,
 
   emits: [
@@ -42,6 +44,8 @@ export const VDataTableFooter = defineComponent({
       setTextCssColor,
     } = useColors()
     const { icons } = useIcons()
+
+    const activator = ref<Maybe<HTMLElement>>(null)
 
     const paginationDisplayText = computed<string>(() => {
       return `${ props.firstOnPage } - ${ props.lastOnPage }
@@ -65,9 +69,8 @@ export const VDataTableFooter = defineComponent({
     }
 
     function genPaginationButton(isNext = false): VNode {
-      const btnColor =
-        props.options?.pagination?.buttonsColor ||
-        (props.options.dark ? 'white' : 'primary')
+      const btnColor = props.options?.pagination?.buttonsColor || 'primary'
+      const contentColor = props.options.contentColor || 'white'
 
       const disableIf =
         (isNext && props.lastOnPage >= props.rowsLength) ||
@@ -76,9 +79,9 @@ export const VDataTableFooter = defineComponent({
       const propsData = {
         width: 42,
         color: btnColor,
-        text: props.options.dark,
         elevation: 3,
         disabled: disableIf,
+        text: disableIf,
         onClick: () => changeTableRowsPage(isNext),
       }
 
@@ -86,39 +89,80 @@ export const VDataTableFooter = defineComponent({
         default: () =>
           h(VIcon, {
             icon: isNext ? icons.$arrowRight : icons.$arrowLeft,
-            color: props.options.dark ? 'white' : '',
+            color: disableIf ? 'grey lighten-1' : contentColor,
           }),
       })
     }
 
     function genPaginationPageDisplay(): VNode {
-      const displayColor =
-        props.options?.pagination?.displayColor ||
-        (props.options.dark ? 'white' : 'blue lighten-1')
+      const displayColor = props.options?.pagination?.displayColor || 'primary'
 
       const propsData = {
         width: 42,
         style: { margin: '0 10px' },
         color: displayColor,
-        text: props.options.dark,
         elevation: 3,
       }
 
       return h(VButton, propsData, { default: () => props.page })
     }
 
-    function genRowsCountSelect(): VNode {
-      const propsData = {
-        items: props.options.rowsPerPageOptions,
-        textColor: props.options.contentColor,
-        modelValue: props.rowsOnPage,
-        hints: false,
-        showExpIcon: false,
-        onSelect: (e) => emit('select-rows-count', e),
-      }
+    const genRowsCountSelectList = () => {
+      const options = props.options.rowsPerPageOptions || [5, 10, 15, 20]
+      const color = props.options?.pagination?.displayColor || 'primary'
+      const contentColor = props.options.contentColor || 'white'
 
-      return h(VSelect, propsData)
+      return h('div', {
+          class: {
+            'v-data-table__rows-count-list': true,
+            ...(color ? setBackgroundClassNameColor(color) : {}),
+            ...(contentColor ? setTextClassNameColor(contentColor) : {}),
+          },
+          style: {
+            ...(color ? setBackgroundCssColor(color) : {}),
+            ...(contentColor ? setTextCssColor(contentColor) : {}),
+          },
+        }, options.map((it) => h('div', {
+          class: 'v-data-table__rows-count-item',
+          onClick: () => emit('select-rows-count', it),
+        }, [it])),
+      )
     }
+
+    const genMenu = () => {
+
+
+      return h(VMenu, {
+        activator: activator.value!,
+        maxHeight: 240,
+        zIndex: 12,
+        openOnClick: true,
+      }, {
+        default: () => genRowsCountSelectList(),
+      })
+    }
+
+    const genRowsCountField = () => {
+      return h('div', {
+        class: 'v-data-table__rows-count-value',
+        textColor: props.options.contentColor,
+      }, props.rowsOnPage)
+    }
+
+    const genRowsCountSelect = () => {
+      const displayColor = props.options?.pagination?.displayColor || 'primary'
+
+      return h(VButton, {
+        color: displayColor,
+        ref: activator,
+      }, {
+        default: () => [
+          genRowsCountField(),
+          activator.value && genMenu(),
+        ],
+      })
+    }
+
 
     function genRowsCountSelectCaption(): VNode {
       const color = props.options.contentColor

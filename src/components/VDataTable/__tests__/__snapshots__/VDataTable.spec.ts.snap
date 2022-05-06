@@ -19,51 +19,40 @@ exports[`VDataTable should mount component and match snapshot 1`] = `
         <span class="v-data-table__pagination-label">
           Rows per page
         </span>
-        <div class="v-input v-input--primary v-input--has-append-icon">
-          <div class="v-input__text-field">
-            <div class="v-select">
-              <input class="v-select__input"
-                     type="text"
-                     readonly
-              >
-            </div>
-            <div class="v-input__append-icon">
-              <i class="v-icon fas fa-chevron-down"
-                 style="font-size: 16px;"
-              >
-              </i>
+        <button class="v-button primary">
+          <div class="v-button__content">
+            <div class="v-data-table__rows-count-value">
+              20
             </div>
           </div>
-          <div class="v-input__selects">
-          </div>
-        </div>
+        </button>
       </div>
       <div class="v-data-table__pagination-pages">
         -
       </div>
       <div class="v-data-table__pagination-route">
-        <button class="v-button v-button--disabled primary"
+        <button class="v-button v-button--text v-button--disabled primary--text"
                 style="width: 42px;"
         >
           <div class="v-button__content">
-            <i class="v-icon fas fa-chevron-left"
+            <i class="v-icon fas fa-chevron-left grey--text text--lighten-1"
                style="font-size: 16px;"
             >
             </i>
           </div>
         </button>
-        <button class="v-button elevation-3 blue lighten-1"
+        <button class="v-button elevation-3 primary"
                 style="width: 42px; margin: 0px 10px;"
         >
           <div class="v-button__content">
             1
           </div>
         </button>
-        <button class="v-button v-button--disabled primary"
+        <button class="v-button v-button--text v-button--disabled primary--text"
                 style="width: 42px;"
         >
           <div class="v-button__content">
-            <i class="v-icon fas fa-chevron-right"
+            <i class="v-icon fas fa-chevron-right grey--text text--lighten-1"
                style="font-size: 16px;"
             >
             </i>
@@ -641,52 +630,41 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
         <span class="v-data-table__pagination-label">
           Rows per page
         </span>
-        <div class="v-input v-input--primary v-input--has-append-icon">
-          <div class="v-input__text-field">
-            <div class="v-select">
-              <input class="v-select__input"
-                     type="text"
-                     readonly
-              >
-            </div>
-            <div class="v-input__append-icon">
-              <i class="v-icon fas fa-chevron-down"
-                 style="font-size: 16px;"
-              >
-              </i>
+        <button class="v-button primary">
+          <div class="v-button__content">
+            <div class="v-data-table__rows-count-value">
+              20
             </div>
           </div>
-          <div class="v-input__selects">
-          </div>
-        </div>
+        </button>
       </div>
       <div class="v-data-table__pagination-pages">
         1 - 20
         of 20
       </div>
       <div class="v-data-table__pagination-route">
-        <button class="v-button v-button--disabled primary"
+        <button class="v-button v-button--text v-button--disabled primary--text"
                 style="width: 42px;"
         >
           <div class="v-button__content">
-            <i class="v-icon fas fa-chevron-left"
+            <i class="v-icon fas fa-chevron-left grey--text text--lighten-1"
                style="font-size: 16px;"
             >
             </i>
           </div>
         </button>
-        <button class="v-button elevation-3 blue lighten-1"
+        <button class="v-button elevation-3 primary"
                 style="width: 42px; margin: 0px 10px;"
         >
           <div class="v-button__content">
             1
           </div>
         </button>
-        <button class="v-button v-button--disabled primary"
+        <button class="v-button v-button--text v-button--disabled primary--text"
                 style="width: 42px;"
         >
           <div class="v-button__content">
-            <i class="v-icon fas fa-chevron-right"
+            <i class="v-icon fas fa-chevron-right grey--text text--lighten-1"
                style="font-size: 16px;"
             >
             </i>
@@ -1264,52 +1242,41 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
         <span class="v-data-table__pagination-label">
           Rows per page
         </span>
-        <div class="v-input v-input--primary v-input--has-append-icon">
-          <div class="v-input__text-field">
-            <div class="v-select">
-              <input class="v-select__input"
-                     type="text"
-                     readonly
-              >
-            </div>
-            <div class="v-input__append-icon">
-              <i class="v-icon fas fa-chevron-down"
-                 style="font-size: 16px;"
-              >
-              </i>
+        <button class="v-button primary">
+          <div class="v-button__content">
+            <div class="v-data-table__rows-count-value">
+              20
             </div>
           </div>
-          <div class="v-input__selects">
-          </div>
-        </div>
+        </button>
       </div>
       <div class="v-data-table__pagination-pages">
         1 - 20
         of 20
       </div>
       <div class="v-data-table__pagination-route">
-        <button class="v-button v-button--disabled primary"
+        <button class="v-button v-button--text v-button--disabled primary--text"
                 style="width: 42px;"
         >
           <div class="v-button__content">
-            <i class="v-icon fas fa-chevron-left"
+            <i class="v-icon fas fa-chevron-left grey--text text--lighten-1"
                style="font-size: 16px;"
             >
             </i>
           </div>
         </button>
-        <button class="v-button elevation-3 blue lighten-1"
+        <button class="v-button elevation-3 primary"
                 style="width: 42px; margin: 0px 10px;"
         >
           <div class="v-button__content">
             1
           </div>
         </button>
-        <button class="v-button v-button--disabled primary"
+        <button class="v-button v-button--text v-button--disabled primary--text"
                 style="width: 42px;"
         >
           <div class="v-button__content">
-            <i class="v-icon fas fa-chevron-right"
+            <i class="v-icon fas fa-chevron-right grey--text text--lighten-1"
                style="font-size: 16px;"
             >
             </i>
@@ -1887,52 +1854,41 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
         <span class="v-data-table__pagination-label">
           Rows per page
         </span>
-        <div class="v-input v-input--primary v-input--has-append-icon">
-          <div class="v-input__text-field">
-            <div class="v-select">
-              <input class="v-select__input"
-                     type="text"
-                     readonly
-              >
-            </div>
-            <div class="v-input__append-icon">
-              <i class="v-icon fas fa-chevron-down"
-                 style="font-size: 16px;"
-              >
-              </i>
+        <button class="v-button primary">
+          <div class="v-button__content">
+            <div class="v-data-table__rows-count-value">
+              20
             </div>
           </div>
-          <div class="v-input__selects">
-          </div>
-        </div>
+        </button>
       </div>
       <div class="v-data-table__pagination-pages">
         1 - 20
         of 20
       </div>
       <div class="v-data-table__pagination-route">
-        <button class="v-button v-button--disabled primary"
+        <button class="v-button v-button--text v-button--disabled primary--text"
                 style="width: 42px;"
         >
           <div class="v-button__content">
-            <i class="v-icon fas fa-chevron-left"
+            <i class="v-icon fas fa-chevron-left grey--text text--lighten-1"
                style="font-size: 16px;"
             >
             </i>
           </div>
         </button>
-        <button class="v-button elevation-3 blue lighten-1"
+        <button class="v-button elevation-3 primary"
                 style="width: 42px; margin: 0px 10px;"
         >
           <div class="v-button__content">
             1
           </div>
         </button>
-        <button class="v-button v-button--disabled primary"
+        <button class="v-button v-button--text v-button--disabled primary--text"
                 style="width: 42px;"
         >
           <div class="v-button__content">
-            <i class="v-icon fas fa-chevron-right"
+            <i class="v-icon fas fa-chevron-right grey--text text--lighten-1"
                style="font-size: 16px;"
             >
             </i>
@@ -1963,51 +1919,40 @@ exports[`VDataTable should test color prop and match snapshot 1`] = `
         <span class="v-data-table__pagination-label">
           Rows per page
         </span>
-        <div class="v-input v-input--primary v-input--has-append-icon">
-          <div class="v-input__text-field">
-            <div class="v-select">
-              <input class="v-select__input"
-                     type="text"
-                     readonly
-              >
-            </div>
-            <div class="v-input__append-icon">
-              <i class="v-icon fas fa-chevron-down"
-                 style="font-size: 16px;"
-              >
-              </i>
+        <button class="v-button primary">
+          <div class="v-button__content">
+            <div class="v-data-table__rows-count-value">
+              20
             </div>
           </div>
-          <div class="v-input__selects">
-          </div>
-        </div>
+        </button>
       </div>
       <div class="v-data-table__pagination-pages">
         -
       </div>
       <div class="v-data-table__pagination-route">
-        <button class="v-button v-button--disabled primary"
+        <button class="v-button v-button--text v-button--disabled primary--text"
                 style="width: 42px;"
         >
           <div class="v-button__content">
-            <i class="v-icon fas fa-chevron-left"
+            <i class="v-icon fas fa-chevron-left grey--text text--lighten-1"
                style="font-size: 16px;"
             >
             </i>
           </div>
         </button>
-        <button class="v-button elevation-3 blue lighten-1"
+        <button class="v-button elevation-3 primary"
                 style="width: 42px; margin: 0px 10px;"
         >
           <div class="v-button__content">
             1
           </div>
         </button>
-        <button class="v-button v-button--disabled primary"
+        <button class="v-button v-button--text v-button--disabled primary--text"
                 style="width: 42px;"
         >
           <div class="v-button__content">
-            <i class="v-icon fas fa-chevron-right"
+            <i class="v-icon fas fa-chevron-right grey--text text--lighten-1"
                style="font-size: 16px;"
             >
             </i>
@@ -2071,51 +2016,40 @@ exports[`VDataTable should test cols prop and match snapshot 1`] = `
         <span class="v-data-table__pagination-label">
           Rows per page
         </span>
-        <div class="v-input v-input--primary v-input--has-append-icon">
-          <div class="v-input__text-field">
-            <div class="v-select">
-              <input class="v-select__input"
-                     type="text"
-                     readonly
-              >
-            </div>
-            <div class="v-input__append-icon">
-              <i class="v-icon fas fa-chevron-down"
-                 style="font-size: 16px;"
-              >
-              </i>
+        <button class="v-button primary">
+          <div class="v-button__content">
+            <div class="v-data-table__rows-count-value">
+              20
             </div>
           </div>
-          <div class="v-input__selects">
-          </div>
-        </div>
+        </button>
       </div>
       <div class="v-data-table__pagination-pages">
         -
       </div>
       <div class="v-data-table__pagination-route">
-        <button class="v-button v-button--disabled primary"
+        <button class="v-button v-button--text v-button--disabled primary--text"
                 style="width: 42px;"
         >
           <div class="v-button__content">
-            <i class="v-icon fas fa-chevron-left"
+            <i class="v-icon fas fa-chevron-left grey--text text--lighten-1"
                style="font-size: 16px;"
             >
             </i>
           </div>
         </button>
-        <button class="v-button elevation-3 blue lighten-1"
+        <button class="v-button elevation-3 primary"
                 style="width: 42px; margin: 0px 10px;"
         >
           <div class="v-button__content">
             1
           </div>
         </button>
-        <button class="v-button v-button--disabled primary"
+        <button class="v-button v-button--text v-button--disabled primary--text"
                 style="width: 42px;"
         >
           <div class="v-button__content">
-            <i class="v-icon fas fa-chevron-right"
+            <i class="v-icon fas fa-chevron-right grey--text text--lighten-1"
                style="font-size: 16px;"
             >
             </i>
@@ -2697,56 +2631,45 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
         <span class="v-data-table__pagination-label">
           Rows per page
         </span>
-        <div class="v-input v-input--primary v-input--has-append-icon">
-          <div class="v-input__text-field">
-            <div class="v-select">
-              <input class="v-select__input"
-                     type="text"
-                     readonly
-              >
+        <button class="v-button primary">
+          <div class="v-button__content">
+            <div class="v-data-table__rows-count-value">
+              20
             </div>
-            <div class="v-input__append-icon">
-              <i class="v-icon fas fa-chevron-down"
-                 style="font-size: 16px;"
-              >
-              </i>
-            </div>
-          </div>
-          <div class="v-input__selects">
             <div class="v-menu">
             </div>
             <transition-stub>
             </transition-stub>
           </div>
-        </div>
+        </button>
       </div>
       <div class="v-data-table__pagination-pages">
         1 - 20
         of 20
       </div>
       <div class="v-data-table__pagination-route">
-        <button class="v-button v-button--disabled primary"
+        <button class="v-button v-button--text v-button--disabled primary--text"
                 style="width: 42px;"
         >
           <div class="v-button__content">
-            <i class="v-icon fas fa-chevron-left"
+            <i class="v-icon fas fa-chevron-left grey--text text--lighten-1"
                style="font-size: 16px;"
             >
             </i>
           </div>
         </button>
-        <button class="v-button elevation-3 blue lighten-1"
+        <button class="v-button elevation-3 primary"
                 style="width: 42px; margin: 0px 10px;"
         >
           <div class="v-button__content">
             1
           </div>
         </button>
-        <button class="v-button v-button--disabled primary"
+        <button class="v-button v-button--text v-button--disabled primary--text"
                 style="width: 42px;"
         >
           <div class="v-button__content">
-            <i class="v-icon fas fa-chevron-right"
+            <i class="v-icon fas fa-chevron-right grey--text text--lighten-1"
                style="font-size: 16px;"
             >
             </i>
@@ -3354,56 +3277,45 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
         <span class="v-data-table__pagination-label">
           Rows per page
         </span>
-        <div class="v-input v-input--primary v-input--has-append-icon">
-          <div class="v-input__text-field">
-            <div class="v-select">
-              <input class="v-select__input"
-                     type="text"
-                     readonly
-              >
+        <button class="v-button primary">
+          <div class="v-button__content">
+            <div class="v-data-table__rows-count-value">
+              20
             </div>
-            <div class="v-input__append-icon">
-              <i class="v-icon fas fa-chevron-down"
-                 style="font-size: 16px;"
-              >
-              </i>
-            </div>
-          </div>
-          <div class="v-input__selects">
             <div class="v-menu">
             </div>
             <transition-stub>
             </transition-stub>
           </div>
-        </div>
+        </button>
       </div>
       <div class="v-data-table__pagination-pages">
         1 - 20
         of 20
       </div>
       <div class="v-data-table__pagination-route">
-        <button class="v-button v-button--disabled primary"
+        <button class="v-button v-button--text v-button--disabled primary--text"
                 style="width: 42px;"
         >
           <div class="v-button__content">
-            <i class="v-icon fas fa-chevron-left"
+            <i class="v-icon fas fa-chevron-left grey--text text--lighten-1"
                style="font-size: 16px;"
             >
             </i>
           </div>
         </button>
-        <button class="v-button elevation-3 blue lighten-1"
+        <button class="v-button elevation-3 primary"
                 style="width: 42px; margin: 0px 10px;"
         >
           <div class="v-button__content">
             1
           </div>
         </button>
-        <button class="v-button v-button--disabled primary"
+        <button class="v-button v-button--text v-button--disabled primary--text"
                 style="width: 42px;"
         >
           <div class="v-button__content">
-            <i class="v-icon fas fa-chevron-right"
+            <i class="v-icon fas fa-chevron-right grey--text text--lighten-1"
                style="font-size: 16px;"
             >
             </i>
@@ -3522,56 +3434,67 @@ exports[`VDataTable should test table filter and match snapshot 1`] = `
         <span class="v-data-table__pagination-label">
           Rows per page
         </span>
-        <div class="v-input v-input--primary v-input--has-append-icon">
-          <div class="v-input__text-field">
-            <div class="v-select">
-              <input class="v-select__input"
-                     type="text"
-                     readonly
-              >
+        <button class="v-button primary">
+          <div class="v-button__content">
+            <div class="v-data-table__rows-count-value">
+              20
             </div>
-            <div class="v-input__append-icon">
-              <i class="v-icon fas fa-chevron-down"
-                 style="font-size: 16px;"
-              >
-              </i>
-            </div>
-          </div>
-          <div class="v-input__selects">
             <div class="v-menu">
             </div>
             <transition-stub>
+              <div class="v-menu__content elevation-10"
+                   style="top: 0px; left: 0px; z-index: 12; display: none;"
+              >
+                <div class="v-menu__slot"
+                     style="max-height: 240px; width: 0px;"
+                >
+                  <div class="v-data-table__rows-count-list primary white--text">
+                    <div class="v-data-table__rows-count-item">
+                      5
+                    </div>
+                    <div class="v-data-table__rows-count-item">
+                      10
+                    </div>
+                    <div class="v-data-table__rows-count-item">
+                      15
+                    </div>
+                    <div class="v-data-table__rows-count-item">
+                      20
+                    </div>
+                  </div>
+                </div>
+              </div>
             </transition-stub>
           </div>
-        </div>
+        </button>
       </div>
       <div class="v-data-table__pagination-pages">
         1 - 1
         of 1
       </div>
       <div class="v-data-table__pagination-route">
-        <button class="v-button v-button--disabled primary"
+        <button class="v-button v-button--text v-button--disabled primary--text"
                 style="width: 42px;"
         >
           <div class="v-button__content">
-            <i class="v-icon fas fa-chevron-left"
+            <i class="v-icon fas fa-chevron-left grey--text text--lighten-1"
                style="font-size: 16px;"
             >
             </i>
           </div>
         </button>
-        <button class="v-button elevation-3 blue lighten-1"
+        <button class="v-button elevation-3 primary"
                 style="width: 42px; margin: 0px 10px;"
         >
           <div class="v-button__content">
             1
           </div>
         </button>
-        <button class="v-button v-button--disabled primary"
+        <button class="v-button v-button--text v-button--disabled primary--text"
                 style="width: 42px;"
         >
           <div class="v-button__content">
-            <i class="v-icon fas fa-chevron-right"
+            <i class="v-icon fas fa-chevron-right grey--text text--lighten-1"
                style="font-size: 16px;"
             >
             </i>

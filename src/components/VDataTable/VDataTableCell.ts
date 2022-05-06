@@ -57,8 +57,7 @@ export const VDataTableCell = defineComponent({
         right: true,
         emit: true,
         class: {
-          white: props.dark,
-          primary: !props.dark,
+          primary: true,
         },
         onResize: ($size) => emit('resize', $size),
       }

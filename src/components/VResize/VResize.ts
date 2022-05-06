@@ -49,7 +49,7 @@ export const VResize = defineComponent({
     },
     color: {
       type: String,
-      default: 'grey lighten-2',
+      default: 'primary',
     },
     ...positionProps(),
   } as any,

@@ -21,14 +21,16 @@ export const useActivator = (props) => {
   const getActivator = (e?: Event): Maybe<HTMLElement> => {
     if (activatorRef.value) return activatorRef.value
 
-    const target = props.internalActivator ? props.activator.$el : document
+    const target = props.internalActivator ?
+      (props.activator?.$el || props.activator) : document
+
+    console.log(target, 'target')
 
     if (props.inputActivator) {
       return (activatorRef.value = target.querySelector(props.inputActivator))
     }
 
     if (props.activator) {
-      console.log(props.activator, 'props suka')
       if (typeof props.activator === 'string') {
         return (activatorRef.value = target.querySelector(props.activator))
       }

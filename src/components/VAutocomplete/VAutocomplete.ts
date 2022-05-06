@@ -215,7 +215,7 @@ export const VAutocomplete = defineComponent({
       }
 
       return h(VInput, propsData, {
-        textField: () => genAutocomplete(),
+        'text-field': () => genAutocomplete(),
       })
     }
   },

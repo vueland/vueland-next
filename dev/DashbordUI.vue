@@ -130,7 +130,8 @@ export default defineComponent({
     <v-select
       label="salam"
       color="orange darken-2"
-      disabled
+      :items="[1,2]"
+      active-class="orange"
     ></v-select>
     <v-file-input
       label="load file"
@@ -140,9 +141,17 @@ export default defineComponent({
     <v-row>
       <v-col>
         <v-data-table
+          style="height: 900px"
           :cols="cols"
           :rows="rows"
-          style="height: 300px"
+          class="elevation-2"
+          :footer-options="{
+            // pagination: {
+            //   buttonsColor: 'orange',
+            //   displayColor: 'orange'
+            // },
+            // contentColor: '#ffffff'
+          }"
         >
           <template #toolbar>
             <v-button @click="addRow">

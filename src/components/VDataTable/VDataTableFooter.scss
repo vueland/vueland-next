@@ -4,7 +4,7 @@
 .v-data-table__footer {
   @include flex(inline-flex, space-between, center);
   width: 100%;
-  height: 75px;
+  height: 100px;
   box-shadow: 0 0 5px -2px rgba(0, 0, 0, .4);
   margin-top: auto;
 }
@@ -12,6 +12,29 @@
 .v-data-table {
   &__settings {
     padding: 20px;
+  }
+
+  &__rows-count {
+    width: 40px;
+    height: 40px;
+    border: 1px solid currentColor;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+
+    &-value {
+    }
+
+    &-item {
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    &-list {
+
+    }
   }
   &__pagination {
     margin-left: auto;

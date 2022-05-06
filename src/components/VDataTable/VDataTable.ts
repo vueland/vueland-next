@@ -60,9 +60,7 @@ export const VDataTable = defineComponent({
     },
     footerOptions: {
       type: Object as PropType<FooterOptions>,
-      default: () => ({
-        rowsPerPageOptions: [5, 10, 15, 20],
-      }),
+      default: () => ({}),
     },
     customFilter: Function,
   } as any,

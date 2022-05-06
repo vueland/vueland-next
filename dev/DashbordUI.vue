@@ -127,9 +127,15 @@ export default defineComponent({
   <v-main
     style="padding: 66px 10px 10px 66px"
   >
+    <v-select
+      label="salam"
+      color="orange darken-2"
+      disabled
+    ></v-select>
     <v-file-input
       label="load file"
       multiple
+      disabled
     />
     <v-row>
       <v-col>

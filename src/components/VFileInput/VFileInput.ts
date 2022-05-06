@@ -4,8 +4,8 @@ import { h, defineComponent, ref, computed } from 'vue'
 import { VInput } from '../VInput'
 import { VChip } from '../VChip'
 // Composables
-import { useColors } from '../../composable/use-colors'
 import { useIcons } from '../../composable/use-icons'
+import { useInputStates } from '../../composable/use-input-states'
 // Helpers
 import { mapToValArray } from '../../helpers'
 // Types
@@ -26,9 +26,9 @@ export const VFileInput = defineComponent({
     },
   },
   emits: ['update:modelValue'],
-  setup(props, { emit }) {
-    const {} = useColors()
+  setup(props, { emit, attrs }) {
     const { icons } = useIcons()
+    const { isDisabled, isReadonly } = useInputStates(props, { emit, attrs })
 
     const inputRef = ref<Maybe<HTMLInputElement>>(null)
     const files = ref<Map<string, File>>(new Map())
@@ -36,7 +36,8 @@ export const VFileInput = defineComponent({
 
     const classes = computed(() => ({
       'v-file-input': true,
-      'v-file-input--disabled': props.disabled,
+      'v-file-input--disabled': isDisabled.value,
+      'v-file-input--readonly': isReadonly.value,
       'v-file-input--multiple': props.multiple,
     }))
 
@@ -104,6 +105,7 @@ export const VFileInput = defineComponent({
     return () => h(VInput, {
       prependIcon: icons.$paperclip,
       file: true,
+      disabled: isDisabled.value,
     }, {
       'text-field': () => genComponent(),
     })

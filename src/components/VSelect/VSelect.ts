@@ -95,9 +95,10 @@ export const VSelect = defineComponent({
     }
 
     const genExpandIcon = (): VNode => {
+      console.log(attrs.disabled)
       return h(VIcon, {
         icon: FaIcons.$chevronDown,
-        color: attrs.color,
+        color: !isDisabled.value ? attrs.color : '',
         size: 16
       })
     }

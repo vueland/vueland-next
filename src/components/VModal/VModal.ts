@@ -16,12 +16,17 @@ import { useToggle } from '../../composable/use-toggle'
 
 // Types
 import { VNode } from 'vue'
+import { convertToUnit } from '@/helpers'
 
 export const VModal = defineComponent({
   name: 'v-modal',
 
   props: {
     modelValue: Boolean,
+    width: {
+      type: [Number, String],
+      default: null,
+    },
     ...overlayProps(),
     ...transitionProps(),
   } as any,
@@ -37,7 +42,7 @@ export const VModal = defineComponent({
       if (props.overlay) {
         const { createOverlay, removeOverlay } = useOverlay(
           props,
-          modalRef.value!
+          modalRef.value!,
         )
 
         isActive.value && createOverlay()
@@ -47,7 +52,7 @@ export const VModal = defineComponent({
           (to) => {
             to && createOverlay()
             !to && removeOverlay()
-          }
+          },
         )
       }
     })
@@ -55,6 +60,9 @@ export const VModal = defineComponent({
     function genContent(): VNode {
       const propsData = {
         class: 'v-modal__content',
+        style: {
+          width: props.width ? convertToUnit(props.width) : '',
+        },
       }
       return h('div', propsData, slots.default && slots.default())
     }

@@ -2,8 +2,7 @@
 @import "variables";
 
 .v-data-table__header {
-  //@include flex(inline-flex, flex-start, stretch);
-  display: flex;
+  display: inline-flex;
   justify-content: flex-start;
   align-items: stretch;
   min-width: 100%;

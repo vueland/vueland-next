@@ -145,7 +145,13 @@ export default defineComponent({
           :cols="cols"
           :rows="rows"
           class="elevation-2"
+          :header-options="{
+            resizerColor: 'red'
+          }"
           :footer-options="{
+            counts: {
+              displayColor: 'red'
+            }
             // pagination: {
             //   buttonsColor: 'orange',
             //   displayColor: 'orange'

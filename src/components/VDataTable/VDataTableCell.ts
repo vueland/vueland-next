@@ -26,6 +26,10 @@ export const VDataTableCell = defineComponent({
       type: [String, Number],
       default: 75,
     },
+    resizerColor: {
+      type: String,
+      default: 'primary',
+    },
     contentColor: String,
     ...colorProps(),
   } as any,
@@ -56,9 +60,7 @@ export const VDataTableCell = defineComponent({
       const propsData = {
         right: true,
         emit: true,
-        class: {
-          primary: true,
-        },
+        color: props.resizerColor,
         onResize: ($size) => emit('resize', $size),
       }
 
@@ -69,7 +71,7 @@ export const VDataTableCell = defineComponent({
       const propsData = {
         class: {
           'v-data-table__cell-content': true,
-          [`text-align--${props.align}`]: !!props.align,
+          [`text-align--${ props.align }`]: !!props.align,
         },
       }
 

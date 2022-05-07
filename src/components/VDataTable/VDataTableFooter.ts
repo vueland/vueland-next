@@ -108,8 +108,8 @@ export const VDataTableFooter = defineComponent({
     }
 
     const genRowsCountSelectList = () => {
-      const options = props.options.rowsPerPageOptions || [5, 10, 15, 20]
-      const color = props.options?.pagination?.displayColor || 'primary'
+      const options = props.options.counts?.rowsPerPageOptions || [5, 10, 15, 20]
+      const color = props.options?.counts?.displayColor || 'primary'
       const contentColor = props.options.contentColor || 'white'
 
       return h('div', {
@@ -131,7 +131,6 @@ export const VDataTableFooter = defineComponent({
 
     const genMenu = () => {
 
-
       return h(VMenu, {
         activator: activator.value!,
         maxHeight: 240,
@@ -150,7 +149,7 @@ export const VDataTableFooter = defineComponent({
     }
 
     const genRowsCountSelect = () => {
-      const displayColor = props.options?.pagination?.displayColor || 'primary'
+      const displayColor = props.options?.counts?.displayColor || 'primary'
 
       return h(VButton, {
         color: displayColor,
@@ -162,7 +161,6 @@ export const VDataTableFooter = defineComponent({
         ],
       })
     }
-
 
     function genRowsCountSelectCaption(): VNode {
       const color = props.options.contentColor

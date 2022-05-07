@@ -145,12 +145,18 @@ export default defineComponent({
           :cols="cols"
           :rows="rows"
           class="elevation-2"
+          :header-options="{
+            resizerColor: '#ffffff'
+          }"
           :footer-options="{
+            counts: {
+              displayColor: 'orange'
+            },
             // pagination: {
             //   buttonsColor: 'orange',
             //   displayColor: 'orange'
             // },
-            // contentColor: '#ffffff'
+            contentColor: '#ffffff'
           }"
         >
           <template #toolbar>

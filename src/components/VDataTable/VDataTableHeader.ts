@@ -223,6 +223,7 @@ export const VDataTableHeader = defineComponent({
         color: !col.cellClass ? props.options.color : '',
         width: col.width,
         resizeable: col.resizeable,
+        resizerColor: props.options?.resizerColor,
         align: col.align || props.align,
         onResize: ($size) => (col.width = $size),
       }

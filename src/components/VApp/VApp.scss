@@ -5,32 +5,4 @@
   text-rendering: optimizeLegibility;
   height: auto;
   min-height: 100vh;
-
-  * {
-    &::-webkit-scrollbar {
-      width: 4px;
-      height: 4px;
-      background: transparent;
-    }
-
-    &::-webkit-scrollbar-button {
-      width: 0;
-      height: 0;
-    }
-
-    &::-webkit-scrollbar-track {
-      background-color: map-get($white, 'base');
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background-color: map-get($states, 'primary');
-      border-radius: 5px;
-      width: 3px;
-    }
-
-    &::-webkit-resizer {
-      width: 5px;
-      height: 0;
-    }
-  }
 }

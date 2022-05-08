@@ -4,6 +4,7 @@ import { defineComponent, ref, watch } from 'vue'
 export default defineComponent({
   setup() {
     const select = ref(null)
+    const files= ref([{name: 'simple file'},{name: 'simple file'},{name: 'simple file'}])
     const rows = ref([
       {name: 'Alex', email: 'aaa@mail.ru'},
       {name: 'John', email: 'bbb@mail.ru'},
@@ -38,7 +39,8 @@ export default defineComponent({
 
     const addRow = () => {
       rows.value.push({name: 'Dina', email: 'eeee@mail.ru'})
-      console.log(rows.value)
+
+      files.value.pop()
     }
 
     watch(select, to => console.log(to))
@@ -47,6 +49,7 @@ export default defineComponent({
       select,
       rows,
       cols,
+      files,
       addRow
     }
   }
@@ -133,11 +136,12 @@ export default defineComponent({
       :items="[1,2]"
       active-class="orange"
     ></v-select>
+
     <v-file-input
+      v-model:value="files"
       label="load file"
-      multiple
-      disabled
     />
+
     <v-row>
       <v-col>
         <v-data-table

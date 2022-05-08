@@ -70,6 +70,13 @@ export const getKeyValueFromTarget = <T>(
 
 export const mapToValArray = (map): any[] => Array.from(map.values())
 
+export const uniqueArray = <T>(arr): Array<T> => {
+  return Object.values(arr.reduce((map, it) => {
+    if (!map[it.name]) map[it.name] = it
+    return map
+  }, {}))
+}
+
 export const getStringKeysValue = (str: string, value: any) => {
   return str.split('.').reduce((acc, it) => acc[it], value)
 }

@@ -1,5 +1,5 @@
 // Vue API
-import { h, defineComponent, ref, computed } from 'vue'
+import { h, defineComponent, ref, computed, PropType } from 'vue'
 // Components
 import { VInput } from '../VInput'
 import { VChip } from '../VChip'
@@ -7,7 +7,7 @@ import { VChip } from '../VChip'
 import { useIcons } from '../../composable/use-icons'
 import { useInputStates } from '../../composable/use-input-states'
 // Helpers
-import { mapToValArray } from '../../helpers'
+import { uniqueArray } from '../../helpers'
 // Types
 import { Maybe } from '../../../types/base'
 
@@ -20,18 +20,17 @@ export const VFileInput = defineComponent({
       type: String,
       default: 'primary',
     },
-    modelValue: {
-      type: Array,
+    value: {
+      type: Array as PropType<Array<File>>,
       default: null,
     },
   },
-  emits: ['update:modelValue'],
+  emits: ['update:value'],
   setup(props, { emit, attrs }) {
     const { icons } = useIcons()
     const { isDisabled, isReadonly } = useInputStates(props, { emit, attrs })
 
     const inputRef = ref<Maybe<HTMLInputElement>>(null)
-    const files = ref<Map<string, File>>(new Map())
     const srcRef = ref<Maybe<HTMLElement>>(null)
 
     const classes = computed(() => ({
@@ -42,19 +41,22 @@ export const VFileInput = defineComponent({
     }))
 
     const onChange = (event) => {
-      const inputFiles = Array.from(event.target.files) as File[]
+      let files = Array.from(event.target.files) as File[]
 
-      if (!props.multiple) files.value.clear()
-
-      inputFiles.forEach(f => files.value.set(f.name, f))
+      if (props.multiple) {
+        files = uniqueArray<File>(props.value.concat(files))
+      }
 
       event.target.value = ''
-      emit('update:modelValue', mapToValArray(files.value))
+      emit('update:value', files)
     }
 
     const onClose = (file) => {
-      files.value.delete(file.name)
-      emit('update:modelValue', mapToValArray(files.value))
+      const files = props.value.filter(it => {
+        return file.name !== it.name
+      })
+
+      emit('update:value', files)
     }
 
     const onClick = ({ srcElement }) => {
@@ -77,7 +79,7 @@ export const VFileInput = defineComponent({
     }
 
     const genChips = () => {
-      return mapToValArray(files.value)
+      return uniqueArray<File>(props.value)
         .map(file => h(VChip, {
             title: file.name,
             class: 'ma-1',

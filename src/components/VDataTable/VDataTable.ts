@@ -321,7 +321,6 @@ export const VDataTable = defineComponent({
         pageCorrection: pageCorrection.value,
         rowsOnPage: data.rowsOnPage,
         rowsLength: data.rows?.length,
-        dark: props.dark,
         options: footerOptions.value,
         onPrevPage,
         onNextPage,
@@ -330,11 +329,11 @@ export const VDataTable = defineComponent({
         onCorrectPage: (val) => (data.page += val),
       }
 
-      const content = slots.paginationText
+      const content = slots['pagination-text']
         ? {
-            paginationText: () =>
-              slots.paginationText &&
-              slots.paginationText({
+          ['pagination-text']: () =>
+              slots['pagination-text'] &&
+              slots['pagination-text']({
                 start: firstOnPage.value,
                 last: lastOnPage.value,
                 length: data.rows?.length,

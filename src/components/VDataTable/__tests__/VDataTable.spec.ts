@@ -269,28 +269,4 @@ describe('VDataTable', () => {
       'white--text'
     )
   })
-
-  it('should test header options priority over table dark mode and color', () => {
-    const headerOptions = {
-      contentColor: 'grey',
-      color: 'red',
-    }
-    const cmp = mountFunction({
-      props: {
-        cols,
-        rows,
-        headerOptions,
-        dark: true,
-        color: 'green',
-      },
-    })
-
-    const header = cmp.find('.v-data-table__header')
-
-    expect(cmp.props().headerOptions).toEqual(headerOptions)
-    expect(header.classes()).toContain(headerOptions.color)
-    expect(header.find('.v-data-table__cell').classes()).toContain(
-      `${headerOptions.contentColor}--text`
-    )
-  })
 })

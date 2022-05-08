@@ -178,7 +178,7 @@ export const VDataTableFooter = defineComponent({
       return h(
         'span',
         propsData,
-        props.options?.rowsPerPageText || 'Rows per page',
+        props.options?.counts?.rowsPerPageText || 'Rows per page',
       )
     }
 
@@ -207,7 +207,7 @@ export const VDataTableFooter = defineComponent({
       return h(
         'div',
         propsData,
-        (props.rowsLength && slots.paginationText && slots.paginationText()) ||
+        (props.rowsLength && slots['pagination-text']?.()) ||
         (props.rowsLength && paginationDisplayText.value) ||
         '-',
       )

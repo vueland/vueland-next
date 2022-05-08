@@ -11,9 +11,7 @@ exports[`VDataTable should mount component and match snapshot 1`] = `
     <div class="v-data-table__body white">
     </div>
   </div>
-  <div class="v-data-table__footer white"
-       dark="false"
-  >
+  <div class="v-data-table__footer white">
     <div class="v-data-table__pagination">
       <div class="v-data-table__pagination-select">
         <span class="v-data-table__pagination-label">
@@ -622,9 +620,7 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
       </div>
     </div>
   </div>
-  <div class="v-data-table__footer white"
-       dark="false"
-  >
+  <div class="v-data-table__footer white">
     <div class="v-data-table__pagination">
       <div class="v-data-table__pagination-select">
         <span class="v-data-table__pagination-label">
@@ -1234,9 +1230,7 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
       </div>
     </div>
   </div>
-  <div class="v-data-table__footer white"
-       dark="false"
-  >
+  <div class="v-data-table__footer white">
     <div class="v-data-table__pagination">
       <div class="v-data-table__pagination-select">
         <span class="v-data-table__pagination-label">
@@ -1846,9 +1840,7 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
       </div>
     </div>
   </div>
-  <div class="v-data-table__footer white"
-       dark="false"
-  >
+  <div class="v-data-table__footer white">
     <div class="v-data-table__pagination">
       <div class="v-data-table__pagination-select">
         <span class="v-data-table__pagination-label">
@@ -1911,9 +1903,7 @@ exports[`VDataTable should test color prop and match snapshot 1`] = `
     <div class="v-data-table__body grey darken-3">
     </div>
   </div>
-  <div class="v-data-table__footer grey darken-3"
-       dark="false"
-  >
+  <div class="v-data-table__footer grey darken-3">
     <div class="v-data-table__pagination">
       <div class="v-data-table__pagination-select">
         <span class="v-data-table__pagination-label">
@@ -2008,9 +1998,7 @@ exports[`VDataTable should test cols prop and match snapshot 1`] = `
     <div class="v-data-table__body white">
     </div>
   </div>
-  <div class="v-data-table__footer white"
-       dark="false"
-  >
+  <div class="v-data-table__footer white">
     <div class="v-data-table__pagination">
       <div class="v-data-table__pagination-select">
         <span class="v-data-table__pagination-label">
@@ -2623,9 +2611,7 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
       </div>
     </div>
   </div>
-  <div class="v-data-table__footer white"
-       dark="false"
-  >
+  <div class="v-data-table__footer white">
     <div class="v-data-table__pagination">
       <div class="v-data-table__pagination-select">
         <span class="v-data-table__pagination-label">
@@ -3269,9 +3255,7 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
       </div>
     </div>
   </div>
-  <div class="v-data-table__footer white"
-       dark="false"
-  >
+  <div class="v-data-table__footer white">
     <div class="v-data-table__pagination">
       <div class="v-data-table__pagination-select">
         <span class="v-data-table__pagination-label">
@@ -3426,9 +3410,7 @@ exports[`VDataTable should test table filter and match snapshot 1`] = `
       </div>
     </div>
   </div>
-  <div class="v-data-table__footer white"
-       dark="false"
-  >
+  <div class="v-data-table__footer white">
     <div class="v-data-table__pagination">
       <div class="v-data-table__pagination-select">
         <span class="v-data-table__pagination-label">

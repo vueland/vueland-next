@@ -150,19 +150,23 @@ export default defineComponent({
           }"
           :footer-options="{
             counts: {
-              displayColor: 'orange'
+              displayColor: 'orange',
+              rowsPerPageText: 'кол-во строк'
             },
             // pagination: {
             //   buttonsColor: 'orange',
             //   displayColor: 'orange'
             // },
-            contentColor: '#ffffff'
+            // contentColor: '#ffffff'
           }"
         >
           <template #toolbar>
             <v-button @click="addRow">
               add
             </v-button>
+          </template>
+          <template #pagination-text="{start, last, length}">
+            <span>{{ start }} - {{ last }} из {{ length }}</span>
           </template>
         </v-data-table>
       </v-col>

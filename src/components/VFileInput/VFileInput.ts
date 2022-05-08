@@ -22,10 +22,10 @@ export const VFileInput = defineComponent({
     },
     value: {
       type: Array as PropType<Array<File>>,
-      default: null,
+      default: () => [],
     },
   },
-  emits: ['update:value'],
+  emits: ['update:value', 'delete'],
   setup(props, { emit, attrs }) {
     const { icons } = useIcons()
     const { isDisabled, isReadonly } = useInputStates(props, { emit, attrs })
@@ -57,6 +57,7 @@ export const VFileInput = defineComponent({
       })
 
       emit('update:value', files)
+      emit('delete', file)
     }
 
     const onClick = ({ srcElement }) => {

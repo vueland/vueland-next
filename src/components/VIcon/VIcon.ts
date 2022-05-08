@@ -65,7 +65,7 @@ export const VIcon = defineComponent({
       }
       const explicitSize = Object.keys(sizeProps).find((key) => sizeProps[key])!
 
-      return convertToUnit((explicitSize && sizes[explicitSize]) || props.size)!
+      return convertToUnit(props.size || (explicitSize && sizes[explicitSize]))!
     }
 
     const onClick = () => {

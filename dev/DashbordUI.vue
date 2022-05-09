@@ -4,12 +4,12 @@ import { defineComponent, ref, watch } from 'vue'
 export default defineComponent({
   setup() {
     const select = ref(null)
-    const files= ref([{name: 'simple file'},{name: 'simple file'},{name: 'simple file'}])
+    const files = ref([{ name: 'simple file' }, { name: 'simple file' }, { name: 'simple file' }])
     const rows = ref([
-      {name: 'Alex', email: 'aaa@mail.ru'},
-      {name: 'John', email: 'bbb@mail.ru'},
-      {name: 'Erick', email: 'ccc@mail.ru'},
-      {name: 'Don', email: 'dddd@mail.ru'},
+      { name: 'Alex', email: 'aaa@mail.ru' },
+      { name: 'John', email: 'bbb@mail.ru' },
+      { name: 'Erick', email: 'ccc@mail.ru' },
+      { name: 'Don', email: 'dddd@mail.ru' },
     ])
     const cols = ref([
       {
@@ -38,7 +38,7 @@ export default defineComponent({
     ])
 
     const addRow = () => {
-      rows.value.push({name: 'Dina', email: 'eeee@mail.ru'})
+      rows.value.push({ name: 'Dina', email: 'eeee@mail.ru' })
 
       files.value.pop()
     }
@@ -50,9 +50,9 @@ export default defineComponent({
       rows,
       cols,
       files,
-      addRow
+      addRow,
     }
-  }
+  },
 })
 </script>
 <template>
@@ -131,10 +131,12 @@ export default defineComponent({
     style="padding: 66px 10px 10px 66px"
   >
     <v-select
+      v-model="salam"
       label="salam"
       color="orange darken-2"
       :items="[1,2]"
       active-class="orange"
+      value-key="some.key"
     ></v-select>
 
     <v-file-input

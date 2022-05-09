@@ -18,23 +18,23 @@ export const VSelect = defineComponent({
   name: 'v-select',
   props: {
     modelValue: {
-      type: [ String, Number, Object ],
-      default: null
+      type: [String, Number, Object],
+      default: null,
     },
     items: {
       type: Array,
-      default: null
+      default: null,
     },
     valueKey: {
       type: String,
-      default: ''
+      default: '',
     },
     activeClass: {
       type: String,
-      default: 'primary white--text text--base'
+      default: 'primary white--text text--base',
     },
   },
-  emits: [ 'click', 'focus', 'select', 'blur', 'change', 'update:modelValue' ],
+  emits: ['click', 'focus', 'select', 'blur', 'change', 'update:modelValue'],
   setup(props, { attrs, emit }) {
     const { isDisabled, isReadonly, state, onBlur, onSelect, onFocus } =
       useInputStates(props, { attrs, emit })
@@ -42,34 +42,34 @@ export const VSelect = defineComponent({
     const activator = ref<Maybe<HTMLElement>>(null)
 
     const computedValue = computed<string | number>(() => {
+      if (!!props.modelValue && typeof props.modelValue === 'object') {
+        return getStringKeysValue(props.valueKey, props.modelValue)
+      }
+
       return props.modelValue
-        ? props.valueKey
-          ? getStringKeysValue(props.valueKey, props.modelValue)
-          : props.modelValue
-        : ''
     })
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-select': true,
       'v-select--expanded': state.focused,
       'v-select--readonly': isReadonly.value,
-      'v-select--disabled': isDisabled.value
+      'v-select--disabled': isDisabled.value,
     }))
 
     const genInput = ({ textCssColor, textClassColor, disabled }) => {
       return h('input', {
         class: {
           'v-select__input': true,
-          ...(disabled ? textClassColor : {})
+          ...(disabled ? textClassColor : {}),
         },
         style: {
-          ...(!disabled ? textCssColor : {})
+          ...(!disabled ? textCssColor : {}),
         },
         disabled: isDisabled.value,
         type: attrs.type || 'text',
         placeholder: attrs.placeholder,
         value: computedValue.value,
-        readonly: true
+        readonly: true,
       })
     }
 
@@ -82,15 +82,15 @@ export const VSelect = defineComponent({
         maxHeight: 240,
         zIndex: 12,
         onShow: onFocus,
-        onHide: onBlur
+        onHide: onBlur,
       }, {
         default: () => h(VSelectList, {
           items: props.items,
           selected: props.modelValue,
-          valueKey: props.valueKey,
+          valueKey: props.modelValue ? props.valueKey : '',
           activeClass: props.activeClass,
-          onSelect
-        })
+          onSelect,
+        }),
       })
     }
 
@@ -98,26 +98,26 @@ export const VSelect = defineComponent({
       return h(VIcon, {
         icon: FaIcons.$chevronDown,
         color: !isDisabled.value ? attrs.color : '',
-        size: 16
+        size: 16,
       })
     }
 
     const genSelect = ({ textCssColor, textClassColor, disabled }) => {
       return h('div', {
-        class: classes.value
+        class: classes.value,
       }, genInput({ textCssColor, textClassColor, disabled }))
     }
 
     return () => h(VInput, {
       ref: activator,
       value: computedValue.value,
-      focused: state.focused
+      focused: state.focused,
     }, {
       ['text-field']: ({ textCssColor, textClassColor, disabled }) => {
         return genSelect({ textCssColor, textClassColor, disabled })
       },
       ['append-icon']: () => genExpandIcon(),
-      select: () => activator.value ? genSelectList() : null
+      select: () => activator.value ? genSelectList() : null,
     })
-  }
+  },
 })

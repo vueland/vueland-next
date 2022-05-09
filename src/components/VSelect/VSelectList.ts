@@ -41,6 +41,7 @@ export const VSelectList = defineComponent({
         return props.selected
           ? props.items.findIndex((it) => {
             const itemValue = getStringKeysValue(props.valueKey, it)
+
             const selectedValue = getStringKeysValue(
               props.valueKey,
               props.selected

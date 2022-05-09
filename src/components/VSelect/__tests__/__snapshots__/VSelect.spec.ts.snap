@@ -77,27 +77,21 @@ exports[`VSelect should mount component and match snapshot 1`] = `
             >
               <div
                 class="v-list-item__title"
-              >
-                javascript
-              </div>
+              />
             </div>
             <div
               class="v-list-item"
             >
               <div
                 class="v-list-item__title"
-              >
-                Kotlin
-              </div>
+              />
             </div>
             <div
               class="v-list-item"
             >
               <div
                 class="v-list-item__title"
-              >
-                Rust
-              </div>
+              />
             </div>
           </div>
         </div>

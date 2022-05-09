@@ -11,48 +11,50 @@ export const VSelectList = defineComponent({
   props: {
     items: {
       type: Array,
-      default: null
+      default: null,
     },
     color: {
       type: String,
-      default: '#ffffff'
+      default: '#ffffff',
     },
     textColor: {
       type: String,
-      default: ''
+      default: '',
     },
     valueKey: {
       type: String,
-      default: ''
+      default: '',
     },
     selected: {
-      type: [ String, Number, Object ],
-      default: null
+      type: [String, Number, Object],
+      default: null,
     },
     activeClass: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
-  emits: [ 'select' ],
+  emits: ['select'],
   setup(props, { emit }) {
     const computedSelect = computed<Maybe<number>>({
       get() {
-        return props.selected
-          ? props.items.findIndex((it) => {
-            const itemValue = getStringKeysValue(props.valueKey, it)
+        const key = props.valueKey
 
-            const selectedValue = getStringKeysValue(
-              props.valueKey,
-              props.selected
-            )
-            return itemValue === selectedValue
-          })
-          : null
+        const selectedValue = key ? props.selected ? getStringKeysValue(
+          key,
+          props.selected,
+        ) : null : props.selected
+
+        return props.selected ? props.items.findIndex((it) => {
+          const itemValue = key ? getStringKeysValue(key, it) : it
+
+          return itemValue === selectedValue
+        }) : null
       },
+
       set(val: number) {
         emit('select', props.items[val])
-      }
+      },
     })
 
     const genItems = () => {
@@ -63,8 +65,8 @@ export const VSelectList = defineComponent({
         (acc as any[]).push(
           h(VListItem, { key: i }, {
             default: () => h(VListItemTitle, {}, {
-              default: () => content
-            })
+              default: () => content,
+            }),
           }))
 
         return acc
@@ -76,15 +78,15 @@ export const VSelectList = defineComponent({
         active: true,
         color: '#ffffff',
         activeClass: props.activeClass,
-        ['onUpdate:value']: val => computedSelect.value = val
+        ['onUpdate:value']: val => computedSelect.value = val,
       }, {
-        default: () => genItems()
+        default: () => genItems(),
       })
     }
 
     return () => h('div', {
-      class: 'v-select-list'
-    }, [ props.items ? genItemsList() : null ])
-  }
+      class: 'v-select-list',
+    }, [props.items ? genItemsList() : null])
+  },
 })
 

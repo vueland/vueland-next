@@ -87,7 +87,7 @@ export const VSelect = defineComponent({
         default: () => h(VSelectList, {
           items: props.items,
           selected: props.modelValue,
-          valueKey: props.modelValue ? props.valueKey : '',
+          valueKey: props.valueKey,
           activeClass: props.activeClass,
           onSelect,
         }),

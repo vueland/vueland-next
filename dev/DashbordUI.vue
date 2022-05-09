@@ -4,6 +4,7 @@ import { defineComponent, ref, watch } from 'vue'
 export default defineComponent({
   setup() {
     const select = ref(null)
+    const salam = null
     const files = ref([{ name: 'simple file' }, { name: 'simple file' }, { name: 'simple file' }])
     const rows = ref([
       { name: 'Alex', email: 'aaa@mail.ru' },
@@ -50,6 +51,7 @@ export default defineComponent({
       rows,
       cols,
       files,
+      salam,
       addRow,
     }
   },
@@ -134,9 +136,9 @@ export default defineComponent({
       v-model="salam"
       label="salam"
       color="orange darken-2"
-      :items="[1,2]"
+      :items="[{name: 'oleg'}]"
       active-class="orange"
-      value-key="some.key"
+      value-key="name"
     ></v-select>
 
     <v-file-input

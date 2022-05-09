@@ -1,4 +1,4 @@
-import { defineComponent, h, computed } from 'vue'
+import { defineComponent, h, watch, computed } from 'vue'
 // Components
 import { VList, VListItem, VListItemTitle } from '../VList'
 // Helpers
@@ -57,6 +57,8 @@ export const VSelectList = defineComponent({
       },
     })
 
+    watch(computedSelect, to => console.log(to))
+
     const genItems = () => {
       return props.items.reduce((acc, it, i) => {
         const content = props.valueKey ?
@@ -75,6 +77,7 @@ export const VSelectList = defineComponent({
 
     const genItemsList = () => {
       return h(VList, {
+        value: computedSelect.value as number,
         active: true,
         color: '#ffffff',
         activeClass: props.activeClass,

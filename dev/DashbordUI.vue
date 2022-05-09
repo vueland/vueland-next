@@ -4,7 +4,7 @@ import { defineComponent, ref, watch } from 'vue'
 export default defineComponent({
   setup() {
     const select = ref(null)
-    const salam = null
+    const salam = ref({ name: 'oleg' })
     const files = ref([{ name: 'simple file' }, { name: 'simple file' }, { name: 'simple file' }])
     const rows = ref([
       { name: 'Alex', email: 'aaa@mail.ru' },

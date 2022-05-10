@@ -88,6 +88,7 @@ export default defineComponent({
         </template>
         <v-list
           active
+          multiple
         >
           <v-list-item
             v-for="it in 7"
@@ -109,6 +110,7 @@ export default defineComponent({
       </v-group>
       <v-list
         active
+        multiple
       >
         <v-list-item
           v-for="it in 7"

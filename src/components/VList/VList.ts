@@ -68,8 +68,6 @@ export const VList = defineComponent({
     }
 
     const toggleItem = (item) => {
-      if (!Array.isArray(props.value)) return
-
       item.isActive.value = !item.isActive.value
     }
 

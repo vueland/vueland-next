@@ -111,7 +111,8 @@ export const VList = defineComponent({
     watch(
       () => props.value,
       (to) => {
-        !isTrustedSelect && setSelectedItems(to)
+        if (!isTrustedSelect) setSelectedItems(to)
+        if (!isTrustedSelect && !to) setActiveItem(null)
         isTrustedSelect && (isTrustedSelect = false)
       }
     )

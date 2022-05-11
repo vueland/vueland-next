@@ -39,9 +39,10 @@ export default defineComponent({
     ])
 
     const addRow = () => {
-      rows.value.push({ name: 'Dina', email: 'eeee@mail.ru' })
-
-      files.value.pop()
+      salam.value = null
+      // rows.value.push({ name: 'Dina', email: 'eeee@mail.ru' })
+      //
+      // files.value.pop()
     }
 
     watch(select, to => console.log(to))

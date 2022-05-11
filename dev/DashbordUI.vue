@@ -137,6 +137,11 @@ export default defineComponent({
   <v-main
     style="padding: 66px 10px 10px 66px"
   >
+    <v-text-field
+      label="salam"
+      color="orange darken-2"
+      :rules="[val => !!val || 'required']"
+    />
     <v-select
       v-model="salam"
       label="salam"

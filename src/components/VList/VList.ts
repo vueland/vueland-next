@@ -1,4 +1,4 @@
-import { defineComponent, h, provide, watch, computed } from 'vue'
+import { defineComponent, h, provide, watch, computed, onMounted } from 'vue'
 import { useColors, colorProps } from '../../composable/use-colors'
 import { mapToValArray } from '../../helpers'
 
@@ -42,6 +42,8 @@ export const VList = defineComponent({
       ...setTextClassNameColor(props.textColor),
       ...setBackgroundClassNameColor(props.color)
     }))
+
+    const isNan = computed(() => isNaN(parseFloat(`${ props.value }`)))
 
     const styles = computed<Record<string, string>>(() => ({
       ...setTextCssColor(props.textColor),
@@ -106,17 +108,17 @@ export const VList = defineComponent({
       }
     }
 
-    watch(
-      () => props.value,
-      (to) => {
-        const isNan = isNaN(parseFloat(`${ to }`))
-
-        if (!isTrustedSelect && !isNan) setSelectedItems(to)
-        if (!isTrustedSelect && isNan) setActiveItem(null)
+    watch(isNan, (to) => {
+        if (!isTrustedSelect && !to) setSelectedItems(props.value)
+        if (!isTrustedSelect && to) setActiveItem(null)
 
         isTrustedSelect && (isTrustedSelect = false)
       }, { immediate: true }
     )
+
+    onMounted(() => {
+      !isNan.value && setSelectedItems(props.value)
+    })
 
     provide('list', {
       add: register,

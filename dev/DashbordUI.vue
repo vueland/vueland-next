@@ -4,14 +4,16 @@ import { defineComponent, ref, watch } from 'vue'
 export default defineComponent({
   setup() {
     const select = ref(null)
-    const salam = ref({ name: 'oleg' })
+    const salam = ref<any>(null)
     const files = ref([{ name: 'simple file' }, { name: 'simple file' }, { name: 'simple file' }])
     const rows = ref([
+      { name: 'oleg' },
       { name: 'Alex', email: 'aaa@mail.ru' },
       { name: 'John', email: 'bbb@mail.ru' },
       { name: 'Erick', email: 'ccc@mail.ru' },
       { name: 'Don', email: 'dddd@mail.ru' },
     ])
+    setTimeout(() => salam.value = { name: 'oleg' }, 4000)
     const cols = ref([
       {
         key: 'actions',
@@ -139,7 +141,7 @@ export default defineComponent({
       v-model="salam"
       label="salam"
       color="orange darken-2"
-      :items="[{name: 'oleg'}]"
+      :items="rows"
       active-class="orange"
       value-key="name"
     ></v-select>

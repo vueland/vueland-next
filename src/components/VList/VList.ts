@@ -1,4 +1,4 @@
-import { defineComponent, h, provide, watch, computed, onMounted } from 'vue'
+import { defineComponent, h, provide, watch, computed } from 'vue'
 import { useColors, colorProps } from '../../composable/use-colors'
 import { mapToValArray } from '../../helpers'
 
@@ -97,8 +97,6 @@ export const VList = defineComponent({
     }
 
     const setSelectedItems = (value) => {
-      if (value === null) return
-
       const values = mapToValArray(items)
 
       if (props.multiple) {
@@ -111,13 +109,14 @@ export const VList = defineComponent({
     watch(
       () => props.value,
       (to) => {
-        if (!isTrustedSelect) setSelectedItems(to)
-        if (!isTrustedSelect && !to) setActiveItem(null)
-        isTrustedSelect && (isTrustedSelect = false)
-      }
-    )
+        const isNan = isNaN(parseFloat(`${ to }`))
 
-    onMounted(() => setSelectedItems(props.value))
+        if (!isTrustedSelect && !isNan) setSelectedItems(to)
+        if (!isTrustedSelect && isNan) setActiveItem(null)
+
+        isTrustedSelect && (isTrustedSelect = false)
+      }, { immediate: true }
+    )
 
     provide('list', {
       add: register,

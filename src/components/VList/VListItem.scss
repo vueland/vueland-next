@@ -11,7 +11,7 @@ $item-icon-width: 48px;
   height: 48px;
   position: relative;
   overflow: hidden;
-  color: curretnColor;
+  color: currentColor;
   transition: .4s background-color, color, border $primary-transition;
 
   &:nth-last-child(1) {

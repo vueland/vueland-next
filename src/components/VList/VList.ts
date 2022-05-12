@@ -16,7 +16,7 @@ export const VList = defineComponent({
     },
     activeClass: {
       type: String,
-      default: 'primary white--text text--base'
+      default: ''
     },
     textColor: {
       type: String,
@@ -42,6 +42,10 @@ export const VList = defineComponent({
       ...setTextClassNameColor(props.textColor),
       ...setBackgroundClassNameColor(props.color)
     }))
+
+    // const isNan = computed(() => {
+    //   return isNaN(parseFloat(`${ props.value }`))
+    // })
 
     const styles = computed<Record<string, string>>(() => ({
       ...setTextCssColor(props.textColor),
@@ -96,8 +100,8 @@ export const VList = defineComponent({
       dispatchEvent(prepareIndexes())
     }
 
-    const setSelectedItems = (value) => {
-      if (value === null) return
+    const setItemState = (value) => {
+      if (value === null) return setActiveItem(value)
 
       const values = mapToValArray(items)
 
@@ -108,15 +112,13 @@ export const VList = defineComponent({
       }
     }
 
-    watch(
-      () => props.value,
-      (to) => {
-        !isTrustedSelect && setSelectedItems(to)
+    watch(() => props.value, (to) => {
+        if (!isTrustedSelect) setItemState(to)
         isTrustedSelect && (isTrustedSelect = false)
       }
     )
 
-    onMounted(() => setSelectedItems(props.value))
+    onMounted(() => setItemState(props.value))
 
     provide('list', {
       add: register,

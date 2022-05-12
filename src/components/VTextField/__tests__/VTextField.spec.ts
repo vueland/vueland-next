@@ -4,7 +4,13 @@ import { ref } from 'vue'
 import 'regenerator-runtime'
 
 describe('VTextField', () => {
+  const val = ref('')
+  const onUpdate = (v) => (val.value = v)
   const mountFunction = (options = {}) => mount(VTextField as any, options)
+
+  beforeEach(() => {
+    val.value = ''
+  })
 
   it('should mount component and match snapshot', () => {
     const wrapper = mountFunction()
@@ -13,11 +19,9 @@ describe('VTextField', () => {
   })
 
   it('should test non disabled state', async () => {
-    const val = ref('')
-    const onUpdate = (v) => (val.value = v)
     const wrapper = mountFunction({
       props: {
-        modelValue: val,
+        modelValue: val.value,
         label: 'email',
         rules: [(val) => !!val || 'required input'],
         color: 'orange darken-1',
@@ -31,14 +35,6 @@ describe('VTextField', () => {
       },
     })
 
-    expect(wrapper.find('label').text()).toContain('email')
-    expect(wrapper.find('.v-input').attributes('class')).toContain(
-      'orange--text text--darken-1'
-    )
-    expect(wrapper.find('input').attributes('style')).toContain(
-      'color: rgb(250, 90, 90);'
-    )
-
     await wrapper.find('input').trigger('focus')
     await wrapper.find('input').trigger('blur')
 
@@ -47,11 +43,19 @@ describe('VTextField', () => {
     )
     expect(wrapper.html()).toMatchSnapshot()
 
-    wrapper.find('input').element.value = 'sss'
+    val.value = 'sss'
 
-    await wrapper.find('input').trigger('input')
+    await wrapper.setProps({modelValue: val.value})
 
     expect(wrapper.find('.v-input--not-valid').exists()).toBeFalsy()
+
+    expect(wrapper.find('label').text()).toContain('email')
+    expect(wrapper.find('.v-input').attributes('class')).toContain(
+      'orange--text text--darken-1'
+    )
+    expect(wrapper.find('input').attributes('style')).toContain(
+      'color: rgb(250, 90, 90);'
+    )
   })
 
   it('should test disabled state', async () => {

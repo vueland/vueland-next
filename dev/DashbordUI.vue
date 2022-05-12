@@ -4,14 +4,16 @@ import { defineComponent, ref, watch } from 'vue'
 export default defineComponent({
   setup() {
     const select = ref(null)
-    const salam = ref({ name: 'oleg' })
+    const salam = ref<any>(null)
     const files = ref([{ name: 'simple file' }, { name: 'simple file' }, { name: 'simple file' }])
     const rows = ref([
+      { name: 'oleg' },
       { name: 'Alex', email: 'aaa@mail.ru' },
       { name: 'John', email: 'bbb@mail.ru' },
       { name: 'Erick', email: 'ccc@mail.ru' },
       { name: 'Don', email: 'dddd@mail.ru' },
     ])
+    setTimeout(() => salam.value = { name: 'oleg' }, 4000)
     const cols = ref([
       {
         key: 'actions',
@@ -39,9 +41,10 @@ export default defineComponent({
     ])
 
     const addRow = () => {
-      rows.value.push({ name: 'Dina', email: 'eeee@mail.ru' })
-
-      files.value.pop()
+      salam.value = null
+      // rows.value.push({ name: 'Dina', email: 'eeee@mail.ru' })
+      //
+      // files.value.pop()
     }
 
     watch(select, to => console.log(to))
@@ -134,11 +137,16 @@ export default defineComponent({
   <v-main
     style="padding: 66px 10px 10px 66px"
   >
+    <v-text-field
+      label="salam"
+      color="orange darken-2"
+      :rules="[val => !!val || 'required']"
+    />
     <v-select
       v-model="salam"
       label="salam"
       color="orange darken-2"
-      :items="[{name: 'oleg'}]"
+      :items="rows"
       active-class="orange"
       value-key="name"
     ></v-select>

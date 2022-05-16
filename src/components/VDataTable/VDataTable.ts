@@ -181,7 +181,7 @@ export const VDataTable = defineComponent({
       col: T & S
     ) {
       if (!col.sorted) {
-        return data.rows!.reverse()
+        return data.rows?.reverse()
       }
 
       const executor =
@@ -191,7 +191,7 @@ export const VDataTable = defineComponent({
           if (col.sorted) return a[col.key] > b[col.key] ? 1 : -1
         })
 
-      data.rows.sort(executor as any)
+      data.rows?.sort(executor as any)
     }
 
     function onFilter({ value, col }: TableFilter) {

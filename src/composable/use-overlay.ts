@@ -8,13 +8,12 @@ import { SetupContext, VNode } from 'vue'
 
 // Helpers
 import { addOnceListener } from '@/helpers'
+import { Maybe } from '../../types/base'
 
-interface Overlayable {
+interface OverlayController {
   createOverlay: () => void
   removeOverlay: () => void
 }
-
-const TIMEOUT = 40
 
 export function overlayProps() {
   return {
@@ -26,52 +25,51 @@ export function overlayProps() {
   }
 }
 
-export function useOverlay(props: any, overlayOn?: Element): Overlayable {
+export function useOverlay(props: any, overlayOn?: Element): OverlayController {
   const container = document.createElement('div')
 
-  const overlayPropsObject = {
+  const overlayProps = {
     active: false,
-    hide: true,
     color: props.overlayColor,
   }
 
-  let overlayElement: ChildNode | null = null
+  let overlayElement: Maybe<HTMLElement> = null
 
   const overlayVNode = () => {
     return VOverlay.setup!(
-      overlayPropsObject as typeof VOverlay.props,
-      {} as SetupContext
+      overlayProps as typeof VOverlay.props,
+      {} as SetupContext,
     )
   }
 
-  const renderOverlay = () => {
-    render(overlayVNode() as VNode, container!)
-  }
+  const renderOverlay = () => render(overlayVNode() as VNode, container!)
 
   const createOverlay = () => {
     overlayOn?.parentNode?.insertBefore(overlayElement!, overlayOn)
+    overlayElement?.classList.remove('v-overlay--hidden')
 
-    setTimeout(() => {
-      overlayPropsObject.active = true
-      overlayPropsObject.hide = !props.overlay
-      renderOverlay()
-    }, TIMEOUT)
+    requestAnimationFrame(() => {
+      overlayElement?.classList.add('v-overlay--active')
+    })
   }
 
   const removeOverlay = () => {
-    overlayPropsObject.active = false
+    overlayElement!.classList.remove('v-overlay--active')
 
-    renderOverlay()
+    requestAnimationFrame(() => {
+      overlayElement?.classList.add('v-overlay--hidden')
+    })
 
     const remove = () => {
-      overlayOn?.parentNode?.removeChild(overlayElement!)
+      overlayElement?.parentNode?.removeChild(overlayElement!)
     }
 
     addOnceListener(overlayElement!, 'transitionend', remove)
   }
 
   renderOverlay()
-  overlayElement = container.firstChild
+
+  overlayElement = container.firstChild as HTMLElement
 
   return {
     createOverlay,

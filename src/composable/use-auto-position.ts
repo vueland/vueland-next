@@ -1,5 +1,5 @@
 import { ref, reactive, computed } from 'vue'
-import { Dimensions } from '../types'
+import { Dimensions } from '../../types'
 
 type MainDimensions = {
   activator: Dimensions
@@ -8,20 +8,20 @@ type MainDimensions = {
   pageWidth: number
 }
 
-export function autoPositionProps(){
+export function autoPositionProps() {
   return {
     positionX: {
       type: Number,
-      default: 0
+      default: 0,
     },
     positionY: {
       type: Number,
-      default: 0
-    }
+      default: 0,
+    },
   }
 }
 
-export function useAutoPosition(props){
+export function useAutoPosition(props) {
   const dimensions = reactive<MainDimensions>({
     activator: {
       top: 0,
@@ -29,7 +29,7 @@ export function useAutoPosition(props){
       bottom: 0,
       right: 0,
       width: 0,
-      height: 0
+      height: 0,
     },
     content: {
       top: 0,
@@ -37,10 +37,10 @@ export function useAutoPosition(props){
       bottom: 0,
       right: 0,
       width: 0,
-      height: 0
+      height: 0,
     },
     pageYOffset: 0,
-    pageWidth: 0
+    pageWidth: 0,
   })
 
   const contentRef = ref<HTMLElement | null>(null)
@@ -60,7 +60,7 @@ export function useAutoPosition(props){
       bottom: rect.bottom,
       right: rect.right,
       width: rect.width,
-      height: rect.height
+      height: rect.height,
     }
   }
 
@@ -219,6 +219,6 @@ export function useAutoPosition(props){
     dimensions,
     contentRef,
     setDimensions,
-    updateDimensions
+    updateDimensions,
   }
 }

@@ -1,9 +1,11 @@
 <script lang="ts">
-import DashbordUI from './DashbordUI'
+// import DashbordUI from './DashbordUI'
+import DefaultUI from './DefaultUI'
 
 export default {
   components: {
-    DashbordUI
+    // DashbordUI,
+    DefaultUI,
   },
   setup() {
 
@@ -14,7 +16,8 @@ export default {
 
 <template>
   <v-app>
-    <dashbord-u-i/>
+    <!--    <dashbord-u-i/>-->
+    <default-u-i/>
   </v-app>
 </template>
 

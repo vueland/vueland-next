@@ -113,7 +113,10 @@ export const VMenu = defineComponent({
     const directive = computed(() => {
       return isActive.value
         ? {
-            handler: () => (isActive.value = false),
+          handler: (e) => {
+            if (activatorRef.value.contains(e.target)) return
+            isActive.value = false
+          },
             closeConditional: props.closeOnClick,
           }
         : undefined

@@ -1,9 +1,12 @@
+// Vue API
 import { defineComponent, h, computed } from 'vue'
+// Components
 import { VInput } from '../VInput'
+// Composables
 import { useInputStates } from '../../composable/use-input-states'
 
 export const VTextField = defineComponent({
-  name: 'e-text-field',
+  name: 'v-text-field',
   components: {
     VInput,
   },

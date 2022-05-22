@@ -2,27 +2,24 @@ import { ref, ComponentPublicInstance } from 'vue'
 import { ActivatorListeners, Dimensions } from '../../types/composables'
 import { Maybe } from '../../types/base'
 
-export function activatorProps() {
+export function activatorProps(){
   return {
     activator: {
-      type: [Object, String],
-      default: null,
+      type: [ Object, String ]
     },
-    internalActivator: Boolean,
+    internalActivator: Boolean
   }
 }
 
 export const useActivator = (props) => {
-  const activatorRef =
-    ref<Maybe<HTMLElement | ComponentPublicInstance<any>>>(null)
+  const activatorRef = ref<Maybe<HTMLElement | ComponentPublicInstance<any>>>(null)
   const activatorSizes: Partial<Dimensions> = {}
   const listeners: Partial<ActivatorListeners> = {}
 
-  const getActivator = (e?: Event): Maybe<HTMLElement> => {
+  const getActivator = (event?: Event): Maybe<HTMLElement> => {
     if (activatorRef.value) return activatorRef.value
 
-    const target = props.internalActivator ?
-      (props.activator?.$el || props.activator) : document
+    const target = props.internalActivator ? props.activator.$el : document
 
     if (props.inputActivator) {
       return (activatorRef.value = target.querySelector(props.inputActivator))
@@ -33,15 +30,11 @@ export const useActivator = (props) => {
         return (activatorRef.value = target.querySelector(props.activator))
       }
 
-      if (props.activator.$el) {
-        return (activatorRef.value = props.activator.$el)
-      }
-
       return (activatorRef.value = props.activator)
     }
 
-    if (e) {
-      return (activatorRef.value = (e.target || e.currentTarget) as HTMLElement)
+    if (event) {
+      return (activatorRef.value = (event.target || event.currentTarget) as HTMLElement)
     }
 
     return null
@@ -80,7 +73,8 @@ export const useActivator = (props) => {
 
     if (activatorRef.value) {
       events.forEach((key) => {
-        activatorRef.value!.addEventListener(key, listeners[key])
+        const el = activatorRef.value.$el || activatorRef.value
+        el!.addEventListener(key, listeners[key])
       })
     }
   }
@@ -90,7 +84,8 @@ export const useActivator = (props) => {
 
     if (activatorRef.value) {
       events.forEach((key) => {
-        activatorRef.value!.removeEventListener(key, listeners[key])
+        const el = activatorRef.value.$el || activatorRef.value
+        el!.removeEventListener(key, listeners[key])
       })
     }
   }
@@ -101,6 +96,6 @@ export const useActivator = (props) => {
     getActivatorSizes,
     addActivatorEvents,
     removeActivatorEvents,
-    genActivatorListeners,
+    genActivatorListeners
   }
 }

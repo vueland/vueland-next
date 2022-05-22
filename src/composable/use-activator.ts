@@ -17,7 +17,7 @@ export const useActivator = (props) => {
   const listeners: Partial<ActivatorListeners> = {}
 
   const getActivator = (event?: Event): Maybe<HTMLElement> => {
-    if (activatorRef.value) return activatorRef.value
+    if (activatorRef.value) return activatorRef.value?.$el || activatorRef.value
 
     const target = props.internalActivator ? props.activator.$el : document
 

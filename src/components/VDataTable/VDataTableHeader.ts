@@ -18,6 +18,8 @@ import { clickOutside } from '../../directives/v-click-outside'
 // Types
 import { VNode } from 'vue'
 import { DataColumn } from '../../../types'
+import { useTransition } from '@/composable/use-transition'
+import { transitions } from '@/services/transitions'
 
 export const VDataTableHeader = defineComponent({
   name: 'v-data-table-header',
@@ -38,7 +40,8 @@ export const VDataTableHeader = defineComponent({
 
   setup(props, { emit, slots }) {
     const { setBackgroundClassNameColor, setBackgroundCssColor } = useColors()
-    const { icons,  } = useIcons()
+    const { icons } = useIcons()
+    const _cache = {}
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-data-table__header': true,
@@ -65,9 +68,11 @@ export const VDataTableHeader = defineComponent({
       emit('sort', item)
     }
 
-    const onInput = ($value, item) => {
-      item.filtered = !!$value
-      emit('filter', { value: $value, col: item })
+    const onInput = ($value, col) => {
+      col.filtered = !!$value
+      _cache[col.title] = $value
+      console.log(_cache)
+      emit('filter', { value: $value, col })
     }
 
     const showFilter = (item) => {
@@ -115,14 +120,17 @@ export const VDataTableHeader = defineComponent({
       ])
     }
 
-    const genFilterInput = (item) => {
+    const genFilterInput = (col) => {
+      // _cache[col.title] = ''
+
       const propsData = {
+        modelValue: _cache[col.title],
         label: 'search',
         dark: props.options.dark,
-        color: !item.cellClass ? computedContentColor.value : '',
+        color: !col.cellClass ? computedContentColor.value : '',
         prependIcon: icons.$search,
         clearable: true,
-        onInput: ($value) => onInput($value, item),
+        onInput: ($value) => onInput($value, col),
       }
 
       return h(VTextField, propsData)
@@ -232,7 +240,7 @@ export const VDataTableHeader = defineComponent({
         default: () => [
           genHeaderTitle(col),
           genHeaderActions(col),
-          genFilterWrapper(col),
+          useTransition(genFilterWrapper(col), transitions.FADE),
         ],
       })
     }

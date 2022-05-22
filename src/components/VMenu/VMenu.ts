@@ -114,7 +114,10 @@ export const VMenu = defineComponent({
       return isActive.value
         ? {
           handler: (e) => {
-            if (activatorRef.value.contains(e.target)) return
+            if (
+              props.internalActivator &&
+              activatorRef.value.contains(e.target)
+            ) return
             isActive.value = false
           },
             closeConditional: props.closeOnClick,

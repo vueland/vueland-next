@@ -8,20 +8,20 @@ type MainDimensions = {
   pageWidth: number
 }
 
-export function autoPositionProps() {
+export function autoPositionProps(){
   return {
     positionX: {
       type: Number,
-      default: 0,
+      default: 0
     },
     positionY: {
       type: Number,
-      default: 0,
-    },
+      default: 0
+    }
   }
 }
 
-export function useAutoPosition(props) {
+export function useAutoPosition(props){
   const dimensions = reactive<MainDimensions>({
     activator: {
       top: 0,
@@ -29,7 +29,7 @@ export function useAutoPosition(props) {
       bottom: 0,
       right: 0,
       width: 0,
-      height: 0,
+      height: 0
     },
     content: {
       top: 0,
@@ -37,10 +37,10 @@ export function useAutoPosition(props) {
       bottom: 0,
       right: 0,
       width: 0,
-      height: 0,
+      height: 0
     },
     pageYOffset: 0,
-    pageWidth: 0,
+    pageWidth: 0
   })
 
   const contentRef = ref<HTMLElement | null>(null)
@@ -60,7 +60,7 @@ export function useAutoPosition(props) {
       bottom: rect.bottom,
       right: rect.right,
       width: rect.width,
-      height: rect.height,
+      height: rect.height
     }
   }
 
@@ -114,12 +114,6 @@ export function useAutoPosition(props) {
     return fullHeight - contentBottomPosition
   }
 
-  const calcLeftPosition = (): number => {
-    if (props.positionX) return props.positionX + getScrollLeft()
-
-    return dimensions.activator.left
-  }
-
   const calcAbsoluteTop = () => {
     const topPosition = props.positionY + getScrollTop()
 
@@ -168,6 +162,12 @@ export function useAutoPosition(props) {
     return calcContentAutoPosition()
   }
 
+  const calcPositionX = (): number => {
+    if (props.positionX) return props.positionX + getScrollLeft()
+
+    return dimensions.activator.left
+  }
+
   const snapShot = (cb: () => any) => {
     requestAnimationFrame(() => {
       if (!content || content.style.display !== 'none') return cb()
@@ -202,7 +202,7 @@ export function useAutoPosition(props) {
 
     dimensions.content.height = content.offsetHeight
     dimensions.content.top = calcPositionY()
-    dimensions.content.left = calcLeftPosition()
+    dimensions.content.left = calcPositionX()
     dimensions.content.width = rect.width
   }
 
@@ -219,6 +219,6 @@ export function useAutoPosition(props) {
     dimensions,
     contentRef,
     setDimensions,
-    updateDimensions,
+    updateDimensions
   }
 }

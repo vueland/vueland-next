@@ -121,9 +121,7 @@ export const VDataTableHeader = defineComponent({
     }
 
     const genFilterInput = (col) => {
-      // _cache[col.title] = ''
-
-      const propsData = {
+       const propsData = {
         modelValue: _cache[col.title],
         label: 'search',
         dark: props.options.dark,

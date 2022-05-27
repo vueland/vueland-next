@@ -18,6 +18,15 @@ $select-input-padding: 22px 12px;
       color: currentColor;
     }
   }
+
+  &__preloader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+    overflow: hidden;
+    background-color: map-get($white, 'base');
+  }
 }
 
 .v-select + .v-input__append-icon > * {

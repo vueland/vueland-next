@@ -19,14 +19,18 @@ export default {
       loading: false,
       circular: 10,
       title: null,
-      users: [
-        { name: 'AAA', car: { brand: 'mercedes' }, email: 'sade@mail.ru', body: 'best practice' },
-        { name: 'BBB', car: { brand: 'audi' }, email: 'aaa@mail.ru', body: 'javascript' },
-      ],
+      users: [],
       positionX: 0,
       positionY: 0,
       isOpen: false,
     })
+
+    setTimeout(() => {
+      data.users.push(
+          { name: 'AAA', car: { brand: 'mercedes' }, email: 'sade@mail.ru', body: 'best practice' },
+          { name: 'BBB', car: { brand: 'audi' }, email: 'aaa@mail.ru', body: 'javascript' },
+      )
+    }, 4000)
 
     // watch(() => data.password, () => console.log(data.password))
 
@@ -528,6 +532,7 @@ export default {
         prepend-icon="search"
         style="margin-top: 10px;"
         :items="data.users"
+        :loading="!data.users.length"
         :rules="[v => !!v || 'required']"
       />
       <v-autocomplete

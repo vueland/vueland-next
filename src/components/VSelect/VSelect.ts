@@ -6,12 +6,11 @@ import { getStringKeysValue } from '../../helpers'
 import { VInput } from '../VInput'
 import { VMenu } from '../VMenu'
 import { VIcon } from '../VIcon'
-
 import { VSelectList } from './VSelectList'
+import { VProgressCircular } from '../VProgressCircular'
 
 // Services
 import { FaIcons } from '../../services/icons'
-
 import { Maybe } from '../../../types/base'
 
 export const VSelect = defineComponent({
@@ -33,6 +32,7 @@ export const VSelect = defineComponent({
       type: String,
       default: 'primary white--text text--base',
     },
+    loading: Boolean,
   },
   emits: ['click', 'focus', 'select', 'blur', 'change', 'update:modelValue'],
   setup(props, { attrs, emit }) {
@@ -73,6 +73,17 @@ export const VSelect = defineComponent({
       })
     }
 
+    const genListPreloader = () => {
+      return h('div', {
+        class: 'v-select__preloader'
+      }, h(VProgressCircular, {
+        indeterminate: true,
+        width: 2,
+        size: 30,
+        color: (attrs.color || 'primary') as string
+      }))
+    }
+
     const genSelectList = (): VNode => {
       return h(VMenu, {
         internalActivator: true,
@@ -84,7 +95,7 @@ export const VSelect = defineComponent({
         onShow: onFocus,
         onHide: onBlur,
       }, {
-        default: () => h(VSelectList, {
+        default: () => props.loading ? genListPreloader() : h(VSelectList, {
           items: props.items,
           selected: props.modelValue,
           valueKey: props.valueKey,

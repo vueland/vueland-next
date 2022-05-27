@@ -1,4 +1,4 @@
-import { defineComponent, h, watch, computed } from 'vue'
+import { defineComponent, h, computed } from 'vue'
 // Components
 import { VList, VListItem, VListItemTitle } from '../VList'
 // Helpers
@@ -32,7 +32,7 @@ export const VSelectList = defineComponent({
     activeClass: {
       type: String,
       default: '',
-    },
+    }
   },
   emits: ['select'],
   setup(props, { emit }) {
@@ -56,8 +56,6 @@ export const VSelectList = defineComponent({
         emit('select', props.items[val])
       },
     })
-
-    watch(computedSelect, to => console.log(to))
 
     const genItems = () => {
       return props.items.reduce((acc, it, i) => {

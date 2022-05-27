@@ -28,14 +28,13 @@ export const VForm = defineComponent({
       return !promises.some((f) => !f) ? Promise.resolve() : Promise.reject()
     }
 
-    return () =>
-      h('form', {
-          class: 'v-form',
-          onSubmit: (e) => e.preventDefault()
-        },
-        {
-          default: () => slots.default && slots.default({ validate }),
-        }
-      )
+    return () => h('form', {
+        class: 'v-form',
+        onSubmit: (e) => e.preventDefault(),
+      },
+      {
+        default: () => slots.default && slots.default({ validate }),
+      },
+    )
   },
 })

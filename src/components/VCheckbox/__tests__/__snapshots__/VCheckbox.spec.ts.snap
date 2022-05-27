@@ -3,7 +3,7 @@
 exports[`VCheckbox should emit events when clicked 1`] = `
 <div class="v-checkbox v-checkbox--checked">
   <div class="v-checkbox__square">
-    <i class="v-icon fas fa-check-square primary--text"
+    <i class="v-icon far fa-check-square primary--text"
        style="font-size: 16px;"
     >
     </i>
@@ -15,17 +15,6 @@ exports[`VCheckbox should mount component and match snapshot 1`] = `
 <div class="v-checkbox">
   <div class="v-checkbox__square">
     <i class="v-icon far fa-square primary--text"
-       style="font-size: 16px;"
-    >
-    </i>
-  </div>
-</div>
-`;
-
-exports[`VCheckbox should set "on" and "off" icon and match snapshot 1`] = `
-<div class="v-checkbox">
-  <div class="v-checkbox__square">
-    <i class="v-icon bar primary--text"
        style="font-size: 16px;"
     >
     </i>

@@ -71,9 +71,9 @@ export default {
       data.always = !data.always
     }
 
-    const testFunc = date => {
-      console.log(date)
-      data.date = date
+    const testFunc = data => {
+      console.log(data, 'test func data')
+      data.date = data
     }
 
     const forOut = computed(() => {
@@ -391,7 +391,6 @@ export default {
         show-sequence
         show-checkbox
         @select:row="testFunc"
-        @click:row="testFunc"
         @dblclick:row="testFunc"
         @contextmenu:row="testFunc"
         @last-page="testFunc"

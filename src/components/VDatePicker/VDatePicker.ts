@@ -154,7 +154,7 @@ export const VDatePicker = defineComponent({
       return new Date(year, month, date as number)
     })
 
-    function setInitDate() {
+    const setInitDate = () => {
       if (props.value) setParsedDate(props.value)
       else if (props.modelValue) setParsedDate(props.modelValue)
       else setParsedDate()
@@ -164,7 +164,7 @@ export const VDatePicker = defineComponent({
       }
     }
 
-    function onTableChange(): void | boolean {
+    const onTableChange = (): undefined | boolean => {
       if (data.isYears) {
         data.isYears = false
         return (data.isMonths = true)
@@ -177,14 +177,16 @@ export const VDatePicker = defineComponent({
         data.isDates = false
         return (data.isMonths = true)
       }
+
+      return undefined
     }
 
-    function setDataDate<T extends DatePickerDate>({
+    const setDataDate = <T extends DatePickerDate>({
       year,
       month,
       date,
       day,
-    }: T) {
+    }: T) => {
       data.tableMonth = month
       data.tableYear = year
 
@@ -194,7 +196,7 @@ export const VDatePicker = defineComponent({
       data.day = day
     }
 
-    function setParsedDate(selectedDate: string | null = null) {
+    const setParsedDate = (selectedDate: string | null = null) => {
       const dateForParsing = selectedDate || new Date()
 
       data.selected = parseDate(dateForParsing)
@@ -203,20 +205,20 @@ export const VDatePicker = defineComponent({
       setDataDate(data.selected!)
     }
 
-    function onYearUpdate(year: number) {
+    const onYearUpdate = (year: number) => {
       data.tableYear = year
       data.isMonths = true
       data.isYears = false
     }
 
-    function onMonthUpdate(month: number) {
+    const onMonthUpdate = (month: number) => {
       data.tableMonth = month
       data.isMonths = false
       data.isYears = false
       data.isDates = true
     }
 
-    function onDateUpdate(date: DatePickerDate) {
+    const onDateUpdate = (date: DatePickerDate) => {
       if (!date) return
 
       closeConditional.value = true
@@ -234,16 +236,16 @@ export const VDatePicker = defineComponent({
       requestAnimationFrame(() => (closeConditional.value = false))
     }
 
-    function onDateMonthUpdate(dateObject) {
+    const onDateMonthUpdate = (dateObject) => {
       data.tableMonth = dateObject.month
       if (dateObject.year) data.tableYear = dateObject.year
     }
 
-    function onDateInput(date: string): any {
+    const onDateInput = (date: string): any => {
       onDateUpdate(stringToDate(date)!)
     }
 
-    function stringToDate(date: string): DatePickerDate | null {
+    const stringToDate = (date: string): DatePickerDate | null => {
       if (date.length === 10) {
         const dateArray = date.trim().split(/\W/)
 
@@ -256,7 +258,7 @@ export const VDatePicker = defineComponent({
       return null
     }
 
-    function convertToFormat(): string {
+    const convertToFormat = (): string => {
       if (!data.selected) return ''
       return formatDate(
         new Date(
@@ -269,7 +271,7 @@ export const VDatePicker = defineComponent({
       )
     }
 
-    function genDisplayValue(value: string | number): VNode {
+    const genDisplayValue = (value: string | number): VNode => {
       const propsData = {
         class: 'v-date-picker__display-value',
       }
@@ -281,7 +283,7 @@ export const VDatePicker = defineComponent({
       )
     }
 
-    function genDatepickerDisplayInner(): VNode {
+    const genDatepickerDisplayInner = (): VNode => {
       const propsData = {
         class: 'v-date-picker__display-inner',
       }
@@ -292,7 +294,7 @@ export const VDatePicker = defineComponent({
       ])
     }
 
-    function genDatepickerDisplay(): VNode {
+    const genDatepickerDisplay = (): VNode => {
       const propsData = {
         class: {
           'v-date-picker__display': true,
@@ -308,7 +310,7 @@ export const VDatePicker = defineComponent({
       return h('div', propsData, genDatepickerDisplayInner())
     }
 
-    function genDatepickerHeader(): VNode {
+    const genDatepickerHeader = (): VNode => {
       return h(
         VDatepickerHeader,
         {
@@ -322,7 +324,7 @@ export const VDatePicker = defineComponent({
       )
     }
 
-    function genDatepickerYearsTable(): VNode {
+    const genDatepickerYearsTable = (): VNode => {
       const propsData = {
         year: data.tableYear,
         ['onUpdate:year']: onYearUpdate,
@@ -331,7 +333,7 @@ export const VDatePicker = defineComponent({
       return h(VDatePickerYears, propsData)
     }
 
-    function genDatepickerMonthsTable(): VNode {
+    const genDatepickerMonthsTable = (): VNode => {
       return h(VDatePickerMonths, {
         lang: props.lang,
         month: data.tableMonth,
@@ -342,7 +344,7 @@ export const VDatePicker = defineComponent({
       })
     }
 
-    function genDatepickerDatesTable(): VNode {
+    const genDatepickerDatesTable = (): VNode => {
       return h(
         VDatePickerDates,
         {
@@ -361,7 +363,7 @@ export const VDatePicker = defineComponent({
       )
     }
 
-    function genDatepickerBody(): VNode {
+    const genDatepickerBody = (): VNode => {
       const propsData = {
         class: {
           'v-date-picker__body': true,
@@ -381,7 +383,7 @@ export const VDatePicker = defineComponent({
       )
     }
 
-    function genDatepickerInput(): VNode {
+    const genDatepickerInput = (): VNode => {
       return h(VTextField, {
         modelValue: data.convertedDateString!,
         dark: props.dark,
@@ -402,7 +404,7 @@ export const VDatePicker = defineComponent({
       })
     }
 
-    function genDatepickerTable(): VNode {
+    const genDatepickerTable = (): VNode => {
       const propsData = {
         class: tableClasses.value,
         style: tableStyles.value,
@@ -415,7 +417,7 @@ export const VDatePicker = defineComponent({
       ])
     }
 
-    function genMenu() {
+    const genMenu = () => {
       return h(
         VMenu,
         {
@@ -434,7 +436,7 @@ export const VDatePicker = defineComponent({
       )
     }
 
-    function genDatepicker(): VNode {
+    const genDatepicker = (): VNode => {
       const propsData = {
         class: classes.value,
       }

@@ -125,7 +125,7 @@ export const VDataTable = defineComponent({
     const pageCorrection = computed<number | null>(() => {
       if ((data.page - 1) * data.rowsOnPage > data.rows?.length) {
         return Math.ceil(
-          (data.page * data.rowsOnPage - data.rows?.length) / data.rowsOnPage
+          (data.page * data.rowsOnPage - data.rows?.length) / data.rowsOnPage,
         )
       }
 
@@ -135,38 +135,38 @@ export const VDataTable = defineComponent({
     watch(
       () => props.cols,
       (to) => (data.cols = to),
-      { immediate: true }
+      { immediate: true },
     )
 
     watch(
       () => props.rows,
       (to) => (data.rows = to),
-      { immediate: true }
+      { immediate: true },
     )
 
-    function onSelectAll(value: boolean) {
+    const onSelectAll = (value: boolean) => {
       data.isAllRowsChecked = value
       data.rows.forEach((row) => (row.checked = value))
     }
 
-    function onSelect<T extends TableState['rows']>(rows: T) {
+    const onSelect = <T extends TableState['rows']>(rows: T) => {
       data.checkedRows = rows
       emit('select:row', data.checkedRows)
     }
 
-    function onPrevPage(num: number) {
+    const onPrevPage = (num: number) => {
       data.page = data.page > 1 ? data.page + num : data.page
     }
 
-    function onNextPage(num: number) {
+    const onNextPage = (num: number) => {
       if (data.rows.length - data.page * data.rowsOnPage > 0) {
         data.page += num
       }
     }
 
-    function onSort<T extends DataColumn, S extends DataColumnProps>(
-      col: T & S
-    ) {
+    const onSort = <T extends DataColumn, S extends DataColumnProps>(
+      col: T & S,
+    ) => {
       if (col.sorted) {
         col.sorted = !col.sorted
         return sortColumn(col)
@@ -177,9 +177,9 @@ export const VDataTable = defineComponent({
       sortColumn(col)
     }
 
-    function sortColumn<T extends DataColumn, S extends DataColumnProps>(
-      col: T & S
-    ) {
+    const sortColumn = <T extends DataColumn, S extends DataColumnProps>(
+      col: T & S,
+    ) => {
       if (!col.sorted) {
         return data.rows?.reverse()
       }
@@ -194,7 +194,7 @@ export const VDataTable = defineComponent({
       data.rows?.sort(executor as any)
     }
 
-    function onFilter({ value, col }: TableFilter) {
+    const onFilter = ({ value, col }: TableFilter) => {
       if (!value && filters[col.key]) delete filters[col.key]
 
       if (value) filters[col.key] = value
@@ -213,11 +213,11 @@ export const VDataTable = defineComponent({
       data.page = 1
     }
 
-    function onSelectRowsCount(count: number) {
+    const onSelectRowsCount = (count: number) => {
       data.rowsOnPage = count
     }
 
-    function filterRows<T, C extends DataColumn>(rows: T[], cols: C[]) {
+    const filterRows = <T, C extends DataColumn>(rows: T[], cols: C[]) => {
       const filterKeys = Object.keys(filters)
 
       return rows.reduce((acc, row) => {
@@ -228,8 +228,8 @@ export const VDataTable = defineComponent({
 
           const value = format ? format(row) : row[key]
 
-          const rowKeyValue = `${value}`.toLowerCase()
-          const filterValue = `${filters[key]}`.toLowerCase()
+          const rowKeyValue = `${ value }`.toLowerCase()
+          const filterValue = `${ filters[key] }`.toLowerCase()
 
           if (rowKeyValue.includes(filterValue)) {
             rowResults.push(row[key])
@@ -247,7 +247,7 @@ export const VDataTable = defineComponent({
       }, [] as T[])
     }
 
-    function genTableTools(): VNode {
+    const genTableTools = (): VNode => {
       const propsData = { class: 'v-data-table__toolbar' }
 
       return h('div', propsData, {
@@ -255,7 +255,7 @@ export const VDataTable = defineComponent({
       })
     }
 
-    function genTableHeader(): VNode {
+    const genTableHeader = (): VNode => {
       const propsData = {
         cols: data.cols,
         color: props.color,
@@ -270,7 +270,7 @@ export const VDataTable = defineComponent({
       }
 
       const content = data.cols.reduce((acc, col) => {
-        const slotName = `${col.key}-filter`
+        const slotName = `${ col.key }-filter`
 
         if (col && slots[slotName]) {
           acc[slotName] = addScopedSlot(slotName, slots)
@@ -284,7 +284,7 @@ export const VDataTable = defineComponent({
       return h(VDataTableHeader, propsData, content)
     }
 
-    function genTableBody(): VNode {
+    const genTableBody = (): VNode => {
       const propsData = {
         cols: data.cols,
         rows: data.rows,
@@ -312,7 +312,7 @@ export const VDataTable = defineComponent({
       return h(VDataTableBody, propsData, content)
     }
 
-    function genTableFooter(): VNode {
+    const genTableFooter = (): VNode => {
       const propsData = {
         pages: pages.value,
         page: data.page,
@@ -332,19 +332,19 @@ export const VDataTable = defineComponent({
       const content = slots['pagination-text']
         ? {
           ['pagination-text']: () =>
-              slots['pagination-text'] &&
-              slots['pagination-text']({
-                start: firstOnPage.value,
-                last: lastOnPage.value,
-                length: data.rows?.length,
-              }),
-          }
+            slots['pagination-text'] &&
+            slots['pagination-text']({
+              start: firstOnPage.value,
+              last: lastOnPage.value,
+              length: data.rows?.length,
+            }),
+        }
         : ''
 
       return h(VDataTableFooter, propsData, content)
     }
 
-    function genTableInner(): VNode {
+    const genTableInner = (): VNode => {
       const propsData = {
         class: 'v-data-table__inner',
       }

@@ -5,12 +5,13 @@ import {
   watch,
   defineComponent,
   inject,
+  toRaw,
   computed,
   onBeforeMount,
   onBeforeUnmount,
 } from 'vue'
 
-// Effects
+// Composables
 import { useValidation } from '../../composable/use-validation'
 import { useIcons } from '../../composable/use-icons'
 
@@ -18,8 +19,8 @@ import { useIcons } from '../../composable/use-icons'
 import { VIcon } from '../VIcon'
 import { VLabel } from '../VLabel'
 
-// Helpers
-import { warning } from '../../helpers'
+// Services
+import { sizes } from '../../services/sizes'
 
 // Types
 import { VNode } from 'vue'
@@ -27,35 +28,33 @@ import { VNode } from 'vue'
 export const VCheckbox = defineComponent({
   name: 'v-checkbox',
   props: {
-    onIcon: {
-      type: String,
+    modelValue: {
+      type: [Array, Boolean],
+      default: null,
     },
-    offIcon: {
+    label: {
       type: String,
+      default: '',
     },
-    dark: Boolean,
-    label: String,
     disabled: Boolean,
     validate: Boolean,
-    modelValue: [Array, Boolean],
     value: {
+      type: [Array, Object, String, Number],
       default: null,
     },
     color: {
       type: String,
       default: 'primary',
     },
-  } as any,
+  },
   emits: ['checked', 'update:modelValue'],
   setup(props, { emit }): () => VNode {
     const isChecked = ref(false)
     const form: any = inject('form', null)
+    const valuesMap: Map<any, any> = new Map()
 
     const { validate } = useValidation(props)
     const { icons } = useIcons()
-
-    const isArray = computed<boolean>(() => Array.isArray(props.modelValue))
-    const isValueSet = computed<boolean>(() => props.value !== null)
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-checkbox': true,
@@ -64,21 +63,15 @@ export const VCheckbox = defineComponent({
       'v-validatable': props.validate,
     }))
 
-    watch(
-      () => props.modelValue,
-      () => {
-        if (isArray.value) {
-          if (isValueSet.value) {
-            isChecked.value = props.modelValue.includes(props.value)
-          } else {
-            warning('v-checkbox: set the "value" prop')
-          }
-        } else {
-          isChecked.value = !!props.modelValue
-        }
-      },
-      { immediate: true },
-    )
+    watch(() => props.modelValue, to => {
+      if (Array.isArray(to)) {
+        valuesMap.clear()
+        to.forEach(it => valuesMap.set(toRaw(it), toRaw(it)))
+        isChecked.value = !!valuesMap.get(toRaw(props.value))
+      } else {
+        isChecked.value = !!props.modelValue
+      }
+    }, { immediate: true })
 
     const validateValue = (): boolean | void => {
       return validate(isChecked.value)
@@ -87,28 +80,22 @@ export const VCheckbox = defineComponent({
     const genLabel = (): VNode => {
       const propsData = {
         absolute: false,
-        color: props.dark ? 'white' : '',
         disabled: props.disabled,
       }
 
-      return h(VLabel, propsData, {
-        default: () => props.label,
-      })
+      return h(VLabel, propsData, { default: () => props.label })
     }
 
     const genLabelWrapper = () => {
-      return h('div', {
-        class: 'v-checkbox__label',
-      }, genLabel())
+      return h('div', { class: 'v-checkbox__label' }, genLabel())
     }
 
     const genIcon = (): VNode => {
-      const onIcon = props.onIcon || icons.$checkOn
-      const offIcon = props.offIcon || icons.$checkOff
-      const icon = isChecked.value ? onIcon : offIcon
+      const icon = isChecked.value ? icons.$checkbox : icons.$box
 
       const propsData = {
         icon,
+        size: sizes.sm,
         color: props.color,
         disabled: props.disabled,
       }
@@ -117,23 +104,18 @@ export const VCheckbox = defineComponent({
     }
 
     const genCheckbox = (): VNode => {
-      return h('div', {
-        class: 'v-checkbox__square',
-      }, genIcon())
+      return h('div', { class: 'v-checkbox__square' }, genIcon())
     }
 
-    const computeValue = (): boolean | any[] => {
-      if (isArray.value) {
-        let modelValue = [...props.modelValue]
-        isChecked.value = !modelValue.includes(props.value)
-
-        if (!isChecked.value) {
-          modelValue = modelValue.filter((it) => it !== props.value)
+    const computeValue = (): any[] | boolean => {
+      if (Array.isArray(props.modelValue)) {
+        if (isChecked.value) {
+          valuesMap.delete(toRaw(props.value))
         } else {
-          modelValue.push(props.value)
+          valuesMap.set(toRaw(props.value), toRaw(props.value))
         }
 
-        return modelValue
+        return Array.from(valuesMap.values())
       }
 
       return (isChecked.value = !isChecked.value)
@@ -141,6 +123,7 @@ export const VCheckbox = defineComponent({
 
     const onClick = () => {
       if (props.disabled) return
+
       const value = computeValue()
 
       props.validate && validateValue()
@@ -149,14 +132,14 @@ export const VCheckbox = defineComponent({
     }
 
     onBeforeMount(() => {
-      if (form) form!.add(validateValue)
+      form?.add(validateValue)
     })
 
     onBeforeUnmount(() => {
       form?.remove(validateValue)
     })
 
-    return (): VNode => h('div',
+    return () => h('div',
       { class: classes.value, onClick },
       [genCheckbox(), props.label && genLabelWrapper()],
     )

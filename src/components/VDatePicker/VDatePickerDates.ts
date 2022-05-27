@@ -57,18 +57,7 @@ export const VDatePickerDates = defineComponent({
       return new Date(props.year, props.month + 1, 0).getDate()
     })
 
-    watch(
-      () => props.month,
-      () => genTableDates(),
-      { immediate: true },
-    )
-
-    watch(
-      () => isDatesChanged.value,
-      () => setTimeout(() => (isDatesChanged.value = false), ANIMATION_TIMEOUT),
-    )
-
-    function updateMonth(isNext: boolean) {
+    const updateMonth = (isNext: boolean) => {
       const params: UpdateParams = {}
 
       params.month = props.month + (isNext ? 1 : -1)
@@ -82,7 +71,7 @@ export const VDatePickerDates = defineComponent({
       emit('update:month', params)
     }
 
-    function genWeekDays(): VNode[] {
+    const genWeekDays = (): VNode[] => {
       const propsData = {
         class: 'v-date-picker-dates__day',
       }
@@ -92,12 +81,12 @@ export const VDatePickerDates = defineComponent({
       )
     }
 
-    function genDateObject(date): DatePickerDate {
+    const genDateObject = (date): DatePickerDate => {
       const { year, month } = props
       return parseDate(new Date(year, month, date))
     }
 
-    function setEmptiesBeforeFirstDate(dateObject) {
+    const setEmptiesBeforeFirstDate = (dateObject) => {
       const firstDay = DAYS[0]
       const startDay = firstDay && !dateObject.day ? dateObject.day : firstDay
       const tillDay =
@@ -110,7 +99,7 @@ export const VDatePickerDates = defineComponent({
       dates.value[tillDay] = dateObject
     }
 
-    function genTableDates() {
+    const genTableDates = () => {
       dates.value = []
       for (let i = 1; i <= daysInMonth.value; i += 1) {
         const dateObject = genDateObject(i)
@@ -123,7 +112,7 @@ export const VDatePickerDates = defineComponent({
       }
     }
 
-    function compareDates(date1, date2) {
+    const compareDates = (date1, date2) => {
       return (
         date1.date === date2.date &&
         date1.month === date2.month &&
@@ -131,7 +120,7 @@ export const VDatePickerDates = defineComponent({
       )
     }
 
-    function setDisabled(date: DatePickerDate): boolean {
+    const setDisabled = (date: DatePickerDate): boolean => {
       if (!date.date) return false
       if (!props.disabledDates) return !!date.isHoliday
 
@@ -147,28 +136,28 @@ export const VDatePickerDates = defineComponent({
       )
     }
 
-    function disableFromTo(date: DatePickerDate, { from, to }): boolean {
+    const disableFromTo = (date: DatePickerDate, { from, to }): boolean => {
       const dateFrom: DatePickerDate = parseDate(from)
       const dateTo: DatePickerDate = parseDate(to)
 
       return date.mls >= dateFrom.mls && date.mls <= dateTo.mls
     }
 
-    function disableDaysOfMonth(date: DatePickerDate): boolean {
+    const disableDaysOfMonth = (date: DatePickerDate): boolean => {
       return props.disabledDates.daysOfMonth.some((it) => it === date.date)
     }
 
-    function disableDates(date: DatePickerDate): boolean {
+    const disableDates = (date: DatePickerDate): boolean => {
       return props.disabledDates.dates.find((d) => {
         return String(d) === String(toDateString(date))
       })
     }
 
-    function disableDays(date: DatePickerDate): boolean {
+    const disableDays = (date: DatePickerDate): boolean => {
       return props.disabledDates.days.find((d) => d === date.day) >= 0
     }
 
-    function disableRanges(date: DatePickerDate) {
+    const disableRanges = (date: DatePickerDate) => {
       const { ranges } = props.disabledDates
 
       for (let i = 0; i < ranges.length; i += 1) {
@@ -176,7 +165,7 @@ export const VDatePickerDates = defineComponent({
       }
     }
 
-    function genDateCell(date: DatePickerDate): VNode {
+    const genDateCell = (date: DatePickerDate): VNode => {
       const isSelected: boolean = compareDates(date, props.value)
       const isToday: boolean = compareDates(date, today)
 
@@ -199,20 +188,20 @@ export const VDatePickerDates = defineComponent({
       ])
     }
 
-    function genDateCells(): VNode[] {
+    const genDateCells = (): VNode[] => {
       return dates.value.reduce((acc, dateObject) => {
         acc.push(genDateCell(dateObject!))
         return acc
       }, [] as VNode[])
     }
 
-    function genDateRows(): VNode[] {
+    const genDateRows = (): VNode[] => {
       const datesVNodes = genDateCells()
 
       return genTableRows(datesVNodes, 'v-date-picker-dates__row', DAYS.length)
     }
 
-    function genDates(): Maybe<VNode> {
+    const genDates = (): Maybe<VNode> => {
       return (
         (!isDatesChanged.value &&
           h('div', { class: 'v-date-picker-dates__dates' }, genDateRows())) ||
@@ -220,9 +209,20 @@ export const VDatePickerDates = defineComponent({
       )
     }
 
-    function genWeek(): VNode {
+    const genWeek = (): VNode => {
       return h('div', { class: 'v-date-picker-dates__week' }, genWeekDays())
     }
+
+    watch(
+      () => props.month,
+      () => genTableDates(),
+      { immediate: true },
+    )
+
+    watch(
+      () => isDatesChanged.value,
+      () => setTimeout(() => (isDatesChanged.value = false), ANIMATION_TIMEOUT),
+    )
 
     return () =>
       h('div', { class: 'v-date-picker-dates' }, [

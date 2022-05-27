@@ -56,7 +56,7 @@ export const VDataTableCell = defineComponent({
       ...(props.color ? setBackgroundCssColor(props.color) : {}),
     }))
 
-    function genResize(): VNode {
+    const genResize = (): VNode => {
       const propsData = {
         right: true,
         emit: true,
@@ -67,7 +67,7 @@ export const VDataTableCell = defineComponent({
       return h(VResize, propsData)
     }
 
-    function genCellContent(): VNode {
+    const genCellContent = (): VNode => {
       const propsData = {
         class: {
           'v-data-table__cell-content': true,

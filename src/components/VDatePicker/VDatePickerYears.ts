@@ -58,17 +58,17 @@ export const VDatePickerYears = defineComponent({
       }
     }
 
-    function setCurrentTransition(isNext) {
+    const setCurrentTransition = (isNext) => {
       transition.value = isNext ? 'fade-in-down' : 'fade-in-up'
     }
 
-    function setTableIndex() {
+    const setTableIndex = () => {
       onTableIndex.value = years.value.findIndex((row) => {
         return row.find((year) => year === computedYear.value)
       })
     }
 
-    function changeYearsList(isNext) {
+    const changeYearsList = (isNext) => {
       const max = years.value.length - 1
       const val = isNext ? 1 : -1
 
@@ -84,7 +84,7 @@ export const VDatePickerYears = defineComponent({
       isListChanged.value = true
     }
 
-    function genTableYears() {
+    const genTableYears = () => {
       const fromYear = CURRENT_YEAR - LIMIT
       const maxYears = LIMIT * 2
 
@@ -99,7 +99,7 @@ export const VDatePickerYears = defineComponent({
       }
     }
 
-    function genYearCell(year): VNode {
+    const genYearCell = (year): VNode => {
       const isSelected = year === computedYear.value
       const propsData = {
         class: {
@@ -113,14 +113,14 @@ export const VDatePickerYears = defineComponent({
       return h('div', propsData, year)
     }
 
-    function genYearsRows(): VNode[] {
+    const genYearsRows = (): VNode[] => {
       const currentYears = years.value[onTableIndex.value]
       const yearsVNodes = currentYears.map(genYearCell)
 
       return genTableRows(yearsVNodes, 'v-date-picker-years__row', CELLS_IN_ROW)
     }
 
-    function genYears(): VNode | null {
+    const genYears = (): VNode | null => {
       const propsData = { class: 'v-date-picker-years__years' }
       return (
         (!isListChanged.value && h('div', propsData, genYearsRows())) || null

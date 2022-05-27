@@ -162,7 +162,7 @@ export const VDataTableFooter = defineComponent({
       })
     }
 
-    function genRowsCountSelectCaption(): VNode {
+    const genRowsCountSelectCaption = (): VNode => {
       const color = props.options.contentColor
 
       const propsData = {
@@ -182,14 +182,14 @@ export const VDataTableFooter = defineComponent({
       )
     }
 
-    function genRowsCountSelectBlock(): VNode {
+    const genRowsCountSelectBlock = (): VNode => {
       return h('div', { class: 'v-data-table__pagination-select' }, [
         genRowsCountSelectCaption(),
         genRowsCountSelect(),
       ])
     }
 
-    function genPagesCountDisplay(): VNode {
+    const genPagesCountDisplay = (): VNode => {
       const color = props.options.contentColor
 
       const propsData = {
@@ -213,7 +213,7 @@ export const VDataTableFooter = defineComponent({
       )
     }
 
-    function genPaginationButtonsBlock(): VNode {
+    const genPaginationButtonsBlock = (): VNode => {
       return h('div', { class: { 'v-data-table__pagination-route': true } }, [
         genPaginationButton(),
         genPaginationPageDisplay(),
@@ -221,7 +221,7 @@ export const VDataTableFooter = defineComponent({
       ])
     }
 
-    function genPaginationBlock(): VNode {
+    const genPaginationBlock = (): VNode => {
       return h('div', { class: 'v-data-table__pagination' }, [
         genRowsCountSelectBlock(),
         genPagesCountDisplay(),

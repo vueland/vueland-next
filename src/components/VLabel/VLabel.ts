@@ -22,16 +22,13 @@ export const VLabel = defineComponent({
       ...(!props.disabled ? setTextCssColor(props.color) : {}),
     }))
 
-    return () =>
-      h(
-        'label',
-        {
-          class: classes.value,
-          style: styles.value,
-        },
-        {
-          default: () => slots.default && slots.default(),
-        }
-      )
+    return () => h('label', {
+        class: classes.value,
+        style: styles.value,
+      },
+      {
+        default: () => slots.default?.(),
+      },
+    )
   },
 })

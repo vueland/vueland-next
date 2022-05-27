@@ -62,12 +62,12 @@ export const VDataTableBody = defineComponent({
       },
     )
 
-    function onSelectRows(rows) {
+    const onSelectRows = (rows) => {
       checkedRows.value = rows
       emit('select', checkedRows.value)
     }
 
-    function genNumberCell(count): VNode {
+    const genNumberCell = (count): VNode => {
       return h(
         VDataTableCell,
         {
@@ -83,7 +83,7 @@ export const VDataTableBody = defineComponent({
       )
     }
 
-    function genCheckboxCell(row): VNode {
+    const genCheckboxCell = (row): VNode => {
       return h(
         VDataTableCell,
         {
@@ -105,7 +105,7 @@ export const VDataTableBody = defineComponent({
       )
     }
 
-    function genRowCell(col, row): VNode {
+    const genRowCell = (col, row): VNode => {
       const { format } = col
       const slotContent =
         slots[col.key] &&
@@ -132,7 +132,7 @@ export const VDataTableBody = defineComponent({
       )
     }
 
-    function genTableRow(row, rowCount: number): VNode {
+    const genTableRow = (row, rowCount: number): VNode => {
       const rowCells: VNode[] = []
 
       props.showSequence && rowCells.push(genNumberCell(rowCount))
@@ -157,7 +157,7 @@ export const VDataTableBody = defineComponent({
       )
     }
 
-    function genTableRows(): VNode[] {
+    const genTableRows = (): VNode[] => {
       const tableRows: VNode[] = []
       const rowsLength = rowsOnTable.value?.length
       const count = (props.page - 1) * props.rowsOnPage

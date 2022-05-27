@@ -100,18 +100,6 @@ describe('VCheckbox', () => {
     expect(stub).toHaveBeenCalledWith([])
   })
 
-  it('should set "on" and "off" icon and match snapshot', async () => {
-    const props = { onIcon: 'foo', offIcon: 'bar' }
-    const cmp = mountFunction({ props })
-
-    await cmp.trigger('click')
-    expect(cmp.find(`.${props.onIcon}`).exists()).toBe(true)
-
-    await cmp.trigger('click')
-    expect(cmp.find(`.${props.offIcon}`).exists()).toBe(true)
-    expect(cmp.html()).toMatchSnapshot()
-  })
-
   it('should set validate and match snapshot', async () => {
     const props = { validate: true, modelValue: false }
     const cmp = mountFunction({ props })

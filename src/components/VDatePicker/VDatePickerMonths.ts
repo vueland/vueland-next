@@ -44,12 +44,12 @@ export const VDatePickerMonths = defineComponent({
       },
     })
 
-    function updateYear(isNext: boolean) {
+    const updateYear = (isNext: boolean) => {
       const year = +props.year + (isNext ? 1 : -1)
       emit('update:year', year)
     }
 
-    function genMonthCell(month): VNode {
+    const genMonthCell = (month): VNode => {
       const isSelected = month === computedMonth.value
       const propsData = {
         class: {
@@ -63,7 +63,7 @@ export const VDatePickerMonths = defineComponent({
       return h('div', propsData, props.locale[month])
     }
 
-    function genMonthRows(): VNode[] {
+    const genMonthRows = (): VNode[] => {
       const monthsVNodes = MONTHS.map(genMonthCell)
 
       return genTableRows(

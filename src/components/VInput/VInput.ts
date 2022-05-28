@@ -7,7 +7,7 @@ import {
   computed,
   onBeforeMount,
   onBeforeUnmount,
-  VNode
+  VNode,
 } from 'vue'
 
 // Composable
@@ -31,21 +31,21 @@ export const VInput = defineComponent({
   name: 'v-input',
   components: {
     VLabel,
-    VIcon
+    VIcon,
   },
   inheritAttrs: false,
   props: {
     label: {
       type: String,
-      default: ''
+      default: '',
     },
     prependIcon: {
       type: String,
-      default: ''
+      default: '',
     },
     appendIcon: {
       type: String,
-      default: ''
+      default: '',
     },
     disabled: Boolean,
     focused: Boolean,
@@ -53,20 +53,20 @@ export const VInput = defineComponent({
     file: Boolean,
     hints: {
       type: Boolean,
-      default: true
+      default: true,
     },
     hintMessage: {
       type: String,
-      default: ''
+      default: '',
     },
     textColor: {
       type: String,
-      default: ''
+      default: '',
     },
     ...validationProps(),
-    ...colorProps()
+    ...colorProps(),
   },
-  emits: [ 'click' ],
+
   setup(props, { attrs, emit, slots }) {
     const { validate, errorState } = useValidation(props)
     const { setTextCssColor, setTextClassNameColor } = useColors()
@@ -98,24 +98,24 @@ export const VInput = defineComponent({
       ...(!props.disabled && !errorState.innerError
         ? setTextClassNameColor(props.color)
         : {}),
-      ...(attrs.class as object)
+      ...(attrs.class as object),
     }))
 
     const styles = computed<Record<string, string>>(() => ({
       ...(!props.disabled && !errorState.innerError
         ? setTextCssColor(props.color)
         : {}),
-      ...(attrs.style as object)
+      ...(attrs.style as object),
     }))
 
     watch(
       () => props.focused,
-      (to) => !to && validate()
+      (to) => !to && validate(),
     )
 
     watch(
       () => props.value,
-      () => validate()
+      () => validate(),
     )
 
     const genLabel = (): VNode => {
@@ -125,14 +125,14 @@ export const VInput = defineComponent({
           class: 'v-label--on-input',
           disabled: isDisabled.value,
           focused: props.focused,
-          color: !errorState.innerError ? props.color : ''
+          color: !errorState.innerError ? props.color : '',
         },
         {
-          default: () => props.label
-        }
+          default: () => props.label,
+        },
       )
 
-      return h('div', { class: 'v-input__label' }, [ label ])
+      return h('div', { class: 'v-input__label' }, [label])
     }
 
     const genIcon = (iconName, clickable = false): VNode => {
@@ -140,7 +140,7 @@ export const VInput = defineComponent({
         icon: iconName,
         size: 16,
         disabled: props.disabled,
-        clickable
+        clickable,
       })
     }
 
@@ -180,30 +180,28 @@ export const VInput = defineComponent({
       const textFieldContent = slots['text-field']?.({
         textCssColor,
         textClassColor,
-        disabled
+        disabled,
       })
 
       return h('div', { class: 'v-input__text-field' },
-        [ prependIconContent, textFieldContent, appendIconContent ]
+        [prependIconContent, textFieldContent, appendIconContent],
       )
     }
 
     const genHintMessage = (): Maybe<VNode> => {
-      return props.hintMessage || errorState.innerErrorMessage ?
-        h(
-          'span',
-          { class: 'v-input__hints-message' },
-          [ errorState.innerErrorMessage ]
-        )
-        : null
+      return h(
+        'span',
+        { class: 'v-input__hints-message' },
+        [errorState.innerErrorMessage],
+      )
     }
 
     const genHints = (): Maybe<VNode> => {
-      return (props.hints || props.rules) ? h(
+      return h(
         'div',
         { class: 'v-input__hints' },
-        useTransition(genHintMessage()!, 'fade')
-      ) : null
+        useTransition(genHintMessage()!, 'fade'),
+      )
     }
 
     const genSelectSlot = (): Maybe<VNode> => {
@@ -224,11 +222,11 @@ export const VInput = defineComponent({
       'div',
       { class: classes.value, style: styles.value },
       [
-        props.label && genLabel(),
+        genLabel(),
         genTextFieldSlot(),
         genHints(),
-        genSelectSlot()
-      ]
+        genSelectSlot(),
+      ],
     )
-  }
+  },
 })

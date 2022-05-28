@@ -89,7 +89,7 @@ export const VSelect = defineComponent({
         internalActivator: true,
         activator: activator.value!,
         inputActivator: '.v-input__text-field',
-        openOnClick: !isDisabled.value && !isReadonly.value,
+        openOnClick: true,
         maxHeight: 240,
         zIndex: 12,
         onShow: onFocus,
@@ -128,7 +128,7 @@ export const VSelect = defineComponent({
         return genSelect({ textCssColor, textClassColor, disabled })
       },
       ['append-icon']: () => genExpandIcon(),
-      select: () => activator.value ? genSelectList() : null,
+      select: () => activator.value? genSelectList() : null,
     })
   },
 })

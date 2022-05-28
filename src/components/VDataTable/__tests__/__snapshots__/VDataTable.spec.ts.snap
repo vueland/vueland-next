@@ -2740,6 +2740,8 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
                 </div>
                 <div class="v-input__hints">
                   <transition-stub>
+                    <span class="v-input__hints-message">
+                    </span>
                   </transition-stub>
                 </div>
               </div>
@@ -3390,6 +3392,8 @@ exports[`VDataTable should test table filter and match snapshot 1`] = `
                 </div>
                 <div class="v-input__hints">
                   <transition-stub>
+                    <span class="v-input__hints-message">
+                    </span>
                   </transition-stub>
                 </div>
               </div>

@@ -528,7 +528,7 @@ export default {
         v-model="data.user"
         label="select"
         value-key="email"
-        clearable
+        :disabled="!data.users.length"
         prepend-icon="search"
         style="margin-top: 10px;"
         :items="data.users"

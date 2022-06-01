@@ -189,11 +189,11 @@ export const VInput = defineComponent({
     }
 
     const genHintMessage = (): Maybe<VNode> => {
-      return h(
+      return !!errorState.innerErrorMessage ? h(
         'span',
         { class: 'v-input__hints-message' },
         [errorState.innerErrorMessage],
-      )
+      ) : null
     }
 
     const genHints = (): Maybe<VNode> => {

@@ -1,5 +1,5 @@
 import { defineComponent, h } from 'vue'
-import { VIcon } from '../../components'
+import { VIcon } from '../../components/VIcon'
 
 import { useIcons } from '../../composable/use-icons'
 

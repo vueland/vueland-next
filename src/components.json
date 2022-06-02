@@ -1,0 +1,8 @@
+{
+  "components/v-app": "../src/components/VApp",
+  "components/v-button": "../src/components/VButton",
+  "components/v-card": "../src/components/VCard",
+  "components/v-toolbar": "../src/components/VToolbar",
+  "components/v-icon": "../src/components/VIcon",
+  "components/v-navigation": "../src/components/VNavigation"
+}

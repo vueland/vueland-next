@@ -1,5 +1,4 @@
-export * from './VButton'
+import VButton from './VButton'
 
-import { VButton } from './VButton'
-
+export { VButton }
 export default VButton

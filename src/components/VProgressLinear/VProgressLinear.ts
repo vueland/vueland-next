@@ -4,7 +4,7 @@ import { h, defineComponent } from 'vue'
 // Effects
 import { useColors } from '../../composable/use-colors'
 
-export const VProgressLinear = defineComponent({
+export default defineComponent({
   name: 'v-progress-linear',
   props: {
     value: {

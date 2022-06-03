@@ -5,7 +5,7 @@ import { convertToUnit } from '../../helpers'
 // Composables
 import { useColors, colorProps } from '../../composable/use-colors'
 
-export const VToolbar = defineComponent({
+export default defineComponent({
   name: 'v-toolbar',
   props: {
     fixed: Boolean,

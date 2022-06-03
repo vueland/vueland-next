@@ -1,0 +1,13 @@
+import { inject } from 'vue';
+import { FaIcons, MaterialIcons, } from '../services/icons';
+export function useIcons() {
+    const options = inject('$options');
+    let icons = FaIcons;
+    if (options?.icons) {
+        if (options.icons.includes('material-icons')) {
+            icons = MaterialIcons;
+        }
+    }
+    return { icons };
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoidXNlLWljb25zLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiLi4vLi4vLi4vc3JjL2NvbXBvc2FibGUvdXNlLWljb25zLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLE9BQU8sRUFBRSxNQUFNLEVBQUUsTUFBTSxLQUFLLENBQUE7QUFDNUIsT0FBTyxFQUNMLE9BQU8sRUFDUCxhQUFhLEdBQ2QsTUFBTSxtQkFBbUIsQ0FBQTtBQUUxQixNQUFNLFVBQVUsUUFBUTtJQUN0QixNQUFNLE9BQU8sR0FBUSxNQUFNLENBQUMsVUFBVSxDQUFDLENBQUE7SUFFdkMsSUFBSSxLQUFLLEdBQVEsT0FBTyxDQUFBO0lBRXhCLElBQUksT0FBTyxFQUFFLEtBQUssRUFBRTtRQUNsQixJQUFJLE9BQU8sQ0FBQyxLQUFLLENBQUMsUUFBUSxDQUFDLGdCQUFnQixDQUFDLEVBQUU7WUFDNUMsS0FBSyxHQUFHLGFBQWEsQ0FBQTtTQUN0QjtLQUNGO0lBRUQsT0FBTyxFQUFFLEtBQUssRUFBRSxDQUFBO0FBQ2xCLENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBpbmplY3QgfSBmcm9tICd2dWUnXG5pbXBvcnQge1xuICBGYUljb25zLFxuICBNYXRlcmlhbEljb25zLFxufSBmcm9tICcuLi9zZXJ2aWNlcy9pY29ucydcblxuZXhwb3J0IGZ1bmN0aW9uIHVzZUljb25zKCkge1xuICBjb25zdCBvcHRpb25zOiBhbnkgPSBpbmplY3QoJyRvcHRpb25zJylcblxuICBsZXQgaWNvbnM6IGFueSA9IEZhSWNvbnNcblxuICBpZiAob3B0aW9ucz8uaWNvbnMpIHtcbiAgICBpZiAob3B0aW9ucy5pY29ucy5pbmNsdWRlcygnbWF0ZXJpYWwtaWNvbnMnKSkge1xuICAgICAgaWNvbnMgPSBNYXRlcmlhbEljb25zXG4gICAgfVxuICB9XG5cbiAgcmV0dXJuIHsgaWNvbnMgfVxufVxuIl19

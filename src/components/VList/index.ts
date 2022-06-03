@@ -1,11 +1,9 @@
-import { createSimpleFunctional } from '../../helpers'
-import { VList } from './VList'
-import { VListItem } from './VListItem'
-
-const VListItemTitle = createSimpleFunctional('v-list-item__title')
-const VListItemSubtitle = createSimpleFunctional('v-list-item__subtitle')
-const VListItemContent = createSimpleFunctional('v-list-item__content')
-const VListItemIcon = createSimpleFunctional('v-list-item__icon')
+import VList from './VList'
+import VListItem from './VListItem'
+import VListItemTitle from './VListItemTitle'
+import VListItemSubtitle from './VListItemSubtitle'
+import VListItemContent from './VListItemContent'
+import VListItemIcon from './VListItemIcon'
 
 export {
   VList,

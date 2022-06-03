@@ -1,5 +1,5 @@
 import { mount, VueWrapper } from '@vue/test-utils'
-import { VResize } from '../VResize'
+import { VResize } from '../'
 import { VCard } from '../../VCard'
 import 'regenerator-runtime/runtime'
 

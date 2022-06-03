@@ -30,7 +30,7 @@ type ResizeData = {
   isActive: boolean
 }
 
-export const VResize = defineComponent({
+export default defineComponent({
   name: 'v-resize',
 
   props: {

@@ -3,7 +3,8 @@ import { defineComponent, h, ref, computed, VNode } from 'vue'
 import { useColors, colorProps } from '../../composable/use-colors'
 // Helpers
 import { convertToUnit } from '../../helpers'
-export const VNavigation = defineComponent({
+
+export default defineComponent({
   name: 'v-navigation',
   props: {
     fixed: Boolean,
@@ -13,20 +14,20 @@ export const VNavigation = defineComponent({
     miniVariant: Boolean,
     expand: Boolean,
     offsetTop: {
-      type: [ String, Number ],
-      default: 0
+      type: [String, Number],
+      default: 0,
     },
     miniVariantWidth: {
-      type: [ String, Number ],
-      default: 56
+      type: [String, Number],
+      default: 56,
     },
     maxVariantWidth: {
-      type: [ String, Number ],
-      default: 237
+      type: [String, Number],
+      default: 237,
     },
-    ...colorProps('#ffffff')
+    ...colorProps('#ffffff'),
   },
-  emits: [ 'update:expand' ],
+  emits: ['update:expand'],
 
   setup(props, { slots, emit }): () => VNode {
     const { setBackgroundClassNameColor, setBackgroundCssColor } = useColors()
@@ -49,7 +50,7 @@ export const VNavigation = defineComponent({
       'v-navigation': true,
       'v-navigation--expanded': isExpanded.value,
       'v-navigation--fixed': props.fixed,
-      ...(props.color ? setBackgroundClassNameColor(props.color) : {})
+      ...(props.color ? setBackgroundClassNameColor(props.color) : {}),
     }))
 
     const styles = computed<Record<string, string>>(() => ({
@@ -58,14 +59,14 @@ export const VNavigation = defineComponent({
       top: props.fixed ? convertToUnit(props.offsetTop) : '',
       left: !props.right && props.fixed ? convertToUnit(0) : '',
       right: props.right && props.fixed ? convertToUnit(0) : '',
-      ...(props.color ? setBackgroundCssColor(props.color) : {})
+      ...(props.color ? setBackgroundCssColor(props.color) : {}),
     }))
 
     const genNavigationContent = (): VNode => {
       return h('div', {
-        class: 'v-navigation__content'
+        class: 'v-navigation__content',
       }, {
-        default: () => slots.default?.()
+        default: () => slots.default?.(),
       })
     }
 
@@ -85,7 +86,7 @@ export const VNavigation = defineComponent({
       class: classes.value,
       style: styles.value,
       onMouseenter,
-      onMouseleave
+      onMouseleave,
     }, genNavigationContent())
-  }
+  },
 })

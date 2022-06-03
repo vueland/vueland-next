@@ -2,7 +2,7 @@
 import { defineComponent, computed, h } from 'vue'
 
 // Compositions
-import { useColors } from '@/composable/use-colors'
+import { useColors } from '../../composable/use-colors'
 
 // Types
 import { VNode } from 'vue'

@@ -11,7 +11,7 @@ import { uniqueArray } from '../../helpers'
 // Types
 import { Maybe } from '../../../types/base'
 
-export const VFileInput = defineComponent({
+export default defineComponent({
   name: 'v-file-input',
   props: {
     disabled: Boolean,

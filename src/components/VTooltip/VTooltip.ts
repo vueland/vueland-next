@@ -31,7 +31,7 @@ import { transitions } from '../../services/transitions'
 
 // TODO fix behavior on window resize if v-model used on component
 
-export const VTooltip = defineComponent({
+export default defineComponent({
   name: 'v-tooltip',
 
   props: {

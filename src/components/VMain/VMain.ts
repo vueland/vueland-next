@@ -1,6 +1,6 @@
 import { defineComponent, h } from 'vue'
 
-export const VMain = defineComponent({
+export default defineComponent({
   name: 'v-main',
   setup(_, { slots }) {
     return () => h('div', {

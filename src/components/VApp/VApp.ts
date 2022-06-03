@@ -27,7 +27,7 @@ interface AppState {
   smAndLess: boolean
 }
 
-export const VApp = defineComponent({
+export default defineComponent({
   name: 'v-app',
   directives: {
     resize,

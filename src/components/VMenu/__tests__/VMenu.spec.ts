@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { VMenu } from '../VMenu'
+import { VMenu } from '../'
 
 describe('VMenu', () => {
   let mountFunction: (options?: any) => any

@@ -25,7 +25,7 @@ import { sizes } from '../../services/sizes'
 // Types
 import { VNode } from 'vue'
 
-export const VCheckbox = defineComponent({
+export default defineComponent({
   name: 'v-checkbox',
   props: {
     modelValue: {

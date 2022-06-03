@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { VLayout } from '../VLayout'
+import { VLayout } from '../'
 
 describe('VLayout', () => {
   const mountFunction = (options = {}) =>

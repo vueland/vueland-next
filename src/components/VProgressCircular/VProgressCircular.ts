@@ -7,7 +7,7 @@ import { colorProps, useColors } from '../../composable/use-colors'
 import { VNode } from 'vue'
 import { convertToUnit } from '../../helpers'
 
-export const VProgressCircular = defineComponent({
+export default defineComponent({
   name: 'v-progress-circular',
   props: {
     indeterminate: Boolean,

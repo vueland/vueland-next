@@ -1,6 +1,8 @@
-import * as components from './components'
+// @ts-ignore
+import components from './paths.json'
 import * as directives from './directives'
 import { UserOptions } from '../types'
+import { defineAsyncComponent } from 'vue'
 
 export class Vueland {
   static installed: boolean = false
@@ -16,9 +18,10 @@ export class Vueland {
     Vueland.installed = true
 
     Object.keys(components).forEach((key) => {
-      if (key && (components as any)[key]) {
-        const component = (components as any)[key]
-        app.component(key, component as typeof app)
+      if (key && components[key]) {
+        app.component(key, defineAsyncComponent(
+          () => import(`${ components[key] }`)),
+        )
       }
     })
 

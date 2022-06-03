@@ -1,1 +1,4 @@
-export { VTextField } from './VTextField'
+import VTextField from './VTextField'
+
+export { VTextField }
+export default VTextField

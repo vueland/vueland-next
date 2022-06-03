@@ -10,7 +10,7 @@ import {
 import { List } from '../../../types/components'
 import { Maybe } from '../../../types/base'
 
-export const VListItem = defineComponent({
+export default defineComponent({
   name: 'v-list-item',
   emits: ['click'],
 

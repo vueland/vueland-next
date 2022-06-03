@@ -2,7 +2,7 @@ import { defineComponent, h, provide, watch, computed, onMounted } from 'vue'
 import { useColors, colorProps } from '../../composable/use-colors'
 import { mapToValArray } from '../../helpers'
 
-export const VList = defineComponent({
+export default defineComponent({
   name: 'v-list',
   props: {
     value: {

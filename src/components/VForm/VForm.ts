@@ -1,6 +1,6 @@
 import { defineComponent, provide, h } from 'vue'
 
-export const VForm = defineComponent({
+export default defineComponent({
   name: 'v-form',
   setup(_, { slots }) {
     let fields: Array<(...args: any) => Promise<boolean>> = []

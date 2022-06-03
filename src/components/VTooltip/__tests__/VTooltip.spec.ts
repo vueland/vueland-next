@@ -1,5 +1,5 @@
 import { mount, VueWrapper } from "@vue/test-utils";
-import { VTooltip } from "../VTooltip";
+import { VTooltip } from "../";
 import "regenerator-runtime/runtime";
 
 const activatorSlot = `

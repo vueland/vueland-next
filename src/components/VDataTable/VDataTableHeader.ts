@@ -18,8 +18,8 @@ import { clickOutside } from '../../directives/v-click-outside'
 // Types
 import { VNode } from 'vue'
 import { DataColumn } from '../../../types'
-import { useTransition } from '@/composable/use-transition'
-import { transitions } from '@/services/transitions'
+import { useTransition } from '../../composable/use-transition'
+import { transitions } from '../../services/transitions'
 
 export const VDataTableHeader = defineComponent({
   name: 'v-data-table-header',

@@ -1,5 +1,5 @@
 import { mount, VueWrapper } from "@vue/test-utils";
-import { VCard } from "../index";
+import { VCard } from "../";
 
 describe("VCard", () => {
   let mountFunction: (options?: any) => VueWrapper<any>;

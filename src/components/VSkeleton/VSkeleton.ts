@@ -1,7 +1,7 @@
 import { defineComponent, h } from 'vue'
 import { convertToUnit } from '../../helpers'
 
-export const VSkeleton = defineComponent({
+export default defineComponent({
   name: 'v-skeleton',
   props: {
     tag: {

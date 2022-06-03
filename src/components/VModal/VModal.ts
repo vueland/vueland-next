@@ -16,9 +16,9 @@ import { useToggle } from '../../composable/use-toggle'
 
 // Types
 import { VNode } from 'vue'
-import { convertToUnit } from '@/helpers'
+import { convertToUnit } from '../../helpers'
 
-export const VModal = defineComponent({
+export default defineComponent({
   name: 'v-modal',
 
   props: {

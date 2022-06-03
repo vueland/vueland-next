@@ -32,7 +32,7 @@ type TableState = {
   isAllRowsChecked: boolean
 }
 
-export const VDataTable = defineComponent({
+export default defineComponent({
   name: 'v-data-table',
   props: {
     cols: {

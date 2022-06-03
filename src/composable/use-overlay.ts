@@ -1,13 +1,13 @@
 import { render } from 'vue'
 
 // Components
-import { VOverlay } from '../components'
+import { VOverlay } from '../components/VOverlay'
 
 // Types
 import { SetupContext, VNode } from 'vue'
 
 // Helpers
-import { addOnceListener } from '@/helpers'
+import { addOnceListener } from '../helpers'
 import { Maybe } from '../../types/base'
 
 interface OverlayController {

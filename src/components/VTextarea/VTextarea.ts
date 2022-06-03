@@ -4,7 +4,7 @@ import { h, defineComponent } from 'vue'
 // Components
 import { VTextField } from '../VTextField'
 
-export const VTextarea = defineComponent({
+export default defineComponent({
   name: 'v-textarea',
 
   setup() {

@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import { VButton } from "../VButton";
+import { VButton } from "../";
 import "regenerator-runtime/runtime";
 
 describe("VButton", () => {

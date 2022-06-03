@@ -3,7 +3,7 @@ import { VIcon } from '../../components/VIcon'
 
 import { useIcons } from '../../composable/use-icons'
 
-export const VToolbarNavBtn = defineComponent({
+export default defineComponent({
   name: 'v-toolbar-nav-btn',
   emits: ['click'],
   setup(_, { slots, emit }) {

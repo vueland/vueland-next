@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { VProgressCircular } from '../VProgressCircular'
+import { VProgressCircular } from '../'
 
 describe('VProgressCircular', () => {
   let mountFunction

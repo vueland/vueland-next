@@ -1,6 +1,6 @@
 import { defineComponent, h, computed, VNode } from 'vue'
 
-export const VLayout = defineComponent({
+export default defineComponent({
   name: 'v-layout',
   props: {
     column: Boolean,

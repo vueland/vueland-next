@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { VApp } from '../index'
+import { VApp } from '../'
 
 describe('VApp', () => {
   test('should mount component and match snapshot', () => {

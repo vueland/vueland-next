@@ -1,7 +1,7 @@
 import { defineComponent, h, computed } from 'vue'
 import { useColors, colorProps } from '../../composable/use-colors'
 
-export const VLabel = defineComponent({
+export default defineComponent({
   name: 'v-label',
   props: {
     disabled: Boolean,

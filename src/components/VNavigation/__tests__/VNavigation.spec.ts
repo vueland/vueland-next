@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { VNavigation } from '../VNavigation'
+import { VNavigation } from '../'
 import 'regenerator-runtime'
 
 describe('VNavigation', () => {

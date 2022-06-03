@@ -5,7 +5,7 @@ import { VIcon } from '../VIcon'
 import { useColors, colorProps } from '../../composable/use-colors'
 import { useIcons } from '../../composable/use-icons'
 
-export const VChip = defineComponent({
+export default defineComponent({
   name: 'v-chip',
   props: {
     title: {

@@ -4,6 +4,7 @@
     "target": "es2018",
     "module": "esnext",
     "strict": true,
+    "noEmit": false,
     "allowJs": true,
     "removeComments": true,
     "noImplicitAny": false,

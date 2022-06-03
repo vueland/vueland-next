@@ -1,8 +1,13 @@
-import { createSimpleFunctional } from '../../helpers'
+import VCard from './VCard'
+import VCardTitle from './VCardTitle'
+import VCardSubtitle from './VCardSubtitle'
+import VCardContent from './VCardContent'
+import VCardActions from './VCardActions'
 
-export { VCard } from './VCard'
-
-export const VCardTitle = createSimpleFunctional('v-card__title')
-export const VCardSubtitle = createSimpleFunctional('v-card__subtitle')
-export const VCardContent = createSimpleFunctional('v-card__content')
-export const VCardActions = createSimpleFunctional('v-card__actions')
+export {
+  VCard,
+  VCardTitle,
+  VCardSubtitle,
+  VCardContent,
+  VCardActions,
+}

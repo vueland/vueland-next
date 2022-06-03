@@ -11,7 +11,7 @@ import { useTransition } from '../../composable/use-transition'
 // Types
 import { VNode } from 'vue'
 
-export const VBadge = defineComponent({
+export default defineComponent({
   name: 'v-badge',
 
   props: {

@@ -4,7 +4,7 @@ import { toCamelCase } from '../../helpers'
 const breakpoints = ['sm', 'md', 'lg', 'xl']
 const positions = ['start', 'center', 'end']
 
-export const VRow = defineComponent({
+export default defineComponent({
   name: 'v-row',
   props: {
     align: {

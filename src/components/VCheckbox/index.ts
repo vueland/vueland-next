@@ -1,1 +1,4 @@
-export { VCheckbox } from './VCheckbox'
+import VCheckbox from './VCheckbox'
+
+export { VCheckbox }
+export default VCheckbox

@@ -32,7 +32,7 @@ import { clickOutside, resize } from '../../directives'
 
 import { Maybe } from '../../../types/base'
 
-export const VMenu = defineComponent({
+export default defineComponent({
   name: 'v-menu',
   directives: {
     clickOutside,

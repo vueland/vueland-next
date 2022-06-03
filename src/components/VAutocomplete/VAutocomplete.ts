@@ -24,7 +24,7 @@ type SelectState = {
   select: any
 }
 
-export const VAutocomplete = defineComponent({
+export default defineComponent({
   name: 'v-autocomplete',
   props: {
     label: String,

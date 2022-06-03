@@ -15,7 +15,7 @@ import { VNode } from 'vue'
 // Helpers
 import { convertToUnit } from '../../helpers'
 
-export const VButton = defineComponent({
+export default defineComponent({
   name: 'v-button',
   props: {
     disabled: Boolean,

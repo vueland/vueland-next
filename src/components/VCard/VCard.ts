@@ -8,7 +8,7 @@ import { elevationProps, useElevation } from '../../composable/use-elevation'
 // Types
 import { VNode } from 'vue'
 
-export const VCard = defineComponent({
+export default defineComponent({
   name: 'v-card',
 
   props: {
@@ -29,11 +29,11 @@ export const VCard = defineComponent({
         'v-card': true,
         ...elevationClasses.value,
         ...(props.color ? setBackgroundClassNameColor(props.color) : {}),
-      })
+      }),
     )
 
     const styles = computed(() => ({
-      width: `${props.width}px`,
+      width: `${ props.width }px`,
       ...(props.color ? setBackgroundCssColor(props.color) : {}),
     }))
 

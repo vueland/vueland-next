@@ -27,7 +27,7 @@ type Form = {
   remove: (item: (val?: any) => boolean | void) => void
 }
 
-export const VInput = defineComponent({
+export default defineComponent({
   name: 'v-input',
   components: {
     VLabel,

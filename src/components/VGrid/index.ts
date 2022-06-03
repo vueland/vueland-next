@@ -1,7 +1,12 @@
-import { createSimpleFunctional } from '../../helpers'
+import VLayout from './VLayout'
+import VRow from './VRow'
+import VCol from './VCol'
+import VSpacer from './VSpacer'
 
-export { VRow } from './VRow'
-export { VCol } from './VCol'
-export { VLayout } from './VLayout'
+export {
+  VLayout,
+  VRow,
+  VCol,
+  VSpacer
+}
 
-export const VSpacer = createSimpleFunctional('v-spacer')

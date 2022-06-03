@@ -44,7 +44,7 @@ type DatePickerData = {
   isActive: boolean
 }
 
-export const VDatePicker = defineComponent({
+export default defineComponent({
   name: 'v-date-picker',
   props: {
     dark: Boolean,
@@ -138,15 +138,15 @@ export const VDatePicker = defineComponent({
 
     const headerValue = computed<string>(() => {
       return data.isYears || data.isMonths
-        ? `${data.tableYear}`
+        ? `${ data.tableYear }`
         : data.isDates
-        ? `${data.tableYear} ${localeMonths[data.tableMonth!]}`
-        : ''
+          ? `${ data.tableYear } ${ localeMonths[data.tableMonth!] }`
+          : ''
     })
 
     const displayDate = computed<string>(() => {
       const { month, date, day } = data.selected as DatePickerDate
-      return `${localeMonths[month]} ${date} ${localeWeek[day]}`
+      return `${ localeMonths[month] } ${ date } ${ localeWeek[day] }`
     })
 
     const computedValue = computed<string | number | Date>(() => {
@@ -182,11 +182,11 @@ export const VDatePicker = defineComponent({
     }
 
     const setDataDate = <T extends DatePickerDate>({
-      year,
-      month,
-      date,
-      day,
-    }: T) => {
+                                                     year,
+                                                     month,
+                                                     date,
+                                                     day,
+                                                   }: T) => {
       data.tableMonth = month
       data.tableYear = year
 
@@ -264,10 +264,10 @@ export const VDatePicker = defineComponent({
         new Date(
           data.selected!.year,
           data.selected!.month,
-          data.selected!.date as number
+          data.selected!.date as number,
         ),
         props.format,
-        locale[props.lang]
+        locale[props.lang],
       )
     }
 
@@ -279,7 +279,7 @@ export const VDatePicker = defineComponent({
       return useTransition(
         h('span', propsData, value),
         'scale-in-out',
-        'out-in'
+        'out-in',
       )
     }
 
@@ -320,7 +320,7 @@ export const VDatePicker = defineComponent({
         },
         {
           default: () => headerValue.value,
-        }
+        },
       )
     }
 
@@ -359,7 +359,7 @@ export const VDatePicker = defineComponent({
         },
         {
           date: slots.date && addScopedSlot('date', slots),
-        }
+        },
       )
     }
 
@@ -378,8 +378,8 @@ export const VDatePicker = defineComponent({
             (data.isMonths && genDatepickerMonthsTable()) ||
             (data.isDates && genDatepickerDatesTable())) as VNode,
           'slide-in-left',
-          'out-in'
-        )
+          'out-in',
+        ),
       )
     }
 
@@ -432,7 +432,7 @@ export const VDatePicker = defineComponent({
         },
         {
           default: () => genDatepickerTable(),
-        }
+        },
       )
     }
 

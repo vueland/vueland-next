@@ -14,7 +14,7 @@ import { VNode } from 'vue'
 // Services
 import { sizes } from '../../services/sizes'
 
-export const VIcon = defineComponent({
+export default defineComponent({
   name: 'v-icon',
 
   props: {

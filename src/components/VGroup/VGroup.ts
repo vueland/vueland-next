@@ -6,7 +6,7 @@ import { VIcon } from '../VIcon'
 import { useColors, colorProps } from '../../composable/use-colors'
 import { useIcons } from '../../composable/use-icons'
 
-export const VGroup = defineComponent({
+export default defineComponent({
   name: 'v-group',
   props: {
     expand: Boolean,

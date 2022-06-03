@@ -1,1 +1,4 @@
-export * from "./VLabel"
+import VLabel from './VLabel'
+
+export { VLabel }
+export default VLabel

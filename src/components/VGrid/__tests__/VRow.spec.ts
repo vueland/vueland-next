@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { VRow } from '../VRow'
+import { VRow } from '../'
 
 describe('VRow', () => {
   const mountFunction = (options = {}) =>

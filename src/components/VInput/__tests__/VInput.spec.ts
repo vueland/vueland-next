@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { VInput } from '../VInput'
+import { VInput } from '../'
 
 describe('EInput', () => {
   const mountFunction = (options = {}) => mount(VInput, {

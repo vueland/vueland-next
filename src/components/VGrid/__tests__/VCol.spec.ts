@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { VCol } from '../VCol'
+import { VCol } from '../'
 
 describe('VCol', () => {
   const mountFunction = (options = {}) =>

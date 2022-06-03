@@ -30,7 +30,7 @@ const offsetProps = breakpoints.reduce((props, p) => {
   return props
 }, {})
 
-export const VCol = defineComponent({
+export default defineComponent({
   name: 'v-col',
   props: {
     order: {

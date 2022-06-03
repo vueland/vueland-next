@@ -5,7 +5,7 @@ import { VInput } from '../VInput'
 // Composables
 import { useInputStates } from '../../composable/use-input-states'
 
-export const VTextField = defineComponent({
+export default defineComponent({
   name: 'v-text-field',
   components: {
     VInput,

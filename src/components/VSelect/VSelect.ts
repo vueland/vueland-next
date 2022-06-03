@@ -13,7 +13,7 @@ import { VProgressCircular } from '../VProgressCircular'
 import { FaIcons } from '../../services/icons'
 import { Maybe } from '../../../types/base'
 
-export const VSelect = defineComponent({
+export default defineComponent({
   name: 'v-select',
   props: {
     modelValue: {

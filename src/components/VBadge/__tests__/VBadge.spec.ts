@@ -1,6 +1,6 @@
 import { h } from "vue";
 import { mount, VueWrapper } from "@vue/test-utils";
-import { VBadge } from "../VBadge";
+import { VBadge } from "../";
 
 describe("VBadge", () => {
   let mountFunction: (options?: any) => VueWrapper<any>;

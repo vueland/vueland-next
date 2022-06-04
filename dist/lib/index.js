@@ -1,0 +1,14 @@
+import { Vueland } from './library';
+import * as directives from './directives';
+import components from './async';
+const install = Vueland.install;
+Vueland.install = (app, args) => {
+    install.call(Vueland, app, {
+        components,
+        directives,
+        ...args
+    });
+};
+export { Vueland };
+export default Vueland;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi9zcmMvaW5kZXgudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQ0EsT0FBTyxFQUFFLE9BQU8sRUFBRSxNQUFNLFdBQVcsQ0FBQTtBQUNuQyxPQUFPLEtBQUssVUFBVSxNQUFNLGNBQWMsQ0FBQTtBQUMxQyxPQUFPLFVBQVUsTUFBTSxTQUFTLENBQUE7QUFFaEMsTUFBTSxPQUFPLEdBQUcsT0FBTyxDQUFDLE9BQU8sQ0FBQTtBQUUvQixPQUFPLENBQUMsT0FBTyxHQUFHLENBQUMsR0FBUSxFQUFFLElBQVMsRUFBRSxFQUFFO0lBQ3hDLE9BQU8sQ0FBQyxJQUFJLENBQUMsT0FBTyxFQUFFLEdBQUcsRUFBRTtRQUN6QixVQUFVO1FBQ1YsVUFBVTtRQUNWLEdBQUcsSUFBSTtLQUNSLENBQUMsQ0FBQTtBQUNKLENBQUMsQ0FBQTtBQUVELE9BQU8sRUFBRSxPQUFPLEVBQUUsQ0FBQTtBQUVsQixlQUFlLE9BQU8sQ0FBQSIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IEFwcCB9IGZyb20gJ3Z1ZSdcbmltcG9ydCB7IFZ1ZWxhbmQgfSBmcm9tICcuL2xpYnJhcnknXG5pbXBvcnQgKiBhcyBkaXJlY3RpdmVzIGZyb20gJy4vZGlyZWN0aXZlcydcbmltcG9ydCBjb21wb25lbnRzIGZyb20gJy4vYXN5bmMnXG5cbmNvbnN0IGluc3RhbGwgPSBWdWVsYW5kLmluc3RhbGxcblxuVnVlbGFuZC5pbnN0YWxsID0gKGFwcDogQXBwLCBhcmdzOiBhbnkpID0+IHtcbiAgaW5zdGFsbC5jYWxsKFZ1ZWxhbmQsIGFwcCwge1xuICAgIGNvbXBvbmVudHMsXG4gICAgZGlyZWN0aXZlcyxcbiAgICAuLi5hcmdzXG4gIH0pXG59XG5cbmV4cG9ydCB7IFZ1ZWxhbmQgfVxuXG5leHBvcnQgZGVmYXVsdCBWdWVsYW5kXG4iXX0=

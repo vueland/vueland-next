@@ -30,7 +30,7 @@ import { VAutocomplete } from './VAutocomplete'
 import { VProgressLinear } from './VProgressLinear'
 import { VProgressCircular } from './VProgressCircular'
 
-export default {
+export const components = {
   VApp,
   VButton,
   VCard,
@@ -65,3 +65,5 @@ export default {
   VProgressLinear,
   VProgressCircular,
 }
+
+export default components

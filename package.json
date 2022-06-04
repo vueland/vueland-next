@@ -26,7 +26,7 @@
     "dev": "webpack-dev-server --config build/webpack.dev.conf.js",
     "build": "webpack --config build/webpack.build.conf.js",
     "build:ts": "tsc -p tsconfig.dist.json",
-    "build:lib": "cp -r lib-temp/src dist/",
+    "build:lib": "cp -r lib-temp/src dist/lib",
     "build:all": "npm run test --u & node build/build-lib.js",
     "test": "jest -u",
     "test:editor": "editorconfig-checker --exclude '.git|node_modules|dist|es5|lib|.idea'",

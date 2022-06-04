@@ -10,7 +10,7 @@ const buildConfig = (env = {}) => merge(baseConfig(env), {
   target: 'browserslist',
   mode: 'production',
   entry: {
-    // ['vueland']: path.resolve(__dirname, '../src/index.ts'),
+    ['vueland']: path.resolve(__dirname, '../src/index.ts'),
     ['css/vueland-base']: path.resolve(__dirname, '../src/styles/scss/main.scss'),
     ['css/themes/vueland-theme']: path.resolve(__dirname, '../src/styles/scss/themes/vueland-theme.scss'),
   },

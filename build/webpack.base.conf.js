@@ -112,6 +112,11 @@ module.exports = (env = {}) => {
         __VUE_OPTIONS_API__: false,
         __VUE_PROD_DEVTOOLS__: false
       }),
+      new webpack.WatchIgnorePlugin({
+        paths:[
+          /\.js$/,
+          /\.d\.ts$/
+        ]}),
       new VueLoaderPlugin()
     ]
   }

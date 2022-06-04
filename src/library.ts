@@ -2,7 +2,7 @@
 import components from './paths.json'
 import * as directives from './directives'
 import { UserOptions } from '../types'
-import { defineAsyncComponent } from 'vue'
+import { App, defineAsyncComponent } from 'vue'
 
 export class Vueland {
   static installed: boolean = false
@@ -12,7 +12,7 @@ export class Vueland {
     Vueland.options = options!
   }
 
-  static install(app: any) {
+  static install(app: App) {
     if (Vueland.installed) return
 
     Vueland.installed = true
@@ -20,7 +20,7 @@ export class Vueland {
     Object.keys(components).forEach((key) => {
       if (key && components[key]) {
         app.component(key, defineAsyncComponent(
-          () => import(`${ components[key] }`)),
+          () => import(/*Vueland_component*/`${ components[key] }`)),
         )
       }
     })

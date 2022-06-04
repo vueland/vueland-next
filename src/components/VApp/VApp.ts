@@ -14,10 +14,10 @@ import { resize } from '../../directives'
 import { breakpoints } from '../../services/breakpoints'
 
 // Utils
-import { throttle } from '../../utils/thottle'
+import { throttle } from '../../utils/throttle'
 
 // Types
-import { Maybe } from '../../../types/base'
+import { Maybe } from '../../../types/base.d'
 
 interface AppState {
   current: Maybe<'xl' | 'lg' | 'md' | 'sm'>

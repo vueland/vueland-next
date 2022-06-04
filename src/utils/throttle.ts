@@ -1,4 +1,4 @@
-export const throttle = (fn, timeout) => {
+export const throttle = (fn: Function, timeout: number): Function => {
   let lastThis: any = null
   let lastArgs: any = null
   let isThrottled = false

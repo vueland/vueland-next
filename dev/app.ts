@@ -17,13 +17,13 @@ new Vueland({
         error: 'pink accent-1',
         info: '#2196F3',
         success: '#4CAF50',
-        warning: '#FFC107',
-      },
-    },
-  },
+        warning: '#FFC107'
+      }
+    }
+  }
 })
 
 const app = createApp(App)
 
-app.use(Vueland)
+app.use(Vueland, { ssr: false })
 app.mount('#app')

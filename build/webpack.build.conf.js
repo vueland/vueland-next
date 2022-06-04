@@ -11,8 +11,8 @@ const buildConfig = (env = {}) => merge(baseConfig(env), {
   mode: 'production',
   entry: {
     // ['vueland']: path.resolve(__dirname, '../src/index.ts'),
-    ['vueland-base']: path.resolve(__dirname, '../src/styles/scss/main.scss'),
-    ['themes/vueland-theme']: path.resolve(__dirname, '../src/styles/scss/themes/vueland-theme.scss'),
+    ['css/vueland-base']: path.resolve(__dirname, '../src/styles/scss/main.scss'),
+    ['css/themes/vueland-theme']: path.resolve(__dirname, '../src/styles/scss/themes/vueland-theme.scss'),
   },
   output: {
     path: path.resolve(__dirname, '../dist'),

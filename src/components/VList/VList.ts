@@ -1,4 +1,4 @@
-import { defineComponent, h, provide, watch, computed, onMounted } from 'vue'
+import { defineComponent, h, provide, watch, ref, toRaw, computed, onMounted } from 'vue'
 import { useColors, colorProps } from '../../composable/use-colors'
 import { mapToValArray } from '../../helpers'
 
@@ -6,58 +6,54 @@ export default defineComponent({
   name: 'v-list',
   props: {
     value: {
-      type: [ Number, Array ],
-      default: null
+      type: [Number, Array],
+      default: null,
     },
     multiple: Boolean,
     active: {
       type: Boolean,
-      default: false
+      default: false,
     },
     activeClass: {
       type: String,
-      default: ''
+      default: '',
     },
     textColor: {
       type: String,
-      default: ''
+      default: '',
     },
-    ...colorProps()
+    ...colorProps(),
   },
-  emits: [ 'update:value' ],
+  emits: ['update:value'],
   setup(props, { emit, slots }) {
     const {
       setTextClassNameColor,
       setBackgroundClassNameColor,
       setTextCssColor,
-      setBackgroundCssColor
+      setBackgroundCssColor,
     } = useColors()
 
-    const items = new Map()
+    const items = ref<Map<any, any>>(new Map())
     let isTrustedSelect = false
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-list': true,
       'v-list--active': props.active,
       ...setTextClassNameColor(props.textColor),
-      ...setBackgroundClassNameColor(props.color)
+      ...setBackgroundClassNameColor(props.color),
     }))
-
-    // const isNan = computed(() => {
-    //   return isNaN(parseFloat(`${ props.value }`))
-    // })
 
     const styles = computed<Record<string, string>>(() => ({
       ...setTextCssColor(props.textColor),
-      ...setBackgroundCssColor(props.color)
+      ...setBackgroundCssColor(props.color),
     }))
 
     const register = (item) => {
-      !items.has(item) && items.set(item, item)
+      !items.value.has(item) && items.value.set(item, item)
     }
 
     const unregister = (item) => {
-      items.has(item) && items.delete(item)
+      items.value.has(item) && items.value.delete(item)
     }
 
     const dispatchEvent = (val) => {
@@ -66,7 +62,7 @@ export default defineComponent({
     }
 
     const setActiveItem = (item) => {
-      mapToValArray(items).forEach((it) => {
+      mapToValArray(toRaw(items.value)).forEach((it) => {
         it.isActive.value = it === item
       })
     }
@@ -76,7 +72,7 @@ export default defineComponent({
     }
 
     const prepareIndexes = () => {
-      const values = mapToValArray(items)
+      const values = mapToValArray(toRaw(items.value))
       const { multiple } = props
 
       let val = multiple ? [] : 0
@@ -102,35 +98,45 @@ export default defineComponent({
 
     const setItemState = (value) => {
       if (value === null) return setActiveItem(value)
+      const values = mapToValArray(toRaw(items.value))
 
-      const values = mapToValArray(items)
-
-      if (props.multiple) {
-        ;(value as number[]).forEach((ind) => toggleItem(values[ind]))
-      } else {
-        setActiveItem(values[value as number])
+      if (values.length) {
+        if (props.multiple) {
+          ;(value as number[]).forEach((ind) => toggleItem(values[ind]))
+        } else {
+          setActiveItem(values[value as number])
+        }
       }
     }
 
     watch(() => props.value, (to) => {
         if (!isTrustedSelect) setItemState(to)
         isTrustedSelect && (isTrustedSelect = false)
-      }
+      },
     )
 
-    onMounted(() => setItemState(props.value))
+    // this part is for fixing
+    // async components mounting sequence
+    const stop = watch(items, () => {
+      setItemState(props.value)
+      stop()
+    }, { deep: true })
+
+    onMounted(() => {
+      setItemState(props.value)
+    })
 
     provide('list', {
       add: register,
       remove: unregister,
       click: onClick,
-      activeClass: props.activeClass
+      activeClass: props.activeClass,
     })
 
     return () => h(
       'div',
       { class: classes.value, style: styles.value },
-      { default: () => slots.default && slots.default() }
+      { default: () => slots.default?.() },
     )
-  }
+  },
 })

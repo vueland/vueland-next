@@ -22,13 +22,14 @@ export default {
       users: [],
       positionX: 0,
       positionY: 0,
+      selected: 0,
       isOpen: false,
     })
 
     setTimeout(() => {
       data.users.push(
-          { name: 'AAA', car: { brand: 'mercedes' }, email: 'sade@mail.ru', body: 'best practice' },
-          { name: 'BBB', car: { brand: 'audi' }, email: 'aaa@mail.ru', body: 'javascript' },
+        { name: 'AAA', car: { brand: 'mercedes' }, email: 'sade@mail.ru', body: 'best practice' },
+        { name: 'BBB', car: { brand: 'audi' }, email: 'aaa@mail.ru', body: 'javascript' },
       )
     }, 4000)
 
@@ -59,10 +60,10 @@ export default {
 
     const fetchItems = () => {
       fetch('https://jsonplaceholder.typicode.com/comments')
-          .then(response => response.json())
-          .then(() => setTimeout(() => {
-            return data.users
-          }, 500))
+        .then(response => response.json())
+        .then(() => setTimeout(() => {
+          return data.users
+        }, 500))
     }
 
     fetchItems()
@@ -201,7 +202,9 @@ export default {
               <span>Salam</span>
             </template>
             <v-list
+              v-model:value="data.selected"
               active
+              active-class="red darken-1 white--text"
               text-color="#171717"
             >
               <v-list-item

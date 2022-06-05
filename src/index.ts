@@ -13,6 +13,4 @@ Vueland.install = (app: App, args: any) => {
   })
 }
 
-export { Vueland }
-
 export default Vueland

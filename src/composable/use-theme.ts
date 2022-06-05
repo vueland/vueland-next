@@ -1,6 +1,7 @@
 import { inject } from 'vue'
-import { ThemeOptions } from '../../types'
 import colors from '../services/colors'
+import { ThemeOptions, UserOptions } from '../../types'
+import { Maybe } from '../../types/base'
 
 type ThemeColors = {
   dark: ThemeOptions
@@ -38,7 +39,7 @@ export function themeProps() {
 }
 
 export function useTheme() {
-  const options: any = inject('$options')
+  const options: Maybe<UserOptions> = inject('$options', () => null) as UserOptions
   const light = options?.theme?.themes?.light || {}
   const dark = options?.theme?.themes?.dark || {}
 

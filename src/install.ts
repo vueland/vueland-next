@@ -20,7 +20,5 @@ export function install(app: App, args: any = {}) {
     }
   }
 
-  if (this.options) {
-    app.provide('$options', this.options)
-  }
+  app.provide('$options', this.options)
 }

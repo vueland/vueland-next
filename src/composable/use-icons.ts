@@ -3,9 +3,11 @@ import {
   FaIcons,
   MaterialIcons,
 } from '../services/icons'
+import { Maybe } from '../../types/base'
+import { UserOptions } from '../../types'
 
 export function useIcons() {
-  const options: any = inject('$options')
+  const options: Maybe<UserOptions> = inject('$options', () => null) as UserOptions
 
   let icons: any = FaIcons
 

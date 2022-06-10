@@ -30,6 +30,7 @@ export default defineComponent({
     dark: Boolean,
     label: String,
     width: [String, Number],
+    height: [String, Number],
     color: {
       type: String,
       default: 'grey lighten-1',
@@ -84,12 +85,15 @@ export default defineComponent({
       }
     })
 
-    const styles = computed(() => {
+    const styles = computed<Record<string, any>>(() => {
       const width = props.width || 40
+      const height = props.round ? width: props.height ? props.height : ''
+
+      console.log(height)
 
       return {
         width: (props.width || props.round) && convertToUnit(width),
-        height: props.round && convertToUnit(width),
+        height: !!height && convertToUnit(height),
         ...(props.color && isFlat.value ? setTextCssColor(props.color) : {}),
         ...(props.color && !isFlat.value
           ? setBackgroundCssColor(props.color)

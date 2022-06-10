@@ -710,8 +710,8 @@ export default {
       >
         <template #activator="{ on }">
           <v-button
+            class="mr-3"
             elevation="3"
-            style="margin-right: 10px;"
             label="toggle"
             color="red"
             v-on="on"

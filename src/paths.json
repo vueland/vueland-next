@@ -1,6 +1,7 @@
 {
-  "VApp": "./components/VApp",
-  "VButton": "./components/VButton",
+  "VApp": "./components/VApp/VApp",
+  "VButton": "./components/VButton/VButton",
+  "VChip": "./components/VChip/VChip",
   "VCard": "./components/VCard/VCard",
   "VCardTitle": "./components/VCard/VCardTitle",
   "VCardSubtitle": "./components/VCard/VCardSubtitle",

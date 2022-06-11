@@ -189,6 +189,13 @@ export default {
   <v-app>
     <div>
       <v-layout column>
+        <v-checkbox
+          v-for="it in cols"
+          :key="it.title"
+          v-model="cols"
+          :value="it"
+          :label="it.title"
+        />
         <v-group
           class="elevation-3"
           title="open subgroup"

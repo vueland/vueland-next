@@ -47,7 +47,7 @@ export default defineComponent({
       default: 'primary',
     },
   },
-  emits: ['checked', 'update:modelValue'],
+  emits: ['change', 'update:modelValue'],
   setup(props, { emit }): () => VNode {
     const isChecked = ref(false)
     const form: any = inject('form', null)
@@ -128,7 +128,7 @@ export default defineComponent({
 
       props.validate && validateValue()
       emit('update:modelValue', value)
-      emit('checked', value)
+      emit('change', value)
     }
 
     onBeforeMount(() => {

@@ -92,7 +92,7 @@ describe('VCheckbox', () => {
     const stub = jest.fn()
     const value = { name: 'John' }
     const modelValue = [value]
-    const props = { modelValue, value, onChecked: stub }
+    const props = { modelValue, value, onChange: stub }
     const cmp = mountFunction({ props })
 
     await cmp.trigger('click')

@@ -196,6 +196,12 @@ export default {
           :value="it"
           :label="it.title"
         />
+        <v-chip
+          @click="testFunc({date: 'click'})"
+          @close="testFunc({date: 'close'})"
+        >
+          click checker
+        </v-chip>
         <v-group
           class="elevation-3"
           title="open subgroup"

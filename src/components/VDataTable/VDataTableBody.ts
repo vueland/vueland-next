@@ -99,7 +99,7 @@ export const VDataTableBody = defineComponent({
               modelValue: checkedRows.value,
               color: props.dark ? 'white' : '',
               value: row,
-              onChecked: onSelectRows,
+              onChange: onSelectRows,
             }),
         },
       )

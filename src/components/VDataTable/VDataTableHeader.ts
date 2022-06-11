@@ -210,7 +210,7 @@ export const VDataTableHeader = defineComponent({
         default: () =>
           h(VCheckbox, {
             color: computedContentColor.value,
-            onChecked: (e) => emit('select-all', e),
+            onChange: (e) => emit('select-all', e),
           }),
       }
 

@@ -54,7 +54,7 @@ describe('VCheckbox', () => {
 
     await cmp.trigger('click')
 
-    expect((cmp.emitted().checked as any)[0][0]).toBe(true)
+    expect((cmp.emitted().change as any)[0][0]).toBe(true)
     expect((cmp.emitted()['update:modelValue'] as any)[0][0]).toBe(true)
     expect(cmp.attributes().class).toContain('v-checkbox--checked')
     expect(cmp.html()).toMatchSnapshot()
@@ -62,7 +62,7 @@ describe('VCheckbox', () => {
 
   it('should return true when clicked', async () => {
     const stub = jest.fn()
-    const props = { modelValue: false, onChecked: stub }
+    const props = { modelValue: false, onChange: stub }
     const cmp = mountFunction({ props })
 
     await cmp.trigger('click')

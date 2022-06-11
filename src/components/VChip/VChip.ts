@@ -19,11 +19,11 @@ export default defineComponent({
     disabled: Boolean,
     closable: {
       type: Boolean,
-      default: true
+      default: true,
     },
     ...colorProps('primary'),
   },
-  emits: ['close'],
+  emits: ['close', 'click'],
   setup(props, { slots, emit }) {
     const {
       setBackgroundClassNameColor,
@@ -49,13 +49,16 @@ export default defineComponent({
       return h(VIcon, {
         icon: icons.$close,
         clickable: !props.disabled,
-        onClick: () => emit('close'),
+        onClick: () => {
+          emit('close')
+        },
       })
     }
 
     const genChipContent = () => {
       return h('div', {
         class: 'v-chip__content',
+        onClick: () => emit('click'),
       }, slots.default?.() || props.title)
     }
 

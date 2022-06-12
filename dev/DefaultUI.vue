@@ -188,6 +188,12 @@ export default {
 <template>
   <v-app>
     <div>
+      <v-chip
+        @click="testFunc({date: 'click'})"
+        @close="testFunc({date: 'close'})"
+      >
+        click checker a little bit more
+      </v-chip>
       <v-layout column>
         <v-checkbox
           v-for="it in cols"
@@ -196,12 +202,6 @@ export default {
           :value="it"
           :label="it.title"
         />
-        <v-chip
-          @click="testFunc({date: 'click'})"
-          @close="testFunc({date: 'close'})"
-        >
-          click checker
-        </v-chip>
         <v-group
           class="elevation-3"
           title="open subgroup"

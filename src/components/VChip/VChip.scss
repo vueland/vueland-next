@@ -4,13 +4,26 @@
   display: inline-flex;
   justify-content: flex-start;
   align-items: center;
-  padding: 5px 8px;
   width: auto;
   border-radius: 15px;
   cursor: pointer;
 
   &__content {
-    margin-right: 10px;
+    flex-grow: 1;
+    text-align: center;
+    padding: 5px 0 5px 8px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  &__icon-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    padding: 8px;
+    flex-basis: 30px;
   }
 
   &--disabled {

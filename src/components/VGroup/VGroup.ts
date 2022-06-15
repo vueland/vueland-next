@@ -17,7 +17,7 @@ export default defineComponent({
     },
     activeClass: {
       type: String,
-      default: 'main--text text--evo',
+      default: '',
     },
     prependIcon: {
       type: String,

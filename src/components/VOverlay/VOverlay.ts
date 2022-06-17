@@ -7,7 +7,7 @@ import { useColors } from '../../composable/use-colors'
 // Types
 import { VNode } from 'vue'
 
-export const VOverlay = defineComponent({
+export default defineComponent({
   name: 'v-overlay',
 
   props: {

@@ -5,9 +5,10 @@ export const throttle = (fn: Function, timeout: number): Function => {
 
   function wrapper(...args) {
     if (isThrottled) {
-      // @ts-ignore
+
       lastThis = this
       lastArgs = args
+
       return
     }
 

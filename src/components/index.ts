@@ -1,9 +1,5 @@
 import { VApp } from './VApp'
 import { VButton } from './VButton'
-import { VCard, VCardTitle, VCardSubtitle, VCardActions, VCardContent } from './VCard'
-import { VToolbar, VToolbarLogo, VToolbarItems, VToolbarNavBtn, VToolbarContent } from './VToolbar'
-import { VList, VListItemTitle, VListItem, VListItemContent, VListItemIcon, VListItemSubtitle } from './VList'
-import { VLayout, VRow, VCol, VSpacer } from './VGrid'
 import { VOverlay } from './VOverlay'
 import { VModal } from './VModal'
 import { VMenu } from './VMenu'
@@ -29,16 +25,58 @@ import { VDatePicker } from './VDatePicker'
 import { VAutocomplete } from './VAutocomplete'
 import { VProgressLinear } from './VProgressLinear'
 import { VProgressCircular } from './VProgressCircular'
+import {
+  VLayout,
+  VRow,
+  VCol,
+  VSpacer
+} from './VGrid'
+import {
+  VCard,
+  VCardTitle,
+  VCardSubtitle,
+  VCardActions,
+  VCardContent
+} from './VCard'
+import {
+  VToolbar,
+  VToolbarLogo,
+  VToolbarItems,
+  VToolbarNavBtn,
+  VToolbarContent
+} from './VToolbar'
+import {
+  VList,
+  VListItemTitle,
+  VListItem,
+  VListItemContent,
+  VListItemIcon,
+  VListItemSubtitle
+} from './VList'
 
 export const components = {
   VApp,
   VButton,
   VCard,
-  VCardTitle, VCardSubtitle, VCardActions, VCardContent,
+  VCardTitle,
+  VCardSubtitle,
+  VCardActions,
+  VCardContent,
   VToolbar,
-  VToolbarLogo, VToolbarItems, VToolbarNavBtn, VToolbarContent,
-  VList, VListItemTitle, VListItem, VListItemContent, VListItemIcon, VListItemSubtitle,
-  VLayout, VRow, VCol, VSpacer,
+  VToolbarLogo,
+  VToolbarItems,
+  VToolbarNavBtn,
+  VToolbarContent,
+  VList,
+  VListItemTitle,
+  VListItem,
+  VListItemContent,
+  VListItemIcon,
+  VListItemSubtitle,
+  VLayout,
+  VRow,
+  VCol,
+  VSpacer,
   VOverlay,
   VModal,
   VMenu,

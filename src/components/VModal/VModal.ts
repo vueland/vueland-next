@@ -1,7 +1,7 @@
 // Vue API
 import {
   h,
-  ref,
+  shallowRef,
   watch,
   withDirectives,
   defineComponent,
@@ -36,7 +36,7 @@ export default defineComponent({
   setup(props, { slots, emit }) {
     const { isActive } = useToggle(props)
 
-    const modalRef = ref(null)
+    const modalRef = shallowRef(null)
 
     onMounted(() => {
       if (props.overlay) {

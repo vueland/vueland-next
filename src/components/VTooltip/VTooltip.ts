@@ -1,12 +1,12 @@
 // Vue API
 import {
   h,
-  ref,
+  shallowRef,
   reactive,
   watch,
-  computed,
   withDirectives,
   defineComponent,
+  computed,
   onMounted,
   vShow,
 } from 'vue'
@@ -63,7 +63,7 @@ export default defineComponent({
     const tooltip = reactive<Partial<OffsetSizes>>({})
     const activator = reactive<Partial<OffsetSizes>>({})
 
-    const tooltipRef = ref<HTMLElement | null>(null)
+    const tooltipRef = shallowRef<HTMLElement | null>(null)
 
     const { isActive } = useToggle(props)
     const { elevationClasses } = useElevation(props)

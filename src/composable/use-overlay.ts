@@ -44,6 +44,9 @@ export function useOverlay(props: any, overlayOn?: Element): OverlayController {
 
   const renderOverlay = () => render(overlayVNode() as VNode, container!)
 
+  renderOverlay()
+  overlayElement = container.firstChild as HTMLElement
+
   const createOverlay = () => {
     overlayOn?.parentNode?.insertBefore(overlayElement!, overlayOn)
     overlayElement?.classList.remove('v-overlay--hidden')
@@ -66,10 +69,6 @@ export function useOverlay(props: any, overlayOn?: Element): OverlayController {
 
     addOnceListener(overlayElement!, 'transitionend', remove)
   }
-
-  renderOverlay()
-
-  overlayElement = container.firstChild as HTMLElement
 
   return {
     createOverlay,

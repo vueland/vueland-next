@@ -24,6 +24,12 @@ import { sizes } from '../../services/sizes'
 
 // Types
 import { VNode } from 'vue'
+import { Maybe } from '../../../types/base'
+
+type Form = {
+  add: (item) => void
+  remove: (item) => void
+}
 
 export default defineComponent({
   name: 'v-checkbox',
@@ -50,7 +56,7 @@ export default defineComponent({
   emits: ['change', 'update:modelValue'],
   setup(props, { emit }): () => VNode {
     const isChecked = ref(false)
-    const form: any = inject('form', null)
+    const form = inject<Maybe<Form>>('form', null)
     const valuesMap: Map<any, any> = new Map()
 
     const { validate } = useValidation(props)

@@ -48,7 +48,6 @@ export default defineComponent({
     } = useColors()
 
     const { elevationClasses } = useElevation(props)
-
     const { positionClasses } = usePosition(props)
 
     const isFlat = computed<boolean>(() => {
@@ -88,8 +87,6 @@ export default defineComponent({
     const styles = computed<Record<string, any>>(() => {
       const width = props.width || 40
       const height = props.round ? width: props.height ? props.height : ''
-
-      console.log(height)
 
       return {
         width: (props.width || props.round) && convertToUnit(width),

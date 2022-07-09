@@ -29,10 +29,12 @@ exports[`VModal should open modal and match snapshot 1`] = `
 <div>
   <transition-stub>
     <div class="v-overlay v-overlay--active"
-         style="background-color: rgb(0, 0, 0); border-color: #000000;"
+         style="background-color: rgb(0, 0, 0); border-color: #000000; z-index: 99;"
     >
     </div>
-    <div class="v-modal">
+    <div class="v-modal"
+         style="z-index: 100;"
+    >
       <div class="v-modal__content">
         slot content
       </div>
@@ -45,10 +47,12 @@ exports[`VModal should set overlay color and match snapshot 1`] = `
 <div>
   <transition-stub>
     <div class="v-overlay v-overlay--active"
-         style="background-color: rgb(255, 255, 255); border-color: #ffffff;"
+         style="background-color: rgb(255, 255, 255); border-color: #ffffff; z-index: 99;"
     >
     </div>
-    <div class="v-modal">
+    <div class="v-modal"
+         style="z-index: 100;"
+    >
       <div class="v-modal__content">
         slot content
       </div>

@@ -17,7 +17,7 @@ export default defineComponent({
     fixed: Boolean,
   } as any,
 
-  setup(props): VNode {
+  setup(props): () => VNode {
     const { setBackgroundClassNameColor, setBackgroundCssColor } = useColors()
 
     const classes = computed(() => {
@@ -33,7 +33,7 @@ export default defineComponent({
       ...(props.color ? setBackgroundCssColor(props.color) : {}),
     }))
 
-    return h('div', {
+    return () => h('div', {
       class: classes.value,
       style: styles.value,
       ref: 'overlay',

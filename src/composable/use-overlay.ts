@@ -1,53 +1,39 @@
-import { render } from 'vue'
+import { render, h } from 'vue'
 
 // Components
 import { VOverlay } from '../components/VOverlay'
-
-// Types
-import { SetupContext, VNode } from 'vue'
+import { Maybe } from '../../types/base'
 
 // Helpers
 import { addOnceListener } from '../helpers'
-import { Maybe } from '../../types/base'
 
 interface OverlayController {
   createOverlay: () => void
   removeOverlay: () => void
 }
 
-export function overlayProps() {
-  return {
-    overlay: Boolean,
-    overlayColor: {
-      type: String,
-      default: '#000000',
-    },
+export const overlayProps = () => ({
+  overlay: Boolean,
+  overlayColor: {
+    type: String,
+    default: '#000000'
   }
-}
+})
 
-export function useOverlay(props: any, overlayOn?: Element): OverlayController {
+export function useOverlay(props: any, overlayOn?: HTMLElement): OverlayController {
   const container = document.createElement('div')
-
-  const overlayProps = {
-    active: false,
-    color: props.overlayColor,
-  }
 
   let overlayElement: Maybe<HTMLElement> = null
 
-  const overlayVNode = () => {
-    return VOverlay.setup!(
-      overlayProps as typeof VOverlay.props,
-      {} as SetupContext,
-    )
-  }
-
-  const renderOverlay = () => render(overlayVNode() as VNode, container!)
-
-  renderOverlay()
-  overlayElement = container.firstChild as HTMLElement
+  const renderOverlay = () => render(h(VOverlay, {
+    active: false,
+    color: props.overlayColor
+  }), container!)
 
   const createOverlay = () => {
+    overlayElement!.style.zIndex = '99'
+    overlayOn!.style.zIndex = '100'
+
     overlayOn?.parentNode?.insertBefore(overlayElement!, overlayOn)
     overlayElement?.classList.remove('v-overlay--hidden')
 
@@ -70,8 +56,11 @@ export function useOverlay(props: any, overlayOn?: Element): OverlayController {
     addOnceListener(overlayElement!, 'transitionend', remove)
   }
 
+  renderOverlay()
+  overlayElement = container.firstChild as HTMLElement
+
   return {
     createOverlay,
-    removeOverlay,
+    removeOverlay
   }
 }

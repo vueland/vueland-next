@@ -23,23 +23,27 @@ export default defineComponent({
 
   props: {
     modelValue: Boolean,
+    zIndex: {
+      type: [ Number, String ],
+      default: 10,
+    },
     width: {
-      type: [Number, String],
+      type: [ Number, String ],
       default: null,
     },
     ...overlayProps(),
     ...transitionProps(),
   } as any,
 
-  emits: ['update:modelValue'],
+  emits: [ 'update:modelValue' ],
 
   setup(props, { slots, emit }) {
     const { isActive } = useToggle(props)
-
     const modalRef = shallowRef(null)
 
     onMounted(() => {
       if (props.overlay) {
+
         const { createOverlay, removeOverlay } = useOverlay(
           props,
           modalRef.value!,
@@ -57,7 +61,7 @@ export default defineComponent({
       }
     })
 
-    function genContent(): VNode {
+    const genContent = (): VNode => {
       const propsData = {
         class: 'v-modal__content',
         style: {
@@ -67,16 +71,17 @@ export default defineComponent({
       return h('div', propsData, slots.default && slots.default())
     }
 
-    function genModal() {
+    const genModal = () => {
       const propsData = {
         class: 'v-modal',
         ref: modalRef,
         ['onUpdate:modelValue']: (val) => emit('update:modelValue', val),
       }
 
-      return withDirectives(h('div', propsData, genContent()), [
-        [vShow, isActive.value],
-      ])
+      return withDirectives(
+        h('div', propsData, genContent()),
+        [ [ vShow, isActive.value ] ]
+      )
     }
 
     return () => useTransition(genModal(), props.transition)

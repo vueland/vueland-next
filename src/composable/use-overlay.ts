@@ -20,19 +20,19 @@ export const overlayProps = () => ({
   }
 })
 
-export function useOverlay(props: any, overlayOn?: HTMLElement): OverlayController {
-  const container = document.createElement('div')
+export const useOverlay = (props: any, overlayOn?: HTMLElement): OverlayController => {
+  const container: HTMLElement = document.createElement('div')
 
   let overlayElement: Maybe<HTMLElement> = null
 
-  const renderOverlay = () => render(h(VOverlay, {
-    active: false,
-    color: props.overlayColor
-  }), container!)
+  const renderOverlay = () => render(
+    h(VOverlay, { active: false, color: props.overlayColor }),
+    container!
+  )
 
   const createOverlay = () => {
-    overlayElement!.style.zIndex = '99'
-    overlayOn!.style.zIndex = '100'
+    overlayElement!.style.zIndex = `${ props.zIndex - 1 }`
+    overlayOn!.style.zIndex = `${ props.zIndex }`
 
     overlayOn?.parentNode?.insertBefore(overlayElement!, overlayOn)
     overlayElement?.classList.remove('v-overlay--hidden')

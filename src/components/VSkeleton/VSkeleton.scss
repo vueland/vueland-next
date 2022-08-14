@@ -6,6 +6,7 @@
   box-shadow: none;
   border-radius: 5px;
   overflow: hidden;
+  transform: translateZ(0);
 
   &:before {
     content: "";
@@ -36,7 +37,7 @@
 
 @for $i from 1 through 50 {
   .v-skeleton--dynamic:nth-child(#{$i}) {
-    animation: dynamicUp 1.2s #{calc($i * 10/50)}s ease-in-out infinite;
+    animation: dynamicUp 1.2s calc(#{$i} * 10/50)s ease-in-out infinite;
   }
 }
 

@@ -537,8 +537,6 @@ export default {
         prepend-icon="map"
         clearable
         :rules="[v => !!v || 'required', v => v.length > 5 || 'more than 5']"
-        style="margin-top: 10px;"
-        dark
       />
       <v-select
         v-model="data.user"

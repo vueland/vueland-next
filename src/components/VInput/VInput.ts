@@ -87,7 +87,7 @@ export default defineComponent({
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-input': true,
-      'v-input--primary': !props.color,
+      'v-input--primary': !props.color && !errorState.innerError,
       'v-input--focused': props.focused && !isReadonly.value,
       'v-input--disabled': isDisabled.value,
       'v-input--readonly': isReadonly.value,
@@ -95,16 +95,12 @@ export default defineComponent({
       'v-input--has-prepend-icon': hasPrependIcon.value,
       'v-input--has-append-icon': hasAppendIcon.value,
       'v-input--not-valid': !!errorState.innerError,
-      ...(!props.disabled && !errorState.innerError
-        ? setTextClassNameColor(props.color)
-        : {}),
+      ...(!props.disabled && !errorState.innerError ? setTextClassNameColor(props.color) : {}),
       ...(attrs.class as object),
     }))
 
     const styles = computed<Record<string, string>>(() => ({
-      ...(!props.disabled && !errorState.innerError
-        ? setTextCssColor(props.color)
-        : {}),
+      ...(!props.disabled && !errorState.innerError ? setTextCssColor(props.color) : {}),
       ...(attrs.style as object),
     }))
 
@@ -119,9 +115,7 @@ export default defineComponent({
     )
 
     const genLabel = (): VNode => {
-      const label = h(
-        VLabel,
-        {
+      const label = h(VLabel, {
           class: 'v-label--on-input',
           disabled: isDisabled.value,
           focused: props.focused,
@@ -218,9 +212,7 @@ export default defineComponent({
       form?.remove(validate)
     })
 
-    return () => h(
-      'div',
-      { class: classes.value, style: styles.value },
+    return () => h('div', { class: classes.value, style: styles.value },
       [
         genLabel(),
         genTextFieldSlot(),

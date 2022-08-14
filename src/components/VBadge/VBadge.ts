@@ -10,6 +10,7 @@ import { useTransition } from '../../composable/use-transition'
 
 // Types
 import { VNode } from 'vue'
+import { Maybe } from '../../../types/base'
 
 export default defineComponent({
   name: 'v-badge',
@@ -92,14 +93,14 @@ export default defineComponent({
       ...(props.color ? setBackgroundCssColor(props.color) : {}),
     }))
 
-    function addContent(): string | undefined {
+    const addContent = (): string | undefined => {
       if (props.dot) return undefined
       if (props.content) return String(props.content)
 
       return undefined
     }
 
-    function genBadgeSlot(): VNode | null {
+    const genBadgeSlot = (): Maybe<VNode> => {
       const propsData = {
         class: {
           'v-badge__badge-slot': true,
@@ -109,7 +110,7 @@ export default defineComponent({
       return slots.badge ? h('div', propsData, slots.badge()) : null
     }
 
-    function genContent(): VNode {
+    const genContent = (): VNode => {
       const propsData = {
         class: {
           'v-badge__content': true,
@@ -119,7 +120,7 @@ export default defineComponent({
       return h('div', propsData, [addContent(), genBadgeSlot()])
     }
 
-    function genBadge(): VNode {
+    const genBadge = (): VNode => {
       return h(
         'div',
         {

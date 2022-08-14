@@ -6,9 +6,11 @@ $input-hints-height: 24px;
 $input-label-height: 24px;
 
 .v-input {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+
   &__label {
-    display: flex;
-    align-items: flex-start;
     height: $input-label-height;
     line-height: 20px;
     position: relative;
@@ -69,9 +71,10 @@ $input-label-height: 24px;
 
   &--not-valid {
     color: map-get($states, 'error') !important;
+    caret-color: map-get($states, 'error') !important;
 
     & > .v-input__text-field {
-      border-color: currentColor
+      border-color: currentColor;
     }
   }
 }

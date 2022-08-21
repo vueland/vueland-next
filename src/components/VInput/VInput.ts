@@ -11,7 +11,7 @@ import {
 } from 'vue'
 
 // Composable
-import { useValidation, validationProps } from '../../composable/use-validation'
+import { validationProps } from '../../composable/use-validation'
 import { useColors, colorProps } from '../../composable/use-colors'
 import { useInputStates } from '../../composable/use-input-states'
 import { useTransition } from '../../composable/use-transition'
@@ -67,10 +67,18 @@ export default defineComponent({
     ...colorProps(),
   },
 
-  setup(props, { attrs, emit, slots }) {
-    const { validate, errorState } = useValidation(props)
+  setup(props, { attrs, emit, slots, expose }) {
     const { setTextCssColor, setTextClassNameColor } = useColors()
-    const { isDisabled, isReadonly } = useInputStates(props, { attrs, emit })
+    const {
+      inputState,
+      errorState,
+      isDisabled,
+      isReadonly,
+      stateClasses,
+      validate,
+      onFocus,
+      onBlur
+    } = useInputStates(props, { attrs, emit })
 
     const form: Maybe<Form> = inject('form', null as any)
 
@@ -87,14 +95,14 @@ export default defineComponent({
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-input': true,
-      'v-input--primary': !props.color && !errorState.innerError,
-      'v-input--focused': props.focused && !isReadonly.value,
+      'v-input--focused': inputState.focused && !isReadonly.value,
       'v-input--disabled': isDisabled.value,
       'v-input--readonly': isReadonly.value,
       'v-input--file': props.file,
       'v-input--has-prepend-icon': hasPrependIcon.value,
       'v-input--has-append-icon': hasAppendIcon.value,
       'v-input--not-valid': !!errorState.innerError,
+      ...stateClasses.value,
       ...(!props.disabled && !errorState.innerError ? setTextClassNameColor(props.color) : {}),
       ...(attrs.class as object),
     }))
@@ -105,20 +113,15 @@ export default defineComponent({
     }))
 
     watch(
-      () => props.focused,
-      (to) => !to && validate(),
-    )
-
-    watch(
       () => props.value,
-      () => validate(),
+      (to) => inputState.value = to as string,
     )
 
     const genLabel = (): VNode => {
       const label = h(VLabel, {
           class: 'v-label--on-input',
           disabled: isDisabled.value,
-          focused: props.focused,
+          focused: inputState.focused,
           color: !errorState.innerError ? props.color : '',
         },
         {
@@ -210,6 +213,11 @@ export default defineComponent({
 
     onBeforeUnmount(() => {
       form?.remove(validate)
+    })
+
+    expose({
+      onFocus,
+      onBlur,
     })
 
     return () => h('div', { class: classes.value, style: styles.value },

@@ -40,8 +40,8 @@
   }
 
   &--disabled {
-    background: map-get($states, 'disabled');
-    border-color: map-get($states, 'disabled');
+    background: var(--disabled);
+    border-color: var(--disabled);
     color: map-get($grey, 'darken-1');
 
     &.v-button--text {
@@ -53,7 +53,7 @@
     &.v-button--outlined {
       .v-button--loading {
         background: none !important;
-        border-color: map-get($states, 'disabled');
+        border-color: var(--disabled);
       }
     }
 

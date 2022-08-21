@@ -317,14 +317,6 @@ $grey: (
         'darken-4': #212121
 );
 
-$states: (
-        'primary': #1E88E5,
-        'warning': #f57c00,
-        'success': #00C853,
-        'error': #E53935,
-        'disabled': #E0E0E0
-);
-
 $colors: (
         "red": $red,
         "pink": $pink,
@@ -347,9 +339,4 @@ $colors: (
         "grey": $grey,
         "white": $white,
         "black": $black,
-        "primary": ("base": map-get($states, 'primary')),
-        "success": ("base": map-get($states, 'success')),
-        "warning": ("base": map-get($states, 'warning')),
-        "error": ("base": map-get($states, 'error')),
-        "disabled": ("base": map-get($states, 'disabled')),
 );

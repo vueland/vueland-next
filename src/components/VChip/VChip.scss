@@ -27,7 +27,7 @@
   }
 
   &--disabled {
-    background-color: map-get($states, 'disabled');
+    background-color: var(--disabled);
     pointer-events: none;
   }
 }

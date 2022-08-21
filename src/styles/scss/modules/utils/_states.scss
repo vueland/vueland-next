@@ -1,0 +1,35 @@
+.primary {
+  background-color: var(--primary);
+
+  &--text {
+    color: var(--primary);
+    caret-color: var(--primary);
+  }
+}
+
+.secondary {
+  background-color: var(--secondary);
+
+  &--text {
+    color: var(--secondary);
+    caret-color: var(--secondary);
+  }
+}
+
+.success {
+  background-color: var(--success);
+
+  &--text {
+    color: var(--success);
+    caret-color: var(--success);
+  }
+}
+
+.disabled {
+  background-color: var(--disabled);
+
+  &--text {
+    color: var(--disabled);
+    caret-color: var(--disabled);
+  }
+}

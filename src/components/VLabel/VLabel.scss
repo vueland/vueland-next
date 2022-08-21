@@ -14,6 +14,6 @@
   }
 
   &--disabled {
-    color: map-get($states, 'disabled');
+    color: var(--disabled);
   }
 }

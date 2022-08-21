@@ -5,22 +5,16 @@ import colors from '../src/services/colors'
 import '../src/styles/scss/main.scss'
 import '../src/styles/scss/themes/vueland-theme.scss'
 
-new Vueland({
-  icons: 'fa',
-  theme: {
-    dark: false,
-    themes: {
-      light: {
-        base: colors.grey.darken3,
-        secondary: 'rgba(#fa5a5a, .3)',
-        accent: '',
-        error: 'pink accent-1',
-        info: '#2196F3',
-        success: '#4CAF50',
-        warning: '#FFC107'
-      }
-    }
-  }
+Vueland.setIcons('material-icons')
+
+Vueland.setTheme({
+  primary: colors.purple.darken1,
+  secondary: colors.purple.darken1,
+  accent: colors.green.accent3,
+  error: colors.red.accent1,
+  success: colors.green.base,
+  warning: colors.orange.base,
+  base: colors.grey.darken3,
 })
 
 const app = createApp(App)

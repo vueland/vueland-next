@@ -20,13 +20,13 @@ describe('EInput', () => {
     expect(wrapper.classes()).toContain('v-input--disabled')
   })
 
-  it('should test "focused" prop', () => {
-    const wrapper = mountFunction({
-      props: { focused: true }
-    })
-
-    expect(wrapper.classes()).toContain('v-input--focused')
-  })
+  // it('should test "focused" prop', () => {
+  //   const wrapper = mountFunction({
+  //     props: { focused: true }
+  //   })
+  //
+  //   expect(wrapper.classes()).toContain('v-input--focused')
+  // })
 
   it('should test "label"', () => {
     const wrapper = mountFunction({

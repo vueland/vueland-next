@@ -1,15 +1,15 @@
-import { App } from 'vue'
-import { ListItemRef, ListItem, UserOptions } from './params'
+import { Plugin } from 'vue'
+import { UserOptions } from './params'
 
-export default class Vueland {
-  constructor(presets?: Partial<UserOptions>)
+export interface Library {
+  theme: any
+  icons: string
+  install: Plugin['install']
 
-  static install: (app: App, options?: UserOptions) => void
-  static installed: boolean
-  static options: UserOptions
+  setTheme(theme: UserOptions['theme']): void
+
+  setIcons(icons: UserOptions['icons']): void
 }
-
-export { Vueland }
 
 export {
   UserOptions,

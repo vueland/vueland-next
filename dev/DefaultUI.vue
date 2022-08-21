@@ -10,6 +10,7 @@ export default {
       test: true,
       login: '',
       email: '',
+      title: '',
       password: '',
       user: '',
       checked: [],
@@ -18,7 +19,6 @@ export default {
       date: null,
       loading: false,
       circular: 10,
-      title: null,
       users: [],
       positionX: 0,
       positionY: 0,
@@ -466,124 +466,132 @@ export default {
     </div>
 
 
-    <v-form
-      v-slot="{ validate }"
-      style="display: block; margin: 20px; width: 25%"
-    >
-      <v-date-picker
-        lang="ru"
-        label="set date"
-        format="dd.MM.yyyy D"
-        elevation="15"
-        prepend-icon="fas fa-calendar-alt"
-        :rules="[val => !!val || 'Required', val => val.length > 5 || 'Required to be 5 symbols']"
-        clearable
-        color="grey darken-4"
-        content-color="pink lighten-3"
-        monday-first
-        :disabled-dates="disabledDates"
-        @selected="testFunc"
+    <v-row>
+      <v-col
+        xl="3"
+        lg="6"
+        md="9"
+        sm="12"
       >
-        <template #date="{date, isHoliday}">
-          <div
-            :class="[isHoliday? 'grey--text text--darken-2' : 'white--text']"
-            :style="{
-              width: '100%',
-              height: '100%',
-              position: 'relative',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }"
+        <v-form
+          v-slot="{ validate }"
+          style="display: block; margin: 20px;"
+        >
+          <v-date-picker
+            lang="ru"
+            label="set date"
+            format="dd.MM.yyyy D"
+            elevation="15"
+            prepend-icon="fas fa-calendar-alt"
+            :rules="[val => !!val || 'Required', val => val.length > 5 || 'Required to be 5 symbols']"
+            clearable
+            color="grey darken-4"
+            content-color="pink lighten-3"
+            monday-first
+            :disabled-dates="disabledDates"
+            @selected="testFunc"
           >
-            <span style="font-size: .9rem; font-weight: 500;">{{ date }}</span>
+            <template #date="{date, isHoliday}">
+              <div
+                :class="[isHoliday? 'grey--text text--darken-2' : 'white--text']"
+                :style="{
+                  width: '100%',
+                  height: '100%',
+                  position: 'relative',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }"
+              >
+                <span style="font-size: .9rem; font-weight: 500;">{{ date }}</span>
+                <v-icon
+                  :icon="isHoliday ? 'home' : 'done'"
+                  size="10"
+                  style="position: absolute; top: 0; left: 0"
+                />
+              </div>
+            </template>
+          </v-date-picker>
+          <v-text-field
+            v-model="data.password"
+            label="password"
+            autocomplete="new-password"
+            clearable
+            color="green darken-2"
+            :rules="[v => !!v || 'required', v => v.length > 10 || 'more than 10']"
+          />
+          <v-text-field
+            v-model="data.title"
+            label="title"
+            autocomplete="new-password"
+            prepend-icon="fa at"
+            clearable
+            :rules="[v => !!v || 'required', v => v.length > 5 || 'more than 5']"
+          />
+          <v-text-field
+            v-model="data.email"
+            label="email"
+            autocomplete="new-password"
+            prepend-icon="fas fa-at"
+            clearable
+            :rules="[v => !!v || 'required', v => v.length > 5 || 'more than 5']"
+          />
+          <v-text-field
+            v-model="data.login"
+            label="teal"
+            autocomplete="new-password"
+            prepend-icon="fas fa-envelop"
+            clearable
+            :rules="[v => !!v || 'required', v => v.length > 5 || 'more than 5']"
+          />
+          <v-select
+            v-model="data.user"
+            label="select"
+            value-key="email"
+            :disabled="!data.users.length"
+            prepend-icon="search"
+            style="margin-top: 10px;"
+            :items="data.users"
+            :loading="!data.users.length"
+            :rules="[v => !!v || 'required']"
+          />
+          <v-autocomplete
+            v-model:value="data.user"
+            label="autocomplete"
+            value-key="car.brand"
+            clearable
+            typeable
+            prepend-icon="search"
+            :items="data.users"
+            :loading="!data.user"
+            @select="testFunc"
+            @input="$event => data.users = data.users.filter(u => u.name.includes($event))"
+          />
+          <v-button
+            label="test"
+            color="blue darken-2"
+          />
+          <v-button
+            :disabled="false"
+            :loading="data.loading"
+            label="hello"
+            color="blue darken-4"
+            rounded
+            width="150"
+            elevation="4"
+            @click="onClickLoading(validate)"
+          >
+            <template #loading>
+              <span>loading...</span>
+            </template>
             <v-icon
-              :icon="isHoliday ? 'home' : 'done'"
-              size="10"
-              style="position: absolute; top: 0; left: 0"
+              size="25"
+              icon="settings"
             />
-          </div>
-        </template>
-      </v-date-picker>
-      <v-text-field
-        v-model="data.password"
-        label="teal"
-        autocomplete="new-password"
-        prepend-icon="fas fa-at"
-        clearable
-        color="green darken-2"
-        :rules="[v => !!v || 'required', v => v.length > 10 || 'more than 10']"
-      />
-      <v-text-field
-        v-model="data.title"
-        label="teal"
-        autocomplete="new-password"
-        prepend-icon="map"
-        clearable
-        :rules="[v => !!v || 'required', v => v.length > 5 || 'more than 5']"
-      />
-      <v-text-field
-        v-model="data.email"
-        label="teal"
-        autocomplete="new-password"
-        prepend-icon="map"
-        clearable
-        :rules="[v => !!v || 'required', v => v.length > 5 || 'more than 5']"
-      />
-      <v-text-field
-        v-model="data.login"
-        label="teal"
-        autocomplete="new-password"
-        prepend-icon="map"
-        clearable
-        :rules="[v => !!v || 'required', v => v.length > 5 || 'more than 5']"
-      />
-      <v-select
-        v-model="data.user"
-        label="select"
-        value-key="email"
-        :disabled="!data.users.length"
-        prepend-icon="search"
-        style="margin-top: 10px;"
-        :items="data.users"
-        :loading="!data.users.length"
-        :rules="[v => !!v || 'required']"
-      />
-      <v-autocomplete
-        v-model:value="data.user"
-        label="autocomplete"
-        value-key="car.brand"
-        clearable
-        typeable
-        prepend-icon="search"
-        :items="data.users"
-        :loading="!data.user"
-        @select="testFunc"
-        @input="$event => data.users = data.users.filter(u => u.name.includes($event))"
-      />
-      <v-button
-        label="test"
-        color="blue darken-2"
-      />
-      <v-button
-        :disabled="false"
-        :loading="data.loading"
-        label="hello"
-        color="blue darken-4"
-        rounded
-        width="150"
-        elevation="4"
-        @click="onClickLoading(validate)"
-      >
-        <template #loading>
-          <span>loading...</span>
-        </template>
-        <v-icon
-          size="25"
-          icon="settings"
-        />
-      </v-button>
-    </v-form>
+          </v-button>
+        </v-form>
+      </v-col>
+    </v-row>
 
     <v-form>
       <v-card

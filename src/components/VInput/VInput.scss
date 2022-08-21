@@ -9,6 +9,7 @@ $input-label-height: 24px;
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
+  transition: .4s color $primary-transition;
 
   &__label {
     height: $input-label-height;
@@ -50,12 +51,8 @@ $input-label-height: 24px;
     position: relative
   }
 
-  &--primary {
-    color: map-get($states, 'primary') !important;
-  }
-
   &--disabled {
-    color: map-get($states, 'disabled') !important;
+    color: var(--disabled) !important;
     pointer-events: none;
   }
 
@@ -70,8 +67,7 @@ $input-label-height: 24px;
   }
 
   &--not-valid {
-    color: map-get($states, 'error') !important;
-    caret-color: map-get($states, 'error') !important;
+    border-color: currentColor;
 
     & > .v-input__text-field {
       border-color: currentColor;

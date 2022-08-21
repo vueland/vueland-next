@@ -2,13 +2,7 @@ import { ComponentPublicInstance, Ref } from 'vue'
 
 export type UserOptions = {
   icons?: 'material-icons' | 'fa'
-  theme?: {
-    dark?: boolean
-    themes?: {
-      light?: ThemeOptions
-      dark?: ThemeOptions
-    }
-  }
+  theme?: ThemeOptions
 }
 
 export declare interface ThemeOptions {

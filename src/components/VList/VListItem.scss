@@ -19,7 +19,7 @@ $item-icon-width: 48px;
   }
 
   &--selected {
-    color: map-get($states, 'primary')
+    color: var(--primary)
   }
 
   &__icon {
@@ -30,6 +30,7 @@ $item-icon-width: 48px;
     justify-content: center;
     align-items: center;
     overflow: hidden;
+
     & > * {
       width: 100%;
       text-align: center;

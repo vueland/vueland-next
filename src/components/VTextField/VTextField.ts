@@ -1,9 +1,10 @@
 // Vue API
-import { defineComponent, h, computed } from 'vue'
+import { defineComponent, h, computed, ref } from 'vue'
 // Components
 import { VInput } from '../VInput'
 // Composables
 import { useInputStates } from '../../composable/use-input-states'
+import { validationProps } from '../../composable/use-validation'
 
 export default defineComponent({
   name: 'v-text-field',
@@ -13,14 +14,20 @@ export default defineComponent({
   inheritAttrs: true,
   props: {
     modelValue: {
-      type: [String, Number],
+      type: [ String, Number ],
       default: '',
     },
+    ...validationProps(),
   },
-  emits: ['update:modelValue', 'input', 'blur', 'focus', 'change'],
+  emits: [ 'update:modelValue', 'input', 'blur', 'focus', 'change' ],
+
   setup(props, { emit, attrs }) {
-    const { isReadonly, isDisabled, state, onFocus, onBlur, onChange } =
-      useInputStates(props, { emit, attrs })
+    const inputRef = ref(null)
+    const {
+      isReadonly,
+      isDisabled,
+      onChange
+    } = useInputStates(props, { emit, attrs })
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-text-field': true,
@@ -36,6 +43,14 @@ export default defineComponent({
         emit('update:modelValue', val)
       },
     })
+
+    const onFocus = () => {
+      (inputRef.value as any)!.onFocus()
+    }
+
+    const onBlur = () => {
+      (inputRef.value as any)!.onBlur()
+    }
 
     const onInput = (e) => {
       computedValue.value = e.target.value
@@ -72,18 +87,14 @@ export default defineComponent({
       )
     }
 
-    return () =>
-      h(
-        VInput,
-        {
-          focused: state.focused,
-          value: computedValue.value,
-        },
-        {
-          ['text-field']: ({ textClassColor, textCssColor }) => {
-            return genTextFieldWrapper(textClassColor, textCssColor)
-          },
-        }
-      )
+    return () => h(VInput, {
+      value: computedValue.value,
+      rules: props.rules,
+      ref: inputRef
+    }, {
+      ['text-field']: ({ textClassColor, textCssColor }) => {
+        return genTextFieldWrapper(textClassColor, textCssColor)
+      },
+    })
   },
 })

@@ -1,13 +1,18 @@
-import { computed, reactive } from 'vue'
+import { computed, reactive, watch } from 'vue'
+import { useValidation } from '@/composable/use-validation'
 
 type State = {
+  value: string | number
   focused: boolean
 }
 
 export const useInputStates = (props, { attrs, emit }) => {
-  const state = reactive<State>({
+  const inputState = reactive<State>({
+    value: '',
     focused: false,
   })
+
+  const { errorState, validate } = useValidation(props)
 
   const isDisabled = computed<boolean>(() => {
     if (props.disabled) return true
@@ -25,10 +30,23 @@ export const useInputStates = (props, { attrs, emit }) => {
     return attrs.readonly !== undefined
   })
 
+  const stateClasses = computed<Record<string, boolean>>(() => ({
+    'primary--text': inputState.focused,
+    'error--text': !!errorState.innerError
+  }))
+
+  watch(() => inputState.focused, (focused) => {
+    if (!focused && props.rules) return validate(inputState.value)
+  })
+
+  watch(() => inputState.value, (val) => {
+    if (props.rules) return validate(val)
+  })
+
   const onFocus = (e) => {
     if (isReadonly.value) return
 
-    state.focused = true
+    inputState.focused = true
     emit('focus', e)
   }
 
@@ -41,24 +59,29 @@ export const useInputStates = (props, { attrs, emit }) => {
   const onBlur = (e) => {
     if (isReadonly.value) return
 
-    state.focused = false
+    inputState.focused = false
     emit('blur', e)
   }
 
   const onSelect = (val) => {
-    state.focused = false
+    inputState.focused = false
+
     emit('update:modelValue', val)
     emit('select', val)
+
     onChange()
   }
 
   return {
-    state,
+    inputState,
+    errorState,
     isReadonly,
     isDisabled,
+    stateClasses,
     onFocus,
     onBlur,
     onChange,
     onSelect,
+    validate
   }
 }

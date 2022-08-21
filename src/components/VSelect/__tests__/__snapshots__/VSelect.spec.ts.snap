@@ -9,7 +9,7 @@ exports[`VSelect should mount component and match snapshot 1`] = `
       data-v-app=""
     >
       <div
-        class="v-input v-input--primary v-input--has-append-icon"
+        class="v-input v-input--has-append-icon"
       >
         <div
           class="v-input__label"

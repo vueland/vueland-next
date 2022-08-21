@@ -36,7 +36,7 @@ export default defineComponent({
   },
   emits: ['click', 'focus', 'select', 'blur', 'change', 'update:modelValue'],
   setup(props, { attrs, emit }) {
-    const { isDisabled, isReadonly, state, onBlur, onSelect, onFocus } =
+    const { isDisabled, isReadonly, inputState, onBlur, onSelect, onFocus } =
       useInputStates(props, { attrs, emit })
 
     const activator = ref<Maybe<HTMLElement>>(null)
@@ -51,7 +51,7 @@ export default defineComponent({
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-select': true,
-      'v-select--expanded': state.focused,
+      'v-select--expanded': inputState.focused,
       'v-select--readonly': isReadonly.value,
       'v-select--disabled': isDisabled.value,
     }))
@@ -122,7 +122,7 @@ export default defineComponent({
     return () => h(VInput, {
       ref: activator,
       value: computedValue.value,
-      focused: state.focused,
+      focused: inputState.focused,
     }, {
       ['text-field']: ({ textCssColor, textClassColor, disabled }) => {
         return genSelect({ textCssColor, textClassColor, disabled })

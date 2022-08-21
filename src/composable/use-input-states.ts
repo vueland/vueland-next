@@ -31,8 +31,8 @@ export const useInputStates = (props, { attrs, emit }) => {
   })
 
   const stateClasses = computed<Record<string, boolean>>(() => ({
-    'primary--text': inputState.focused,
-    'error--text': !!errorState.innerError
+    'primary--text': inputState.focused && !errorState.innerError,
+    'error--text': !!errorState.innerError,
   }))
 
   watch(() => inputState.focused, (focused) => {

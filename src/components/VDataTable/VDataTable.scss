@@ -2,11 +2,15 @@
 @import "variables";
 
 .v-data-table {
-  @include flex(flex, stretch, stretch, column);
+  display: flex;
+  justify-content: stretch;
+  align-items: stretch;
+  flex-direction: column;
   height: 100%;
   max-height: 100%;
   border-radius: $table-border-radius;
   overflow: hidden;
+  background-color: var(--base);
 
   &__inner {
     width: 100%;

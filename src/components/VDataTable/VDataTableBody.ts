@@ -97,7 +97,6 @@ export const VDataTableBody = defineComponent({
           default: () =>
             h(VCheckbox, {
               modelValue: checkedRows.value,
-              color: props.dark ? 'white' : '',
               value: row,
               onChange: onSelectRows,
             }),

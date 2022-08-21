@@ -5,14 +5,6 @@
   text-rendering: optimizeLegibility;
   height: auto;
   min-height: 100vh;
-
-  .primary--text {
-    color: map-get($blue, 'base') !important;
-    caret-color: map-get($blue, 'base') !important;
-  }
-
-  .error--text {
-    color: map-get($red, 'darken-1') !important;
-    caret-color: map-get($red, 'darken-1') !important;
-  }
+  background-color: var(--base);
+  color: var(--content)
 }

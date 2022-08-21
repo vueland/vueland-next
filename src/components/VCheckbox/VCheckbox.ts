@@ -14,6 +14,7 @@ import {
 // Composables
 import { useValidation } from '../../composable/use-validation'
 import { useIcons } from '../../composable/use-icons'
+import { colorProps } from '../../composable/use-colors'
 
 // Components
 import { VIcon } from '../VIcon'
@@ -35,7 +36,7 @@ export default defineComponent({
   name: 'v-checkbox',
   props: {
     modelValue: {
-      type: [Array, Boolean],
+      type: [ Array, Boolean ],
       default: null,
     },
     label: {
@@ -45,15 +46,12 @@ export default defineComponent({
     disabled: Boolean,
     validate: Boolean,
     value: {
-      type: [Array, Object, String, Number],
+      type: [ Array, Object, String, Number ],
       default: null,
     },
-    color: {
-      type: String,
-      default: 'primary',
-    },
+    ...colorProps(),
   },
-  emits: ['change', 'update:modelValue'],
+  emits: [ 'change', 'update:modelValue' ],
   setup(props, { emit }): () => VNode {
     const isChecked = ref(false)
     const form = inject<Maybe<Form>>('form', null)
@@ -147,7 +145,7 @@ export default defineComponent({
 
     return () => h('div',
       { class: classes.value, onClick },
-      [genCheckbox(), props.label && genLabelWrapper()],
+      [ genCheckbox(), props.label && genLabelWrapper() ],
     )
   },
 })

@@ -392,16 +392,16 @@ export default {
         :cols="cols"
         :rows="data.users"
         :header-options="{
-          color: 'primary',
-          contentColor: 'white'
+          color: '',
+          contentColor: ''
         }"
         :footer-options="{
           pagination: {
             buttonsColor: '',
             displayColor: ''
           },
-          color: '#171717',
-          contentColor: '#ffffff',
+          color: '',
+          contentColor: '',
           rowsPerPageOptions: [25, 40, 50, 75],
           rowsPerPageText: 'Кол-во строк',
         }"

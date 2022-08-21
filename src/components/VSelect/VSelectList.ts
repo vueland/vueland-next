@@ -77,7 +77,6 @@ export const VSelectList = defineComponent({
       return h(VList, {
         value: computedSelect.value as number,
         active: true,
-        color: '#ffffff',
         activeClass: props.activeClass,
         ['onUpdate:value']: val => computedSelect.value = val,
       }, {

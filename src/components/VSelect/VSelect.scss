@@ -9,6 +9,7 @@ $select-input-padding: 22px 12px;
     width: 100%;
     height: 100%;
     padding: $select-input-padding;
+    color: currentColor;
 
     &::placeholder {
       opacity: .3;
@@ -16,7 +17,7 @@ $select-input-padding: 22px 12px;
     }
 
     &:disabled {
-      color: currentColor;
+      color: var(--disabled);
     }
   }
 

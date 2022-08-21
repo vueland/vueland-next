@@ -1,5 +1,6 @@
 .v-list {
   overflow: hidden;
+  background-color: var(--base);
 
   & > .v-list-item:before {
     content: "";

@@ -1,3 +1,7 @@
+const white = Object.freeze({
+  base: '#ffffff'
+})
+
 const red = Object.freeze({
   base: '#f44336',
   lighten5: '#ffebee',
@@ -336,4 +340,5 @@ export default Object.freeze({
   blueGrey,
   grey,
   shades,
+  white,
 })

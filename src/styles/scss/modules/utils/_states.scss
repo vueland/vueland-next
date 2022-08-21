@@ -7,6 +7,15 @@
   }
 }
 
+.error {
+  background-color: var(--error);
+
+  &--text {
+    color: var(--error);
+    caret-color: var(--error);
+  }
+}
+
 .secondary {
   background-color: var(--secondary);
 

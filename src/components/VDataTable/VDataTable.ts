@@ -43,7 +43,6 @@ export default defineComponent({
       type: Array,
       default: () => [],
     },
-    dark: Boolean,
     showSequence: Boolean,
     showCheckbox: Boolean,
     align: {
@@ -52,7 +51,7 @@ export default defineComponent({
     },
     color: {
       type: String,
-      default: 'white',
+      default: '',
     },
     headerOptions: {
       type: Object as PropType<HeaderOptions>,

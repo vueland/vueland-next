@@ -9,7 +9,7 @@ export class Vueland {
   static icons: Maybe<UserOptions['icons']> = null
   static theme: Ref<Maybe<UserOptions['theme']>> = ref(null)
 
-  static setTheme(theme: Ref<UserOptions['theme']>) {
+  static setTheme(theme: UserOptions['theme']) {
     const html = document.querySelector('html')!
 
     Vueland.theme.value = Object.assign(Vueland.theme.value || {}, theme)

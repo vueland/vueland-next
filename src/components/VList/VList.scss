@@ -1,6 +1,5 @@
 .v-list {
   overflow: hidden;
-  background-color: var(--base);
 
   & > .v-list-item:before {
     content: "";
@@ -12,6 +11,10 @@
     opacity: 0;
     background-color: rgba(0, 0, 0, .05);
     transition: opacity .2s linear;
+  }
+
+  &--themeable {
+    background-color: var(--base);
   }
 
   &--active {

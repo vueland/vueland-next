@@ -2,9 +2,9 @@
 import { defineComponent, h, computed } from 'vue'
 
 // Composable
-import { useColors } from '../../composable/use-colors'
-import { elevationProps, useElevation } from '../../composable/use-elevation'
-import { usePosition } from '../../composable/use-position'
+import { useColors } from '../../composables/use-colors'
+import { elevationProps, useElevation } from '../../composables/use-elevation'
+import { usePosition } from '../../composables/use-position'
 
 // Components
 import { VProgressCircular } from '../VProgressCircular'

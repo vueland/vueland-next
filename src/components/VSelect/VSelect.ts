@@ -1,5 +1,5 @@
 import { computed, defineComponent, h, ref, VNode } from 'vue'
-import { useInputStates } from '../../composable/use-input-states'
+import { useInputStates } from '../../composables/use-input-states'
 import { getStringKeysValue } from '../../helpers'
 
 // Components

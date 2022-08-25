@@ -16,13 +16,13 @@ import {
 import {
   autoPositionProps,
   useAutoPosition,
-} from '../../composable/use-auto-position'
-import { activatorProps, useActivator } from '../../composable/use-activator'
-import { useDetach } from '../../composable/use-detach'
-import { useElevation } from '../../composable/use-elevation'
-import { useToggle } from '../../composable/use-toggle'
-import { useTransition } from '../../composable/use-transition'
-import { positionProps } from '../../composable/use-position'
+} from '../../composables/use-auto-position'
+import { activatorProps, useActivator } from '../../composables/use-activator'
+import { useDetach } from '../../composables/use-detach'
+import { useElevation } from '../../composables/use-elevation'
+import { useToggle } from '../../composables/use-toggle'
+import { useTransition } from '../../composables/use-transition'
+import { positionProps } from '../../composables/use-position'
 
 // Helpers
 import { convertToUnit } from '../../helpers'

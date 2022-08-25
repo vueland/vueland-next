@@ -1,5 +1,5 @@
 import { App, Plugin } from 'vue'
-import Vueland from './library'
+import { Vueland } from './library'
 import * as directives from './directives'
 import { components } from './components'
 import { Library } from '../types'

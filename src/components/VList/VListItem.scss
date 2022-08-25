@@ -11,11 +11,14 @@ $item-icon-width: 48px;
   height: 48px;
   position: relative;
   overflow: hidden;
-  color: var(--content);
   transition: .4s background-color, color, border $primary-transition;
 
   &:nth-last-child(1) {
     border-bottom: none;
+  }
+
+  &--themeable {
+    color: var(--content);
   }
 
   &--selected {

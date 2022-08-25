@@ -3,8 +3,8 @@ import { defineComponent, h, computed, ref } from 'vue'
 // Components
 import { VInput } from '../VInput'
 // Composables
-import { useInputStates } from '../../composable/use-input-states'
-import { validationProps } from '../../composable/use-validation'
+import { useInputStates } from '../../composables/use-input-states'
+import { validationProps } from '../../composables/use-validation'
 
 export default defineComponent({
   name: 'v-text-field',

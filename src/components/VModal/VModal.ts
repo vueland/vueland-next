@@ -10,9 +10,9 @@ import {
 } from 'vue'
 
 // Effects
-import { overlayProps, useOverlay } from '../../composable/use-overlay'
-import { transitionProps, useTransition } from '../../composable/use-transition'
-import { useToggle } from '../../composable/use-toggle'
+import { overlayProps, useOverlay } from '../../composables/use-overlay'
+import { transitionProps, useTransition } from '../../composables/use-transition'
+import { useToggle } from '../../composables/use-toggle'
 
 // Types
 import { VNode } from 'vue'

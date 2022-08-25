@@ -1,17 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`VDataTable should mount component and match snapshot 1`] = `
-<div class="v-data-table white">
+<div class="v-data-table">
   <div class="v-data-table__inner">
-    <div class="v-data-table__header white"
-         color="white"
-         dark="false"
+    <div class="v-data-table__header"
+         color
     >
     </div>
-    <div class="v-data-table__body white">
+    <div class="v-data-table__body">
     </div>
   </div>
-  <div class="v-data-table__footer white">
+  <div class="v-data-table__footer">
     <div class="v-data-table__pagination">
       <div class="v-data-table__pagination-select">
         <span class="v-data-table__pagination-label">
@@ -63,13 +62,12 @@ exports[`VDataTable should mount component and match snapshot 1`] = `
 `;
 
 exports[`VDataTable should test align center and match snapshot 1`] = `
-<div class="v-data-table white">
+<div class="v-data-table">
   <div class="v-data-table__inner">
-    <div class="v-data-table__header white"
-         color="white"
-         dark="false"
+    <div class="v-data-table__header"
+         color
     >
-      <div class="v-data-table__cell white v-data-table-col"
+      <div class="v-data-table__cell v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--center">
@@ -82,7 +80,7 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
           </transition-stub>
         </div>
       </div>
-      <div class="v-data-table__cell white v-data-table-col"
+      <div class="v-data-table__cell v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--center">
@@ -95,7 +93,7 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
           </transition-stub>
         </div>
       </div>
-      <div class="v-data-table__cell white v-data-table-col"
+      <div class="v-data-table__cell v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--center">
@@ -109,7 +107,7 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
         </div>
       </div>
     </div>
-    <div class="v-data-table__body white">
+    <div class="v-data-table__body">
       <div class="v-data-table__row">
         <div class="v-data-table__cell"
              style="width: 125px;"
@@ -626,7 +624,7 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
       </div>
     </div>
   </div>
-  <div class="v-data-table__footer white">
+  <div class="v-data-table__footer">
     <div class="v-data-table__pagination">
       <div class="v-data-table__pagination-select">
         <span class="v-data-table__pagination-label">
@@ -679,13 +677,12 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
 `;
 
 exports[`VDataTable should test align left and match snapshot 1`] = `
-<div class="v-data-table white">
+<div class="v-data-table">
   <div class="v-data-table__inner">
-    <div class="v-data-table__header white"
-         color="white"
-         dark="false"
+    <div class="v-data-table__header"
+         color
     >
-      <div class="v-data-table__cell white v-data-table-col"
+      <div class="v-data-table__cell v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--left">
@@ -698,7 +695,7 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
           </transition-stub>
         </div>
       </div>
-      <div class="v-data-table__cell white v-data-table-col"
+      <div class="v-data-table__cell v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--left">
@@ -711,7 +708,7 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
           </transition-stub>
         </div>
       </div>
-      <div class="v-data-table__cell white v-data-table-col"
+      <div class="v-data-table__cell v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--left">
@@ -725,7 +722,7 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
         </div>
       </div>
     </div>
-    <div class="v-data-table__body white">
+    <div class="v-data-table__body">
       <div class="v-data-table__row">
         <div class="v-data-table__cell"
              style="width: 125px;"
@@ -1242,7 +1239,7 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
       </div>
     </div>
   </div>
-  <div class="v-data-table__footer white">
+  <div class="v-data-table__footer">
     <div class="v-data-table__pagination">
       <div class="v-data-table__pagination-select">
         <span class="v-data-table__pagination-label">
@@ -1295,13 +1292,12 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
 `;
 
 exports[`VDataTable should test align left and match snapshot 2`] = `
-<div class="v-data-table white">
+<div class="v-data-table">
   <div class="v-data-table__inner">
-    <div class="v-data-table__header white"
-         color="white"
-         dark="false"
+    <div class="v-data-table__header"
+         color
     >
-      <div class="v-data-table__cell white v-data-table-col"
+      <div class="v-data-table__cell v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--right">
@@ -1314,7 +1310,7 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
           </transition-stub>
         </div>
       </div>
-      <div class="v-data-table__cell white v-data-table-col"
+      <div class="v-data-table__cell v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--right">
@@ -1327,7 +1323,7 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
           </transition-stub>
         </div>
       </div>
-      <div class="v-data-table__cell white v-data-table-col"
+      <div class="v-data-table__cell v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--right">
@@ -1341,7 +1337,7 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
         </div>
       </div>
     </div>
-    <div class="v-data-table__body white">
+    <div class="v-data-table__body">
       <div class="v-data-table__row">
         <div class="v-data-table__cell"
              style="width: 125px;"
@@ -1858,7 +1854,7 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
       </div>
     </div>
   </div>
-  <div class="v-data-table__footer white">
+  <div class="v-data-table__footer">
     <div class="v-data-table__pagination">
       <div class="v-data-table__pagination-select">
         <span class="v-data-table__pagination-label">
@@ -1915,7 +1911,6 @@ exports[`VDataTable should test color prop and match snapshot 1`] = `
   <div class="v-data-table__inner">
     <div class="v-data-table__header grey darken-3"
          color="grey darken-3"
-         dark="false"
     >
     </div>
     <div class="v-data-table__body grey darken-3">
@@ -1973,13 +1968,12 @@ exports[`VDataTable should test color prop and match snapshot 1`] = `
 `;
 
 exports[`VDataTable should test cols prop and match snapshot 1`] = `
-<div class="v-data-table white">
+<div class="v-data-table">
   <div class="v-data-table__inner">
-    <div class="v-data-table__header white"
-         color="white"
-         dark="false"
+    <div class="v-data-table__header"
+         color
     >
-      <div class="v-data-table__cell white v-data-table-col"
+      <div class="v-data-table__cell v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--start">
@@ -1992,7 +1986,7 @@ exports[`VDataTable should test cols prop and match snapshot 1`] = `
           </transition-stub>
         </div>
       </div>
-      <div class="v-data-table__cell white v-data-table-col"
+      <div class="v-data-table__cell v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--start">
@@ -2005,7 +1999,7 @@ exports[`VDataTable should test cols prop and match snapshot 1`] = `
           </transition-stub>
         </div>
       </div>
-      <div class="v-data-table__cell white v-data-table-col"
+      <div class="v-data-table__cell v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--start">
@@ -2019,10 +2013,10 @@ exports[`VDataTable should test cols prop and match snapshot 1`] = `
         </div>
       </div>
     </div>
-    <div class="v-data-table__body white">
+    <div class="v-data-table__body">
     </div>
   </div>
-  <div class="v-data-table__footer white">
+  <div class="v-data-table__footer">
     <div class="v-data-table__pagination">
       <div class="v-data-table__pagination-select">
         <span class="v-data-table__pagination-label">
@@ -2074,13 +2068,12 @@ exports[`VDataTable should test cols prop and match snapshot 1`] = `
 `;
 
 exports[`VDataTable should test column sort and match snapshot 1`] = `
-<div class="v-data-table white">
+<div class="v-data-table">
   <div class="v-data-table__inner">
-    <div class="v-data-table__header white"
-         color="white"
-         dark="false"
+    <div class="v-data-table__header"
+         color
     >
-      <div class="v-data-table__cell white v-data-table-col"
+      <div class="v-data-table__cell v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--start">
@@ -2097,7 +2090,7 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
           </transition-stub>
         </div>
       </div>
-      <div class="v-data-table__cell white v-data-table-col"
+      <div class="v-data-table__cell v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--start">
@@ -2110,7 +2103,7 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
           </transition-stub>
         </div>
       </div>
-      <div class="v-data-table__cell white v-data-table-col"
+      <div class="v-data-table__cell v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--start">
@@ -2124,7 +2117,7 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
         </div>
       </div>
     </div>
-    <div class="v-data-table__body white">
+    <div class="v-data-table__body">
       <div class="v-data-table__row">
         <div class="v-data-table__cell"
              style="width: 125px;"
@@ -2641,7 +2634,7 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
       </div>
     </div>
   </div>
-  <div class="v-data-table__footer white">
+  <div class="v-data-table__footer">
     <div class="v-data-table__pagination">
       <div class="v-data-table__pagination-select">
         <span class="v-data-table__pagination-label">
@@ -2698,13 +2691,12 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
 `;
 
 exports[`VDataTable should test table custom filter and match snapshot 1`] = `
-<div class="v-data-table white">
+<div class="v-data-table">
   <div class="v-data-table__inner">
-    <div class="v-data-table__header white"
-         color="white"
-         dark="false"
+    <div class="v-data-table__header"
+         color
     >
-      <div class="v-data-table__cell white v-data-table-col v-data-table-col--sorted"
+      <div class="v-data-table__cell v-data-table-col v-data-table-col--sorted"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--start">
@@ -2747,7 +2739,7 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
           </transition-stub>
         </div>
       </div>
-      <div class="v-data-table__cell white v-data-table-col"
+      <div class="v-data-table__cell v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--start">
@@ -2760,7 +2752,7 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
           </transition-stub>
         </div>
       </div>
-      <div class="v-data-table__cell white v-data-table-col"
+      <div class="v-data-table__cell v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--start">
@@ -2774,7 +2766,7 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
         </div>
       </div>
     </div>
-    <div class="v-data-table__body white">
+    <div class="v-data-table__body">
       <div class="v-data-table__row">
         <div class="v-data-table__cell"
              style="width: 125px;"
@@ -3291,7 +3283,7 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
       </div>
     </div>
   </div>
-  <div class="v-data-table__footer white">
+  <div class="v-data-table__footer">
     <div class="v-data-table__pagination">
       <div class="v-data-table__pagination-select">
         <span class="v-data-table__pagination-label">
@@ -3348,13 +3340,12 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
 `;
 
 exports[`VDataTable should test table filter and match snapshot 1`] = `
-<div class="v-data-table white">
+<div class="v-data-table">
   <div class="v-data-table__inner">
-    <div class="v-data-table__header white"
-         color="white"
-         dark="false"
+    <div class="v-data-table__header"
+         color
     >
-      <div class="v-data-table__cell white v-data-table-col v-data-table-col--sorted"
+      <div class="v-data-table__cell v-data-table-col v-data-table-col--sorted"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--start">
@@ -3397,7 +3388,7 @@ exports[`VDataTable should test table filter and match snapshot 1`] = `
           </transition-stub>
         </div>
       </div>
-      <div class="v-data-table__cell white v-data-table-col"
+      <div class="v-data-table__cell v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--start">
@@ -3410,7 +3401,7 @@ exports[`VDataTable should test table filter and match snapshot 1`] = `
           </transition-stub>
         </div>
       </div>
-      <div class="v-data-table__cell white v-data-table-col"
+      <div class="v-data-table__cell v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--start">
@@ -3424,7 +3415,7 @@ exports[`VDataTable should test table filter and match snapshot 1`] = `
         </div>
       </div>
     </div>
-    <div class="v-data-table__body white">
+    <div class="v-data-table__body">
       <div class="v-data-table__row">
         <div class="v-data-table__cell"
              style="width: 125px;"
@@ -3450,7 +3441,7 @@ exports[`VDataTable should test table filter and match snapshot 1`] = `
       </div>
     </div>
   </div>
-  <div class="v-data-table__footer white">
+  <div class="v-data-table__footer">
     <div class="v-data-table__pagination">
       <div class="v-data-table__pagination-select">
         <span class="v-data-table__pagination-label">

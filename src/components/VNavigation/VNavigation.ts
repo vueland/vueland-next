@@ -1,6 +1,6 @@
 import { defineComponent, h, ref, computed, VNode } from 'vue'
 // Composables
-import { useColors, colorProps } from '../../composable/use-colors'
+import { useColors, colorProps } from '../../composables/use-colors'
 // Helpers
 import { convertToUnit } from '../../helpers'
 
@@ -25,7 +25,7 @@ export default defineComponent({
       type: [String, Number],
       default: 237,
     },
-    ...colorProps('#ffffff'),
+    ...colorProps(),
   },
   emits: ['update:expand'],
 
@@ -72,12 +72,14 @@ export default defineComponent({
 
     const onMouseenter = () => {
       if (!props.onHover || props.miniVariant) return
+
       isHovered.value = true
       emit('update:expand', true)
     }
 
     const onMouseleave = () => {
       if (!props.onHover || props.miniVariant) return
+
       isHovered.value = false
       emit('update:expand', false)
     }

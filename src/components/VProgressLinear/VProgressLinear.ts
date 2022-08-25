@@ -2,7 +2,7 @@
 import { h, defineComponent } from 'vue'
 
 // Effects
-import { useColors } from '../../composable/use-colors'
+import { useColors } from '../../composables/use-colors'
 
 export default defineComponent({
   name: 'v-progress-linear',

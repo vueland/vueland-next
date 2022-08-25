@@ -1,6 +1,6 @@
 import { App } from 'vue'
 import { Vueland } from './library'
-import { defaultTheme } from './composable/use-theme'
+import { defaultTheme } from './composables/use-theme'
 
 export function install(app: App, args: any = {}) {
   if ((install as any).installed) return
@@ -20,8 +20,6 @@ export function install(app: App, args: any = {}) {
       app.directive(key, directives[key])
     }
   }
-
-  console.log(Vueland.theme.value)
 
   if (!Vueland.theme.value) Vueland.setTheme(defaultTheme)
 

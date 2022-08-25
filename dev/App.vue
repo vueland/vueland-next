@@ -1,16 +1,17 @@
 <script lang="ts">
-  // import DashbordUI from './DashbordUI'
-  import { inject } from 'vue'
-  import DefaultUI from './DefaultUI'
+  import DashbordUI from './DashbordUI'
+  import { useTheme } from '../src/composables/use-theme'
+  // import DefaultUI from './DefaultUI'
 
   export default {
     components: {
-      // DashbordUI,
-      DefaultUI,
+      DashbordUI,
+      // DefaultUI,
     },
     setup() {
-      const $v_theme = inject('$v_theme')
+      const $v_theme = useTheme()
       console.log($v_theme)
+
       return {}
     },
   }
@@ -19,7 +20,7 @@
 <template>
   <v-app>
     <!--    <dashbord-u-i/>-->
-    <default-u-i/>
+    <dashbord-u-i/>
   </v-app>
 </template>
 

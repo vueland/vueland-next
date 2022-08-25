@@ -4,8 +4,8 @@ import { h, defineComponent, ref, computed, PropType } from 'vue'
 import { VInput } from '../VInput'
 import { VChip } from '../VChip'
 // Composables
-import { useIcons } from '../../composable/use-icons'
-import { useInputStates } from '../../composable/use-input-states'
+import { useIcons } from '../../composables/use-icons'
+import { useInputStates } from '../../composables/use-input-states'
 // Helpers
 import { uniqueArray } from '../../helpers'
 // Types

@@ -1,6 +1,7 @@
 .v-resize {
   display: flex;
   position: absolute;
+  cursor: col-resize;
   z-index: 1;
 
   &--top {
@@ -8,7 +9,6 @@
     left: 0;
     width: 100%;
     height: 5px;
-    cursor: row-resize;
   }
 
   &--bottom {
@@ -16,7 +16,6 @@
     left: 0;
     width: 100%;
     height: 5px;
-    cursor: row-resize;
   }
 
   &--right {
@@ -24,7 +23,6 @@
     right: 0;
     width: 5px;
     height: 100%;
-    cursor: col-resize;
   }
 
   &--left {
@@ -32,6 +30,5 @@
     left: 0;
     width: 5px;
     height: 100%;
-    cursor: col-resize;
   }
 }

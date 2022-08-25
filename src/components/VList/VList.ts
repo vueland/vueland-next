@@ -1,12 +1,12 @@
 import { defineComponent, h, provide, watch, ref, toRaw, computed, onMounted } from 'vue'
-import { useColors, colorProps } from '../../composable/use-colors'
+import { useColors, colorProps } from '../../composables/use-colors'
 import { mapToValArray } from '../../helpers'
 
 export default defineComponent({
   name: 'v-list',
   props: {
     value: {
-      type: [Number, Array],
+      type: [ Number, Array ],
       default: null,
     },
     multiple: Boolean,
@@ -24,7 +24,7 @@ export default defineComponent({
     },
     ...colorProps(),
   },
-  emits: ['update:value'],
+  emits: [ 'update:value' ],
   setup(props, { emit, slots }) {
     const {
       setTextClassNameColor,
@@ -39,6 +39,7 @@ export default defineComponent({
     const classes = computed<Record<string, boolean>>(() => ({
       'v-list': true,
       'v-list--active': props.active,
+      'v-list--themeable': !props.color,
       ...setTextClassNameColor(props.textColor),
       ...setBackgroundClassNameColor(props.color),
     }))
@@ -79,8 +80,7 @@ export default defineComponent({
 
       values.forEach((it, i) => {
         if (it.isActive.value) {
-          multiple && (val as number[]).push(i)
-          !multiple && (val = i)
+          multiple ? (val as number[]).push(i) : (val = i)
         }
       })
 
@@ -90,14 +90,15 @@ export default defineComponent({
     const onClick = (item) => {
       if (!props.active) return
 
-      props.multiple && toggleItem(item)
-      !props.multiple && setActiveItem(item)
+      props.multiple ? toggleItem(item) : setActiveItem(item)
+      // !props.multiple &&
 
       dispatchEvent(prepareIndexes())
     }
 
     const setItemState = (value) => {
       if (value === null) return setActiveItem(value)
+
       const values = mapToValArray(toRaw(items.value))
 
       if (values.length) {
@@ -122,11 +123,9 @@ export default defineComponent({
       stop()
     }, { deep: true })
 
-    onMounted(() => {
-      setItemState(props.value)
-    })
+    onMounted(() => setItemState(props.value))
 
-    provide('list', {
+    provide('$v_list', {
       add: register,
       remove: unregister,
       click: onClick,

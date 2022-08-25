@@ -2,8 +2,8 @@
 import { h, ref, reactive, computed, defineComponent, onBeforeMount } from 'vue'
 
 // Effects
-import { validationProps } from '../../composable/use-validation'
-import { useColors } from '../../composable/use-colors'
+import { validationProps } from '../../composables/use-validation'
+import { useColors } from '../../composables/use-colors'
 
 // Types
 import { VNode } from 'vue'

@@ -15,6 +15,7 @@ $group-content-padding: 0 10px;
     display: flex;
     width: 100%;
     height: $group-header-height;
+    cursor: pointer;
     transition: .3s color $primary-transition;
 
     &-content {

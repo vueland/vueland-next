@@ -2,11 +2,11 @@
 import { vShow, h, computed, withDirectives, defineComponent } from 'vue'
 
 // Effects
-import { positionProps } from '../../composable/use-position'
-import { useColors } from '../../composable/use-colors'
-import { useToggle } from '../../composable/use-toggle'
-import { useElevation, elevationProps } from '../../composable/use-elevation'
-import { useTransition } from '../../composable/use-transition'
+import { positionProps } from '../../composables/use-position'
+import { useColors } from '../../composables/use-colors'
+import { useToggle } from '../../composables/use-toggle'
+import { useElevation, elevationProps } from '../../composables/use-elevation'
+import { useTransition } from '../../composables/use-transition'
 
 // Types
 import { VNode } from 'vue'

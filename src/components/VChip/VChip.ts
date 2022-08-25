@@ -2,8 +2,8 @@ import { defineComponent, h, computed } from 'vue'
 
 import { VIcon } from '../VIcon'
 
-import { useColors, colorProps } from '../../composable/use-colors'
-import { useIcons } from '../../composable/use-icons'
+import { useColors, colorProps } from '../../composables/use-colors'
+import { useIcons } from '../../composables/use-icons'
 
 export default defineComponent({
   name: 'v-chip',

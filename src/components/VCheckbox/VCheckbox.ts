@@ -12,9 +12,9 @@ import {
 } from 'vue'
 
 // Composables
-import { useValidation } from '../../composable/use-validation'
-import { useIcons } from '../../composable/use-icons'
-import { colorProps } from '../../composable/use-colors'
+import { useValidation } from '../../composables/use-validation'
+import { useIcons } from '../../composables/use-icons'
+import { colorProps } from '../../composables/use-colors'
 
 // Components
 import { VIcon } from '../VIcon'

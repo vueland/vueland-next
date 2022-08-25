@@ -9,9 +9,9 @@ import {
   onBeforeUnmount,
 } from 'vue'
 
-// Effects
-import { positionProps } from '../../composable/use-position'
-import { useColors } from '../../composable/use-colors'
+// Composables
+import { positionProps } from '../../composables/use-position'
+import { useColors } from '../../composables/use-colors'
 
 // Types
 import { VNode } from 'vue'
@@ -38,13 +38,11 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
-
     customClass: {
       type: String,
     },
-
     minSize: {
-      type: [String, Number],
+      type: [ String, Number ],
       default: 50,
     },
     color: {
@@ -54,7 +52,7 @@ export default defineComponent({
     ...positionProps(),
   } as any,
 
-  emits: ['resize'],
+  emits: [ 'resize' ],
 
   setup(props, { emit }): () => VNode {
     const data: ResizeData = reactive({
@@ -125,7 +123,7 @@ export default defineComponent({
       return isDirectY.value ? 'clientY' : 'clientX'
     })
 
-    function moveReverse(size) {
+    const moveReverse = (size) => {
       const { parentNode, left, top } = data
       const reverseTo = reverseDirection.value
 
@@ -133,18 +131,18 @@ export default defineComponent({
         ? currentSize.value - size + left
         : currentSize.value - size + top
 
-      parentNode!.style[reverseTo] = `${value}px`
+      parentNode!.style[reverseTo] = `${ value }px`
     }
 
-    function setOrEmitSize(size) {
+    const setOrEmitSize = (size) => {
       if (props.emit) return emit('resize', size)
 
-      data.parentNode!.style[sizeProp.value] = `${size}px`
+      data.parentNode!.style[sizeProp.value] = `${ size }px`
 
       isNeedReverse.value && moveReverse(size)
     }
 
-    function resize(e) {
+    const resize = (e) => {
       let size
 
       if (isNeedReverse.value) {
@@ -164,7 +162,7 @@ export default defineComponent({
       size > props.minSize && setOrEmitSize(size)
     }
 
-    function resetMinMaxStyles() {
+    const resetMinMaxStyles = () => {
       if (isDirectY.value) {
         data.parentNode!.style.maxHeight = ''
         data.parentNode!.style.minHeight = ''
@@ -174,12 +172,12 @@ export default defineComponent({
       }
     }
 
-    function setParent() {
+    const setParent = () => {
       const parent = resizeRef.value!.parentNode
       data.parentNode = parent as HTMLElement
     }
 
-    function computeSizes() {
+    const computeSizes = () => {
       const { top, left, height, width, marginLeft, marginTop } =
         getComputedStyle(data.parentNode!)
 
@@ -193,20 +191,20 @@ export default defineComponent({
       data.left = parseFloat(left)
     }
 
-    function setStartPositions() {
+    const setStartPositions = () => {
       const side = reverseDirection.value
       const offset = reverseOffsetKey.value
 
       if (data[side] === data[offset]) {
-        data.parentNode!.style[side] = `${data[offset]}px`
+        data.parentNode!.style[side] = `${ data[offset] }px`
       }
     }
 
-    function disableSelection(e) {
+    const disableSelection = (e) => {
       e.preventDefault()
     }
 
-    function initResize(e) {
+    const initResize = (e) => {
       if (!data.isActive) {
         data.isActive = true
         computeSizes()
@@ -218,52 +216,45 @@ export default defineComponent({
       requestAnimationFrame(() => resize(e))
     }
 
-    function setStartOffset(e) {
+    const setStartOffset = (e) => {
       if (isNeedReverse.value) data.startOffset = e[direction.value]
       else data.startOffset = e[direction.value] - currentSize.value
 
       data.startOffset! -= offset.value
     }
 
-    function reset() {
+    const reset = () => {
       data.isActive = false
       resetMinMaxStyles()
     }
 
-    function onMouseup() {
+    const onMouseup = () => {
       reset()
       removeHandlers()
     }
 
-    function onMousedown() {
+    const onMousedown = () => {
       document.addEventListener('mousemove', initResize)
       document.addEventListener('mouseup', onMouseup)
       document.addEventListener('selectstart', disableSelection)
     }
 
-    function removeHandlers() {
+    const removeHandlers = () => {
       document.removeEventListener('mousemove', initResize)
       document.removeEventListener('mouseup', onMouseup)
       document.removeEventListener('selectstart', disableSelection)
     }
 
-    onMounted(() => {
-      setParent()
-    })
+    onMounted(() => setParent())
 
-    onBeforeUnmount(() => {
-      document.removeEventListener('mousedown', onMousedown)
-    })
+    onBeforeUnmount(() => document.removeEventListener('mousedown', onMousedown))
 
-    return () => {
-      const propsData = {
-        class: classes.value,
-        style: styles.value,
-        key: 'resize',
-        ref: resizeRef,
-        onMousedown,
-      }
-      return h('div', propsData)
-    }
+    return () => h('div', {
+      class: classes.value,
+      style: styles.value,
+      key: 'resize',
+      ref: resizeRef,
+      onMousedown,
+    })
   },
 })

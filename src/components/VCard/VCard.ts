@@ -2,8 +2,8 @@
 import { defineComponent, h, computed } from 'vue'
 
 // Compositions
-import { colorProps, useColors } from '../../composable/use-colors'
-import { elevationProps, useElevation } from '../../composable/use-elevation'
+import { colorProps, useColors } from '../../composables/use-colors'
+import { elevationProps, useElevation } from '../../composables/use-elevation'
 
 // Types
 import { VNode } from 'vue'

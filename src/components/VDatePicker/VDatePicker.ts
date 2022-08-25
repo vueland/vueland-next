@@ -2,9 +2,9 @@
 import { computed, defineComponent, h, provide, reactive, ref } from 'vue'
 
 // Effects
-import { useColors } from '../../composable/use-colors'
-import { elevationProps, useElevation } from '../../composable/use-elevation'
-import { useTransition } from '../../composable/use-transition'
+import { useColors } from '../../composables/use-colors'
+import { elevationProps, useElevation } from '../../composables/use-elevation'
+import { useTransition } from '../../composables/use-transition'
 
 // Components
 import { VTextField } from '../VTextField'

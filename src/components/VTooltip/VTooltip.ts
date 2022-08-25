@@ -12,12 +12,12 @@ import {
 } from 'vue'
 
 // Effects
-import { useToggle } from '../../composable/use-toggle'
-import { useColors } from '../../composable/use-colors'
-import { useActivator } from '../../composable/use-activator'
-import { useTransition } from '../../composable/use-transition'
-import { elevationProps, useElevation } from '../../composable/use-elevation'
-import { positionProps } from '../../composable/use-position'
+import { useToggle } from '../../composables/use-toggle'
+import { useColors } from '../../composables/use-colors'
+import { useActivator } from '../../composables/use-activator'
+import { useTransition } from '../../composables/use-transition'
+import { elevationProps, useElevation } from '../../composables/use-elevation'
+import { positionProps } from '../../composables/use-position'
 
 // Types
 import { OffsetSizes } from '../../../types'

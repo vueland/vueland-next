@@ -7,9 +7,9 @@ import { VButton } from '../VButton'
 import { VMenu } from '../VMenu'
 
 // Effects
-import { useColors } from '../../composable/use-colors'
+import { useColors } from '../../composables/use-colors'
 
-import { useIcons } from '../../composable/use-icons'
+import { useIcons } from '../../composables/use-icons'
 // Types
 import { VNode } from 'vue'
 import { Maybe } from '../../../types/base'

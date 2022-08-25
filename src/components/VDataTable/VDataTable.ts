@@ -2,7 +2,7 @@
 import { h, watch, computed, defineComponent, reactive } from 'vue'
 
 // Effects
-import { useColors } from '../../composable/use-colors'
+import { useColors } from '../../composables/use-colors'
 // import { useTheme } from '../../effects/use-theme'
 
 // Components

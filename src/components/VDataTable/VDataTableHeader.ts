@@ -2,8 +2,8 @@
 import { h, computed, withDirectives, defineComponent } from 'vue'
 
 // Effects
-import { useColors } from '../../composable/use-colors'
-import { useIcons } from '../../composable/use-icons'
+import { useColors } from '../../composables/use-colors'
+import { useIcons } from '../../composables/use-icons'
 
 // Components
 import { VIcon } from '../VIcon'
@@ -18,7 +18,7 @@ import { clickOutside } from '../../directives/v-click-outside'
 // Types
 import { VNode } from 'vue'
 import { DataColumn } from '../../../types'
-import { useTransition } from '../../composable/use-transition'
+import { useTransition } from '../../composables/use-transition'
 import { transitions } from '../../services/transitions'
 
 export const VDataTableHeader = defineComponent({

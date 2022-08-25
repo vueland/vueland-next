@@ -9,7 +9,7 @@ import { VNode, Ref } from 'vue'
 import { DatePickerBtnHandlers } from '../../../types'
 
 // Effects
-import { useTransition } from '../../composable/use-transition'
+import { useTransition } from '../../composables/use-transition'
 
 export const VDatePickerYears = defineComponent({
   name: 'v-date-picker-years',

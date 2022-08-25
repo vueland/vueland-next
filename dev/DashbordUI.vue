@@ -65,6 +65,7 @@ export default defineComponent({
     <v-toolbar
       class="elevation-3"
       fixed
+      color="green accent-4"
     >
       <v-toolbar-content>
         <v-toolbar-nav-btn></v-toolbar-nav-btn>
@@ -76,15 +77,15 @@ export default defineComponent({
       </v-toolbar-content>
     </v-toolbar>
     <v-navigation
-      offset-top="56"
       class="elevation-2"
       fixed
       on-hover
+      color="#303030"
     >
+      <v-spacer class="py-7"/>
       <v-group
         class="px-1"
         prepend-icon="fas fa-boxes"
-        color="red"
       >
         <template #header>
           <span>salam</span>
@@ -92,6 +93,8 @@ export default defineComponent({
         <v-list
           active
           multiple
+          color="#303030"
+          class="white--text text--base"
         >
           <v-list-item
             v-for="it in 7"
@@ -113,7 +116,8 @@ export default defineComponent({
       </v-group>
       <v-list
         active
-        multiple
+        color="#303030"
+        active-class="green"
       >
         <v-list-item
           v-for="it in 7"
@@ -139,21 +143,19 @@ export default defineComponent({
   >
     <v-text-field
       label="salam"
-      color="orange darken-2"
       :rules="[val => !!val || 'required']"
     />
     <v-select
       v-model="salam"
       label="salam"
-      color="orange darken-2"
       :items="rows"
-      active-class="orange"
       value-key="name"
     ></v-select>
 
     <v-file-input
       v-model:value="files"
       label="load file"
+      multiple
     />
 
     <v-row>

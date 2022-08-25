@@ -1,5 +1,5 @@
 import { defineComponent, h, computed } from 'vue'
-import { useColors, colorProps } from '../../composable/use-colors'
+import { useColors, colorProps } from '../../composables/use-colors'
 
 export default defineComponent({
   name: 'v-label',

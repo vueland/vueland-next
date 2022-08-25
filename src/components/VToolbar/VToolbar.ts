@@ -3,7 +3,7 @@ import { defineComponent, h, computed, VNode } from 'vue'
 import { convertToUnit } from '../../helpers'
 
 // Composables
-import { useColors, colorProps } from '../../composable/use-colors'
+import { useColors, colorProps } from '../../composables/use-colors'
 
 export default defineComponent({
   name: 'v-toolbar',

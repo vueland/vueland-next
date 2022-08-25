@@ -2,8 +2,8 @@
 import { defineComponent, h, computed } from 'vue'
 
 // Composable
-import { useColors, colorProps } from '../../composable/use-colors'
-import { sizeProps } from '../../composable/use-size'
+import { useColors, colorProps } from '../../composables/use-colors'
+import { sizeProps } from '../../composables/use-size'
 
 // Helpers
 import { convertToUnit } from '../../helpers'
@@ -20,7 +20,7 @@ export default defineComponent({
   props: {
     disabled: Boolean,
     clickable: Boolean,
-    size: [String, Number],
+    size: [ String, Number ],
     icon: String,
     tag: {
       type: String,
@@ -30,7 +30,7 @@ export default defineComponent({
     ...sizeProps('sm'),
   } as any,
 
-  emits: ['click'],
+  emits: [ 'click' ],
 
   setup(props, { slots, emit }): () => VNode {
     const { setTextCssColor, setTextClassNameColor } = useColors()
@@ -63,6 +63,7 @@ export default defineComponent({
         lg: props.lg,
         xl: props.xl,
       }
+
       const explicitSize = Object.keys(sizeProps).find((key) => sizeProps[key])!
 
       return convertToUnit(props.size || (explicitSize && sizes[explicitSize]))!
@@ -72,11 +73,10 @@ export default defineComponent({
       if (!props.disabled && props.clickable) emit('click')
     }
 
-    return () =>
-      h(iconTag, {
-        class: classes.value,
-        style: styles.value,
-        onClick,
-      })
+    return () => h(iconTag, {
+      class: classes.value,
+      style: styles.value,
+      onClick,
+    })
   },
 })

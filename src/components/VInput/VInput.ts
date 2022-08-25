@@ -11,10 +11,10 @@ import {
 } from 'vue'
 
 // Composable
-import { validationProps } from '../../composable/use-validation'
-import { useColors, colorProps } from '../../composable/use-colors'
-import { useInputStates } from '../../composable/use-input-states'
-import { useTransition } from '../../composable/use-transition'
+import { validationProps } from '../../composables/use-validation'
+import { useColors, colorProps } from '../../composables/use-colors'
+import { useInputStates } from '../../composables/use-input-states'
+import { useTransition } from '../../composables/use-transition'
 
 // Components
 import { VLabel } from '../VLabel'

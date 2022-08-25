@@ -6,15 +6,14 @@ export type UserOptions = {
 }
 
 export declare interface ThemeOptions {
-  base?: string
-  content?: string
   primary?: string
   secondary?: string
   accent?: string
   error?: string
-  info?: string
   success?: string
   warning?: string
+  base?: string
+  content?: string
 }
 
 export interface Dimensions {

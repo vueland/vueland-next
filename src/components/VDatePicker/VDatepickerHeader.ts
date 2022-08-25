@@ -2,8 +2,8 @@
 import { h, defineComponent } from 'vue'
 
 // Effects
-import { useColors } from '../../composable/use-colors'
-import { useIcons } from '../../composable/use-icons'
+import { useColors } from '../../composables/use-colors'
+import { useIcons } from '../../composables/use-icons'
 
 // Components
 import { VIcon } from '../VIcon'

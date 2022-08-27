@@ -1,5 +1,5 @@
 import { computed, reactive, watch } from 'vue'
-import { useValidation } from '@/composables/use-validation'
+import { useValidation } from './use-validation'
 
 type State = {
   value: string | number

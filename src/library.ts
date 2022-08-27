@@ -5,7 +5,7 @@ import { Maybe } from '../types/base'
 import { App } from 'vue'
 import { defaultTheme } from './composables/use-theme'
 
-class Vueland implements Library {
+export class Vueland implements Library {
   theme: Ref<Maybe<UserOptions['theme']>>
   icons: Maybe<UserOptions['icons']>
 
@@ -33,7 +33,9 @@ class Vueland implements Library {
       }
     }
 
-    if (!this.theme.value) this.setTheme(defaultTheme)
+    if (!this.theme.value) {
+      this.setTheme(defaultTheme)
+    }
 
     app.provide('$v_theme', this.theme)
     app.provide('$v_icons', this.icons)
@@ -53,5 +55,3 @@ class Vueland implements Library {
     this.icons = icons
   }
 }
-
-export { Vueland }

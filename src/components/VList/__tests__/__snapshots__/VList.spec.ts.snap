@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`VList should mount component and match snapshot 1`] = `
-<div class="v-list">
+<div class="v-list v-list--themeable">
   <div class="v-list-item">
     first
   </div>

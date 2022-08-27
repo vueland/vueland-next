@@ -1,4 +1,4 @@
-import { createLibrary } from '../../src'
+import { createLibrary } from '../../'
 import colors from '../../src/services/colors'
 // Styles
 import '../../src/styles/scss/main.scss'
@@ -17,10 +17,8 @@ vueland.setTheme({
   error: colors.red.accent4,
   success: colors.green.base,
   warning: colors.orange.base,
-  base: colors.white.base,
-  content: colors.grey.darken3
+  base: colors.grey.darken3,
+  content: colors.white.base,
 })
-
-console.log(vueland)
 
 export default vueland

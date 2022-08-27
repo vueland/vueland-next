@@ -99,12 +99,10 @@ export default defineComponent({
     })
 
     const genLoader = (): VNode => {
-      return h(
-        'span',
-        {
+      return h('span', {
           class: 'v-button__loader',
         },
-        (slots.loading && slots.loading()) ||
+        slots.loading?.() ||
         h(VProgressCircular, {
           indeterminate: true,
           size: 23,

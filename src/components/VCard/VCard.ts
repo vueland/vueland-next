@@ -37,14 +37,9 @@ export default defineComponent({
       ...(props.color ? setBackgroundCssColor(props.color) : {}),
     }))
 
-    function genCard() {
-      const propsData = {
-        class: classes.value,
-        style: styles.value,
-      }
-      return h('div', propsData, slots.default && slots.default())
-    }
-
-    return () => genCard()
+    return () => h('div', {
+      class: classes.value,
+      style: styles.value,
+    }, slots.default?.())
   },
 })

@@ -7,7 +7,7 @@ export const createLibrary = () => {
   const library = new Vueland()
   const { install } = library
 
-  library.install = (app: App, args: any) => {
+  Vueland.prototype.install = (app: App, args: any) => {
     install.call(library, app, {
       components,
       directives,

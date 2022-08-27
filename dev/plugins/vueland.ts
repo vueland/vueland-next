@@ -1,12 +1,16 @@
-import Vueland from '../../src'
+import { createLibrary } from '../../src'
 import colors from '../../src/services/colors'
 // Styles
 import '../../src/styles/scss/main.scss'
 import '../../src/styles/scss/themes/vueland-theme.scss'
 
-Vueland.setIcons('material-icons')
+const vueland = createLibrary()
 
-Vueland.setTheme({
+console.log(vueland)
+
+vueland.setIcons('material-icons')
+
+vueland.setTheme({
   primary: colors.green.accent3,
   secondary: colors.purple.darken1,
   accent: colors.green.accent3,
@@ -14,7 +18,9 @@ Vueland.setTheme({
   success: colors.green.base,
   warning: colors.orange.base,
   base: colors.white.base,
-  content: colors.grey.lighten1
+  content: colors.grey.darken3
 })
 
-export default Vueland
+console.log(vueland)
+
+export default vueland

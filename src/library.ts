@@ -1,26 +1,56 @@
 // Types
-import { Plugin, Ref, ref } from 'vue'
-import { UserOptions } from '../types'
-import { install } from './install'
+import { Ref, ref } from 'vue'
+import { Library, UserOptions } from '../types'
 import { Maybe } from '../types/base'
+import { App } from 'vue'
+import { defaultTheme } from './composables/use-theme'
 
-class Vueland {
-  static install: Plugin['install'] = install
-  static icons: Maybe<UserOptions['icons']> = null
-  static theme: Ref<Maybe<UserOptions['theme']>> = ref(null)
+class Vueland implements Library {
+  theme: Ref<Maybe<UserOptions['theme']>>
+  icons: Maybe<UserOptions['icons']>
 
-  static setTheme(theme: UserOptions['theme']) {
+  constructor() {
+    this.icons = null
+    this.theme = ref(null)
+  }
+
+  install(app: App, args: any = {}) {
+    if ((this.install as any).installed) return
+
+    (this.install as any).installed = true
+
+    const { components, directives } = args
+
+    for (const key in components) {
+      if (components[key]) {
+        app.component(key, components[key])
+      }
+    }
+
+    for (const key in directives) {
+      if (directives[key]) {
+        app.directive(key, directives[key])
+      }
+    }
+
+    if (!this.theme.value) this.setTheme(defaultTheme)
+
+    app.provide('$v_theme', this.theme)
+    app.provide('$v_icons', this.icons)
+  }
+
+  setTheme(theme: UserOptions['theme']) {
     const root = document.documentElement
 
-    Vueland.theme.value = Object.assign(Vueland.theme.value || {}, theme)
+    this.theme.value = Object.assign(this.theme.value || {}, theme)
 
-    Object.keys(Vueland.theme.value).forEach(key => {
-      root.style.setProperty(`--${ key }`, Vueland.theme.value![key])
+    Object.keys(this.theme.value).forEach(key => {
+      root.style.setProperty(`--${ key }`, this.theme.value![key])
     })
   }
 
-  static setIcons(icons: UserOptions['icons']) {
-    Vueland.icons = icons
+  setIcons(icons: UserOptions['icons']) {
+    this.icons = icons
   }
 }
 

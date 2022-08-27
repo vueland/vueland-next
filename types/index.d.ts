@@ -1,10 +1,11 @@
-import { Plugin } from 'vue'
+import { Plugin, Ref } from 'vue'
 import { UserOptions } from './params'
+import { Maybe } from './base'
 
 export interface Library {
-  theme: any
-  icons: string
   install: Plugin['install']
+  icons: Maybe<UserOptions['icons']>
+  theme: Ref<Maybe<UserOptions['theme']>>
 
   setTheme(theme: UserOptions['theme']): void
 

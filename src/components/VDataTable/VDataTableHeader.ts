@@ -13,7 +13,7 @@ import { VTextField } from '../VTextField'
 
 // Directives
 import { vShow } from 'vue'
-import { clickOutside } from '../../directives/v-click-outside'
+import { vClickOutside } from '../../directives/v-click-outside'
 
 // Types
 import { VNode } from 'vue'
@@ -168,7 +168,7 @@ export const VDataTableHeader = defineComponent({
       return (
         col.filterable &&
         withDirectives(h('div', propsData, filterSlot || genFilterInput(col)), [
-          [clickOutside, directive],
+          [vClickOutside, directive],
           [vShow, col.showFilter],
         ])
       )

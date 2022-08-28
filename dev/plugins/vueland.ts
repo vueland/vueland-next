@@ -1,12 +1,17 @@
-import { createLibrary } from '../../'
+import { createVueland } from '../../lib'
+
+import * as components from '../../src/components'
+import * as directives from '../../src/directives'
+// Services
 import colors from '../../src/services/colors'
 // Styles
 import '../../src/styles/scss/main.scss'
 import '../../src/styles/scss/themes/vueland-theme.scss'
 
-const vueland = createLibrary()
-
-console.log(vueland)
+const vueland = createVueland({
+  components,
+  directives,
+})
 
 vueland.setIcons('material-icons')
 

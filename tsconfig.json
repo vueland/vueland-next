@@ -50,7 +50,8 @@
     "@vue/compiler-ssr/dist/compiler-ssr",
     "@vue/reactivity/dist/reactivity",
     "@vue/runtime-core/dist/runtime-core",
-    "@vue/runtime-dom/dist/runtime-dom"
+    "@vue/runtime-dom/dist/runtime-dom",
+    "./types"
   ],
   "include": [
     "src/**/*.ts",

@@ -1,7 +1,7 @@
 import { Library } from './index'
 
 declare module 'vueland' {
-  const createLibrary: () => Library
+  const createVueland: (args: any) => Library
 
-  export { createLibrary }
+  export { createVueland }
 }

@@ -8,7 +8,7 @@ import {
 } from 'vue'
 
 // Directives
-import { resize } from '../../directives'
+import { vResize } from '../../directives'
 
 // Services
 import { breakpoints } from '../../services/breakpoints'
@@ -30,7 +30,7 @@ interface AppState {
 export default defineComponent({
   name: 'v-app',
   directives: {
-    resize,
+    vResize,
   },
   props: {
     global: {
@@ -104,7 +104,7 @@ export default defineComponent({
     return () =>
       withDirectives(
         h('div', { class: 'v-app' }, genAppWrapper()),
-        [[resize, throttledResizeListener]],
+        [[vResize, throttledResizeListener]],
       )
   },
 })

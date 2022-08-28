@@ -17,7 +17,7 @@ function removeListener(el) {
   delete el._binds
 }
 
-export const clickOutside = {
+export const vClickOutside = {
   beforeMount(el, binding) {
     el._binds = binding
   },

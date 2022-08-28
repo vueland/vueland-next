@@ -40,6 +40,10 @@ export default defineComponent({
       },
     ])
 
+    const clickOutsideHandler = {
+      handler: () => console.log('outside')
+    }
+
     const addRow = () => {
       salam.value = null
       // rows.value.push({ name: 'Dina', email: 'eeee@mail.ru' })
@@ -56,6 +60,7 @@ export default defineComponent({
       files,
       salam,
       addRow,
+      clickOutsideHandler,
     }
   },
 })
@@ -63,6 +68,7 @@ export default defineComponent({
 <template>
   <v-layout column>
     <v-toolbar
+      v-click-outside="clickOutsideHandler"
       class="elevation-3"
       fixed
       color="green accent-4"

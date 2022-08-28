@@ -11,6 +11,7 @@
   "unpkg": "dist/vueland.js",
   "styles": "lib/styles/vueland-base.css",
   "types": "types/index.d.ts",
+  "typings": "types/index.d.ts",
   "sideEffects": [
     "*.sass",
     "*.scss",

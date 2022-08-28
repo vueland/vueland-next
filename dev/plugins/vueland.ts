@@ -1,6 +1,6 @@
 import { createVueland } from '../../lib'
 
-import * as components from '../../src/components'
+import * as components from '../../src/components/async-components'
 import * as directives from '../../src/directives'
 // Services
 import colors from '../../src/services/colors'
@@ -8,7 +8,7 @@ import colors from '../../src/services/colors'
 import '../../src/styles/scss/main.scss'
 import '../../src/styles/scss/themes/vueland-theme.scss'
 
-const vueland = createVueland({
+export const vueland = createVueland({
   components,
   directives,
 })

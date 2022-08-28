@@ -78,8 +78,8 @@ export default defineComponent({
     </v-toolbar>
     <v-navigation
       class="elevation-2"
-      fixed
-      on-hover
+      :fixed="true"
+      :on-hover="true"
       color="#303030"
     >
       <v-spacer class="py-7"/>

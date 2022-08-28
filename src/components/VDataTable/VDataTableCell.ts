@@ -16,7 +16,6 @@ import { VNode } from 'vue'
 export const VDataTableCell = defineComponent({
   name: 'v-data-table-cell',
   props: {
-    dark: Boolean,
     resizeable: Boolean,
     align: {
       type: String,
@@ -46,6 +45,7 @@ export const VDataTableCell = defineComponent({
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-data-table__cell': true,
+      'v-data-table__cell--themeable': !props.color,
       ...(props.contentColor ? setTextClassNameColor(props.contentColor) : {}),
       ...(props.color ? setBackgroundClassNameColor(props.color) : {}),
     }))

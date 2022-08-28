@@ -5,7 +5,7 @@ interface ResizeVNodeDirective extends DirectiveBinding {
   options: boolean | AddEventListenerOptions
 }
 
-export const resize = {
+export const vResize = {
   mounted(el: HTMLElement & any, binding: ResizeVNodeDirective) {
     const callback = binding.value!
     const options = binding.options || { passive: true }

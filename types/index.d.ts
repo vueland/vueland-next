@@ -12,6 +12,10 @@ export interface Library {
   setIcons(icons: UserOptions['icons']): void
 }
 
+declare module 'vueland' {
+  export const createVueland: (args: any) => Library
+}
+
 export {
   UserOptions,
   ThemeOptions,

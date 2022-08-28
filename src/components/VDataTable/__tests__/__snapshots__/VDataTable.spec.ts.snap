@@ -67,7 +67,7 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
     <div class="v-data-table__header"
          color
     >
-      <div class="v-data-table__cell v-data-table-col"
+      <div class="v-data-table__cell v-data-table__cell--themeable v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--center">
@@ -80,7 +80,7 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
           </transition-stub>
         </div>
       </div>
-      <div class="v-data-table__cell v-data-table-col"
+      <div class="v-data-table__cell v-data-table__cell--themeable v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--center">
@@ -93,7 +93,7 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
           </transition-stub>
         </div>
       </div>
-      <div class="v-data-table__cell v-data-table-col"
+      <div class="v-data-table__cell v-data-table__cell--themeable v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--center">
@@ -109,21 +109,21 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
     </div>
     <div class="v-data-table__body">
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
             Ben
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
             ben@mail.ru
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
@@ -132,21 +132,21 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
             Alex
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
             alex@mail.ru
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
@@ -155,21 +155,21 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
             cccccc
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
             Eliseo@gardner.biz
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
@@ -181,21 +181,21 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
             dddddd
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
             Jayne_Kuhic@sydney.com
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
@@ -207,21 +207,21 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
             eeeeee
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
             Nikita@garfield.biz
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
@@ -233,21 +233,21 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
             ffffff
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
             Lew@alysha.tv
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
@@ -259,21 +259,21 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
             gggggg
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
             Hayden@althea.biz
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
@@ -285,21 +285,21 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
             hhhhhh
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
             Presley.Mueller@myrl.com
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
@@ -311,21 +311,21 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
             iiiiii
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
             Dallas@ole.me
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
@@ -337,21 +337,21 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
             jjjjjj
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
             Mallory_Kunze@marie.org
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
@@ -363,21 +363,21 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
             kkkkkk
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
             Meghan_Littel@rene.us
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
@@ -389,21 +389,21 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
             llllll
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
             Carmen_Keeling@caroline.name
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
@@ -415,21 +415,21 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
             mmmmmm
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
             Veronica_Goodwin@timmothy.net
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
@@ -441,21 +441,21 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
             nnnnnn
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
             Oswald.Vandervort@leanne.org
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
@@ -467,21 +467,21 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
             oooooo
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
             Kariane@jadyn.tv
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
@@ -493,21 +493,21 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
             pppppp
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
             Nathan@solon.io
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
@@ -519,21 +519,21 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
             qqqqqq
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
             Maynard.Hodkiewicz@roberta.com
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
@@ -545,21 +545,21 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
             rrrrrr
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
             Christine@ayana.info
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
@@ -571,21 +571,21 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
             ssssss
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
             Preston_Hudson@blaise.tv
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
@@ -597,21 +597,21 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
             tttttt
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
             Vincenza_Klocko@albertha.name
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--center">
@@ -682,7 +682,7 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
     <div class="v-data-table__header"
          color
     >
-      <div class="v-data-table__cell v-data-table-col"
+      <div class="v-data-table__cell v-data-table__cell--themeable v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--left">
@@ -695,7 +695,7 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
           </transition-stub>
         </div>
       </div>
-      <div class="v-data-table__cell v-data-table-col"
+      <div class="v-data-table__cell v-data-table__cell--themeable v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--left">
@@ -708,7 +708,7 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
           </transition-stub>
         </div>
       </div>
-      <div class="v-data-table__cell v-data-table-col"
+      <div class="v-data-table__cell v-data-table__cell--themeable v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--left">
@@ -724,21 +724,21 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
     </div>
     <div class="v-data-table__body">
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
             Ben
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
             ben@mail.ru
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
@@ -747,21 +747,21 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
             Alex
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
             alex@mail.ru
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
@@ -770,21 +770,21 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
             cccccc
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
             Eliseo@gardner.biz
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
@@ -796,21 +796,21 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
             dddddd
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
             Jayne_Kuhic@sydney.com
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
@@ -822,21 +822,21 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
             eeeeee
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
             Nikita@garfield.biz
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
@@ -848,21 +848,21 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
             ffffff
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
             Lew@alysha.tv
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
@@ -874,21 +874,21 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
             gggggg
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
             Hayden@althea.biz
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
@@ -900,21 +900,21 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
             hhhhhh
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
             Presley.Mueller@myrl.com
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
@@ -926,21 +926,21 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
             iiiiii
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
             Dallas@ole.me
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
@@ -952,21 +952,21 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
             jjjjjj
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
             Mallory_Kunze@marie.org
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
@@ -978,21 +978,21 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
             kkkkkk
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
             Meghan_Littel@rene.us
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
@@ -1004,21 +1004,21 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
             llllll
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
             Carmen_Keeling@caroline.name
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
@@ -1030,21 +1030,21 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
             mmmmmm
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
             Veronica_Goodwin@timmothy.net
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
@@ -1056,21 +1056,21 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
             nnnnnn
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
             Oswald.Vandervort@leanne.org
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
@@ -1082,21 +1082,21 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
             oooooo
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
             Kariane@jadyn.tv
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
@@ -1108,21 +1108,21 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
             pppppp
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
             Nathan@solon.io
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
@@ -1134,21 +1134,21 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
             qqqqqq
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
             Maynard.Hodkiewicz@roberta.com
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
@@ -1160,21 +1160,21 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
             rrrrrr
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
             Christine@ayana.info
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
@@ -1186,21 +1186,21 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
             ssssss
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
             Preston_Hudson@blaise.tv
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
@@ -1212,21 +1212,21 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
             tttttt
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
             Vincenza_Klocko@albertha.name
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--left">
@@ -1297,7 +1297,7 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
     <div class="v-data-table__header"
          color
     >
-      <div class="v-data-table__cell v-data-table-col"
+      <div class="v-data-table__cell v-data-table__cell--themeable v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--right">
@@ -1310,7 +1310,7 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
           </transition-stub>
         </div>
       </div>
-      <div class="v-data-table__cell v-data-table-col"
+      <div class="v-data-table__cell v-data-table__cell--themeable v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--right">
@@ -1323,7 +1323,7 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
           </transition-stub>
         </div>
       </div>
-      <div class="v-data-table__cell v-data-table-col"
+      <div class="v-data-table__cell v-data-table__cell--themeable v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--right">
@@ -1339,21 +1339,21 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
     </div>
     <div class="v-data-table__body">
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
             Ben
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
             ben@mail.ru
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
@@ -1362,21 +1362,21 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
             Alex
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
             alex@mail.ru
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
@@ -1385,21 +1385,21 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
             cccccc
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
             Eliseo@gardner.biz
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
@@ -1411,21 +1411,21 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
             dddddd
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
             Jayne_Kuhic@sydney.com
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
@@ -1437,21 +1437,21 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
             eeeeee
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
             Nikita@garfield.biz
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
@@ -1463,21 +1463,21 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
             ffffff
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
             Lew@alysha.tv
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
@@ -1489,21 +1489,21 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
             gggggg
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
             Hayden@althea.biz
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
@@ -1515,21 +1515,21 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
             hhhhhh
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
             Presley.Mueller@myrl.com
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
@@ -1541,21 +1541,21 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
             iiiiii
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
             Dallas@ole.me
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
@@ -1567,21 +1567,21 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
             jjjjjj
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
             Mallory_Kunze@marie.org
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
@@ -1593,21 +1593,21 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
             kkkkkk
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
             Meghan_Littel@rene.us
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
@@ -1619,21 +1619,21 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
             llllll
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
             Carmen_Keeling@caroline.name
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
@@ -1645,21 +1645,21 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
             mmmmmm
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
             Veronica_Goodwin@timmothy.net
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
@@ -1671,21 +1671,21 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
             nnnnnn
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
             Oswald.Vandervort@leanne.org
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
@@ -1697,21 +1697,21 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
             oooooo
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
             Kariane@jadyn.tv
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
@@ -1723,21 +1723,21 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
             pppppp
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
             Nathan@solon.io
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
@@ -1749,21 +1749,21 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
             qqqqqq
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
             Maynard.Hodkiewicz@roberta.com
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
@@ -1775,21 +1775,21 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
             rrrrrr
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
             Christine@ayana.info
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
@@ -1801,21 +1801,21 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
             ssssss
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
             Preston_Hudson@blaise.tv
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
@@ -1827,21 +1827,21 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
             tttttt
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
             Vincenza_Klocko@albertha.name
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--right">
@@ -1973,7 +1973,7 @@ exports[`VDataTable should test cols prop and match snapshot 1`] = `
     <div class="v-data-table__header"
          color
     >
-      <div class="v-data-table__cell v-data-table-col"
+      <div class="v-data-table__cell v-data-table__cell--themeable v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--start">
@@ -1986,7 +1986,7 @@ exports[`VDataTable should test cols prop and match snapshot 1`] = `
           </transition-stub>
         </div>
       </div>
-      <div class="v-data-table__cell v-data-table-col"
+      <div class="v-data-table__cell v-data-table__cell--themeable v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--start">
@@ -1999,7 +1999,7 @@ exports[`VDataTable should test cols prop and match snapshot 1`] = `
           </transition-stub>
         </div>
       </div>
-      <div class="v-data-table__cell v-data-table-col"
+      <div class="v-data-table__cell v-data-table__cell--themeable v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--start">
@@ -2073,7 +2073,7 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
     <div class="v-data-table__header"
          color
     >
-      <div class="v-data-table__cell v-data-table-col"
+      <div class="v-data-table__cell v-data-table__cell--themeable v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--start">
@@ -2090,7 +2090,7 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
           </transition-stub>
         </div>
       </div>
-      <div class="v-data-table__cell v-data-table-col"
+      <div class="v-data-table__cell v-data-table__cell--themeable v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--start">
@@ -2103,7 +2103,7 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
           </transition-stub>
         </div>
       </div>
-      <div class="v-data-table__cell v-data-table-col"
+      <div class="v-data-table__cell v-data-table__cell--themeable v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--start">
@@ -2119,21 +2119,21 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
     </div>
     <div class="v-data-table__body">
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             tttttt
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             Vincenza_Klocko@albertha.name
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
@@ -2145,21 +2145,21 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             ssssss
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             Preston_Hudson@blaise.tv
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
@@ -2171,21 +2171,21 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             rrrrrr
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             Christine@ayana.info
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
@@ -2197,21 +2197,21 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             qqqqqq
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             Maynard.Hodkiewicz@roberta.com
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
@@ -2223,21 +2223,21 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             pppppp
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             Nathan@solon.io
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
@@ -2249,21 +2249,21 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             oooooo
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             Kariane@jadyn.tv
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
@@ -2275,21 +2275,21 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             nnnnnn
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             Oswald.Vandervort@leanne.org
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
@@ -2301,21 +2301,21 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             mmmmmm
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             Veronica_Goodwin@timmothy.net
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
@@ -2327,21 +2327,21 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             llllll
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             Carmen_Keeling@caroline.name
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
@@ -2353,21 +2353,21 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             kkkkkk
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             Meghan_Littel@rene.us
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
@@ -2379,21 +2379,21 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             jjjjjj
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             Mallory_Kunze@marie.org
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
@@ -2405,21 +2405,21 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             iiiiii
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             Dallas@ole.me
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
@@ -2431,21 +2431,21 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             hhhhhh
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             Presley.Mueller@myrl.com
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
@@ -2457,21 +2457,21 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             gggggg
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             Hayden@althea.biz
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
@@ -2483,21 +2483,21 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             ffffff
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             Lew@alysha.tv
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
@@ -2509,21 +2509,21 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             eeeeee
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             Nikita@garfield.biz
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
@@ -2535,21 +2535,21 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             dddddd
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             Jayne_Kuhic@sydney.com
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
@@ -2561,21 +2561,21 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             cccccc
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             Eliseo@gardner.biz
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
@@ -2587,21 +2587,21 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             Ben
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             ben@mail.ru
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
@@ -2610,21 +2610,21 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             Alex
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             alex@mail.ru
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
@@ -2696,7 +2696,7 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
     <div class="v-data-table__header"
          color
     >
-      <div class="v-data-table__cell v-data-table-col v-data-table-col--sorted"
+      <div class="v-data-table__cell v-data-table__cell--themeable v-data-table-col v-data-table-col--sorted"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--start">
@@ -2739,7 +2739,7 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
           </transition-stub>
         </div>
       </div>
-      <div class="v-data-table__cell v-data-table-col"
+      <div class="v-data-table__cell v-data-table__cell--themeable v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--start">
@@ -2752,7 +2752,7 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
           </transition-stub>
         </div>
       </div>
-      <div class="v-data-table__cell v-data-table-col"
+      <div class="v-data-table__cell v-data-table__cell--themeable v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--start">
@@ -2768,21 +2768,21 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
     </div>
     <div class="v-data-table__body">
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             tttttt
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             Vincenza_Klocko@albertha.name
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
@@ -2794,21 +2794,21 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             ssssss
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             Preston_Hudson@blaise.tv
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
@@ -2820,21 +2820,21 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             rrrrrr
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             Christine@ayana.info
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
@@ -2846,21 +2846,21 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             qqqqqq
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             Maynard.Hodkiewicz@roberta.com
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
@@ -2872,21 +2872,21 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             pppppp
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             Nathan@solon.io
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
@@ -2898,21 +2898,21 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             oooooo
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             Kariane@jadyn.tv
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
@@ -2924,21 +2924,21 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             nnnnnn
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             Oswald.Vandervort@leanne.org
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
@@ -2950,21 +2950,21 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             mmmmmm
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             Veronica_Goodwin@timmothy.net
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
@@ -2976,21 +2976,21 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             llllll
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             Carmen_Keeling@caroline.name
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
@@ -3002,21 +3002,21 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             kkkkkk
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             Meghan_Littel@rene.us
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
@@ -3028,21 +3028,21 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             jjjjjj
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             Mallory_Kunze@marie.org
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
@@ -3054,21 +3054,21 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             iiiiii
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             Dallas@ole.me
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
@@ -3080,21 +3080,21 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             hhhhhh
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             Presley.Mueller@myrl.com
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
@@ -3106,21 +3106,21 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             gggggg
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             Hayden@althea.biz
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
@@ -3132,21 +3132,21 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             ffffff
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             Lew@alysha.tv
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
@@ -3158,21 +3158,21 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             eeeeee
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             Nikita@garfield.biz
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
@@ -3184,21 +3184,21 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             dddddd
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             Jayne_Kuhic@sydney.com
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
@@ -3210,21 +3210,21 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             cccccc
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             Eliseo@gardner.biz
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
@@ -3236,21 +3236,21 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             Ben
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             ben@mail.ru
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
@@ -3259,21 +3259,21 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
         </div>
       </div>
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             Alex
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             alex@mail.ru
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
@@ -3345,7 +3345,7 @@ exports[`VDataTable should test table filter and match snapshot 1`] = `
     <div class="v-data-table__header"
          color
     >
-      <div class="v-data-table__cell v-data-table-col v-data-table-col--sorted"
+      <div class="v-data-table__cell v-data-table__cell--themeable v-data-table-col v-data-table-col--sorted"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--start">
@@ -3388,7 +3388,7 @@ exports[`VDataTable should test table filter and match snapshot 1`] = `
           </transition-stub>
         </div>
       </div>
-      <div class="v-data-table__cell v-data-table-col"
+      <div class="v-data-table__cell v-data-table__cell--themeable v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--start">
@@ -3401,7 +3401,7 @@ exports[`VDataTable should test table filter and match snapshot 1`] = `
           </transition-stub>
         </div>
       </div>
-      <div class="v-data-table__cell v-data-table-col"
+      <div class="v-data-table__cell v-data-table__cell--themeable v-data-table-col"
            style="width: 125px;"
       >
         <div class="v-data-table__cell-content text-align--start">
@@ -3417,21 +3417,21 @@ exports[`VDataTable should test table filter and match snapshot 1`] = `
     </div>
     <div class="v-data-table__body">
       <div class="v-data-table__row">
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             Ben
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">
             ben@mail.ru
           </div>
         </div>
-        <div class="v-data-table__cell"
+        <div class="v-data-table__cell v-data-table__cell--themeable"
              style="width: 125px;"
         >
           <div class="v-data-table__cell-content text-align--start">

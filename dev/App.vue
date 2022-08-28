@@ -1,12 +1,12 @@
 <script lang="ts">
-  import DashbordUI from './DashbordUI'
   import { useTheme } from '../src/composables/use-theme'
-  // import DefaultUI from './DefaultUI'
+  // import DashbordUI from './DashbordUI'
+  import DefaultUI from './DefaultUI'
 
   export default {
     components: {
-      DashbordUI,
-      // DefaultUI,
+      // DashbordUI,
+      DefaultUI,
     },
     setup() {
       const $v_theme = useTheme()
@@ -19,8 +19,8 @@
 
 <template>
   <v-app>
+    <default-u-i/>
     <!--    <dashbord-u-i/>-->
-    <dashbord-u-i/>
   </v-app>
 </template>
 

@@ -5,6 +5,10 @@
   align-items: center;
   position: relative;
 
+  &--themeable {
+    background-color: var(--base);
+  }
+
   &-content {
     overflow: hidden;
     white-space: nowrap;

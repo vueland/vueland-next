@@ -13,7 +13,7 @@ export interface Library {
 }
 
 declare module 'vueland' {
-  export const createVueland: (args: any) => Library & Plugin
+  export const createVueland: (args: any) => Library
 }
 
 export {

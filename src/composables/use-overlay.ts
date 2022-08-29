@@ -2,7 +2,6 @@ import { render, h } from 'vue'
 
 // Components
 import { VOverlay } from '../components/VOverlay'
-import { Maybe } from '../../types/base'
 
 // Helpers
 import { addOnceListener } from '../helpers'

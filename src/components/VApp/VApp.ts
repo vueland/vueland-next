@@ -17,7 +17,6 @@ import { breakpoints } from '../../services/breakpoints'
 import { throttle } from '../../utils/throttle'
 
 // Types
-import { Maybe } from '../../../types/base.d'
 
 interface AppState {
   current: Maybe<'xl' | 'lg' | 'md' | 'sm'>

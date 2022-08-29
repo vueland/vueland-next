@@ -1,5 +1,4 @@
 import { Ref } from 'vue'
-import { Maybe } from './base'
 
 export type ListItem = {
   itemRef: Ref<Maybe<HTMLElement>>

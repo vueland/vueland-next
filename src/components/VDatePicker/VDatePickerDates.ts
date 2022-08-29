@@ -10,7 +10,6 @@ import { useTransition } from '../../composables/use-transition'
 // Types
 import { VNode, Ref } from 'vue'
 import { DatePickerBtnHandlers, DatePickerDate } from '../../../types'
-import { Maybe } from '../../../types/base'
 
 type UpdateParams = {
   month?: number

@@ -8,8 +8,6 @@ import { useIcons } from '../../composables/use-icons'
 import { useInputStates } from '../../composables/use-input-states'
 // Helpers
 import { uniqueArray } from '../../helpers'
-// Types
-import { Maybe } from '../../../types/base'
 
 export default defineComponent({
   name: 'v-file-input',

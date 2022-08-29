@@ -1,7 +1,6 @@
 import { reactive, computed } from 'vue'
 // Types
 import { PropType } from 'vue'
-import { Maybe } from '../../types/base'
 
 type ErrorsState = {
   innerError: Maybe<object>

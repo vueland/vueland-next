@@ -51,13 +51,13 @@
     "@vue/reactivity/dist/reactivity",
     "@vue/runtime-core/dist/runtime-core",
     "@vue/runtime-dom/dist/runtime-dom",
-    "./types"
   ],
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.js",
-    "src/**/*.vue"
+    "src/**/*.vue",
+    "./types"
   ],
   "exclude": [
     "node_modules",

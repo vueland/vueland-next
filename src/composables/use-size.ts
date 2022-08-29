@@ -1,5 +1,4 @@
 import { computed } from 'vue'
-// import { sizes } from '../services/size.service'
 
 export const sizeProps = (defaultSize: string = '') => {
   return {

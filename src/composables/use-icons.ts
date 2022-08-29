@@ -3,7 +3,7 @@ import {
   FaIcons,
   MaterialIcons,
 } from '../services/icons'
-import { Maybe } from '../../types/base'
+
 import { UserOptions } from '../../types'
 
 export function useIcons() {

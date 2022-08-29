@@ -3,8 +3,6 @@ import { defineComponent, h, computed } from 'vue'
 import { VList, VListItem, VListItemTitle } from '../VList'
 // Helpers
 import { getStringKeysValue } from '../../helpers'
-// Types
-import { Maybe } from '../../../types/base'
 
 export const VSelectList = defineComponent({
   name: 'v-select-list',

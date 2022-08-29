@@ -1,7 +1,6 @@
 // Types
 import { Ref, ref } from 'vue'
 import { Library, UserOptions } from '../types'
-import { Maybe } from '../types/base'
 import { App } from 'vue'
 import { defaultTheme } from './composables/use-theme'
 

@@ -24,7 +24,6 @@ import { formatDate } from './utils'
 // Types
 import { VNode } from 'vue'
 import { DatePickerBtnHandlers, DatePickerDate } from '../../../types'
-import { Maybe } from '../../../types/base'
 
 // Services
 import { locale } from '../../services/locale'

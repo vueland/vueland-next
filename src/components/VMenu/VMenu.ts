@@ -30,8 +30,6 @@ import { convertToUnit } from '../../helpers'
 // Directives
 import { clickOutside, resize } from '../../directives'
 
-import { Maybe } from '../../../types/base'
-
 export default defineComponent({
   name: 'v-menu',
   directives: {

@@ -12,7 +12,6 @@ import { useColors } from '../../composables/use-colors'
 import { useIcons } from '../../composables/use-icons'
 // Types
 import { VNode } from 'vue'
-import { Maybe } from '../../../types/base'
 import { IDataTableFooterOptions } from './types'
 
 export const VDataTableFooter = defineComponent({

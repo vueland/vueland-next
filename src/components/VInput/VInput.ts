@@ -20,8 +20,6 @@ import { useTransition } from '../../composables/use-transition'
 import { VLabel } from '../VLabel'
 import { VIcon } from '../VIcon'
 
-import { Maybe } from '../../../types/base'
-
 type Form = {
   add: (item: (val?: any) => boolean | void) => void
   remove: (item: (val?: any) => boolean | void) => void

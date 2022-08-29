@@ -1,4 +1,4 @@
-import { createVueland } from '../../lib'
+import { createVueland } from '../../src'
 
 import * as components from '../../src/components/async-components'
 import * as directives from '../../src/directives'

@@ -11,7 +11,6 @@ import { VProgressCircular } from '../VProgressCircular'
 
 // Services
 import { FaIcons } from '../../services/icons'
-import { Maybe } from '../../../types/base'
 
 export default defineComponent({
   name: 'v-select',

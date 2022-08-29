@@ -1,4 +1,4 @@
-function clickHandler(e, el) {
+const clickHandler = (e, el) => {
   if (
     el.contains(e.target) &&
     el._binds?.value &&
@@ -11,7 +11,7 @@ function clickHandler(e, el) {
   if (typeof el._binds?.value === 'object') el._binds.value.handler(e)
 }
 
-function removeListener(el) {
+const removeListener = (el) => {
   document.body.removeEventListener('click', el._onClick, true)
   delete el._onClick
   delete el._binds

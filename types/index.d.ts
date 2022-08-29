@@ -1,6 +1,5 @@
 import { Plugin, Ref } from 'vue'
 import { UserOptions } from './params'
-import { Maybe } from './base'
 
 export interface Library {
   install: Plugin['install']
@@ -12,8 +11,10 @@ export interface Library {
   setIcons(icons: UserOptions['icons']): void
 }
 
+export type Vueland = Library & Plugin
+
 declare module 'vueland' {
-  export const createVueland: (args: any) => Library
+  export const createVueland: (args: any) => Vueland
 }
 
 export {

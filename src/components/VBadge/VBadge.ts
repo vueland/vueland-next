@@ -10,7 +10,6 @@ import { useTransition } from '../../composables/use-transition'
 
 // Types
 import { VNode } from 'vue'
-import { Maybe } from '../../../types/base'
 
 export default defineComponent({
   name: 'v-badge',

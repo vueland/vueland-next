@@ -8,7 +8,6 @@ import {
   onBeforeMount,
 } from 'vue'
 import { List } from '../../../types/components'
-import { Maybe } from '../../../types/base'
 
 export default defineComponent({
   name: 'v-list-item',

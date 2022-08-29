@@ -25,7 +25,6 @@ import { sizes } from '../../services/sizes'
 
 // Types
 import { VNode } from 'vue'
-import { Maybe } from '../../../types/base'
 
 type Form = {
   add: (item) => void

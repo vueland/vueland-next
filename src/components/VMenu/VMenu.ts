@@ -28,15 +28,15 @@ import { positionProps } from '../../composables/use-position'
 import { convertToUnit } from '../../helpers'
 
 // Directives
-import { vClickOutside, vResize } from '../../directives'
+import { clickOutside, resize } from '../../directives'
 
 import { Maybe } from '../../../types/base'
 
 export default defineComponent({
   name: 'v-menu',
   directives: {
-    vClickOutside,
-    vResize,
+    clickOutside,
+    resize,
   },
   props: {
     maxHeight: {
@@ -205,8 +205,8 @@ export default defineComponent({
 
       const directives: DirectiveArguments = [
         [vShow, isActive.value],
-        [vResize, onResize],
-        [vClickOutside, directive.value],
+        [resize, onResize],
+        [clickOutside, directive.value],
       ]
 
       return withDirectives(content, directives)

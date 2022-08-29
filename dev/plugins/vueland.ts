@@ -8,7 +8,7 @@ import colors from '../../src/services/colors'
 import '../../src/styles/scss/main.scss'
 import '../../src/styles/scss/themes/vueland-theme.scss'
 
-const vueland = createVueland({
+export const vueland = createVueland({
   components,
   directives,
 })

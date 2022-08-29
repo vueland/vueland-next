@@ -1,5 +1,5 @@
 <script lang="ts">
-import { reactive, ref, computed } from 'vue'
+import { reactive, ref, computed, inject, watch } from 'vue'
 import { FaIcons } from '../src/services/icons'
 
 export default {
@@ -33,7 +33,9 @@ export default {
       )
     }, 4000)
 
-    // watch(() => data.password, () => console.log(data.password))
+    const $v_breakpoints = inject('$v_breakpoints', {})
+
+    watch($v_breakpoints, (to) => console.log(to), { deep: true, immediate: true })
 
     const showMenu = (e) => {
       e.preventDefault()
@@ -782,15 +784,6 @@ export default {
   display: flex;
   justify-content: center;
   width: 100%;
-}
-
-.v-data-table {
-  background-color: yellow;
-}
-
-.v-data-table > .v-data-table__inner > .v-data-table__header {
-  background-color: #0D47A1 !important;
-  border-color: red !important;
 }
 
 body {

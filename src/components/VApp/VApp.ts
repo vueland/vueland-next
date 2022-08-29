@@ -18,7 +18,7 @@ import { throttle } from '../../utils/throttle'
 
 // Types
 
-interface AppState {
+interface AppBreakpoints {
   current: Maybe<'xl' | 'lg' | 'md' | 'sm'>
   xlAndLess: boolean
   lgAndLess: boolean
@@ -40,7 +40,7 @@ export default defineComponent({
   setup(props, { slots }) {
     const THROTTLING_TIMEOUT = 60
 
-    const state = reactive<AppState>({
+    const state = reactive<AppBreakpoints>({
       current: null,
       xlAndLess: false,
       lgAndLess: false,
@@ -48,9 +48,9 @@ export default defineComponent({
       smAndLess: false,
     })
 
-    provide('breakpoints', state)
+    provide('$v_breakpoints', state)
 
-    const setCurrentBreakpointName = (screen) => {
+    const setCurrentBreakpoint = (screen) => {
       if (screen >= breakpoints.xl) {
         return (state.current = 'xl')
       }
@@ -81,7 +81,7 @@ export default defineComponent({
       // component without using mockups
       const screen = props.global?.innerWidth || window.innerWidth
 
-      setCurrentBreakpointName(screen)
+      setCurrentBreakpoint(screen)
       setIntervals(screen)
     }
 
@@ -96,9 +96,7 @@ export default defineComponent({
       })
     }
 
-    onMounted(() => {
-      setSizes()
-    })
+    onMounted(() => setSizes())
 
     return () =>
       withDirectives(

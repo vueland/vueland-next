@@ -1,8 +1,8 @@
 import { ComponentPublicInstance, Ref } from 'vue'
 
 export type UserOptions = {
-  icons?: 'material-icons' | 'fa'
-  theme?: ThemeOptions
+  icons: 'material-icons' | 'fa'
+  theme: ThemeOptions
 }
 
 export declare interface ThemeOptions {

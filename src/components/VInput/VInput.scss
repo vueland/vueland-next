@@ -9,7 +9,7 @@ $input-label-height: 24px;
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
-  transition: .4s color $primary-transition;
+  transition: .2s color $primary-transition;
 
   &__label {
     height: $input-label-height;
@@ -31,7 +31,6 @@ $input-label-height: 24px;
     display: flex;
     align-items: center;
     height: $input-hints-height;
-    transition: .4s color $primary-transition;
     font-size: .7rem;
   }
 

@@ -13,7 +13,7 @@ export default defineComponent({
       fields = fields.filter((v) => v !== item)
     }
 
-    provide('form', {
+    provide('$v_form', {
       add: addFieldValidator,
       remove: removeFieldValidator,
     })

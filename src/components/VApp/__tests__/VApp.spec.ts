@@ -4,6 +4,9 @@ import { VApp } from '../'
 describe('VApp', () => {
   test('should mount component and match snapshot', () => {
     const wrap = mount(VApp, {
+      inject: {
+
+      },
       slots: {
         default: '<div class="default"></div>'
       }

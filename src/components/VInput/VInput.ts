@@ -78,7 +78,7 @@ export default defineComponent({
       onBlur
     } = useInputStates(props, { attrs, emit })
 
-    const form: Maybe<Form> = inject('form', null as any)
+    const form: Maybe<Form> = inject('$v_form', null as any)
 
     const textClassColor = setTextClassNameColor(props.textColor)
     const textCssColor = setTextCssColor(props.textColor)

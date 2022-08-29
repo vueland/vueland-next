@@ -28,7 +28,7 @@ exports[`VDataTable should mount component and match snapshot 1`] = `
         -
       </div>
       <div class="v-data-table__pagination-route">
-        <button class="v-button v-button--text v-button--disabled primary--text"
+        <button class="v-button v-button--text v-button--disabled"
                 style="width: 42px;"
         >
           <div class="v-button__content">
@@ -45,7 +45,7 @@ exports[`VDataTable should mount component and match snapshot 1`] = `
             1
           </div>
         </button>
-        <button class="v-button v-button--text v-button--disabled primary--text"
+        <button class="v-button v-button--text v-button--disabled"
                 style="width: 42px;"
         >
           <div class="v-button__content">
@@ -643,7 +643,7 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
         of 20
       </div>
       <div class="v-data-table__pagination-route">
-        <button class="v-button v-button--text v-button--disabled primary--text"
+        <button class="v-button v-button--text v-button--disabled"
                 style="width: 42px;"
         >
           <div class="v-button__content">
@@ -660,7 +660,7 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
             1
           </div>
         </button>
-        <button class="v-button v-button--text v-button--disabled primary--text"
+        <button class="v-button v-button--text v-button--disabled"
                 style="width: 42px;"
         >
           <div class="v-button__content">
@@ -1258,7 +1258,7 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
         of 20
       </div>
       <div class="v-data-table__pagination-route">
-        <button class="v-button v-button--text v-button--disabled primary--text"
+        <button class="v-button v-button--text v-button--disabled"
                 style="width: 42px;"
         >
           <div class="v-button__content">
@@ -1275,7 +1275,7 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
             1
           </div>
         </button>
-        <button class="v-button v-button--text v-button--disabled primary--text"
+        <button class="v-button v-button--text v-button--disabled"
                 style="width: 42px;"
         >
           <div class="v-button__content">
@@ -1873,7 +1873,7 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
         of 20
       </div>
       <div class="v-data-table__pagination-route">
-        <button class="v-button v-button--text v-button--disabled primary--text"
+        <button class="v-button v-button--text v-button--disabled"
                 style="width: 42px;"
         >
           <div class="v-button__content">
@@ -1890,7 +1890,7 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
             1
           </div>
         </button>
-        <button class="v-button v-button--text v-button--disabled primary--text"
+        <button class="v-button v-button--text v-button--disabled"
                 style="width: 42px;"
         >
           <div class="v-button__content">
@@ -1934,7 +1934,7 @@ exports[`VDataTable should test color prop and match snapshot 1`] = `
         -
       </div>
       <div class="v-data-table__pagination-route">
-        <button class="v-button v-button--text v-button--disabled primary--text"
+        <button class="v-button v-button--text v-button--disabled"
                 style="width: 42px;"
         >
           <div class="v-button__content">
@@ -1951,7 +1951,7 @@ exports[`VDataTable should test color prop and match snapshot 1`] = `
             1
           </div>
         </button>
-        <button class="v-button v-button--text v-button--disabled primary--text"
+        <button class="v-button v-button--text v-button--disabled"
                 style="width: 42px;"
         >
           <div class="v-button__content">
@@ -2034,7 +2034,7 @@ exports[`VDataTable should test cols prop and match snapshot 1`] = `
         -
       </div>
       <div class="v-data-table__pagination-route">
-        <button class="v-button v-button--text v-button--disabled primary--text"
+        <button class="v-button v-button--text v-button--disabled"
                 style="width: 42px;"
         >
           <div class="v-button__content">
@@ -2051,7 +2051,7 @@ exports[`VDataTable should test cols prop and match snapshot 1`] = `
             1
           </div>
         </button>
-        <button class="v-button v-button--text v-button--disabled primary--text"
+        <button class="v-button v-button--text v-button--disabled"
                 style="width: 42px;"
         >
           <div class="v-button__content">
@@ -2657,7 +2657,7 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
         of 20
       </div>
       <div class="v-data-table__pagination-route">
-        <button class="v-button v-button--text v-button--disabled primary--text"
+        <button class="v-button v-button--text v-button--disabled"
                 style="width: 42px;"
         >
           <div class="v-button__content">
@@ -2674,7 +2674,7 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
             1
           </div>
         </button>
-        <button class="v-button v-button--text v-button--disabled primary--text"
+        <button class="v-button v-button--text v-button--disabled"
                 style="width: 42px;"
         >
           <div class="v-button__content">
@@ -3306,7 +3306,7 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
         of 20
       </div>
       <div class="v-data-table__pagination-route">
-        <button class="v-button v-button--text v-button--disabled primary--text"
+        <button class="v-button v-button--text v-button--disabled"
                 style="width: 42px;"
         >
           <div class="v-button__content">
@@ -3323,7 +3323,7 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
             1
           </div>
         </button>
-        <button class="v-button v-button--text v-button--disabled primary--text"
+        <button class="v-button v-button--text v-button--disabled"
                 style="width: 42px;"
         >
           <div class="v-button__content">
@@ -3486,7 +3486,7 @@ exports[`VDataTable should test table filter and match snapshot 1`] = `
         of 1
       </div>
       <div class="v-data-table__pagination-route">
-        <button class="v-button v-button--text v-button--disabled primary--text"
+        <button class="v-button v-button--text v-button--disabled"
                 style="width: 42px;"
         >
           <div class="v-button__content">
@@ -3503,7 +3503,7 @@ exports[`VDataTable should test table filter and match snapshot 1`] = `
             1
           </div>
         </button>
-        <button class="v-button v-button--text v-button--disabled primary--text"
+        <button class="v-button v-button--text v-button--disabled"
                 style="width: 42px;"
         >
           <div class="v-button__content">

@@ -15,7 +15,7 @@ exports[`VButton should set color and match snapshot 1`] = `
 `;
 
 exports[`VButton should set disabled and match snapshot 1`] = `
-<button class="v-button v-button--disabled grey lighten-1">
+<button class="v-button v-button--disabled">
   <div class="v-button__content">
   </div>
 </button>

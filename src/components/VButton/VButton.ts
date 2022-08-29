@@ -75,10 +75,10 @@ export default defineComponent({
         'v-button--loading': props.loading,
         ...elevations,
         ...positionClasses.value,
-        ...(props.color && isFlat.value
+        ...(!props.disabled && props.color && isFlat.value
           ? setTextClassNameColor(props.color)
           : {}),
-        ...(props.color && !isFlat.value
+        ...(!props.disabled && props.color && !isFlat.value
           ? setBackgroundClassNameColor(props.color)
           : {}),
       }
@@ -91,8 +91,8 @@ export default defineComponent({
       return {
         width: (props.width || props.round) && convertToUnit(width),
         height: !!height && convertToUnit(height),
-        ...(props.color && isFlat.value ? setTextCssColor(props.color) : {}),
-        ...(props.color && !isFlat.value
+        ...(!props.disabled && props.color && isFlat.value ? setTextCssColor(props.color) : {}),
+        ...(!props.disabled && props.color && !isFlat.value
           ? setBackgroundCssColor(props.color)
           : {}),
       }

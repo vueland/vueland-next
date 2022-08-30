@@ -32,9 +32,7 @@ exports[`VDataTable should mount component and match snapshot 1`] = `
                 style="width: 42px;"
         >
           <div class="v-button__content">
-            <i class="v-icon fas fa-chevron-left grey--text text--lighten-1"
-               style="font-size: 16px;"
-            >
+            <i class="v-icon fas fa-chevron-left sm grey--text text--lighten-1">
             </i>
           </div>
         </button>
@@ -49,9 +47,7 @@ exports[`VDataTable should mount component and match snapshot 1`] = `
                 style="width: 42px;"
         >
           <div class="v-button__content">
-            <i class="v-icon fas fa-chevron-right grey--text text--lighten-1"
-               style="font-size: 16px;"
-            >
+            <i class="v-icon fas fa-chevron-right sm grey--text text--lighten-1">
             </i>
           </div>
         </button>
@@ -647,9 +643,7 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
                 style="width: 42px;"
         >
           <div class="v-button__content">
-            <i class="v-icon fas fa-chevron-left grey--text text--lighten-1"
-               style="font-size: 16px;"
-            >
+            <i class="v-icon fas fa-chevron-left sm grey--text text--lighten-1">
             </i>
           </div>
         </button>
@@ -664,9 +658,7 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
                 style="width: 42px;"
         >
           <div class="v-button__content">
-            <i class="v-icon fas fa-chevron-right grey--text text--lighten-1"
-               style="font-size: 16px;"
-            >
+            <i class="v-icon fas fa-chevron-right sm grey--text text--lighten-1">
             </i>
           </div>
         </button>
@@ -1262,9 +1254,7 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
                 style="width: 42px;"
         >
           <div class="v-button__content">
-            <i class="v-icon fas fa-chevron-left grey--text text--lighten-1"
-               style="font-size: 16px;"
-            >
+            <i class="v-icon fas fa-chevron-left sm grey--text text--lighten-1">
             </i>
           </div>
         </button>
@@ -1279,9 +1269,7 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
                 style="width: 42px;"
         >
           <div class="v-button__content">
-            <i class="v-icon fas fa-chevron-right grey--text text--lighten-1"
-               style="font-size: 16px;"
-            >
+            <i class="v-icon fas fa-chevron-right sm grey--text text--lighten-1">
             </i>
           </div>
         </button>
@@ -1877,9 +1865,7 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
                 style="width: 42px;"
         >
           <div class="v-button__content">
-            <i class="v-icon fas fa-chevron-left grey--text text--lighten-1"
-               style="font-size: 16px;"
-            >
+            <i class="v-icon fas fa-chevron-left sm grey--text text--lighten-1">
             </i>
           </div>
         </button>
@@ -1894,9 +1880,7 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
                 style="width: 42px;"
         >
           <div class="v-button__content">
-            <i class="v-icon fas fa-chevron-right grey--text text--lighten-1"
-               style="font-size: 16px;"
-            >
+            <i class="v-icon fas fa-chevron-right sm grey--text text--lighten-1">
             </i>
           </div>
         </button>
@@ -1938,9 +1922,7 @@ exports[`VDataTable should test color prop and match snapshot 1`] = `
                 style="width: 42px;"
         >
           <div class="v-button__content">
-            <i class="v-icon fas fa-chevron-left grey--text text--lighten-1"
-               style="font-size: 16px;"
-            >
+            <i class="v-icon fas fa-chevron-left sm grey--text text--lighten-1">
             </i>
           </div>
         </button>
@@ -1955,9 +1937,7 @@ exports[`VDataTable should test color prop and match snapshot 1`] = `
                 style="width: 42px;"
         >
           <div class="v-button__content">
-            <i class="v-icon fas fa-chevron-right grey--text text--lighten-1"
-               style="font-size: 16px;"
-            >
+            <i class="v-icon fas fa-chevron-right sm grey--text text--lighten-1">
             </i>
           </div>
         </button>
@@ -2038,9 +2018,7 @@ exports[`VDataTable should test cols prop and match snapshot 1`] = `
                 style="width: 42px;"
         >
           <div class="v-button__content">
-            <i class="v-icon fas fa-chevron-left grey--text text--lighten-1"
-               style="font-size: 16px;"
-            >
+            <i class="v-icon fas fa-chevron-left sm grey--text text--lighten-1">
             </i>
           </div>
         </button>
@@ -2055,9 +2033,7 @@ exports[`VDataTable should test cols prop and match snapshot 1`] = `
                 style="width: 42px;"
         >
           <div class="v-button__content">
-            <i class="v-icon fas fa-chevron-right grey--text text--lighten-1"
-               style="font-size: 16px;"
-            >
+            <i class="v-icon fas fa-chevron-right sm grey--text text--lighten-1">
             </i>
           </div>
         </button>
@@ -2081,9 +2057,7 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
             Name
           </div>
           <span class="v-data-table-col__actions">
-            <button class="v-icon v-icon--clickable fas fa-arrow-up v-data-table-col__actions-sort"
-                    style="font-size: 16px;"
-            >
+            <button class="v-icon v-icon--clickable fas fa-arrow-up sm v-data-table-col__actions-sort">
             </button>
           </span>
           <transition-stub>
@@ -2661,9 +2635,7 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
                 style="width: 42px;"
         >
           <div class="v-button__content">
-            <i class="v-icon fas fa-chevron-left grey--text text--lighten-1"
-               style="font-size: 16px;"
-            >
+            <i class="v-icon fas fa-chevron-left sm grey--text text--lighten-1">
             </i>
           </div>
         </button>
@@ -2678,9 +2650,7 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
                 style="width: 42px;"
         >
           <div class="v-button__content">
-            <i class="v-icon fas fa-chevron-right grey--text text--lighten-1"
-               style="font-size: 16px;"
-            >
+            <i class="v-icon fas fa-chevron-right sm grey--text text--lighten-1">
             </i>
           </div>
         </button>
@@ -2704,9 +2674,7 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
             Name
           </div>
           <span class="v-data-table-col__actions">
-            <button class="v-icon v-icon--clickable fas fa-align-justify v-data-table-col__actions-filter v-data-table-col__actions-filter--active"
-                    style="font-size: 16px;"
-            >
+            <button class="v-icon v-icon--clickable fas fa-align-justify sm v-data-table-col__actions-filter v-data-table-col__actions-filter--active">
             </button>
           </span>
           <transition-stub>
@@ -3310,9 +3278,7 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
                 style="width: 42px;"
         >
           <div class="v-button__content">
-            <i class="v-icon fas fa-chevron-left grey--text text--lighten-1"
-               style="font-size: 16px;"
-            >
+            <i class="v-icon fas fa-chevron-left sm grey--text text--lighten-1">
             </i>
           </div>
         </button>
@@ -3327,9 +3293,7 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
                 style="width: 42px;"
         >
           <div class="v-button__content">
-            <i class="v-icon fas fa-chevron-right grey--text text--lighten-1"
-               style="font-size: 16px;"
-            >
+            <i class="v-icon fas fa-chevron-right sm grey--text text--lighten-1">
             </i>
           </div>
         </button>
@@ -3353,9 +3317,7 @@ exports[`VDataTable should test table filter and match snapshot 1`] = `
             Name
           </div>
           <span class="v-data-table-col__actions">
-            <button class="v-icon v-icon--clickable fas fa-align-justify v-data-table-col__actions-filter v-data-table-col__actions-filter--active"
-                    style="font-size: 16px;"
-            >
+            <button class="v-icon v-icon--clickable fas fa-align-justify sm v-data-table-col__actions-filter v-data-table-col__actions-filter--active">
             </button>
           </span>
           <transition-stub>
@@ -3490,9 +3452,7 @@ exports[`VDataTable should test table filter and match snapshot 1`] = `
                 style="width: 42px;"
         >
           <div class="v-button__content">
-            <i class="v-icon fas fa-chevron-left grey--text text--lighten-1"
-               style="font-size: 16px;"
-            >
+            <i class="v-icon fas fa-chevron-left sm grey--text text--lighten-1">
             </i>
           </div>
         </button>
@@ -3507,9 +3467,7 @@ exports[`VDataTable should test table filter and match snapshot 1`] = `
                 style="width: 42px;"
         >
           <div class="v-button__content">
-            <i class="v-icon fas fa-chevron-right grey--text text--lighten-1"
-               style="font-size: 16px;"
-            >
+            <i class="v-icon fas fa-chevron-right sm grey--text text--lighten-1">
             </i>
           </div>
         </button>

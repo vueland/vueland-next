@@ -6,9 +6,7 @@ exports[`VToolbar should mount component and match snapshot 1`] = `
 >
   <div class="v-toolbar__content">
     <div class="v-toolbar__nav-btn">
-      <button class="v-icon v-icon--clickable fas fa-bars"
-              style="font-size: 16px;"
-      >
+      <button class="v-icon v-icon--clickable fas fa-bars sm">
       </button>
     </div>
     <div class="v-toolbar__logo">

@@ -30,7 +30,7 @@ export default defineComponent({
     ...colorProps(),
   },
   setup(props, { slots }): () => VNode {
-    const { icons } = useIcons()
+    const { icons, isMaterial } = useIcons()
     const { setBackgroundCssColor, setBackgroundClassNameColor } = useColors()
 
     const isActive = ref<boolean>(false)
@@ -82,8 +82,11 @@ export default defineComponent({
 
     const genIcon = (iconName: string): VNode => {
       return h(VIcon, {
-        icon: iconName,
-        size: 16,
+        icon: !isMaterial ? iconName : null,
+        sm: !isMaterial,
+        lg: isMaterial
+      }, {
+        default: () => isMaterial ? iconName : null
       })
     }
 

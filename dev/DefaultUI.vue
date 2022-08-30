@@ -1,6 +1,7 @@
 <script lang="ts">
 import { reactive, ref, computed, inject, watch } from 'vue'
 import { FaIcons } from '../src/services/icons'
+import { useTheme } from '../src/composables/use-theme'
 
 export default {
   setup() {
@@ -33,9 +34,17 @@ export default {
       )
     }, 4000)
 
-    const $v_breakpoints = inject('$v_breakpoints', {})
+    const $v_breakpoints = inject('$v_breakpoints', {} as any)
+    const { setTheme } = useTheme()
 
-    watch($v_breakpoints, (to) => console.log(to), { deep: true, immediate: true })
+    watch($v_breakpoints, (to) => {
+      console.log(to)
+      if ($v_breakpoints.current === 'sm') {
+        setTheme({ primary: '#fa5a5a' })
+      } else {
+        setTheme({ primary: '#147eef' })
+      }
+      }, { deep: true, immediate: true })
 
     const showMenu = (e) => {
       e.preventDefault()

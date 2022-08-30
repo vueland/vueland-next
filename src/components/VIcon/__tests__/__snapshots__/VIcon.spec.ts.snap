@@ -1,8 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`VForm should mount component and match snapshot 1`] = `
-<i class="v-icon"
-   style="font-size: 16px;"
->
+<i class="v-icon sm">
 </i>
 `;

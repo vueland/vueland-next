@@ -36,6 +36,7 @@ export class Vueland implements Library {
       this.setTheme(defaultTheme)
     }
 
+    app.provide('$v', this)
     app.provide('$v_theme', this.theme)
     app.provide('$v_icons', this.icons)
   }

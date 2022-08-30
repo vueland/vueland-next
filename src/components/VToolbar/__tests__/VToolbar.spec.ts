@@ -5,6 +5,11 @@ import { VToolbar, VToolbarNavBtn, VToolbarLogo, VToolbarItems, VToolbarContent 
 describe('VToolbar', () => {
   const mountFunction = (options = {}) => mount(VToolbar, {
     ...options,
+    global: {
+      provide: {
+        $v: {},
+      },
+    },
     slots: {
       default: () => h(VToolbarContent, {},
         {

@@ -23,38 +23,15 @@ export enum FaIcons {
 export enum MaterialIcons {
   $add = 'add',
   $delete = 'delete_forever',
-  $sliders = 'fas fa-sliders-h',
-  $edit = 'fas fa-pen',
-  $menu = 'fas fa-bars',
-  $expand = 'expand_more',
+  $chevronDown = 'expand_more',
   $group = 'expand_more',
-  $subgroup = 'arrow_drop_down',
-  $dropdown = 'fas fa-caret-down',
-  $radioOn = 'far fa-dot-circle',
-  $radioOff = 'far fa-circle',
+  $caretDown = 'arrow_drop_down',
   $box = 'check_box',
   $checkbox = 'check_box_outline_blank',
   $arrowRight = 'chevron_right',
   $arrowLeft = 'chevron_left',
   $arrowUp = 'arrow_upward',
   $filter = 'filter_list',
-  $marker = 'fas fa-map-marker-alt',
   $search = 'search',
   $close = 'clear',
-}
-
-export enum MaterialSizes {
-  'xs' = 14,
-  's' = 18,
-  'md' = 20,
-  'l' = 28,
-  'xl' = 36
-}
-
-export enum FaSizes {
-  'xs' = 12,
-  's' = 14,
-  'md' = 18,
-  'l' = 24,
-  'xl' = 32
 }

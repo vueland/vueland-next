@@ -4,18 +4,15 @@ import {
   MaterialIcons,
 } from '../services/icons'
 
-import { UserOptions } from '../../types'
+export const useIcons = () => {
+  const options: any = inject('$v_icons', 'fa')
+  const isMaterial = options === 'material-icons'
 
-export function useIcons() {
-  const options: Maybe<UserOptions> = inject('$options', () => null) as UserOptions
+  let icons: any = MaterialIcons
 
-  let icons: any = FaIcons
-
-  if (options?.icons) {
-    if (options.icons.includes('material-icons')) {
-      icons = MaterialIcons
-    }
+  if (!isMaterial) {
+    icons = FaIcons
   }
 
-  return { icons }
+  return { icons, isMaterial }
 }

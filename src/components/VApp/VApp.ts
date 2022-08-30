@@ -64,7 +64,7 @@ export default defineComponent({
         return (state.current = 'sm')
       }
 
-      return null
+      return  (state.current = 'sm')
     }
 
     const setIntervals = (screen) => {
@@ -77,12 +77,10 @@ export default defineComponent({
     }
 
     const setSizes = () => {
-      // the "global" prop allows to test the
-      // component without using mockups
-      const screen = props.global?.innerWidth || window.innerWidth
+      const { innerWidth } = props.global || window
 
-      setCurrentBreakpoint(screen)
-      setIntervals(screen)
+      setCurrentBreakpoint(innerWidth)
+      setIntervals(innerWidth)
     }
 
     const throttledResizeListener = throttle(

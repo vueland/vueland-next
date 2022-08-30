@@ -13,7 +13,7 @@ describe('VDataTable', () => {
         ...options,
         global: {
           provide: {
-            $options: null,
+            $v: {},
           },
         },
       })

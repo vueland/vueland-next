@@ -13,7 +13,7 @@ export const vueland = createVueland({
   directives,
 })
 
-vueland.setIcons('material-icons')
+vueland.setIcons('fa')
 
 vueland.setTheme({
   primary: colors.blue.darken3,

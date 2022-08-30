@@ -3,7 +3,7 @@ import { defineComponent, h, computed } from 'vue'
 
 // Composable
 import { useColors, colorProps } from '../../composables/use-colors'
-import { sizeProps } from '../../composables/use-size'
+import { sizeProps, useSize } from '../../composables/use-size'
 
 // Helpers
 import { convertToUnit } from '../../helpers'
@@ -12,7 +12,7 @@ import { convertToUnit } from '../../helpers'
 import { VNode } from 'vue'
 
 // Services
-import { sizes } from '../../services/sizes'
+import { useIcons } from '@/composables/use-icons'
 
 export default defineComponent({
   name: 'v-icon',
@@ -20,7 +20,7 @@ export default defineComponent({
   props: {
     disabled: Boolean,
     clickable: Boolean,
-    size: [ String, Number ],
+    size: [String, Number],
     icon: String,
     tag: {
       type: String,
@@ -30,44 +30,28 @@ export default defineComponent({
     ...sizeProps('sm'),
   } as any,
 
-  emits: [ 'click' ],
+  emits: ['click'],
 
   setup(props, { slots, emit }): () => VNode {
     const { setTextCssColor, setTextClassNameColor } = useColors()
+    const { isMaterial } = useIcons()
+    const { size } = useSize(props)
     const iconTag = props.clickable ? 'button' : props.tag
-
-    const computedIcon = computed<string>(() => {
-      return (
-        props.icon ||
-        (slots.default && slots.default()[0].children)
-      )?.trim()
-    })
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-icon': true,
       'v-icon--disabled': props.disabled,
       'v-icon--clickable': props.clickable,
-      [computedIcon.value]: !!computedIcon.value,
+      'material-icons': isMaterial,
+      [props.icon]: !!props.icon && !isMaterial,
+      [size.value]: !props.size,
       ...(props.color ? setTextClassNameColor(props.color) : {}),
     }))
 
     const styles = computed<Record<string, string>>(() => ({
-      fontSize: getSizes(),
+      fontSize: props.size && convertToUnit(props.size),
       ...(props.color ? setTextCssColor(props.color) : {}),
     }))
-
-    const getSizes = (): string => {
-      const sizeProps = {
-        sm: props.sm,
-        md: props.md,
-        lg: props.lg,
-        xl: props.xl,
-      }
-
-      const explicitSize = Object.keys(sizeProps).find((key) => sizeProps[key])!
-
-      return convertToUnit(props.size || (explicitSize && sizes[explicitSize]))!
-    }
 
     const onClick = () => {
       if (!props.disabled && props.clickable) emit('click')
@@ -77,6 +61,8 @@ export default defineComponent({
       class: classes.value,
       style: styles.value,
       onClick,
+    }, {
+      default: () => isMaterial ? slots.default?.() : null,
     })
   },
 })

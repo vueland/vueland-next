@@ -75,7 +75,7 @@ export const VDataTableCell = defineComponent({
         },
       }
 
-      return h('div', propsData, slots.default && slots.default())
+      return h('div', propsData, slots.default?.())
     }
 
     return () => {

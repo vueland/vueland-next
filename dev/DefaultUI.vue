@@ -11,7 +11,7 @@ export default {
       test: true,
       login: '',
       email: '',
-      title: '',
+      title: 0,
       password: '',
       user: '',
       checked: [],
@@ -248,30 +248,42 @@ export default {
           <v-col cols="12">
             <v-skeleton
               class="my-2"
-              height="10"
-            />
-            <v-skeleton
-              class="my-2"
-              height="20"
+              height="30"
+              color="grey lighten-2"
             />
             <v-skeleton
               class="my-2"
               height="30"
+              color="grey lighten-2"
             />
             <v-skeleton
               class="my-2"
-              height="40"
+              height="30"
+              color="grey lighten-2"
             />
             <v-skeleton
               class="my-2"
-              height="50"
+              height="30"
+              color="grey darken-2"
+              dynamic
             />
-
             <v-skeleton
               class="my-2"
-              height="60"
-              width="60"
-              radius="60"
+              height="30"
+              color="grey darken-2"
+              dynamic
+            />
+            <v-skeleton
+              class="my-2"
+              height="30"
+              color="grey darken-2"
+              dynamic
+            />
+            <v-skeleton
+              class="my-2"
+              height="100"
+              width="100"
+              radius="100"
             />
           </v-col>
         </v-row>

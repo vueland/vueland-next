@@ -38,7 +38,7 @@ export default defineComponent({
     },
   },
   setup(props, { slots }) {
-    const THROTTLING_TIMEOUT = 60
+    const TIMEOUT = 40
 
     const state = reactive<AppBreakpoints>({
       current: null,
@@ -64,7 +64,7 @@ export default defineComponent({
         return (state.current = 'sm')
       }
 
-      return  (state.current = 'sm')
+      return (state.current = 'sm')
     }
 
     const setIntervals = (screen) => {
@@ -83,23 +83,20 @@ export default defineComponent({
       setIntervals(innerWidth)
     }
 
-    const throttledResizeListener = throttle(
-      setSizes,
-      THROTTLING_TIMEOUT,
-    ) as () => void
-
     const genAppWrapper = () => {
       return h('div', { class: 'v-app--wrapper' }, {
         default: () => slots.default && slots.default(),
       })
     }
 
+    const throttledResizeListener = throttle(setSizes, TIMEOUT)
+
     onMounted(() => setSizes())
 
     return () =>
       withDirectives(
         h('div', { class: 'v-app' }, genAppWrapper()),
-        [[resize, throttledResizeListener]],
+        [ [ resize, throttledResizeListener ] ],
       )
   },
 })

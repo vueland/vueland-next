@@ -14,5 +14,5 @@ export const useIcons = () => {
     icons = FaIcons
   }
 
-  return { icons, isMaterial }
+  return { icons, isMaterial, iconsBaseClass: options }
 }

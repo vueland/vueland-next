@@ -34,16 +34,20 @@ export default defineComponent({
 
   setup(props, { slots, emit }): () => VNode {
     const { setTextCssColor, setTextClassNameColor } = useColors()
-    const { isMaterial } = useIcons()
+    const { isMaterial, iconsBaseClass } = useIcons()
     const { size } = useSize(props)
     const iconTag = props.clickable ? 'button' : props.tag
+
+    const computedIcon = computed<string>(() => {
+      return props.icon || slots.default?.()[0].children
+    })
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-icon': true,
       'v-icon--disabled': props.disabled,
       'v-icon--clickable': props.clickable,
-      'material-icons': isMaterial,
-      [props.icon]: !!props.icon && !isMaterial,
+      [iconsBaseClass]: isMaterial,
+      [computedIcon.value]: !isMaterial,
       [size.value]: !props.size,
       ...(props.color ? setTextClassNameColor(props.color) : {}),
     }))
@@ -62,7 +66,7 @@ export default defineComponent({
       style: styles.value,
       onClick,
     }, {
-      default: () => isMaterial ? slots.default?.() : null,
+      default: () => isMaterial ? computedIcon.value : null,
     })
   },
 })

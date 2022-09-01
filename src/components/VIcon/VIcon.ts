@@ -12,7 +12,7 @@ import { convertToUnit } from '../../helpers'
 import { VNode } from 'vue'
 
 // Services
-import { useIcons } from '@/composables/use-icons'
+import { useIcons } from '../../composables/use-icons'
 
 export default defineComponent({
   name: 'v-icon',

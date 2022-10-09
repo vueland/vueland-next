@@ -47,7 +47,7 @@ export const VDataTableBody = defineComponent({
       ...(props.color ? setBackgroundCssColor(props.color) : {}),
     }))
 
-    const rowsOnTable = computed<any[]>(() => {
+    const rowsOnTable = computed<Record<string, any>[]>(() => {
       return props.rows?.slice(
         (props.page - 1) * props.rowsOnPage,
         props.page * props.rowsOnPage,

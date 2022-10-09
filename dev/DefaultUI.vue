@@ -249,22 +249,23 @@ export default {
             <v-skeleton
               class="my-2"
               height="30"
-              color="grey lighten-2"
-            />
-            <v-skeleton
-              class="my-2"
-              height="30"
-              color="grey lighten-2"
-            />
-            <v-skeleton
-              class="my-2"
-              height="30"
-              color="grey lighten-2"
-            />
-            <v-skeleton
-              class="my-2"
-              height="30"
               color="grey darken-2"
+            />
+            <v-skeleton
+              class="my-2"
+              height="30"
+              color="grey lighten-2"
+            />
+            <v-skeleton
+              class="my-2"
+              height="30"
+              color="grey lighten-2"
+            />
+            <v-skeleton
+              class="my-2"
+              height="30"
+              color="green darken-2"
+              origin="center"
               dynamic
             />
             <v-skeleton

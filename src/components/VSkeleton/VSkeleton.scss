@@ -6,6 +6,8 @@
   border-radius: 5px;
   overflow: hidden;
   transform: translateZ(0);
+  background-image: linear-gradient(100deg, currentColor 30%, #f6f7f8 50%, currentColor 70%);
+  background-size: 300%;
 
   &:before {
     content: "";
@@ -18,12 +20,22 @@
   }
 
   &--light {
-    background-image: linear-gradient(100deg, currentColor 30%, #f6f7f8 50%, currentColor 70%);
-    background-size: 300%;
+
+  }
+
+  &--left {
+    transform-origin: left;
+  }
+
+  &--center {
+    transform-origin: center;
+  }
+
+  &--right {
+    transform-origin: right;
   }
 
   &--dynamic {
-    transform-origin: center;
     animation: dynamicUp 2s ease-in-out infinite;
     opacity: 0;
 

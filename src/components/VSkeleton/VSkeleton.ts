@@ -21,14 +21,15 @@ export default defineComponent({
       type: [ Number, String ],
       default: 5,
     },
-    light: {
-      type: Boolean,
-      default: true,
+    origin: {
+      type: String,
+      default: 'left',
+      validator: (val) => ['left', 'center', 'right'].includes(val as string)
     },
     dynamic: Boolean,
     ...colorProps('grey lighten-2')
   },
-  setup(props) {
+  setup(props: any) {
     const {
       setTextClassNameColor,
       setTextCssColor
@@ -36,8 +37,8 @@ export default defineComponent({
 
     const classes = computed(() => ({
       'v-skeleton': true,
-      'v-skeleton--light': props.light,
       'v-skeleton--dynamic': props.dynamic,
+      [`v-skeleton--${ props.origin }`]: true,
       ...(props.color ? setTextClassNameColor(props.color) : '')
     }))
 

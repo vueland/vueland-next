@@ -19,7 +19,7 @@
 
       .#{$color_name}--text {
         @include text-color($color_value);
-        @include text-active($color_value)
+        @include text-active($color_value);
       }
     }
     .#{$color_name}.#{$color_type} {
@@ -28,7 +28,7 @@
 
     .#{$color_name}--text.text--#{$color_type} {
       @include text-color($color_value);
-      @include text-active($color_value)
+      @include text-active($color_value);
     }
   }
 }

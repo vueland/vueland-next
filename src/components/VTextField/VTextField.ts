@@ -14,19 +14,19 @@ export default defineComponent({
   inheritAttrs: true,
   props: {
     modelValue: {
-      type: [ String, Number ],
+      type: [String, Number],
       default: '',
     },
     ...validationProps(),
   },
-  emits: [ 'update:modelValue', 'input', 'blur', 'focus', 'change' ],
+  emits: ['update:modelValue', 'input', 'blur', 'focus', 'change'],
 
-  setup(props, { emit, attrs }) {
+  setup(props, { emit, attrs, slots }) {
     const inputRef = ref(null)
     const {
       isReadonly,
       isDisabled,
-      onChange
+      onChange,
     } = useInputStates(props, { emit, attrs })
 
     const classes = computed<Record<string, boolean>>(() => ({
@@ -66,9 +66,10 @@ export default defineComponent({
           ...(!attrs.disabled ? textCssColor : {}),
         },
         disabled: attrs.disabled,
-        type: attrs.type ? attrs.type : 'text',
+        type: attrs.type || 'text',
         placeholder: attrs.placeholder,
         readonly: attrs.readonly,
+        autocomplete: attrs.autocomplete,
         value: computedValue.value,
         onInput,
         onFocus,
@@ -78,23 +79,23 @@ export default defineComponent({
     }
 
     const genTextFieldWrapper = (clsColor, cssColor) => {
-      return h(
-        'div',
-        {
+      return h('div', {
           class: classes.value,
         },
-        genInputField(clsColor, cssColor)
+        genInputField(clsColor, cssColor),
       )
     }
 
     return () => h(VInput, {
       value: computedValue.value,
       rules: props.rules,
-      ref: inputRef
+      ref: inputRef,
     }, {
       ['text-field']: ({ textClassColor, textCssColor }) => {
         return genTextFieldWrapper(textClassColor, textCssColor)
       },
+      ...(slots['prepend-icon'] ? {['prepend-icon']: () => slots['prepend-icon']?.()} : {}),
+      ...(slots['append-icon'] ? {['append-icon']: () => slots['append-icon']?.()} : {}),
     })
   },
 })

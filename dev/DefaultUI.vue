@@ -551,7 +551,11 @@ export default {
             prepend-icon="fa at"
             clearable
             :rules="[v => !!v || 'required', v => v.length > 5 || 'more than 5']"
-          />
+          >
+            <template #append-icon>
+              <v-icon>fas fa-eye-slash</v-icon>
+            </template>
+          </v-text-field>
           <v-text-field
             v-model="data.email"
             label="email"

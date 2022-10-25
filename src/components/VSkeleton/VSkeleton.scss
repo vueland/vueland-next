@@ -6,8 +6,8 @@
   border-radius: 5px;
   overflow: hidden;
   transform: translateZ(0);
-  background-image: linear-gradient(100deg, currentColor 30%, #f6f7f8 50%, currentColor 70%);
   background-size: 300%;
+  background-color: currentColor;
 
   &:before {
     content: "";
@@ -15,12 +15,8 @@
     width: 200%;
     height: 100%;
     transform: translateX(-300%);
-    background-image: inherit;
+    background-image: linear-gradient(100deg, currentColor 30%, #f6f7f8 50%, currentColor 70%);
     animation: loading 2.5s ease-in-out infinite;
-  }
-
-  &--light {
-
   }
 
   &--left {

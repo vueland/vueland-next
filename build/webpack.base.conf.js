@@ -8,7 +8,7 @@ const { VueLoaderPlugin } = require('vue-loader')
 module.exports = (env = {}) => {
   return {
     output: {
-      publicPath: 'http://localhost:8081/',
+      publicPath: 'http://localhost:8082/',
       clean: true
     },
     optimization: {

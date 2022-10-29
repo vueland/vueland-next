@@ -14,7 +14,7 @@ const devConfig = (env = {}) => merge(baseConfig(env), {
   devServer: {
     host: 'localhost',
     open: false,
-    port: 8081,
+    port: 8082,
     hot: true,
     historyApiFallback: {
       rewrites: [
@@ -24,7 +24,7 @@ const devConfig = (env = {}) => merge(baseConfig(env), {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'evo-ui',
+      title: 'vueland',
       hash: false,
       template: path.resolve(__dirname, '../dev') + '/index.html',
       filename: 'index.html',

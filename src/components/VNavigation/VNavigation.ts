@@ -50,6 +50,7 @@ export default defineComponent({
       'v-navigation': true,
       'v-navigation--expanded': isExpanded.value,
       'v-navigation--fixed': props.fixed,
+      'v-navigation--base': !props.color,
       ...(props.color ? setBackgroundClassNameColor(props.color) : {}),
     }))
 
@@ -71,14 +72,18 @@ export default defineComponent({
     }
 
     const onMouseenter = () => {
-      if (!props.onHover || props.miniVariant) return
+      if (!props.onHover || props.miniVariant) {
+        return
+      }
 
       isHovered.value = true
       emit('update:expand', true)
     }
 
     const onMouseleave = () => {
-      if (!props.onHover || props.miniVariant) return
+      if (!props.onHover || props.miniVariant) {
+        return
+      }
 
       isHovered.value = false
       emit('update:expand', false)

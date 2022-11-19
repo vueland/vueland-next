@@ -40,6 +40,7 @@ export default defineComponent({
       'v-list': true,
       'v-list--active': props.active,
       'v-list--themeable': !props.color,
+      'v-list--base': !props.color,
       ...setTextClassNameColor(props.textColor),
       ...setBackgroundClassNameColor(props.color),
     }))

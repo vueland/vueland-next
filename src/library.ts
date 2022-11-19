@@ -42,6 +42,10 @@ export class Vueland implements Library {
   }
 
   setTheme(theme: UserOptions['theme']) {
+    if (typeof document === 'undefined') {
+      return
+    }
+
     const root = document.documentElement
 
     this.theme.value = Object.assign(this.theme.value || {}, theme)
@@ -49,6 +53,7 @@ export class Vueland implements Library {
     Object.keys(this.theme.value).forEach(key => {
       root.style.setProperty(`--${ key }`, this.theme.value![key])
     })
+
   }
 
   setIcons(icons: UserOptions['icons']) {

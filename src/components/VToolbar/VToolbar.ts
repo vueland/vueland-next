@@ -13,7 +13,7 @@ export default defineComponent({
       type: [ String, Number ],
       default: 56
     },
-    ...colorProps('#ffffff')
+    ...colorProps(),
   },
   setup(props, { slots }): () => VNode {
     const { setBackgroundClassNameColor, setBackgroundCssColor } = useColors()
@@ -21,6 +21,7 @@ export default defineComponent({
     const classes = computed<Record<string, boolean>>(() => ({
       'v-toolbar': true,
       'v-toolbar--fixed': props.fixed,
+      'v-toolbar--base': !props.color,
       ...setBackgroundClassNameColor(props.color)
     }))
 

@@ -14,4 +14,8 @@
     border-radius: 3px;
     transition: .15s all $primary-transition;
   }
+
+  &__slot {
+    background-color: var(--base);
+  }
 }

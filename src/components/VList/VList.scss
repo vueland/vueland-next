@@ -1,6 +1,10 @@
 .v-list {
   overflow: hidden;
 
+  &--base {
+    background-color: var(--base);
+  }
+
   & > .v-list-item:before {
     content: "";
     position: absolute;

@@ -22,8 +22,8 @@ vueland.setTheme({
   error: colors.red.accent4,
   success: colors.green.base,
   warning: colors.orange.base,
-  base: colors.white.base,
-  content: colors.grey.darken3,
+  base: colors.grey.darken4,
+  content: colors.green.accent3,
 })
 
 export default vueland

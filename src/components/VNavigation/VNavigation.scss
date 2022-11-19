@@ -9,7 +9,10 @@
   max-width: 100%;
   transition: .3s width $primary-transition;
   z-index: 7;
-  background-color: var(--base);
+
+  &--base {
+    background-color: var(--base);
+  }
 
   &--fixed {
     position: fixed;

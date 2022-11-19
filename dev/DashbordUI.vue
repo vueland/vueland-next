@@ -71,7 +71,6 @@ export default defineComponent({
       v-click-outside="clickOutsideHandler"
       class="elevation-3"
       fixed
-      color="green accent-4"
     >
       <v-toolbar-content>
         <v-toolbar-nav-btn></v-toolbar-nav-btn>
@@ -86,7 +85,6 @@ export default defineComponent({
       class="elevation-2"
       :fixed="true"
       :on-hover="true"
-      color="#303030"
     >
       <v-spacer class="py-7"/>
       <v-group
@@ -99,8 +97,6 @@ export default defineComponent({
         <v-list
           active
           multiple
-          color="#303030"
-          class="white--text text--base"
         >
           <v-list-item
             v-for="it in 7"
@@ -122,7 +118,6 @@ export default defineComponent({
       </v-group>
       <v-list
         active
-        color="#303030"
         active-class="green"
       >
         <v-list-item

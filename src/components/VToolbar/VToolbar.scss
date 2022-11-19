@@ -3,6 +3,10 @@
   width: 100%;
   z-index: 8;
 
+  &--base {
+    background-color: var(--base);
+  }
+
   &--fixed {
     position: fixed;
   }

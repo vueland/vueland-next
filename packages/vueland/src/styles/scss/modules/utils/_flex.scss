@@ -1,0 +1,92 @@
+@import "../variables";
+
+$justify: (
+        'center': center,
+        'start' : flex-start,
+        'end' : flex-end,
+        'space-between': space-between,
+        'space-around': space-around
+);
+
+$align: (
+        'center': center,
+        'start' : flex-start,
+        'end' : flex-end,
+        'baseline': baseline,
+        'stretch': stretch
+);
+
+$align-content: (
+        'center': center,
+        'start' : flex-start,
+        'end' : flex-end,
+        'space-between': space-between,
+        'space-around': space-around,
+        'stretch': stretch
+);
+
+.d-flex {
+  display: flex;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+@each $key in map-keys($justify) {
+  .justify-#{$key} {
+    justify-content: map-get($justify, $key);
+  }
+}
+
+@each $key in map-keys($align) {
+  .align-#{$key} {
+    align-items: map-get($align, $key);
+  }
+}
+
+@each $key in map-keys($align) {
+  .align-self-#{$key} {
+    align-self: map-get($align, $key);
+  }
+}
+
+@each $key in map-keys($align-content) {
+  .align-content-#{$key} {
+    align-content: map-get($align-content, $key);
+  }
+}
+
+@for $i from 1 to $columns + 1 {
+  .order-#{$i} {
+    order: $i
+  }
+}
+
+@each $size in map-keys($grid-breakpoints) {
+  @media (min-width: map-get($grid-breakpoints, $size)) {
+    @each $key in map-keys($justify) {
+      .justify-#{$size}-#{$key} {
+        justify-content: map-get($justify, $key);
+      }
+    }
+    @each $key in map-keys($align) {
+      .align-#{$size}-#{$key} {
+        align-items: map-get($align, $key);
+      }
+    }
+    @each $key in map-keys($align-content) {
+      .align-content-#{$size}-#{$key} {
+        align-contet: map-get($align-content, $key);
+      }
+    }
+  }
+}

@@ -10,9 +10,9 @@ const buildConfig = (env = {}) => merge(baseConfig(env), {
   target: 'browserslist',
   mode: 'production',
   entry: {
-    ['vueland']: path.resolve(__dirname, '../src/index.ts'),
-    ['css/vueland-base']: path.resolve(__dirname, '../src/styles/scss/main.scss'),
-    ['css/themes/vueland-theme']: path.resolve(__dirname, '../src/styles/scss/themes/vueland-theme.scss'),
+    ['vueland']: path.resolve(__dirname, '../packages/vueland/src/index.ts'),
+    ['css/vueland-base']: path.resolve(__dirname, '../packages/vueland/src/styles/scss/main.scss'),
+    ['css/themes/vueland-theme']: path.resolve(__dirname, '../packages/vueland/src/styles/scss/themes/vueland-theme.scss'),
   },
   output: {
     path: path.resolve(__dirname, '../dist'),
@@ -31,7 +31,7 @@ const buildConfig = (env = {}) => merge(baseConfig(env), {
   plugins: [
     new copyWebpackPlugin({
       patterns: [
-        { from: path.resolve(__dirname, '../types'), to: 'types/' },
+        { from: path.resolve(__dirname, '../packages/vueland/src/types'), to: 'types/' },
       ],
     }),
   ],

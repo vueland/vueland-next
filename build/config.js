@@ -10,8 +10,8 @@ externals = [Object.assign({
 exports.externals = externals
 
 exports.alias = {
-  '@': path.resolve(__dirname, '../src'),
-  vueland: path.resolve(__dirname, '../')
+  '@': path.resolve(__dirname, '../packages/vueland/src'),
+  vueland: path.resolve(__dirname, '../packages/vueland')
 }
 
 exports.vue = {

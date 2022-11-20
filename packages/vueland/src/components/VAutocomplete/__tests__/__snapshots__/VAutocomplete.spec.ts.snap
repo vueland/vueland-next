@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VAutocomplete should mount component and match snapshot 1`] = `
+<div class="v-input primary--text">
+  <div class="v-input__label">
+    <label class="v-label primary--text v-label--on-input">
+    </label>
+  </div>
+  <div class="v-input__text-field">
+    <div class="v-autocomplete primary--text">
+      <input class="v-autocomplete__input">
+    </div>
+  </div>
+  <div class="v-input__hints">
+    <transition-stub name="fade"
+                     mode
+                     appear="false"
+                     persisted="false"
+                     css="true"
+    >
+    </transition-stub>
+  </div>
+</div>
+`;

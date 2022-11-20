@@ -1,0 +1,58 @@
+@import "../../styles/scss/modules/global";
+
+$item-title-padding: 0 10px;
+$item-title-font-size: 1rem;
+$item-subtitle-font-size: .8rem;
+$item-icon-width: 48px;
+
+.v-list-item {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  position: relative;
+  overflow: hidden;
+  transition-property: background-color, color, border;
+  transition-duration: .4s;
+  transition-timing-function: $primary-transition;
+
+  &:nth-last-child(1) {
+    border-bottom: none;
+  }
+
+  &--selected {
+    color: var(--primary)
+  }
+
+  &__icon {
+    width: $item-icon-width;
+    flex: 0 0 $item-icon-width;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+
+    & > * {
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  &__content {
+    overflow: hidden;
+  }
+
+  &__title {
+    padding: $item-title-padding;
+    font-size: $item-title-font-size;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__subtitle {
+    padding: $item-title-padding;
+    font-size: $item-subtitle-font-size;
+    opacity: .5;
+  }
+}

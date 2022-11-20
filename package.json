@@ -18,11 +18,11 @@
     "*.css"
   ],
   "files": [
-    "src/*",
+    "packages/vueland/src/*",
     "dist/*",
     "lib/*",
     "es5/*",
-    "types/*",
+    "packages/vueland/src/types/*",
     "*.js",
     "*.ts"
   ],
@@ -35,7 +35,7 @@
     "test": "jest -u",
     "test:editor": "editorconfig-checker --exclude '.git|node_modules|dist|es5|lib|.idea'",
     "declarations": "ttsc --emitDeclarationOnly",
-    "lint": "eslint --ext .ts,.vue src"
+    "lint": "eslint --ext .ts,.vue packages/vueland/src"
   },
   "repository": {
     "type": "git",

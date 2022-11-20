@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VModal should close modal and match snapshot 1`] = `
+<div>
+  <transition-stub mode
+                   appear="false"
+                   persisted="false"
+                   css="true"
+  >
+    <div class="v-modal"
+         style="display: none;"
+    >
+      <div class="v-modal__content">
+        slot content
+      </div>
+    </div>
+  </transition-stub>
+</div>
+`;
+
+exports[`VModal should mount component and match snapshot 1`] = `
+<transition-stub mode
+                 appear="false"
+                 persisted="false"
+                 css="true"
+>
+  <div class="v-modal"
+       style="display: none;"
+  >
+    <div class="v-modal__content">
+    </div>
+  </div>
+</transition-stub>
+`;
+
+exports[`VModal should open modal and match snapshot 1`] = `
+<div>
+  <transition-stub mode
+                   appear="false"
+                   persisted="false"
+                   css="true"
+  >
+    <div class="v-overlay v-overlay--active"
+         style="background-color: rgb(0, 0, 0); border-color: #000000; z-index: 9;"
+    >
+    </div>
+    <div class="v-modal"
+         style="z-index: 10;"
+    >
+      <div class="v-modal__content">
+        slot content
+      </div>
+    </div>
+  </transition-stub>
+</div>
+`;
+
+exports[`VModal should set overlay color and match snapshot 1`] = `
+<div>
+  <transition-stub mode
+                   appear="false"
+                   persisted="false"
+                   css="true"
+  >
+    <div class="v-overlay v-overlay--active"
+         style="background-color: rgb(255, 255, 255); border-color: #ffffff; z-index: 9;"
+    >
+    </div>
+    <div class="v-modal"
+         style="z-index: 10;"
+    >
+      <div class="v-modal__content">
+        slot content
+      </div>
+    </div>
+  </transition-stub>
+</div>
+`;
+
+exports[`VModal should set scaleIn transition and match snapshot 1`] = `
+<transition-stub name="scaleIn"
+                 mode
+                 appear="false"
+                 persisted="false"
+                 css="true"
+>
+  <div class="v-modal"
+       style="display: none;"
+  >
+    <div class="v-modal__content">
+    </div>
+  </div>
+</transition-stub>
+`;

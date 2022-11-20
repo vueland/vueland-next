@@ -101,7 +101,7 @@ module.exports = (env = {}) => {
     resolve: {
       extensions: [ '.ts', '.js', '.vue', '.json' ],
       alias: {
-        '@': path.resolve(__dirname, '../src'),
+        '@': path.resolve(__dirname, '../packages/vueland/src'),
         vue: 'vue/dist/vue.runtime.esm-browser.js'
       }
     },

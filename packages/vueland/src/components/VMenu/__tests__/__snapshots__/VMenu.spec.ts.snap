@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VMenu should mount component and match snapshot 1`] = `
+<div class="v-menu">
+</div>
+<transition-stub name="fade"
+                 mode
+                 appear="false"
+                 persisted="false"
+                 css="true"
+>
+</transition-stub>
+`;

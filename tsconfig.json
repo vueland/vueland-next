@@ -27,7 +27,7 @@
     "composite": true,
     "paths": {
       "@/*": [
-        "src/*"
+        "packages/vueland/src/*"
       ]
     },
     "plugins": [
@@ -50,18 +50,18 @@
     "@vue/compiler-ssr/dist/compiler-ssr",
     "@vue/reactivity/dist/reactivity",
     "@vue/runtime-core/dist/runtime-core",
-    "@vue/runtime-dom/dist/runtime-dom",
+    "@vue/runtime-dom/dist/runtime-dom"
   ],
   "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.js",
-    "src/**/*.vue",
-    "./types"
+    "packages/vueland/src/**/*.ts",
+    "packages/vueland/src/**/*.tsx",
+    "packages/vueland/src/**/*.js",
+    "packages/vueland/src/**/*.vue",
+    "./packages/vueland/src/types"
   ],
   "exclude": [
     "node_modules",
-    "dev/**/*.ts",
-    "src/**/*.spec.ts"
+    "packages/playground/dev/**/*.ts",
+    "packages/vueland/src/**/*.spec.ts"
   ]
 }

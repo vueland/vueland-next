@@ -1,0 +1,21 @@
+{
+  "name": "vueland-docs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "",
+  "scripts": {
+    "dev": "../../docs/node_modules/.bin/vuepress dev docs",
+    "build": "../../docs/node_modules/.bin/vuepress build docs",
+    "serve": "../../docs/node_modules/.bin/serve ../packages/docs/.vuepress/dist"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "vueland": "github:vueland/vueland-next",
+    "vuepress": "^2.0.0-beta.14"
+  },
+  "devDependencies": {
+    "serve": "^11.3.2"
+  }
+}

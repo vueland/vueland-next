@@ -1,5 +1,5 @@
 build
-dev
+packages/playground/dev
 node_modules
 
 .git

@@ -9,7 +9,7 @@ const devConfig = (env = {}) => merge(baseConfig(env), {
   target: 'web',
   mode: 'development',
   entry: {
-    main: path.resolve(__dirname, '../dev/app.ts')
+    main: path.resolve(__dirname, '../packages/playground/app.ts')
   },
   devServer: {
     host: 'localhost',
@@ -26,7 +26,7 @@ const devConfig = (env = {}) => merge(baseConfig(env), {
     new HtmlWebpackPlugin({
       title: 'vueland',
       hash: false,
-      template: path.resolve(__dirname, '../dev') + '/index.html',
+      template: path.resolve(__dirname, '../packages/playground') + '/index.html',
       filename: 'index.html',
       inject: true,
       collapseWhitespace: true,

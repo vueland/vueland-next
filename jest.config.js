@@ -2,7 +2,7 @@ module.exports = {
   verbose: true,
   testEnvironment: 'jest-environment-jsdom-fourteen',
   roots: [
-    '<rootDir>/src',
+    '<rootDir>/packages/vueland',
   ],
   moduleFileExtensions: [
     'vue',

@@ -1,0 +1,30 @@
+$base: #ffffff;
+$primary: #1E88E5;
+$secondary: #00acc1;
+$content: #424242;
+$warning: #fb8c00;
+$success: #4CAF50;
+$error: #f4511e;
+$accent: #00E676;
+
+:root {
+  --base: #{$base};
+  --primary: #{$primary};
+  --secondary: #{$secondary};
+  --content: #{$content};
+  --warning: #{$warning};
+  --success: #{$success};
+  --error: #{$error};
+  --accent: #{$accent};
+}
+
+:export {
+  base: $base;
+  primary: $primary;
+  secondary: $secondary;
+  content: $content;
+  warning: $warning;
+  success: $success;
+  error: $error;
+  accent: $accent;
+}

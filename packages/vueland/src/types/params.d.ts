@@ -5,7 +5,7 @@ export type UserOptions = {
   theme: ThemeOptions
 }
 
-export declare interface ThemeOptions {
+export interface ThemeOptions {
   primary?: string
   secondary?: string
   accent?: string

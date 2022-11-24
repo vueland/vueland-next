@@ -19,7 +19,7 @@ vueland.setTheme({
   primary: colors.blue.darken3,
   secondary: colors.purple.darken1,
   accent: colors.green.accent3,
-  error: colors.red.accent4,
+  error: colors.green.accent4,
   success: colors.green.base,
   warning: colors.orange.base,
   base: colors.grey.darken4,

@@ -2,7 +2,9 @@
 import { Ref, ref, unref } from 'vue'
 import { Library, UserOptions } from './types'
 import { App } from 'vue'
-import { defaultTheme } from './composables/use-theme'
+
+// @ts-ignore
+import lightTheme from './styles/scss/modules/_theme.module.scss'
 
 export class Vueland implements Library {
   theme: Ref<Maybe<UserOptions['theme']>>
@@ -10,7 +12,7 @@ export class Vueland implements Library {
 
   constructor() {
     this.icons = null
-    this.theme = ref(null)
+    this.theme = ref(lightTheme)
   }
 
   install(app: App, args: any = {}) {
@@ -32,10 +34,6 @@ export class Vueland implements Library {
       }
     }
 
-    if (!unref(this.theme)) {
-      this.setTheme(defaultTheme)
-    }
-
     app.provide('$v', this)
     app.provide('$v_theme', this.theme)
     app.provide('$v_icons', this.icons)
@@ -48,12 +46,11 @@ export class Vueland implements Library {
 
     const root = document.documentElement
 
-    this.theme.value = Object.assign(this.theme.value || {}, theme)
+    this.theme.value = Object.assign(unref(this.theme) || {}, theme)
 
-    Object.keys(this.theme.value).forEach(key => {
-      root.style.setProperty(`--${ key }`, this.theme.value![key])
+    Object.keys(unref(this.theme)!).forEach(key => {
+      root.style.setProperty(`--${ key }`, unref(this.theme)![key])
     })
-
   }
 
   setIcons(icons: UserOptions['icons']) {

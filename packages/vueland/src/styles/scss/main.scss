@@ -9,6 +9,7 @@
 @import "modules/utils/spaces";
 @import "modules/utils/flex";
 @import "modules/utils/states";
+@import "modules/theme.module";
 
 @each $color_name, $color_color in $colors {
   @each $color_type, $color_value in $color_color {

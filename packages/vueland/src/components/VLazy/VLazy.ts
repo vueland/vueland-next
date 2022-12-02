@@ -1,27 +1,27 @@
-import { defineComponent, h, ref, unref, onMounted } from '@vue/runtime-core'
+import { defineComponent, h, ref, unref, onMounted } from 'vue'
 import './VLazy.scss'
 
 export const VLazy = defineComponent({
   props: {
     tag: {
       type: String,
-      default: 'div',
+      default: 'div'
     },
     rootMargin: {
       type: String,
-      default: '0px',
+      default: '0px'
     },
     threshold: {
-      type: [Number, String],
-      default: 0.1,
+      type: [ Number, String ],
+      default: 0.1
     },
     transition: {
       type: String,
-      default: 'fade-in-transition',
-    },
+      default: 'fade-in-transition'
+    }
   },
 
-  setup(props, { slots }) {
+  setup(props, { slots }){
     const LAZY_ATTR = 'data-src'
     const containerRef = ref<HTMLElement | null>(null)
 
@@ -33,7 +33,7 @@ export const VLazy = defineComponent({
 
     let observer: IntersectionObserver
 
-    function onTransitionEnd() {
+    function onTransitionEnd(){
       this.classList.remove(`${ props.transition }-enter-active`)
       this.removeEventListener('transitionend', onTransitionEnd)
     }
@@ -49,21 +49,22 @@ export const VLazy = defineComponent({
           requestAnimationFrame(() => {
             it.target.src = it.target.dataset.src
             it.target.removeAttribute(LAZY_ATTR)
+
+            if (!duration) {
+              duration = parseFloat(getComputedStyle(it.target).transitionDuration) * 1000
+            }
+
             it.target.classList.add(`${ props.transition }-enter-active`)
+
+            observer.unobserve(it.target)
+
+            setTimeout(() => {
+              it.target.classList.remove(`${ props.transition }-enter-from`)
+            }, duration)
+
+            it.target.addEventListener('transitionend', onTransitionEnd)
+
           })
-
-          if (!duration) {
-            duration = parseFloat(getComputedStyle(it.target).transitionDuration) * 1000
-          }
-
-          observer.unobserve(it.target)
-
-          setTimeout(() => {
-            it.target.classList.remove(`${ props.transition }-enter-from`)
-            it.target.classList.remove(`${ props.transition }-enter-active`)
-          }, duration)
-
-          it.target.addEventListener('transitionend', onTransitionEnd)
         }
       })
     }
@@ -82,5 +83,5 @@ export const VLazy = defineComponent({
       class: 'v-lazy',
       ref: containerRef,
     }, slots.default?.())
-  },
+  }
 })

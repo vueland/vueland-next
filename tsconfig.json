@@ -57,7 +57,7 @@
     "packages/vueland/src/**/*.tsx",
     "packages/vueland/src/**/*.js",
     "packages/vueland/src/**/*.vue",
-    "packages/vueland/src/types"
+    "packages/vueland/types"
   ],
   "exclude": [
     "node_modules",

@@ -1,5 +1,5 @@
 import { ref, ComponentPublicInstance } from 'vue'
-import { ActivatorListeners, Dimensions } from '../types/composables'
+import { ActivatorListeners, Dimensions } from '../../types/composables'
 
 export function activatorProps(){
   return {

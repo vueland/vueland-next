@@ -1,5 +1,5 @@
 import { inject } from 'vue'
-import { Library } from '../types'
+import { Library } from '../../types'
 
 export const themeableProps = () => ({
   themeable: Boolean,

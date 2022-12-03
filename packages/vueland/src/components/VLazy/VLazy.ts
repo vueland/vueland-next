@@ -1,7 +1,7 @@
 import { defineComponent, h, ref, unref, onMounted } from 'vue'
 import './VLazy.scss'
 
-export const VLazy = defineComponent({
+export default defineComponent({
   props: {
     tag: {
       type: String,

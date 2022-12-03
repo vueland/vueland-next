@@ -21,7 +21,7 @@ import {
   FooterOptions,
   HeaderOptions,
   TableFilter,
-} from '../../types'
+} from '../../../types'
 
 type TableState = {
   cols: DataColumn[]

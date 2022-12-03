@@ -1,6 +1,6 @@
 import { defineComponent, h } from 'vue'
 
-export const VImg = defineComponent({
+export default defineComponent({
   name: 'v-img',
   props: {
     src: {
@@ -22,7 +22,6 @@ export const VImg = defineComponent({
   },
 
   setup(props){
-
     return () => h('img', {
       class: 'v-img',
       src: props.lazy ? props.lazySrc : props.src,

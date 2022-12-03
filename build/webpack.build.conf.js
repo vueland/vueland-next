@@ -31,7 +31,7 @@ const buildConfig = (env = {}) => merge(baseConfig(env), {
   plugins: [
     new copyWebpackPlugin({
       patterns: [
-        { from: path.resolve(__dirname, '../packages/vueland/src/types'), to: 'types/' },
+        { from: path.resolve(__dirname, '../packages/vueland/types'), to: 'types/' },
       ],
     }),
   ],

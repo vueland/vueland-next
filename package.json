@@ -22,7 +22,7 @@
     "dist/*",
     "lib/*",
     "es5/*",
-    "packages/vueland/src/types/*",
+    "packages/vueland/types/*",
     "*.js",
     "*.ts"
   ],

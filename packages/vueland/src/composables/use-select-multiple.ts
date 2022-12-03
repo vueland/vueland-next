@@ -1,5 +1,5 @@
 import { Ref } from 'vue'
-import { ListItem, ListItemRef } from '../types'
+import { ListItem, ListItemRef } from '../../types'
 
 export function useSelect() {
 

@@ -20,7 +20,7 @@ import { elevationProps, useElevation } from '../../composables/use-elevation'
 import { positionProps } from '../../composables/use-position'
 
 // Types
-import { OffsetSizes } from '../../types'
+import { OffsetSizes } from '../../../types'
 import { VNode } from 'vue'
 
 // Helpers

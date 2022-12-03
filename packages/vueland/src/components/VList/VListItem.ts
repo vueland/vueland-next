@@ -7,7 +7,7 @@ import {
   onBeforeUnmount,
   onBeforeMount,
 } from 'vue'
-import { List } from '../../types/components'
+import { List } from '../../../types/components'
 
 export default defineComponent({
   name: 'v-list-item',

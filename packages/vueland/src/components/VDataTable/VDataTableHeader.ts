@@ -17,7 +17,7 @@ import { clickOutside } from '../../directives/v-click-outside'
 
 // Types
 import { VNode } from 'vue'
-import { DataColumn } from '../../types'
+import { DataColumn } from '../../../types'
 import { useTransition } from '../../composables/use-transition'
 import { transitions } from '../../services/transitions'
 

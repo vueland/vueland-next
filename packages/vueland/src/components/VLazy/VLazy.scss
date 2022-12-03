@@ -1,9 +1,3 @@
-.fade-in-transition {
-  &-enter-from {
-    opacity: 0;
-  }
-
-  &-enter-active {
-    transition: opacity .4s linear;
-  }
+.v-lazy {
+  border: none;
 }

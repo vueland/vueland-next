@@ -34,10 +34,22 @@ export default defineComponent({
     const isHovered = ref<boolean>(false)
 
     const isExpanded = computed(() => {
-      if (props.onHover && isHovered.value) return true
-      if (props.expand) return true
-      if (!props.expand && props.miniVariant) return false
-      if (!props.expand && !props.miniVariant) return false
+      if (props.onHover && isHovered.value) {
+        return true
+      }
+
+      if (props.expand) {
+        return true
+      }
+
+      if (!props.expand && props.miniVariant) {
+        return false
+      }
+
+      if (!props.expand && !props.miniVariant) {
+        return false
+      }
+
       return !props.miniVariant
     })
 

@@ -1,6 +1,6 @@
 // Types
 import { Ref, ref, unref } from 'vue'
-import { Library, UserOptions } from './types'
+import { Library, UserOptions } from '../types'
 import { App } from 'vue'
 
 // @ts-ignore

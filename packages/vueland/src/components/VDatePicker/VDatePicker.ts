@@ -23,7 +23,7 @@ import { formatDate } from './utils'
 
 // Types
 import { VNode } from 'vue'
-import { DatePickerBtnHandlers, DatePickerDate } from '../../types'
+import { DatePickerBtnHandlers, DatePickerDate } from '../../../types'
 
 // Services
 import { locale } from '../../services/locale'

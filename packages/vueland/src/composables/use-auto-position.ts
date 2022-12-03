@@ -1,5 +1,5 @@
 import { ref, reactive, computed } from 'vue'
-import { Dimensions } from '../types'
+import { Dimensions } from '../../types'
 
 type MainDimensions = {
   activator: Dimensions

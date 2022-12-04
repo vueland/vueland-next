@@ -1,7 +1,7 @@
 import { defineComponent, h, ref, unref, onMounted } from 'vue'
 import './VLazy.scss'
 
-export default defineComponent({
+export const VLazy = defineComponent({
   props: {
     tag: {
       type: String,
@@ -25,20 +25,26 @@ export default defineComponent({
     const LAZY_ATTR = 'data-src'
     const containerRef = ref<HTMLElement | null>(null)
 
-    const observerOptions = {
+    const intersectionObserverOptions = {
       root: unref(containerRef)!,
       rootMargin: props.rootMargin,
       threshold: Number(props.threshold),
     }
 
-    let observer: IntersectionObserver
+    const mutationObserverOptions = {
+      childList: true,
+      subtree: true
+    }
+
+    let intersectionObserver: IntersectionObserver
+    let mutationObserver: MutationObserver
 
     function onTransitionEnd(){
       this.classList.remove(`${ props.transition }-enter-active`)
       this.removeEventListener('transitionend', onTransitionEnd)
     }
 
-    const onEnter = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
+    function onEnter(entries: IntersectionObserverEntry[], observer: IntersectionObserver){
       let duration = 0
 
       entries.forEach((it: any) => {
@@ -63,20 +69,26 @@ export default defineComponent({
             }, duration)
 
             it.target.addEventListener('transitionend', onTransitionEnd)
-
           })
         }
       })
     }
 
-    onMounted(() => {
+    function onMutation(/*mutationRecords: MutationRecord[]*/){
       const elems = unref(containerRef)!.querySelectorAll(`*[${ LAZY_ATTR }]`)
 
-      observer = new IntersectionObserver(onEnter, observerOptions)
-
       elems.forEach((el: any) => {
-        observer.observe(el)
+        intersectionObserver.unobserve(el)
+        intersectionObserver.observe(el)
       })
+    }
+
+    onMounted(() => {
+      intersectionObserver = new IntersectionObserver(onEnter, intersectionObserverOptions)
+      mutationObserver = new MutationObserver(onMutation)
+
+      mutationObserver.observe(unref(containerRef)!, mutationObserverOptions)
+      onMutation()
     })
 
     return () => h(props.tag, {

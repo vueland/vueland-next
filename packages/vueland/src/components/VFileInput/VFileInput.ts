@@ -59,7 +59,10 @@ export default defineComponent({
     }
 
     const onClick = ({ srcElement }) => {
-      if (srcElement !== srcRef.value) return
+      if (srcElement !== srcRef.value) {
+        return
+      }
+
       inputRef.value!.click()
     }
 

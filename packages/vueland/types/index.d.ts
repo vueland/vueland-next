@@ -20,8 +20,8 @@ declare module 'vueland' {
 export {
   UserOptions,
   ThemeOptions,
-  DataColumn,
-  DataColumnProps,
+  TableColumn,
+  TableColumnProps,
   FooterOptions,
   HeaderOptions,
   TableFilter,

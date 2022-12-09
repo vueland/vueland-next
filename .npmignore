@@ -1,23 +1,20 @@
-build
-packages/playground/dev
+packages
 node_modules
+build
 
 .git
 .github
 .gitignore
-.prettierignore
-.prettierrc.json
 .editorconfig
 .eslintrc
-
 .babelrc
+
 jest.config.js
 postcss.config.js
 tsconfig.dist.json
 tsconfig.json
-tslint.json
-
-package-lock.json
+pnpm-lock.yaml
+pnpm-workspace.yaml
 
 
 

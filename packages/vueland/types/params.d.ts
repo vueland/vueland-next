@@ -55,7 +55,7 @@ export type DateParams = {
   D: string
 }
 
-export interface DataColumn {
+export interface TableColumn {
   key: string
   title: string
   width?: string | number
@@ -71,7 +71,7 @@ export interface DataColumn {
   sort?: (a: any, b: any) => number
 }
 
-export interface DataColumnProps {
+export interface TableColumnProps {
   sorted: boolean
   filtered: boolean
 }
@@ -82,7 +82,7 @@ export interface DataRowProps {
 
 export type TableFilter = {
   value: string | number
-  col: DataColumn
+  col: TableColumn
 }
 
 type PaginationOptions = {

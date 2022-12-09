@@ -17,7 +17,7 @@ import { clickOutside } from '../../directives/v-click-outside'
 
 // Types
 import { VNode } from 'vue'
-import { DataColumn } from '../../../types'
+import { TableColumn } from '../../../types'
 import { useTransition } from '../../composables/use-transition'
 import { transitions } from '../../services/transitions'
 
@@ -62,7 +62,7 @@ export const VDataTableHeader = defineComponent({
         : props.options?.contentColor
     })
 
-    const cols = computed<DataColumn[]>(() => [...props.cols])
+    const cols = computed<TableColumn[]>(() => [...props.cols])
 
     const onSort = (item) => {
       emit('sort', item)
@@ -250,7 +250,7 @@ export const VDataTableHeader = defineComponent({
       props.showSequence && children.push(genNumberCell())
       props.showCheckbox && children.push(genCheckboxCell())
 
-      cols.value!.forEach((col: DataColumn) => {
+      cols.value!.forEach((col: TableColumn) => {
         col.width = col.width || props.colWidth
 
         if (!col.hasOwnProperty('show')) {

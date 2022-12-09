@@ -4,7 +4,7 @@ import { Library, UserOptions } from '../types'
 import { App } from 'vue'
 
 // @ts-ignore
-import lightTheme from './styles/scss/modules/_theme.module.scss'
+import { lightTheme } from './composables/use-theme'
 
 export class Vueland implements Library {
   theme: Ref<Maybe<UserOptions['theme']>>

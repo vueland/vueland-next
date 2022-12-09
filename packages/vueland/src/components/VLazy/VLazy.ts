@@ -1,7 +1,6 @@
 import { defineComponent, h, ref, unref, onMounted } from 'vue'
-import './VLazy.scss'
 
-export const VLazy = defineComponent({
+export default defineComponent({
   props: {
     tag: {
       type: String,
@@ -17,7 +16,7 @@ export const VLazy = defineComponent({
     },
     transition: {
       type: String,
-      default: 'fade-in-transition'
+      default: 'fade'
     }
   },
 

@@ -1,9 +1,9 @@
 {
   "name": "vueland",
-  "version": "1.0.0",
+  "version": "0.0.4",
   "author": "Anar Allakhverdiev",
   "license": "MIT",
-  "private": true,
+  "private": false,
   "description": "VueLand Components Library",
   "main": "lib/index.js",
   "module": "lib/index.js",
@@ -18,13 +18,8 @@
     "*.css"
   ],
   "files": [
-    "packages/vueland/src/*",
     "dist/*",
-    "lib/*",
-    "es5/*",
-    "packages/vueland/types/*",
-    "*.js",
-    "*.ts"
+    "lib/*"
   ],
   "scripts": {
     "dev": "webpack-dev-server --config build/webpack.dev.conf.js",

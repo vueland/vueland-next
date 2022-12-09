@@ -1,5 +1,5 @@
 // Vue API
-import { h, watch, computed, defineComponent, reactive } from 'vue'
+import { h, watch, computed, defineComponent, ref, unref } from 'vue'
 
 // Effects
 import { useColors } from '../../composables/use-colors'
@@ -16,21 +16,12 @@ import { addScopedSlot } from '../../helpers'
 // Types
 import { VNode, PropType } from 'vue'
 import {
-  DataColumn,
-  DataColumnProps,
+  TableColumn,
+  TableColumnProps,
   FooterOptions,
   HeaderOptions,
   TableFilter,
 } from '../../../types'
-
-type TableState = {
-  cols: DataColumn[]
-  rows: { [key: string]: any }[]
-  checkedRows: { [key: string]: any }[]
-  rowsOnPage: number
-  page: number
-  isAllRowsChecked: boolean
-}
 
 export default defineComponent({
   name: 'v-data-table',
@@ -69,18 +60,20 @@ export default defineComponent({
     'select:row',
     'click:row',
     'dblclick:row',
+    'update:page',
+    'update:rows-count',
     'contextmenu:row',
   ],
 
   setup(props, { slots, emit }) {
-    const data = reactive<TableState>({
-      cols: [],
-      rows: [],
-      checkedRows: [],
-      rowsOnPage: 20,
-      page: 1,
-      isAllRowsChecked: false,
-    })
+    const DEFAULT_ROWS_ON_PAGE = 20
+
+    const cols = ref<TableColumn[]>([])
+    const rows = ref<any[]>([])
+    const page = ref<number>(1)
+    const rowsOnPage = ref<number>(DEFAULT_ROWS_ON_PAGE)
+    const checkedRows = ref<any[]>([])
+    const isAllRowsChecked = ref<boolean>(false)
 
     const { setBackgroundCssColor, setBackgroundClassNameColor } = useColors()
 
@@ -108,23 +101,23 @@ export default defineComponent({
     }))
 
     const pages = computed<number>(() => {
-      return Math.ceil(data.rows?.length / data.rowsOnPage)
+      return Math.ceil(unref(rows)?.length / unref(rowsOnPage))
     })
 
     const firstOnPage = computed<number>(() => {
-      return data.page === 1 ? 1 : (data.page - 1) * data.rowsOnPage + 1
+      return unref(page) === 1 ? 1 : (unref(page) - 1) * unref(rowsOnPage) + 1
     })
 
     const lastOnPage = computed<number>(() => {
-      return data.page * data.rowsOnPage > data.rows?.length
-        ? data.rows?.length
-        : data.page * data.rowsOnPage
+      return unref(page) * unref(rowsOnPage) > unref(rows)?.length
+        ? unref(rows)?.length
+        : unref(page) * unref(rowsOnPage)
     })
 
     const pageCorrection = computed<number | null>(() => {
-      if ((data.page - 1) * data.rowsOnPage > data.rows?.length) {
+      if ((unref(page) - 1) * unref(rowsOnPage) > unref(rows)?.length) {
         return Math.ceil(
-          (data.page * data.rowsOnPage - data.rows?.length) / data.rowsOnPage,
+          (unref(page) * unref(rowsOnPage) - unref(rows)?.length) / unref(rowsOnPage),
         )
       }
 
@@ -133,37 +126,41 @@ export default defineComponent({
 
     watch(
       () => props.cols,
-      (to) => (data.cols = to),
+      (newCols) => (cols.value = newCols),
       { immediate: true },
     )
 
     watch(
       () => props.rows,
-      (to) => (data.rows = to),
+      (newRows) => (rows.value = newRows),
       { immediate: true },
     )
 
     const onSelectAll = (value: boolean) => {
-      data.isAllRowsChecked = value
-      data.rows.forEach((row) => (row.checked = value))
+      isAllRowsChecked.value = value
+      unref(rows).forEach((row) => (row.checked = value))
     }
 
-    const onSelect = <T extends TableState['rows']>(rows: T) => {
-      data.checkedRows = rows
-      emit('select:row', data.checkedRows)
+    const onSelect = (rows: any[]) => {
+      checkedRows.value = rows
+      emit('select:row', unref(checkedRows))
     }
 
     const onPrevPage = (num: number) => {
-      data.page = data.page > 1 ? data.page + num : data.page
+      page.value = unref(page) > 1 ? unref(page) + num : unref(page)
+
+      emit('update:page', unref(page))
     }
 
     const onNextPage = (num: number) => {
-      if (data.rows.length - data.page * data.rowsOnPage > 0) {
-        data.page += num
+      if (unref(rows)?.length - unref(page) * unref(rowsOnPage) > 0) {
+        page.value += num
       }
+
+      emit('update:page', unref(page))
     }
 
-    const onSort = <T extends DataColumn, S extends DataColumnProps>(
+    const onSort = <T extends TableColumn, S extends TableColumnProps>(
       col: T & S,
     ) => {
       if (col.sorted) {
@@ -171,16 +168,16 @@ export default defineComponent({
         return sortColumn(col)
       }
 
-      data.cols.forEach((c: T & S) => (c.sorted = col.key === c.key))
+      unref(cols).forEach((c: T & S) => (c.sorted = col.key === c.key))
 
       sortColumn(col)
     }
 
-    const sortColumn = <T extends DataColumn, S extends DataColumnProps>(
+    const sortColumn = <T extends TableColumn, S extends TableColumnProps>(
       col: T & S,
     ) => {
       if (!col.sorted) {
-        return data.rows?.reverse()
+        return unref(rows)?.reverse()
       }
 
       const executor =
@@ -190,7 +187,7 @@ export default defineComponent({
           if (col.sorted) return a[col.key] > b[col.key] ? 1 : -1
         })
 
-      data.rows?.sort(executor as any)
+      unref(rows)?.sort(executor as any)
     }
 
     const onFilter = ({ value, col }: TableFilter) => {
@@ -199,31 +196,33 @@ export default defineComponent({
       if (value) filters[col.key] = value
 
       if (col.filter) {
-        return (data.rows = col.filter({ value, col }))
+        return (rows.value = col.filter({ value, col }))
       }
       if (props.customFilter) {
         return props.customFilter(filters as any)
       }
       if (!Object.keys(filters).length) {
-        return (data.rows = props.rows)
+        return (rows.value = props.rows)
       }
 
-      data.rows = filterRows(props.rows, props.cols)
-      data.page = 1
+      rows.value = filterRows(props.rows, props.cols)
+      page.value = 1
     }
 
     const onSelectRowsCount = (count: number) => {
-      data.rowsOnPage = count
+      rowsOnPage.value = count
+
+      emit('update:rows-count', unref(rowsOnPage))
     }
 
-    const filterRows = <T, C extends DataColumn>(rows: T[], cols: C[]) => {
+    const filterRows = <T, C extends TableColumn>(rows: T[], cols: C[]) => {
       const filterKeys = Object.keys(filters)
 
       return rows.reduce((acc, row) => {
         const rowResults: T[] = []
 
         filterKeys.forEach((key) => {
-          const { format } = cols.find((col) => col.key === key) as DataColumn
+          const { format } = cols.find((col) => col.key === key) as TableColumn
 
           const value = format ? format(row) : row[key]
 
@@ -256,19 +255,19 @@ export default defineComponent({
 
     const genTableHeader = (): VNode => {
       const propsData = {
-        cols: data.cols,
+        cols: unref(cols),
         color: props.color,
         showCheckbox: props.showCheckbox,
         dark: props.dark,
         align: props.align,
         showSequence: props.showSequence,
-        options: headerOptions.value,
+        options: unref(headerOptions),
         onFilter,
         onSort,
         onSelectAll,
       }
 
-      const content = data.cols.reduce((acc, col) => {
+      const content = unref(cols).reduce((acc, col) => {
         const slotName = `${ col.key }-filter`
 
         if (col && slots[slotName]) {
@@ -285,12 +284,12 @@ export default defineComponent({
 
     const genTableBody = (): VNode => {
       const propsData = {
-        cols: data.cols,
-        rows: data.rows,
-        page: data.page,
-        rowsOnPage: data.rowsOnPage,
+        cols: unref(cols),
+        rows: unref(rows),
+        page: unref(page),
+        rowsOnPage: unref(rowsOnPage),
+        checkAllRows: unref(isAllRowsChecked),
         showCheckbox: props.showCheckbox,
-        checkAllRows: data.isAllRowsChecked,
         align: props.align,
         dark: props.dark,
         showSequence: props.showSequence,
@@ -314,18 +313,18 @@ export default defineComponent({
     const genTableFooter = (): VNode => {
       const propsData = {
         pages: pages.value,
-        page: data.page,
-        firstOnPage: firstOnPage.value,
-        lastOnPage: lastOnPage.value,
-        pageCorrection: pageCorrection.value,
-        rowsOnPage: data.rowsOnPage,
-        rowsLength: data.rows?.length,
-        options: footerOptions.value,
+        page: unref(page),
+        firstOnPage: unref(firstOnPage),
+        lastOnPage: unref(lastOnPage),
+        pageCorrection: unref(pageCorrection),
+        rowsOnPage: unref(rowsOnPage),
+        rowsLength: unref(rows)?.length,
+        options: unref(footerOptions),
         onPrevPage,
         onNextPage,
         onSelectRowsCount,
         onLastPage: () => emit('last-page', props.rows.length),
-        onCorrectPage: (val) => (data.page += val),
+        onCorrectPage: (val) => (page.value += val),
       }
 
       const content = slots['pagination-text']
@@ -333,9 +332,9 @@ export default defineComponent({
           ['pagination-text']: () =>
             slots['pagination-text'] &&
             slots['pagination-text']({
-              start: firstOnPage.value,
-              last: lastOnPage.value,
-              length: data.rows?.length,
+              start: unref(firstOnPage),
+              last: unref(lastOnPage),
+              length: unref(rows)?.length,
             }),
         }
         : ''
@@ -353,8 +352,8 @@ export default defineComponent({
 
     return () => {
       const propsData = {
-        class: classes.value,
-        style: styles.value,
+        class: unref(classes),
+        style: unref(styles),
       }
 
       return h('div', propsData, [

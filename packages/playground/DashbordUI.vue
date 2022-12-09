@@ -51,6 +51,14 @@ export default defineComponent({
       // files.value.pop()
     }
 
+    const onUpdateTablePage = (page) => {
+      console.log(page, 'page')
+    }
+
+    const onUpdateTableRowsCount = (count) => {
+      console.log(count, 'count')
+    }
+
     watch(select, to => console.log(to))
 
     return {
@@ -60,6 +68,8 @@ export default defineComponent({
       files,
       salam,
       addRow,
+      onUpdateTablePage,
+      onUpdateTableRowsCount,
       clickOutsideHandler,
     }
   },
@@ -181,6 +191,9 @@ export default defineComponent({
             // },
             // contentColor: '#ffffff'
           }"
+
+          @update:page="onUpdateTablePage"
+          @update:rows-count="onUpdateTableRowsCount"
         >
           <template #toolbar>
             <v-button @click="addRow">

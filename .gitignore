@@ -1,10 +1,8 @@
 .DS_Store
 node_modules
 
-#builds
-#dist
-#es5
-#lib
+dist
+lib
 
 # Log files
 npm-debug.log*

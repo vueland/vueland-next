@@ -4,7 +4,7 @@ import { VApp } from '../index'
 import { breakpoints } from '../../../services/breakpoints'
 import 'regenerator-runtime'
 
-const THROTTLING_TIMEOUT = 40
+const THROTTLING_TIMEOUT = 20
 
 describe('VApp', () => {
   let bp

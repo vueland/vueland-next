@@ -10,6 +10,8 @@ export const createVueland = (options = {}) => {
       ...options,
       ...args,
     })
+
+    app.config.globalProperties.$vueland = library
   }
 
   return library

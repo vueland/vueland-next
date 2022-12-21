@@ -1,3 +1,7 @@
+$toolbar-logo-min-width: 60px;
+$toolbar-nav-btn-min-width: 60px;
+$toolbar-items-min-width: 60px;
+
 .v-toolbar {
   display: flex;
   width: 100%;
@@ -22,14 +26,14 @@
     justify-content: center;
     align-items: center;
     height: 100%;
-    width: 60px;
+    width: $toolbar-nav-btn-min-width;
   }
 
   &__logo {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-width: 187px;
+    min-width: $toolbar-logo-min-width;
     height: 100%;
   }
 
@@ -37,7 +41,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    min-width: 60px;
+    min-width: $toolbar-items-min-width;
     height: 100%;
   }
 }

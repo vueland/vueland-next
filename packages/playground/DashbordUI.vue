@@ -1,5 +1,6 @@
 <script lang="ts">
 import { defineComponent, ref, watch } from 'vue'
+import { useBreakpoints } from '../vueland/src/composables/use-breakpoints'
 
 export default defineComponent({
   setup() {
@@ -41,7 +42,7 @@ export default defineComponent({
     ])
 
     const clickOutsideHandler = {
-      handler: () => console.log('outside')
+      handler: () => console.log('outside'),
     }
 
     const addRow = () => {
@@ -59,7 +60,9 @@ export default defineComponent({
       console.log(count, 'count')
     }
 
-    watch(select, to => console.log(to))
+    const breakpoints = useBreakpoints()
+
+    watch(() => breakpoints, to => console.log(to), { deep: true })
 
     return {
       select,

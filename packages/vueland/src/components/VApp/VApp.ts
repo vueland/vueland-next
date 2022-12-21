@@ -1,10 +1,12 @@
 import {
-  defineComponent,
-  provide,
-  reactive,
   h,
-  withDirectives,
+  defineComponent,
   onMounted,
+  provide,
+  ref,
+  reactive,
+  unref,
+  withDirectives,
 } from 'vue'
 
 // Directives
@@ -38,9 +40,9 @@ export default defineComponent({
     },
   },
   setup(props, { slots }) {
-    const TIMEOUT = 40
+    const TIMEOUT = 20
 
-    const state = reactive<AppBreakpoints>({
+    const state = ref<AppBreakpoints>({
       current: null,
       xlAndLess: false,
       lgAndLess: false,
@@ -48,32 +50,44 @@ export default defineComponent({
       smAndLess: false,
     })
 
-    provide('$v_breakpoints', state)
+    provide('$v_breakpoints', reactive(unref(state)))
 
     const setCurrentBreakpoint = (screen) => {
       if (screen >= breakpoints.xl) {
-        return (state.current = 'xl')
-      }
-      if (screen >= breakpoints.lg && screen < breakpoints.xl) {
-        return (state.current = 'lg')
-      }
-      if (screen >= breakpoints.md && screen < breakpoints.lg) {
-        return (state.current = 'md')
-      }
-      if (screen >= breakpoints.sm && screen < breakpoints.md) {
-        return (state.current = 'sm')
+        return (unref(state).current = 'xl')
       }
 
-      return (state.current = 'sm')
+      if (
+        screen >= breakpoints.lg
+        && screen < breakpoints.xl
+      ) {
+        return (unref(state).current = 'lg')
+      }
+
+      if (
+        screen >= breakpoints.md
+        && screen < breakpoints.lg
+      ) {
+        return (unref(state).current = 'md')
+      }
+
+      if (
+        screen >= breakpoints.sm
+        && screen < breakpoints.md
+      ) {
+        return (unref(state).current = 'sm')
+      }
+
+      return (unref(state).current = 'sm')
     }
 
     const setIntervals = (screen) => {
       const { xl, lg, md, sm } = breakpoints
 
-      state.xlAndLess = screen <= xl && screen > lg
-      state.lgAndLess = screen <= lg && screen > md
-      state.mdAndLess = screen <= md && screen > sm
-      state.smAndLess = screen <= sm
+      unref(state).xlAndLess = screen <= xl && screen > lg
+      unref(state).lgAndLess = screen <= lg && screen > md
+      unref(state).mdAndLess = screen <= md && screen > sm
+      unref(state).smAndLess = screen <= sm
     }
 
     const setSizes = () => {

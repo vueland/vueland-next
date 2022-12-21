@@ -3,7 +3,7 @@
 exports[`VApp should mount component and match snapshot 1`] = `
 <div class="v-app">
   <div class="v-app--wrapper">
-    <div class="default">
+    <div>
     </div>
   </div>
 </div>

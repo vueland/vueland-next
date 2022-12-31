@@ -85,9 +85,17 @@ export type TableFilter = {
   col: TableColumn
 }
 
+type PaginationHandlerArgument = {
+  page: number
+  count: number
+}
+
 type PaginationOptions = {
   buttonsColor?: string
   displayColor?: string
+  onNext?: (PaginationHandlerArgument) => any
+  onPrev?: (PaginationHandlerArgument) => any
+  disableIf?: boolean
 }
 
 export interface FooterOptions {

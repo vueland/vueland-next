@@ -44,7 +44,7 @@ export default {
       } else {
         setTheme({ primary: '#147eef' })
       }
-      }, { deep: true, immediate: true })
+    }, { deep: true, immediate: true })
 
     const showMenu = (e) => {
       e.preventDefault()
@@ -422,7 +422,9 @@ export default {
         :footer-options="{
           pagination: {
             buttonsColor: '',
-            displayColor: ''
+            displayColor: '',
+            disableIf: false,
+            onNext: ({page, count}) => addItem() && testFunc({data: new Date(), page, count})
           },
           color: '',
           contentColor: '',
@@ -437,7 +439,6 @@ export default {
         @select:row="testFunc"
         @dblclick:row="testFunc"
         @contextmenu:row="testFunc"
-        @last-page="testFunc"
       >
         <!--              <template #header="props">-->
         <!--                <span-->
@@ -722,6 +723,7 @@ export default {
       <v-modal
         v-model="data.show"
         overlay
+        close-on-click
         transition="scale-in"
       >
         <v-card

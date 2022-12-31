@@ -2,11 +2,12 @@
 import {
   h,
   shallowRef,
+  defineComponent,
+  onMounted,
+  unref,
+  vShow,
   watch,
   withDirectives,
-  defineComponent,
-  vShow,
-  onMounted,
 } from 'vue'
 
 // Effects
@@ -18,24 +19,34 @@ import { useToggle } from '../../composables/use-toggle'
 import { VNode } from 'vue'
 import { convertToUnit } from '../../helpers'
 
+// Directives
+import { clickOutside } from '../../directives'
+
+
 export default defineComponent({
   name: 'v-modal',
-
+  directives: {
+    clickOutside,
+  },
   props: {
     modelValue: Boolean,
     zIndex: {
-      type: [ Number, String ],
+      type: [Number, String],
       default: 10,
     },
     width: {
-      type: [ Number, String ],
+      type: [Number, String],
       default: null,
+    },
+    closeOnClick: {
+      type: Boolean,
+      default: false,
     },
     ...overlayProps(),
     ...transitionProps(),
-  } as any,
+  },
 
-  emits: [ 'update:modelValue' ],
+  emits: ['update:modelValue'],
 
   setup(props, { slots, emit }) {
     const { isActive } = useToggle(props)
@@ -46,29 +57,33 @@ export default defineComponent({
 
         const { createOverlay, removeOverlay } = useOverlay(
           props,
-          modalRef.value!,
+          unref(modalRef)!,
         )
 
-        isActive.value && createOverlay()
+        unref(isActive) && createOverlay()
 
-        watch(
-          () => isActive.value,
-          (to) => {
-            to && createOverlay()
-            !to && removeOverlay()
+        watch(isActive, (state) => {
+            state && createOverlay()
+            !state && removeOverlay()
           },
         )
       }
     })
 
     const genContent = (): VNode => {
-      const propsData = {
+      const vNode = h('div', {
         class: 'v-modal__content',
         style: {
           width: props.width ? convertToUnit(props.width) : '',
         },
-      }
-      return h('div', propsData, slots.default && slots.default())
+      }, slots.default?.())
+
+      return props.closeOnClick ? withDirectives(vNode, [
+        [clickOutside, () => {
+          isActive.value = false
+          emit('update:modelValue', unref(isActive))
+        }],
+      ]) : vNode
     }
 
     const genModal = () => {
@@ -80,10 +95,12 @@ export default defineComponent({
 
       return withDirectives(
         h('div', propsData, genContent()),
-        [ [ vShow, isActive.value ] ]
+        [
+          [vShow, unref(isActive)],
+        ],
       )
     }
 
-    return () => useTransition(genModal(), props.transition)
+    return () => useTransition(genModal(), props.transition!)
   },
 })

@@ -312,7 +312,7 @@ export default defineComponent({
 
     const genTableFooter = (): VNode => {
       const propsData = {
-        pages: pages.value,
+        pages: unref(pages),
         page: unref(page),
         firstOnPage: unref(firstOnPage),
         lastOnPage: unref(lastOnPage),

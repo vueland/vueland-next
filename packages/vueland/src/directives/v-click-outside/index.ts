@@ -3,12 +3,17 @@ const clickHandler = (e, el) => {
     el.contains(e.target) &&
     el._binds?.value &&
     !el._binds?.value.closeConditional
-  )
+  ) {
     return
+  }
 
-  if (typeof el._binds?.value === 'function') el._binds.value(e)
+  if (typeof el._binds?.value === 'function') {
+    el._binds.value(e)
+  }
 
-  if (typeof el._binds?.value === 'object') el._binds.value.handler(e)
+  if (typeof el._binds?.value === 'object') {
+    el._binds.value.handler(e)
+  }
 }
 
 const removeListener = (el) => {

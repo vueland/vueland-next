@@ -1,12 +1,12 @@
 <script lang="ts">
 import { useTheme } from '../vueland/src/composables/use-theme'
-import DashboardUI from './DashbordUI.vue'
-// import DefaultUI from './DefaultUI'
+// import DashboardUI from './DashbordUI.vue'
+import DefaultUI from './DefaultUI'
 
 export default {
   components: {
-    DashboardUI,
-    // DefaultUI,
+    // DashboardUI,
+    DefaultUI,
   },
   setup() {
     const $v_theme = useTheme()
@@ -19,8 +19,8 @@ export default {
 
 <template>
   <v-app>
-    <!--    <default-u-i/>-->
-    <dashboard-u-i/>
+    <default-u-i/>
+    <!--    <dashboard-u-i/>-->
   </v-app>
 </template>
 

@@ -7,6 +7,7 @@ import {
   computed,
   onMounted,
   onBeforeUnmount,
+  unref,
   vShow,
   VNode,
   DirectiveArguments,
@@ -109,17 +110,20 @@ export default defineComponent({
     const listeners = genActivatorListeners(props, handlers)
 
     const directive = computed(() => {
-      return isActive.value
+      return unref(isActive)
         ? {
           handler: (e) => {
             if (
               props.internalActivator &&
-              activatorRef.value.contains(e.target)
-            ) return
+              unref(activatorRef).contains(e.target)
+            ) {
+              return
+            }
+
             isActive.value = false
           },
-            closeConditional: props.closeOnClick,
-          }
+          closeConditional: props.closeOnClick,
+        }
         : undefined
     })
 
@@ -127,27 +131,27 @@ export default defineComponent({
       return props.width || +dimensions.content.width
     })
 
-    watch(isActive, (to) => {
-      to && emit('show')
-      !to && emit('hide')
+    watch(isActive, (state) => {
+      state && emit('show')
+      !state && emit('hide')
     })
 
     watch(
       () => [props.positionY, props.positionX],
-      () => setDimensions(activatorRef.value!)
+      () => setDimensions(unref(activatorRef)),
     )
 
     watch(
       () => props.modelValue,
-      (to) => {
+      (state) => {
         isActive.value = false
-        setTimeout(() => (isActive.value = to))
-      }
+        setTimeout(() => (isActive.value = state))
+      },
     )
 
     const contentClasses = computed<Record<string, boolean>>(() => ({
       'v-menu__content': true,
-      ...elevationClasses.value,
+      ...unref(elevationClasses),
     }))
 
     const contentStyles = computed<Record<string, string | number>>(() => ({
@@ -161,8 +165,11 @@ export default defineComponent({
     }
 
     const onResize = () => {
-      if (!isActive.value) return
-      requestAnimationFrame(() => setDimensions(activatorRef.value!))
+      if (!unref(isActive)) {
+        return
+      }
+
+      requestAnimationFrame(() => setDimensions(unref(activatorRef)))
     }
 
     const genActivatorSlot = (): Maybe<VNode> => {
@@ -182,8 +189,8 @@ export default defineComponent({
     const genContentSlot = (): VNode => {
       const propsData = {
         ref: contentRef,
-        class: contentClasses.value,
-        style: contentStyles.value,
+        class: unref(contentClasses),
+        style: unref(contentStyles),
         onClick: onContentClick,
       }
 
@@ -193,18 +200,18 @@ export default defineComponent({
           class: 'v-menu__slot',
           style: {
             maxHeight: convertToUnit(props.maxHeight),
-            width: convertToUnit(calcWidth.value),
+            width: convertToUnit(unref(calcWidth)),
           },
         },
-        [slots.default && slots.default()]
+        [slots.default?.()],
       )
 
       const content = h('div', propsData, slotContent)
 
       const directives: DirectiveArguments = [
-        [vShow, isActive.value],
+        [vShow, unref(isActive)],
         [resize, onResize],
-        [clickOutside, directive.value],
+        [clickOutside, unref(directive)],
       ]
 
       return withDirectives(content, directives)
@@ -214,7 +221,7 @@ export default defineComponent({
       activatorRef.value = getActivator()
 
       addActivatorEvents()
-      setDetached(contentRef.value!)
+      setDetached(unref(contentRef)!)
     })
 
     onBeforeUnmount(() => {

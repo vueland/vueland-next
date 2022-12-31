@@ -60,10 +60,20 @@ export const VDataTableFooter = defineComponent({
       (to) => to && emit('last-page'),
     )
 
-    function changeTableRowsPage(isNext) {
-      if (props.page === props.pages && isNext) return
+    async function changeTableRowsPage(isNext) {
+      // if (props.page === props.pages && isNext) {
+      //   return
+      // }
+
+      const { onNext, onPrev } = props.options.pagination
+
+      const params = { page: props.page, count: props.rowsOnPage }
+
+      isNext && onNext && await onNext(params)
+      !isNext && onPrev && await onPrev(params)
 
       const event = isNext ? 'next-page' : 'prev-page'
+
       emit(event, isNext ? 1 : -1)
     }
 
@@ -71,9 +81,11 @@ export const VDataTableFooter = defineComponent({
       const btnColor = props.options?.pagination?.buttonsColor || 'primary'
       const contentColor = props.options.contentColor || 'white'
 
-      const disableIf =
-        (isNext && props.lastOnPage >= props.rowsLength) ||
-        (!isNext && props.firstOnPage === 1)
+      const disableIf = props.options?.pagination?.disableIf &&
+        (
+          (isNext && props.lastOnPage >= props.rowsLength) ||
+          (!isNext && props.firstOnPage === 1)
+        )
 
       const propsData = {
         width: 42,

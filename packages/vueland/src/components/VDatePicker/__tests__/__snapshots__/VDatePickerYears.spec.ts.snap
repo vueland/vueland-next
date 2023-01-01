@@ -11,9 +11,6 @@ exports[`VYears should mount component and match snapshot 1`] = `
     <div class="v-date-picker-years__years">
       <div class="v-date-picker-years__row">
         <div class="v-date-picker-years__cell v-date-picker-years__cell--selected v-date-picker-years__cell--current-year">
-          2022
-        </div>
-        <div class="v-date-picker-years__cell">
           2023
         </div>
         <div class="v-date-picker-years__cell">
@@ -22,11 +19,11 @@ exports[`VYears should mount component and match snapshot 1`] = `
         <div class="v-date-picker-years__cell">
           2025
         </div>
-      </div>
-      <div class="v-date-picker-years__row">
         <div class="v-date-picker-years__cell">
           2026
         </div>
+      </div>
+      <div class="v-date-picker-years__row">
         <div class="v-date-picker-years__cell">
           2027
         </div>
@@ -36,11 +33,11 @@ exports[`VYears should mount component and match snapshot 1`] = `
         <div class="v-date-picker-years__cell">
           2029
         </div>
-      </div>
-      <div class="v-date-picker-years__row">
         <div class="v-date-picker-years__cell">
           2030
         </div>
+      </div>
+      <div class="v-date-picker-years__row">
         <div class="v-date-picker-years__cell">
           2031
         </div>
@@ -50,11 +47,11 @@ exports[`VYears should mount component and match snapshot 1`] = `
         <div class="v-date-picker-years__cell">
           2033
         </div>
-      </div>
-      <div class="v-date-picker-years__row">
         <div class="v-date-picker-years__cell">
           2034
         </div>
+      </div>
+      <div class="v-date-picker-years__row">
         <div class="v-date-picker-years__cell">
           2035
         </div>
@@ -64,11 +61,11 @@ exports[`VYears should mount component and match snapshot 1`] = `
         <div class="v-date-picker-years__cell">
           2037
         </div>
-      </div>
-      <div class="v-date-picker-years__row">
         <div class="v-date-picker-years__cell">
           2038
         </div>
+      </div>
+      <div class="v-date-picker-years__row">
         <div class="v-date-picker-years__cell">
           2039
         </div>
@@ -77,6 +74,9 @@ exports[`VYears should mount component and match snapshot 1`] = `
         </div>
         <div class="v-date-picker-years__cell">
           2041
+        </div>
+        <div class="v-date-picker-years__cell">
+          2042
         </div>
       </div>
       <div class="v-date-picker-years__row">
@@ -97,9 +97,6 @@ exports[`VYears should set year prop and match snapshot 1`] = `
     <div class="v-date-picker-years__years">
       <div class="v-date-picker-years__row">
         <div class="v-date-picker-years__cell">
-          2002
-        </div>
-        <div class="v-date-picker-years__cell">
           2003
         </div>
         <div class="v-date-picker-years__cell">
@@ -108,11 +105,11 @@ exports[`VYears should set year prop and match snapshot 1`] = `
         <div class="v-date-picker-years__cell">
           2005
         </div>
-      </div>
-      <div class="v-date-picker-years__row">
         <div class="v-date-picker-years__cell">
           2006
         </div>
+      </div>
+      <div class="v-date-picker-years__row">
         <div class="v-date-picker-years__cell">
           2007
         </div>
@@ -122,11 +119,11 @@ exports[`VYears should set year prop and match snapshot 1`] = `
         <div class="v-date-picker-years__cell">
           2009
         </div>
-      </div>
-      <div class="v-date-picker-years__row">
         <div class="v-date-picker-years__cell">
           2010
         </div>
+      </div>
+      <div class="v-date-picker-years__row">
         <div class="v-date-picker-years__cell">
           2011
         </div>
@@ -136,11 +133,11 @@ exports[`VYears should set year prop and match snapshot 1`] = `
         <div class="v-date-picker-years__cell">
           2013
         </div>
-      </div>
-      <div class="v-date-picker-years__row">
         <div class="v-date-picker-years__cell">
           2014
         </div>
+      </div>
+      <div class="v-date-picker-years__row">
         <div class="v-date-picker-years__cell">
           2015
         </div>
@@ -150,11 +147,11 @@ exports[`VYears should set year prop and match snapshot 1`] = `
         <div class="v-date-picker-years__cell">
           2017
         </div>
-      </div>
-      <div class="v-date-picker-years__row">
         <div class="v-date-picker-years__cell">
           2018
         </div>
+      </div>
+      <div class="v-date-picker-years__row">
         <div class="v-date-picker-years__cell">
           2019
         </div>
@@ -163,6 +160,9 @@ exports[`VYears should set year prop and match snapshot 1`] = `
         </div>
         <div class="v-date-picker-years__cell">
           2021
+        </div>
+        <div class="v-date-picker-years__cell">
+          2022
         </div>
       </div>
       <div class="v-date-picker-years__row">

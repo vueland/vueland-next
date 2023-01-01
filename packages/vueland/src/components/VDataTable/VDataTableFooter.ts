@@ -1,5 +1,5 @@
 // Vue API
-import { watch, computed, defineComponent, h, ref, PropType } from 'vue'
+import { watch, computed, defineComponent, h, ref, PropType, unref } from 'vue'
 
 // Components
 import { VIcon } from '../VIcon'
@@ -36,6 +36,8 @@ export const VDataTableFooter = defineComponent({
   ],
 
   setup(props, { emit, slots }): () => VNode {
+    const defaultRowsPerPageOptions = [5, 10, 15, 20]
+
     const {
       setBackgroundCssColor,
       setBackgroundClassNameColor,
@@ -52,7 +54,11 @@ export const VDataTableFooter = defineComponent({
     })
 
     const isLastPage = computed<boolean>(() => {
-      return props.page >= props.pages
+      return props.page === props.pages
+    })
+
+    const rowsPerPageOptions = computed(() => {
+      return props.options.counts?.rowsPerPageOptions || defaultRowsPerPageOptions
     })
 
     watch(
@@ -119,7 +125,6 @@ export const VDataTableFooter = defineComponent({
     }
 
     const genRowsCountSelectList = () => {
-      const options = props.options.counts?.rowsPerPageOptions || [5, 10, 15, 20]
       const color = props.options?.counts?.displayColor || 'primary'
       const contentColor = props.options.contentColor || 'white'
 
@@ -133,7 +138,7 @@ export const VDataTableFooter = defineComponent({
             ...(color ? setBackgroundCssColor(color) : {}),
             ...(contentColor ? setTextCssColor(contentColor) : {}),
           },
-        }, options.map((it) => h('div', {
+        }, unref(rowsPerPageOptions).map((it) => h('div', {
           class: 'v-data-table__rows-count-item',
           onClick: () => emit('select-rows-count', it),
         }, [it])),
@@ -213,8 +218,6 @@ export const VDataTableFooter = defineComponent({
         },
       }
 
-      props.pageCorrection && emit('correct-page', -props.pageCorrection)
-
       return h(
         'div',
         propsData,
@@ -239,6 +242,8 @@ export const VDataTableFooter = defineComponent({
         genPaginationButtonsBlock(),
       ])
     }
+
+    emit('select-rows-count', unref(rowsPerPageOptions)[0])
 
     return () => {
       const propsData = {

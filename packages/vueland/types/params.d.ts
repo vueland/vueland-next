@@ -69,6 +69,7 @@ export interface TableColumn {
   format?: (row: any) => any
   filter?: (arg: TableFilter) => any
   sort?: (a: any, b: any) => number
+  emit?: boolean
 }
 
 export interface TableColumnProps {
@@ -100,8 +101,7 @@ type PaginationOptions = {
 
 export interface FooterOptions {
   pagination?: PaginationOptions
-  rowsPerPageOptions?: number[]
-  rowsCountText?: string
+  counts?: string
   color?: string
   dark?: boolean
 }

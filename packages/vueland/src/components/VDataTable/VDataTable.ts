@@ -18,10 +18,10 @@ import { VNode, PropType } from 'vue'
 import {
   TableColumn,
   TableColumnProps,
-  FooterOptions,
   HeaderOptions,
   TableFilter,
 } from '../../../types'
+import { IDataTableFooterOptions } from '@/components/VDataTable/types'
 
 export default defineComponent({
   name: 'v-data-table',
@@ -49,29 +49,30 @@ export default defineComponent({
       default: () => ({}),
     },
     footerOptions: {
-      type: Object as PropType<FooterOptions>,
-      default: () => ({}),
+      type: Object as PropType<IDataTableFooterOptions>,
+      default: null,
     },
     customFilter: Function,
   } as any,
 
   emits: [
     'last-page',
+    'sort:column',
+    'filter:column',
     'select:row',
     'click:row',
     'dblclick:row',
     'update:page',
+    'update:rows',
     'update:rows-count',
     'contextmenu:row',
   ],
 
   setup(props, { slots, emit }) {
-    const DEFAULT_ROWS_ON_PAGE = 20
-
     const cols = ref<TableColumn[]>([])
     const rows = ref<any[]>([])
     const page = ref<number>(1)
-    const rowsOnPage = ref<number>(DEFAULT_ROWS_ON_PAGE)
+    const rowsOnPage = ref<number>(props.footerOptions?.counts?.rowsPerPageOptions?.[0] || 5)
     const checkedRows = ref<any[]>([])
     const isAllRowsChecked = ref<boolean>(false)
 
@@ -94,7 +95,7 @@ export default defineComponent({
       ...props.headerOptions,
     }))
 
-    const footerOptions = computed<FooterOptions>(() => ({
+    const footerOptions = computed<IDataTableFooterOptions>(() => ({
       color: props.color,
       dark: props.dark,
       ...props.footerOptions,
@@ -114,16 +115,6 @@ export default defineComponent({
         : unref(page) * unref(rowsOnPage)
     })
 
-    const pageCorrection = computed<number | null>(() => {
-      if ((unref(page) - 1) * unref(rowsOnPage) > unref(rows)?.length) {
-        return Math.ceil(
-          (unref(page) * unref(rowsOnPage) - unref(rows)?.length) / unref(rowsOnPage),
-        )
-      }
-
-      return null
-    })
-
     watch(
       () => props.cols,
       (newCols) => (cols.value = newCols),
@@ -132,7 +123,13 @@ export default defineComponent({
 
     watch(
       () => props.rows,
-      (newRows) => (rows.value = newRows),
+      (newRows) => rows.value = newRows,
+      { immediate: true },
+    )
+
+    watch(
+      () => props.rows.length,
+      (length) => emit('update:rows', { page, length }),
       { immediate: true },
     )
 
@@ -160,22 +157,27 @@ export default defineComponent({
       emit('update:page', unref(page))
     }
 
-    const onSort = <T extends TableColumn, S extends TableColumnProps>(
-      col: T & S,
-    ) => {
+    const onSort = (col: TableColumn & TableColumnProps) => {
       if (col.sorted) {
         col.sorted = !col.sorted
+
         return sortColumn(col)
       }
 
-      unref(cols).forEach((c: T & S) => (c.sorted = col.key === c.key))
+      unref(cols).forEach((c: any) => (c.sorted = col.key === c.key))
 
       sortColumn(col)
     }
 
-    const sortColumn = <T extends TableColumn, S extends TableColumnProps>(
-      col: T & S,
-    ) => {
+    const sortColumn = (col: TableColumn & TableColumnProps) => {
+      /**
+       * if emit is equal true
+       * just emit the event
+       */
+      if (col.emit) {
+        return emit('sort:column', col)
+      }
+
       if (!col.sorted) {
         return unref(rows)?.reverse()
       }
@@ -191,16 +193,26 @@ export default defineComponent({
     }
 
     const onFilter = ({ value, col }: TableFilter) => {
-      if (!value && filters[col.key]) delete filters[col.key]
+      if (col.emit) {
+        return emit('filter:column', { value, col })
+      }
 
-      if (value) filters[col.key] = value
+      if (!value && filters[col.key]) {
+        delete filters[col.key]
+      }
+
+      if (value) {
+        filters[col.key] = value
+      }
 
       if (col.filter) {
         return (rows.value = col.filter({ value, col }))
       }
+
       if (props.customFilter) {
         return props.customFilter(filters as any)
       }
+
       if (!Object.keys(filters).length) {
         return (rows.value = props.rows)
       }
@@ -316,15 +328,13 @@ export default defineComponent({
         page: unref(page),
         firstOnPage: unref(firstOnPage),
         lastOnPage: unref(lastOnPage),
-        pageCorrection: unref(pageCorrection),
         rowsOnPage: unref(rowsOnPage),
         rowsLength: unref(rows)?.length,
         options: unref(footerOptions),
         onPrevPage,
         onNextPage,
         onSelectRowsCount,
-        onLastPage: () => emit('last-page', props.rows.length),
-        onCorrectPage: (val) => (page.value += val),
+        // onLastPage: () => emit('last-page', props.rows.length),
       }
 
       const content = slots['pagination-text']

@@ -1,12 +1,18 @@
+import { Ref } from 'vue'
+
 export interface IDataTableHeaderOptions {
   color?: string
   contentColor?: string,
   resizerColor?: string
 }
 
-export interface IFooterPaginationOptions {
-  buttonsColor?: string,
+interface IPaginationOptions {
+  buttonsColor?: string
   displayColor?: string
+  onNext?: (PaginationHandlerArgument) => any
+  onPrev?: (PaginationHandlerArgument) => any
+  disableIf?: boolean
+  page?: Ref<number>
 }
 
 export interface IFooterCountsOptions {
@@ -16,8 +22,8 @@ export interface IFooterCountsOptions {
 }
 
 export interface IDataTableFooterOptions {
-  pagination?: IFooterPaginationOptions
-  counts: IFooterCountsOptions
+  pagination?: IPaginationOptions
+  counts?: IFooterCountsOptions
   color?: string
   contentColor?: string
 }

@@ -64,8 +64,8 @@ export const VDataTableHeader = defineComponent({
 
     const cols = computed<TableColumn[]>(() => [...props.cols])
 
-    const onSort = (item) => {
-      emit('sort', item)
+    const onSort = (col) => {
+      emit('sort', col)
     }
 
     const onInput = ($value, col) => {
@@ -80,43 +80,43 @@ export const VDataTableHeader = defineComponent({
       item.showFilter = true
     }
 
-    const genSortButton = (item) => {
+    const genSortButton = (col) => {
       const classes = {
         'v-data-table-col__actions-sort': true,
-        'v-data-table-col__actions-sort--active': item.sorted,
+        'v-data-table-col__actions-sort--active': col.sorted,
       }
 
       const propsData = {
         clickable: true,
         class: classes,
         icon: icons.$arrowUp,
-        onClick: () => onSort(item),
+        onClick: () => onSort(col),
       }
 
       return h(VIcon, propsData)
     }
 
-    const genFilterButton = (item) => {
+    const genFilterButton = (col) => {
       const classes = {
         'v-data-table-col__actions-filter': true,
-        'v-data-table-col__actions-filter--active': item.filtered,
+        'v-data-table-col__actions-filter--active': col.filtered,
       }
 
       const propsData = {
         clickable: true,
         class: classes,
         icon: icons.$filter,
-        color: !item.cellClass ? computedContentColor.value : '',
-        onClick: () => showFilter(item),
+        color: !col.cellClass ? computedContentColor.value : '',
+        onClick: () => showFilter(col),
       }
 
       return h(VIcon, propsData)
     }
 
-    const genHeaderActions = (item) => {
+    const genHeaderActions = (col) => {
       return h('span', { class: 'v-data-table-col__actions' }, [
-        item.sortable && genSortButton(item),
-        item.filterable && genFilterButton(item),
+        col.sortable && genSortButton(col),
+        col.filterable && genFilterButton(col),
       ])
     }
 

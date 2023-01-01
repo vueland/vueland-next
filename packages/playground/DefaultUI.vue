@@ -37,8 +37,7 @@ export default {
     const $v_breakpoints = inject('$v_breakpoints', {} as any)
     const { setTheme } = useTheme()
 
-    watch($v_breakpoints, (to) => {
-      console.log(to)
+    watch($v_breakpoints, () => {
       if ($v_breakpoints.current === 'sm') {
         setTheme({ primary: '#fa5a5a' })
       } else {
@@ -60,6 +59,12 @@ export default {
         data.loading = true
         setTimeout(() => data.loading = false, 2000)
       })
+    }
+
+    const onRowsUpdate = ({page}) => {
+      if (page.value >= 3) {
+        page.value = 1
+      }
     }
 
     const addCircular = () => {
@@ -191,6 +196,7 @@ export default {
       onClickLoading,
       addCircular,
       showMenu,
+      onRowsUpdate
     }
   },
 }
@@ -424,11 +430,10 @@ export default {
             buttonsColor: '',
             displayColor: '',
             disableIf: false,
-            onNext: ({page, count}) => addItem() && testFunc({data: new Date(), page, count})
+            // onNext: ({page, count}) => addItem() && testFunc({data: new Date(), page, count})
           },
           color: '',
           contentColor: '',
-          rowsPerPageOptions: [25, 40, 50, 75],
           rowsPerPageText: 'Кол-во строк',
         }"
 
@@ -436,6 +441,7 @@ export default {
         class="elevation-10"
         show-sequence
         show-checkbox
+        @update:rows="onRowsUpdate"
         @select:row="testFunc"
         @dblclick:row="testFunc"
         @contextmenu:row="testFunc"

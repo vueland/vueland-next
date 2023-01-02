@@ -1,5 +1,5 @@
 // Vue API
-import { watch, computed, defineComponent, h, ref, PropType, unref } from 'vue'
+import { computed, defineComponent, h, ref, PropType, unref } from 'vue'
 
 // Components
 import { VIcon } from '../VIcon'
@@ -28,8 +28,6 @@ export const VDataTableFooter = defineComponent({
   } as any,
 
   emits: [
-    'last-page',
-    'correct-page',
     'select-rows-count',
     'next-page',
     'prev-page',
@@ -48,29 +46,15 @@ export const VDataTableFooter = defineComponent({
 
     const activator = ref<Maybe<HTMLElement>>(null)
 
-    const paginationDisplayText = computed<string>(() => {
-      return `${ props.firstOnPage } - ${ props.lastOnPage }
-        of ${ props.rowsLength }`
-    })
-
-    const isLastPage = computed<boolean>(() => {
-      return props.page === props.pages
+    const rowsCountText = computed<string>(() => {
+      return `${ props.firstOnPage } - ${ props.lastOnPage } of ${ props.rowsLength }`
     })
 
     const rowsPerPageOptions = computed(() => {
       return props.options.counts?.rowsPerPageOptions || defaultRowsPerPageOptions
     })
 
-    watch(
-      () => isLastPage.value,
-      (to) => to && emit('last-page'),
-    )
-
-    async function changeTableRowsPage(isNext) {
-      // if (props.page === props.pages && isNext) {
-      //   return
-      // }
-
+    const changeTableRowsPage = async (isNext) => {
       const { onNext, onPrev } = props.options.pagination
 
       const params = { page: props.page, count: props.rowsOnPage }
@@ -83,7 +67,7 @@ export const VDataTableFooter = defineComponent({
       emit(event, isNext ? 1 : -1)
     }
 
-    function genPaginationButton(isNext = false): VNode {
+    const genPaginationButton = (isNext = false): VNode => {
       const btnColor = props.options?.pagination?.buttonsColor || 'primary'
       const contentColor = props.options.contentColor || 'white'
 
@@ -93,16 +77,14 @@ export const VDataTableFooter = defineComponent({
           (!isNext && props.firstOnPage === 1)
         )
 
-      const propsData = {
+      return h(VButton, {
         width: 42,
         color: btnColor,
         elevation: 3,
         disabled: disableIf,
         text: disableIf,
         onClick: () => changeTableRowsPage(isNext),
-      }
-
-      return h(VButton, propsData, {
+      }, {
         default: () =>
           h(VIcon, {
             icon: isNext ? icons.$arrowRight : icons.$arrowLeft,
@@ -111,20 +93,18 @@ export const VDataTableFooter = defineComponent({
       })
     }
 
-    function genPaginationPageDisplay(): VNode {
+    const genPaginationPageDisplay = (): VNode => {
       const displayColor = props.options?.pagination?.displayColor || 'primary'
 
-      const propsData = {
+      return h(VButton, {
         width: 42,
         style: { margin: '0 10px' },
         color: displayColor,
         elevation: 3,
-      }
-
-      return h(VButton, propsData, { default: () => props.page })
+      }, { default: () => props.page })
     }
 
-    const genRowsCountSelectList = () => {
+    const genRowsCountSelectList = (): VNode => {
       const color = props.options?.counts?.displayColor || 'primary'
       const contentColor = props.options.contentColor || 'white'
 
@@ -145,24 +125,21 @@ export const VDataTableFooter = defineComponent({
       )
     }
 
-    const genMenu = () => {
+    const genMenu = () => h(VMenu, {
+      activator: activator.value!,
+      maxHeight: 240,
+      zIndex: 12,
+      openOnClick: true,
+    }, {
+      default: () => genRowsCountSelectList(),
+    })
 
-      return h(VMenu, {
-        activator: activator.value!,
-        maxHeight: 240,
-        zIndex: 12,
-        openOnClick: true,
-      }, {
-        default: () => genRowsCountSelectList(),
-      })
-    }
 
-    const genRowsCountField = () => {
-      return h('div', {
-        class: 'v-data-table__rows-count-value',
-        textColor: props.options.contentColor,
-      }, props.rowsOnPage)
-    }
+    const genRowsCountField = () => h('div', {
+      class: 'v-data-table__rows-count-value',
+      textColor: props.options.contentColor,
+    }, props.rowsOnPage)
+
 
     const genRowsCountSelect = () => {
       const displayColor = props.options?.counts?.displayColor || 'primary'
@@ -222,7 +199,7 @@ export const VDataTableFooter = defineComponent({
         'div',
         propsData,
         (props.rowsLength && slots['pagination-text']?.()) ||
-        (props.rowsLength && paginationDisplayText.value) ||
+        (props.rowsLength && rowsCountText.value) ||
         '-',
       )
     }
@@ -245,22 +222,18 @@ export const VDataTableFooter = defineComponent({
 
     emit('select-rows-count', unref(rowsPerPageOptions)[0])
 
-    return () => {
-      const propsData = {
-        class: {
-          'v-data-table__footer': true,
-          ...(props.options.color
-            ? setBackgroundClassNameColor(props.options.color)
-            : {}),
-        },
-        style: {
-          ...(props.options.color
-            ? setBackgroundCssColor(props.options.color)
-            : {}),
-        },
-      }
-
-      return h('div', propsData, genPaginationBlock())
-    }
+    return () => h('div', {
+      class: {
+        'v-data-table__footer': true,
+        ...(props.options.color
+          ? setBackgroundClassNameColor(props.options.color)
+          : {}),
+      },
+      style: {
+        ...(props.options.color
+          ? setBackgroundCssColor(props.options.color)
+          : {}),
+      },
+    }, genPaginationBlock())
   },
 })

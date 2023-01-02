@@ -430,11 +430,13 @@ export default {
             buttonsColor: '',
             displayColor: '',
             disableIf: false,
-            // onNext: ({page, count}) => addItem() && testFunc({data: new Date(), page, count})
+          },
+          counts: {
+            rowsPerPageText: 'Кол-во строк',
+            totalRows: 125
           },
           color: '',
           contentColor: '',
-          rowsPerPageText: 'Кол-во строк',
         }"
 
         align="left"
@@ -454,7 +456,7 @@ export default {
         <!--                  {{ col.title }}-->
         <!--                </span>-->
         <!--              </template>-->
-        <template #paginationText="{start, last, length}">
+        <template #pagination-text="{start, last, length}">
           <span>{{ start + ' - ' + last + ' из ' + length + ' строк' }}</span>
         </template>
 

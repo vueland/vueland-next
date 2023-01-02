@@ -19,7 +19,7 @@ import {
   TableColumn,
   TableColumnProps,
   HeaderOptions,
-  TableFilter,
+  TableFilterParams,
 } from '../../../types'
 import { IDataTableFooterOptions } from '@/components/VDataTable/types'
 
@@ -101,18 +101,38 @@ export default defineComponent({
       ...props.footerOptions,
     }))
 
-    const pages = computed<number>(() => {
-      return Math.ceil(unref(rows)?.length / unref(rowsOnPage))
+    const totalRowsCount = computed<number>(() => {
+      return props.footerOptions?.counts?.totalRows || unref(rows)?.length
     })
 
-    const firstOnPage = computed<number>(() => {
-      return unref(page) === 1 ? 1 : (unref(page) - 1) * unref(rowsOnPage) + 1
+    const pages = computed<number>(() => {
+      return Math.ceil(unref(totalRowsCount) / unref(rowsOnPage))
     })
 
     const lastOnPage = computed<number>(() => {
-      return unref(page) * unref(rowsOnPage) > unref(rows)?.length
-        ? unref(rows)?.length
-        : unref(page) * unref(rowsOnPage)
+      const currentPage = unref(page)
+
+      return currentPage * unref(rowsOnPage) > unref(totalRowsCount)
+        ? unref(totalRowsCount)
+        : currentPage * unref(rowsOnPage)
+    })
+
+    const firstOnPage = computed<number>(() => {
+      const currentPage = unref(page)
+
+      if (currentPage === 1) {
+        return 1
+      }
+
+      const total = currentPage * unref(rowsOnPage)
+
+      if (total > unref(totalRowsCount)) {
+        const diff = unref(totalRowsCount) % unref(rowsOnPage)
+
+        return unref(totalRowsCount) - diff + 1
+      }
+
+      return unref(currentPage) === 1 ? 1 : (currentPage - 1) * unref(rowsOnPage) + 1
     })
 
     watch(
@@ -133,6 +153,13 @@ export default defineComponent({
       { immediate: true },
     )
 
+    watch(rowsOnPage, (value) => {
+      if (value * unref(page) > unref(totalRowsCount)) {
+        page.value = Math.ceil(unref(totalRowsCount) / value)
+        emit('update:page', unref(page))
+      }
+    })
+
     const onSelectAll = (value: boolean) => {
       isAllRowsChecked.value = value
       unref(rows).forEach((row) => (row.checked = value))
@@ -144,16 +171,20 @@ export default defineComponent({
     }
 
     const onPrevPage = (num: number) => {
-      page.value = unref(page) > 1 ? unref(page) + num : unref(page)
+      if (unref(page) === 1) {
+        return
+      }
 
+      page.value = unref(page) > 1 ? unref(page) + num : unref(page)
       emit('update:page', unref(page))
     }
 
     const onNextPage = (num: number) => {
-      if (unref(rows)?.length - unref(page) * unref(rowsOnPage) > 0) {
-        page.value += num
+      if (unref(totalRowsCount) - unref(page) * unref(rowsOnPage) <= 0) {
+        return
       }
 
+      page.value += num
       emit('update:page', unref(page))
     }
 
@@ -174,8 +205,8 @@ export default defineComponent({
        * if emit is equal true
        * just emit the event
        */
-      if (col.emit) {
-        return emit('sort:column', col)
+      if (col.onSort) {
+        return col.onSort(col)
       }
 
       if (!col.sorted) {
@@ -192,9 +223,9 @@ export default defineComponent({
       unref(rows)?.sort(executor as any)
     }
 
-    const onFilter = ({ value, col }: TableFilter) => {
-      if (col.emit) {
-        return emit('filter:column', { value, col })
+    const onFilter = ({ value, col }: TableFilterParams) => {
+      if (col.onFilter) {
+        return onFilter({ value, col })
       }
 
       if (!value && filters[col.key]) {
@@ -329,22 +360,20 @@ export default defineComponent({
         firstOnPage: unref(firstOnPage),
         lastOnPage: unref(lastOnPage),
         rowsOnPage: unref(rowsOnPage),
-        rowsLength: unref(rows)?.length,
+        rowsLength: unref(totalRowsCount),
         options: unref(footerOptions),
         onPrevPage,
         onNextPage,
         onSelectRowsCount,
-        // onLastPage: () => emit('last-page', props.rows.length),
       }
 
       const content = slots['pagination-text']
         ? {
           ['pagination-text']: () =>
-            slots['pagination-text'] &&
-            slots['pagination-text']({
+            slots['pagination-text']?.({
               start: unref(firstOnPage),
               last: unref(lastOnPage),
-              length: unref(rows)?.length,
+              length: unref(totalRowsCount),
             }),
         }
         : ''

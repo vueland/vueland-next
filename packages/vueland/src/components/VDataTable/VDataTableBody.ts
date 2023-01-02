@@ -1,5 +1,5 @@
 // Vue API
-import { h, ref, watch, computed, defineComponent } from 'vue'
+import { h, ref, watch, computed, defineComponent, unref } from 'vue'
 
 // Effects
 import { colorProps, useColors } from '../../composables/use-colors'
@@ -47,11 +47,14 @@ export const VDataTableBody = defineComponent({
       ...(props.color ? setBackgroundCssColor(props.color) : {}),
     }))
 
-    const rowsOnTable = computed<Record<string, any>[]>(() => {
-      return props.rows?.slice(
-        (props.page - 1) * props.rowsOnPage,
-        props.page * props.rowsOnPage,
-      )
+    const rowsCount = computed<number>(() => (props.page - 1) * props.rowsOnPage)
+
+    const rowsOnTable = computed<any[]>(() => {
+      if (props.rows?.[unref(rowsCount)]) {
+        return props.rows?.slice(unref(rowsCount), props.page * props.rowsOnPage)
+      }
+
+      return props.rows?.slice(0, props.rowsOnPage)
     })
 
     watch(
@@ -159,10 +162,9 @@ export const VDataTableBody = defineComponent({
     const genTableRows = (): VNode[] => {
       const tableRows: VNode[] = []
       const rowsLength = rowsOnTable.value?.length
-      const count = (props.page - 1) * props.rowsOnPage
 
       for (let i = 0; i < rowsLength; i += 1) {
-        tableRows.push(genTableRow(rowsOnTable.value[i], count + i))
+        tableRows.push(genTableRow(rowsOnTable.value[i], unref(rowsCount) + i))
       }
 
       return tableRows

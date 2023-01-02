@@ -260,8 +260,7 @@ exports[`VDataTable should test align center and match snapshot 1`] = `
         </button>
       </div>
       <div class="v-data-table__pagination-pages">
-        1 - 5
-        of 20
+        1 - 5 of 20
       </div>
       <div class="v-data-table__pagination-route">
         <button class="v-button elevation-3 primary"
@@ -496,8 +495,7 @@ exports[`VDataTable should test align left and match snapshot 1`] = `
         </button>
       </div>
       <div class="v-data-table__pagination-pages">
-        1 - 5
-        of 20
+        1 - 5 of 20
       </div>
       <div class="v-data-table__pagination-route">
         <button class="v-button elevation-3 primary"
@@ -732,8 +730,7 @@ exports[`VDataTable should test align left and match snapshot 2`] = `
         </button>
       </div>
       <div class="v-data-table__pagination-pages">
-        1 - 5
-        of 20
+        1 - 5 of 20
       </div>
       <div class="v-data-table__pagination-route">
         <button class="v-button elevation-3 primary"
@@ -1153,8 +1150,7 @@ exports[`VDataTable should test column sort and match snapshot 1`] = `
         </button>
       </div>
       <div class="v-data-table__pagination-pages">
-        1 - 5
-        of 20
+        1 - 5 of 20
       </div>
       <div class="v-data-table__pagination-route">
         <button class="v-button elevation-3 primary"
@@ -1437,8 +1433,7 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
         </button>
       </div>
       <div class="v-data-table__pagination-pages">
-        1 - 5
-        of 20
+        1 - 5 of 20
       </div>
       <div class="v-data-table__pagination-route">
         <button class="v-button elevation-3 primary"
@@ -1616,8 +1611,7 @@ exports[`VDataTable should test table filter and match snapshot 1`] = `
         </button>
       </div>
       <div class="v-data-table__pagination-pages">
-        1 - 1
-        of 1
+        1 - 1 of 1
       </div>
       <div class="v-data-table__pagination-route">
         <button class="v-button elevation-3 primary"

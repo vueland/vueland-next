@@ -18,6 +18,7 @@ interface IPaginationOptions {
 export interface IFooterCountsOptions {
   rowsPerPageOptions?: Array<number>
   rowsPerPageText?: string
+  totalRows?: number
   displayColor?: string
 }
 

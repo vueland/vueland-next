@@ -24,7 +24,7 @@ export {
   TableColumnProps,
   FooterOptions,
   HeaderOptions,
-  TableFilter,
+  TableFilterParams,
   Dimensions,
   OffsetSizes,
   ColorSetters,

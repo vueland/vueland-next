@@ -55,6 +55,11 @@ export type DateParams = {
   D: string
 }
 
+export type TableFilterParams = {
+  value: any
+  col: TableColumn
+}
+
 export interface TableColumn {
   key: string
   title: string
@@ -67,9 +72,10 @@ export interface TableColumn {
   rowCellClass?: string
   show?: boolean
   format?: (row: any) => any
-  filter?: (arg: TableFilter) => any
+  filter?: (arg: TableFilterParams) => any
   sort?: (a: any, b: any) => number
-  emit?: boolean
+  onSort?: (col: TableColumn) => any
+  onFilter?: (params: TableFilterParams) => any
 }
 
 export interface TableColumnProps {
@@ -79,11 +85,6 @@ export interface TableColumnProps {
 
 export interface DataRowProps {
   selected: boolean
-}
-
-export type TableFilter = {
-  value: string | number
-  col: TableColumn
 }
 
 type PaginationHandlerArgument = {

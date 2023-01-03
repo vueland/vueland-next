@@ -147,12 +147,6 @@ export default defineComponent({
       { immediate: true },
     )
 
-    watch(
-      () => props.rows.length,
-      (length) => emit('update:rows', { page, length }),
-      { immediate: true },
-    )
-
     watch(rowsOnPage, (value) => {
       if (value * unref(page) > unref(totalRowsCount)) {
         page.value = Math.ceil(unref(totalRowsCount) / value)

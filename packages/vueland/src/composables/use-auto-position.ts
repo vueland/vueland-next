@@ -1,4 +1,4 @@
-import { ref, reactive, computed } from 'vue'
+import { computed, ref, reactive } from 'vue'
 import { Dimensions } from '../../types'
 
 type MainDimensions = {
@@ -43,7 +43,7 @@ export function useAutoPosition(props){
     pageWidth: 0
   })
 
-  const contentRef = ref<HTMLElement | null>(null)
+  const contentRef = ref<Maybe<HTMLElement>>(null)
   const offsetY: number = +props.offsetY
   // const offsetX: number = +props.offsetX
 

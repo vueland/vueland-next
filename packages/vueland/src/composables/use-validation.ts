@@ -24,7 +24,7 @@ export const useValidation = (props) => {
   })
 
   const validationClasses = () => ({
-    'e-validatable': true,
+    'v-validatable': true,
   })
 
   const computedColor = computed<Maybe<string>>(() => {

@@ -19,6 +19,7 @@ import { useTransition } from '../../composables/use-transition'
 // Components
 import { VLabel } from '../VLabel'
 import { VIcon } from '../VIcon'
+import { VProgressLinear } from '../VProgressLinear'
 
 type Form = {
   add: (item: (val?: any) => boolean | void) => void
@@ -49,6 +50,7 @@ export default defineComponent({
     focused: Boolean,
     readonly: Boolean,
     file: Boolean,
+    loading: Boolean,
     hints: {
       type: Boolean,
       default: true,
@@ -127,7 +129,7 @@ export default defineComponent({
         },
       )
 
-      return h('div', { class: 'v-input__label' }, [label])
+      return h('div', { class: 'v-input__label' }, [ label ])
     }
 
     const genIcon = (iconName, clickable = false): VNode => {
@@ -167,9 +169,25 @@ export default defineComponent({
         : null
     }
 
+    const genLinearProgress = (): VNode => {
+      return h('div', {
+          class: { 'v-input__loading': true },
+        },
+
+        h(VProgressLinear, {
+          height: 2,
+          indeterminate: true,
+          color: props.color,
+          backgroundColor: props.color,
+        })
+      )
+    }
+
     const genTextFieldSlot = () => {
       const prependIconContent = genPrependIcon()
       const appendIconContent = genAppendIcon()
+      const loadingIndicator = genLinearProgress()
+
       const { disabled } = props
 
       const textFieldContent = slots['text-field']?.({
@@ -179,7 +197,7 @@ export default defineComponent({
       })
 
       return h('div', { class: 'v-input__text-field' },
-        [prependIconContent, textFieldContent, appendIconContent],
+        [ prependIconContent, textFieldContent, appendIconContent, props.loading ? loadingIndicator : null ],
       )
     }
 
@@ -187,7 +205,7 @@ export default defineComponent({
       return !!errorState.innerErrorMessage ? h(
         'span',
         { class: 'v-input__hints-message' },
-        [errorState.innerErrorMessage],
+        [ errorState.innerErrorMessage ],
       ) : null
     }
 

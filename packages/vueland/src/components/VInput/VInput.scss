@@ -17,6 +17,12 @@ $input-label-height: 24px;
     position: relative;
   }
 
+  &__loading {
+    position: absolute;
+    width: 100%;
+    bottom: -1px;
+  }
+
   &__text-field {
     display: flex;
     height: $input-height;
@@ -24,7 +30,8 @@ $input-label-height: 24px;
     border-radius: $input-border-radius;
     transition: .4s $primary-transition;
     transition-property: color, border-color;
-    overflow: hidden;
+    //overflow: hidden;
+    position: relative;
   }
 
   &__hints {

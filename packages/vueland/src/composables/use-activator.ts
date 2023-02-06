@@ -1,12 +1,12 @@
 import { ref, ComponentPublicInstance } from 'vue'
 import { ActivatorListeners, Dimensions } from '../../types/composables'
 
-export function activatorProps(){
+export function activatorProps() {
   return {
     activator: {
       type: [ Object, String ]
     },
-    internalActivator: Boolean
+    internalActivator: Boolean,
   }
 }
 
@@ -16,7 +16,9 @@ export const useActivator = (props) => {
   const listeners: Partial<ActivatorListeners> = {}
 
   const getActivator = (event?: Event): Maybe<HTMLElement> => {
-    if (activatorRef.value) return activatorRef.value?.$el || activatorRef.value
+    if (activatorRef.value) {
+      return activatorRef.value?.$el || activatorRef.value
+    }
 
     const target = props.internalActivator ? props.activator.$el : document
 
@@ -24,11 +26,9 @@ export const useActivator = (props) => {
       return (activatorRef.value = target.querySelector(props.inputActivator))
     }
 
-    if (props.activator) {
-      if (typeof props.activator === 'string') {
-        return (activatorRef.value = target.querySelector(props.activator))
-      }
-
+    if (typeof props.activator === 'string') {
+      return (activatorRef.value = target.querySelector(props.activator))
+    } else if (props.activator) {
       return (activatorRef.value = props.activator)
     }
 
@@ -71,6 +71,7 @@ export const useActivator = (props) => {
     const events = Object.keys(listeners)
 
     if (activatorRef.value) {
+      console.log(activatorRef.value)
       events.forEach((key) => {
         const el = activatorRef.value.$el || activatorRef.value
         el!.addEventListener(key, listeners[key])

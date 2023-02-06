@@ -12,7 +12,6 @@ import { VNode } from 'vue'
 import { VInput } from '../VInput'
 import { VSelectList } from '../VSelect'
 import { VMenu } from '../VMenu'
-import { VProgressLinear } from '../VProgressLinear'
 
 // Helpers
 import { getKeyValueFromTarget } from '../../helpers'
@@ -90,24 +89,37 @@ export default defineComponent({
     const onFocus = () => {
       state.focused = true
       state.isMenuActive = true
+
       emit('focus')
     }
 
     const onBlur = () => {
-      if (!valueProperty.value && !state.search) state.search = ''
-      if (!state.search && valueProperty.value) state.search = inputValue.value
+      if (!valueProperty.value && !state.search) {
+        state.search = ''
+      }
+
+      if (!state.search && valueProperty.value) {
+        state.search = inputValue.value
+      }
+
       state.focused = false
+      state.isMenuActive = false
+
       emit('blur')
     }
 
     const onInput = (e) => {
       state.search = e.target.value
+
+      state.isMenuActive = true
+
       emit('input', e.target.value)
     }
 
     const onClear = () => {
       state.search = ''
       state.select = null
+
       emit('select', null)
       emit('update:modelValue', null)
       emit('update:value', null)
@@ -117,6 +129,7 @@ export default defineComponent({
       state.search = props.valueKey
         ? getKeyValueFromTarget(props.valueKey, it)
         : it
+
       state.select = it
       emit('select', it)
       emit('update:modelValue', it)
@@ -128,7 +141,6 @@ export default defineComponent({
         value: state.search,
         disabled: props.disabled,
         readonly: props.readonly && !props.typeable,
-        ref: activator,
         class: 'v-autocomplete__input',
         onInput,
         onFocus,
@@ -150,33 +162,20 @@ export default defineComponent({
     }
 
     const genMenu = (): VNode => {
-      return h(
-        VMenu,
-        {
+      return h(VMenu, {
           activator: activator.value!,
           openOnClick: true,
           maxHeight: 240,
           bottom: true,
-          onHide: () => (state.isMenuActive = state.focused),
+          inputActivator: '.v-input__text-field',
+          internalActivator: true,
+          onHide: () => {
+            state.isMenuActive = false
+          },
         },
         {
           default: genAutocompleteList,
         }
-      )
-    }
-
-    const genLinearProgress = (): VNode => {
-      return h(
-        'div',
-        {
-          class: { 'v-autocomplete__loading': true },
-        },
-        h(VProgressLinear, {
-          height: 2,
-          indeterminate: true,
-          color: props.color,
-          backgroundColor: props.color,
-        })
       )
     }
 
@@ -189,7 +188,6 @@ export default defineComponent({
         },
         [
           genInput(),
-          props.loading && genLinearProgress(),
           activator.value && genMenu(),
         ]
       )
@@ -210,6 +208,7 @@ export default defineComponent({
         clearable: props.clearable,
         color: props.color,
         rules: props.rules,
+        ref: activator,
         value: valueProperty.value || state.search,
         onClear,
       }

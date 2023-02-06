@@ -43,6 +43,7 @@ exports[`VSelect should mount component and match snapshot 1`] = `
               style="font-size: 16px;"
             />
           </div>
+          <!---->
         </div>
         <div
           class="v-input__hints"

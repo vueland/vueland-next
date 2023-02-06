@@ -103,7 +103,6 @@ export default defineComponent({
       }
 
       state.focused = false
-      state.isMenuActive = false
 
       emit('blur')
     }

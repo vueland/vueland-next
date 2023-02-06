@@ -63,11 +63,11 @@ export default defineComponent({
     },
     offsetX: {
       type: [String, Number],
-      default: 20,
+      default: 0,
     },
     offsetY: {
       type: [String, Number],
-      default: 20,
+      default: 0,
     },
     modelValue: Boolean,
     inputActivator: {

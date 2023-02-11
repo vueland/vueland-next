@@ -71,7 +71,6 @@ export const useActivator = (props) => {
     const events = Object.keys(listeners)
 
     if (activatorRef.value) {
-      console.log(activatorRef.value)
       events.forEach((key) => {
         const el = activatorRef.value.$el || activatorRef.value
         el!.addEventListener(key, listeners[key])

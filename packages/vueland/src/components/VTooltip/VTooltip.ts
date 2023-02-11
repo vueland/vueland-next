@@ -49,11 +49,11 @@ export default defineComponent({
     modelValue: Boolean,
     offsetX: {
       type: [String, Number],
-      default: 20,
+      default: 0,
     },
     offsetY: {
       type: [String, Number],
-      default: 20,
+      default: 0,
     },
     ...elevationProps(),
     ...positionProps(),

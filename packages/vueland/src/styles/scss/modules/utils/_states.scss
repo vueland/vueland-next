@@ -34,6 +34,16 @@
   }
 }
 
+.warning {
+  background-color: var(--warning);
+
+  &--text {
+    color: var(--warning);
+    caret-color: var(--warning);
+  }
+
+}
+
 .disabled {
   background-color: var(--disabled);
 

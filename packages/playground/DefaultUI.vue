@@ -1,205 +1,205 @@
 <script lang="ts">
-import { reactive, ref, computed, inject, watch } from 'vue'
-import { FaIcons } from '../vueland/src/services/icons'
-import { useTheme } from '../vueland/src/composables/use-theme'
+  import { reactive, ref, computed, inject, watch } from 'vue'
+  import { FaIcons } from '../vueland/src/services/icons'
+  import { useTheme } from '../vueland/src/composables/use-theme'
 
-export default {
-  setup() {
-    const data = reactive({
-      always: true,
-      show: false,
-      test: true,
-      login: '',
-      email: '',
-      title: 0,
-      password: '',
-      user: '',
-      checked: [],
-      user2: { name: 'igor', car: { brand: 'bmw' } },
-      user3: { name: 'kirill' },
-      date: null,
-      loading: false,
-      circular: 10,
-      users: [],
-      positionX: 0,
-      positionY: 0,
-      selected: 0,
-      isOpen: false,
-    })
-
-    setTimeout(() => {
-      data.users.push(
-        { name: 'AAA', car: { brand: 'mercedes' }, email: 'sade@mail.ru', body: 'best practice' },
-        { name: 'BBB', car: { brand: 'audi' }, email: 'aaa@mail.ru', body: 'javascript' },
-      )
-    }, 4000)
-
-    const $v_breakpoints = inject('$v_breakpoints', {} as any)
-    const { setTheme } = useTheme()
-
-    watch($v_breakpoints, () => {
-      if ($v_breakpoints.current === 'sm') {
-        setTheme({ primary: '#fa5a5a' })
-      } else {
-        setTheme({ primary: '#147eef' })
-      }
-    }, { deep: true, immediate: true })
-
-    const showMenu = (e) => {
-      e.preventDefault()
-
-      data.positionX = e.clientX
-      data.positionY = e.clientY
-
-      requestAnimationFrame(() => data.isOpen = true)
-    }
-
-    const onClickLoading = (validate) => {
-      validate().then(() => {
-        data.loading = true
-        setTimeout(() => data.loading = false, 2000)
+  export default {
+    setup() {
+      const data = reactive({
+        always: true,
+        show: false,
+        test: true,
+        login: '',
+        email: '',
+        title: 0,
+        password: '',
+        user: '',
+        checked: [],
+        user2: { name: 'igor', car: { brand: 'bmw' } },
+        user3: { name: 'kirill' },
+        date: null,
+        loading: false,
+        circular: 10,
+        users: [],
+        positionX: 0,
+        positionY: 0,
+        selected: 0,
+        isOpen: false,
       })
-    }
 
-    const onRowsUpdate = ({page}) => {
-      if (page.value >= 3) {
-        page.value = 1
+      setTimeout(() => {
+        data.users.push(
+          { name: 'AAA', car: { brand: 'mercedes' }, email: 'sade@mail.ru', body: 'best practice' },
+          { name: 'BBB', car: { brand: 'audi' }, email: 'aaa@mail.ru', body: 'javascript' },
+        )
+      }, 4000)
+
+      const $v_breakpoints = inject('$v_breakpoints', {} as any)
+      const { setTheme } = useTheme()
+
+      watch($v_breakpoints, () => {
+        if ($v_breakpoints.current === 'sm') {
+          setTheme({ primary: '#fa5a5a' })
+        } else {
+          setTheme({ primary: '#147eef' })
+        }
+      }, { deep: true, immediate: true })
+
+      const showMenu = (e) => {
+        e.preventDefault()
+
+        data.positionX = e.clientX
+        data.positionY = e.clientY
+
+        requestAnimationFrame(() => data.isOpen = true)
       }
-    }
 
-    const addCircular = () => {
-      if (data.circular < 100) {
-        return data.circular += Math.ceil(Math.random() * 100) / 2
+      const onClickLoading = (validate) => {
+        validate().then(() => {
+          data.loading = true
+          setTimeout(() => data.loading = false, 2000)
+        })
       }
-      data.circular -= Math.ceil(Math.random() * 100)
-    }
 
-    const fetchItems = () => {
-      fetch('https://jsonplaceholder.typicode.com/comments')
-        .then(response => response.json())
-        .then(() => setTimeout(() => {
-          return data.users
-        }, 500))
-    }
+      const onRowsUpdate = ({ page }) => {
+        if (page.value >= 3) {
+          page.value = 1
+        }
+      }
 
-    fetchItems()
+      const addCircular = () => {
+        if (data.circular < 100) {
+          return data.circular += Math.ceil(Math.random() * 100) / 2
+        }
+        data.circular -= Math.ceil(Math.random() * 100)
+      }
 
-    setTimeout(() => {
-      data.always = false
-    }, 2000)
+      const fetchItems = () => {
+        fetch('https://jsonplaceholder.typicode.com/comments')
+          .then(response => response.json())
+          .then(() => setTimeout(() => {
+            return data.users
+          }, 500))
+      }
 
-    const toggleAlways = () => {
-      data.always = !data.always
-    }
+      fetchItems()
 
-    const testFunc = data => {
-      console.log(data, 'test func data')
-      data.date = data
-    }
+      setTimeout(() => {
+        data.always = false
+      }, 2000)
 
-    const forOut = computed(() => {
-      return data.always ? testFunc : undefined
-    })
+      const toggleAlways = () => {
+        data.always = !data.always
+      }
 
-    const cols = ref([
-      {
-        key: 'actions',
-        title: 'Actions',
-        align: 'center',
-      },
-      {
-        key: 'name',
-        title: 'Name',
-        width: '500',
-        resizeable: true,
-        sortable: true,
-        filterable: true,
-        format: row => row.name,
-        filter: ({ value, col }) => {
-          console.log(value, col)
-          return data.users.filter(user => user[col.key].includes(value))
+      const testFunc = data => {
+        console.log(data, 'test func data')
+        data.date = data
+      }
+
+      const forOut = computed(() => {
+        return data.always ? testFunc : undefined
+      })
+
+      const cols = ref([
+        {
+          key: 'actions',
+          title: 'Actions',
+          align: 'center',
         },
-        // sort: (a, b) => console.log(a, b),
-      },
-      {
-        key: 'email',
-        title: 'Email',
-        width: '250',
-        resizeable: true,
-        sortable: true,
-        filterable: true,
-        format: row => row.email,
-      },
-      {
-        key: 'body',
-        title: 'Body',
-        width: '250',
-        resizeable: true,
-        sortable: true,
-        filterable: true,
-      },
-    ])
+        {
+          key: 'name',
+          title: 'Name',
+          width: '500',
+          resizeable: true,
+          sortable: true,
+          filterable: true,
+          format: row => row.name,
+          filter: ({ value, col }) => {
+            console.log(value, col)
+            return data.users.filter(user => user[col.key].includes(value))
+          },
+          // sort: (a, b) => console.log(a, b),
+        },
+        {
+          key: 'email',
+          title: 'Email',
+          width: '250',
+          resizeable: true,
+          sortable: true,
+          filterable: true,
+          format: row => row.email,
+        },
+        {
+          key: 'body',
+          title: 'Body',
+          width: '250',
+          resizeable: true,
+          sortable: true,
+          filterable: true,
+        },
+      ])
 
-    // const rows = [
-    //   {
-    //     name: 'Ben',
-    //     email: 'ben@mail.ru',
-    //     body: 'some body text'
-    //   },
-    //   {
-    //     name: 'Alex',
-    //     email: 'alex@mail.ru',
-    //     body: 'some body text'
-    //   }
-    // ]
+      // const rows = [
+      //   {
+      //     name: 'Ben',
+      //     email: 'ben@mail.ru',
+      //     body: 'some body text'
+      //   },
+      //   {
+      //     name: 'Alex',
+      //     email: 'alex@mail.ru',
+      //     body: 'some body text'
+      //   }
+      // ]
 
-    const addItem = () => {
-      data.users.push({
-        name: 'Anar',
-        car: { brand: 'tesla' },
-        email: 'adsadasdasd',
-        body: 'sdfsddfsdfsdfsf',
-      })
-    }
+      const addItem = () => {
+        data.users.push({
+          name: 'Anar',
+          car: { brand: 'tesla' },
+          email: 'adsadasdasd',
+          body: 'sdfsddfsdfsdfsf',
+        })
+      }
 
-    data.user = data.users[0]
+      data.user = data.users[0]
 
-    const disabledDates = {
-      // from: new Date(2021, 4, 2),
-      // to: new Date(2021, 4, 10),
-      days: [0, 6],
-      // daysOfMonth: [29, 30, 31],
-      // dates: [
-      //   new Date(2021, 6, 14),
-      //   new Date(2021, 6, 15),
-      //   new Date(2021, 6, 16),
-      // ],
-      // ranges: [{
-      //   from: new Date(2021, 4, 25),
-      //   to: new Date(2021, 5, 10),
-      // }, {
-      //   from: new Date(2021, 6, 12),
-      //   to: new Date(2021, 7, 25),
-      // }],
-      custom: (date) => !(date.date % 2),
-    }
+      const disabledDates = {
+        // from: new Date(2021, 4, 2),
+        // to: new Date(2021, 4, 10),
+        days: [ 0, 6 ],
+        // daysOfMonth: [29, 30, 31],
+        // dates: [
+        //   new Date(2021, 6, 14),
+        //   new Date(2021, 6, 15),
+        //   new Date(2021, 6, 16),
+        // ],
+        // ranges: [{
+        //   from: new Date(2021, 4, 25),
+        //   to: new Date(2021, 5, 10),
+        // }, {
+        //   from: new Date(2021, 6, 12),
+        //   to: new Date(2021, 7, 25),
+        // }],
+        custom: (date) => !(date.date % 2),
+      }
 
-    return {
-      data,
-      cols,
-      disabledDates,
-      forOut,
-      FaIcons,
-      addItem,
-      testFunc,
-      toggleAlways,
-      onClickLoading,
-      addCircular,
-      showMenu,
-      onRowsUpdate
-    }
-  },
-}
+      return {
+        data,
+        cols,
+        disabledDates,
+        forOut,
+        FaIcons,
+        addItem,
+        testFunc,
+        toggleAlways,
+        onClickLoading,
+        addCircular,
+        showMenu,
+        onRowsUpdate
+      }
+    },
+  }
 </script>
 
 <template>
@@ -209,7 +209,13 @@ export default {
         @click="testFunc({date: 'click'})"
         @close="testFunc({date: 'close'})"
       >
-        click checker a little bit more
+        <span>click checker</span>
+      </v-chip>
+      <v-chip
+        @click="testFunc({date: 'click'})"
+        @close="testFunc({date: 'close'})"
+      >
+        <span>click checker</span>
       </v-chip>
       <v-layout column>
         <v-checkbox
@@ -781,47 +787,47 @@ export default {
 </template>
 
 <style lang="scss">
-.active-class {
-  background: #272727;
-  color: white !important;
-}
-
-.wrap {
-  position: absolute;
-  left: 60px;
-  top: 60px;
-  width: calc(100% - 60px);
-  height: calc(100vh - 60px);
-}
-
-.app {
-  &-header {
-    width: 100%;
-    height: 60px;
+  .active-class {
     background: #272727;
+    color: white !important;
   }
 
-  &-sidebar {
+  .wrap {
     position: absolute;
+    left: 60px;
     top: 60px;
-    left: 0;
-    width: 60px;
+    width: calc(100% - 60px);
     height: calc(100vh - 60px);
-    background: #272727;
   }
-}
 
-.text {
-  display: inline-block;
-}
+  .app {
+    &-header {
+      width: 100%;
+      height: 60px;
+      background: #272727;
+    }
 
-.test {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
+    &-sidebar {
+      position: absolute;
+      top: 60px;
+      left: 0;
+      width: 60px;
+      height: calc(100vh - 60px);
+      background: #272727;
+    }
+  }
 
-body {
-  font-family: Bitstream Charter, sans-serif !important;
-}
+  .text {
+    display: inline-block;
+  }
+
+  .test {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  body {
+    font-family: Bitstream Charter, sans-serif !important;
+  }
 </style>

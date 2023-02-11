@@ -19,7 +19,7 @@ export default defineComponent({
     disabled: Boolean,
     closable: {
       type: Boolean,
-      default: true
+      default: false
     },
     ...colorProps('primary')
   },
@@ -66,7 +66,7 @@ export default defineComponent({
       }, slots.default?.() || props.title)
     }
 
-    return () => h('span', {
+    return () => h('div', {
       class: classes.value,
       style: styles.value
     }, [

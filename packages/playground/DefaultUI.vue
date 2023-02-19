@@ -37,8 +37,8 @@
       const $v_breakpoints = inject('$v_breakpoints', {} as any)
       const { setTheme } = useTheme()
 
-      watch($v_breakpoints, () => {
-        if ($v_breakpoints.current === 'sm') {
+      watch(() => $v_breakpoints, () => {
+        if ($v_breakpoints.mdAndLess.value) {
           setTheme({ primary: '#fa5a5a' })
         } else {
           setTheme({ primary: '#147eef' })

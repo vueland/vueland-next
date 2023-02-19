@@ -1,11 +1,11 @@
 import { defineComponent, computed, h, VNode } from 'vue'
 import { toCamelCase } from '../../helpers'
 
-const breakpoints = ['sm', 'md', 'lg', 'xl']
+const breakpoints = [ 'xs', 'sm', 'md', 'lg', 'xl', 'xxl' ]
 
 const colProps = breakpoints.reduce((props, p) => {
   props[p] = {
-    type: [String, Number],
+    type: [ String, Number ],
     default: null,
   }
 
@@ -13,8 +13,8 @@ const colProps = breakpoints.reduce((props, p) => {
 }, {})
 
 const orderProps = breakpoints.reduce((props, p) => {
-  props[`order-${p}`] = {
-    type: [String, Number],
+  props[`order-${ p }`] = {
+    type: [ String, Number ],
     default: null,
   }
 
@@ -22,8 +22,8 @@ const orderProps = breakpoints.reduce((props, p) => {
 }, {})
 
 const offsetProps = breakpoints.reduce((props, p) => {
-  props[`offset-${p}`] = {
-    type: [String, Number],
+  props[`offset-${ p }`] = {
+    type: [ String, Number ],
     default: null,
   }
 
@@ -34,15 +34,15 @@ export default defineComponent({
   name: 'v-col',
   props: {
     order: {
-      type: [String, Number],
+      type: [ String, Number ],
       default: null,
     },
     cols: {
-      type: [String, Number],
+      type: [ String, Number ],
       default: null,
     },
     offset: {
-      type: [String, Number],
+      type: [ String, Number ],
       default: null,
     },
     ...colProps,
@@ -52,23 +52,24 @@ export default defineComponent({
   setup(props, { slots }): () => VNode {
     const classes = computed<Record<string, boolean>>(() => ({
       'v-col': true,
-      [`v-col-${props.cols}`]: !!props.cols,
+      [`v-col-${ props.cols }`]: !!props.cols,
       ...breakpoints.reduce((cols, p) => {
-        cols[`${p}-${props[p]}`] = !!props[p]
+        cols[`${ p }-${ props[p] }`] = !!props[p]
         return cols
       }, {}),
 
-      [`order-${props.order}`]: props.order !== null,
+      [`order-${ props.order }`]: props.order !== null,
 
       ...breakpoints.reduce((orders, p) => {
         const propValue = props[toCamelCase('order', p)]
-        orders[`order-${p}-${propValue}`] = !!propValue
+        orders[`order-${ p }-${ propValue }`] = !!propValue
         return orders
       }, {}),
-      [`offset-${props.offset}`]: props.offset !== null,
+
+      [`offset-${ props.offset }`]: props.offset !== null,
       ...breakpoints.reduce((offsets, p) => {
         const propValue = props[toCamelCase('offset', p)]
-        offsets[`offset-${p}-${propValue}`] = !!propValue
+        offsets[`offset-${ p }-${ propValue }`] = !!propValue
         return offsets
       }, {}),
     }))

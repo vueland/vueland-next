@@ -11,6 +11,7 @@ import '../../vueland/src/styles/scss/themes/vueland-theme.scss'
 export const vueland = createVueland({
   components,
   directives,
+  ssr: true
 })
 
 vueland.setIcons('fa')

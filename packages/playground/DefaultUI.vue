@@ -27,6 +27,8 @@
         isOpen: false,
       })
 
+      const select = ref(null)
+
       setTimeout(() => {
         data.users.push(
           { name: 'AAA', car: { brand: 'mercedes' }, email: 'sade@mail.ru', body: 'best practice' },
@@ -190,6 +192,7 @@
         disabledDates,
         forOut,
         FaIcons,
+        select,
         addItem,
         testFunc,
         toggleAlways,
@@ -204,6 +207,21 @@
 
 <template>
   <v-app>
+    <v-select
+      v-model="select"
+      value-key="ok"
+      label="salam"
+    >
+      <template #select-list="{onSelect}">
+        <v-list>
+          <v-list-item @click="onSelect({ok: 'true'})">
+            <v-list-item-title>
+              gooood
+            </v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </template>
+    </v-select>
     <div>
       <v-chip
         @click="testFunc({date: 'click'})"

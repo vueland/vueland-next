@@ -1,6 +1,7 @@
 import { defineComponent, h, ref, unref, onMounted } from 'vue'
 
 export default defineComponent({
+  name: 'v-lazy',
   props: {
     tag: {
       type: String,

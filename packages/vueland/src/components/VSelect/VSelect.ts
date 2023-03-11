@@ -16,7 +16,7 @@ export default defineComponent({
   name: 'v-select',
   props: {
     modelValue: {
-      type: [String, Number, Object],
+      type: [ String, Number, Object ],
       default: null,
     },
     items: {
@@ -33,10 +33,16 @@ export default defineComponent({
     },
     loading: Boolean,
   },
-  emits: ['click', 'focus', 'select', 'blur', 'change', 'update:modelValue'],
-  setup(props, { attrs, emit }) {
-    const { isDisabled, isReadonly, inputState, onBlur, onSelect, onFocus } =
-      useInputStates(props, { attrs, emit })
+  emits: [ 'click', 'focus', 'select', 'blur', 'change', 'update:modelValue' ],
+  setup(props, { attrs, emit, slots }) {
+    const {
+      isDisabled,
+      isReadonly,
+      inputState,
+      onBlur,
+      onSelect,
+      onFocus
+    } = useInputStates(props, { attrs, emit })
 
     const activator = ref<Maybe<HTMLElement>>(null)
 
@@ -83,7 +89,27 @@ export default defineComponent({
       }))
     }
 
-    const genSelectList = (): VNode => {
+    const genSelectListSlot = () => {
+      return h('div', {
+        class: 'v-select__select-list-slot'
+      }, {
+        default: () => slots['select-list']?.({ onSelect })
+      })
+    }
+
+    const genSelectList = () => {
+      return h(VSelectList, {
+        items: props.items,
+        selected: props.modelValue,
+        valueKey: props.valueKey,
+        activeClass: props.activeClass,
+        onSelect,
+      })
+    }
+
+    const genSelectMenu = (): VNode => {
+      const content = slots['select-list'] ? genSelectListSlot() : genSelectList()
+
       return h(VMenu, {
         internalActivator: true,
         activator: activator.value!,
@@ -94,13 +120,7 @@ export default defineComponent({
         onShow: onFocus,
         onHide: onBlur,
       }, {
-        default: () => props.loading ? genListPreloader() : h(VSelectList, {
-          items: props.items,
-          selected: props.modelValue,
-          valueKey: props.valueKey,
-          activeClass: props.activeClass,
-          onSelect,
-        }),
+        default: () => props.loading ? genListPreloader() : content
       })
     }
 
@@ -127,7 +147,7 @@ export default defineComponent({
         return genSelect({ textCssColor, textClassColor, disabled })
       },
       ['append-icon']: () => genExpandIcon(),
-      select: () => activator.value? genSelectList() : null,
+      select: () => activator.value ? genSelectMenu() : null,
     })
   },
 })

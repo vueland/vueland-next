@@ -16,6 +16,7 @@
   "VFileInput": "./VFileInput/VFileInput",
   "VTooltip": "./VTooltip/VTooltip",
   "VTextField": "./VTextField/VTextField",
+  "VCombobox": "./VCombobox/VCombobox",
   "VSelect": "./VSelect/VSelect",
   "VAutocomplete": "./VAutocomplete/VAutocomplete",
   "VResize": "./VResize/VResize",

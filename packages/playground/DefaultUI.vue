@@ -27,12 +27,14 @@
         isOpen: false,
       })
 
-      const select = ref(null)
+      const select = ref([])
 
       setTimeout(() => {
         data.users.push(
           { name: 'AAA', car: { brand: 'mercedes' }, email: 'sade@mail.ru', body: 'best practice' },
           { name: 'BBB', car: { brand: 'audi' }, email: 'aaa@mail.ru', body: 'javascript' },
+          { name: 'CCC', car: { brand: 'audi' }, email: 'aacca@mail.ru', body: 'javascript' },
+          { name: 'DDD', car: { brand: 'audi' }, email: 'ddddd@mail.ru', body: 'javascript' },
         )
       }, 4000)
 
@@ -207,8 +209,15 @@
 
 <template>
   <v-app>
-    <v-select
+    <v-combobox
       v-model="select"
+      prepend-icon="fas fa-clock"
+      value-key="name"
+      :items="data.users"
+      chip
+      label="combobox"
+    />
+    <v-select
       value-key="ok"
       label="salam"
     >

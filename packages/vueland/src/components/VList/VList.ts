@@ -1,4 +1,4 @@
-import { defineComponent, h, provide, watch, ref, toRaw, computed, onMounted } from 'vue'
+import { defineComponent, h, provide, watch, ref, unref, toRaw, computed, onMounted } from 'vue'
 import { useColors, colorProps } from '../../composables/use-colors'
 import { mapToValArray } from '../../helpers'
 
@@ -64,8 +64,8 @@ export default defineComponent({
     }
 
     const setActiveItem = (item) => {
-      mapToValArray(toRaw(items.value)).forEach((it) => {
-        it.isActive.value = it === item
+      mapToValArray(unref(items)).forEach((it) => {
+        it.isActive = toRaw(it) === item
       })
     }
 
@@ -73,34 +73,39 @@ export default defineComponent({
       item.isActive.value = !item.isActive.value
     }
 
-    const prepareIndexes = () => {
-      const values = mapToValArray(toRaw(items.value))
-      const { multiple } = props
+    const prepareValue = (item) => {
+      const values = mapToValArray(unref(items))
+      const index = values.findIndex(it => toRaw(it) === item)
 
-      let val = multiple ? [] : 0
+      if (!props.multiple) {
+        return index
+      }
 
-      values.forEach((it, i) => {
-        if (it.isActive.value) {
-          multiple ? (val as number[]).push(i) : (val = i)
-        }
-      })
+      const { value } = props
+      let copy = (value as number[]).slice()
 
-      return val
+      if (!item.isActive.value) {
+        copy = copy.filter(it => it !== index)
+      } else {
+        copy.push(index)
+      }
+
+      return copy
     }
 
     const onClick = (item) => {
-      if (!props.active) return
+      if (!props.active) {
+        return
+      }
 
       props.multiple ? toggleItem(item) : setActiveItem(item)
-      // !props.multiple &&
-
-      dispatchEvent(prepareIndexes())
+      dispatchEvent(prepareValue(item))
     }
 
     const setItemState = (value) => {
       if (value === null) return setActiveItem(value)
 
-      const values = mapToValArray(toRaw(items.value))
+      const values = mapToValArray(unref(items))
 
       if (values.length) {
         if (props.multiple) {

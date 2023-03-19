@@ -4,6 +4,7 @@ $input-height: 48px;
 $input-border-radius: 4px;
 $input-hints-height: 24px;
 $input-label-height: 24px;
+$line-height: 20px;
 
 .v-input {
   display: flex;
@@ -13,7 +14,7 @@ $input-label-height: 24px;
 
   &__label {
     height: $input-label-height;
-    line-height: 20px;
+    line-height: $line-height;
     position: relative;
   }
 
@@ -25,7 +26,8 @@ $input-label-height: 24px;
 
   &__text-field {
     display: flex;
-    height: $input-height;
+    //height: $input-height;
+    min-height: $input-height;
     border: 1px solid map-get($grey, 'lighten-1');
     border-radius: $input-border-radius;
     transition: .4s $primary-transition;

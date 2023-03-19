@@ -1,3 +1,4 @@
+@import "../../styles/scss/modules/global";
 $input-padding: 5px;
 
 .v-text-field {
@@ -6,7 +7,7 @@ $input-padding: 5px;
 
   &__input {
     width: 100%;
-    height: 100%;
+    height: $input-height;
     padding: $input-padding;
     color: var(--content);
 

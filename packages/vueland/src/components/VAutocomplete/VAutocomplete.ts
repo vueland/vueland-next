@@ -165,7 +165,7 @@ export default defineComponent({
           activator: activator.value!,
           openOnClick: true,
           maxHeight: 240,
-          bottom: true,
+          bottom: props.typeable,
           inputActivator: '.v-input__text-field',
           internalActivator: true,
           onHide: () => {

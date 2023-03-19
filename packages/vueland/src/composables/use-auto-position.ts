@@ -45,7 +45,7 @@ export function useAutoPosition(props){
 
   const contentRef = ref<Maybe<HTMLElement>>(null)
   const offsetY: number = +props.offsetY
-  // const offsetX: number = +props.offsetX
+  // const offsetX: number = +props.offsetX || 20
 
   let activator: HTMLElement
   let content: HTMLElement

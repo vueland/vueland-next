@@ -20,7 +20,9 @@ export const useActivator = (props) => {
       return activatorRef.value?.$el || activatorRef.value
     }
 
-    const target = props.internalActivator ? props.activator.$el : document
+    const target = props.internalActivator ? props.activator?.$el : document
+
+    console.log('target', target)
 
     if (props.inputActivator) {
       return (activatorRef.value = target.querySelector(props.inputActivator))
@@ -28,7 +30,7 @@ export const useActivator = (props) => {
 
     if (typeof props.activator === 'string') {
       return (activatorRef.value = target.querySelector(props.activator))
-    } else if (props.activator) {
+    } else if (props.activator && typeof props.activator !== 'string') {
       return (activatorRef.value = props.activator)
     }
 

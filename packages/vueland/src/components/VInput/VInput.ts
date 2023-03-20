@@ -46,6 +46,7 @@ export default defineComponent({
       type: String,
       default: '',
     },
+    clearable: Boolean,
     disabled: Boolean,
     focused: Boolean,
     readonly: Boolean,

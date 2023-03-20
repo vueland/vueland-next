@@ -14,7 +14,7 @@ export const VTextField = defineAsyncComponent(() => import(/*Vueland_component*
 export const VInput = defineAsyncComponent(() => import(/*Vueland_component*/`${ paths['VInput'] }`))
 export const VImg = defineAsyncComponent(() => import(/*Vueland_component*/`${ paths['VImg'] }`))
 export const VFileInput = defineAsyncComponent(() => import(/*Vueland_component*/`${ paths['VFileInput'] }`))
-export const VCombobox = defineAsyncComponent(() => import(/*Vueland_component*/`${ paths['VCombobox'] }`))
+export const VMultiSelect = defineAsyncComponent(() => import(/*Vueland_component*/`${ paths['VMultiSelect'] }`))
 export const VSelect = defineAsyncComponent(() => import(/*Vueland_component*/`${ paths['VSelect'] }`))
 export const VForm = defineAsyncComponent(() => import(/*Vueland_component*/`${ paths['VForm'] }`))
 export const VLabel = defineAsyncComponent(() => import(/*Vueland_component*/`${ paths['VLabel'] }`))

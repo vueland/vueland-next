@@ -9,10 +9,10 @@ import { useInputStates } from '../../composables/use-input-states'
 import { validationProps } from '../../composables/use-validation'
 import { VProgressCircular } from '../VProgressCircular'
 import { VIcon } from '../VIcon'
-import { FaIcons } from '@/services/icons'
+import { FaIcons } from '../../services/icons'
 
 export default defineComponent({
-  name: 'v-combobox',
+  name: 'v-multi-select',
   props: {
     modelValue: {
       type: Array as PropType<any[]>,
@@ -36,50 +36,52 @@ export default defineComponent({
     },
     ...validationProps()
   },
-  emits: [ 'update:modelValue' ],
+  emits: [ 'focus', 'blur', 'change', 'input', 'update:modelValue' ],
   setup(props, { attrs, emit, slots }) {
-    const { onFocus, onBlur, onChange, isDisabled, inputState } = useInputStates(props, { attrs, emit })
+    const {
+      onFocus,
+      onBlur,
+      isDisabled,
+      inputState
+    } = useInputStates(props, { attrs, emit })
+
     const activator = ref(null)
+    const { valueKey } = props
 
     const classes = computed(() => ({
-      'v-combobox': true,
-      'v-combobox--focused': inputState.focused
+      'v-multi-select': true,
+      'v-multi-select--focused': inputState.focused
     }))
 
+    const selectsIndexes = computed(() => {
+      return props.modelValue?.reduce((inds, val) => {
+        const ind = props.items?.findIndex(it => it === val)
+
+        ind >= 0 && inds.push(ind)
+
+        return inds
+      }, [])
+    })
+
     const genItems = () => {
-      const itemWrapper = props.chip ? VChip : 'div'
+      const itemWrapper = props.chip ? VChip : 'div' as any
 
-      return props.modelValue.reduce((nodes, it) => {
-        const text = props.valueKey ? props.items[it]![props.valueKey] : props.items[it]
+      return props.modelValue.reduce((nodes, it, i) => {
+        const text = valueKey ? it[valueKey] : it
+        const lastSymbol = i < props.modelValue.length - 1 && !props.chip ? ',' : ''
 
-        const item = h(itemWrapper as any, {
-          class: 'v-combobox__item'
-        }, {
-          default: () => text
-        })
-
-        nodes.push(item)
+        nodes.push(h(itemWrapper, { class: 'v-multi-select__item' }, { default: () => `${ text }${ lastSymbol }` }))
 
         return nodes
       }, [] as any[])
     }
 
     const genItemsWrapper = () => h('div', {
-        class: 'v-combobox__items-wrapper'
+        class: 'v-multi-select__items-wrapper'
       }, {
         default: () => genItems()
       }
     )
-
-
-    const genInput = () => {
-      return h('input', {
-        class: 'v-combobox__input',
-        onFocus,
-        onBlur,
-        onChange
-      })
-    }
 
     const genListPreloader = () => {
       return h('div', {
@@ -94,21 +96,21 @@ export default defineComponent({
 
     const genSelectListSlot = () => {
       return h('div', {
-        class: 'v-combobox__select-list-slot'
+        class: 'v-multi-select__select-list-slot'
       }, {
-        default: () => slots['select-list']?.({})
+        default: () => slots['select-list']?.({ items: props.items })
       })
     }
 
     const onUpdateSelects = (val) => {
-      emit('update:modelValue', val)
+      emit('update:modelValue', val.map(v => props.items[v]))
     }
 
     const genSelectList = () => {
       return h(VMultiSelectList, {
-        class: 'v-combobox__select-list',
+        class: 'v-multi-select__select-list',
         items: props.items,
-        modelValue: props.modelValue,
+        modelValue: selectsIndexes.value,
         valueKey: props.valueKey,
         ['onUpdate:modelValue']: onUpdateSelects
       })
@@ -141,11 +143,11 @@ export default defineComponent({
       })
     }
 
-    const genComboBox = () => {
+    const genMultiSelect = () => {
       return h('div', {
         class: unref(classes),
       }, {
-        default: () => [ genItemsWrapper(), genInput() ]
+        default: () => [ genItemsWrapper() ]
       })
     }
 
@@ -153,7 +155,7 @@ export default defineComponent({
       ref: activator,
       focused: inputState.focused,
     }, {
-      ['text-field']: () => genComboBox(),
+      ['text-field']: () => genMultiSelect(),
       select: () => activator.value ? genSelectMenu() : null,
       ['append-icon']: () => genExpandIcon(),
     })

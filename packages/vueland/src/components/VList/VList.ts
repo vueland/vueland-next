@@ -1,4 +1,4 @@
-import { defineComponent, h, provide, watch, ref, unref, toRaw, computed, onMounted } from 'vue'
+import { defineComponent, h, provide, watch, ref, unref, computed, onMounted } from 'vue'
 import { useColors, colorProps } from '../../composables/use-colors'
 import { mapToValArray } from '../../helpers'
 
@@ -65,17 +65,17 @@ export default defineComponent({
 
     const setActiveItem = (item) => {
       mapToValArray(unref(items)).forEach((it) => {
-        it.isActive = toRaw(it) === item
+        it.isActive = it === item
       })
     }
 
     const toggleItem = (item) => {
-      item.isActive.value = !item.isActive.value
+      item.isActive = !item.isActive
     }
 
     const prepareValue = (item) => {
       const values = mapToValArray(unref(items))
-      const index = values.findIndex(it => toRaw(it) === item)
+      const index = values.findIndex(it => it === item)
 
       if (!props.multiple) {
         return index
@@ -84,7 +84,7 @@ export default defineComponent({
       const { value } = props
       let copy = (value as number[]).slice()
 
-      if (!item.isActive.value) {
+      if (!item.isActive) {
         copy = copy.filter(it => it !== index)
       } else {
         copy.push(index)
@@ -94,31 +94,41 @@ export default defineComponent({
     }
 
     const onClick = (item) => {
-      if (!props.active) {
-        return
+      if (!props.active) return
+
+      const _item = items.value.get(item)
+
+      if (props.multiple) {
+        toggleItem(_item)
+      } else {
+        setActiveItem(_item)
       }
 
-      props.multiple ? toggleItem(item) : setActiveItem(item)
-      dispatchEvent(prepareValue(item))
+      dispatchEvent(prepareValue(_item))
     }
 
     const setItemState = (value) => {
-      if (value === null) return setActiveItem(value)
+      if (value === null || props.multiple && !value.length) {
+        return setActiveItem(null)
+      }
 
       const values = mapToValArray(unref(items))
 
-      if (values.length) {
-        if (props.multiple) {
-          ;(value as number[]).forEach((ind) => toggleItem(values[ind]))
-        } else {
-          setActiveItem(values[value as number])
-        }
+      if (!values.length) return
+
+      if (props.multiple) {
+        value.forEach((ind) => toggleItem(values[ind]))
+      } else {
+        setActiveItem(values[value as number])
       }
     }
 
     watch(() => props.value, (to) => {
-        if (!isTrustedSelect) setItemState(to)
-        isTrustedSelect && (isTrustedSelect = false)
+        if (!isTrustedSelect) {
+          setItemState(to)
+        } else {
+          isTrustedSelect = false
+        }
       },
     )
 

@@ -1,5 +1,6 @@
 import { computed, h, defineComponent, VNode } from 'vue'
 import { VList, VListItem, VListItemTitle } from '../VList'
+import { getStringKeysValue } from '../../helpers'
 
 export default defineComponent({
   name: 'v-multiselect-list',
@@ -28,7 +29,7 @@ export default defineComponent({
       const { valueKey } = props
 
       return h(VListItemTitle, {}, {
-        default: () => valueKey ? item[valueKey] : item
+        default: () => valueKey ? getStringKeysValue(valueKey, item) : item
       })
     }
 
@@ -53,6 +54,8 @@ export default defineComponent({
       })
     }
 
-    return () => genList()
+    return () => h('div', {
+      class: 'v-multi-select-list',
+    }, [props.items ? genList() : null])
   }
 })

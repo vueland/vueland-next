@@ -29,6 +29,15 @@
 
       const select = ref([])
 
+      watch(select, to => {
+        setTimeout(() => {
+          data.users = [
+            { name: 'DDD', car: { brand: 'audi' }, email: 'ddddd@mail.ru', body: 'javascript' },
+          ]
+        }, 3000)
+        console.log(to, 'select')
+      })
+
       setTimeout(() => {
         data.users.push(
           { name: 'AAA', car: { brand: 'mercedes' }, email: 'sade@mail.ru', body: 'best practice' },
@@ -209,27 +218,29 @@
 
 <template>
   <v-app>
-    <v-combobox
+    <v-multi-select
       v-model="select"
       prepend-icon="fas fa-clock"
       value-key="name"
       :items="data.users"
+      label="multi select"
       chip
-      label="combobox"
+      :loading="!data.users.length"
     />
     <v-select
-      value-key="ok"
+      value-key="name"
       label="salam"
+      :items="data.users"
     >
-      <template #select-list="{onSelect}">
-        <v-list>
-          <v-list-item @click="onSelect({ok: 'true'})">
-            <v-list-item-title>
-              gooood
-            </v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </template>
+    <!--      <template #select-list="{onSelect}">-->
+    <!--        <v-list>-->
+    <!--          <v-list-item @click="onSelect({ok: 'true'})">-->
+    <!--            <v-list-item-title>-->
+    <!--              gooood-->
+    <!--            </v-list-item-title>-->
+    <!--          </v-list-item>-->
+    <!--        </v-list>-->
+    <!--      </template>-->
     </v-select>
     <div>
       <v-chip

@@ -1,4 +1,4 @@
-import { defineComponent, h, provide, watch, ref, unref, computed, onMounted } from 'vue'
+import { defineComponent, h, provide, watch, ref, unref, nextTick, computed } from 'vue'
 import { useColors, colorProps } from '../../composables/use-colors'
 import { mapToValArray } from '../../helpers'
 
@@ -112,15 +112,17 @@ export default defineComponent({
         return setActiveItem(null)
       }
 
-      const values = mapToValArray(unref(items))
+      nextTick(() => {
+        const values = mapToValArray(unref(items))
 
-      if (!values.length) return
+        if (!values.length) return
 
-      if (props.multiple) {
-        value.forEach((ind) => toggleItem(values[ind]))
-      } else {
-        setActiveItem(values[value as number])
-      }
+        if (props.multiple) {
+          value.forEach((ind) => toggleItem(values[ind]))
+        } else {
+          setActiveItem(values[value as number])
+        }
+      })
     }
 
     watch(() => props.value, (to) => {
@@ -131,15 +133,6 @@ export default defineComponent({
         }
       },
     )
-
-    // this part is for fixing
-    // async components mounting sequence
-    const stop = watch(items, () => {
-      setItemState(props.value)
-      stop()
-    }, { deep: true })
-
-    onMounted(() => setItemState(props.value))
 
     provide('$v_list', {
       add: register,

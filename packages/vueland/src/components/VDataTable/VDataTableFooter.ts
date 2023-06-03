@@ -46,13 +46,8 @@ export const VDataTableFooter = defineComponent({
 
     const activator = ref<Maybe<HTMLElement>>(null)
 
-    const rowsCountText = computed<string>(() => {
-      return `${ props.firstOnPage } - ${ props.lastOnPage } of ${ props.rowsLength }`
-    })
-
-    const rowsPerPageOptions = computed(() => {
-      return props.options.counts?.rowsPerPageOptions || defaultRowsPerPageOptions
-    })
+    const rowsCountText = computed<string>(() => `${ props.firstOnPage } - ${ props.lastOnPage } of ${ props.rowsLength }`)
+    const rowsPerPageOptions = computed(() => props.options.counts?.rowsPerPageOptions || defaultRowsPerPageOptions)
 
     const changeTableRowsPage = async (isNext) => {
       const { onNext, onPrev } = props.options.pagination

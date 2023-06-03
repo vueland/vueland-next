@@ -150,7 +150,7 @@ export default defineComponent({
     watch(rowsOnPage, (value) => {
       if (value * unref(page) > unref(totalRowsCount)) {
         page.value = Math.ceil(unref(totalRowsCount) / value)
-        emit('update:page', unref(page))
+        // emit('update:page', unref(page))
       }
     })
 
@@ -165,18 +165,14 @@ export default defineComponent({
     }
 
     const onPrevPage = (num: number) => {
-      if (unref(page) === 1) {
-        return
-      }
+      if (unref(page) === 1) return
 
       page.value = unref(page) > 1 ? unref(page) + num : unref(page)
       emit('update:page', unref(page))
     }
 
     const onNextPage = (num: number) => {
-      if (unref(totalRowsCount) - unref(page) * unref(rowsOnPage) <= 0) {
-        return
-      }
+      if (unref(totalRowsCount) - unref(page) * unref(rowsOnPage) <= 0) return
 
       page.value += num
       emit('update:page', unref(page))

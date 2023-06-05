@@ -22,7 +22,6 @@ import { convertToUnit } from '../../helpers'
 // Directives
 import { clickOutside } from '../../directives'
 
-
 export default defineComponent({
   name: 'v-modal',
   directives: {
@@ -55,12 +54,9 @@ export default defineComponent({
     onMounted(() => {
       if (props.overlay) {
 
-        const { createOverlay, removeOverlay } = useOverlay(
-          props,
-          unref(modalRef)!,
-        )
+        const { createOverlay, removeOverlay } = useOverlay(props, modalRef)
 
-        unref(isActive) && createOverlay()
+        if (unref(isActive)) createOverlay()
 
         watch(isActive, (state) => {
             state && createOverlay()

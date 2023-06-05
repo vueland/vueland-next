@@ -1,4 +1,4 @@
-import { render, h } from 'vue'
+import { ShallowRef, render, h, unref } from 'vue'
 
 // Components
 import { VOverlay } from '../components/VOverlay'
@@ -19,7 +19,7 @@ export const overlayProps = () => ({
   }
 })
 
-export const useOverlay = (props: any, overlayOn?: HTMLElement): OverlayController => {
+export const useOverlay = (props: any, overlayOn?: ShallowRef<Maybe<HTMLElement>>): OverlayController => {
   const container: HTMLElement = document.createElement('div')
 
   let overlayElement: Maybe<HTMLElement> = null
@@ -31,9 +31,9 @@ export const useOverlay = (props: any, overlayOn?: HTMLElement): OverlayControll
 
   const createOverlay = () => {
     overlayElement!.style.zIndex = `${ props.zIndex - 1 }`
-    overlayOn!.style.zIndex = `${ props.zIndex }`
+    unref(overlayOn)!.style.zIndex = `${ props.zIndex }`
 
-    overlayOn?.parentNode?.insertBefore(overlayElement!, overlayOn)
+    unref(overlayOn)?.parentNode?.insertBefore(overlayElement!, unref(overlayOn)!)
     overlayElement?.classList.remove('v-overlay--hidden')
 
     requestAnimationFrame(() => {

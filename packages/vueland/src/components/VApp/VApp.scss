@@ -1,10 +1,11 @@
 @import "../../styles/scss/modules/global";
 
 .v-app {
+  position: relative;
   font-family: $text-font-family;
   text-rendering: optimizeLegibility;
-  height: auto;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: auto;
   background-color: var(--base);
   color: var(--content)
 }

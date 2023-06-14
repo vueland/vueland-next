@@ -1,4 +1,4 @@
-import { computed, ref, reactive } from 'vue'
+import { computed, ref, reactive, unref } from 'vue'
 import { Dimensions } from '../../types'
 
 type MainDimensions = {
@@ -22,6 +22,8 @@ export function autoPositionProps(){
 }
 
 export function useAutoPosition(props){
+  const app = document.querySelector('.v-app')!
+
   const dimensions = reactive<MainDimensions>({
     activator: {
       top: 0,
@@ -75,15 +77,15 @@ export function useAutoPosition(props){
   }
 
   const getScrollTop = (): number => {
-    if (!window) return 0
+    if (!app) return 0
 
-    return pageYOffset || document.documentElement.scrollTop
+    return app.scrollTop
   }
 
   const getScrollLeft = (): number => {
-    if (!window) return 0
+    if (!app) return 0
 
-    return pageXOffset || document.documentElement.scrollLeft
+    return app.scrollLeft
   }
 
   const getContentAbsoluteBottomPoint = () => {
@@ -107,7 +109,7 @@ export function useAutoPosition(props){
   const calcContentBottomPosition = () => {
     const fullHeight = getScrollTop() + getInnerHeight()
 
-    const contentBottomPosition = isAbsolutePositioned.value
+    const contentBottomPosition = unref(isAbsolutePositioned)
       ? getContentAbsoluteBottomPoint()
       : getContentBottomBorder()
 

@@ -217,7 +217,7 @@
 </script>
 
 <template>
-  <v-app>
+  <v-main>
     <v-multi-select
       v-model="select"
       prepend-icon="fas fa-clock"
@@ -675,6 +675,7 @@
 
     <v-form>
       <v-card
+        style="position: relative"
         elevation="5"
         color="white"
       >
@@ -821,7 +822,7 @@
         <span>button</span>
       </v-tooltip>
     </v-badge>
-  </v-app>
+  </v-main>
 </template>
 
 <style lang="scss">

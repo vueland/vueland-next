@@ -4,8 +4,14 @@
   position: relative;
   font-family: $text-font-family;
   text-rendering: optimizeLegibility;
-  height: 100vh;
-  overflow: auto;
+  min-height: 100vh;
   background-color: var(--base);
-  color: var(--content)
+  color: var(--content);
+
+  &__wrapper {
+    backface-visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+  }
 }

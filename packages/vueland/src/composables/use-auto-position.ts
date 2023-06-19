@@ -77,15 +77,15 @@ export function useAutoPosition(props){
   }
 
   const getScrollTop = (): number => {
-    if (!app) return 0
+    if (!window) return app.scrollTop
 
-    return app.scrollTop
+    return pageYOffset || app.scrollTop
   }
 
   const getScrollLeft = (): number => {
-    if (!app) return 0
+    if (!window) return app.scrollLeft
 
-    return app.scrollLeft
+    return pageXOffset || app.scrollLeft
   }
 
   const getContentAbsoluteBottomPoint = () => {

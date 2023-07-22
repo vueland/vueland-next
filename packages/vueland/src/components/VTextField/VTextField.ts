@@ -45,11 +45,11 @@ export default defineComponent({
     })
 
     const onFocus = () => {
-      (inputRef.value as any)!.onFocus()
+      (inputRef.value as InstanceType<any>)?.onFocus()
     }
 
     const onBlur = () => {
-      (inputRef.value as any)!.onBlur()
+      (inputRef.value as InstanceType<any>)?.onBlur()
     }
 
     const onInput = (e) => {

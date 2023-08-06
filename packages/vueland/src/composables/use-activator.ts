@@ -40,10 +40,10 @@ export const useActivator = (props) => {
   }
 
   const getActivatorSizes = () => {
-    const el = activatorRef.value!.$el || activatorRef.value!
+    const el = activatorRef.value?.$el || activatorRef.value!
 
-    activatorSizes.left = el.offsetLeft
-    activatorSizes.top = el.offsetTop
+    activatorSizes.left = el.getBoundingClientRect().left + pageXOffset
+    activatorSizes.top = el.getBoundingClientRect().top + pageYOffset
     activatorSizes.height = el.offsetHeight
     activatorSizes.width = el.offsetWidth
 

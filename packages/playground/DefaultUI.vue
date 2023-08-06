@@ -805,8 +805,7 @@
       </template>
       <v-tooltip
         color="blue darken-3"
-        top
-        offset-y="-12"
+        right
         min-width="250"
       >
         <template #activator="{ on }">

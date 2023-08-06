@@ -1,7 +1,7 @@
 // Vue API
 import {
   h,
-  shallowRef,
+  // shallowRef,
   reactive,
   watch,
   withDirectives,
@@ -9,13 +9,16 @@ import {
   computed,
   onMounted,
   vShow,
+  unref, onBeforeUnmount,
 } from 'vue'
 
 // Effects
 import { useToggle } from '../../composables/use-toggle'
 import { useColors } from '../../composables/use-colors'
 import { useActivator } from '../../composables/use-activator'
+import { useAutoPosition, autoPositionProps } from '../../composables/use-auto-position'
 import { useTransition } from '../../composables/use-transition'
+import { useDetach } from '../../composables/use-detach'
 import { elevationProps, useElevation } from '../../composables/use-elevation'
 import { positionProps } from '../../composables/use-position'
 
@@ -57,19 +60,19 @@ export default defineComponent({
     },
     ...elevationProps(),
     ...positionProps(),
+    ...autoPositionProps(),
   } as any,
 
   setup(props, { slots }) {
     const tooltip = reactive<Partial<OffsetSizes>>({})
     const activator = reactive<Partial<OffsetSizes>>({})
 
-    const tooltipRef = shallowRef<HTMLElement | null>(null)
-
     const { isActive } = useToggle(props)
     const { elevationClasses } = useElevation(props)
+    const { setDetached, removeDetached } = useDetach()
     const { setBackgroundClassNameColor, setBackgroundCssColor } = useColors()
-    const { activatorRef, getActivatorSizes, genActivatorListeners } =
-      useActivator(props)
+    const { activatorRef, getActivatorSizes, genActivatorListeners } = useActivator(props)
+    const { contentRef } = useAutoPosition(props)
 
     const handlers = {
       mouseenter: () => (isActive.value = true),
@@ -93,8 +96,8 @@ export default defineComponent({
         (props.top
           ? activator!.top! - tooltip.height!
           : props.bottom
-          ? activator.top! + activator.height!
-          : activator.top! + (activator.height! - tooltip.height!) / 2) +
+            ? activator.top! + activator.height!
+            : activator.top! + (activator.height! - tooltip.height!) / 2) +
         +props.offsetY
       )
     })
@@ -104,8 +107,8 @@ export default defineComponent({
         (props.left
           ? activator.left! - tooltip.width!
           : props.right
-          ? activator.left! + activator.width!
-          : activator.left! + (activator.width! - tooltip.width!) / 2) +
+            ? activator.left! + activator.width!
+            : activator.left! + (activator.width! - tooltip.width!) / 2) +
         +props.offsetX
       )
     })
@@ -120,11 +123,7 @@ export default defineComponent({
     }))
 
     function genActivator(): VNode | null {
-      const slotContent =
-        slots.activator &&
-        slots.activator({
-          on: listeners,
-        })
+      const slotContent = slots.activator?.({ on: listeners })
 
       return h(slotContent![0], { ref: activatorRef })
     }
@@ -133,25 +132,27 @@ export default defineComponent({
       const propsData = {
         class: classes.value,
         style: styles.value,
-        ref: tooltipRef,
+        ref: contentRef,
       }
 
       return withDirectives(
-        h('span', propsData, slots.default && slots.default()),
-        [[vShow, isActive.value]]
+        h('span', propsData, slots.default?.()),
+        [[vShow, isActive.value]],
       )
     }
 
     function setTooltipPosition() {
-      if (tooltipRef.value) {
-        tooltip.width = tooltipRef.value!.offsetWidth
-        tooltip.height = tooltipRef.value!.offsetHeight
+      if (contentRef.value) {
+        tooltip.width = contentRef.value!.offsetWidth
+        tooltip.height = contentRef.value!.offsetHeight
         tooltip.top = computeTopPosition.value
         tooltip.left = computeLeftPosition.value
       }
     }
 
     onMounted(() => {
+      setDetached(unref(contentRef)!)
+
       watch(
         () => isActive.value,
         (to) => {
@@ -169,14 +170,16 @@ export default defineComponent({
             requestAnimationFrame(setTooltipPosition)
           }
         },
-        { immediate: true }
+        { immediate: true },
       )
     })
+
+    onBeforeUnmount(() => removeDetached(unref(contentRef)!))
 
     return () => {
       const content = useTransition(
         genContent() as VNode,
-        isActive.value ? transitions.SCALE_IN : transitions.FADE
+        isActive.value ? transitions.SCALE_IN : transitions.FADE,
       )
 
       return [content, genActivator()]

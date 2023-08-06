@@ -15,9 +15,7 @@
   vertical-align: middle;
   white-space: nowrap;
   color: map-get($white, 'base');
-  font-size: .85rem;
-  letter-spacing: .09rem;
-  text-indent: .09rem;
+  font-size: .9rem;
   transition: .3s all $primary-transition;
 
   &:before {

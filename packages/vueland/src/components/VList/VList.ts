@@ -6,7 +6,7 @@ export default defineComponent({
   name: 'v-list',
   props: {
     value: {
-      type: [ Number, Array ],
+      type: [Number, Array],
       default: null,
     },
     multiple: Boolean,
@@ -24,7 +24,7 @@ export default defineComponent({
     },
     ...colorProps(),
   },
-  emits: [ 'update:value' ],
+  emits: ['update:value'],
   setup(props, { emit, slots }) {
     const {
       setTextClassNameColor,
@@ -108,7 +108,7 @@ export default defineComponent({
     }
 
     const setItemState = (value) => {
-      if (value === null || props.multiple && !value.length) {
+      if (value === null || (props.multiple && !value.length)) {
         return setActiveItem(null)
       }
 
@@ -126,13 +126,12 @@ export default defineComponent({
     }
 
     watch(() => props.value, (to) => {
-        if (!isTrustedSelect) {
-          setItemState(to)
-        } else {
-          isTrustedSelect = false
-        }
-      },
-    )
+      if (!isTrustedSelect) {
+        setItemState(to)
+      } else {
+        isTrustedSelect = false
+      }
+    }, { immediate: true })
 
     provide('$v_list', {
       add: register,

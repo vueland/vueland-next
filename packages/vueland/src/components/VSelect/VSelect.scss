@@ -9,7 +9,7 @@ $select-input-padding: 14px 12px;
     width: 100%;
     min-height: $input-height;
     padding: $select-input-padding;
-    color: currentColor;
+    color: var(--content);
 
     &::placeholder {
       opacity: .3;

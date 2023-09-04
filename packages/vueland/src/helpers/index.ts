@@ -41,7 +41,7 @@ export const convertToUnit = (
   if (isNaN(+str!)) {
     return String(str)
   } else {
-    return `${ Number(str) }${ unit }`
+    return `${Number(str)}${unit}`
   }
 }
 
@@ -87,4 +87,23 @@ export const toCamelCase = (...args: string[]): string => {
     else res += s[0].toUpperCase() + s.slice(1)
     return res
   }, '')
+}
+
+export const getScrollbarWidth = () => {
+  const outer = document.createElement('div')
+
+  outer.style.visibility = 'hidden'
+  outer.style.overflow = 'scroll'
+
+  document.body.appendChild(outer)
+
+  const inner = document.createElement('div')
+  outer.appendChild(inner)
+
+  const scrollbarWidth = (outer.offsetWidth - inner.offsetWidth)
+
+  outer.parentNode?.removeChild(outer)
+
+  return scrollbarWidth
+
 }

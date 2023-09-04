@@ -1206,7 +1206,7 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
                            css="true"
           >
             <div class="v-data-table-col__filter elevation-5 white">
-              <div class="v-input v-input--has-prepend-icon">
+              <div class="v-input v-input--has-prepend-icon v-input--has-append-icon">
                 <div class="v-input__label">
                   <label class="v-label v-label--on-input">
                     search
@@ -1223,6 +1223,12 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
                     <input class="v-text-field__input"
                            type="text"
                     >
+                  </div>
+                  <div class="v-input__append-icon">
+                    <button class="v-icon v-icon--clickable fas fa-times"
+                            style="font-size: 16px;"
+                    >
+                    </button>
                   </div>
                 </div>
                 <div class="v-input__hints">
@@ -1491,7 +1497,7 @@ exports[`VDataTable should test table filter and match snapshot 1`] = `
             <div class="v-data-table-col__filter elevation-5 white"
                  style
             >
-              <div class="v-input v-input--has-prepend-icon">
+              <div class="v-input v-input--has-prepend-icon v-input--has-append-icon">
                 <div class="v-input__label">
                   <label class="v-label v-label--on-input">
                     search
@@ -1508,6 +1514,12 @@ exports[`VDataTable should test table filter and match snapshot 1`] = `
                     <input class="v-text-field__input"
                            type="text"
                     >
+                  </div>
+                  <div class="v-input__append-icon">
+                    <button class="v-icon v-icon--clickable fas fa-times"
+                            style="font-size: 16px;"
+                    >
+                    </button>
                   </div>
                 </div>
                 <div class="v-input__hints">

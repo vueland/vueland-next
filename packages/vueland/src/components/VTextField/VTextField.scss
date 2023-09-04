@@ -1,5 +1,5 @@
 @import "../../styles/scss/modules/global";
-$input-padding: 5px;
+$input-padding: 5px 5px 5px 12px;
 
 .v-text-field {
   height: 100%;
@@ -13,22 +13,24 @@ $input-padding: 5px;
 
     &::placeholder {
       opacity: .3;
-      color: currentColor;
+      color: var(--content);
     }
 
     &:disabled {
-      color: currentColor;
+      color: var(--content);
+      opacity: .5;
     }
   }
 }v
 .v-input--has-prepend-icon > .v-input__text-field >
 .v-text-field > .v-text-field__input {
+	font-size: .7rem;
   padding: 5px 5px 5px 0px;
 }
 
 .v-input--has-append-icon > .v-input__text-field >
 .v-text-field > .v-text-field__input {
-  padding: 5px 0px 5px 5px;
+  padding: 5px 0px 5px 12px;
 }
 
 .v-input--has-prepend-icon.v-input--has-append-icon > .v-input__text-field >

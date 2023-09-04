@@ -27,7 +27,7 @@ describe('VSelect', () => {
 
     await wrapper.find('.v-input__text-field').trigger('click')
     // wait
-    await new Promise((resolve) => setTimeout(resolve, 100))
+    await new Promise((resolve) => setTimeout(resolve, 200))
 
     const menuContent = document.body.querySelector('.v-menu__content')!
     const contentStyle = menuContent.getAttribute('style')!

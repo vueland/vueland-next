@@ -1,5 +1,6 @@
-import { computed, defineComponent, h, ref, VNode } from 'vue'
+import { computed, defineComponent, h, VNode } from 'vue'
 import { useInputStates } from '../../composables/use-input-states'
+import { useActivator } from '../../composables/use-activator'
 import { getStringKeysValue } from '../../helpers'
 
 // Components
@@ -16,7 +17,7 @@ export default defineComponent({
   name: 'v-select',
   props: {
     modelValue: {
-      type: [ String, Number, Object ],
+      type: [String, Number, Object],
       default: null,
     },
     items: {
@@ -33,18 +34,17 @@ export default defineComponent({
     },
     loading: Boolean,
   },
-  emits: [ 'click', 'focus', 'select', 'blur', 'change', 'update:modelValue' ],
+  emits: ['click', 'focus', 'select', 'blur', 'change', 'update:modelValue'],
   setup(props, { attrs, emit, slots }) {
+    const { activatorRef } = useActivator(props)
     const {
       isDisabled,
       isReadonly,
       inputState,
       onBlur,
       onSelect,
-      onFocus
+      onFocus,
     } = useInputStates(props, { attrs, emit })
-
-    const activator = ref<Maybe<HTMLElement>>(null)
 
     const computedValue = computed<string | number>(() => {
       if (!!props.modelValue && typeof props.modelValue === 'object') {
@@ -80,20 +80,20 @@ export default defineComponent({
 
     const genListPreloader = () => {
       return h('div', {
-        class: 'v-select__preloader'
+        class: 'v-select__preloader',
       }, h(VProgressCircular, {
         indeterminate: true,
         width: 2,
         size: 30,
-        color: (attrs.color || 'primary') as string
+        color: (attrs.color || 'primary') as string,
       }))
     }
 
     const genSelectListSlot = () => {
       return h('div', {
-        class: 'v-select__select-list-slot'
+        class: 'v-select__select-list-slot',
       }, {
-        default: () => slots['select-list']?.({ onSelect })
+        default: () => slots['select-list']?.({ onSelect }),
       })
     }
 
@@ -112,7 +112,7 @@ export default defineComponent({
 
       return h(VMenu, {
         internalActivator: true,
-        activator: activator.value!,
+        activator: activatorRef.value!,
         inputActivator: '.v-input__text-field',
         openOnClick: true,
         maxHeight: 240,
@@ -120,7 +120,7 @@ export default defineComponent({
         onShow: onFocus,
         onHide: onBlur,
       }, {
-        default: () => props.loading ? genListPreloader() : content
+        default: () => props.loading ? genListPreloader() : content,
       })
     }
 
@@ -139,7 +139,7 @@ export default defineComponent({
     }
 
     return () => h(VInput, {
-      ref: activator,
+      ref: activatorRef,
       value: computedValue.value,
       focused: inputState.focused,
     }, {
@@ -147,7 +147,7 @@ export default defineComponent({
         return genSelect({ textCssColor, textClassColor, disabled })
       },
       ['append-icon']: () => genExpandIcon(),
-      select: () => activator.value ? genSelectMenu() : null,
+      select: () => activatorRef.value ? genSelectMenu() : null,
     })
   },
 })

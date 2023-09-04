@@ -23,6 +23,7 @@ import { useDetach } from '../../composables/use-detach'
 import { useElevation } from '../../composables/use-elevation'
 import { useToggle } from '../../composables/use-toggle'
 import { useTransition } from '../../composables/use-transition'
+import { delayProps, useDelay } from '../../composables/use-delay'
 import { positionProps } from '../../composables/use-position'
 
 // Helpers
@@ -69,11 +70,16 @@ export default defineComponent({
       type: [String, Number],
       default: 0,
     },
+    edgeIndent: {
+      type: Number,
+      default: 20,
+    },
     modelValue: Boolean,
     inputActivator: {
       type: String,
       default: '',
     },
+    ...delayProps(),
     ...positionProps(),
     ...autoPositionProps(),
     ...activatorProps(),
@@ -94,17 +100,25 @@ export default defineComponent({
       removeActivatorEvents,
     } = useActivator(props)
 
-    const setDimensionsOn = (e, flag) => {
-      setDimensions(getActivator(e)!).then(() => {
-        requestAnimationFrame(() => (isActive.value = flag))
-      })
-    }
+    const { openDelay, closeDelay } = useDelay(props)
 
     const handlers = {
-      click: (e) => setDimensionsOn(e, props.openOnClick),
-      mouseenter: (e) => setDimensionsOn(e, props.openOnHover),
-      mouseleave: (e) => setDimensionsOn(e, !props.openOnHover),
-      contextmenu: (e) => setDimensionsOn(e, props.openOnContextmenu),
+      click: props.openOnClick ? async (e: MouseEvent) => {
+        await setDimensions(getActivator(e)!)
+        openDelay(() => (isActive.value = props.openOnClick))
+      }: {},
+      mouseenter: props.openOnHover ? async (e: MouseEvent) => {
+        await setDimensions(getActivator(e)!)
+        openDelay(() => (isActive.value = props.openOnHover))
+      }: {},
+      mouseleave: props.openOnHover ? async (e: MouseEvent) => {
+        await setDimensions(getActivator(e)!)
+        openDelay(() => (isActive.value = !props.openOnHover))
+      }: {},
+      contextmenu: props.openOnContextmenu ? async (e: MouseEvent) => {
+        await setDimensions(getActivator(e)!)
+        openDelay(() => (isActive.value = props.openOnContextmenu))
+      }: {},
     }
 
     const listeners = genActivatorListeners(props, handlers)
@@ -113,9 +127,10 @@ export default defineComponent({
       return unref(isActive)
         ? {
           handler: (e) => {
+            const el = unref(activatorRef) || unref(activatorRef)
             if (
               props.internalActivator &&
-              unref(activatorRef).contains(e.target)
+              el.contains(e.target)
             ) {
               return
             }
@@ -143,9 +158,10 @@ export default defineComponent({
 
     watch(
       () => props.modelValue,
-      (state) => {
-        isActive.value = false
-        setTimeout(() => (isActive.value = state))
+      async (state) => {
+        const handler = state ? openDelay : closeDelay
+
+        handler(() => (isActive.value = state))
       },
     )
 
@@ -173,17 +189,11 @@ export default defineComponent({
     }
 
     const genActivatorSlot = (): Maybe<VNode> => {
-      if (slots.activator) {
-        const slotContent = slots.activator({ on: listeners })
+      if (!slots.activator) return null
 
-        if (typeof slotContent![0].type === 'object') {
-          return h('div', { ref: activatorRef }, h(slotContent![0]))
-        }
+      const slotContent = slots.activator({ on: listeners })
 
-        return h(slotContent![0], { ref: activatorRef })
-      }
-
-      return null
+      return h(slotContent![0], { ref: activatorRef })
     }
 
     const genContentSlot = (): VNode => {

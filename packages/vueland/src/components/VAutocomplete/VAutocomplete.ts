@@ -174,7 +174,7 @@ export default defineComponent({
         },
         {
           default: genAutocompleteList,
-        }
+        },
       )
     }
 
@@ -188,7 +188,7 @@ export default defineComponent({
         [
           genInput(),
           activator.value && genMenu(),
-        ]
+        ],
       )
     }
 

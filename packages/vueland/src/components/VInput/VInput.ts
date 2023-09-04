@@ -15,6 +15,7 @@ import { validationProps } from '../../composables/use-validation'
 import { useColors, colorProps } from '../../composables/use-colors'
 import { useInputStates } from '../../composables/use-input-states'
 import { useTransition } from '../../composables/use-transition'
+import { useIcons } from '../../composables/use-icons'
 
 // Components
 import { VLabel } from '../VLabel'
@@ -78,8 +79,9 @@ export default defineComponent({
       stateClasses,
       validate,
       onFocus,
-      onBlur
+      onBlur,
     } = useInputStates(props, { attrs, emit })
+    const { icons } = useIcons()
 
     const form: Maybe<Form> = inject('$v_form', null as any)
 
@@ -91,7 +93,7 @@ export default defineComponent({
     })
 
     const hasAppendIcon = computed<boolean>(() => {
-      return !!props.appendIcon || !!slots['append-icon']
+      return !!props.appendIcon || !!slots['append-icon'] || props.clearable
     })
 
     const classes = computed<Record<string, boolean>>(() => ({
@@ -130,40 +132,31 @@ export default defineComponent({
         },
       )
 
-      return h('div', { class: 'v-input__label' }, [ label ])
+      return h('div', { class: 'v-input__label' }, [label])
     }
 
-    const genIcon = (iconName, clickable = false): VNode => {
+    const genIcon = (iconName: string, clickable = false): VNode => {
       return h(VIcon, {
         icon: iconName,
         size: 16,
         disabled: props.disabled,
         clickable,
+        // onClick: clickable ? () => emit('update:modelValue', null) : undefined
       })
     }
 
     const genPrependIcon = (): Maybe<VNode> => {
-      let content
+      const icon = props.prependIcon ? genIcon(props.prependIcon) : slots['prepend-icon']?.()
 
-      if (props.prependIcon) {
-        content = genIcon(props.prependIcon)
-      } else {
-        content = slots['prepend-icon']?.()
-      }
-
-      return content ?
-        h('div', { class: 'v-input__prepend-icon' }, content)
+      return icon ?
+        h('div', { class: 'v-input__prepend-icon' }, icon)
         : null
     }
 
     const genAppendIcon = (): Maybe<VNode> => {
-      let content
+      const icon = props.appendIcon ? props.appendIcon : props.clearable ? icons.$close : ''
 
-      if (props.appendIcon) {
-        content = genIcon(props.appendIcon)
-      } else {
-        content = slots['append-icon']?.()
-      }
+      const content = icon ? genIcon(icon, props.clearable) : slots['append-icon']?.()
 
       return content ?
         h('div', { class: 'v-input__append-icon' }, content)
@@ -180,7 +173,7 @@ export default defineComponent({
           indeterminate: true,
           color: props.color,
           backgroundColor: props.color,
-        })
+        }),
       )
     }
 
@@ -198,7 +191,7 @@ export default defineComponent({
       })
 
       return h('div', { class: 'v-input__text-field' },
-        [ prependIconContent, textFieldContent, appendIconContent, props.loading ? loadingIndicator : null ],
+        [prependIconContent, textFieldContent, appendIconContent, props.loading ? loadingIndicator : null],
       )
     }
 
@@ -206,7 +199,7 @@ export default defineComponent({
       return !!errorState.innerErrorMessage ? h(
         'span',
         { class: 'v-input__hints-message' },
-        [ errorState.innerErrorMessage ],
+        [errorState.innerErrorMessage],
       ) : null
     }
 

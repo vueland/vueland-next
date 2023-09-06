@@ -1,8 +1,9 @@
-import { defineComponent, h, computed } from 'vue'
+import { computed, defineComponent, h, inject, watch } from 'vue'
 // Components
 import { VList, VListItem, VListItemTitle } from '../VList'
 // Helpers
 import { getStringKeysValue } from '../../helpers'
+import { V_MENU_PROVIDE_SYMBOL } from '../../constants/provide-keys'
 
 export const VSelectList = defineComponent({
   name: 'v-select-list',
@@ -30,10 +31,12 @@ export const VSelectList = defineComponent({
     activeClass: {
       type: String,
       default: '',
-    }
+    },
   },
   emits: ['select'],
   setup(props, { emit }) {
+    const menu: any = inject(V_MENU_PROVIDE_SYMBOL, null)
+
     const computedSelect = computed<Maybe<number>>({
       get() {
         const key = props.valueKey
@@ -71,16 +74,18 @@ export const VSelectList = defineComponent({
       }, [])
     }
 
-    const genItemsList = () => {
-      return h(VList, {
-        value: computedSelect.value as number,
-        active: true,
-        activeClass: props.activeClass,
-        ['onUpdate:value']: val => computedSelect.value = val,
-      }, {
-        default: () => genItems(),
-      })
-    }
+    const genItemsList = () => h(VList, {
+      value: computedSelect.value as number,
+      active: true,
+      activeClass: props.activeClass,
+      ['onUpdate:value']: val => computedSelect.value = val,
+    }, {
+      default: () => genItems(),
+    })
+
+    watch(() => props.items?.length, () => {
+      menu.updateDimensions()
+    }, { immediate: true })
 
     return () => h('div', {
       class: 'v-select-list',

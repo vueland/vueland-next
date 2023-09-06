@@ -20,7 +20,6 @@ type SelectState = {
   focused: boolean
   isMenuActive: boolean
   search: string
-  select: any
 }
 
 export default defineComponent({
@@ -35,6 +34,10 @@ export default defineComponent({
     disabled: Boolean,
     typeable: Boolean,
     loading: Boolean,
+    activeClass: {
+      type: String,
+      default: 'primary white--text'
+    },
     modelValue: {
       default: null,
     },
@@ -50,6 +53,7 @@ export default defineComponent({
     'blur',
     'focus',
     'select',
+    'clear',
     'update:modelValue',
     'update:value',
   ],
@@ -59,7 +63,6 @@ export default defineComponent({
       focused: false,
       isMenuActive: false,
       search: '',
-      select: null,
     })
 
     const { setTextCssColor, setTextClassNameColor } = useColors()
@@ -76,14 +79,10 @@ export default defineComponent({
       ...(props.color ? setTextCssColor(props.color) : {}),
     }))
 
-    const valueProperty = computed<any>(() => {
-      return props.modelValue || props.value
-    })
-
     const inputValue = computed<string>(() => {
-      return props.valueKey && valueProperty.value
-        ? getKeyValueFromTarget(props.valueKey, valueProperty.value)
-        : valueProperty.value
+      return props.valueKey && props.modelValue
+        ? getKeyValueFromTarget(props.valueKey, props.modelValue)
+        : props.modelValue
     })
 
     const onFocus = () => {
@@ -94,11 +93,11 @@ export default defineComponent({
     }
 
     const onBlur = () => {
-      if (!valueProperty.value && !state.search) {
+      if (!props.modelValue && !state.search) {
         state.search = ''
       }
 
-      if (!state.search && valueProperty.value) {
+      if (!state.search && props.modelValue) {
         state.search = inputValue.value
       }
 
@@ -117,11 +116,9 @@ export default defineComponent({
 
     const onClear = () => {
       state.search = ''
-      state.select = null
 
-      emit('select', null)
-      emit('update:modelValue', null)
-      emit('update:value', null)
+      emit('update:modelValue', undefined)
+      emit('clear')
     }
 
     const onSelect = (it) => {
@@ -129,7 +126,6 @@ export default defineComponent({
         ? getKeyValueFromTarget(props.valueKey, it)
         : it
 
-      state.select = it
       emit('select', it)
       emit('update:modelValue', it)
       emit('update:value', it)
@@ -155,7 +151,8 @@ export default defineComponent({
         active: state.isMenuActive,
         color: props.dark ? 'white' : props.color,
         listColor: props.listColor,
-        select: state.select,
+        selected: props.modelValue,
+        activeClass: props.activeClass,
         onSelect,
       })
     }
@@ -193,28 +190,23 @@ export default defineComponent({
     }
 
     onBeforeMount(() => {
-      state.select = valueProperty.value
       state.search = inputValue.value
     })
 
-    return () => {
-      const propsData = {
-        label: props.label,
-        focused: state.isMenuActive,
-        hasState: !!state.search,
-        dark: props.dark,
-        disabled: props.disabled,
-        clearable: props.clearable,
-        color: props.color,
-        rules: props.rules,
-        ref: activator,
-        value: valueProperty.value || state.search,
-        onClear,
-      }
-
-      return h(VInput, propsData, {
-        'text-field': () => genAutocomplete(),
-      })
-    }
+    return () => h(VInput, {
+      label: props.label,
+      focused: state.isMenuActive,
+      hasState: !!state.search,
+      dark: props.dark,
+      disabled: props.disabled,
+      clearable: props.clearable,
+      color: props.color,
+      rules: props.rules,
+      ref: activator,
+      value: props.modelValue || state.search,
+      onClear,
+    }, {
+      'text-field': () => genAutocomplete(),
+    })
   },
 })

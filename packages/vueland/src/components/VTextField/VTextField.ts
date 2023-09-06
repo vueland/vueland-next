@@ -90,6 +90,7 @@ export default defineComponent({
       value: computedValue.value,
       rules: props.rules,
       ref: inputRef,
+      onClear: () => emit('update:modelValue', undefined)
     }, {
       ['text-field']: ({ textClassColor, textCssColor }) => {
         return genTextFieldWrapper(textClassColor, textCssColor)

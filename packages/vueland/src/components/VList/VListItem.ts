@@ -21,8 +21,8 @@ export default defineComponent({
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-list-item': true,
-      'v-list-item--selected': !list?.activeClass && item.isActive.value,
-      [list?.activeClass as string]: !!list?.activeClass && item.isActive.value,
+      'v-list-item--selected': item.isActive.value,
+      [list?.activeClass!]: item.isActive.value,
     }))
 
     const onClick = () => {

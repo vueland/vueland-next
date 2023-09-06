@@ -50,11 +50,11 @@ export default defineComponent({
       ...setBackgroundCssColor(props.color),
     }))
 
-    const register = (item) => {
+    const register = <T = {}>(item: T) => {
       !items.value.has(item) && items.value.set(item, item)
     }
 
-    const unregister = (item) => {
+    const unregister = <T = {}>(item: T) => {
       items.value.has(item) && items.value.delete(item)
     }
 
@@ -109,6 +109,9 @@ export default defineComponent({
 
     const setItemState = (value) => {
       if (value === null || (props.multiple && !value.length)) {
+        const it = mapToValArray(unref(items)).find(it => it.isActive)
+        it && toggleItem(it)
+
         return setActiveItem(null)
       }
 
@@ -142,7 +145,10 @@ export default defineComponent({
 
     return () => h(
       'div',
-      { class: classes.value, style: styles.value },
+      {
+        class: unref(classes),
+        style: unref(styles),
+      },
       { default: () => slots.default?.() },
     )
   },

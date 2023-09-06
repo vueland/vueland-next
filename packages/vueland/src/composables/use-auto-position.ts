@@ -352,7 +352,7 @@ export const useAutoPosition = (props) => {
     dimensions.content.height = content.offsetHeight
     dimensions.content.top = calcPositionY()
     dimensions.content.left = calcPositionX()
-    dimensions.content.width = contentWidth || activator?.offsetWidth
+    dimensions.content.width = activator?.offsetWidth || contentWidth
   }
 
   const setDimensions = (activatorEl: HTMLElement) => {

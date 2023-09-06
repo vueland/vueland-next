@@ -166,6 +166,8 @@
             //   }
             // ]
 
+            const autoCompleteItems = ref(data.users)
+
             const addItem = () => {
                 data.users.push({
                     name: 'Anar',
@@ -204,6 +206,7 @@
                 forOut,
                 FaIcons,
                 select,
+                autoCompleteItems,
                 addItem,
                 testFunc,
                 toggleAlways,
@@ -638,16 +641,17 @@
             :rules="[v => !!v || 'required']"
           />
           <v-autocomplete
-            v-model:value="data.user"
+            v-model="data.user"
             label="autocomplete"
             value-key="car.brand"
             clearable
             typeable
-            prepend-icon="search"
-            :items="data.users"
+            prepend-icon="fas fa-search"
+            :items="autoCompleteItems"
             :loading="!data.user"
             @select="testFunc"
-            @input="$event => data.users = data.users.filter(u => u.name.includes($event))"
+            @input="$event => autoCompleteItems = data.users.filter(u => u.car.brand.includes($event))"
+            @clear="autoCompleteItems = data.users"
           />
           <v-button
             label="test"

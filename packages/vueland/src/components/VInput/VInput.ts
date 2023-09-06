@@ -68,6 +68,7 @@ export default defineComponent({
     ...validationProps(),
     ...colorProps(),
   },
+  emits: ['clear'],
 
   setup(props, { attrs, emit, slots, expose }) {
     const { setTextCssColor, setTextClassNameColor } = useColors()
@@ -141,7 +142,7 @@ export default defineComponent({
         size: 16,
         disabled: props.disabled,
         clickable,
-        // onClick: clickable ? () => emit('update:modelValue', null) : undefined
+        ...(clickable ? {onClick: () => emit('clear')} : {})
       })
     }
 

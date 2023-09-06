@@ -1,23 +1,21 @@
 // Vue API
 import {
-  defineComponent,
-  watch,
-  h,
-  withDirectives,
   computed,
-  onMounted,
-  onBeforeUnmount,
-  unref,
-  vShow,
-  VNode,
+  defineComponent,
   DirectiveArguments,
+  h,
+  onBeforeUnmount,
+  onMounted,
+  provide,
+  unref,
+  VNode,
+  vShow,
+  watch,
+  withDirectives,
 } from 'vue'
 
 // Composable
-import {
-  autoPositionProps,
-  useAutoPosition,
-} from '../../composables/use-auto-position'
+import { autoPositionProps, useAutoPosition } from '../../composables/use-auto-position'
 import { activatorProps, useActivator } from '../../composables/use-activator'
 import { useDetach } from '../../composables/use-detach'
 import { useElevation } from '../../composables/use-elevation'
@@ -31,6 +29,7 @@ import { convertToUnit } from '../../helpers'
 
 // Directives
 import { clickOutside, resize } from '../../directives'
+import { V_MENU_PROVIDE_SYMBOL } from '../../constants/provide-keys'
 
 export default defineComponent({
   name: 'v-menu',
@@ -90,7 +89,7 @@ export default defineComponent({
   setup(props, { emit, slots }) {
     const { elevationClasses } = useElevation(props)
     const { isActive } = useToggle(props)
-    const { contentRef, setDimensions, dimensions } = useAutoPosition(props)
+    const { dimensions, contentRef, setDimensions } = useAutoPosition(props)
     const { setDetached, removeDetached } = useDetach()
     const {
       activatorRef,
@@ -106,19 +105,19 @@ export default defineComponent({
       click: props.openOnClick ? async (e: MouseEvent) => {
         await setDimensions(getActivator(e)!)
         openDelay(() => (isActive.value = props.openOnClick))
-      }: {},
+      } : {},
       mouseenter: props.openOnHover ? async (e: MouseEvent) => {
         await setDimensions(getActivator(e)!)
         openDelay(() => (isActive.value = props.openOnHover))
-      }: {},
+      } : {},
       mouseleave: props.openOnHover ? async (e: MouseEvent) => {
         await setDimensions(getActivator(e)!)
         openDelay(() => (isActive.value = !props.openOnHover))
-      }: {},
+      } : {},
       contextmenu: props.openOnContextmenu ? async (e: MouseEvent) => {
         await setDimensions(getActivator(e)!)
         openDelay(() => (isActive.value = props.openOnContextmenu))
-      }: {},
+      } : {},
     }
 
     const listeners = genActivatorListeners(props, handlers)
@@ -167,6 +166,7 @@ export default defineComponent({
 
     const contentClasses = computed<Record<string, boolean>>(() => ({
       'v-menu__content': true,
+      'v-menu--absolute': props.absolute,
       ...unref(elevationClasses),
     }))
 
@@ -186,6 +186,10 @@ export default defineComponent({
       }
 
       requestAnimationFrame(() => setDimensions(unref(activatorRef)))
+    }
+
+    const updateDimensions = () => {
+      return setDimensions(unref(activatorRef))
     }
 
     const genActivatorSlot = (): Maybe<VNode> => {
@@ -226,6 +230,10 @@ export default defineComponent({
 
       return withDirectives(content, directives)
     }
+
+    provide(V_MENU_PROVIDE_SYMBOL, {
+      updateDimensions,
+    })
 
     onMounted(() => {
       activatorRef.value = getActivator()

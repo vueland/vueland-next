@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { reactive, ref, computed, inject, watch } from 'vue'
+    import { computed, inject, reactive, ref, watch } from 'vue'
     import { FaIcons } from '../vueland/src/services/icons'
     import { useTheme } from '../vueland/src/composables/use-theme'
 
@@ -627,7 +627,6 @@
             label="teal"
             autocomplete="new-password"
             prepend-icon="fas fa-envelop"
-            clearable
             :rules="[v => !!v || 'required', v => v.length > 5 || 'more than 5']"
           />
           <v-select

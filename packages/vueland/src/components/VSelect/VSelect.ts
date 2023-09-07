@@ -15,6 +15,7 @@ import { FaIcons } from '../../services/icons'
 
 export default defineComponent({
   name: 'v-select',
+  inheritAttrs: true,
   props: {
     modelValue: {
       type: [String, Number, Object],

@@ -1,7 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`VAutocomplete should mount component and match snapshot 1`] = `
-<div class="v-input primary--text">
+<div class="v-input primary--text"
+     hasstate="false"
+     dark="false"
+>
   <div class="v-input__label">
     <label class="v-label primary--text v-label--on-input">
     </label>

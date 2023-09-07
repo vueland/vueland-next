@@ -1,18 +1,9 @@
 // Vue API
-import {
-  defineComponent,
-  h,
-  watch,
-  inject,
-  computed,
-  onBeforeMount,
-  onBeforeUnmount,
-  VNode,
-} from 'vue'
+import { computed, defineComponent, h, inject, onBeforeMount, onBeforeUnmount, VNode, watch } from 'vue'
 
 // Composable
 import { validationProps } from '../../composables/use-validation'
-import { useColors, colorProps } from '../../composables/use-colors'
+import { colorProps, useColors } from '../../composables/use-colors'
 import { useInputStates } from '../../composables/use-input-states'
 import { useTransition } from '../../composables/use-transition'
 import { useIcons } from '../../composables/use-icons'
@@ -33,7 +24,7 @@ export default defineComponent({
     VLabel,
     VIcon,
   },
-  inheritAttrs: false,
+  inheritAttrs: true,
   props: {
     label: {
       type: String,
@@ -142,7 +133,7 @@ export default defineComponent({
         size: 16,
         disabled: props.disabled,
         clickable,
-        ...(clickable ? {onClick: () => emit('clear')} : {})
+        ...(clickable ? { onClick: () => emit('clear') } : {}),
       })
     }
 

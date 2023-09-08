@@ -1,6 +1,5 @@
 import { reactive, ref } from 'vue'
 import { Dimensions } from '../../types'
-import { getScrollbarWidth } from '../helpers'
 
 type AutoPositionDimensions = {
   activator: Dimensions
@@ -68,16 +67,16 @@ export const useAutoPosition = (props) => {
     }
   }
 
-  const getInnerHeight = (): number => {
+  const getClientHeight = (): number => {
     if (!window) return 0
 
-    return innerHeight || document.documentElement.clientHeight
+    return document.documentElement.clientHeight
   }
 
-  const getInnerWidth = () => {
+  const getClientWidth = () => {
     if (!window) return 0
 
-    return innerWidth || document.documentElement.clientWidth
+    return document.documentElement.clientWidth
   }
 
   const getScrollTop = (): number => {
@@ -108,9 +107,9 @@ export const useAutoPosition = (props) => {
 
   const getContentBottomCoords = () => getActivatorTopCoords() + dimensions.content.height
 
-  const getPageYPosition = () => getScrollTop() + getInnerHeight()
+  const getPageYPosition = () => getScrollTop() + getClientHeight()
 
-  const getPageXPosition = () => getScrollLeft() + getInnerWidth()
+  const getPageXPosition = () => getScrollLeft() + getClientWidth()
 
   const calcAbsoluteTop = () => {
     const top = getContentAbsoluteTopCoords()
@@ -164,7 +163,7 @@ export const useAutoPosition = (props) => {
      * if props bottom is in true and content bottom
      * border crossed bottom edge of screen
      */
-    if (diffY > 0 || diffY >= getInnerHeight()) {
+    if (diffY > 0 || diffY >= getClientHeight()) {
       return activatorTop - diffY - EDGE_INDENT
     }
 
@@ -194,7 +193,7 @@ export const useAutoPosition = (props) => {
 
     /** if the content crossed the right edge of the screen */
     if (right >= pageXPosition) {
-      return getInnerWidth() - content.width - EDGE_INDENT - getScrollbarWidth()
+      return getClientWidth() - content.width - EDGE_INDENT
     }
 
     /** if the content crossed the left edge of the screen */
@@ -254,13 +253,13 @@ export const useAutoPosition = (props) => {
   }
 
   const setContentAutoLeft = ({ left }) => {
-    const {content} = dimensions
+    const { content } = dimensions
     const pageXPosition = getPageXPosition()
 
     const diffX = (left + content.width + offsetX) - pageXPosition
 
     if (diffX > 0) {
-      return left - diffX - EDGE_INDENT - getScrollbarWidth()
+      return left - diffX - EDGE_INDENT
     }
 
     return left
@@ -347,12 +346,12 @@ export const useAutoPosition = (props) => {
   }
 
   const setContentDimensions = () => {
-    const contentWidth = +props.width || content?.offsetWidth
+    const width = activator?.offsetWidth || content?.offsetWidth
 
     dimensions.content.height = content.offsetHeight
     dimensions.content.top = calcPositionY()
     dimensions.content.left = calcPositionX()
-    dimensions.content.width = activator?.offsetWidth || contentWidth
+    dimensions.content.width = +props.width || width
   }
 
   const setDimensions = (activatorEl: HTMLElement) => {

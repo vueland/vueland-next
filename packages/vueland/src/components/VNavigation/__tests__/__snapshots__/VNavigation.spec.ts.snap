@@ -2,7 +2,7 @@
 
 exports[`VNavigation should mount component and match snapshot 1`] = `
 <aside class="v-navigation v-navigation--base"
-       style="width: 56px; max-height: calc(100vh - 0px);"
+       style="width: 56px; max-height: calc(100vh - 0px); z-index: 0;"
 >
   <div class="v-navigation__content">
   </div>

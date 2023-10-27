@@ -8,11 +8,16 @@ export default defineComponent({
   name: 'v-navigation',
   props: {
     fixed: Boolean,
+    absolute: Boolean,
     right: Boolean,
     left: Boolean,
     onHover: Boolean,
     miniVariant: Boolean,
     expand: Boolean,
+    zIndex: {
+      type: [String, Number],
+      default: 0,
+    },
     offsetTop: {
       type: [String, Number],
       default: 0,
@@ -62,6 +67,7 @@ export default defineComponent({
       'v-navigation': true,
       'v-navigation--expanded': isExpanded.value,
       'v-navigation--fixed': props.fixed,
+      'v-navigation--absolute': props.absolute,
       'v-navigation--base': !props.color,
       ...(props.color ? setBackgroundClassNameColor(props.color) : {}),
     }))
@@ -72,6 +78,7 @@ export default defineComponent({
       top: props.fixed ? convertToUnit(props.offsetTop) : '',
       left: !props.right && props.fixed ? convertToUnit(0) : '',
       right: props.right && props.fixed ? convertToUnit(0) : '',
+      zIndex: `${props.zIndex}`,
       ...(props.color ? setBackgroundCssColor(props.color) : {}),
     }))
 

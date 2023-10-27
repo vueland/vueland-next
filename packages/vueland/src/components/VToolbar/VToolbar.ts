@@ -9,6 +9,10 @@ export default defineComponent({
   name: 'v-toolbar',
   props: {
     fixed: Boolean,
+    zIndex: {
+      type: [String,Number],
+      default: 0,
+    },
     height: {
       type: [ String, Number ],
       default: 56
@@ -29,6 +33,7 @@ export default defineComponent({
       height: convertToUnit(props.height),
       left: props.fixed ? convertToUnit(0) : '',
       top: props.fixed ? convertToUnit(0) : '',
+      zIndex: `${props.zIndex}`,
       ...setBackgroundCssColor(props.color)
     }))
 

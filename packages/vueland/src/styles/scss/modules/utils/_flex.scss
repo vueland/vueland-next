@@ -85,7 +85,7 @@ $align-content: (
     }
     @each $key in map-keys($align-content) {
       .align-content-#{$size}-#{$key} {
-        align-contet: map-get($align-content, $key);
+        align-content: map-get($align-content, $key);
       }
     }
   }

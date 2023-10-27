@@ -2,7 +2,7 @@
 
 exports[`VToolbar should mount component and match snapshot 1`] = `
 <div class="v-toolbar v-toolbar--base"
-     style="height: 56px;"
+     style="height: 56px; z-index: 0;"
 >
   <div class="v-toolbar__content">
     <div class="v-toolbar__nav-btn">

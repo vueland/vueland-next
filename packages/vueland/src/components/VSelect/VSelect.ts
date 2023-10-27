@@ -117,7 +117,7 @@ export default defineComponent({
         inputActivator: '.v-input__text-field',
         openOnClick: true,
         maxHeight: 240,
-        zIndex: 12,
+        // zIndex: 12,
         onShow: onFocus,
         onHide: onBlur,
       }, {

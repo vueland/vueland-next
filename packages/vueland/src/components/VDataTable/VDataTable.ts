@@ -1,10 +1,10 @@
 // Vue API
-import { h, watch, computed, defineComponent, ref, unref } from 'vue'
+// Types
+import { computed, defineComponent, h, PropType, ref, unref, VNode, watch } from 'vue'
 
 // Effects
 import { useColors } from '../../composables/use-colors'
 // import { useTheme } from '../../effects/use-theme'
-
 // Components
 import { VDataTableHeader } from './VDataTableHeader'
 import { VDataTableBody } from './VDataTableBody'
@@ -12,15 +12,7 @@ import { VDataTableFooter } from './VDataTableFooter'
 
 // Helpers
 import { addScopedSlot } from '../../helpers'
-
-// Types
-import { VNode, PropType } from 'vue'
-import {
-  TableColumn,
-  TableColumnProps,
-  HeaderOptions,
-  TableFilterParams,
-} from '../../../types'
+import { HeaderOptions, TableColumn, TableColumnProps, TableFilterParams } from '../../../types'
 import { IDataTableFooterOptions } from '@/components/VDataTable/types'
 
 export default defineComponent({
@@ -34,6 +26,7 @@ export default defineComponent({
       type: Array,
       default: () => [],
     },
+    keyProp: String,
     showSequence: Boolean,
     showCheckbox: Boolean,
     align: {
@@ -259,8 +252,8 @@ export default defineComponent({
 
           const value = format ? format(row) : row[key]
 
-          const rowKeyValue = `${ value }`.toLowerCase()
-          const filterValue = `${ filters[key] }`.toLowerCase()
+          const rowKeyValue = `${value}`.toLowerCase()
+          const filterValue = `${filters[key]}`.toLowerCase()
 
           if (rowKeyValue.includes(filterValue)) {
             rowResults.push(row[key])
@@ -301,7 +294,7 @@ export default defineComponent({
       }
 
       const content = unref(cols).reduce((acc, col) => {
-        const slotName = `${ col.key }-filter`
+        const slotName = `${col.key}-filter`
 
         if (col && slots[slotName]) {
           acc[slotName] = addScopedSlot(slotName, slots)
@@ -324,6 +317,7 @@ export default defineComponent({
         checkAllRows: unref(isAllRowsChecked),
         showCheckbox: props.showCheckbox,
         align: props.align,
+        keyProp: props.keyProp,
         dark: props.dark,
         showSequence: props.showSequence,
         color: props.color,

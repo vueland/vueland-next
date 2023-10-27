@@ -1,5 +1,7 @@
 // Vue API
-import { h, computed, withDirectives, defineComponent } from 'vue'
+// Directives
+// Types
+import { computed, defineComponent, h, VNode, vShow, withDirectives } from 'vue'
 
 // Effects
 import { useColors } from '../../composables/use-colors'
@@ -10,13 +12,7 @@ import { VIcon } from '../VIcon'
 import { VCheckbox } from '../VCheckbox'
 import { VDataTableCell } from './VDataTableCell'
 import { VTextField } from '../VTextField'
-
-// Directives
-import { vShow } from 'vue'
 import { clickOutside } from '../../directives/v-click-outside'
-
-// Types
-import { VNode } from 'vue'
 import { TableColumn } from '../../../types'
 import { useTransition } from '../../composables/use-transition'
 import { transitions } from '../../services/transitions'
@@ -121,7 +117,7 @@ export const VDataTableHeader = defineComponent({
     }
 
     const genFilterInput = (col) => {
-       const propsData = {
+      const propsData = {
         modelValue: _cache[col.title],
         label: 'search',
         dark: props.options.dark,
@@ -139,7 +135,7 @@ export const VDataTableHeader = defineComponent({
         ? props.options?.color || 'grey darken-3'
         : props.options?.color || 'white'
 
-      const slotName = `${ col.key }-filter`
+      const slotName = `${col.key}-filter`
 
       const filterSlot = slots[slotName] && slots[slotName]!({
         filter: (event) => onInput(event, col),
@@ -228,6 +224,7 @@ export const VDataTableHeader = defineComponent({
         contentColor: !col.cellClass ? computedContentColor.value : '',
         color: !col.cellClass ? props.options.color : '',
         width: col.width,
+        key: col.key,
         resizeable: col.resizeable,
         resizerColor: props.options?.resizerColor,
         align: col.align || props.align,

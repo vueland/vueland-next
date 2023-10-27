@@ -1,5 +1,6 @@
 // Vue API
-import { h, ref, watch, computed, defineComponent, unref } from 'vue'
+// Types
+import { computed, defineComponent, h, ref, unref, VNode, watch } from 'vue'
 
 // Effects
 import { colorProps, useColors } from '../../composables/use-colors'
@@ -8,15 +9,13 @@ import { colorProps, useColors } from '../../composables/use-colors'
 import { VDataTableCell } from './VDataTableCell'
 import { VCheckbox } from '../VCheckbox'
 
-// Types
-import { VNode } from 'vue'
-
 export const VDataTableBody = defineComponent({
   name: 'v-data-table-body',
 
   props: {
     cols: Array,
     rows: Array,
+    keyProp: String,
     dark: Boolean,
     showSequence: Boolean,
     showCheckbox: Boolean,
@@ -121,6 +120,7 @@ export const VDataTableBody = defineComponent({
         {
           width: col.width,
           align: col.align || props.align,
+          key: col.key,
           dark: props.dark,
         },
         {
@@ -128,8 +128,8 @@ export const VDataTableBody = defineComponent({
             slotContent
               ? slotContent
               : format
-              ? format(row)
-              : String(row[col.key]),
+                ? format(row)
+                : String(row[col.key]),
         },
       )
     }
@@ -148,6 +148,7 @@ export const VDataTableBody = defineComponent({
         'div',
         {
           class: { 'v-data-table__row': true },
+          key: row[props.keyProp],
           onClick: () => emit('click:row', row),
           onDblclick: () => emit('dblclick:row', row),
           onContextmenu: (e) => {

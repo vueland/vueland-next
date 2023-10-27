@@ -48,7 +48,7 @@ export default defineComponent({
     },
     zIndex: {
       type: [String, Number],
-      default: 10,
+      default: 0,
     },
     openOnHover: Boolean,
     openOnClick: Boolean,

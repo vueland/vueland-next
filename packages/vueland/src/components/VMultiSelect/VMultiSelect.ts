@@ -53,15 +53,13 @@ export default defineComponent({
       'v-multi-select--focused': inputState.focused
     }))
 
-    const selectsIndexes = computed(() => {
-      return props.modelValue?.reduce((inds, val) => {
-        const ind = props.items?.findIndex(it => it === val)
+    const selectsIndexes = computed(() => props.modelValue?.reduce((inds, val) => {
+      const ind = props.items?.findIndex(it => it === val)
 
-        ind >= 0 && inds.push(ind)
+      ind >= 0 && inds.push(ind)
 
-        return inds
-      }, [])
-    })
+      return inds
+    }, []))
 
     const genItems = () => {
       const itemWrapper = props.chip ? VChip : 'div' as any
@@ -77,52 +75,43 @@ export default defineComponent({
     }
 
     const genItemsWrapper = () => h('div', {
-        class: 'v-multi-select__items-wrapper'
-      }, {
-        default: () => genItems()
-      }
-    )
+      class: 'v-multi-select__items-wrapper'
+    }, {
+      default: () => genItems()
+    })
 
-    const genListPreloader = () => {
-      return h('div', {
-        class: 'v-select__preloader'
-      }, h(VProgressCircular, {
-        indeterminate: true,
-        width: 2,
-        size: 30,
-        color: (attrs.color || 'primary') as string
-      }))
-    }
+    const genListPreloader = () => h('div', {
+      class: 'v-select__preloader'
+    }, h(VProgressCircular, {
+      indeterminate: true,
+      width: 2,
+      size: 30,
+      color: (attrs.color || 'primary') as string
+    }))
 
-    const genSelectListSlot = () => {
-      return h('div', {
-        class: 'v-multi-select__select-list-slot'
-      }, {
-        default: () => slots['select-list']?.({ items: props.items })
-      })
-    }
 
-    const onUpdateSelects = (val) => {
-      emit('update:modelValue', val.map(v => props.items[v]))
-    }
+    const genSelectListSlot = () => h('div', {
+      class: 'v-multi-select__select-list-slot'
+    }, {
+      default: () => slots['select-list']?.({ items: props.items })
+    })
 
-    const genSelectList = () => {
-      return h(VMultiSelectList, {
-        class: 'v-multi-select__select-list',
-        items: props.items,
-        modelValue: selectsIndexes.value,
-        valueKey: props.valueKey,
-        ['onUpdate:modelValue']: onUpdateSelects
-      })
-    }
+    const onUpdateSelects = (val: any) => emit('update:modelValue', val.map(v => props.items[v]))
 
-    const genExpandIcon = (): VNode => {
-      return h(VIcon, {
-        icon: FaIcons.$chevronDown,
-        color: !isDisabled.value ? attrs.color : '',
-        size: 16,
-      })
-    }
+    const genSelectList = () => h(VMultiSelectList, {
+      class: 'v-multi-select__select-list',
+      items: props.items,
+      modelValue: selectsIndexes.value,
+      valueKey: props.valueKey,
+      ['onUpdate:modelValue']: onUpdateSelects
+    })
+
+
+    const genExpandIcon = (): VNode => h(VIcon, {
+      icon: FaIcons.$chevronDown,
+      color: !isDisabled.value ? attrs.color : '',
+      size: 16,
+    })
 
     const genSelectMenu = (): VNode => {
       const content = slots['select-list'] ? genSelectListSlot() : genSelectList()
@@ -143,13 +132,12 @@ export default defineComponent({
       })
     }
 
-    const genMultiSelect = () => {
-      return h('div', {
-        class: unref(classes),
-      }, {
-        default: () => [ genItemsWrapper() ]
-      })
-    }
+    const genMultiSelect = () => h('div', {
+      class: unref(classes),
+    }, {
+      default: () => [ genItemsWrapper() ]
+    })
+
 
     return () => h(VInput, {
       ref: activator,

@@ -8,6 +8,7 @@ import { colorProps, useColors } from '../../composables/use-colors'
 // Components
 import { VDataTableCell } from './VDataTableCell'
 import { VCheckbox } from '../VCheckbox'
+import { DataTableCol } from '../../../types'
 
 export const VDataTableBody = defineComponent({
   name: 'v-data-table-body',
@@ -22,7 +23,7 @@ export const VDataTableBody = defineComponent({
     checkAllRows: Boolean,
     align: String,
     colWidth: {
-      type: [String, Number],
+      type: [ String, Number ],
       default: 125,
     },
     page: Number,
@@ -30,10 +31,10 @@ export const VDataTableBody = defineComponent({
     ...colorProps(),
   } as any,
 
-  emits: ['select', 'click:row', 'dblclick:row', 'contextmenu:row'],
+  emits: [ 'select', 'click:row', 'dblclick:row', 'contextmenu:row' ],
 
   setup(props, { slots, emit }): () => VNode {
-    const checkedRows = ref([])
+    const checkedRows = ref<any[]>([])
 
     const { setBackgroundCssColor, setBackgroundClassNameColor } = useColors()
 
@@ -64,89 +65,64 @@ export const VDataTableBody = defineComponent({
       },
     )
 
-    const onSelectRows = (rows) => {
+    const onSelectRows = (rows: any[]) => {
       checkedRows.value = rows
       emit('select', checkedRows.value)
     }
 
-    const genNumberCell = (count): VNode => {
-      return h(
-        VDataTableCell,
-        {
-          width: 50,
-          align: 'center',
-          dark: props.dark,
-          color: props.color,
-          class: 'v-data-table__row-number',
-        },
-        {
-          default: () => count + 1,
-        },
-      )
-    }
+    const genNumberCell = (count: number): VNode => h(VDataTableCell, {
+      width: 50,
+      align: 'center',
+      dark: props.dark,
+      color: props.color,
+      class: 'v-data-table__row-number',
+    }, {
+      default: () => count + 1,
+    })
 
-    const genCheckboxCell = (row): VNode => {
-      return h(
-        VDataTableCell,
-        {
-          width: 50,
-          align: 'center',
-          dark: props.dark,
-          color: props.color,
-          class: 'v-data-table__row-checkbox',
-        },
-        {
-          default: () =>
-            h(VCheckbox, {
-              modelValue: checkedRows.value,
-              value: row,
-              onChange: onSelectRows,
-            }),
-        },
-      )
-    }
+    const genCheckboxCell = (row: any): VNode => h(VDataTableCell, {
+      width: 50,
+      align: 'center',
+      dark: props.dark,
+      color: props.color,
+      class: 'v-data-table__row-checkbox',
+    }, {
+      default: () => h(VCheckbox, {
+        modelValue: checkedRows.value,
+        value: row,
+        onChange: onSelectRows,
+      }),
+    })
 
-    const genRowCell = (col, row): VNode => {
+    const genRowCell = (col: DataTableCol, row: any): VNode => {
       const { format } = col
-      const slotContent =
-        slots[col.key] &&
-        slots[col.key]!({
-          row,
-          format,
-        })
 
-      return h(
-        VDataTableCell,
-        {
+      const slotContent = slots[col.key]?.({ row, format })
+
+      return h(VDataTableCell, {
           width: col.width,
           align: col.align || props.align,
-          key: col.key,
+          key: row[col.key],
           dark: props.dark,
-        },
-        {
-          default: () =>
-            slotContent
-              ? slotContent
-              : format
-                ? format(row)
-                : String(row[col.key]),
+        }, {
+          default: () => slotContent ? slotContent : format
+            ? format(row)
+            : String(row[col.key]),
         },
       )
     }
 
-    const genTableRow = (row, rowCount: number): VNode => {
+    const genTableRow = (row: any, rowCount: number): VNode => {
       const rowCells: VNode[] = []
 
       props.showSequence && rowCells.push(genNumberCell(rowCount))
       props.showCheckbox && rowCells.push(genCheckboxCell(row))
 
-      props.cols.forEach((col) => {
+      props.cols.forEach((col: DataTableCol) => {
         col.show && rowCells.push(genRowCell(col, row))
       })
 
-      return h(
-        'div',
-        {
+      return h('div', {
           class: { 'v-data-table__row': true },
           key: row[props.keyProp],
           onClick: () => emit('click:row', row),

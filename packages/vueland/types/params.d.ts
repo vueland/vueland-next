@@ -57,10 +57,10 @@ export type DateParams = {
 
 export type TableFilterParams = {
   value: any
-  col: TableColumn
+  col: DataTableCol
 }
 
-export interface TableColumn {
+export interface DataTableCol {
   key: string
   title: string
   width?: string | number
@@ -74,13 +74,13 @@ export interface TableColumn {
   format?: (row: any) => any
   filter?: (arg: TableFilterParams) => any
   sort?: (a: any, b: any) => number
-  onSort?: (col: TableColumn) => any
+  onSort?: (col: DataTableCol) => any
   onFilter?: (params: TableFilterParams) => any
 }
 
-export interface TableColumnProps {
-  sorted: boolean
-  filtered: boolean
+export interface DataTableColProps {
+  sorted?: boolean
+  filtered?: boolean
 }
 
 export interface DataRowProps {

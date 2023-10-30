@@ -13,7 +13,7 @@ import { VCheckbox } from '../VCheckbox'
 import { VDataTableCell } from './VDataTableCell'
 import { VTextField } from '../VTextField'
 import { clickOutside } from '../../directives/v-click-outside'
-import { TableColumn } from '../../../types'
+import { DataTableCol } from '../../../types'
 import { useTransition } from '../../composables/use-transition'
 import { transitions } from '../../services/transitions'
 
@@ -58,7 +58,7 @@ export const VDataTableHeader = defineComponent({
         : props.options?.contentColor
     })
 
-    const cols = computed<TableColumn[]>(() => [...props.cols])
+    const cols = computed<DataTableCol[]>(() => [...props.cols])
 
     const onSort = (col) => {
       emit('sort', col)
@@ -247,7 +247,7 @@ export const VDataTableHeader = defineComponent({
       props.showSequence && children.push(genNumberCell())
       props.showCheckbox && children.push(genCheckboxCell())
 
-      cols.value!.forEach((col: TableColumn) => {
+      cols.value!.forEach((col: DataTableCol) => {
         col.width = col.width || props.colWidth
 
         if (!col.hasOwnProperty('show')) {

@@ -22,7 +22,7 @@ export const VDataTableCell = defineComponent({
       default: 'start',
     },
     width: {
-      type: [String, Number],
+      type: [ String, Number ],
       default: 75,
     },
     resizerColor: {
@@ -33,7 +33,7 @@ export const VDataTableCell = defineComponent({
     ...colorProps(),
   } as any,
 
-  emits: ['resize'],
+  emits: [ 'resize' ],
 
   setup(props, { slots, emit }): () => VNode {
     const {
@@ -67,27 +67,21 @@ export const VDataTableCell = defineComponent({
       return h(VResize, propsData)
     }
 
-    const genCellContent = (): VNode => {
-      const propsData = {
-        class: {
-          'v-data-table__cell-content': true,
-          [`text-align--${ props.align }`]: !!props.align,
-        },
-      }
+    const genCellContent = (): VNode => h('div', {
+      class: {
+        'v-data-table__cell-content': true,
+        [`text-align--${ props.align }`]: !!props.align,
+      },
+    }, {
+      default: () => slots.default?.()
+    })
 
-      return h('div', propsData, slots.default?.())
-    }
-
-    return () => {
-      const propsData = {
-        class: classes.value,
-        style: styles.value,
-      }
-
-      return h('div', propsData, [
-        genCellContent(),
-        props.resizeable && genResize(),
-      ])
-    }
+    return () => h('div', {
+      class: classes.value,
+      style: styles.value,
+    }, [
+      genCellContent(),
+      props.resizeable && genResize(),
+    ])
   },
 })

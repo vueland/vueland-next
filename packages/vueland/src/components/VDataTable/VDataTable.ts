@@ -12,7 +12,7 @@ import { VDataTableFooter } from './VDataTableFooter'
 
 // Helpers
 import { addScopedSlot } from '../../helpers'
-import { HeaderOptions, TableColumn, TableColumnProps, TableFilterParams } from '../../../types'
+import { HeaderOptions, DataTableCol, DataTableColProps, TableFilterParams } from '../../../types'
 import { IDataTableFooterOptions } from '@/components/VDataTable/types'
 
 export default defineComponent({
@@ -62,7 +62,7 @@ export default defineComponent({
   ],
 
   setup(props, { slots, emit }) {
-    const cols = ref<TableColumn[]>([])
+    const cols = ref<DataTableCol[]>([])
     const rows = ref<any[]>([])
     const page = ref<number>(1)
     const rowsOnPage = ref<number>(props.footerOptions?.counts?.rowsPerPageOptions?.[0] || 5)
@@ -171,7 +171,7 @@ export default defineComponent({
       emit('update:page', unref(page))
     }
 
-    const onSort = (col: TableColumn & TableColumnProps) => {
+    const onSort = (col: DataTableCol & DataTableColProps) => {
       if (col.sorted) {
         col.sorted = !col.sorted
 
@@ -183,7 +183,7 @@ export default defineComponent({
       sortColumn(col)
     }
 
-    const sortColumn = (col: TableColumn & TableColumnProps) => {
+    const sortColumn = (col: DataTableCol & DataTableColProps) => {
       /**
        * if emit is equal true
        * just emit the event
@@ -241,14 +241,14 @@ export default defineComponent({
       emit('update:rows-count', unref(rowsOnPage))
     }
 
-    const filterRows = <T, C extends TableColumn>(rows: T[], cols: C[]) => {
+    const filterRows = <T, C extends DataTableCol>(rows: T[], cols: C[]) => {
       const filterKeys = Object.keys(filters)
 
       return rows.reduce((acc, row) => {
         const rowResults: T[] = []
 
         filterKeys.forEach((key) => {
-          const { format } = cols.find((col) => col.key === key) as TableColumn
+          const { format } = cols.find((col) => col.key === key) as DataTableCol
 
           const value = format ? format(row) : row[key]
 

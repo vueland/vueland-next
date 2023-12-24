@@ -1,4 +1,4 @@
-import { PropType, computed, h, defineComponent, ref, unref, VNode } from 'vue'
+import { computed, h, defineComponent, ref, unref, VNode } from 'vue'
 import { VInput } from '../VInput'
 import { VChip } from '../VChip'
 import { VMenu } from '../VMenu'
@@ -14,10 +14,6 @@ import { FaIcons } from '../../services/icons'
 export default defineComponent({
   name: 'v-multi-select',
   props: {
-    modelValue: {
-      type: Array as PropType<any[]>,
-      default: () => []
-    },
     items: {
       type: Array,
       default: () => []
@@ -53,7 +49,7 @@ export default defineComponent({
       'v-multi-select--focused': inputState.focused
     }))
 
-    const selectsIndexes = computed(() => props.modelValue?.reduce((inds, val) => {
+    const selectsIndexes = computed(() => (props.modelValue as any[])?.reduce((inds, val) => {
       const ind = props.items?.findIndex(it => it === val)
 
       ind >= 0 && inds.push(ind)
@@ -64,9 +60,9 @@ export default defineComponent({
     const genItems = () => {
       const itemWrapper = props.chip ? VChip : 'div' as any
 
-      return props.modelValue.reduce((nodes, it, i) => {
+      return (props.modelValue as any[])?.reduce((nodes, it, i) => {
         const text = valueKey ? it[valueKey] : it
-        const lastSymbol = i < props.modelValue.length - 1 && !props.chip ? ',' : ''
+        const lastSymbol = i < (props.modelValue as any[])?.length - 1 && !props.chip ? ',' : ''
 
         nodes.push(h(itemWrapper, { class: 'v-multi-select__item' }, { default: () => `${ text }${ lastSymbol }` }))
 

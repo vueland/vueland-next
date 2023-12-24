@@ -35,6 +35,12 @@ exports[`VTextField should test disabled state 1`] = `
   <div class="v-input__text-field">
     <div class="v-text-field v-text-field--disabled">
       <input class="v-text-field__input"
+             label="email"
+             rules="function (val) {
+                return !!val || 'required input';
+              }"
+             color="orange darken-1"
+             textcolor="#fa5a5a"
              disabled
              type="text"
       >
@@ -63,6 +69,13 @@ exports[`VTextField should test non disabled state 1`] = `
     <div class="v-text-field">
       <input class="v-text-field__input"
              style="color: rgb(250, 90, 90);"
+             modelvalue
+             label="email"
+             rules="function (val) {
+                return !!val || 'required input';
+              }"
+             color="orange darken-1"
+             textcolor="#fa5a5a"
              type="text"
       >
     </div>

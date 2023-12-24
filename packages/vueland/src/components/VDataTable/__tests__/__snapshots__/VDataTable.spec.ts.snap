@@ -1221,6 +1221,9 @@ exports[`VDataTable should test table custom filter and match snapshot 1`] = `
                   </div>
                   <div class="v-text-field">
                     <input class="v-text-field__input"
+                           label="search"
+                           prependicon="fas fa-search"
+                           clearable="true"
                            type="text"
                     >
                   </div>
@@ -1512,7 +1515,11 @@ exports[`VDataTable should test table filter and match snapshot 1`] = `
                   </div>
                   <div class="v-text-field">
                     <input class="v-text-field__input"
+                           label="search"
+                           prependicon="fas fa-search"
+                           clearable="true"
                            type="text"
+                           modelvalue="Ben"
                     >
                   </div>
                   <div class="v-input__append-icon">

@@ -1,6 +1,7 @@
 import { computed, defineComponent, h, VNode } from 'vue'
 import { useInputStates } from '../../composables/use-input-states'
 import { useActivator } from '../../composables/use-activator'
+import { validationProps } from '../../composables/use-validation'
 import { getStringKeysValue } from '../../helpers'
 
 // Components
@@ -17,10 +18,6 @@ export default defineComponent({
   name: 'v-select',
   inheritAttrs: true,
   props: {
-    modelValue: {
-      type: [String, Number, Object],
-      default: null,
-    },
     items: {
       type: Array,
       default: null,
@@ -33,7 +30,12 @@ export default defineComponent({
       type: String,
       default: 'primary white--text text--base',
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
     loading: Boolean,
+    ...validationProps(),
   },
   emits: ['click', 'focus', 'select', 'blur', 'change', 'update:modelValue'],
   setup(props, { attrs, emit, slots }) {
@@ -42,9 +44,7 @@ export default defineComponent({
       isDisabled,
       isReadonly,
       inputState,
-      onBlur,
       onSelect,
-      onFocus,
     } = useInputStates(props, { attrs, emit })
 
     const computedValue = computed<string | number>(() => {
@@ -62,51 +62,43 @@ export default defineComponent({
       'v-select--disabled': isDisabled.value,
     }))
 
-    const genInput = ({ textCssColor, textClassColor, disabled }) => {
-      return h('input', {
-        class: {
-          'v-select__input': true,
-          ...(disabled ? textClassColor : {}),
-        },
-        style: {
-          ...(!disabled ? textCssColor : {}),
-        },
-        disabled: isDisabled.value,
-        type: attrs.type || 'text',
-        placeholder: attrs.placeholder,
-        value: computedValue.value,
-        readonly: true,
-      })
-    }
+    const genInput = ({ textCssColor, textClassColor, disabled }): VNode => h('input', {
+      class: {
+        'v-select__input': true,
+        ...(disabled ? textClassColor : {}),
+      },
+      style: {
+        ...(!disabled ? textCssColor : {}),
+      },
+      disabled: isDisabled.value,
+      type: attrs.type || 'text',
+      placeholder: attrs.placeholder,
+      value: computedValue.value,
+      readonly: true,
+    })
 
-    const genListPreloader = () => {
-      return h('div', {
-        class: 'v-select__preloader',
-      }, h(VProgressCircular, {
-        indeterminate: true,
-        width: 2,
-        size: 30,
-        color: (attrs.color || 'primary') as string,
-      }))
-    }
+    const genListPreloader = (): VNode => h('div', {
+      class: 'v-select__preloader',
+    }, h(VProgressCircular, {
+      indeterminate: true,
+      width: 2,
+      size: 30,
+      color: (attrs.color || 'primary') as string,
+    }))
 
-    const genSelectListSlot = () => {
-      return h('div', {
-        class: 'v-select__select-list-slot',
-      }, {
-        default: () => slots['select-list']?.({ onSelect }),
-      })
-    }
+    const genSelectListSlot = (): VNode => h('div', {
+      class: 'v-select__select-list-slot',
+    }, {
+      default: () => slots['select-list']?.({ onSelect }),
+    })
 
-    const genSelectList = () => {
-      return h(VSelectList, {
-        items: props.items,
-        selected: props.modelValue,
-        valueKey: props.valueKey,
-        activeClass: props.activeClass,
-        onSelect,
-      })
-    }
+    const genSelectList = (): VNode => h(VSelectList, {
+      items: props.items,
+      selected: props.modelValue,
+      valueKey: props.valueKey,
+      activeClass: props.activeClass,
+      onSelect,
+    })
 
     const genSelectMenu = (): VNode => {
       const content = slots['select-list'] ? genSelectListSlot() : genSelectList()
@@ -117,32 +109,28 @@ export default defineComponent({
         inputActivator: '.v-input__text-field',
         openOnClick: true,
         maxHeight: 240,
-        // zIndex: 12,
-        onShow: onFocus,
-        onHide: onBlur,
+        onShow: () => activatorRef.value?.onFocus(),
+        onHide: () => activatorRef.value?.onBlur(),
       }, {
         default: () => props.loading ? genListPreloader() : content,
       })
     }
 
-    const genExpandIcon = (): VNode => {
-      return h(VIcon, {
-        icon: FaIcons.$chevronDown,
-        color: !isDisabled.value ? attrs.color : '',
-        size: 16,
-      })
-    }
+    const genExpandIcon = (): VNode => h(VIcon, {
+      icon: FaIcons.$chevronDown,
+      color: !isDisabled.value ? attrs.color : '',
+      size: 16,
+    })
 
-    const genSelect = ({ textCssColor, textClassColor, disabled }) => {
-      return h('div', {
-        class: classes.value,
-      }, genInput({ textCssColor, textClassColor, disabled }))
-    }
+    const genSelect = ({ textCssColor, textClassColor, disabled }): VNode => h('div', {
+      class: classes.value,
+    }, genInput({ textCssColor, textClassColor, disabled }))
 
-    return () => h(VInput, {
+    return (): VNode => h(VInput, {
       ref: activatorRef,
-      value: computedValue.value,
+      modelValue: computedValue.value,
       focused: inputState.focused,
+      rules: props.rules,
     }, {
       ['text-field']: ({ textCssColor, textClassColor, disabled }) => {
         return genSelect({ textCssColor, textClassColor, disabled })

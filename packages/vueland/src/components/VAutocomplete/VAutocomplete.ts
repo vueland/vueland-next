@@ -1,9 +1,10 @@
 // Vue API
-import { h, ref, reactive, computed, defineComponent, onBeforeMount } from 'vue'
+import { h, reactive, computed, defineComponent, onBeforeMount } from 'vue'
 
 // Effects
 import { validationProps } from '../../composables/use-validation'
 import { useColors } from '../../composables/use-colors'
+import { useActivator } from '../../composables/use-activator'
 
 // Types
 import { VNode } from 'vue'
@@ -38,12 +39,9 @@ export default defineComponent({
       type: String,
       default: 'primary white--text'
     },
-    modelValue: {
-      default: null,
-    },
     color: {
       type: String,
-      default: 'primary',
+      default: '',
     },
     ...validationProps(),
   } as any,
@@ -66,7 +64,7 @@ export default defineComponent({
     })
 
     const { setTextCssColor, setTextClassNameColor } = useColors()
-    const activator = ref(null)
+    const { activatorRef } = useActivator(props)
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-autocomplete': true,
@@ -102,7 +100,6 @@ export default defineComponent({
       }
 
       state.focused = false
-
       emit('blur')
     }
 
@@ -131,17 +128,15 @@ export default defineComponent({
       emit('update:value', it)
     }
 
-    const genInput = (): VNode => {
-      return h('input', {
-        value: state.search,
-        disabled: props.disabled,
-        readonly: props.readonly && !props.typeable,
-        class: 'v-autocomplete__input',
-        onInput,
-        onFocus,
-        onBlur,
-      })
-    }
+    const genInput = (): VNode => h('input', {
+      value: state.search,
+      disabled: props.disabled,
+      readonly: props.readonly && !props.typeable,
+      class: 'v-autocomplete__input',
+      onInput,
+      onFocus,
+      onBlur,
+    })
 
     const genAutocompleteList = (): VNode => {
       return h(VSelectList, {
@@ -157,37 +152,33 @@ export default defineComponent({
       })
     }
 
-    const genMenu = (): VNode => {
-      return h(VMenu, {
-          activator: activator.value!,
-          openOnClick: true,
-          maxHeight: 240,
-          bottom: props.typeable,
-          inputActivator: '.v-input__text-field',
-          internalActivator: true,
-          onHide: () => {
-            state.isMenuActive = false
-          },
+    const genMenu = (): VNode => h(VMenu, {
+        activator: activatorRef.value!,
+        openOnClick: true,
+        maxHeight: 240,
+        bottom: props.typeable,
+        inputActivator: '.v-input__text-field',
+        internalActivator: true,
+        onShow: () => activatorRef.value?.onFocus(),
+        onHide: () => {
+          state.isMenuActive = false
+          activatorRef.value?.onBlur()
         },
-        {
-          default: genAutocompleteList,
-        },
-      )
-    }
+      },
+      {
+        default: genAutocompleteList,
+      },
+    )
 
-    const genAutocomplete = (): VNode => {
-      return h(
-        'div',
-        {
-          class: classes.value,
-          style: styles.value,
-        },
-        [
-          genInput(),
-          activator.value && genMenu(),
-        ],
-      )
-    }
+    const genAutocomplete = (): VNode => h('div', {
+        class: classes.value,
+        style: styles.value,
+      },
+      [
+        genInput(),
+        activatorRef.value && genMenu(),
+      ],
+    )
 
     onBeforeMount(() => {
       state.search = inputValue.value
@@ -202,8 +193,8 @@ export default defineComponent({
       clearable: props.clearable,
       color: props.color,
       rules: props.rules,
-      ref: activator,
-      value: props.modelValue || state.search,
+      ref: activatorRef,
+      modelValue: props.modelValue || state.search,
       onClear,
     }, {
       'text-field': () => genAutocomplete(),

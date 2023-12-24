@@ -59,10 +59,11 @@ export default defineComponent({
     ...validationProps(),
     ...colorProps(),
   },
-  emits: ['clear'],
+  emits: [ 'clear' ],
 
   setup(props, { attrs, emit, slots, expose }) {
     const { setTextCssColor, setTextClassNameColor } = useColors()
+
     const {
       inputState,
       errorState,
@@ -73,6 +74,7 @@ export default defineComponent({
       onFocus,
       onBlur,
     } = useInputStates(props, { attrs, emit })
+
     const { icons } = useIcons()
 
     const form: Maybe<Form> = inject('$v_form', null as any)
@@ -80,13 +82,8 @@ export default defineComponent({
     const textClassColor = setTextClassNameColor(props.textColor)
     const textCssColor = setTextCssColor(props.textColor)
 
-    const hasPrependIcon = computed<boolean>(() => {
-      return !!props.prependIcon || !!slots['prepend-icon']
-    })
-
-    const hasAppendIcon = computed<boolean>(() => {
-      return !!props.appendIcon || !!slots['append-icon'] || props.clearable
-    })
+    const hasPrependIcon = computed<boolean>(() => !!props.prependIcon || !!slots['prepend-icon'])
+    const hasAppendIcon = computed<boolean>(() => !!props.appendIcon || !!slots['append-icon'] || props.clearable)
 
     const classes = computed<Record<string, boolean>>(() => ({
       'v-input': true,
@@ -107,10 +104,7 @@ export default defineComponent({
       ...(attrs.style as object),
     }))
 
-    watch(
-      () => props.value,
-      (to) => inputState.value = to as string,
-    )
+    watch(() => props.modelValue, (val: any) => inputState.value = val)
 
     const genLabel = (): VNode => {
       const label = h(VLabel, {
@@ -124,24 +118,22 @@ export default defineComponent({
         },
       )
 
-      return h('div', { class: 'v-input__label' }, [label])
+      return h('div', { class: 'v-input__label' }, [ label ])
     }
 
-    const genIcon = (iconName: string, clickable = false): VNode => {
-      return h(VIcon, {
-        icon: iconName,
-        size: 16,
-        disabled: props.disabled,
-        clickable,
-        ...(clickable ? { onClick: () => emit('clear') } : {}),
-      })
-    }
+    const genIcon = (iconName: string, clickable = false): VNode => h(VIcon, {
+      icon: iconName,
+      size: 16,
+      disabled: props.disabled,
+      clickable,
+      ...(clickable ? { onClick: () => emit('clear') } : {}),
+    })
 
     const genPrependIcon = (): Maybe<VNode> => {
       const icon = props.prependIcon ? genIcon(props.prependIcon) : slots['prepend-icon']?.()
 
-      return icon ?
-        h('div', { class: 'v-input__prepend-icon' }, icon)
+      return icon
+        ? h('div', { class: 'v-input__prepend-icon' }, icon)
         : null
     }
 
@@ -150,24 +142,22 @@ export default defineComponent({
 
       const content = icon ? genIcon(icon, props.clearable) : slots['append-icon']?.()
 
-      return content ?
-        h('div', { class: 'v-input__append-icon' }, content)
+      return content
+        ? h('div', { class: 'v-input__append-icon' }, content)
         : null
     }
 
-    const genLinearProgress = (): VNode => {
-      return h('div', {
-          class: { 'v-input__loading': true },
-        },
+    const genLinearProgress = (): VNode => h('div', {
+        class: { 'v-input__loading': true },
+      },
 
-        h(VProgressLinear, {
-          height: 2,
-          indeterminate: true,
-          color: props.color,
-          backgroundColor: props.color,
-        }),
-      )
-    }
+      h(VProgressLinear, {
+        height: 2,
+        indeterminate: true,
+        color: props.color,
+        backgroundColor: props.color,
+      }),
+    )
 
     const genTextFieldSlot = () => {
       const prependIconContent = genPrependIcon()
@@ -183,31 +173,24 @@ export default defineComponent({
       })
 
       return h('div', { class: 'v-input__text-field' },
-        [prependIconContent, textFieldContent, appendIconContent, props.loading ? loadingIndicator : null],
+        [ prependIconContent, textFieldContent, appendIconContent, props.loading ? loadingIndicator : null ],
       )
     }
 
-    const genHintMessage = (): Maybe<VNode> => {
-      return !!errorState.innerErrorMessage ? h(
-        'span',
-        { class: 'v-input__hints-message' },
-        [errorState.innerErrorMessage],
-      ) : null
-    }
+    const genHintMessage = (): Maybe<VNode> => !!errorState.innerErrorMessage
+      ? h('span', { class: 'v-input__hints-message' }, [ errorState.innerErrorMessage ])
+      : null
 
-    const genHints = (): Maybe<VNode> => {
-      return h(
-        'div',
-        { class: 'v-input__hints' },
-        useTransition(genHintMessage()!, 'fade'),
-      )
-    }
+    const genHints = (): VNode => h(
+      'div',
+      { class: 'v-input__hints' },
+      useTransition(genHintMessage()!, 'fade'),
+    )
 
-    const genSelectSlot = (): Maybe<VNode> => {
-      return slots.select ?
-        h('div', { class: 'v-input__selects' }, slots.select?.())
-        : null
-    }
+    const genSelectSlot = (): Maybe<VNode> => slots.select
+      ? h('div', { class: 'v-input__selects' }, slots.select?.())
+      : null
+
 
     onBeforeMount(() => {
       if (props.rules) form?.add(validate)

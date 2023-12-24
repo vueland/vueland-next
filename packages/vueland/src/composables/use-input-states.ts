@@ -1,4 +1,4 @@
-import { computed, reactive, watch } from 'vue'
+import { computed, reactive, unref, watch } from 'vue'
 import { useValidation } from './use-validation'
 
 type State = {
@@ -6,9 +6,9 @@ type State = {
   focused: boolean
 }
 
-export const useInputStates = (props, { attrs, emit }) => {
+export const useInputStates = (props: Record<string, any>, { attrs, emit }) => {
   const inputState = reactive<State>({
-    value: '',
+    value: props.modelValue ?? '',
     focused: false,
   })
 
@@ -16,16 +16,12 @@ export const useInputStates = (props, { attrs, emit }) => {
 
   const isDisabled = computed<boolean>(() => {
     if (props.disabled) return true
-
-    if (typeof attrs.disabled === 'boolean') return attrs.disabled
-
+    console.log(props, attrs)
     return attrs.disabled !== undefined
   })
 
   const isReadonly = computed<boolean>(() => {
     if (props.readonly) return true
-
-    if (typeof attrs.readonly === 'boolean') return attrs.readonly
 
     return attrs.readonly !== undefined
   })
@@ -35,35 +31,31 @@ export const useInputStates = (props, { attrs, emit }) => {
     'error--text': !!errorState.innerError,
   }))
 
-  watch(() => inputState.focused, (focused) => {
-    if (!focused && props.rules) return validate(inputState.value)
+  watch(() => inputState.focused, (value) => {
+    if (!value && props.rules) validate(inputState.value)
   })
 
-  watch(() => inputState.value, (val) => {
-    if (props.rules) return validate(val)
-  })
+  watch(() => inputState.value, validate)
 
-  const onFocus = (e) => {
-    if (isReadonly.value) return
+  const onFocus = (e: InputEvent) => {
+    if (unref(isDisabled)) return
 
     inputState.focused = true
     emit('focus', e)
   }
 
   const onChange = () => {
-    if (isReadonly.value) return
+    if (unref(isDisabled)) return
 
     emit('change')
   }
 
-  const onBlur = (e) => {
-    if (isReadonly.value) return
-
+  const onBlur = (e: InputEvent) => {
     inputState.focused = false
     emit('blur', e)
   }
 
-  const onSelect = (val) => {
+  const onSelect = (val: any) => {
     inputState.focused = false
 
     emit('update:modelValue', val)
@@ -82,6 +74,6 @@ export const useInputStates = (props, { attrs, emit }) => {
     onBlur,
     onChange,
     onSelect,
-    validate
+    validate,
   }
 }

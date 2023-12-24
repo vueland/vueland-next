@@ -91,6 +91,7 @@ export default defineComponent({
     const { isActive } = useToggle(props)
     const { dimensions, contentRef, setDimensions } = useAutoPosition(props)
     const { setDetached, removeDetached } = useDetach()
+    const { openDelay, closeDelay } = useDelay(props)
     const {
       activatorRef,
       getActivator,
@@ -98,8 +99,6 @@ export default defineComponent({
       addActivatorEvents,
       removeActivatorEvents,
     } = useActivator(props)
-
-    const { openDelay, closeDelay } = useDelay(props)
 
     const handlers = {
       click: props.openOnClick ? async (e: MouseEvent) => {

@@ -10,7 +10,8 @@ exports[`VTextarea should mount component and match snapshot 1`] = `
   </div>
   <div class="v-input__text-field">
     <div class="v-text-field">
-      <input class="v-text-field__input"
+      <input class="v-textarea"
+             tag="textarea"
              type="text"
       >
     </div>

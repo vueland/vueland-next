@@ -1,4 +1,4 @@
-import { reactive, computed } from 'vue'
+import { reactive, computed, unref } from 'vue'
 // Types
 import { PropType } from 'vue'
 
@@ -10,10 +10,10 @@ type ErrorsState = {
 
 export const validationProps = () => ({
   rules: {
-    type: Array as PropType<Array<(val: any) => boolean>>,
+    type: Array as PropType<Array<(val: any) => boolean | string>>,
     default: null,
   },
-  value: [String, Number, Date, Object],
+  modelValue: [ String, Number, Date, Object, Array ],
 })
 
 export const useValidation = (props) => {
@@ -27,13 +27,8 @@ export const useValidation = (props) => {
     'v-validatable': true,
   })
 
-  const computedColor = computed<Maybe<string>>(() => {
-    return props.disabled ? 'disabled' : 'primary'
-  })
-
-  const hasRules = computed<boolean>(() => {
-    return !!props.rules && props.rules.length > 0
-  })
+  const computedColor = computed<Maybe<string>>(() => props.disabled ? 'disabled' : 'primary')
+  const hasRules = computed<boolean>(() => props.rules?.length ?? false)
 
   const dirty = () => (errorState.isDirty = true)
 
@@ -51,27 +46,25 @@ export const useValidation = (props) => {
     return errorState.innerError
   }
 
-  const validate = (val = props.value): boolean | void => {
-    if (!hasRules.value) return true
+  const validate = (val = props.modelValue): boolean => {
+    if (!unref(hasRules)) return true
 
     dirty()
 
     for (let i = 0, len = props.rules.length; i < len; i += 1) {
       const rule = props.rules[i]
 
-      let result
-
-      if (typeof rule === 'function') result = rule(val)
+      const result = rule(val)
 
       if (result === false || typeof result === 'string') {
         update(true, result)
         return false
       }
-      if (result === true && i === len - 1) {
-        update(false)
-        return true
-      }
+
+      update(false)
     }
+
+    return true
   }
 
   return {

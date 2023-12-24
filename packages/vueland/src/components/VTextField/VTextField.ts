@@ -1,10 +1,10 @@
 // Vue API
-import { defineComponent, h, computed, ref } from 'vue'
+import { computed, defineComponent, h, ref } from 'vue'
 // Components
 import { VInput } from '../VInput'
 // Composables
 import { useInputStates } from '../../composables/use-input-states'
-import { validationProps } from '../../composables/use-validation'
+// import { validationProps } from '../../composables/use-validation'
 
 export default defineComponent({
   name: 'v-text-field',
@@ -12,17 +12,10 @@ export default defineComponent({
     VInput,
   },
   inheritAttrs: true,
-  props: {
-    modelValue: {
-      type: [String, Number],
-      default: '',
-    },
-    ...validationProps(),
-  },
   emits: ['update:modelValue', 'input', 'blur', 'focus', 'change'],
-
   setup(props, { emit, attrs, slots }) {
-    const inputRef = ref(null)
+    const inputRef = ref<Maybe<InstanceType<any>>>(null)
+
     const {
       isReadonly,
       isDisabled,
@@ -36,7 +29,7 @@ export default defineComponent({
     }))
 
     const computedValue = computed({
-      get: () => props.modelValue,
+      get: () => attrs.modelValue,
 
       set: (val: string) => {
         emit('input', val)
@@ -44,59 +37,44 @@ export default defineComponent({
       },
     })
 
-    const onFocus = () => {
-      (inputRef.value as InstanceType<any>)?.onFocus()
-    }
+    const onFocus = () => inputRef.value?.onFocus()
 
-    const onBlur = () => {
-      (inputRef.value as InstanceType<any>)?.onBlur()
-    }
+    const onBlur = () => inputRef.value?.onBlur()
 
     const onInput = (e) => {
       computedValue.value = e.target.value
     }
 
-    const genInputField = (textClassColor, textCssColor) => {
-      return h('input', {
-        class: {
-          'v-text-field__input': true,
-          ...(!attrs.disabled && textClassColor),
-        },
-        style: {
-          ...(!attrs.disabled ? textCssColor : {}),
-        },
-        disabled: attrs.disabled,
-        type: attrs.type || 'text',
-        placeholder: attrs.placeholder,
-        readonly: attrs.readonly,
-        autocomplete: attrs.autocomplete,
-        value: computedValue.value,
-        onInput,
-        onFocus,
-        onBlur,
-        onChange,
-      })
-    }
+    const genInputField = (textClassColor, textCssColor) => h('input', {
+      class: {
+        'v-text-field__input': true,
+        ...(!attrs.disabled ? textClassColor : {}),
+      },
+      style: {
+        ...(!attrs.disabled ? textCssColor : {}),
+      },
+      ...attrs,
+      type: attrs.type || 'text',
+      value: computedValue.value,
+      onInput,
+      onFocus,
+      onBlur,
+      onChange,
+    })
 
-    const genTextFieldWrapper = (clsColor, cssColor) => {
-      return h('div', {
-          class: classes.value,
-        },
-        genInputField(clsColor, cssColor),
-      )
-    }
+    const genTextFieldWrapper = (clsColor, cssColor) => h(
+      'div', { class: classes.value }, genInputField(clsColor, cssColor),
+    )
 
     return () => h(VInput, {
-      value: computedValue.value,
-      rules: props.rules,
+      ...attrs,
+      modelValue: computedValue.value as string,
       ref: inputRef,
-      onClear: () => emit('update:modelValue', undefined)
+      onClear: () => emit('update:modelValue', undefined),
     }, {
-      ['text-field']: ({ textClassColor, textCssColor }) => {
-        return genTextFieldWrapper(textClassColor, textCssColor)
-      },
-      ...(slots['prepend-icon'] ? {['prepend-icon']: () => slots['prepend-icon']?.()} : {}),
-      ...(slots['append-icon'] ? {['append-icon']: () => slots['append-icon']?.()} : {}),
+      ['text-field']: ({ textClassColor, textCssColor }) => genTextFieldWrapper(textClassColor, textCssColor),
+      ...(slots['prepend-icon'] ? { ['prepend-icon']: () => slots['prepend-icon']?.() } : {}),
+      ...(slots['append-icon'] ? { ['append-icon']: () => slots['append-icon']?.() } : {}),
     })
   },
 })

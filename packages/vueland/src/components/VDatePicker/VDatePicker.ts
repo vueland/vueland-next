@@ -1,10 +1,11 @@
 // Vue API
 import { computed, defineComponent, h, provide, reactive, ref } from 'vue'
 
-// Effects
+// Composables
 import { useColors } from '../../composables/use-colors'
 import { elevationProps, useElevation } from '../../composables/use-elevation'
 import { useTransition } from '../../composables/use-transition'
+import { validationProps } from '../../composables/use-validation'
 
 // Components
 import { VTextField } from '../VTextField'
@@ -65,9 +66,6 @@ export default defineComponent({
       type: String,
       default: 'yyyy MM dd D',
     },
-    rules: Array,
-    value: [String, Date, Number],
-    modelValue: [String, Date, Number],
     disabledDates: Object,
     highlighted: Object,
     contentColor: {
@@ -78,10 +76,11 @@ export default defineComponent({
       type: String,
       default: 'white',
     },
+    ...validationProps(),
     ...elevationProps(),
   } as any,
 
-  emits: ['update:value', 'update:modelValue', 'selected'],
+  emits: [ 'update:modelValue', 'selected', 'open', 'close' ],
 
   setup(props, { emit, slots }) {
     const data: DatePickerData = reactive({
@@ -105,6 +104,7 @@ export default defineComponent({
       setBackgroundClassNameColor,
       setBackgroundCssColor,
     } = useColors()
+
     const { elevationClasses } = useElevation(props)
 
     const localeMonths: string[] = locale[props.lang].monthsAbbr
@@ -135,13 +135,12 @@ export default defineComponent({
       ...(contentColor ? setTextCssColor(contentColor) : {}),
     }))
 
-    const headerValue = computed<string>(() => {
-      return data.isYears || data.isMonths
-        ? `${ data.tableYear }`
-        : data.isDates
-          ? `${ data.tableYear } ${ localeMonths[data.tableMonth!] }`
-          : ''
-    })
+    const headerValue = computed<string>(() => data.isYears || data.isMonths
+      ? `${ data.tableYear }`
+      : data.isDates
+        ? `${ data.tableYear } ${ localeMonths[data.tableMonth!] }`
+        : ''
+    )
 
     const displayDate = computed<string>(() => {
       const { month, date, day } = data.selected as DatePickerDate
@@ -181,11 +180,11 @@ export default defineComponent({
     }
 
     const setDataDate = <T extends DatePickerDate>({
-                                                     year,
-                                                     month,
-                                                     date,
-                                                     day,
-                                                   }: T) => {
+      year,
+      month,
+      date,
+      day,
+    }: T) => {
       data.tableMonth = month
       data.tableYear = year
 
@@ -228,7 +227,6 @@ export default defineComponent({
 
       data.convertedDateString = convertToFormat() as string
 
-      emit('update:value', computedValue.value)
       emit('update:modelValue', computedValue.value)
       emit('selected', computedValue.value)
 
@@ -282,169 +280,128 @@ export default defineComponent({
       )
     }
 
-    const genDatepickerDisplayInner = (): VNode => {
-      const propsData = {
-        class: 'v-date-picker__display-inner',
-      }
+    const genDatepickerDisplayInner = (): VNode => h('div', {
+      class: 'v-date-picker__display-inner',
+    }, [
+      genDisplayValue(data.selected?.year as number),
+      genDisplayValue(displayDate.value),
+    ])
 
-      return h('div', propsData, [
-        genDisplayValue(data.selected?.year as number),
-        genDisplayValue(displayDate.value),
-      ])
-    }
+    const genDatepickerDisplay = (): VNode => h('div', {
+      class: {
+        'v-date-picker__display': true,
+        ...(contentColor ? setBackgroundClassNameColor(contentColor) : {}),
+        ...(props.color ? setTextClassNameColor(props.color) : {}),
+      },
+      style: {
+        ...(contentColor ? setBackgroundCssColor(contentColor) : {}),
+        ...(props.color ? setTextCssColor(props.color) : {}),
+      },
+    }, genDatepickerDisplayInner())
 
-    const genDatepickerDisplay = (): VNode => {
-      const propsData = {
-        class: {
-          'v-date-picker__display': true,
-          ...(contentColor ? setBackgroundClassNameColor(contentColor) : {}),
-          ...(props.color ? setTextClassNameColor(props.color) : {}),
-        },
-        style: {
-          ...(contentColor ? setBackgroundCssColor(contentColor) : {}),
-          ...(props.color ? setTextCssColor(props.color) : {}),
-        },
-      }
+    const genDatepickerHeader = (): VNode => h(VDatepickerHeader, {
+        onNext: () => handlers.value.onNext!(),
+        onPrev: () => handlers.value.onPrev!(),
+        onTable: onTableChange,
+      },
+      {
+        default: () => headerValue.value,
+      },
+    )
 
-      return h('div', propsData, genDatepickerDisplayInner())
-    }
+    const genDatepickerYearsTable = (): VNode => h(VDatePickerYears, {
+      year: data.tableYear,
+      ['onUpdate:year']: onYearUpdate,
+    })
 
-    const genDatepickerHeader = (): VNode => {
-      return h(
-        VDatepickerHeader,
-        {
-          onNext: () => handlers.value.onNext!(),
-          onPrev: () => handlers.value.onPrev!(),
-          onTable: onTableChange,
-        },
-        {
-          default: () => headerValue.value,
-        },
-      )
-    }
+    const genDatepickerMonthsTable = (): VNode => h(VDatePickerMonths, {
+      lang: props.lang,
+      month: data.tableMonth,
+      year: data.tableYear,
+      locale: localeMonths,
+      ['onUpdate:month']: onMonthUpdate,
+      ['onUpdate:year']: onYearUpdate,
+    })
 
-    const genDatepickerYearsTable = (): VNode => {
-      const propsData = {
-        year: data.tableYear,
-        ['onUpdate:year']: onYearUpdate,
-      }
-
-      return h(VDatePickerYears, propsData)
-    }
-
-    const genDatepickerMonthsTable = (): VNode => {
-      return h(VDatePickerMonths, {
-        lang: props.lang,
+    const genDatepickerDatesTable = (): VNode => h(VDatePickerDates, {
+        locale: localeWeek,
+        mondayFirst: props.mondayFirst,
         month: data.tableMonth,
         year: data.tableYear,
-        locale: localeMonths,
-        ['onUpdate:month']: onMonthUpdate,
-        ['onUpdate:year']: onYearUpdate,
-      })
-    }
+        value: data.selected,
+        disabledDates: props.disabledDates,
+        ['onUpdate:value']: onDateUpdate,
+        ['onUpdate:month']: onDateMonthUpdate,
+      },
+      {
+        date: slots.date && addScopedSlot('date', slots),
+      },
+    )
 
-    const genDatepickerDatesTable = (): VNode => {
-      return h(
-        VDatePickerDates,
-        {
-          locale: localeWeek,
-          mondayFirst: props.mondayFirst,
-          month: data.tableMonth,
-          year: data.tableYear,
-          value: data.selected,
-          disabledDates: props.disabledDates,
-          ['onUpdate:value']: onDateUpdate,
-          ['onUpdate:month']: onDateMonthUpdate,
-        },
-        {
-          date: slots.date && addScopedSlot('date', slots),
-        },
-      )
-    }
+    const genDatepickerBody = (): VNode => h('div', {
+        class: { 'v-date-picker__body': true },
+      },
+      useTransition(
+        ((data.isYears && genDatepickerYearsTable()) ||
+          (data.isMonths && genDatepickerMonthsTable()) ||
+          (data.isDates && genDatepickerDatesTable())) as VNode,
+        'slide-in-left',
+        'out-in',
+      ),
+    )
 
-    const genDatepickerBody = (): VNode => {
-      const propsData = {
-        class: {
-          'v-date-picker__body': true,
-        },
-      }
+    const genDatepickerInput = (): VNode => h(VTextField, {
+      modelValue: data.convertedDateString!,
+      dark: props.dark,
+      label: props.label,
+      readonly: !props.typeable,
+      disabled: props.disabled,
+      prependIcon: props.prependIcon,
+      rules: props.rules,
+      clearable: props.clearable,
+      ref: activator,
+      onInput: onDateInput,
+      onClear: () => {
+        data.convertedDateString = ''
+        emit('update:modelValue', null)
+        emit('selected', null)
+      },
+    })
 
-      return h(
-        'div',
-        propsData,
-        useTransition(
-          ((data.isYears && genDatepickerYearsTable()) ||
-            (data.isMonths && genDatepickerMonthsTable()) ||
-            (data.isDates && genDatepickerDatesTable())) as VNode,
-          'slide-in-left',
-          'out-in',
-        ),
-      )
-    }
+    const genDatepickerTable = (): VNode => h('div', {
+      class: tableClasses.value,
+      style: tableStyles.value,
+    }, [
+      genDatepickerDisplay(),
+      genDatepickerHeader(),
+      genDatepickerBody(),
+    ])
 
-    const genDatepickerInput = (): VNode => {
-      return h(VTextField, {
-        modelValue: data.convertedDateString!,
-        dark: props.dark,
-        label: props.label,
-        readonly: !props.typeable,
-        disabled: props.disabled,
-        prependIcon: props.prependIcon,
-        rules: props.rules,
-        clearable: props.clearable,
-        ref: activator,
-        onInput: onDateInput,
-        onClear: () => {
-          data.convertedDateString = ''
-          emit('update:value', null)
-          emit('update:modelValue', null)
-          emit('selected', null)
-        },
-      })
-    }
+    const genMenu = () => h(VMenu, {
+        activator: activator.value!,
+        internalActivator: true,
+        inputActivator: '.v-input__text-field',
+        width: 'auto',
+        maxHeight: 'auto',
+        bottom: props.typeable,
+        openOnClick: true,
+        closeOnClick: closeConditional.value,
+        onShow: () => emit('open'),
+        onHide: () => emit('close')
+      },
+      {
+        default: () => genDatepickerTable(),
+      },
+    )
 
-    const genDatepickerTable = (): VNode => {
-      const propsData = {
-        class: tableClasses.value,
-        style: tableStyles.value,
-      }
 
-      return h('div', propsData, [
-        genDatepickerDisplay(),
-        genDatepickerHeader(),
-        genDatepickerBody(),
-      ])
-    }
+    const genDatepicker = (): VNode => h('div', {
+      class: classes.value,
+    }, [
+      genDatepickerInput(),
+      activator.value && genMenu(),
+    ])
 
-    const genMenu = () => {
-      return h(
-        VMenu,
-        {
-          activator: activator.value!,
-          internalActivator: true,
-          inputActivator: '.v-input__text-field',
-          width: 'auto',
-          maxHeight: 'auto',
-          bottom: props.typeable,
-          openOnClick: true,
-          closeOnClick: closeConditional.value,
-        },
-        {
-          default: () => genDatepickerTable(),
-        },
-      )
-    }
-
-    const genDatepicker = (): VNode => {
-      const propsData = {
-        class: classes.value,
-      }
-
-      return h('div', propsData, [
-        genDatepickerInput(),
-        activator.value && genMenu(),
-      ])
-    }
 
     setInitDate()
 

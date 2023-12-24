@@ -561,12 +561,13 @@
           style="display: block; margin: 20px;"
         >
           <v-date-picker
+            v-model="data.date"
             lang="ru"
             label="set date"
             format="dd.MM.yyyy D"
             elevation="15"
             prepend-icon="fas fa-calendar-alt"
-            :rules="[val => !!val || 'Required', val => val.length > 5 || 'Required to be 5 symbols']"
+            :rules="[val => !!val || 'Required']"
             clearable
             color="grey darken-4"
             content-color="pink lighten-3"
@@ -612,11 +613,11 @@
             :rules="[v => !!v || 'required', v => v.length > 5 || 'more than 5']"
           >
             <template #append-icon>
-              <v-icon>fas fa-eye-slash</v-icon>
+              <v-icon>fas fa-at</v-icon>
             </template>
           </v-text-field>
           <v-text-field
-            v-model="data.email"
+            v-model="data.user3.name"
             label="email"
             autocomplete="new-password"
             prepend-icon="fas fa-at"
@@ -626,8 +627,8 @@
           <v-text-field
             v-model="data.login"
             label="teal"
+            :readonly="true"
             autocomplete="new-password"
-            prepend-icon="fas fa-envelop"
             :rules="[v => !!v || 'required', v => v.length > 5 || 'more than 5']"
           />
           <v-select
@@ -639,6 +640,7 @@
             :items="data.users"
             :loading="!data.users.length"
             :rules="[v => !!v || 'required']"
+            :radonly="false"
           />
           <v-autocomplete
             v-model="data.user"
@@ -649,6 +651,7 @@
             prepend-icon="fas fa-search"
             :items="autoCompleteItems"
             :loading="!data.user"
+            :rules="[v => !!v || 'required']"
             @select="testFunc"
             @input="$event => autoCompleteItems = data.users.filter(u => u.car.brand.includes($event))"
             @clear="autoCompleteItems = data.users"

@@ -641,6 +641,7 @@
             :loading="!data.users.length"
             :rules="[v => !!v || 'required']"
             :radonly="false"
+            @focus="() => console.log('ffffff')"
           />
           <v-autocomplete
             v-model="data.user"

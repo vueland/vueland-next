@@ -45,6 +45,8 @@ export default defineComponent({
       isReadonly,
       inputState,
       onSelect,
+      onFocus,
+      onBlur,
     } = useInputStates(props, { attrs, emit })
 
     const computedValue = computed<string | number>(() => {
@@ -75,6 +77,8 @@ export default defineComponent({
       placeholder: attrs.placeholder,
       value: computedValue.value,
       readonly: true,
+      onFocus,
+      onBlur,
     })
 
     const genListPreloader = (): VNode => h('div', {

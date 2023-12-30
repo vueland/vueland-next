@@ -16,7 +16,7 @@ export const useInputStates = (props: Record<string, any>, { attrs, emit }) => {
 
   const isDisabled = computed<boolean>(() => {
     if (props.disabled) return true
-    console.log(props, attrs)
+
     return attrs.disabled !== undefined
   })
 

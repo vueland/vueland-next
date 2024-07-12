@@ -26,13 +26,11 @@ $line-height: 20px;
 
   &__text-field {
     display: flex;
-    //height: $input-height;
     min-height: $input-height;
     border: 1px solid map-get($grey, 'lighten-1');
     border-radius: $input-border-radius;
     transition: .4s $primary-transition;
     transition-property: color, border-color;
-    //overflow: hidden;
     position: relative;
   }
 

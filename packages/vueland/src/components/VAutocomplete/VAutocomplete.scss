@@ -16,15 +16,15 @@ $input-padding: 5px;
 
 .v-input--has-prepend-icon > .v-input__text-field >
 .v-autocomplete > .v-autocomplete__input {
-  padding: 5px 5px 5px 0px;
+  padding: 5px 5px 5px 0;
 }
 
 .v-input--has-append-icon > .v-input__text-field >
 .v-autocomplete > .v-autocomplete__input {
-  padding: 5px 0px 5px 12px;
+  padding: 5px 0 5px 12px;
 }
 
 .v-input--has-prepend-icon.v-input--has-append-icon > .v-input__text-field >
 .v-autocomplete > .v-autocomplete__input {
-  padding: 5px 0px;
+  padding: 5px 0;
 }

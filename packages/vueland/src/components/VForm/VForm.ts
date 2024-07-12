@@ -13,11 +13,6 @@ export default defineComponent({
       fields = fields.filter((v) => v !== item)
     }
 
-    provide('$v_form', {
-      add: addFieldValidator,
-      remove: removeFieldValidator,
-    })
-
     const validate = () => {
       const promises: Array<Promise<boolean>> = []
 
@@ -27,6 +22,12 @@ export default defineComponent({
 
       return !promises.some((f) => !f) ? Promise.resolve() : Promise.reject()
     }
+
+    provide('$v_form', {
+      add: addFieldValidator,
+      remove: removeFieldValidator,
+      validate
+    })
 
     return () => h('form', {
         class: 'v-form',

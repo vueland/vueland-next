@@ -3,6 +3,7 @@
 $group-header-height: 48px;
 $group-icon-width: $group-header-height;
 $group-content-padding: 0 10px;
+$group-content-font-size: 1rem;
 
 .v-group {
   display: flex;
@@ -26,6 +27,7 @@ $group-content-padding: 0 10px;
       padding: $group-content-padding;
       color: currentColor;
       overflow: hidden;
+      font-size: $group-content-font-size;
 
       & > * {
         overflow: hidden;

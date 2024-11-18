@@ -17,7 +17,6 @@
 
 .v-row {
   display: flex;
-  flex: 1 1 100%;
   flex-wrap: wrap;
   max-width: calc(100% + map-get($grid-gutters, 'xl'));
 }

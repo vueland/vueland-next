@@ -1,100 +1,42 @@
 {
   "name": "vueland",
-  "version": "0.0.64",
-  "author": "Anar Allakhverdiev",
-  "license": "MIT",
-  "private": false,
-  "description": "VueLand Components Library",
-  "main": "lib/index.js",
-  "module": "lib/index.js",
-  "jsdelivr": "dist/vueland.js",
-  "unpkg": "dist/vueland.js",
-  "styles": "lib/styles/vueland-base.css",
-  "types": "types/index.d.ts",
-  "typings": "types/index.d.ts",
-  "sideEffects": [
-    "*.sass",
-    "*.scss",
-    "*.css"
-  ],
-  "files": [
-    "dist/*",
-    "lib/*"
-  ],
+  "version": "1.0.0",
+  "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --config build/webpack.dev.conf.js",
-    "build": "webpack --config build/webpack.build.conf.js",
-    "build:ts": "tsc -p tsconfig.dist.json",
-    "build:lib": "cp -r lib-temp/src dist/lib",
-    "build:all": "npm run test --u & node build/build-lib.js",
-    "test": "jest -u",
-    "test:editor": "editorconfig-checker --exclude '.git|node_modules|dist|es5|lib|.idea'",
-    "declarations": "ttsc --emitDeclarationOnly",
-    "lint": "eslint --ext .ts,.vue packages/vueland/src"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "publish:ci": "lerna publish --yes --no-verify-access",
+    "build": "lerna run build"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vueland/vueland-next.git",
-    "directory": "/"
+    "url": "https://github.com/vueland/vueland-next"
   },
-  "browserslist": [
-    ">1%",
-    "last 5 version"
+  "workspaces": [
+    "packages/*"
   ],
-  "devDependencies": {
-    "@babel/core": "^7.17.5",
-    "@babel/preset-env": "^7.16.11",
-    "@types/jest": "^27.4.1",
-    "@typescript-eslint/eslint-plugin": "^5.3.1",
-    "@typescript-eslint/parser": "^5.3.1",
-    "@vue/compiler-sfc": "^3.2.31",
-    "@vue/test-utils": "^2.0.0-rc.17",
-    "babel-jest": "^26.5.2",
-    "babel-loader": "^8.2.3",
-    "copy-webpack-plugin": "^10.2.4",
-    "cross-env": "^7.0.3",
-    "css-loader": "^6.6.0",
-    "css-mqpacker": "^7.0.0",
-    "cssnano": "^5.1.7",
-    "editorconfig-checker": "^4.0.2",
-    "eslint": "^7.32.0",
-    "eslint-loader": "^4.0.2",
-    "eslint-plugin-vue": "^8.4.1",
-    "html-webpack-plugin": "^5.5.0",
-    "husky": "^7.0.0",
-    "identity-obj-proxy": "^3.0.0",
-    "jest": "^26.5.2",
-    "jest-css-modules": "^2.1.0",
-    "jest-environment-jsdom-fourteen": "^1.0.1",
-    "jest-serializer-html": "^7.0.0",
-    "mini-css-extract-plugin": "^2.5.3",
-    "node-sass": "9.0.0",
-    "postcss-loader": "^6.2.1",
-    "postcss-preset-env": "^7.4.1",
-    "regenerator-runtime": "^0.13.9",
-    "sass-loader": "^12.6.0",
-    "serve": "^13.0.2",
-    "shelljs": "^0.8.5",
-    "style-loader": "^3.3.1",
-    "terser-webpack-plugin": "^5.3.1",
-    "ts-jest": "^26.5.2",
-    "ts-loader": "^9.3.0",
-    "typescript": "^4.5.5",
-    "vue": "^3.2.31",
-    "vue-jest": "^5.0.0-alpha.10",
-    "vue-loader": "^17.0.0",
-    "vuepress": "^2.0.0-beta.36",
-    "webpack": "^5.93.0",
-    "webpack-cli": "^4.9.2",
-    "webpack-dev-server": "^4.7.4",
-    "webpack-merge": "^5.8.0",
-    "webpack-node-externals": "^3.0.0",
-    "webpack-remove-empty-scripts": "^0.7.3"
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://npm.pkg.github.com"
   },
+  "author": "Allakhverdiev Anar <wiseadme@gmail.com>",
+  "license": "ISC",
+  "description": "",
   "dependencies": {
-    "vue": "^3.2.31"
   },
-  "peerDependencies": {
-    "vue": "^3.2.31"
+  "private": true,
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^28.0.2",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^16.0.0",
+    "@rollup/plugin-replace": "^6.0.2",
+    "@types/node": "^22.13.5",
+    "esbuild": "^0.25.0",
+    "lerna": "^8.2.0",
+    "rollup": "^4.34.8",
+    "rollup-plugin-dts": "^6.1.1",
+    "rollup-plugin-esbuild": "^6.1.1",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "ttsc": "^0.3.1"
   }
 }

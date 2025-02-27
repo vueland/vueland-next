@@ -1,0 +1,43 @@
+{
+  "name": "vueland",
+  "version": "0.0.64",
+  "author": "Anar Allakhverdiev",
+  "license": "MIT",
+  "private": false,
+  "description": "VueLand Components Library",
+  "main": "lib/index.js",
+  "module": "lib/index.js",
+  "jsdelivr": "dist/vueland.js",
+  "unpkg": "dist/vueland.js",
+  "styles": "lib/styles/vueland-base.css",
+  "types": "types/index.d.ts",
+  "typings": "types/index.d.ts",
+  "sideEffects": [
+    "*.sass",
+    "*.scss",
+    "*.css"
+  ],
+  "files": [
+    "dist/*",
+    "lib/*"
+  ],
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vueland/vueland-next.git",
+    "directory": "/"
+  },
+  "browserslist": [
+    ">1%",
+    "last 5 version"
+  ],
+  "devDependencies": {
+    "typescript": "^5.7.3",
+    "vue": "^3.5.13"
+  },
+  "dependencies": {
+  },
+  "peerDependencies": {
+  }
+}

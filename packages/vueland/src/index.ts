@@ -1,5 +1,7 @@
 import { App } from 'vue'
 import { Vueland } from './library'
+import "./styles/scss/reset.scss"
+import "./styles/scss/main.scss"
 
 export const createVueland = (options = {}) => {
   const library = new Vueland()

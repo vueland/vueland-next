@@ -2,7 +2,7 @@ import { inject } from 'vue'
 import {
   FaIcons,
   MaterialIcons,
-} from '../services/icons'
+} from '../enums/icons.ts'
 
 export const useIcons = () => {
   const options: any = inject('$v_icons', 'fa')

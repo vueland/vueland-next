@@ -7,4 +7,4 @@ const app = createApp(App)
 app.use(vueland)
 app.mount('#app')
 
-console.log(app)
+console.log(vueland)

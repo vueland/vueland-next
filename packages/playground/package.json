@@ -1,0 +1,34 @@
+{
+  "name": "playground",
+  "version": "1.0.0",
+  "author": "Anar Allakhverdiev",
+  "license": "MIT",
+  "private": false,
+  "description": "Playground",
+  "scripts": {
+    "dev": "vite --mode development"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vueland/vueland-next.git",
+    "directory": "/"
+  },
+  "browserslist": [
+    ">1%",
+    "last 5 version"
+  ],
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.1",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.5.3",
+    "typescript": "^5.7.3",
+    "vite": "^6.2.0",
+    "vue": "^3.5.13"
+  },
+  "dependencies": {
+    "vue": "^3.5.13"
+  },
+  "peerDependencies": {
+    "vue": "^3.5.13"
+  }
+}

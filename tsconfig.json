@@ -6,7 +6,8 @@
     "isolatedModules": false,
     "moduleResolution": "node",
     "lib": [
-      "esnext"
+      "esnext",
+      "dom"
     ],
     "allowJs": true,
     "sourceMap": true,

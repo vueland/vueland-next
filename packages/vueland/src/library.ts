@@ -1,9 +1,7 @@
-// Types
 import { App, Ref, ref, unref } from 'vue'
 import { Library, UserOptions } from '../types'
 import { useDisplay } from './composables/use-display'
 import { IN_BROWSER } from './utils/globals'
-// @ts-ignore
 import { lightTheme } from './composables/use-theme'
 
 export class Vueland implements Library {

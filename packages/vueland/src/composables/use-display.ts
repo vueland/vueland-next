@@ -1,4 +1,4 @@
-import { breakpoints } from '../services/breakpoints'
+import { breakpoints } from '../constants/breakpoints.ts'
 import { reactive, ref, unref, watchEffect, toRefs } from 'vue'
 import { IN_BROWSER } from '../utils/globals'
 

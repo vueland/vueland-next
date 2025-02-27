@@ -5,11 +5,9 @@
   "license": "MIT",
   "private": false,
   "description": "VueLand Components Library",
-  "main": "lib/index.js",
-  "module": "lib/index.js",
-  "jsdelivr": "dist/vueland.js",
-  "unpkg": "dist/vueland.js",
-  "styles": "lib/styles/vueland-base.css",
+  "main": "dist/vueland.common.cjs",
+  "module": "dist/vueland.mjs",
+  "styles": "dist/styles/vueland-base.css",
   "types": "types/index.d.ts",
   "typings": "types/index.d.ts",
   "sideEffects": [
@@ -22,6 +20,8 @@
     "lib/*"
   ],
   "scripts": {
+    "build": "vite build",
+    "build-lib": "rollup -c ./build/rollup.config.mjs"
   },
   "repository": {
     "type": "git",
@@ -33,11 +33,23 @@
     "last 5 version"
   ],
   "devDependencies": {
-    "typescript": "^5.7.3",
-    "vue": "^3.5.13"
+    "@rollup/plugin-commonjs": "^28.0.2",
+    "@rollup/plugin-node-resolve": "^16.0.0",
+    "rollup": "^4.34.8",
+    "rollup-plugin-dts": "^6.1.1",
+    "rollup-plugin-esbuild": "^6.2.1",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-scss": "^4.0.1",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "rollup-plugin-vue": "^6.0.0",
+    "sass": "^1.85.1",
+    "ttsc": "^0.3.1",
+    "typescript": "^5.7.3"
   },
   "dependencies": {
+    "vue": "^3.5.13"
   },
   "peerDependencies": {
+    "vue": "^3.5.13"
   }
 }
